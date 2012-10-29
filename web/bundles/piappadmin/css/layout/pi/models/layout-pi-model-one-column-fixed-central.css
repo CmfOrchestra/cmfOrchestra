@@ -1,0 +1,178 @@
+/* ==============================================
+   FEUILLE DE STYLES DES GABARITS HTML/CSS --- 03
+   © Elephorm & Alsacreations.com
+   Conditions d'utilisation:
+   http://creativecommons.org/licenses/by/2.0/fr/
+   ============================================== */
+
+
+/* --- COULEURS --- */
+
+/* Note: vous pouvez modifier simplement l'aspect de ce gabarit en modifiant
+   uniquement les couleurs de fond (propriétés background) et les couleurs
+   du texte (propriété color).
+   Pour modifier la disposition des blocs, voir plus bas dans la feuille de
+   styles la partie «positionnement». */
+
+/* Général */
+body {
+	color: #F0E39E;
+	background: #2C2F22;
+}
+a {
+	color: #FF6533;
+}
+a:hover, a:focus {
+	color: #FF4C00;
+}
+strong {
+	color: #A1B55D;
+}
+
+/* Page */
+#global {
+	background: #181A12;
+}
+
+/* Navigation */
+#navigation {
+	background: #181A12;
+}
+#navigation a {
+	color: #FF6533;
+}
+#navigation a:hover, #navigation a:focus {
+	background: #000000;
+}
+
+/* Contenu principal */
+#contenu {
+	color: #363B29;
+	background: #cbd888;
+}
+#contenu a {
+	color: #332510;
+}
+#contenu a:hover, #contenu a:focus {
+	color: #6E5122;
+}
+#contenu strong {
+	color: #181A12;
+}
+
+/* Pied de page */
+#pied {
+	color: #E6A948;
+}
+
+
+/* --- POSITIONNEMENT --- */
+
+/* Page */
+html, body {
+	height: 100%; /* Voir -> Note 1 ci-dessous */
+}
+body {
+	padding: 0;
+}
+#global {
+	min-height: 100%; /* -> 1 */
+	width: 750px;
+	overflow: hidden; /* -> 2 */
+	margin-left: auto;
+	margin-right: auto; /* -> 3 */
+}
+
+/* En-tête */
+#entete {
+	padding: 15px 20px 10px 20px;
+}
+#entete h1 {
+	margin: 0;
+}
+#entete h1 img {
+	float: left;
+	margin: 7px 20px 10px 0;
+}
+#entete .sous-titre {
+	margin: 4px 0 15px 0;
+}
+
+/* Menu de navigation */
+#navigation {
+	padding: 12px 15px;
+}
+#navigation ul {
+	margin: 0;
+	list-style: none;
+	text-align: center;
+}
+#navigation li {
+	display: inline;
+}
+#navigation a {
+	padding: 6px;
+	line-height: 1.5;
+	font-size: .9em;
+	text-decoration: none;
+}
+
+/* Contenu */
+#contenu {
+	padding: 10px 20px;
+}
+#contenu > :first-child {
+	margin-top: 10px;
+}
+#contenu p, #contenu li {
+	line-height: 1.5;
+}
+
+/* Pied de page */
+#pied {
+	padding: 15px 20px;
+	font-size: .85em;
+}
+#pied p {
+	margin: .5em 0;
+}
+#copyright {
+	text-align: left;
+	font-size: 1em;
+}
+
+
+/* --- NOTES ---
+
+1.	Pour pouvoir utiliser une hauteur (height) ou une hauteur minimale
+	(min-height) sur un bloc, il faut que sont parent direct ait lui-même une
+	hauteur déterminée (donc toute valeur de height sauf "auto": hauteur en
+	pixels, em, autres unités...).
+	Si la hauteur du parent est en pourcentage, elle se réfère alors à la
+	hauteur du «grand-père», et ainsi de suite.
+	Ainsi, pour pouvoir utiliser un "min-height: 100%" sur div#contenu, il nous
+	faut:
+	- un parent (body) en "height: 100%";
+	- le parent de body également en "height: 100%".
+
+2.	Il faut éviter que les marges des enfants de div#global ne se transmettent
+	à leur parent. Notamment, le margin-top du premier enfant (ici, div#entete),
+	et le margin-bottom du dernier enfant (ici, div#pied).
+	On évite ce problème grâce à la propriété CSS overflow, qui bloque la
+	fusion des marges. En savoir plus sur la fusion des marges:
+	http://web.covertprestige.info/test
+		04-blocs-imbriques-et-fusion-des-marges.html
+
+3.	Les marges automatiques à gauche et à droite permettent de centrer notre
+	bloc div#global, et donc tout le site.
+	Pour aligner div#global à gauche, on fera:
+		margin-left: 0;
+		margin-rigth: auto;
+	Pour aligner div#global à droite, on fera:
+		margin-left: auto;
+		margin-right: 0;
+	Pour aligner div#global à droite avec un retrait (à droite) de 100px:
+		margin-left: auto;
+		margin-right: 100px;
+
+*/

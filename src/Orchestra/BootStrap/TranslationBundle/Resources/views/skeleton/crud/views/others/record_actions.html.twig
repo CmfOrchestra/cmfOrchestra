@@ -1,0 +1,28 @@
+
+	<ul class="record_actions">
+		<li>
+	        <form action="{{ "{{ path('"~ route_name_prefix ~"', { 'NoLayout': NoLayout }) }}" }}" method="post">
+	            <button type="submit">{{ "{{ 'pi.grid.action.back-to-the-list'|trans }}" }}</button>
+	        </form>	        
+		</li>
+	{% if ('edit' in actions) and (not hide_edit) %}
+		<li>
+	        <form action="{{ "{{ path('"~ route_name_prefix ~"_edit', { 'id': entity.id, 'NoLayout':NoLayout }) }}" }}" method="post">
+	            <button type="submit">{{ "{{ 'pi.grid.action.update'|trans }}" }}</button>
+	        </form>	        
+		</li>
+	{% endif %}
+	{% if ('delete' in actions) and (not hide_delete) %}
+	
+		{{ "{% if NoLayout == false %}" }}
+	    <li>
+	        <form action="{{ "{{ path('"~ route_name_prefix ~"_delete', { 'id': entity.id, 'NoLayout':NoLayout }) }}" }}" method="post">
+	            {{ '{{ form_widget(delete_form) }}' }}
+	            <button type="submit">{{ "{{ 'pi.grid.action.delete'|trans }}" }}</button>
+	        </form>
+	    </li>
+	    {{ "{% endif %}" }}
+	    
+	{% endif %}
+
+	</ul>

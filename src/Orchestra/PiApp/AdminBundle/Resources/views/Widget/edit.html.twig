@@ -1,0 +1,12 @@
+{%  initJquery 'FORM:prototype-bytab' %}
+{% extends app.session.get('wurfl-layout') %}
+
+{% block title %}
+	<h1>Widget edit</h1>
+{% endblock %}
+ 
+{% block content %}
+
+	{% include 'PiAppAdminBundle:Widget:edit_view.html.twig' with {'edit_form':edit_form, 'delete_form':delete_form, 'NoLayout':NoLayout, 'entity':entity} %}
+	
+{% endblock %}

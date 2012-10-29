@@ -1,0 +1,181 @@
+/* ==============================================
+   FEUILLE DE STYLES DES GABARITS HTML/CSS --- 02
+   © Elephorm & Alsacreations.com
+   Conditions d'utilisation:
+   http://creativecommons.org/licenses/by/2.0/fr/
+   ============================================== */
+
+
+/* --- COULEURS --- */
+
+/* Note: vous pouvez modifier simplement l'aspect de ce gabarit en modifiant
+   uniquement les couleurs de fond (propriétés background) et les couleurs
+   du texte (propriété color).
+   Pour modifier la disposition des blocs, voir plus bas dans la feuille de
+   styles la partie «positionnement». */
+
+/* Général */
+body {
+	color: #F0E39E;
+	background: #2C2F22;
+}
+a {
+	color: #FF6533;
+}
+a:hover, a:focus {
+	color: #FF4C00;
+}
+strong {
+	color: #A1B55D;
+}
+
+/* Navigation */
+#navigation {
+	background: #181A12;
+}
+#navigation a {
+	color: #FF6533;
+}
+#navigation a:hover, #navigation a:focus {
+	background: #000000;
+}
+
+/* Contenu principal */
+#contenu {
+	color: #363B29;
+	background: #cbd888;
+}
+#contenu a {
+	color: #332510;
+}
+#contenu a:hover, #contenu a:focus {
+	color: #6E5122;
+}
+#contenu strong {
+	color: #181A12;
+}
+
+/* Pied de page */
+#pied {
+	color: #E6A948;
+	background: #181A12;
+}
+
+
+/* --- POSITIONNEMENT --- */
+
+/* Page */
+body {
+	padding: 15px 0 25px 0;
+}
+#global {
+	width: 750px;
+	margin-left: 20px;
+	margin-right: auto; /* Voir -> Note 1 ci-dessous */
+}
+
+/* En-tête */
+#entete {
+	padding: 15px 20px 10px 0;
+}
+#entete h1 {
+	margin: 0;
+}
+#entete h1 img {
+	float: left;
+	margin: 7px 20px 10px 0;
+}
+#entete .sous-titre {
+	margin: 4px 0 15px 0;
+}
+
+/* Menu de navigation */
+#navigation {
+	padding: 12px 15px;
+}
+#navigation ul {
+	width: 100%; /* -> 2 */
+	overflow: hidden; /* -> 2 */
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#navigation li.gauche {
+	float: left; /* -> 3 */
+	margin-right: 10px;
+	font-size: 1.4em;
+	font-style: italic;
+}
+#navigation li.droite {
+	float: right; /* -> 3 */
+	margin-right: 0;
+	margin-left: 10px;
+	padding: 3px 0;
+}
+#navigation a {
+	padding: 6px;
+	line-height: 1.5;
+	font-size: .9em;
+	text-decoration: none;
+}
+
+/* Contenu */
+#contenu {
+	padding: 10px 20px;
+}
+#contenu > :first-child {
+	margin-top: 10px;
+}
+#contenu p, #contenu li {
+	line-height: 1.5;
+}
+
+/* Pied de page */
+#pied {
+	padding: 15px 20px;
+	font-size: .85em;
+}
+#pied p {
+	margin: .5em 0;
+}
+#copyright {
+	text-align: left;
+	font-size: 1em;
+}
+
+
+/* --- NOTES ---
+
+1.	Le conteneur a une largeur fixe (750px), une marge à gauche de 20px pour
+	créer un retrait esthétique, et un margin-right qui a pour valeur "auto".
+	Ce dernier point n'est pas nécessaire pour placer le conteneur à gauche
+	de la page; ce sera en effet le comportement «normal» de tout bloc.
+	Si on souhaite placer ce conteneur à droite, par contre, on pourra utiliser
+	un margin-left avec la valeur "auto", et un margin-right à 20px (ou zéro,
+	ou autre valeur autre que "auto").
+
+2.	On utilise ici la déclaration "overflow: hidden" pour empêcher le
+	dépassement des éléments flottants. On utilise aussi un "width: 100%" pour
+	corriger le même problème... dans Internet Explorer 6, qui n'appliquera
+	pas correctement le "overflow: hidden".
+	En savoir plus sur ce sujet:
+	http://web.covertprestige.info/test/
+		03-elements-flottants-et-element-parent-1.html
+
+3.	Dans le gabarit 01, nous utilisions "display: inline" pour placer les
+	différents items du menu à l'horizontale. Ici, on va utiliser une autre
+	possibilité: la propriété CSS "float".
+	Quels sont les avantages de la propriété "float"? Eh bien, on va pouvoir
+	placer une partie des items du menu à gauche, et une autre partie à droite,
+	ce qui est utile quand on veut réaliser un menu avec des éléments
+	d'importance diverse (on mettra alors les éléments les plus importants à
+	gauche, et les éléments secondaires à droite).
+	Contrairement à des éléments en "display: inline", nous pouvons donner une
+	largeur fixe à nos LI. Nous pouvons aussi jouer plus facilement sur la
+	hauteur des LI, que ce soit via la propriété "padding" ou la propriété
+	"height".
+	Par contre, on ne pourra pas centrer horizontalement des éléments
+	flottants. Si on doit centrer les éléments d'un menu, on utilisera
+	plutôt "display: inline".
+
+*/

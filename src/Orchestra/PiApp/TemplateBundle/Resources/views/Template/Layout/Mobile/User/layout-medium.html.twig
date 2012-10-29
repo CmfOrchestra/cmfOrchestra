@@ -1,0 +1,19 @@
+{% extends "PiAppTemplateBundle::Template\\Layout\\Mobile\\Default\\modele.html.twig" %}
+
+{% block global_title %}{{ parent() }}{% endblock %}
+
+{% block global_meta %}{{ parent() }}{% endblock %}
+
+{% block global_script_divers %}
+		{{ parent() }}		
+{% endblock %}
+
+{% block global_layout %}
+
+            {% block mobile_novHeader %}{% endblock %}
+
+            {% block mobile_content %}{% endblock %}
+            
+            {% block mobile_novFooter %}{% endblock %}
+            
+{% endblock %}

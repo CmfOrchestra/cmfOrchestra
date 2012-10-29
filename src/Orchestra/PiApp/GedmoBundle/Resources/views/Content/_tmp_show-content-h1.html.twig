@@ -1,0 +1,13 @@
+<h1 class="{{ entity.pagecssclass }}" >
+{% if entity.pageurl.getRouteName() is defined %}
+	{% set url = path_url(entity.pageurl.getRouteName(),{'locale':locale}) %}
+	<a href="{{ entity.url }}" >
+{% elseif entity.url is defined %}
+	{% set url = entity.url %}
+	<a href="http://{{ entity.url|replace({'http://':'', 'https://':''}) }}" >
+{% endif %}
+		{{ entity.translate(locale).getcontent()|replace({"<p>": "", "</p>": ""})|raw }}
+{% if url is defined %}
+	</a>
+{% endif %}
+</h1>

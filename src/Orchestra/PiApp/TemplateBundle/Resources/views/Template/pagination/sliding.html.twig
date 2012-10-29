@@ -1,0 +1,40 @@
+{# default Sliding pagination control implementation #}
+
+<div class="pagination bkgrey clearfix row">
+	<div class="pageNumbers clearfix fright">
+	    {% if first is defined and current != first %}
+	        <div class="fleft first">
+	            <a class="moveBack" href="{{ path(route, query|merge({(pageParameterName): first})) }}">&lt;&lt; &nbsp;&nbsp;&nbsp;</a>
+	        </div>
+	    {% endif %}
+	
+	    {% if previous is defined %}
+	        <div class="fleft previous">
+	            <a class="moveBack" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&lt;</a>
+	        </div>
+	    {% endif %}
+	
+	    {% for page in pagesInRange %}
+	        {% if page != current %}
+	            <div class="fleft page">
+	                <a class="pageNumber" href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
+	            </div>
+	        {% else %}
+	            <div class="selected fleft firstPage" ><a class="pageNumber" href="#">{{ page }}</a></div>
+	        {% endif %}
+	
+	    {% endfor %}
+	
+	    {% if next is defined %}
+	        <div class="fleft next">
+	            <a class="moveNext" href="{{ path(route, query|merge({(pageParameterName): next})) }}">&gt;</a>
+	        </div>
+	    {% endif %}
+	
+	    {% if last is defined and current != last %}
+	        <div class="fleft last">
+	            <a class="moveNext" href="{{ path(route, query|merge({(pageParameterName): last})) }}">&nbsp;&nbsp;&nbsp; &gt;&gt;</a>
+	        </div>
+	    {% endif %}
+    </div>
+</div>

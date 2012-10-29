@@ -1,0 +1,67 @@
+parameters:
+    pi_google.factory.class: BootStrap\GoogleBundle\Manager\GoogleFactory
+    
+    pi_google.client.analytics.class: BootStrap\GoogleBundle\Manager\Client\AnalyticsClient
+    pi_google.client.adwords.class: BootStrap\GoogleBundle\Manager\Client\AdwordsClient
+    pi_google.client.maps.class: BootStrap\GoogleBundle\Manager\Client\MapsClient
+    
+    pi_google.twig.extension.analytics.class : BootStrap\GoogleBundle\Extension\AnalyticsExtension 
+    
+    pi_google.helper.analytics.class: BootStrap\GoogleBundle\Helper\AnalyticsHelper
+
+services:
+    #
+    # configuration of the clients
+    #       
+    pi_google.client.analytics:
+      class: %pi_google.client.analytics.class%
+      arguments: ['@service_container', 'analytics']
+            
+    pi_google.client.adwords:
+      class: %pi_google.client.adwords.class%
+      arguments: ['@service_container', 'adwords']
+            
+    pi_google.client.maps:
+      class: %pi_google.client.maps.class%
+      arguments: ['@service_container', 'maps']
+      
+    #
+    # configuration of the helpers
+    #   
+    pi_google.helper.analytics:
+      class: %pi_google.helper.analytics.class%
+      arguments: ['@pi_google.client.analytics']
+      tags:
+             - { name: templating.helper, alias: pi_google_analytics }
+            
+    #
+    # configuration of the extensions
+    #         
+    pi_google.twig.extension.analytics:
+      class: %pi_google.twig.extension.analytics.class%
+      arguments: ['@pi_google.helper.analytics']
+      tags:
+             - { name: twig.extension }                  
+
+    #
+    # configuration of the class factory 
+    #                 
+    pi_google.factory.analytics:
+      class: %pi_google.factory.class%
+      arguments: ['@service_container'] 
+      calls:
+             - [ setClient, ['@pi_google.client.analytics'] ]
+          
+    pi_google.factory.adwords:
+      class: %pi_google.factory.class%
+      arguments: ['@service_container'] 
+      calls:
+             - [ setClient, ['@pi_google.client.adwords'] ]
+          
+    pi_google.factory.maps:
+      class: %pi_google.factory.class%
+      arguments: ['@service_container'] 
+      calls:
+             - [ setClient, ['@pi_google.client.maps'] ]
+          
+          

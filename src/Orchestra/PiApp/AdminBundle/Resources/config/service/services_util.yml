@@ -1,0 +1,182 @@
+parameters:
+    piapp.manager.array.class: PiApp\AdminBundle\Util\PiArrayManager
+    piapp.manager.string.class: PiApp\AdminBundle\Util\PiStringManager
+    piapp.manager.stringcut.class: PiApp\AdminBundle\Util\PiStringCutManager
+    piapp.manager.date.class: PiApp\AdminBundle\Util\PiDateManager
+    piapp.manager.file.class: PiApp\AdminBundle\Util\PiFileManager
+    piapp.manager.locale.class: PiApp\AdminBundle\Util\PiLocaleManager
+    piapp.manager.regex.class: PiApp\AdminBundle\Util\PiRegexManager
+    
+    piapp.manager.jquery.languagechoice.class: PiApp\AdminBundle\Util\PiJquery\PiLanguageChoiceManager
+    piapp.manager.jquery.gridsimple.class: PiApp\AdminBundle\Util\PiJquery\PiGridSimpleManager
+    piapp.manager.jquery.gridtable.class: PiApp\AdminBundle\Util\PiJquery\PiGridTableManager
+    piapp.manager.jquery.formsimple.class: PiApp\AdminBundle\Util\PiJquery\PiFormSimpleManager
+    piapp.manager.jquery.prototypebytabs.class: PiApp\AdminBundle\Util\PiJquery\PiPrototypeByTabsManager
+    piapp.manager.jquery.sessionflash.class: PiApp\AdminBundle\Util\PiJquery\PiSessionFlashManager
+    piapp.manager.jquery.orgchartpage.class: PiApp\AdminBundle\Util\PiJquery\PiOrgChartPageManager
+    piapp.manager.jquery.orgsemantique.class: PiApp\AdminBundle\Util\PiJquery\PiOrgSemantiquePageManager
+    piapp.manager.jquery.orgtreepage.class: PiApp\AdminBundle\Util\PiJquery\PiOrgTreePageManager
+    piapp.manager.jquery.contextmenu.class : PiApp\AdminBundle\Util\PiJquery\PiContextMenuManager
+    piapp.manager.jquery.backstretch.class: PiApp\AdminBundle\Util\PiJquery\PiBackstretchManager
+    piapp.manager.jquery.veneer.class: PiApp\AdminBundle\Util\PiJquery\PiVeneerManager
+    piapp.manager.jquery.tinyaccordeon.class: PiApp\AdminBundle\Util\PiJquery\PiTinyAccordeonManager
+    piapp.manager.jquery.wizard.class: PiApp\AdminBundle\Util\PiJquery\PiWizardManager
+    piapp.manager.jquery.widgetadmin.class: PiApp\AdminBundle\Util\PiJquery\PiWidgetAdminManager
+    piapp.manager.jquery.flexslider.class: PiApp\AdminBundle\Util\PiJquery\PiFlexSliderManager
+    piapp.manager.jquery.twitter.class: PiApp\AdminBundle\Util\PiJquery\PiTwitterManager
+    piapp.manager.jquery.searchlucene.class: PiApp\AdminBundle\Util\PiJquery\PiSearchLuceneManager
+    piapp.manager.jquery.widgetimport.class: PiApp\AdminBundle\Util\PiJquery\PiwidgetimportManager
+    
+    piapp.manager.widget.content.class: PiApp\AdminBundle\Util\PiWidget\PiContentManager
+    piapp.manager.widget.gedmo.class: PiApp\AdminBundle\Util\PiWidget\PiGedmoManager
+    piapp.manager.widget.search.class: PiApp\AdminBundle\Util\PiWidget\PiSearchManager
+
+services:
+    #
+    # configuration of the Util classes
+    # 
+    pi_app_admin.array_manager:
+        class: %piapp.manager.array.class% 
+
+    pi_app_admin.string_manager:
+        class: %piapp.manager.string.class% 
+        
+    pi_app_admin.string_cut_manager:
+        class: %piapp.manager.stringcut.class%
+
+    pi_app_admin.date_manager:
+        class: %piapp.manager.date.class%    
+
+    pi_app_admin.file_manager:
+        class: %piapp.manager.file.class%  
+        arguments: ['@service_container']  
+        
+    pi_app_admin.locale_manager:
+        class: %piapp.manager.locale.class%  
+        arguments: ['@service_container']
+        
+    pi_app_admin.regex_manager:
+        class: %piapp.manager.regex.class%  
+        arguments: ['@service_container']         
+        
+    #
+    # configuration of the JQUERY Util classes
+    #
+    pi_app_admin.jquery_manager.languagechoice:
+        class: %piapp.manager.jquery.languagechoice.class%
+        arguments: ['@service_container']
+                
+    pi_app_admin.jquery_manager.gridsimple:
+        class: %piapp.manager.jquery.gridsimple.class%
+        arguments: ['@service_container']
+        
+    pi_app_admin.jquery_manager.gridtable:
+        class: %piapp.manager.jquery.gridtable.class%
+        arguments: ['@service_container']                             
+            
+    pi_app_admin.jquery_manager.formsimple:
+        class: %piapp.manager.jquery.formsimple.class%
+        arguments: ['@service_container']
+        
+    pi_app_admin.jquery_manager.prototypebytabs:
+        class: %piapp.manager.jquery.prototypebytabs.class%
+        arguments: ['@service_container']
+        
+    pi_app_admin.jquery_manager.sessionflash:
+        class: %piapp.manager.jquery.sessionflash.class%
+        arguments: ['@service_container']
+        
+    pi_app_admin.jquery_manager.orgchartpage:
+        class: %piapp.manager.jquery.orgchartpage.class%
+        arguments: ['@service_container']
+        
+    pi_app_admin.jquery_manager.orgtreepage:
+        class: %piapp.manager.jquery.orgtreepage.class%
+        arguments: ['@service_container']        
+        
+    pi_app_admin.jquery_manager.orgsemantique:
+        class: %piapp.manager.jquery.orgsemantique.class%
+        arguments: ['@service_container']          
+        
+    pi_app_admin.jquery_manager.backstretch:
+        class: %piapp.manager.jquery.backstretch.class%
+        arguments: ['@service_container']
+        
+    pi_app_admin.jquery_manager.tinyaccordeon:                       
+        class: %piapp.manager.jquery.tinyaccordeon.class%
+        arguments: ['@service_container']        
+        
+    pi_app_admin.jquery_manager.wizard:                       
+        class: %piapp.manager.jquery.wizard.class%
+        arguments: ['@service_container']
+        
+    pi_app_admin.jquery_manager.flexslider:
+        class: %piapp.manager.jquery.flexslider.class%
+        arguments: ['@service_container']
+        
+    pi_app_admin.jquery_manager.twitter:
+        class: %piapp.manager.jquery.twitter.class%
+        arguments: ['@service_container']
+        
+    pi_app_admin.jquery_manager.searchlucene:
+        class: %piapp.manager.jquery.searchlucene.class%
+        arguments: ['@service_container']
+        
+    pi_app_admin.jquery_manager.widgetadmin:                       
+        class: %piapp.manager.jquery.widgetadmin.class%
+        arguments: ['@service_container']
+        
+    pi_app_admin.jquery_manager.contextmenu:
+        class: %piapp.manager.jquery.contextmenu.class%
+        arguments: ['@service_container']
+        
+    pi_app_admin.jquery_manager.veneer:
+        class: %piapp.manager.jquery.veneer.class%
+        arguments: ['@service_container']
+        
+    pi_app_admin.jquery_manager.widgetimport:
+        class: %piapp.manager.jquery.widgetimport.class%
+        arguments: ['@service_container']       
+
+    #
+    # configuration of the WIDGET Util classes
+    #         
+    pi_app_admin.widget_manager.content.text:
+        class: %piapp.manager.widget.content.class%
+        arguments: ['@service_container', 'text']
+        
+    pi_app_admin.widget_manager.content.media:
+        class: %piapp.manager.widget.content.class%
+        arguments: ['@service_container', 'media'] 
+        
+    pi_app_admin.widget_manager.content.snippet:
+        class: %piapp.manager.widget.content.class%
+        arguments: ['@service_container', 'snippet']
+        
+    pi_app_admin.widget_manager.content.jqext:
+        class: %piapp.manager.widget.content.class%
+        arguments: ['@service_container', 'jqext']        
+        
+    pi_app_admin.widget_manager.gedmo.snippet:
+        class: %piapp.manager.widget.gedmo.class%
+        arguments: ['@service_container', 'snippet']
+        
+    pi_app_admin.widget_manager.gedmo.listener:
+        class: %piapp.manager.widget.gedmo.class%
+        arguments: ['@service_container', 'listener']
+        
+    pi_app_admin.widget_manager.gedmo.navigation:
+        class: %piapp.manager.widget.gedmo.class%
+        arguments: ['@service_container', 'navigation']
+        
+    pi_app_admin.widget_manager.gedmo.organigram:
+        class: %piapp.manager.widget.gedmo.class%
+        arguments: ['@service_container', 'organigram']
+        
+    pi_app_admin.widget_manager.gedmo.slider:
+        class: %piapp.manager.widget.gedmo.class%
+        arguments: ['@service_container', 'slider']
+        
+    pi_app_admin.widget_manager.search.lucene:
+        class: %piapp.manager.widget.search.class%
+        arguments: ['@service_container', 'lucene']                                                                                                                                                 

@@ -1,0 +1,19 @@
+{% initJquery 'TOOL:widgetimport' %}
+{% extends app.session.get('wurfl-layout') %}
+
+{% block title %}
+	<h1>Widgets list</h1>
+{% endblock %}
+ 
+{% block content %}
+
+	{% set options_widgetimport = {
+		 				'action':'widgetimport',
+		 				'menu': 'widgetimport',
+		 				'template': 'default.html.twig',
+		 				'locale': 'fr',
+		 				}
+	%}
+	{{ renderJquery('TOOL', 'widgetimport', options_widgetimport)|raw }}
+	
+{% endblock %}

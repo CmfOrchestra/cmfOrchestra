@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="admin_gedmo_slider" pattern="/">
+        <default key="_controller">PiAppGedmoBundle:Slider:index</default>
+    </route>
+
+    <route id="admin_gedmo_slider_show" pattern="/{id}/show">
+        <default key="_controller">PiAppGedmoBundle:Slider:show</default>
+    </route>
+
+    <route id="admin_gedmo_slider_new" pattern="/new">
+        <default key="_controller">PiAppGedmoBundle:Slider:new</default>
+    </route>
+
+    <route id="admin_gedmo_slider_create" pattern="/create">
+        <default key="_controller">PiAppGedmoBundle:Slider:create</default>
+        <requirement key="_method">post</requirement>
+    </route>
+
+    <route id="admin_gedmo_slider_edit" pattern="/{id}/edit">
+        <default key="_controller">PiAppGedmoBundle:Slider:edit</default>
+    </route>
+
+    <route id="admin_gedmo_slider_update" pattern="/{id}/update">
+        <default key="_controller">PiAppGedmoBundle:Slider:update</default>
+        <requirement key="_method">post</requirement>
+    </route>
+
+    <route id="admin_gedmo_slider_delete" pattern="/{id}/delete">
+        <default key="_controller">PiAppGedmoBundle:Slider:delete</default>
+        <requirement key="_method">post</requirement>
+    </route>
+
+</routes>

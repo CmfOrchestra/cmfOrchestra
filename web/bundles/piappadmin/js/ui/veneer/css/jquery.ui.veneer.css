@@ -1,0 +1,30 @@
+/* Veneer
+----------------------------------*/
+.ui-veneer .ui-veneer-header { position: relative; z-index: 999;margin: 1px; zoom: 1; display: block;  padding: .2em .2em .2em .2em; }
+.ui-veneer-header span {display: block;text-align: left;padding:0; margin:0; font-size:12px;}
+.ui-veneer .ui-veneer-header-active { border-bottom: 0 !important; }
+
+.ui-veneer .ui-veneer-header a { font-size: 1em; padding: 0 0 0 .7em; }
+.ui-veneer-icons .ui-veneer-header a { padding-left: 2.2em; }
+.ui-veneer .ui-veneer-header .ui-icon { position: absolute; left: .5em; top: 50%; margin-top: -8px; }
+
+.ui-veneer .ui-veneer-content { position: relative; top: 1px; margin-bottom: 2px;  padding: 0 0 0 0;}
+
+.ui-veneer-clickable { cursor:pointer; }
+
+.ui-veneer-noUiBorder { border-width: 0px !important; }
+
+
+.ui-veneer .ui-veneer-header {
+	background: #242122;
+	
+	-webkit-transition: background 0.5s linear;
+	-moz-transition: background 0.5s linear;
+	-o-transition: background 0.5s linear;
+	transition: background 0.5s linear;
+}
+
+
+.ui-veneer .ui-veneer-header:hover {
+	background: #614E1A; /* #5B3C11 */
+}

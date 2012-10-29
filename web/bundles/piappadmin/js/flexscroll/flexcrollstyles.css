@@ -1,0 +1,24 @@
+/* 
+    Document   : flexcrollstyles.css
+    Created on : 19 mars 2012, 17:52:00
+    Description:
+        Customisation scrollbars
+*/
+
+.scrollgeneric {line-height: 1px; font-size: 1px; position: absolute; top: 0; left: 0;}
+
+/*div flexcroll-vscroller*/
+#global_layout-flexcroll-vscroller{
+	background-color: transparent;
+	position: absolute;
+}
+
+#global_layout-flexcroll-vscroller{height: 400px; width: 5px; right: 0; top: 98px; float: right;}
+
+
+/*div scrollbar*/
+#global_layout-flexcroll-vscroller .flexcroll-scrollbar{
+	width: 5px;
+	background-color: #818283;
+	visibility: visible;
+}

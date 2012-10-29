@@ -1,0 +1,139 @@
+/* ==============================================
+   FEUILLE DE STYLES DES GABARITS HTML/CSS --- 07
+   © Elephorm & Alsacreations.com
+   Conditions d'utilisation:
+   http://creativecommons.org/licenses/by/2.0/fr/
+   ============================================== */
+
+
+/* --- COULEURS --- */
+
+/* Note: vous pouvez modifier simplement l'aspect de ce gabarit en modifiant
+   uniquement les couleurs de fond (propriétés background) et les couleurs
+   du texte (propriété color).
+   Pour modifier la disposition des blocs, voir plus bas dans la feuille de
+   styles la partie «positionnement». */
+
+/* Général */
+body {
+	color: #F0E39E;
+	background: #2C2F22;
+}
+a {
+	color: #FF6533;
+}
+a:hover, a:focus {
+	color: #FF4C00;
+}
+strong {
+	color: #A1B55D;
+}
+
+/* Bloc central contenant #navigation et #contenu */
+#centre {
+	background: url(img/07-colonnes.png) repeat-y; /* Voir -> Note 1 */
+}
+
+/* Navigation */
+#navigation {
+	background: #181A12; /* -> 2 */
+}
+#navigation a {
+	color: #FF6533;
+}
+#navigation a:hover, #navigation a:focus {
+	background: #000000;
+}
+
+/* Contenu principal */
+#contenu {
+	color: #363B29;
+	background: #cbd888; /* -> 2 */
+}
+#contenu a {
+	color: #332510;
+}
+#contenu a:hover, #contenu a:focus {
+	color: #6E5122;
+}
+#contenu strong {
+	color: #181A12;
+}
+
+
+/* --- POSITIONNEMENT --- */
+
+/* Page */
+body {
+	padding: 10px 5px;
+}
+#global {
+	width: 750px; /* -> 3 */
+	margin: 0 auto; /* -> 4 */
+}
+
+/* En-tête */
+#entete {
+	padding: 20px 20px 20px 0;
+}
+#entete h1 {
+	margin: 0;
+}
+#entete h1 img {
+	float: left;
+	margin: 7px 20px 10px 0;
+}
+#entete .sous-titre {
+	margin: 4px 0 15px 0;
+}
+
+/* Bloc central contenant #navigation et #contenu */
+#centre {
+	width: 100%; /* -> 5 */
+	overflow: hidden; /* -> 5 */
+}
+
+/* Menu de navigation */
+#navigation {
+	width: 180px;
+	float: left; /* -> 6 */
+}
+#navigation ul {
+	margin: 0;
+	padding: 20px 10px 20px 10px;
+	list-style: none;
+}
+#navigation a {
+	display: block;
+	height: 1%; /* -> 7 */
+	padding: 6px 10px 6px 10px;
+	line-height: 1.5;
+	font-size: .9em;
+	text-decoration: none;
+}
+
+/* Contenu */
+#contenu {
+	margin-left: 200px; /* -> 8 */
+	padding: 10px 20px;
+}
+#contenu > :first-child {
+	margin-top: 10px;
+}
+#contenu p, #contenu li {
+	line-height: 1.5;
+}
+
+/* Pied de page */
+#pied {
+	margin: 0;
+	padding: 15px 20px 10px 0;
+	font-size: .85em;
+}
+
+/* Mention de copyright */
+#copyright {
+	margin: 8px 0 0 0;
+	font-size: 1em;
+	text-align: left;
+}

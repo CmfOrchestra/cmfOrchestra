@@ -1,0 +1,10 @@
+{% initJquery 'GRID:grid-table' %}
+{% stylesheet getParameter('pi_app_admin.admin.grid_index_css') %}
+{% stylesheet getParameter('pi_app_admin.admin.grid_theme_css') %}
+{% extends "PiAppTemplateBundle::Template\\Layout\\layout-ajax.html.twig" %}
+	
+{% block global_layout %}
+
+	{% include 'PiAppAdminBundle:PageByTrans:show_view.html.twig' with {'delete_form':delete_form, 'NoLayout':NoLayout, 'entity':entity} %}
+		
+{% endblock %}

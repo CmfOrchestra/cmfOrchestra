@@ -1,0 +1,69 @@
+{% from getParameter('pi_app_admin.layout.template.flash') import session_flash %}
+{%  initJquery 'SESSION:flash' %}
+{%  initJquery 'TOOL:languagechoice' %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>{% block global_title %}{% endblock %}</title>
+        
+        <!--  Meta core -->
+        {% block global_meta %}{% endblock %}       
+         
+        
+        <!--  Css core -->
+        {% stylesheet "bundles/piappadmin/css/layout/screen-layout-ajax.css:prepend" %}
+        {% stylesheets %}
+        
+        
+        <!--  Js core -->
+		{% javascript "bundles/piappadmin/js/ui/jquery-ui-1.8.18.custom.min.js" %}
+		{% javascript "bundles/piappadmin/js/jquery/jquery-1.7.1.min.js" %}
+        {% javascripts %}
+        
+        
+        <!--  script Js core -->
+        {% block global_script_js %}{% endblock %}
+        
+        
+        <!--  script Css core -->
+        {% block global_script_css %}{% endblock %}
+        
+        <!--  script divers -->
+        {% block global_script_divers %}{% endblock %}
+        
+    </head>
+    <body>
+    
+    	<div id="global_layout">
+    	
+    		{% set options_languagechoice = {'class': 'ajax-language-choice', 'img-arrow': 'lang_arrow_blue.png'} %}
+			{{ renderJquery('TOOL', 'languagechoice', options_languagechoice )|raw }}
+			
+			<script type="text/javascript">
+			//<![CDATA[
+				jQuery(document).ready(function() {
+					$(".ajax-language-choice").draggable();
+				});
+			//]]>
+			</script>
+				
+    		{% block global_layout %}{% endblock %}
+    		{% block content %}{% endblock %}
+    		
+	    </div>
+	    <div id="global_layout-flexcroll-vscroller"><div class="flexcroll-scrollbar"></div></div>
+	    
+		{% if is_granted('ROLE_USER') %}
+		    <div id="global-flash">
+				{% block global_flashes %}
+				    {{ session_flash() }}
+				    
+					{% set options_flash = {'type': ['notice', 'success', 'warning'], 'dialog-name': 'symfony-layout-flash' } %}
+					{{ renderJquery('SESSION', 'flash', options_flash )|raw }} 	    
+				{% endblock %}
+			</div>
+		{% endif %}   
+				     
+    </body>
+</html>

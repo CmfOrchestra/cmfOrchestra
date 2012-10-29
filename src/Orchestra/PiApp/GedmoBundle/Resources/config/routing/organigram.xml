@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="admin_gedmo_organigram" pattern="/">
+        <default key="_controller">PiAppGedmoBundle:Organigram:index</default>
+    </route>
+
+    <route id="admin_gedmo_organigram_show" pattern="/{id}/show">
+        <default key="_controller">PiAppGedmoBundle:Organigram:show</default>
+    </route>
+
+    <route id="admin_gedmo_organigram_new" pattern="/new">
+        <default key="_controller">PiAppGedmoBundle:Organigram:new</default>
+    </route>
+
+    <route id="admin_gedmo_organigram_create" pattern="/create">
+        <default key="_controller">PiAppGedmoBundle:Organigram:create</default>
+        <requirement key="_method">post</requirement>
+    </route>
+
+    <route id="admin_gedmo_organigram_edit" pattern="/{id}/edit">
+        <default key="_controller">PiAppGedmoBundle:Organigram:edit</default>
+    </route>
+
+    <route id="admin_gedmo_organigram_update" pattern="/{id}/update">
+        <default key="_controller">PiAppGedmoBundle:Organigram:update</default>
+        <requirement key="_method">post</requirement>
+    </route>
+
+    <route id="admin_gedmo_organigram_delete" pattern="/{id}/delete">
+        <default key="_controller">PiAppGedmoBundle:Organigram:delete</default>
+        <requirement key="_method">post</requirement>
+    </route>
+    
+	<route id="admin_gedmo_organigram_tree" pattern="/{category}/tree">
+        <default key="_controller">PiAppGedmoBundle:Organigram:tree</default>
+        <requirement key="category">.*</requirement>
+    </route>        
+    
+    <route id="admin_gedmo_organigram_move_up" pattern="/{id}/{category}/node/move-up">
+        <default key="_controller">PiAppGedmoBundle:Organigram:moveUp</default>
+        <requirement key="category">.*</requirement>
+    </route>
+    
+    <route id="admin_gedmo_organigram_move_down" pattern="/{id}/{category}/node/move-down">
+        <default key="_controller">PiAppGedmoBundle:Organigram:moveDown</default>
+        <requirement key="category">.*</requirement>
+    </route>
+    
+    <route id="admin_gedmo_organigram_node_remove" pattern="/{id}/{category}/node/remove">
+        <default key="_controller">PiAppGedmoBundle:Organigram:remove</default>
+        <requirement key="category">.*</requirement>
+    </route>
+ 
+</routes>

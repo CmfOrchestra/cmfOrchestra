@@ -1,0 +1,64 @@
+Units TEST
+__________
+
+Un test unitaire est généralement un test contre une classe PHP spécifique. 
+Si vous voulez tester le comportement global de votre application, consultez la 
+section sur les tests fonctionnels.
+Rédaction Symfony2 tests unitaires n'est pas différent que d'écrire des tests unitaires
+ standards PHPUnit. Supposons, par exemple, que vous avez une classe incroyablement 
+ simple appelé la calculatrice dans l'utilitaire / répertoire de votre forfait:
+
+# run all tests in the Utility directory
+$ phpunit -c app src/Acme/DemoBundle/Tests/Utility/
+
+# run tests for the Calculator class
+$ phpunit -c app src/Acme/DemoBundle/Tests/Utility/CalculatorTest.php
+
+# run all tests for the entire Bundle
+$ phpunit -c app src/Acme/DemoBundle/
+
+#php vendor/PhpUnit/phpunit.php -c app
+
+
+
+Functional Tests
+________________
+
+Les tests fonctionnels vérifier l'intégration des différentes couches d'une 
+application (à partir de l'acheminement aux points de vue). 
+Ils ne sont pas différents des tests unitaires dans la mesure où PHPUnit est concerné, 
+mais ils ont un flux de travail très spécifique:
+
+Pour lancer les tests unitaires, nous n’avons plus qu’à faire:
+
+git submodule update --init
+phpunit -c phpunit.xml.dist
+
+crawler : est retourné à chaque fois que vous faites une demande avec le client.
+(requete, click, redirection; select)
+
+
+INSTALLATION
+____________
+
+in php.ini
+include_path = ".;C:\xampp\php\PEAR"
+
+in rep xampp/php copy the file phpunit.bat with in :
+set PHPBIN="C:\xampp\php\php.exe"
+php -d safe_mode=Off "C:\xampp\php\PEAR\PHPUnit2\TextUI\TestRunner.php" %*
+
+### Install new PEAR Version needed for PHPUnit 3.X
+### Download:  http://pear.php.net/go-pear.phar Save it under C:\xampp\php
+
+cd C:\xampp\php
+
+php go-pear.phar
+pear clear-cache 
+pear update-channels
+pear upgrade --alldeps -f 
+pear channel-discover pear.phpunit.de
+pear channel-discover pear.symfony-project.com
+pear channel-discover components.ez.no
+pear config-set preferred_state beta
+pear install --onlyreqdeps phpunit/PHPUnit

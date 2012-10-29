@@ -1,0 +1,61 @@
+	<table id="grid_page_comment" >
+	    <thead>
+	        <tr>
+	            <th>Id</th>
+	            <th>User</th>
+	            <th>Comment</th>
+	            <th>Email</th>
+	            <th>Approved</th>
+	            <th>Created_at</th>
+	            <th>Enabled</th>
+	            <th class="position" ><a href="javascript:void(0);" title="Position">Position</a></th>
+	            <th>Actions</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	    {% set num_line = 0 %}
+	    {% for entity in entities %}
+	        <tr {% if(num_line == 0) %}class="odd"{% endif %} id="{{ entity.position }}_row_{{ entity.id }}"  >
+	        	<td class="position" >{{ entity.position}}</td>
+	            <td><a href="{{ path('admin_comment_show', { 'id': entity.id }) }}" title="id : {{ entity.id }}">{{ entity.id }}</a></td>
+	            <td>{{ entity.user }}</td>
+	            <td>{{ entity.comment }}</td>
+	            <td>{{ entity.email }}</td>
+	            <td>{{ entity.approved }}</td>
+	            <td>{% if entity.createdat %}{{ entity.createdat|date('Y-m-d H:i:s') }}{% endif%}</td>
+	            <td class="enabled" >{{ entity.enabled }}</td>
+	            <td>
+					<a href="{{ path('admin_comment_show', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.show'|trans }}" class="icon-3 info-tooltip">&nbsp;</a>
+					<a href="{{ path('admin_comment_edit', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.edit'|trans }}" class="icon-1 info-tooltip">&nbsp;</a>
+	            </td>
+	        </tr>
+	        {% if num_line == 0 %} 
+	        	{% set num_line = 1 %} 
+	        {% else %}
+	        	{% set num_line = 0 %}
+	        {% endif %}	        
+	    {% endfor %}
+	    </tbody>
+	</table>
+	
+	{% set options_gridtabale = {'grid-name': 'grid_page_comment', 'grid-type':'simple', 
+			'grid-paginate':'true',
+			'grid-filters': { 
+					'1':'Position',
+					'2':'Identifiant',
+				},
+			'grid-sorting': { 
+					'1':'desc',
+				},
+			'grid-visible': {
+				'0':'true',
+				'1':'false',
+				},						
+			'grid-actions': { 
+					'rows_position': {'route':'admin_page_comment_position_ajax',},
+					'rows_enabled': {'sButtonText':'pi.grid.action.row_enabled', 'route':'admin_page_comment_enabledentity_ajax',},
+					'rows_disable': {'sButtonText':'pi.grid.action.row_disable', 'route':'admin_page_comment_disablentity_ajax'},
+				}		
+			} 			
+	%}
+	{{ renderJquery('GRID', 'grid-table', options_gridtabale )|raw }}	

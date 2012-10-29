@@ -1,0 +1,1 @@
+php app/console sonata:easy-extends:generate SonataMediaBundle

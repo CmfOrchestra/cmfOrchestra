@@ -1,0 +1,40 @@
+<script type="text/javascript">
+//<![CDATA[
+           
+	var _gaq = _gaq || [];
+
+{% for key, tracker in pi_google_analytics.getTrackers(trackerKey) %}
+    _gaq.push(['{{ tracker.name }}._setAccount', '{{ tracker.accountId }}']);
+    _gaq.push(['{{ tracker.name }}._trackPageview']);
+    
+    {% if tracker.domain %}
+        _gaq.push(['{{ tracker.name }}._setDomainName', '{{ tracker.domain }}']);
+
+        {% if pi_google_analytics.isAllowLinker(key) %}
+            _gaq.push(['{{ tracker.name }}._setAllowLinker', true ]);
+        {% else %}
+            _gaq.push(['{{ tracker.name }}._setAllowLinker', false ]);
+        {% endif %}
+        
+        {% if pi_google_analytics.isAllowHash(key) %}
+            _gaq.push(['{{ tracker.name }}._setAllowHash', true ]);
+        {% else %}
+            _gaq.push(['{{ tracker.name }}._setAllowHash', false ]);
+        {% endif %}        
+
+    {% endif %}
+
+    {% if pi_google_analytics.isTrackPageLoadTime(key) %}
+        _gaq.push(['{{ tracker.name }}._trackPageLoadTime']);
+    {% endif %}
+
+{% endfor %}
+
+	(function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+//]]>
+</script>

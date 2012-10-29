@@ -1,0 +1,8 @@
+erreur.nom.minlength: Le nom doit avoir au moins {{ limit }} caractères
+erreur.slug.minlength: Le slug name doit avoir au moins {{ limit }} caractères
+
+erreur.langstatus.notblank: Vous devez renseigner un statut de langue
+erreur.status.notblank: Vous devez renseigner un statut
+erreur.slug.notblank: Vous devez renseigner un slug
+erreur.title.notblank: Vous devez renseigner un titre
+erreur.metacontenttype.notblank: Vous devez renseigner un content-type

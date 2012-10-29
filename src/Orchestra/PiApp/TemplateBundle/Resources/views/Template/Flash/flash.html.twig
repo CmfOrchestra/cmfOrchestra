@@ -1,0 +1,35 @@
+{% macro flash(type, message, close) %}
+	<div class="alert-message {{ type }}" data-alert="alert" title="{{ type }}">
+		{% if close|default(false) %} 
+			<a class="close" href="#">×</a>
+		{% endif %}
+		<p>
+			{% if (type != 'success') %}
+			<span class="ui-icon ui-icon-circle-check"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			{% endif %}
+			{{ message | trans }}
+		</p>
+	</div>
+{% endmacro %}
+
+{% macro session_flash(type) %}
+	{% set types = ['success', 'notice', 'error', 'warning'] %}
+	{% if app.session.getFlashes()|length > 0 %}
+	<div id="symfony-layout-flash" title="{{ 'pi.session.flash.title' | trans }}">
+            {% if type|default(false) %}
+            {% else %}
+            
+            	{% if app.session.hasFlash('only') %}
+            		{{ _self.flash(type, app.session.flash('only')) }}
+            	{% else %}
+	                {% for type in types %}
+	                    {% if app.session.hasFlash(type) %}
+	                        {{ _self.flash(type, app.session.flash(type)) }}
+	                    {% endif %}
+	                {% endfor %}            	
+            	{% endif %}
+
+            {% endif %}
+	</div>
+	{% endif %}
+{% endmacro %}

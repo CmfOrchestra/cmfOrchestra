@@ -1,0 +1,6 @@
+services:
+    pi.acl_manager:
+        class: BootStrap\AclManagerBundle\Domain\AclManager
+        arguments:
+            aclProvider: "@security.acl.provider"
+            securityContext: "@security.context"

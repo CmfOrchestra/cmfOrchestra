@@ -1,0 +1,28 @@
+#PiAppGedmoBundle:Category
+piapp_gedmo_category:
+    resource: "@PiAppGedmoBundle/Resources/config/routing/category.xml"
+    prefix: /admin/gedmo/category
+#PiAppGedmoBundle:Block
+piapp_gedmo_sicap_block:
+    resource: "@PiAppGedmoBundle/Resources/config/routing/block.xml"
+    prefix: /admin/gedmo/block
+#PiAppGedmoBundle:Content
+piapp_gedmo_content:
+    resource: "@PiAppGedmoBundle/Resources/config/routing/content.xml"
+    prefix: /admin/gedmo/content
+#PiAppGedmoBundle:Media
+piapp_gedmo_media:
+    resource: "@PiAppGedmoBundle/Resources/config/routing/media.xml"
+    prefix: /admin/gedmo/media        
+#PiAppGedmoBundle:Menu
+piapp_gedmo_menu:
+    resource: "@PiAppGedmoBundle/Resources/config/routing/menu.xml"
+    prefix: /admin/gedmo/menu
+#PiAppGedmoBundle:Slider
+piapp_gedmo_slider:
+    resource: "@PiAppGedmoBundle/Resources/config/routing/slider.xml"
+    prefix: /admin/gedmo/slider
+#PiAppGedmoBundle:Organigram
+piapp_gedmo_organigram:
+    resource: "@PiAppGedmoBundle/Resources/config/routing/organigram.xml"
+    prefix: /admin/gedmo/organigram     

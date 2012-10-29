@@ -1,0 +1,222 @@
+/* ==============================================
+   FEUILLE DE STYLES DES GABARITS HTML/CSS --- 08
+   © Elephorm & Alsacreations.com
+   Conditions d'utilisation:
+   http://creativecommons.org/licenses/by/2.0/fr/
+   ============================================== */
+
+
+/* --- COULEURS --- */
+
+/* Note: vous pouvez modifier simplement l'aspect de ce gabarit en modifiant
+   uniquement les couleurs de fond (propriétés background) et les couleurs
+   du texte (propriété color).
+   Pour modifier la disposition des blocs, voir plus bas dans la feuille de
+   styles la partie «positionnement». */
+
+/* Général */
+body {
+	color: #F0E39E;
+	background: #2C2F22;
+}
+a {
+	color: #FF6533;
+}
+a:hover, a:focus {
+	color: #FF4C00;
+}
+strong {
+	color: #A1B55D;
+}
+
+/* Navigation */
+#navigation {
+	background: #181A12;
+}
+#navigation a {
+	color: #FF6533;
+}
+#navigation a:hover, #navigation a:focus {
+	background: #000000;
+}
+
+/* Bloc central */
+#centre {
+	background: url(img/08-colonnes.png) repeat-y; /* Voir -> Note 1 */
+}
+
+/* Contenu principal */
+#principal {
+	color: #181A12;
+	background: #cbd888; /* -> 2 */
+}
+#principal a {
+	color: #332510;
+}
+#principal a:hover, #principal a:focus {
+	color: #6E5122;
+}
+#principal strong {
+	color: #181A12;
+}
+
+/* Contenu secondaire */
+#secondaire {
+	background: #181A12; /* -> 2 */
+}
+
+
+
+/* --- POSITIONNEMENT --- */
+
+/* Page */
+body {
+	padding: 20px 5px;
+}
+#global {
+	width: 900px;
+	margin: 0 auto; /* -> 3 */
+}
+
+/* En-tête */
+#entete {
+	padding: 20px;
+}
+#entete h1 {
+	margin: 0;
+}
+#entete h1 img {
+	float: left;
+	margin: 7px 20px 10px 0;
+}
+#entete .sous-titre {
+	margin: 4px 0 15px 0;
+}
+
+/* Menu de navigation */
+#navigation {
+	padding: 12px 15px;
+}
+#navigation ul {
+	width: 100%;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#navigation li.gauche {
+	float: left;
+	margin-right: 10px;
+	font-size: 1.4em;
+	font-style: italic;
+}
+#navigation li.droite {
+	float: right;
+	margin-right: 0;
+	margin-left: 10px;
+	padding: 3px 0;
+}
+#navigation a {
+	padding: 6px;
+	line-height: 1.5;
+	font-size: .9em;
+	text-decoration: none;
+}
+
+
+/* Bloc central */
+#centre {
+	width: 100%; /* -> 4 */
+	overflow: hidden; /* -> 4 */
+}
+
+/* Contenu principal */
+#principal {
+	float: left; /* -> 5 */
+	width: 560px;
+	padding: 10px 20px;
+}
+#principal > :first-child {
+	margin-top: 10px;
+}
+#principal p, #principal li {
+	line-height: 1.5;
+}
+
+/* Contenu secondaire */
+#secondaire {
+	margin-left: 620px; /* -> 6 */
+	margin-right: 20px;
+	padding: 12px 0;
+}
+
+/* Mention de copyright */
+#copyright {
+	margin: 20px 0;
+	font-size: .85em;
+	text-align: left;
+}
+
+
+/* --- NOTES ---
+
+1.	Dans ce gabarit, nous avons un conteneur div#centre, qui regroupe
+	div#principal et div#secondaire uniquement. C'est ce conteneur que l'on
+	utilise pour placer une image de fond répétée en hauteur, qui dessine
+	le fond de la colonne de gauche et de la colonne de droite.
+	Ainsi, quelle que soit la colonne la plus longue, on aura bien,
+	visuellement, deux colonnes de hauteurs égales.
+
+2.	On utilise ici des couleurs de fond pour div#principal et div#secondaire.
+	Et pourtant, nous avons déjà une image de fond, sur div#centre, qui
+	«dessine» nos deux colonnes. Pourquoi rajouter des couleurs de fond à
+	ces blocs, alors? C'est en fait une sécurité, au cas où:
+	- l'image de fond mettrait du temps à se charger (ça arrive);
+	- l'image de fond ne peut pas être chargée (rare, mais ça arrive aussi).
+	Ainsi, si ces problèmes surviennent, le contenu restera lisible. Notamment
+	le contenu de div#principal, qui est sombre, tandis que le fond de la page
+	est déjà sombre.
+	Notez que dans certains cas ce genre de «sécurité» sera difficile à mettre
+	en place, par exemple parce que la couleur de fond des blocs masquerait
+	une image de fond comportant des motifs.
+	Mais, plus généralement, un bon design de site web devrait rester lisible
+	même si les images sont désactivées (ce qui est une option de beaucoup
+	de navigateurs).
+
+3.	Les marges automatiques à gauche et à droite permettent de centrer notre
+	bloc div#global, et donc tout le site.
+	Pour aligner div#global à gauche, on fera:
+		margin-left: 0;
+		margin-rigth: auto;
+	Pour aligner div#global à droite, on fera:
+		margin-left: auto;
+		margin-right: 0;
+	Pour aligner div#global à droite avec un retrait (à droite) de 100px:
+		margin-left: auto;
+		margin-right: 100px;
+
+4.	On utilise ces propriétés pour empêcher le dépassement des flottants (cf.
+	http://web.covertprestige.info/test/
+	03-elements-flottants-et-element-parent-1.html).
+	Le overflow:hidden crée un contexte de formatage qui vient contenir les
+	flottants. Le width:100% a le même rôle, mais uniquement pour Internet
+	Explorer 6 (utilisation du HasLayout). Dans l'idéal, on le placera avec
+	des correctifs destinés à IE6 dans une feuille de styles appelée via un
+	commentaire conditionnel.
+
+5.	C'est la propriété "float" qui nous permet de placer deux blocs
+	côte-à-côte. Notez bien que l'élément flottant (ici, notre contenu
+	principal) doit être placé en premier dans le code HTML. Il est
+	préférable de lui donner une largeur, ce que nous faisons ici avec un
+	"width: 560px;" (mais à cause du padding la largeur réelle sera de 600px).
+
+6.	Les éléments flottants ne repoussent pas les blocs, mais repoussent
+	uniquement leur contenu. Pour que notre bloc de contenu secondaire forme
+	une colonne distincte du contenu principal, on lui donne donc une marge à
+	gauche de 620px (largeur réelle de div#principal + 20px).
+	Il existe une autre technique pour adapter la largeur d'un bloc aux
+	flottants qui le précèdent. On pourra lire l'article suivant:
+		http://css.alsacreations.com/Faire-une-mise-en-page-sans-tableaux/
+		design-trois-colonnes-positionnement-flottant
+
+*/

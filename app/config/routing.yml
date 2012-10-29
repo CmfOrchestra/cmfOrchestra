@@ -1,0 +1,12 @@
+# Internal routing configuration to handle ESI
+#_internal:
+#   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
+#   prefix:   /_internal 
+
+BootStrapUserBundle:
+    resource: "@BootStrapUserBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+PiAppAdminBundle:
+    resource: "@PiAppAdminBundle/Resources/config/routing.yml"
+    prefix:   /   

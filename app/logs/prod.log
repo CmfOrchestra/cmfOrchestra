@@ -1,0 +1,6 @@
+[2012-10-28 11:03:02] security.INFO: Populated SecurityContext with an anonymous Token [] []
+[2012-10-28 11:03:04] request.INFO: Matched route "fos_user_security_login" (parameters: "_controller": "FOS\UserBundle\Controller\SecurityController::loginAction", "_route": "fos_user_security_login") [] []
+[2012-10-28 11:03:05] request.CRITICAL: Twig_Error_Runtime: An exception has been thrown during the rendering of a template ("Circular reference detected when adding a fallback catalogue for locale "en".") in "FOSUserBundle:Security:login.html.twig" at line 11. (uncaught exception) at /Users/guillaumemigeon/Sites/orchestra-cmf/vendor/twig/lib/Twig/Template.php line 269 [] []
+[2012-10-28 11:04:38] security.INFO: Populated SecurityContext with an anonymous Token [] []
+[2012-10-28 11:04:41] request.INFO: Matched route "home_page" (parameters: "_controller": "PiApp\AdminBundle\Controller\FrontendController::pageAction", "_route": "home_page") [] []
+[2012-10-28 11:04:43] request.CRITICAL: Twig_Error_Runtime: An exception has been thrown during the rendering of a template ("Circular reference detected when adding a fallback catalogue for locale "en".") in "page:1:en_GB" at line 15. (uncaught exception) at /Users/guillaumemigeon/Sites/orchestra-cmf/vendor/twig/lib/Twig/Template.php line 269 [] []

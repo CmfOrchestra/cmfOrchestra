@@ -1,0 +1,25 @@
+parameters:
+    piapp.manager.formbuilder.model.snippet.class: PiApp\GedmoBundle\Manager\FormBuilder\PiModelWidgetSnippet   
+    piapp.manager.formbuilder.model.block.class: PiApp\GedmoBundle\Manager\FormBuilder\PiModelWidgetBlock
+    piapp.manager.formbuilder.model.content.class: PiApp\GedmoBundle\Manager\FormBuilder\PiModelWidgetContent
+    piapp.manager.formbuilder.model.slide.class: PiApp\GedmoBundle\Manager\FormBuilder\PiModelWidgetSlide    
+    
+services:
+    #
+    # configuration of the FORM BUILDER classes
+    #
+    pi_app_admin.formbuilder_manager.model.snippet:
+        class: %piapp.manager.formbuilder.model.snippet.class%
+        arguments: ['@service_container']                
+        
+    pi_app_admin.formbuilder_manager.model.block:
+        class: %piapp.manager.formbuilder.model.block.class%
+        arguments: ['@service_container']          
+        
+    pi_app_admin.formbuilder_manager.model.content:
+        class: %piapp.manager.formbuilder.model.content.class%
+        arguments: ['@service_container']        
+        
+    pi_app_admin.formbuilder_manager.model.slide:
+        class: %piapp.manager.formbuilder.model.slide.class%
+        arguments: ['@service_container']

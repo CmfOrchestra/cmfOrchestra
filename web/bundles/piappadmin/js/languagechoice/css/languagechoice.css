@@ -1,0 +1,8 @@
+/* ------------------------
+	Language selector
+--------------------------- */
+	#language_menu{position:relative;width:40px;z-index:99;}
+	#language_menu ul{background-color:#238BDB;width:40px;margin:4px 5px 0;padding:0;border-radius:7px 7px 7px 7px;}
+	#language_menu li{display:none;color:#fff;list-style:none;width:35px;height:29px;line-height:29px;padding-left:5px;}
+	#language_menu #language_menu_scroll{cursor:pointer;display:block;position:absolute;top:0;right:-5px;width:12px;height:29px;}
+	#language_menu #selected_language{display:block;}

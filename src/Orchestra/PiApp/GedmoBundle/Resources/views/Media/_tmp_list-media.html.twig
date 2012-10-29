@@ -1,0 +1,7 @@
+<div class="secondLignLogo row clearfix">
+	{% for key,entity in entities %}
+		{% if entity.url is not empty %}<a href="http://{{ entity.url|replace({'http://':'', 'https://':''}) }}" target="_blank">{% endif %}
+		{% if entity.image.id is defined %}<img src="#" delayedsrc="{{ media_url(entity.image.id, 'reference', true, entity.getUpdatedAt(), 'media_') }}" title="{{ entity.title }}" alt="{{ entity.title }}" />{% endif %}
+		{% if entity.url is not empty %}</a>{% endif %}
+	{% endfor %}
+</div>

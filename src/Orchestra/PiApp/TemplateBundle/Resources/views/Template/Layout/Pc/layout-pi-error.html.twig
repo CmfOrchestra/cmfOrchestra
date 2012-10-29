@@ -1,0 +1,77 @@
+{% stylesheet "bundles/piappadmin/css/layout/pi/pi-error.css" %}
+{% stylesheet "bundles/piappadmin/css/layout/pi/pi-orchestra.css" %}
+{% extends "PiAppTemplateBundle::Template\\Layout\\layout-global.html.twig" %}
+
+{% block global_title %}{{ parent() }}{% endblock %}
+
+{% block global_meta %}{{ parent() }}{% endblock %}
+
+{% block global_script_divers %}
+		{{ parent() }}
+		
+		<script type="text/javascript">
+		//<![CDATA[			
+			$(document).ready(function(){
+				$(".main-content").animate({top:0},1500,function(){
+					Move();
+				});
+			});
+			function Move() {
+			   $("#moving_arrow").animate({top:"45px"},1000, function(){
+				$(this).css({"top":"0px","display":"none"}).fadeIn(2000);
+			   });
+			   setTimeout("Move()",10000);
+			}           
+		//]]>
+		</script> 
+{% endblock %}
+
+{% block global_layout %}
+<div class="main-content" >
+			<h1>Orchestra - Content Management Framework</h1>
+			<a href="{{ path('home_page') }}"><img class="logo" src="{{ asset('bundles/piappadmin/css/layout/pi/orchestra/logo.png') }}" title="Logo Orchestra" alt="Logo Orchestra" /></a>
+			<a class="githublink" href="" title="Fork me on GitHub">Fork me on GitHub</a>
+
+			<audio autoplay="autoplay" loop="loop">
+				<source src="{{ asset('bundles/piappadmin/css/layout/pi/error/canard_fatigue.ogg') }}" type="audio/ogg" />
+			  	<source src="{{ asset('bundles/piappadmin/css/layout/pi/error/canard_fatigue.mp3') }}" type="audio/mp3" />
+			</audio>
+	
+	        <div id="content">
+	        	<p>ERROR</p>
+				<p>
+					Cependant il n'est pas absurde ou coussi-coussa d'envisager l'idée ni sotte si saugrenue que nous sommes
+	            	de manière ni plus ou moins aléatoire tombé sur une erreur et que la page que vous cherchez n'existe probablement pas.
+	            </p>
+				<div id="piaf"><!-- --></div>
+			</div>
+					
+			<script type="text/javascript">
+			//<![CDATA[
+			var documentWidth = $(".main-content").width();
+			var documentHeight = $(".main-content").height();
+			var movingWidth = documentWidth-50;
+			$(document).ready(function(){
+				$("#content").css({
+					"width": documentWidth-300,
+					"height": documentHeight
+				});
+				Move();
+			});
+			function Move() {
+			   $("#piaf").animate({left:movingWidth},5000, function(){
+				$(this).css("left","120px");
+			   });
+			   setTimeout("Move()");
+			}
+			//]]>
+			</script>
+					
+			<div class="clearer"><!-- --></div>
+			<div class="footer">
+				<p>
+					All rights reserved
+				</p>
+			</div>
+		</div>
+{% endblock %}

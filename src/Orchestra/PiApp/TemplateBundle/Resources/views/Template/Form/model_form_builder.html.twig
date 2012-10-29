@@ -1,0 +1,13 @@
+		{% set routename = app.request.attributes.get('_route') %}
+		{% form_theme form getParameter('pi_app_admin.layout.template.form') %}
+		<form  class="{{ form_name }}" enctype="application/x-www-form-urlencoded" action="{{ path_url(routename, { 'locale': app.session.locale, 'NoLayout': true }) }}" method="post" {{ form_enctype(form) }} >
+	    	{{ form_widget(form) }}
+		    <p>
+		        <input name="id_block"  type="hidden" value="{{ id_block }}" />
+		        <input name="id_widget" type="hidden" value="{{ id_widget }}" />
+		        <input name="id_form"	type="hidden" value="{{ id_form }}" />
+		        <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
+		        	<span class="ui-button-text">{{ 'pi.grid.action.save'|trans }}</span>
+		        </button>
+		    </p>		    
+		</form>

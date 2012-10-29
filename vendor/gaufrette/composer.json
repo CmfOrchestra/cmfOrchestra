@@ -1,0 +1,49 @@
+{
+    "name":         "knplabs/gaufrette",
+    "type":         "library",
+    "description":  "PHP5 library that provides a filesystem abstraction layer",
+    "keywords":     ["file", "filesystem", "media", "abstraction"],
+    "homepage":     "http://knplabs.com",
+    "license":      "MIT",
+    "authors": [
+        {
+            "name":     "Antoine Hérault",
+            "email":    "antoine.herault@gmail.com"
+        },
+        {
+            "name":     "The contributors",
+            "homepage": "http://github.com/knplabs/Gaufrette/contributors"
+        }
+    ],
+    "repositories": {
+        "amazonwebservices com": {
+            "pear": {
+                "url": "pear.amazonwebservices.com"
+            }
+        },
+        "rackspace com": {
+            "package": {
+                "name": "php-cloudfiles",
+                "source": {
+                    "url": "git://github.com/rackspace/php-cloudfiles.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        }
+    },
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "suggest": {
+        "knplabs/knp-gaufrette-bundle": "*",
+        "aws-sdk":                      ">=1.4.5",
+        "php-cloudfiles":               "*",
+        "ext-curl":                     "*",
+        "ext-mbstring":                 "*",
+        "ext-mongo":                    "*"
+    },
+    "autoload": {
+        "psr-0": { "Gaufrette": "src/" }
+    }
+}

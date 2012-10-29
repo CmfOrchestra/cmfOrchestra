@@ -1,0 +1,71 @@
+# pi :: dashboard
+pi.dashboard.search: بحث
+
+pi.dashboard.common.view_all: عرض الكل
+pi.dashboard.common.new: جديد
+
+pi.dashboard.menu1.title: لوحة  القيادة 
+pi.dashboard.menu1.media_media: الإعلام
+pi.dashboard.menu1.media_gallery: معرض
+pi.dashboard.menu1.group_list: مجموعة
+pi.dashboard.menu1.group_user: العضو
+pi.dashboard.menu1.group_role: دور
+pi.dashboard.menu1.group_permission: إذن
+pi.dashboard.menu1.cms_historicalpage: صفحة التاريخ
+
+pi.dashboard.menu2.title: CMS
+pi.dashboard.menu2.layout: نموذج
+pi.dashboard.menu2.page: صفحة
+pi.dashboard.menu2.cssjs: Css/Js
+pi.dashboard.menu2.snippet: قصاصة
+
+pi.dashboard.menu3.title: معطيات
+pi.dashboard.menu3.rubrique: فرع
+pi.dashboard.menu3.language: لغة 
+pi.dashboard.menu3.tag: وسم
+pi.dashboard.menu3.keyword: كلمة البحث الرئيسية
+pi.dashboard.menu3.comment: تعليق
+
+pi.dashboard.menu4.title: قطعة
+pi.dashboard.menu4.page: صفحة
+pi.dashboard.menu4.content: محتوى
+pi.dashboard.menu4.menu: قائمة
+pi.dashboard.menu4.slider: شريط التمرير
+pi.dashboard.menu4.organigram: الهيكل التنظيمي
+pi.dashboard.menu4.block: الصندوق
+pi.dashboard.menu4.media: الإعلام
+pi.dashboard.menu4.category: فئة
+
+# ENTITY :: MENU
+pi.menu.translation.title:  ترجمة القائمة
+pi.menu.form.picture: صورة
+pi.menu.form.group.pictures: الصور
+
+# ENTITY :: ACTIVITY
+pi.activity.translation.title: ترجمة النشاط
+
+# ENTITY :: ORGANIGRAM
+pi.organigram.translation.title: ترجمة المخطط
+pi.organigram.form.group.pictures: الصور
+
+# ENTITY :: SLIDER
+pi.slider.translation.title: ترجمة المنزلق
+pi.slider.template.more: مزيد
+pi.slider.form.group.pictures: الصور
+
+# ENTITY :: BLOCK
+pi.block.formbuilder.template.choice0: كتلة وصف 
+pi.block.formbuilder.template.choice1: كتلة شهادة
+pi.block.formbuilder.template.choice2: كتلة فيديو
+pi.block.form.group.pictures: الصور
+
+# ENTITY :: CONTENT
+pi.content.translation.title: ترجمة المحتوى
+
+pi.content.formbuilder.template.choice0: محتوى بسيط
+pi.content.formbuilder.template.choice1: المحتوى في علامة P
+pi.content.formbuilder.template.choice2: المحتوى في علامة DIV
+pi.content.formbuilder.template.choice3: المحتوى في علامة SPAN
+pi.content.formbuilder.template.choice4: المحتوى في علامة H1
+pi.content.formbuilder.template.choice5: المحتوى في علامة H2
+pi.content.formbuilder.template.choice6: المحتوى في علامة H3

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <!-- Form Widget-->
+        <service id="sonata.admin.form.type.admin" class="Sonata\AdminBundle\Form\Type\AdminType">
+            <tag name="form.type" alias="sonata_type_admin" />
+        </service>
+
+        <service id="sonata.admin.form.type.collection" class="Sonata\AdminBundle\Form\Type\CollectionType">
+            <tag name="form.type" alias="sonata_type_collection" />
+        </service>
+
+        <service id="sonata.admin.form.type.model" class="Sonata\AdminBundle\Form\Type\ModelType">
+            <tag name="form.type" alias="sonata_type_model" />
+        </service>
+
+        <service id="sonata.admin.form.type.model_reference" class="Sonata\AdminBundle\Form\Type\ModelReferenceType">
+            <tag name="form.type" alias="sonata_type_model_reference" />
+        </service>
+
+        <service id="sonata.admin.form.type.array" class="Sonata\AdminBundle\Form\Type\ImmutableArrayType">
+            <tag name="form.type" alias="sonata_type_immutable_array" />
+        </service>
+
+        <service id="sonata.admin.form.type.boolean" class="Sonata\AdminBundle\Form\Type\BooleanType">
+            <tag name="form.type" alias="sonata_type_boolean" />
+            <argument type="service" id="translator" />
+        </service>
+
+        <service id="sonata.admin.form.type.translatable_choice" class="Sonata\AdminBundle\Form\Type\TranslatableChoiceType">
+            <tag name="form.type" alias="sonata_type_translatable_choice" />
+            <argument type="service" id="translator" />
+        </service>
+        
+        <service id="sonata.admin.form.type.date_range" class="Sonata\AdminBundle\Form\Type\DateRangeType">
+            <tag name="form.type" alias="sonata_type_date_range" />
+
+            <argument type="service" id="translator" />
+        </service>
+
+        <service id="sonata.admin.form.type.datetime_range" class="Sonata\AdminBundle\Form\Type\DateTimeRangeType">
+            <tag name="form.type" alias="sonata_type_datetime_range" />
+
+            <argument type="service" id="translator" />
+        </service>
+
+        <!-- Form Extension -->
+        <service id="sonata.admin.form.extension.field" class="Sonata\AdminBundle\Form\Extension\Field\Type\FormTypeFieldExtension">
+            <tag name="form.type_extension" alias="field" />
+            <argument />
+        </service>
+
+        <!-- Form Filter Type -->
+        <service id="sonata.admin.form.filter.type.number" class="Sonata\AdminBundle\Form\Type\Filter\NumberType">
+            <tag name="form.type" alias="sonata_type_filter_number" />
+
+            <argument type="service" id="translator" />
+        </service>
+
+        <service id="sonata.admin.form.filter.type.choice" class="Sonata\AdminBundle\Form\Type\Filter\ChoiceType">
+            <tag name="form.type" alias="sonata_type_filter_choice" />
+
+            <argument type="service" id="translator" />
+        </service>
+
+        <service id="sonata.admin.form.filter.type.default" class="Sonata\AdminBundle\Form\Type\Filter\DefaultType">
+            <tag name="form.type" alias="sonata_type_filter_default" />
+        </service>
+        
+        <service id="sonata.admin.form.filter.type.date" class="Sonata\AdminBundle\Form\Type\Filter\DateType">
+            <tag name="form.type" alias="sonata_type_filter_date" />
+            <argument type="service" id="translator" />
+        </service>
+
+        <service id="sonata.admin.form.filter.type.daterange" class="Sonata\AdminBundle\Form\Type\Filter\DateRangeType">
+            <tag name="form.type" alias="sonata_type_filter_date_range" />
+            <argument type="service" id="translator" />
+        </service>
+
+        <service id="sonata.admin.form.filter.type.datetime" class="Sonata\AdminBundle\Form\Type\Filter\DateTimeType">
+            <tag name="form.type" alias="sonata_type_filter_datetime" />
+            <argument type="service" id="translator" />
+        </service>
+
+        <service id="sonata.admin.form.filter.type.datetime_range" class="Sonata\AdminBundle\Form\Type\Filter\DateTimeRangeType">
+            <tag name="form.type" alias="sonata_type_filter_datetime_range" />
+            <argument type="service" id="translator" />
+        </service>
+
+    </services>
+
+</container>

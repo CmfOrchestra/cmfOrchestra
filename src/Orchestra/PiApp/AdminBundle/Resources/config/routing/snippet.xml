@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="admin_snippet" pattern="/">
+        <default key="_controller">PiAppAdminBundle:Snippet:index</default>
+    </route>
+
+    <route id="admin_snippet_show" pattern="/{id}/show">
+        <default key="_controller">PiAppAdminBundle:Snippet:show</default>
+    </route>
+
+    <route id="admin_snippet_new" pattern="/new">
+        <default key="_controller">PiAppAdminBundle:Snippet:new</default>
+    </route>
+
+    <route id="admin_snippet_create" pattern="/create">
+        <default key="_controller">PiAppAdminBundle:Snippet:create</default>
+        <requirement key="_method">post</requirement>
+    </route>
+
+    <route id="admin_snippet_edit" pattern="/{id}/edit">
+        <default key="_controller">PiAppAdminBundle:Snippet:edit</default>
+    </route>
+
+    <route id="admin_snippet_update" pattern="/{id}/update">
+        <default key="_controller">PiAppAdminBundle:Snippet:update</default>
+        <requirement key="_method">post</requirement>
+    </route>
+
+    <route id="admin_snippet_delete" pattern="/{id}/delete">
+        <default key="_controller">PiAppAdminBundle:Snippet:delete</default>
+        <requirement key="_method">post</requirement>
+    </route>
+
+</routes>

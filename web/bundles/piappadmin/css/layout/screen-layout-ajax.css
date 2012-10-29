@@ -1,0 +1,33 @@
+/*******************************************************
+ * Development by
+ * <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ *******************************************************/
+ 
+ /* WIDGET --------------------------------------------------------*/
+*	{margin: 0; padding: 0; border: 0;}
+html, body	{width:100%; height: 100%;}
+body	{color: #000; font-family: Trebuchet MS, Arial, Helvetica, sans serif; font-size: 10px; overflow-x: hidden; overflow-y: auto;}
+p   {font-size: 10px;}
+
+/* GENERAL --------------------------------------------------------*/
+a	{
+	outline: none;
+	text-decoration: none;
+	color: white;
+	}
+a:hover	{
+	color: black;
+	}
+a.blue {
+	color: #238BDB;
+	}
+a.blue:hover	{
+	color: black;
+	border-bottom: 1px dotted #238BDB;
+	}
+a:hover	{
+	color: black;
+	}
+	
+.sf-toolbarreset{display:none;}	
+	

@@ -1,0 +1,193 @@
+/*******************************************************
+ * Development by
+ * <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ *******************************************************/
+ 
+#itsthetable {
+	background: #F0F0F0;
+	padding: 20px;
+}
+
+table.grid {
+	font: 80% Verdana, Arial, Helvetica, sans-serif;
+	color: #000;
+	text-align: left;
+	border-collapse: collapse;
+	border: 1px solid #666666;
+	border-top: none;
+	width: 100%;
+}
+
+table.grid  a {
+	text-decoration: underline;
+}
+
+table.grid  a:visited {
+	text-decoration: none;
+}
+
+table.grid tr.odd {
+	background-color: #ebf3ff;
+}
+
+table.grid tr a {
+	color: #000000;
+}
+
+table.grid tr:hover a {
+	color: #ffffff;
+}
+
+table.grid tr:hover,table.grid tr.odd:hover {
+	background-color: #ADBBCA;
+	color: #ffffff;
+}
+
+table.grid caption {
+	height: 45px;
+	line-height: 44px;
+	color: #60634E;
+	font-weight: bold;
+	text-align: center;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	margin-left: -1px;
+	background: #ffffff url(../../images/grid/itune/captop.jpg) repeat-x;
+	background-position: 50% top;
+	border-left: 2px solid #616161;
+	border-right: 2px solid #616161;
+}
+
+table.grid  caption span.numberfield {font-size: 11px;}
+
+table.grid thead th {
+	font-size: 105%;
+	color: #f18200;
+	background: #ffffff url(../../images/grid/itune/tbar.gif) repeat-x;
+	height: 33px;
+}
+
+table.grid thead th:hover {
+	background: #ffffff url(../../images/grid/itune/tbov.gif) repeat-x;
+}
+
+table.grid tr {
+	vertical-align: top;
+}
+
+table.grid tr,table.grid th,table.grid td {
+	padding-top: .75em;
+	padding-bottom: .75em;
+}
+
+table.grid td {
+	border-left: 1px solid #dadada;
+}
+
+table.grid tfoot tr {
+	background: #fff url(../../images/grid/itune/bbar.gif) repeat-x;
+}
+
+table.grid tfoot td,table.grid tfoot th {
+	color: #000;
+	border: 0px;
+}
+
+table.grid td,table.grid th {
+	padding-left: 3px;
+}
+
+table.grid thead th a {
+	border: 0;
+	color: #000;
+	text-decoration: none;
+}
+
+table.grid thead th a:hover {
+	border: 0;
+	border-bottom: 1px dotted #000;
+	color: #fff;
+}
+
+table.grid tbody tr th a {
+	color: #000;
+	border: 0;
+	text-decoration: none;
+}
+
+table.grid tbody tr th a:hover {
+	color: #000;
+	border: 0;
+}
+
+table.grid tbody tr.odd th a:hover {
+	color: #000;
+	border: 0;
+}
+
+table.grid tbody td a {
+	color: #000;
+	font-weight: normal;
+	border: 0;
+	text-decoration: none;
+}
+
+table.grid tbody td a:hover {
+	color: #000;
+	font-weight: normal;
+	text-decoration: none;
+}
+
+table.grid tbody td a:visited {
+	color: #000;
+	font-weight: normal;
+	text-decoration: line-through;
+}
+
+table.grid a {
+	color: #000;
+}
+
+table.grid a:hover {
+	color: #000;
+}
+
+table.grid a img {
+	border: 0;
+}
+
+#paginglinks {
+	margin: 5px auto 5px auto;
+	clear: both;
+	color: #000;
+	font-size: 0.9em;
+	text-transform: uppercase;
+}
+
+.pagelink,.pagelinklast,.pagecurrent {
+	background: #fff;
+	border: 1px solid #212121;
+	padding: 1px 3px 1px 3px;
+}
+
+.pagelinklast {
+	background: #999;
+}
+
+.pagecurrent {
+	background: #999;
+}
+
+table.grid tfoot span.pagelink a,table.grid tfoot span.pagelinklast a {
+	border: 0;
+	color: #000;
+	text-decoration: none;
+}
+
+table.grid tfoot span.pagelink a:hover,table.grid tfoot span.pagelinklast a:hover
+	{
+	border: 0;
+	border-bottom: 1px dotted #000;
+	color: #000;
+}

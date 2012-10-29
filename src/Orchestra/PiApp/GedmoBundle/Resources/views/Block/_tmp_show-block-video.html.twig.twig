@@ -1,0 +1,23 @@
+{% if entity.pageurl.getRouteName() is defined %}
+	{% set url = path_url(entity.pageurl.getRouteName(),{'locale':locale}) %}
+	<a href="{{ url }}" >
+{% elseif entity.url is defined %}
+	{% set url = entity.url %}
+	<a href="{{ url }}" >
+{% endif %}                                                         
+		<div class="greyBox secondBlock asideBlock bkgris row clearfix">
+			<h2>{{ entity.getTitle()|replace({'<p>': '', '</p>': ''})|raw }}</h2>
+			<div class="imgTexte row">
+				<figure class="clearfix">
+				{{ entity.translate(locale).getDescriptif()|replace({'<p>': '', '</p>': ''})|raw }}
+				</figure>
+				<div class="text">
+					<p>
+					{{ entity.translate(locale).getContent()|replace({'<p>': '', '</p>': ''})|raw }}
+					</p>
+				</div>
+			</div>
+		</div>		
+{% if url is defined %}
+	</a>
+{% endif %}							                                                        

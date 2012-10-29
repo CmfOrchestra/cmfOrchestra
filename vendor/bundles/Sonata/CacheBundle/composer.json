@@ -1,0 +1,27 @@
+{
+    "name": "sonata-project/cache-bundle",
+    "description": "This bundle provides caching services",
+    "keywords": ["cache block"],
+    "homepage": "https://github.com/sonata-project/SonataCacheBundle",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Thomas Rabaix",
+            "email": "thomas.rabaix@sonata-project.org",
+            "homepage": "http://sonata-project.org"
+        },
+        {
+            "name": "Sonata Community",
+            "homepage": "https://github.com/sonata-project/SonataCacheBundle/contributors"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "symfony/framework-bundle": "2.*"
+    },
+    "autoload": {
+        "psr-0": { "Sonata\\CacheBundle": "" }
+    },
+    "target-dir": "Sonata/CacheBundle"
+}

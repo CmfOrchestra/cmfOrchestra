@@ -1,0 +1,73 @@
+{% initJquery 'GRID:grid-table' %}
+{% stylesheet getParameter('pi_app_admin.admin.grid_theme_css') %}
+{% extends app.session.get('wurfl-layout') %}
+
+{% block title %}
+	<h1>KeyWord list</h1>
+{% endblock %}
+ 
+{% block content %}
+	<table id="grid" >
+	    <thead>
+	        <tr>
+	            <th><a href="">Id</a></th>
+	            <th><a href="">Groupname</a></th>
+	            <th><a href="">Name</a></th>
+	            <th><a href="">Enabled</a></th>
+	            <th><a href="">Actions</a></th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	    {% set num_line = 0 %}
+	    {% for entity in entities %}
+	        <tr {% if(num_line == 0) %}class="odd"{% endif %} id="{{ entity.id }}_row_{{ entity.id }}"  >
+	            <td><a href="{{ path('admin_keyword_show', { 'id': entity.id }) }}" title="id : {{ entity.id }}">{{ entity.id }}</a></td>
+	            <td>{{ entity.groupname }}</td>
+	            <td>{{ entity.name }}</td>
+	            <td class="enabled" >{{ entity.enabled }}</td>
+	            <td>
+					<a href="{{ path('admin_keyword_show', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.show'|trans }}" class="icon-3 info-tooltip">&nbsp;</a>
+					<a href="{{ path('admin_keyword_edit', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.edit'|trans }}" class="icon-1 info-tooltip">&nbsp;</a>
+	            </td>
+	        </tr>
+	        {% if num_line == 0 %} 
+	        	{% set num_line = 1 %} 
+	        {% else %}
+	        	{% set num_line = 0 %}
+	        {% endif %}	        
+	    {% endfor %}
+	    </tbody>
+	</table>
+	
+	<!--  start actions-box ............................................... -->
+	<div id="actions-box">
+		<a href="" class="action-slider"></a>
+		<div id="actions-box-slider">
+			<a href="" class="action-edit">{{ 'pi.grid.action.edit'|trans }}</a>
+			<a href="" class="action-delete">{{ 'pi.grid.action.delete'|trans }}</a>
+			<a href="{{ path('admin_keyword_new') }}" class="action-edit">{{ 'pi.grid.action.create'|trans }}</a>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!-- end actions-box........... -->
+	
+	{% set options_gridtabale = {'grid-name': 'grid', 'grid-type':'simple', 
+		'grid-paginate':'false',
+		'grid-filters': {
+				'1':'Identifiant',
+			},
+		'grid-sorting': { 
+				'1':'desc',
+			},	
+		'grid-actions': {
+				'rows_grouping': {'columnIndex':1, 'Collapsible':'false'},
+				'rows_enabled': {'sButtonText':'pi.grid.action.row_enabled', 'route':'admin_keyword_enabledentity_ajax',},
+				'rows_disable': {'sButtonText':'pi.grid.action.row_disable', 'route':'admin_keyword_disablentity_ajax'},
+				'select_all': {'sButtonText':'pi.grid.action.select_all'},
+				'select_none': {'sButtonText':'pi.grid.action.select_none'},
+			}				
+		}
+	%}
+	{{ renderJquery('GRID', 'grid-table', options_gridtabale )|raw }}	
+	
+{% endblock %}

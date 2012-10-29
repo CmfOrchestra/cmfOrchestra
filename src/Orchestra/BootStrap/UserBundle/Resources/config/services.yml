@@ -1,0 +1,48 @@
+parameters:
+    bootstrap.user.repository.class: BootStrap\UserBundle\Repository\Repository
+    bootstrap.RouteTranslator.factory.class: BootStrap\UserBundle\Manager\RouteTranslatorFactory
+    bootstrap.route_loader.class: BootStrap\UserBundle\Manager\Route\RouteLoader
+    bootstrap.route_cache.class: BootStrap\UserBundle\Manager\Route\CacheRoute
+    bootstrap.EntitiesContainer.listener.class: BootStrap\UserBundle\EventListener\EntitiesContainer
+
+services:
+    #
+    # configuration of the main repository manager allowed for the User management
+    # 
+    bootstrap.user.repository:
+        class: %bootstrap.user.repository.class%
+        arguments: ['@doctrine.orm.entity_manager']
+        
+    #
+    # configuration of the persist Entities container
+    # 
+    bootstrap.RouteTranslator.factory:
+        class: %bootstrap.RouteTranslator.factory.class%
+        arguments: ['@service_container']       
+        
+    bootstrap.route_loader:
+        class: %bootstrap.route_loader.class%
+        arguments: ['@service_container']       
+        tags:
+            - { name: routing.loader }
+            
+    bootstrap.route_cache:
+        class: %bootstrap.route_cache.class%
+        arguments: ['@service_container']       
+        
+    #
+    # configuration of the persist Entities container
+    # 
+    bootstrap.EntitiesContainer.listener:
+        class: %bootstrap.EntitiesContainer.listener.class%
+        arguments: ['@service_container']  
+        
+    #
+    # configuration of IP address allowed for the Admin and user access control
+    #    
+    #security.access.blacklist_voter:
+    #    class:      BootStrap\UserBundle\Security\Authorization\Voter\ClientIpVoter
+    #    arguments:  [@service_container, [127.0.0.1, ::1, 188.165.248.255]]
+    #    public:     false
+    #    tags:
+    #        -       { name: security.voter }

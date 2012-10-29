@@ -1,0 +1,16 @@
+<div class="downloadLinks clearfix row">
+	{% for key,entity in entities %}
+		{% if entity.image.id is defined %}
+		<a href="{% path entity.image, 'reference' %}" target="_blank" >
+		{% endif %}
+		<div>
+			<img src="{{ asset('bundles/piappadmin/images/layout/sicap/pdf.icone.png') }}"/>
+			<h2 id="link{{ key }}" class="fright">
+				{{ entity.translate(locale).getTitle()|limite('0', 210)|replace({'<p>': '', '</p>': ''})|raw }}
+			</h2>
+		</div>
+		{% if entity.image.id is defined %}
+		</a>
+		{% endif %}
+	{% endfor %}
+</div>

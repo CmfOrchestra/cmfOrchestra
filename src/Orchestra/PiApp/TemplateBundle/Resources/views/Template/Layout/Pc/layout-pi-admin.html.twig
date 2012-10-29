@@ -1,0 +1,280 @@
+{% stylesheet "bundles/piappadmin/css/layout/admin/screen.css" %}
+{%  initJquery 'TOOL:languagechoice' %}
+{% extends "PiAppTemplateBundle::Template\\Layout\\layout-global.html.twig" %}
+
+{% set global_local_language = app.session.getLocale()|lower %}
+
+{% block global_title %}Orchestra{% endblock %}
+
+{% block global_meta %}
+	<link rel="copyright" href="#copyright"/>
+	{{ parent() }}
+	<meta charset="utf-8" />
+{% endblock %}
+
+{% block global_script_js %}
+	{{ parent() }}
+	
+	<script src="{{ asset('bundles/piappadmin/js/jquery/custom_jquery.js') }}" type="text/javascript"></script>
+
+	<!-- [if !IE 7]>
+	<script src="{{ asset('bundles/piappadmin/js/jquery/jquery.selectbox-0.5.js') }}" type="text/javascript"></script>
+	<script type="text/javascript">
+	//<![CDATA[
+	$(document).ready(function() {
+		$('.styledselect').selectbox({ inputClass: "selectbox_styled" });
+	});
+	//]]>
+	</script>
+	<![endif] -->
+	
+	<script src="{{ asset('bundles/piappadmin/js/jquery/jquery.selectbox-0.5_style_2.js') }}" type="text/javascript"></script>
+	<script type="text/javascript">
+	//<![CDATA[
+	$(document).ready(function() {
+		$('.styledselect_form_1').selectbox({ inputClass: "styledselect_form_1" });
+		$('.styledselect_form_2').selectbox({ inputClass: "styledselect_form_2" });
+	});
+	//]]>
+	</script>
+	
+	<!-- MUST BE THE LAST SCRIPT IN <HEAD></HEAD></HEAD> png fix -->
+	<script src="{{ asset('bundles/piappadmin/js/jquery/jquery.pngFix.pack.js') }}" type="text/javascript"></script>
+	<script type="text/javascript">
+	//<![CDATA[
+	$(document).ready(function(){
+	$(document).pngFix( );
+	});
+	//]]>
+	</script>
+
+{% endblock %}
+
+
+{% block global_layout %}
+	{{ parent() }}
+	
+	<!-- Start: page-top-outer -->
+	<div id="page-top-outer">    
+	
+	<!-- Start: page-top -->
+	<div id="page-top">
+	
+		<!-- start logo -->
+		<div id="logo">
+			<a href="{{ path('admin_homepage') }}" title="logo"><img src="{{ asset('bundles/piappadmin/images/logo/logo-orchestra-white.png') }}" height="70" alt="" /></a>
+		</div>
+		<!-- end logo -->
+		
+		{# 
+		
+		<!--  start top-search -->
+		<div id="top-search">
+			<table>
+			<tr>
+			<td><input type="text" value="{{ 'pi.dashboard.search'|trans }}" onblur="if (this.value=='') { this.value='{{ 'pi.dashboard.search'|trans }}'; }" onfocus="if (this.value=='{{ 'pi.dashboard.search'|trans }}') { this.value=''; }" class="top-search-inp" /></td>
+			<td>
+			<select  class="styledselect">
+				<option value="">All</option>
+				<option value="">Products</option>
+				<option value="">Categories</option>
+				<option value="">Clients</option>
+				<option value="">News</option>
+				<option value="">Sonata Admin</option>
+			</select> 
+			</td>
+			<td>
+			<input type="image" src="{{ asset('bundles/piappadmin/images/shared/top_search_btn.gif') }}"  alt="search" />
+			</td>
+			</tr>
+			</table>
+		</div>
+	 	<!--  end top-search -->
+	 	<div class="clear"></div>
+	 	
+	 	#}
+	
+	</div>
+	<!-- End: page-top -->
+	
+	</div>
+	<!-- End: page-top-outer -->
+		
+	<div class="clear">&nbsp;</div>
+	 
+	<!--  start nav-outer-repeat................................................................................................. START -->
+	<div class="nav-outer-repeat"> 
+	<!--  start nav-outer -->
+	<div class="nav-outer"> 
+	
+			<!-- start nav-right -->
+			<div id="nav-right">
+				{% include "PiAppTemplateBundle::Template\\Layout\\Connexion\\connexion.html.twig" %}
+			</div>
+			<!-- end nav-right -->
+	
+	
+			<!--  start nav -->
+			<div class="nav">
+			<div class="table">
+			
+			{% if is_granted("ROLE_SUPER_ADMIN") %}
+			<ul class="select"><li><a href="{{ path("sonata_admin_dashboard") }}"><strong>{{ 'pi.dashboard.menu1.title'|trans }} Sonata</strong><!--[if IE 7]><!--></a><!--<![endif]-->
+			<!--[if lte IE 6]><table><tr><td><![endif]-->
+			<div class="select_sub">
+				<ul class="sub">
+					<li><a href="{{ path("admin_bootstrap_media_media_list") }}" target="_blank" >{{ 'pi.dashboard.menu1.media_media'|trans }}</a></li>
+					<li><a href="{{ path("admin_bootstrap_media_gallery_list") }}" target="_blank" >{{ 'pi.dashboard.menu1.media_gallery'|trans }}</a></li>
+					<li><a style="color:#238BDB" >&#187;</a></li>
+					<li><a href="{{ path("admin_bootstrap_user_group_list") }}" target="_blank" >{{ 'pi.dashboard.menu1.group_list'|trans }}</a></li>
+					<li><a href="{{ path("admin_bootstrap_user_user_list") }}"  target="_blank" >{{ 'pi.dashboard.menu1.group_user'|trans }}</a></li>
+					<li><a href="{{ path("admin_bootstrap_user_role_list") }}"  target="_blank">{{ 'pi.dashboard.menu1.group_role'|trans }}</a></li>
+					<li><a href="{{ path("admin_bootstrap_user_permission_list") }}" target="_blank" >{{ 'pi.dashboard.menu1.group_permission'|trans }}</a></li>
+					<li><a style="color:#238BDB" >&#187;</a></li>
+					<li><a href="{{ path("admin_piapp_admin_historicalstatus_list") }}" target="_blank" >{{ 'pi.dashboard.menu1.cms_historicalpage'|trans }}</a></li>
+				</ul>
+			</div>
+			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+			</li>
+			</ul>
+			
+			<div class="nav-divider">&nbsp;</div>
+			{% endif %}	
+			                    
+			<ul {{ in_paths("admin_layout:admin_pagebytrans:admin_pagecssjs", 'class="current"', 'class="select"')|raw }} ><li><a href="#nogo"><strong>{{ 'pi.dashboard.menu2.title'|trans }}</strong><!--[if IE 7]><!--></a><!--<![endif]-->
+			<!--[if lte IE 6]><table><tr><td><![endif]-->
+			<div class="select_sub {{ in_paths("admin_layout:admin_pagebytrans:admin_pagecssjs", 'show')|raw }}">
+				<ul class="sub">
+					<li {{ in_paths("admin_layout", 'class="sub_show"')|raw }}		><a href="{{ path("admin_layout") }}" >{{ 'pi.dashboard.menu2.layout'|trans }}</a></li>
+					<li {{ in_paths("admin_pagebytrans", 'class="sub_show"')|raw }}	><a href="{{ path("admin_pagebytrans") }}" >{{ 'pi.dashboard.menu2.page'|trans }}</a></li>
+					<li {{ in_paths("admin_pagecssjs", 'class="sub_show"')|raw }}	><a href="{{ path("admin_pagecssjs") }}" >{{ 'pi.dashboard.menu2.cssjs'|trans }}</a></li>
+				</ul>
+			</div>
+			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+			</li>
+			</ul>
+			
+			<div class="nav-divider">&nbsp;</div>
+			
+			<ul {{ in_paths("admin_rubrique_tree:admin_keyword:admin_tag:admin_langue", 'class="current"', 'class="select"')|raw }} ><li><a href="#nogo"><strong>{{ 'pi.dashboard.menu3.title'|trans }}</strong><!--[if IE 7]><!--></a><!--<![endif]-->
+			<!--[if lte IE 6]><table><tr><td><![endif]-->
+			<div class="select_sub {{ in_paths("admin_rubrique_tree:admin_keyword:admin_tag:admin_langue", 'show')|raw }} ">
+				<ul class="sub">
+					<li {{ in_paths("admin_rubrique_tree", 'class="sub_show"')|raw }}	><a href="{{ path("admin_rubrique_tree") }}" >{{ 'pi.dashboard.menu3.rubrique'|trans }}</a></li>
+					<li {{ in_paths("admin_langue", 'class="sub_show"')|raw }}		><a href="{{ path("admin_langue") }}" >{{ 'pi.dashboard.menu3.language'|trans }}</a></li>
+					<li {{ in_paths("admin_tag", 'class="sub_show"')|raw }}			><a href="{{ path("admin_tag") }}" >{{ 'pi.dashboard.menu3.tag'|trans }}</a></li>
+					<li {{ in_paths("admin_keyword", 'class="sub_show"')|raw }}		><a href="{{ path("admin_keyword") }}" >{{ 'pi.dashboard.menu3.keyword'|trans }}</a></li>				
+				</ul>
+			</div>
+			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+			</li>
+			</ul>
+			
+			<div class="nav-divider">&nbsp;</div>
+			
+			<ul {{ in_paths("admin_gedmo_organigram_tree:admin_gedmo_media:admin_gedmo_category:admin_snippet:admin_gedmo_sicap_picture:admin_gedmo_block:admin_gedmo_content:admin_gedmo_menu:admin_gedmo_slider:admin_gedmo_menu_tree:admin_gedmo_pressrelease:admin_gedmo_contact", 'class="current"', 'class="select"')|raw }} ><li><a href="#nogo"><strong>{{ 'pi.dashboard.menu4.title'|trans }}</strong><!--[if IE 7]><!--></a><!--<![endif]-->
+			<!--[if lte IE 6]><table><tr><td><![endif]-->
+			<div class="select_sub {{ in_paths("admin_gedmo_organigram_tree:admin_gedmo_media:admin_gedmo_category:admin_snippet:admin_gedmo_sicap_picture:admin_gedmo_block:admin_gedmo_content:admin_gedmo_menu:admin_gedmo_slider:admin_gedmo_menu_tree:admin_gedmo_pressrelease:admin_gedmo_contact", 'show')|raw }} ">
+				<ul class="sub">
+					<li {{ in_paths("admin_snippet", 'class="sub_show"')|raw }}		><a href="{{ path("admin_snippet") }}" >{{ 'pi.dashboard.menu2.snippet'|trans }}</a></li>
+					<li><a style="color:#238BDB" >&#187;</a></li>
+					<li {{ in_paths("admin_gedmo_slider", 'class="sub_show"')|raw }}				><a href="{{ path("admin_gedmo_slider") }}" >{{ 'pi.dashboard.menu4.slider'|trans }}</a></li>
+					<li {{ in_paths("admin_gedmo_menu_tree", 'class="sub_show"')|raw }}				><a href="{{ path("admin_gedmo_menu_tree", { 'category': ''}) }}" >{{ 'pi.dashboard.menu4.menu'|trans }}</a></li>
+					<li {{ in_paths("admin_gedmo_organigram_tree", 'class="sub_show"')|raw }}	><a href="{{ path("admin_gedmo_organigram_tree", { 'category': ''}) }}" >{{ 'pi.dashboard.menu4.organigram'|trans }}</a></li>
+					<li><a style="color:#238BDB" >&#187;</a></li>
+					<li {{ in_paths("admin_gedmo_category", 'class="sub_show"')|raw }}			><a href="{{ path("admin_gedmo_category") }}" >{{ 'pi.dashboard.menu4.category'|trans }}</a></li>
+					<li {{ in_paths("admin_gedmo_block", 'class="sub_show"')|raw }}			><a href="{{ path("admin_gedmo_block") }}" >{{ 'pi.dashboard.menu4.block'|trans }}</a></li>
+					<li {{ in_paths("admin_gedmo_content", 'class="sub_show"')|raw }}				><a href="{{ path("admin_gedmo_content") }}" >{{ 'pi.dashboard.menu4.content'|trans }}</a></li>
+					<li {{ in_paths("admin_gedmo_media", 'class="sub_show"')|raw }}				><a href="{{ path("admin_gedmo_media") }}" >{{ 'pi.dashboard.menu4.media'|trans }}</a></li>
+				</ul>
+			</div>
+			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+			</li>
+			</ul>
+			
+			<div class="clear"></div>
+			</div>
+			<div class="clear"></div>
+			</div>
+			<!--  start nav -->
+
+	
+	</div>
+	<div class="clear"></div>
+	<!--  start nav-outer -->
+	</div>
+	<!--  start nav-outer-repeat................................................... END -->
+	
+	  <div class="clear"></div>
+	 
+	<!-- start content-outer ........................................................................................................................START -->
+	<div id="content-outer">
+	<!-- start content -->
+	<div id="content">
+	
+		<!--  start page-heading -->
+		<div id="page-heading">
+			{{ block('title') }}
+		</div>
+		<!-- end page-heading -->
+	
+		<table id="content-table">
+		<tr>
+			<th rowspan="3" class="sized"><img src="{{ asset('bundles/piappadmin/images/shared/side_shadowleft.jpg') }}" width="20" height="300" alt="" /></th>
+			<th class="topleft"></th>
+			<td id="tbl-border-top">&nbsp;</td>
+			<th class="topright"></th>
+			<th rowspan="3" class="sized"><img src="{{ asset('bundles/piappadmin/images/shared/side_shadowright.jpg') }}" width="20" height="300" alt="" /></th>
+		</tr>
+		<tr>
+			<td id="tbl-border-left"></td>
+			<td>
+			<!--  start content-table-inner ...................................................................... START -->
+			<div id="content-table-inner">
+			
+				<!--  start table-content  -->
+				<div id="table-content">
+		            {% block content %}
+		            {% endblock %}						
+				</div>
+				<!--  end table-content  -->
+		
+				<div class="clear"></div>
+			 
+			</div>
+			<!--  end content-table-inner ............................................END  -->
+			</td>
+			<td id="tbl-border-right"></td>
+		</tr>
+		<tr>
+			<th class="sized bottomleft"></th>
+			<td id="tbl-border-bottom">&nbsp;</td>
+			<th class="sized bottomright"></th>
+		</tr>
+		</table>
+		<div class="clear">&nbsp;</div>
+	
+	</div>
+	<!--  end content -->
+	<div class="clear">&nbsp;</div>
+	</div>
+	<!--  end content-outer........................................................END -->
+	
+	<div class="clear">&nbsp;</div>
+	    
+	<!-- start footer -->         
+	<div id="footer">
+	<!-- <div id="footer-pad">&nbsp;</div> -->
+		<!--  start footer-left -->
+		<div id="footer-left">
+			<a rel='Copyright' href='http://www.cmf-orchestra.net/#Copyright' id='copyright'>{{ 'pi.footer.copyright'|trans }}</a> © 2004-{{ "now"|date("Y") }} Ltd. <a href="" title="">www.cmf-orchestra.net</a>.
+			<img src="{{ asset('bundles/piappadmin/images/logo/html5-badge.png') }}" alt="html5 validated by contactpfelix@gmail.com" />
+			<div class="clear"><!-- --></div>
+		</div>
+		<!--  end footer-left -->
+		<div class="clear"><!-- --></div>
+	</div>
+	<!-- end footer -->
+
+				     
+{% endblock %}

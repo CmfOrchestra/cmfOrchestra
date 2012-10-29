@@ -1,0 +1,1 @@
+{% if entity.image.id is defined %}<img src="#" delayedsrc="{{ media_url(entity.image.id, 'reference', true, entity.getUpdatedAt(), 'media_') }}" title="{{ entity.title }}" alt="{{ entity.title }}" />{% endif %}

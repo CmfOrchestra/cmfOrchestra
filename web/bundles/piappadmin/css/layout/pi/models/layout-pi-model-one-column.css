@@ -1,0 +1,161 @@
+/* ==============================================
+   FEUILLE DE STYLES DES GABARITS HTML/CSS --- 01
+   © Elephorm & Alsacreations.com
+   Conditions d'utilisation:
+   http://creativecommons.org/licenses/by/2.0/fr/
+   ============================================== */
+
+
+/* --- COULEURS --- */
+
+/* Note: vous pouvez modifier simplement l'aspect de ce gabarit en modifiant
+   uniquement les couleurs de fond (propriétés background) et les couleurs
+   du texte (propriété color).
+   Pour modifier la disposition des blocs, voir plus bas dans la feuille de
+   styles la partie «positionnement». */
+
+/* Général */
+body {
+	color: #F0E39E;
+	background: #181A12; /* Voir -> Note 1 ci-dessous */
+}
+a {
+	color: #FF6533;
+}
+a:hover, a:focus {
+	color: #FF4C00;
+}
+strong {
+	color: #A1B55D;
+}
+
+/* En-tête */
+#entete {
+	background: #2C2F22;
+}
+
+/* Navigation */
+#navigation {
+	background: #181A12;
+}
+#navigation a {
+	color: #FF6533;
+}
+#navigation a:hover, #navigation a:focus {
+	background: #000000;
+}
+
+/* Contenu principal */
+#contenu {
+	color: #363B29;
+	background: #cbd888;
+}
+#contenu a {
+	color: #332510;
+}
+#contenu a:hover, #contenu a:focus {
+	color: #6E5122;
+}
+#contenu strong {
+	color: #181A12;
+}
+
+/* Pied de page */
+#pied {
+	color: #E6A948;
+}
+
+
+/* --- POSITIONNEMENT --- */
+
+/* Page */
+body {
+	padding: 0; /* -> 2 */
+}
+
+/* En-tête */
+#entete {
+	padding: 15px 20px 10px 20px;
+}
+#entete h1 {
+	margin: 0;
+}
+#entete h1 img {
+	float: left;
+	margin: 7px 20px 10px 0;
+}
+#entete .sous-titre {
+	margin: 4px 0 15px 0;
+}
+
+/* Menu de navigation */
+#navigation {
+	padding: 12px 15px;
+}
+#navigation ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#navigation li {
+	display: inline; /* -> 3 */
+}
+#navigation a {
+	padding: 6px;
+	line-height: 1.5;
+	font-size: .9em;
+	text-decoration: none;
+}
+
+/* Contenu */
+#contenu {
+	padding: 10px 20px;
+}
+#contenu > :first-child {
+	margin-top: 10px;
+}
+#contenu p, #contenu li {
+	line-height: 1.5;
+}
+
+/* Pied de page */
+#pied {
+	padding: 15px 20px;
+	font-size: .85em;
+}
+#pied p {
+	margin: .5em 0;
+}
+#pied #copyright {
+	float: right;
+	margin: .5em 0 30px 10%;
+	font-size: 1em;
+}
+
+
+/* --- NOTES ---
+
+1.	Notes que cette couleur de fond n'est apparente qu'en bas de page. Plus
+	haut, elle est masque: par la couleur de fond de l'en-tête, puis par la
+	couleur de fond du menu, puis par la couleur de fond du contenu. Seul le
+	pied de page laisse apparaitre cette couleur de fond.
+
+2.	Pour ce gabarit, on supprime l'écart entre les «bords» du navigateur et
+	le contenu, en passant le padding de l'élément BODY à zéro.
+	(Voir également la note numéro 2 dans base.css.)
+
+3.	Si les éléments de notre menu se placent horizontalement plutôt que les
+	uns en dessous des autres, c'est parce qu'ils ne sont plus affichés
+	comme des blocs (ce qui est normalement le cas des éléments LI), mais
+	comme des éléments de type en-ligne. On obtient ce comportement avec la
+	propriété "display" et la valeur "inline".
+	Le fait que nos LI se comportent comme un flot unique de texte aura deux
+	conséquences:
+	- on va pouvoir aligner le texte du menu à gauche (c'est le cas ici), à
+	  droite ou encore au centre, en jouant sur la propriété "text-align" du
+	  menu (sur l'élément UL ou sur div#navigation);
+	- certains styles ne pourront pas être appliqués... par exemple, la
+	  propriété "width" ne peut pas être utilisée pour les éléments en
+	  "display: inline".
+
+*/

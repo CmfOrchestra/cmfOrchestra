@@ -1,0 +1,206 @@
+/* ==============================================
+   FEUILLE DE STYLES DES GABARITS HTML/CSS --- 06
+   © Elephorm & Alsacreations.com
+   Conditions d'utilisation:
+   http://creativecommons.org/licenses/by/2.0/fr/
+   ============================================== */
+
+
+/* --- COULEURS --- */
+
+/* Note: vous pouvez modifier simplement l'aspect de ce gabarit en modifiant
+   uniquement les couleurs de fond (propriétés background) et les couleurs
+   du texte (propriété color).
+   Pour modifier la disposition des blocs, voir plus bas dans la feuille de
+   styles la partie «positionnement». */
+
+/* Général */
+body {
+	color: #F0E39E;
+	background: #2C2F22;
+}
+a {
+	color: #FF6533;
+}
+a:hover, a:focus {
+	color: #FF4C00;
+}
+strong {
+	color: #A1B55D;
+}
+
+/* Global */
+#global {
+	border-right: 20px solid #181A12; /* Voir -> Note 1 ci-dessous */
+	color: #F0E39E;
+	background: #cbd888 url(img/06-gauche.png) repeat-y left top; /* -> 1 */
+}
+
+/* En-tête */
+#entete {
+	background: #181A12;
+}
+
+/* Navigation */
+#navigation {
+	background: #181A12;
+}
+#navigation a {
+	color: #FF6533;
+}
+#navigation a:hover, #navigation a:focus {
+	background: #000000;
+}
+
+/* Contenu principal */
+#contenu {
+	color: #363B29;
+	background: url(img/06-coin.png) no-repeat left top;
+}
+#contenu a {
+	color: #332510;
+}
+#contenu a:hover, #contenu a:focus {
+	color: #6E5122;
+}
+#contenu strong {
+	color: #181A12;
+}
+
+
+/* --- POSITIONNEMENT --- */
+
+/* Page */
+body {
+	padding: 30px 10px 0 10px;
+}
+#global {
+	width: 90%;
+	overflow: hidden; /* -> 2 */
+	min-width: 700px;
+	max-width: 1000px; /* -> 3 */
+	margin-left: auto;
+	margin-right: auto; /* -> 4 */
+}
+
+/* En-tête */
+#entete {
+	padding: 20px;
+}
+#entete h1 {
+	margin: 0;
+}
+#entete h1 img {
+	float: left;
+	margin: 7px 20px 10px 0;
+}
+#entete .sous-titre {
+	margin: 4px 0 15px 0;
+}
+
+/* Menu de navigation */
+#navigation {
+	width: 180px;
+	float: left; /* -> 5 */
+}
+#navigation ul {
+	margin: 0;
+	padding: 20px 10px;
+	list-style: none;
+}
+#navigation a {
+	display: block;
+	height: 1%; /* -> 6 */
+	padding: 6px 6px 6px 10px;
+	line-height: 1.5;
+	font-size: .9em;
+	text-decoration: none;
+}
+
+/* Contenu */
+#contenu {
+	margin-left: 220px; /* -> 7 */
+	padding: 10px 20px 10px 40px;
+}
+#contenu > :first-child {
+	margin-top: 10px;
+}
+#contenu p, #contenu li {
+	line-height: 1.5;
+}
+
+/* Mention de copyright */
+#copyright {
+	width: 180px;
+	margin: 0;
+	padding: 0 0 10px 20px;
+	text-align: left;
+}
+
+
+/* --- NOTES ---
+
+1.	Ce gabarit joue sur les couleurs de fond, images de fond et parfois
+	les bordures des principaux blocs. On peut noter que:
+	- Le bloc div#global a une couleur de fond claire. C'est cette couleur de
+	  fond que l'on retrouve, visuellement, en fond de la colonne de contenu.
+	- La colonne de gauche ainsi que la «bordure» qui sépare les deux colonnes
+	  sont dessinées par une image de fond sur div#global, image qui se répète
+	  en hauteur.
+	- Le bloc d'en-tête masque complètement la couleur de fond et l'image de
+	  fond de div#global. Supprimez la couleur de fond de div#entete pour le
+	  vérifier.
+	- Le retrait de 20px à droite de la colonne de droite est créé par... une
+	  bordure sur div#global.
+	- Une petite image de fond en haut à gauche de div#contenu vient compléter
+	  l'effet visuel.
+
+2.	On utilise overflow:hidden empêcher le dépassement des flottants (cf.
+	http://web.covertprestige.info/test/
+	03-elements-flottants-et-element-parent-1.html).
+
+3.	La largeur du conteneur principal est fluide. div#global a une largeur de
+	90%, c'est à dire une largeur qui dépend de l'espace disponible dans son
+	conteneur, l'élément BODY. Concrètement, la largeur de div#global dépendra
+	de la largeur de la fenêtre du navigateur.
+	Ensuite, on «limite» les largeurs que peut prendre div#global à une
+	fourchette allant de 700px (min-width) à 1000px (max-width). On évite
+	ainsi d'avoir des lignes de texte horriblement longues dans les grandes et
+	très grandes résolutions (1280px et plus).
+	Notez que l'on peut utiliser cette technique de largeur fluide
+	«intelligente» pour n'importe quel design fluide ou presque.
+
+4.	Les marges automatiques à gauche et à droite permettent de centrer notre
+	bloc div#global, et donc tout le site.
+	Pour aligner div#global à gauche, on fera:
+		margin-left: 0;
+		margin-rigth: auto;
+	Pour aligner div#global à droite, on fera:
+		margin-left: auto;
+		margin-right: 0;
+	Pour aligner div#global à droite avec un retrait (à droite) de 100px:
+		margin-left: auto;
+		margin-right: 100px;
+
+5.	C'est la propriété "float" qui nous permet de placer deux blocs
+	côte-à-côte. Notez bien que l'élément flottant (ici, notre menu de
+	navigation) doit être placé en premier dans le code HTML. Il est
+	préférable de lui donner une largeur, ce que nous faisons ici avec un
+	"width: 180px;".
+
+6.	Correction d'un bug d'Internet Explorer 6. Voir la dernière partie de
+	http://blog.alsacreations.com/2006/10/20/294-impact-sur-le-rendu-de-la-
+	mise-en-forme-du-code-html
+	Dans l'idéal, on placera ce correctif dans une feuille séparée, appelée
+	via un commentaire conditionnel visant IE6.
+
+7.	Les éléments flottants ne repoussent pas les blocs, mais repoussent
+	uniquement leur contenu. Pour que notre bloc de contenu principal forme
+	une colonne distincte du menu, on lui donne donc une marge à gauche de
+	220px.
+	Il existe une autre technique pour adapter la largeur d'un bloc aux
+	flottants qui le précèdent. On pourra lire l'article suivant:
+		http://css.alsacreations.com/Faire-une-mise-en-page-sans-tableaux/
+		design-trois-colonnes-positionnement-flottant
+
+*/

@@ -1,0 +1,79 @@
+parameters:
+    piapp.twig.extension.forward.class: PiApp\AdminBundle\Twig\Extension\PiForwardExtension
+    piapp.twig.extension.service.class: PiApp\AdminBundle\Twig\Extension\PiServiceExtension
+    piapp.twig.extension.jquery.class: PiApp\AdminBundle\Twig\Extension\PiJqueryExtension
+    piapp.twig.extension.widget.class: PiApp\AdminBundle\Twig\Extension\PiWidgetExtension     
+    piapp.twig.extension.date.class: PiApp\AdminBundle\Twig\Extension\PiDateExtension
+    piapp.twig.extension.tool.class: PiApp\AdminBundle\Twig\Extension\PiToolExtension
+    piapp.twig.extension.route.class: PiApp\AdminBundle\Twig\Extension\PiRouteExtension
+    piapp.twig.extension.layouthead.class: PiApp\AdminBundle\Twig\Extension\PiLayoutHeadExtension
+
+services:
+    #
+    # configuration of the twig extensions
+    #               
+    twig.extension.text:
+       class: Twig_Extensions_Extension_Text
+       tags:
+           - { name: twig.extension }
+ 
+    twig.extension.intl:
+       class: Twig_Extensions_Extension_Intl
+       tags:
+           - { name: twig.extension }
+ 
+    debug.twig.extension:
+        class: Twig_Extensions_Extension_Debug
+        tags: 
+           - { name: 'twig.extension' }            
+        
+    #
+    # configuration of the orchestra extensions
+    #         
+    pi_app_admin.twig.extension.forward:
+        class: %piapp.twig.extension.forward.class%
+        arguments: ['@service_container']
+        tags:
+            - { name: twig.extension }
+            
+    pi_app_admin.twig.extension.service:
+        class: %piapp.twig.extension.service.class%
+        arguments: ['@service_container']
+        tags:
+            - { name: twig.extension }               
+            
+    pi_app_admin.twig.extension.jquery:
+        class: %piapp.twig.extension.jquery.class%
+        arguments: ['@service_container']
+        tags:
+            - { name: twig.extension }
+            
+    pi_app_admin.twig.extension.widget:
+        class: %piapp.twig.extension.widget.class%
+        arguments: ['@service_container']
+        tags:
+            - { name: twig.extension }            
+
+    pi_app_admin.twig.extension.date:
+        class: %piapp.twig.extension.date.class%
+        arguments: ['@service_container']
+        tags:
+            - { name: twig.extension }
+            
+    pi_app_admin.twig.extension.tool:
+        class: %piapp.twig.extension.tool.class%
+        arguments: ['@service_container']
+        tags:
+            - { name: twig.extension }
+            
+    pi_app_admin.twig.extension.route:
+        class: %piapp.twig.extension.route.class%
+        arguments: ['@service_container']
+        tags:
+            - { name: twig.extension }     
+            
+    pi_app_admin.twig.extension.layouthead:
+        class: %piapp.twig.extension.layouthead.class%
+        arguments: ['@service_container']
+        tags:
+            - { name: twig.extension }   

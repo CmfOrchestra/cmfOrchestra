@@ -1,0 +1,81 @@
+parameters:
+    piapp.admin.repository.class: PiApp\AdminBundle\Repository\Repository
+    
+    piapp.admin.manager.page.class: PiApp\AdminBundle\Manager\PiPageManager
+    piapp.admin.manager.widget.class: PiApp\AdminBundle\Manager\PiWidgetManager
+    piapp.admin.manager.transwidget.class: PiApp\AdminBundle\Manager\PiTransWidgetManager
+    piapp.admin.manager.listener.class: PiApp\AdminBundle\Manager\PiListenerManager
+    piapp.admin.manager.tree.class: PiApp\AdminBundle\Manager\PiTreeManager
+    piapp.admin.manager.slider.class: PiApp\AdminBundle\Manager\PiSliderManager
+    piapp.admin.manager.jqext.class: PiApp\AdminBundle\Manager\PiJqextManager
+    piapp.admin.manager.search_lucene.class: PiApp\AdminBundle\Manager\PiLuceneManager
+    piapp.admin.manager.formbuilder.class: PiApp\AdminBundle\Manager\PiFormBuilderManager
+
+    piapp.twig.loader.class: PiApp\AdminBundle\Twig\PiTwigLoader
+    piapp.twig.caching.class: PiApp\AdminBundle\Twig\PiTwigCache
+    
+services:
+    #
+    # configuration of the main repository manager allowed for the repository management
+    #  
+    pi_app_admin.repository:
+        class: %piapp.admin.repository.class%
+        arguments: ['@doctrine.orm.entity_manager']
+
+    #
+    # configuration of the class manager allowed for the CMS management
+    #  
+    pi_app_admin.manager.page:
+        class: %piapp.admin.manager.page.class%
+        arguments: ['@service_container']    
+
+    pi_app_admin.manager.widget:
+        class: %piapp.admin.manager.widget.class%
+        arguments: ['@service_container']    
+        
+    pi_app_admin.manager.transwidget:
+        class: %piapp.admin.manager.transwidget.class%
+        arguments: ['@service_container']
+
+    pi_app_admin.manager.listener:
+        class: %piapp.admin.manager.listener.class%
+        arguments: ['@service_container']
+        
+    pi_app_admin.manager.tree:
+        class: %piapp.admin.manager.tree.class%
+        arguments: ['@service_container']
+        
+    pi_app_admin.manager.slider:
+        class: %piapp.admin.manager.slider.class%
+        arguments: ['@service_container']
+        
+    pi_app_admin.manager.jqext:
+        class: %piapp.admin.manager.jqext.class%
+        arguments: ['@service_container']        
+        
+    pi_app_admin.manager.search_lucene:
+        class: %piapp.admin.manager.search_lucene.class%
+        arguments: ['@service_container']
+        
+    pi_app_admin.manager.formbuilder:
+        class: %piapp.admin.manager.formbuilder.class%
+        arguments: ['@service_container']        
+        
+    #
+    # configuration of the Twig and Template
+    #   
+    pi_app_admin.twig.loader:
+        class: %piapp.twig.loader.class%
+        arguments: ['@pi_app_admin.manager.page', '@pi_app_admin.manager.widget', '@pi_app_admin.manager.transwidget', '@pi_app_admin.manager.tree', '@pi_app_admin.manager.listener', '@pi_app_admin.manager.slider', '@pi_app_admin.manager.jqext', '@pi_app_admin.manager.search_lucene', '@twig.loader']
+
+    pi_app_admin.twig:
+        class: %twig.class%
+        arguments: ['@pi_app_admin.twig.loader', %twig.options%]
+        
+    pi_app_admin.templating:
+        class: %templating.engine.twig.class%
+        arguments: ['@pi_app_admin.twig', '@templating.name_parser', '@templating.globals']
+        
+    pi_app_admin.caching:
+        class: %piapp.twig.caching.class%
+        arguments: ['@pi_app_admin.twig', '@service_container']

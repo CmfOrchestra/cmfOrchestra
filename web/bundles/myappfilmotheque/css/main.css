@@ -1,0 +1,121 @@
+html, body, form, fieldset {
+    margin: 0;
+    padding: 0;
+}
+
+ol, ul {
+    margin: 0;
+}
+
+body {
+    color: #000;
+    font: normal 90% Tahoma, Verdana, Helvetica, Sans-Serif;
+}
+
+#page {    
+    width:980px;    
+    margin: 0 auto;
+}
+
+a {
+    color: #08C;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#menu {
+    padding: 0;
+    list-style: none;
+    border-bottom: 1px solid #000;
+    float: right;
+    margin-top: 100px;
+    width: 800px;
+}
+
+#menu li {    
+    display: inline;
+    padding: 0;
+}
+
+#menu a {
+    background: #000;
+    color: #FFF;
+    font-size: 130%;
+    font-variant: small-caps;
+    text-decoration: none;
+    padding:0 5px;
+}
+
+#menu a:hover {
+    background: #666;
+}
+
+#header {
+    margin-top: 5px;
+}
+
+#choisir_langue {
+    float: right;
+    margin-top: -25px;
+}
+
+#connexion {
+    float:right;
+    margin-top:-130px;
+}
+
+#footer {
+    border-top: 1px solid #CCC;
+    text-align: center;
+    color: #999;
+    font-size: 85%;
+}
+
+table, td, th, p {
+    font-size: 100%;
+}
+
+td, th {
+    padding:3px 5px;
+}
+
+h1 {
+    font-size: 150%;
+}
+
+form div div label {
+    float: left;
+    width: 100px;
+    text-align: right;    
+    cursor: pointer;
+}
+
+form div div div label {
+    float: none;
+    text-align: left;
+    margin: 0;
+}
+
+form ul {
+    list-style: none;
+}
+form li {
+    color:#FF0000;
+}
+
+#form_recherche div div label {
+    width: auto;
+}
+
+.loading {
+    background:url(../images/loading.gif) no-repeat top left;
+    width: 36px;
+    height: 36px;
+}
+
+.message {
+    color:#090;
+}

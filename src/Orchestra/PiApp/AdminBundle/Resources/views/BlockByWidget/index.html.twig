@@ -1,0 +1,62 @@
+	<table id="grid_page_block" >
+	    <thead>
+	        <tr>
+	            <th>Id</th>
+	            <th>Name</th>
+	            <th>Configcssclass</th>
+	            <th>Configxml</th>
+	            <th>Created_at</th>
+	            <th>Enabled</th>
+	            <th class="position" ><a href="javascript:void(0);" title="Position">Position</a></th>      
+	            <th>Actions</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	    {% set num_line = 0 %}
+	    {% for entity in entities %}	    
+	        <tr {% if(num_line == 0) %}class="odd"{% endif %} id="{{ entity.position }}_row_{{ entity.id }}"  >
+	        	<td class="position" >{{ entity.position}}</td>
+	            <td><a href="{{ path('admin_blockbywidget_show', { 'id': entity.id }) }}" title="id : {{ entity.id }}">{{ entity.id }}</a></td>
+	            <td>{{ entity.name }}</td>
+	            <td>{{ entity.configCssClass }}</td>
+	            <td>{{ entity.configXml|limite('0', 25) }}</td>
+	            <td>{% if entity.createdat %}{{ entity.createdat|date('Y-m-d') }}{% endif%}</td>
+	            <td class="enabled" >{{ entity.enabled }}</td>
+	            <td>
+					<a href="{{ path('admin_blockbywidget_show', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.show'|trans }} Widgets" class="icon-3 info-tooltip">&nbsp;</a>
+					<a href="{{ path('admin_blockbywidget_edit', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.edit'|trans }} Widgets" class="icon-1 info-tooltip">&nbsp;</a>
+	            </td>
+	        </tr>
+	        {% if num_line == 0 %} 
+	        	{% set num_line = 1 %} 
+	        {% else %}
+	        	{% set num_line = 0 %}
+	        {% endif %}	        
+	    {% endfor %}
+	    </tbody>
+	</table>
+	
+	{% set options_gridtabale = {'grid-name': 'grid_page_block', 'grid-type':'simple', 
+			'grid-paginate':'true',
+			'grid-filters': { 
+					'1':'Position',
+					'2':'Identifiant',
+				},
+			'grid-sorting': { 
+					'1':'desc',
+				},
+			'grid-visible': {
+				'0':'true',
+				'1':'false',
+				},						
+			'grid-actions': { 
+					'rows_position': {'route':'admin_page_block_position_ajax',},
+					'rows_enabled': {'sButtonText':'pi.grid.action.row_enabled', 'route':'admin_page_block_enabledentity_ajax',},
+					'rows_disable': {'sButtonText':'pi.grid.action.row_disable', 'route':'admin_page_block_disablentity_ajax'},
+					'select_all': {'sButtonText':'pi.grid.action.select_all'},
+					'select_none': {'sButtonText':'pi.grid.action.select_none'},
+				}		
+			} 			
+	%}
+	{{ renderJquery('GRID', 'grid-table', options_gridtabale )|raw }}
+		

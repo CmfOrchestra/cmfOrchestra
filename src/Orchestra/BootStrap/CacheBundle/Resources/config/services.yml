@@ -1,0 +1,37 @@
+parameters:
+    php_memcache.class: Memcache
+    pi_cache.factory.class: BootStrap\CacheBundle\Manager\CacheFactory
+    
+    pi_cache.client.memcache.class: BootStrap\CacheBundle\Manager\Client\MemcacheClient
+    pi_cache.client.memcache.servers: { 127.0.0.1 : 11211 }
+    
+    pi_cache.client.filecache.class: BootStrap\CacheBundle\Manager\Client\FilecacheClient
+
+services:
+    php_memcache: 
+      class: %php_memcache.class%
+      
+    #
+    # configuration of the class manager allowed for the Memcache
+    #       
+    pi_memcache.client:
+      class: %pi_cache.client.memcache.class%
+      arguments: ['@php_memcache']
+      calls:
+        - [ addServers, [ %pi_cache.client.memcache.servers% ] ]
+    pi_memcache:
+        class: %pi_cache.factory.class%
+        calls:
+          - [ setContainer, ['@service_container'] ]
+          - [ setClient, ['@pi_memcache.client'] ]
+          
+          
+    pi_filecache.client:
+      class: %pi_cache.client.filecache.class%
+      
+    pi_filecache:
+        class: %pi_cache.factory.class%
+        calls:
+          - [ setContainer, ['@service_container'] ]
+          - [ setClient, ['@pi_filecache.client'] ]          
+      

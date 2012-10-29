@@ -1,0 +1,34 @@
+parameters:    
+    pi_facebook.client.analytics.class: BootStrap\FacebookBundle\Manager\Client\AnalyticsClient
+    
+    pi_facebook.twig.extension.analytics.class : BootStrap\FacebookBundle\Extension\AnalyticsExtension 
+    
+    pi_facebook.helper.analytics.class: BootStrap\FacebookBundle\Helper\AnalyticsHelper
+
+services:
+    #
+    # configuration of the clients
+    #       
+    pi_facebook.client.analytics:
+      class: %pi_facebook.client.analytics.class%
+      arguments: ['@service_container', 'analytics']
+      
+    #
+    # configuration of the helpers
+    #   
+    pi_facebook.helper.analytics:
+      class: %pi_facebook.helper.analytics.class%
+      arguments: ['@pi_facebook.client.analytics']
+      tags:
+             - { name: templating.helper, alias: pi_facebook_analytics }
+            
+    #
+    # configuration of the extensions
+    #         
+    pi_facebook.twig.extension.analytics:
+      class: %pi_facebook.twig.extension.analytics.class%
+      arguments: ['@pi_facebook.helper.analytics']
+      tags:
+             - { name: twig.extension }                  
+          
+          

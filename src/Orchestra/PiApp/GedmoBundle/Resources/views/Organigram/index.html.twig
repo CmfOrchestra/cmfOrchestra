@@ -1,0 +1,13 @@
+{% initJquery 'GRID:grid-table' %}
+{% stylesheet getParameter('pi_app_admin.admin.grid_theme_css') %}
+{% extends app.session.get('wurfl-layout') %}
+
+{% block title %}
+	<h1>Organigram list</h1>
+{% endblock %}
+ 
+{% block content %}
+	
+	{% include 'PiAppGedmoBundle:Organigram:index_view.html.twig' with {'NoLayout':NoLayout, 'entities':entities} %}	
+
+{% endblock %}

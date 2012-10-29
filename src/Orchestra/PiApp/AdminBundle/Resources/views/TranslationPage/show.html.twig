@@ -1,0 +1,135 @@
+{% initJquery 'GRID:grid-table' %}
+{% stylesheet getParameter('pi_app_admin.admin.grid_index_css') %}
+{% stylesheet getParameter('pi_app_admin.admin.grid_theme_css') %}
+
+{% extends app.session.get('wurfl-layout') %}
+
+{% block title %}
+{% endblock %}
+ 
+{% block content %}
+
+	<table class="grid">
+		<caption>Comment de translation de page</caption>
+	    <tbody>
+	        <tr>
+	            <th>Id</th>
+	            <td>{{ entity.id }}</td>
+	        </tr>
+	        <tr>
+	            <th>Langstatus</th>
+	            <td>{{ entity.langStatus }}</td>
+	        </tr>
+	        <tr>
+	            <th>Status</th>
+	            <td>{{ entity.status }}</td>
+	        </tr>
+	        <tr>
+	            <th>Secure</th>
+	            <td>{{ entity.secure }}</td>
+	        </tr>
+	        <tr>
+	            <th>Indexable</th>
+	            <td>{{ entity.indexable }}</td>
+	        </tr>
+	        <tr>
+	            <th>Breadcrumb</th>
+	            <td>{{ entity.breadcrumb }}</td>
+	        </tr>
+	        <tr>
+	            <th>Slug</th>
+	            <td>{{ entity.slug }}</td>
+	        </tr>
+	        <tr>
+	            <th>Meta_keywords</th>
+	            <td>{{ entity.metakeywords }}</td>
+	        </tr>
+	        <tr>
+	            <th>Meta_description</th>
+	            <td>{{ entity.metadescription }}</td>
+	        </tr>
+	        <tr>
+	            <th>Surtitre</th>
+	            <td>{{ entity.surtitre }}</td>
+	        </tr>
+	        <tr>
+	            <th>Titre</th>
+	            <td>{{ entity.titre }}</td>
+	        </tr>
+	        <tr>
+	            <th>Soustitre</th>
+	            <td>{{ entity.soustitre }}</td>
+	        </tr>
+	        <tr>
+	            <th>Descriptif</th>
+	            <td>{{ entity.descriptif }}</td>
+	        </tr>
+	        <tr>
+	            <th>Chapo</th>
+	            <td>{{ entity.chapo }}</td>
+	        </tr>
+	        <tr>
+	            <th>Texte</th>
+	            <td>{{ entity.texte }}</td>
+	        </tr>
+	        <tr>
+	            <th>Ps</th>
+	            <td>{{ entity.ps }}</td>
+	        </tr>
+	        <tr>
+	            <th>Created_at</th>
+	            <td>{{ entity.createdat|date('Y-m-d H:i:s') }}</td>
+	        </tr>
+	        <tr>
+	            <th>Updated_at</th>
+	            <td>{{ entity.updatedat|date('Y-m-d H:i:s') }}</td>
+	        </tr>
+	        <tr>
+	            <th>Published_at</th>
+	            <td>{{ entity.publishedat|date('Y-m-d H:i:s') }}</td>
+	        </tr>
+	        <tr>
+	            <th>Archive_at</th>
+	            <td>{{ entity.archiveat|date('Y-m-d H:i:s') }}</td>
+	        </tr>
+	        <tr>
+	            <th>Enabled</th>
+	            <td>{{ entity.enabled }}</td>
+	        </tr>
+	    </tbody>
+	</table>
+	
+	{% if is_granted('ROLE_ALLOWED_TO_SWITCH') %}
+	<ul class="record_actions">
+	    <li>
+	        <form action="{{ path('admin_pagebytrans_show', { 'id': entity.getPage().getId() }) }}" method="post">
+	            <button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
+	        </form>	  	        
+	    </li>
+	    <li>
+	        <form action="{{ path('admin_transpage_edit', { 'id': entity.id }) }}" method="post">
+	            <button type="submit">{{ 'pi.grid.action.update'|trans }}</button>
+	        </form>	 	        
+	    </li>
+	    {% if is_granted('ROLE_ADMIN') %}
+	    <li>
+	        <form action="{{ path('admin_transpage_delete', { 'id': entity.id }) }}" method="post">
+	            {{ form_widget(delete_form) }}
+	            <button type="submit">{{ 'pi.grid.action.delete'|trans }}</button>
+	        </form>
+	    </li>
+	    {% endif %}
+	</ul>
+	
+	{% render "PiAppAdminBundle:Comment:index" with {'page': entity.id} %}
+	
+	<script type="text/javascript">
+	//<![CDATA[
+		$(document).ready(function() {
+			$("button[type='submit']").button();
+		});
+	//]]>
+	</script>
+	{% endif %}
+		
+{% endblock %}		

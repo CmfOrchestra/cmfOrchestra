@@ -1,0 +1,91 @@
+#pi_block-boxes-cadre{
+	position: absolute;
+	display: none;
+	top: 0; 
+	width: 5500px; height: 2100px; 
+	background-color: #fff;  /* #584801 */
+	opacity:0.89;filter:alpha(opacity=60);
+	border: 2px solid #000;
+	-moz-box-shadow: 0 0 30px #999 inset;
+	-webkit-box-shadow: 0 0 30px #999 inset;
+	box-shadow: 0 0 30px #999 inset;
+	z-index:1000000;
+}
+#pi_block-box {
+	position: absolute;
+	top:0;
+}
+
+#pi_block-boxes {
+	position: absolute;
+	display: none;
+	top: 0;
+	width: 99999px; height: 99999px;  
+	z-index:10000000;
+}
+.pi_menuleft {
+	position: absolute;
+	left: 0%;
+}
+
+#pi_treeChart {
+	width: 1000px;
+	-webkit-perspective: 800px;
+	-webkit-perspective-origin: 50% 100px;		
+}
+#pi_block-box .jOrgChart {
+	-webkit-transition: all 2.5s ease-in-out;
+	-webkit-transform: 	rotateY(90deg) rotateZ(90deg);
+	-webkit-transform-origin:0% 0%;
+}
+#pi_block-box .jOrgChart.animated {
+	-webkit-transform: 	rotateY(0deg) rotateZ(0deg);
+}
+
+
+
+#pi_block-box .jOrgChart .css-transform-rotate {
+	-webkit-transition: all 2s ease-in-out;
+	-moz-transition: all 2s ease-in-out;
+	-o-transition: all 2s ease-in-out;
+	-ms-transition: all 2s ease-in-out;
+	transition: all 2s ease-in-out;
+}
+#pi_block-box .jOrgChart .css-transform-rotate:hover{
+	-webkit-transform: rotate(720deg) scale(2,2);
+	-moz-transform: rotate(720deg) scale(2,2);
+	-o-transform: rotate(720deg) scale(2,2);
+	-ms-transform: rotate(720deg) scale(2,2);
+	transform: rotate(720deg) scale(2,2);
+}
+
+
+
+.pi_default_tree{
+	width:auto;
+	height: auto;	
+	z-index: 9999;
+}
+#table-content .pi_default_tree{
+	/*-moz-box-shadow: 0 0 30px #999 inset;
+	-webkit-box-shadow: 0 0 30px #999 inset;
+	box-shadow: 0 0 30px #999 inset;*/
+
+	border: 1px solid #D3D3D3;
+	border-radius: 11px;
+	-moz-border-radius:11px;
+	-webkit-border-radius: 11px;
+
+	background-color: #fff;  /* #584801 */
+	opacity:0.95;filter:alpha(opacity=60);	
+}
+ .pi_default_tree .jOrgChart .node {
+  background-color 		: #35363B;
+  display               : inline-block;
+  width                 : 116px;
+  min-height			: 60px;
+  height				: auto;
+  word-wrap				: break-word; 
+  z-index 				: 10;
+  margin:               : 0 2px;	
+}

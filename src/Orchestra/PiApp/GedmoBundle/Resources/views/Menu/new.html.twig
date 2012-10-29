@@ -1,0 +1,14 @@
+{%  initJquery 'FORM:prototype-bytab' %}
+{% extends app.session.get('wurfl-layout') %}
+
+{% block title %}
+
+	<h1>Menu creation</h1>
+	
+{% endblock %}
+ 
+{% block content %}
+
+	{% include 'PiAppGedmoBundle:Menu:new_view.html.twig' with {'form':form, 'NoLayout':NoLayout} %}
+
+{% endblock %}

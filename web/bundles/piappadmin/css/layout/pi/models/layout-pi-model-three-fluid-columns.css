@@ -1,0 +1,171 @@
+/* ==============================================
+   FEUILLE DE STYLES DES GABARITS HTML/CSS --- 09
+   © Elephorm & Alsacreations.com
+   Conditions d'utilisation:
+   http://creativecommons.org/licenses/by/2.0/fr/
+   ============================================== */
+
+
+/* --- COULEURS --- */
+
+/* Note: vous pouvez modifier simplement l'aspect de ce gabarit en modifiant
+   uniquement les couleurs de fond (propriétés background) et les couleurs
+   du texte (propriété color).
+   Pour modifier la disposition des blocs, voir plus bas dans la feuille de
+   styles la partie «positionnement». */
+
+/* Général */
+body {
+	color: #F0E39E;
+	background: #2C2F22;
+}
+a {
+	color: #FF6533;
+}
+a:hover, a:focus {
+	color: #FF4C00;
+}
+strong {
+	color: #A1B55D;
+}
+
+/* Navigation */
+#navigation {
+	background: #181A12;
+}
+#navigation a {
+	color: #FF6533;
+}
+#navigation a:hover, #navigation a:focus {
+	background: #000000;
+}
+
+/* Contenu principal */
+#principal {
+	color: #181A12;
+	background: #cbd888;
+}
+#principal a {
+	color: #332510;
+}
+#principal a:hover, #principal a:focus {
+	color: #6E5122;
+}
+#principal strong {
+	color: #181A12;
+}
+
+/* Contenu secondaire */
+#secondaire {
+	background: #181A12;
+}
+
+
+
+/* --- POSITIONNEMENT --- */
+
+/* Page */
+body {
+	padding: 20px 30px;
+}
+
+/* En-tête */
+#entete {
+	padding: 20px 0;
+}
+#entete h1 {
+	margin: 0;
+}
+#entete h1 img {
+	float: left;
+	margin: 7px 20px 10px 0;
+}
+#entete .sous-titre {
+	margin: 4px 0 15px 0;
+}
+
+/* Bloc central */
+#centre {
+	position: relative; /* Voir -> Note 1 */
+	width: 100%;
+}
+
+/* Menu de navigation */
+#navigation {
+	position: absolute; /* -> 1 */
+	top: 0;
+	left: 0;
+	width: 180px;
+}
+#navigation ul {
+	margin: 0;
+	padding: 20px 10px 20px 10px;
+	list-style: none;
+}
+#navigation a {
+	display: block;
+	height: 1%;
+	padding: 6px 10px 6px 10px;
+	line-height: 1.5;
+	font-size: .9em;
+	text-decoration: none;
+}
+
+/* Contenu principal */
+#principal {
+	margin-left: 200px; /* -> 2 */
+	margin-right: 240px; /* -> 2 */
+	padding: 10px 20px;
+}
+#principal > :first-child {
+	margin-top: 10px;
+}
+#principal p, #principal li {
+	line-height: 1.5;
+}
+
+/* Contenu secondaire */
+#secondaire {
+	position: absolute; /* -> 1 */
+	top: 0;
+	right: 0;
+	width: 180px;
+	padding: 12px 20px;
+}
+
+/* Mention de copyright */
+#copyright {
+	margin: 20px 0;
+	font-size: .85em;
+	text-align: left;
+}
+
+
+/* --- NOTES ---
+
+1.	On utilise le positionnement relatif sur div#centre afin que ce bloc serve
+	de référent à ses descendants positionnés en absolu.
+	Dit plus clairement: deux des trois enfants de div#centre, à savoir
+	div#navigation et div#secondaire, sont positionnés en absolu. Pour ces deux
+	éléments, on a utilisé les propriétés CSS top, left et right qui permettent
+	d'indiquer des coordonnées de positionnement. Ces coordonnées sont données
+	par rapport à un cadre de référence. Quel est ce cadre de référence?
+	- Par défaut, il s'agit de la zone de visualisation du navigateur (les
+	bords de la «fenêtre», donc).
+	- Ou bien il s'agira du plus proche élément positionné (en absolu, relatif
+	ou fixe) parmi les ancêtres de l'élément positionné en absolu.
+	Si cette explication n'est pas claire, supprimez ou commentez le
+	"position: relative" de div#centre, et observez ce qui se passe. Puis
+	rétablissez-le et ajoutez une bordure visible à div#centre (ex:
+	"border: 2px solid red;"). Cela devrait être plus clair.
+
+2.	Le bloc de contenu principal (div#principal) est le seul des trois enfants
+	de div#centre qui n'est pas positionné en absolu. Ce n'est en effet pas
+	nécessaire. Comme div#principal considère que div#navigation et
+	div#secondaire, tous deux positionnés en absolu, ne sont «plus là», et ne
+	se placera donc pas plus bas dans la page.
+	Pour éviter que les colonns latérales ne recouvrent des parties du
+	contenu, il nous suffit de donner des marges à gauche et à droite à
+	div#principal.
+
+*/

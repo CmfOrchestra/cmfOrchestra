@@ -1,0 +1,20 @@
+							<div class="greyBox asideBlock bkgris row">
+								<div class="titleFigure">
+									<h2>{{ entity.translate(locale).getTitle()|replace({'<p>': '', '</p>': ''})|raw }}</h2>
+									<figure class="clearfix row">
+										{% if entity.media.mediaId is defined %}
+											<img src="#" delayedsrc="{{ media_url(entity.media.mediaId, 'reference', true, entity.media.getUpdatedAt(), 'block_') }}" title="" alt="" class="left" />
+										{% endif %}
+										<figcaption class="fleft">
+											{{ entity.translate(locale).getDescriptif()|replace({'<p>': '', '</p>': ''})|raw }}
+											<br />
+											<span class="author">{{ entity.author }}</span>
+										</figcaption>
+									</figure>
+								</div>
+								<div class="text italic">
+									<p>
+									{{ entity.translate(locale).getContent()|replace({'<p>': '', '</p>': ''})|raw }}
+									</p>
+								</div>
+							</div>

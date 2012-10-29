@@ -1,0 +1,131 @@
+{% from getParameter('pi_app_admin.layout.template.flash') import session_flash %}
+{% if is_granted('ROLE_USER') %}
+	{%  initJquery 'SESSION:flash' %}
+	{%  initJquery 'MENU:org-chart-page' %}
+	{%  initJquery 'MENU:context-menu' %}
+	{%  initJquery 'TOOL:widgetadmin' %}
+	{%  initJquery 'TOOL:veneer' %}
+{% endif %}
+{% if global_local_language is not defined %}
+ 	{% set global_local_language = app.session.getLocale()|lower %}
+{% endif %}
+<!DOCTYPE html>
+<html lang='{{ global_local_language }}' xml:lang='{{ global_local_language }}' >
+    <head>
+        <title>{% block global_title %}{% endblock %}</title>
+        <link rel="shortcut icon" type="image/ico" href="{{ asset("favicon.ico") }}" />
+        
+        <!--  Meta core -->
+        {% block global_meta %}{% endblock %}          
+        
+        <!--  Css core -->
+        {% stylesheet "bundles/piappadmin/css/layout/screen-layout-global.css:prepend" %}
+        {% stylesheets %}  
+        
+        <!--[if lt IE 9]>
+			<script type="text/javascript"src="/bundles/piappadmin/js/html5shiv/html5shiv.js"></script>
+			<script type="text/javascript"src="/bundles/piappadmin/js/html5shiv/html5shiv-printshiv.js"></script>
+		<![endif]-->        
+        
+        <!--  Js core -->
+		{% javascript "bundles/piappadmin/js/ui/jquery-ui-1.8.18.custom.min.js" %}
+		{% javascript "bundles/piappadmin/js/jquery/jquery-1.7.1.min.js" %}   
+		{% javascripts %}     
+        
+        <!--  script divers -->
+        {% block global_script_divers %}
+        
+	        {% if not (is_granted('ROLE_USER')) %}	        
+	        {#
+			<script type="text/javascript">
+			//<![CDATA[
+					jQuery(document).ready(function() {
+					
+						$("div[id^='widget__']").each(function(index_) {
+							content1 = $(this).html();
+							$(this).before(content1);
+							$(this).remove();
+						});
+												
+						$("div[id^='block__']").each(function(index_) {
+							content2 = $(this).html();
+							$(this).before(content2);
+							$(this).remove();											
+						});
+						
+					});	
+			//]]>
+			</script>
+			#}
+			{% endif %}			
+        
+        {% endblock %}                
+        
+        <!--  script Js core -->
+        {% block global_script_js %}{% endblock %}        
+        
+        <!--  script Css core -->
+        {% block global_script_css %}{% endblock %}
+        
+    </head>
+    <body>
+    
+    	<div id="global-layout" >
+    		{% block global_layout %}{% endblock %}
+    		
+			<script type="text/javascript">
+			//<![CDATA[			
+				// exemple definition of picture : <img src="#" delayedsrc="http://mydomain.com/myimage.png"/ >
+				jQuery(document).ready(function() {
+					$('img').each(function(){
+					  	$(this).attr('src', $(this).attr('delayedsrc'));
+					});
+				});
+			//]]>
+			</script>    		
+	    </div>
+	     
+		{% if is_granted('ROLE_USER') %}
+		<searchlucene>			
+			    <div id="global-flash">
+					{% block global_flashes %}
+					    {{ session_flash() }}
+					    
+						{% set options_flash = {'type': ['notice', 'success', 'warning'], 'dialog-name': 'symfony-layout-flash' } %}
+						{{ renderJquery('SESSION', 'flash', options_flash )|raw }} 	    
+					{% endblock %}
+				</div>		
+			
+				<div id="pi_page_bar_toggler"  class="menu-xp org-chart-page" ></div>
+				<div id="pi_media_bar_toggler" class="menu-xp org-tree-page" ></div>	
+									
+				{% set theme = getParameter('pi_app_admin.admin.context_menu_theme') %}
+				{% set options_contextmenu = {'id': '.menu-xp', 'theme': theme, 'menu': 'admin', 'options': {
+							'shadow':'true',
+							'shadowOpacity':'.4',
+							'shadowColor':'#000',
+							'shadowOffset':'13',
+					    	'shadowWidthAdjust':'-3',
+					    	'shadowHeightAdjust':'-3'
+				} } %}
+				{{ renderJquery('MENU', 'context-menu', options_contextmenu )|raw }}			
+				
+				{% set options_chartpage = {"action":"renderByClick", "id":".org-chart-page", "menu":"page"} %} 
+	 			{{ getService('pi_app_admin.manager.tree').run('organigram', 'Rubrique~org-chart-page', app.session.getLocale(), options_chartpage)|raw }}
+	 			
+				{{ renderJquery('TOOL', 'widgetadmin')|raw }}
+				
+				{% set options_veneer = {'id': '.veneer_blocks_widgets'} %}
+				{{ renderJquery('TOOL', 'veneer', options_veneer )|raw }}
+		</searchlucene>				
+		{% endif %}		
+		
+		{% set is_google_analytic = getParameter('pi_app_admin.page.google_analytic') %}
+		{% if is_google_analytic %}
+			{% set tracker  = getParameter('pi_app_admin.page.google_analytic_tracker') %}
+			{% set template = getParameter('pi_app_admin.page.google_analytic_template') %}
+			{% include template with {'trackerKey':tracker} %}
+		{% endif %}
+						     
+    </body>
+</html>

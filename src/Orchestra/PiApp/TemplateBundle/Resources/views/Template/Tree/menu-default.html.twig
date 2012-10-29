@@ -1,0 +1,69 @@
+                            {% for node in nodes %}
+                            	
+                            		{% set childs_routesnames = getService('doctrine').getEntityManager().getRepository("PiAppGedmoBundle:Menu").findChildsRouteByParentId(node.id, app.session.locale, 'string') %}
+                            		           
+	                            	{% if(node.lvl == 1) %}
+	                            		{%  set url_lft = node.lft %}
+	                            		{%  set url_rgt = node.rgt %}
+										{%  set url = "#" %}
+			                            {% if node.page.getId() is defined %}
+			                            	{%  set url = path_url(node.page.getRouteName(), {'locale':app.session.locale}) %}
+			                            {% endif %}                 
+			                            
+	                            		<li id="solutionsMenu" class="menuItem {{ "{{ in_paths('"~childs_routesnames~"', 'liActiveClass', '') }}" }}">
+	                            			<a href="{{ url }}">{{ node.title }}</a>
+	                            	{% endif %}
+	                            		
+											{% if (node.lvl == 2) and (node.lft == url_lft+1)  %}
+		                            		<ul>
+		                            			{%  set url_2_lft = node.lft %}
+	                            				{%  set url_2_rgt = node.rgt %}
+		                            		{% endif %}
+		                            		
+		                            		{% if (node.lvl == 2) %}
+												{%  set url_2 = "#" %}
+		                            			{% if node.page.getId() is defined %}
+		                            				{%  set url_2 = path_url(node.page.getRouteName(), {'locale':app.session.locale}) %}
+		                            			{% endif %}	         
+		                            			<li class="solution deviceSim {{ "{{ in_paths('"~childs_routesnames~"', 'liActiveClass', '') }}" }}">
+		                            				<a href="{{ url_2 }}">{{ node.title }}</a>
+		                            		{% endif %}
+		                            		
+				                            		{% if (node.lvl == 3) and (node.lft == url_2_lft+1)  %}
+				                            		<ul>
+				                            			{%  set url_3_lft = node.lft %}
+			                            				{%  set url_3_rgt = node.rgt %}
+				                            		{% endif %}
+				                            		
+														{% if (node.lvl == 3) %}
+															{%  set url_3 = "#" %}
+					                            			{% if node.page.getId() is defined %}
+					                            				{%  set url_3 = path_url(node.page.getRouteName(), {'locale':app.session.locale}) %}
+					                            			{% endif %}	         
+					                            			<li class="subMenuItem">
+					                            				<a href="{{ url_3 }}">{{ node.title }}</a>
+					                            		{% endif %}	
+					                            		
+					                            		{% if (node.lvl == 3) %}
+					                            			</li>
+					                            		{% endif %}					                            				                            		
+				                            		
+													{% if (node.lvl == 3) and (node.rgt == url_2_rgt-1) %}	
+													</ul>
+		                            			</li>
+		                            				{% endif %}				                            		
+		                            				
+		                            		{% if (node.lvl == 2) and (node.lft == node.rgt-1) %}
+		                            			</li>
+		                            		{% endif %}	                            			
+		                            			
+		                            		{% if (node.lvl == 2) and (node.rgt == url_rgt-1) %}	
+		                            		</ul>
+		                            	</li>
+		                            		{% endif %}	                            	                            	
+	                            	
+	                            	{% if (node.lvl == 1) and ((node.rgt == url_rgt-1) or (node.lft == node.rgt-1)) %}
+	                            		</li>
+	                            	{% endif %}
+	                            	
+                            {% endfor %}

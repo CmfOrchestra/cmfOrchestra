@@ -1,0 +1,32 @@
+services:
+    bootstrap.admin.admin.group:
+        class: BootStrap\AdminBundle\Admin\GroupAdmin
+        tags:
+           - { name: sonata.admin, manager_type: orm, group: gestion_utilisateur, label: group }
+        arguments: [null, BootStrap\UserBundle\Entity\Group, BootStrapAdminBundle:GroupAdmin]
+                
+    bootstrap.admin.admin.user:
+        class: BootStrap\AdminBundle\Admin\UserAdmin
+        tags:
+           - { name: sonata.admin, manager_type: orm, group: gestion_utilisateur, label: user }
+        arguments: [null, BootStrap\UserBundle\Entity\User, BootStrapAdminBundle:UserAdmin]
+        calls:
+          - [ setUserManager, ['@fos_user.user_manager'] ]        
+                
+    bootstrap.admin.admin.role:
+        class: BootStrap\AdminBundle\Admin\RoleAdmin
+        tags:
+           - { name: sonata.admin, manager_type: orm, group: gestion_utilisateur, label: role }
+        arguments: [null, BootStrap\UserBundle\Entity\Role, BootStrapAdminBundle:RoleAdmin]
+                
+    bootstrap.admin.admin.permission:
+        class: BootStrap\AdminBundle\Admin\PermissionAdmin
+        tags:
+           - { name: sonata.admin, manager_type: orm, group: gestion_utilisateur, label: permission }
+        arguments: [null, BootStrap\UserBundle\Entity\Permission, BootStrapAdminBundle:PermissionAdmin]
+                
+    bootstrap.admin.admin.historicalpage:
+        class: BootStrap\AdminBundle\Admin\HistoricalPageAdmin
+        tags:
+           - { name: sonata.admin, manager_type: orm, group: gestion_cms, label: historical page }
+        arguments: [null, PiApp\AdminBundle\Entity\HistoricalStatus, BootStrapAdminBundle:HistoricalPageCMS]

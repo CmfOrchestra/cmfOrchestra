@@ -1,0 +1,71 @@
+# pi :: dashboard
+pi.dashboard.search: Search
+
+pi.dashboard.common.view_all: View all
+pi.dashboard.common.new: New
+
+pi.dashboard.menu1.title: Dashboard 
+pi.dashboard.menu1.media_media: Media
+pi.dashboard.menu1.media_gallery: Gallery
+pi.dashboard.menu1.group_list: Group
+pi.dashboard.menu1.group_user: User
+pi.dashboard.menu1.group_role: Role
+pi.dashboard.menu1.group_permission: Permission
+pi.dashboard.menu1.cms_historicalpage: Historical Page
+
+pi.dashboard.menu2.title: CMS
+pi.dashboard.menu2.layout: Layout
+pi.dashboard.menu2.page: Page
+pi.dashboard.menu2.cssjs: Css/Js
+pi.dashboard.menu2.snippet: Snippet
+
+pi.dashboard.menu3.title: Data
+pi.dashboard.menu3.rubrique: Section
+pi.dashboard.menu3.language: Language 
+pi.dashboard.menu3.tag: Tag
+pi.dashboard.menu3.keyword: Keyword
+pi.dashboard.menu3.comment: Comment
+
+pi.dashboard.menu4.title: Widget
+pi.dashboard.menu4.page: Page
+pi.dashboard.menu4.content: Content
+pi.dashboard.menu4.menu: Menu
+pi.dashboard.menu4.slider: Slider
+pi.dashboard.menu4.organigram: Organigram chart
+pi.dashboard.menu4.block: Block
+pi.dashboard.menu4.media: Media
+pi.dashboard.menu4.category: Category
+
+# ENTITY :: MENU
+pi.menu.translation.title: Translation menu
+pi.menu.form.picture: Picture
+pi.menu.form.group.pictures: Pictures
+
+# ENTITY :: ACTIVITY
+pi.activity.translation.title: Activity translation
+
+# ENTITY :: ORGANIGRAM
+pi.organigram.translation.title: Organigram translation
+pi.organigram.form.group.pictures: Pictures
+
+# ENTITY :: SLIDER
+pi.slider.translation.title: Slider translation
+pi.slider.template.more: more
+pi.slider.form.group.pictures: Pictures
+
+# ENTITY :: BLOCK
+pi.block.formbuilder.template.choice0: Block descriptif 
+pi.block.formbuilder.template.choice1: BLock testimonial
+pi.block.formbuilder.template.choice2: BLock Video
+pi.block.form.group.pictures: Pictures
+
+# ENTITY :: CONTENT
+pi.content.translation.title: Content translation
+
+pi.content.formbuilder.template.choice0: Simple content
+pi.content.formbuilder.template.choice1: Content in a P balise
+pi.content.formbuilder.template.choice2: Content in a DIV balise
+pi.content.formbuilder.template.choice3: Content in a SPAN balise
+pi.content.formbuilder.template.choice4: Content in a H1 balise
+pi.content.formbuilder.template.choice5: Content in a H2 balise
+pi.content.formbuilder.template.choice6: Content in a H3 balise

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="admin_gedmo_media" pattern="/">
+        <default key="_controller">PiAppGedmoBundle:Media:index</default>
+    </route>
+
+    <route id="admin_gedmo_media_show" pattern="/{id}/show">
+        <default key="_controller">PiAppGedmoBundle:Media:show</default>
+    </route>
+
+    <route id="admin_gedmo_media_new" pattern="/new">
+        <default key="_controller">PiAppGedmoBundle:Media:new</default>
+    </route>
+
+    <route id="admin_gedmo_media_create" pattern="/create">
+        <default key="_controller">PiAppGedmoBundle:Media:create</default>
+        <requirement key="_method">post</requirement>
+    </route>
+
+    <route id="admin_gedmo_media_edit" pattern="/{id}/edit">
+        <default key="_controller">PiAppGedmoBundle:Media:edit</default>
+    </route>
+
+    <route id="admin_gedmo_media_update" pattern="/{id}/update">
+        <default key="_controller">PiAppGedmoBundle:Media:update</default>
+        <requirement key="_method">post</requirement>
+    </route>
+
+    <route id="admin_gedmo_media_delete" pattern="/{id}/delete">
+        <default key="_controller">PiAppGedmoBundle:Media:delete</default>
+        <requirement key="_method">post</requirement>
+    </route>
+
+</routes>

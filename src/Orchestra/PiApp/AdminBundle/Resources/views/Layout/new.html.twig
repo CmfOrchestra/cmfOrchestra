@@ -1,0 +1,29 @@
+{%  initJquery 'FORM:form-simple' %}
+
+{% extends app.session.get('wurfl-layout') %}
+
+{% block title %}
+	<h1>Layout creation</h1>
+{% endblock %}
+ 
+{% block content %}
+	{% form_theme form getParameter('pi_app_admin.layout.template.form') %}
+	<form class="myform" action="{{ path('admin_layout_create') }}" method="post" {{ form_enctype(form) }} novalidate>
+	    {{ form_widget(form) }}
+	    <p>
+	        <button type="submit">{{ 'pi.grid.action.create'|trans }}</button>
+	    </p>
+	</form>
+	
+	{% set options = {'form-name': '.myform' } %}
+	{{ renderJquery('FORM', 'form-simple', options )|raw }}		
+	
+	<ul class="record_actions myform">
+	    <li>
+	        <form action="{{ path('admin_layout') }}" method="post">
+	            <button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
+	        </form>	   	        
+	    </li>
+	</ul>
+	
+{% endblock %}

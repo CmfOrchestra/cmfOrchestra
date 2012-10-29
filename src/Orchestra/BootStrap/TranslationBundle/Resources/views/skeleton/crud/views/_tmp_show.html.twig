@@ -1,0 +1,54 @@
+<div id="novActivity"> 
+	<h1>{{ "{{ entity.title }}" }}</h1>
+	
+	<div class="novActivityCore">
+			
+		{%- for field, metadata in fields %}
+	        {%- if metadata.type in ['date', 'datetime'] %}
+	        	
+	        	{%- if field in ['publishedat','createdat'] %}
+	        	
+			        <div class="novArtLegend legend">
+			        	  Le : {{ "{{ entity.publishedat|date('Y/m/d') }}" }}
+			        </div>
+			        	        	
+	        	{%- else %}
+	        		        	
+		            {{ '{% if entity.'~ field|replace({'_': ''}) ~' %}{{ entity.'~ field|replace({'_': ''}) ~'|date(\'Y-m-d\') }}{% endif%}' }}
+		            
+		        {%- endif %}
+	
+	        {%- else %}
+	
+				{%- if field in ['descriptif'] %}
+				
+		        	<div class="novArtTitle">
+		        		<h3>{{ "{{ entity.translate(locale).getDescriptif() }}" }}</h3>
+		        	</div>
+		        	
+				{%- elseif field in ['enabled'] %}
+		        
+	        	{%- else %}
+	        		
+	        		{%- if metadata.type in ['text'] %}
+	        			
+	            		{{ '{{ entity.translate(locale).get'~ field|replace({'_': ''})~'()|raw }}' }}
+					
+					{%- elseif metadata.type in ['image'] %}
+		        
+			        	{{ "{% media entity.image, 'default_small' %}" }}
+	    		    	<!-- <a href="{{ "{{ url('sonata_media_view', { 'id' : entity.image.id, 'format' : 'reference'}) }}" }}" title="">reference</a> -->	            		
+	            		
+					{%- else %}
+					
+		        	    {{ '{{ entity.'~ field|replace({'_': ''})~' }}' }}
+	    		    
+	        		{%- endif %}	            		
+	            	
+	            {%- endif %}
+	
+	        {%- endif %}
+	    {%- endfor %}
+	
+	</div>        
+</div>	

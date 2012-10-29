@@ -1,0 +1,68 @@
+<div id="columns">
+        
+        <ul id="column1" class="column">
+            <li class="widget color-yellow" id="intro">  
+                <div class="widget-head">
+                    <h3>Introduction</h3>
+                </div>
+				<div class="edit-box" style="display:none;">
+					&nbsp;
+				</div>                     
+                <div class="widget-content">
+                    <p>All description of widgets with his own form to inject in the selected block.</p>
+                </div>
+            </li>        
+			{% for form in form_col_1 %}
+            <li class="widget color-orange">  
+                <div class="widget-head">
+                    <h3>{{ form['renderTitle']|raw }}</h3>
+                </div>
+				<div class="edit-box" style="display:none;">
+					{{ form['renderForm']|raw }}
+					
+					{{ form['renderScript']|raw }}
+				</div>                     
+                <div class="widget-content">
+                    <p>{{ form['renderDescriptif']|raw }}</p>
+                </div>
+            </li>
+             {% endfor %}
+        </ul>
+
+        <ul id="column2" class="column">
+			{% for form in form_col_2 %}
+            <li class="widget color-green">  
+                <div class="widget-head">
+                    <h3>{{ form['renderTitle']|raw }}</h3>
+                </div>
+				<div class="edit-box" style="display:none;">
+					{{ form['renderForm']|raw }}
+					
+					{{ form['renderScript']|raw }}
+				</div>                     
+                <div class="widget-content">
+                    <p>{{ form['renderDescriptif']|raw }}</p>
+                </div>
+            </li>
+             {% endfor %}            
+        </ul>
+        
+        <ul id="column3" class="column">
+			{% for form in form_col_3 %}
+            <li class="widget color-white">  
+                <div class="widget-head">
+                    <h3>{{ form['renderTitle']|raw }}</h3>
+                </div>
+				<div class="edit-box" style="display:none;">
+					{{ form['renderForm']|raw }}
+					
+					{{ form['renderScript']|raw }}
+				</div>                     
+                <div class="widget-content">
+                    <p>{{ form['renderDescriptif']|raw }}</p>
+                </div>
+            </li>
+             {% endfor %}
+        </ul>
+        
+</div>

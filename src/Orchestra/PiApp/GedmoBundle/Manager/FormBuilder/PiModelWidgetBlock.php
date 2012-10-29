@@ -1,0 +1,335 @@
+<?php
+/**
+ * This file is part of the <Admin> project.
+ *
+ * @category   Admin_Managers
+ * @package    Page
+ * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @since 2012-09-11
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+namespace PiApp\GedmoBundle\Manager\FormBuilder;  
+
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Form\FormBuilder;
+use PiApp\AdminBundle\Manager\PiFormBuilderManager;
+use Doctrine\ORM\EntityRepository;
+        
+/**
+* Description of the Form builder manager
+*
+* @category   Admin_Managers
+* @package    Page
+*
+* @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+*/
+class PiModelWidgetBlock extends PiFormBuilderManager
+{
+	/**
+	 * Type form name.
+	 */
+	const FORM_TYPE_NAME = 'symfony';
+	
+	/**
+	 * Template form name.
+	 */
+	const FORM_DECORATOR = 'model_form_builder.html.twig';	
+	
+	/**
+	 * Form name.
+	 */
+	const FORM_NAME = 'myform';	
+	
+	/**
+	 * Constructor.
+	 *
+	 * @param \Symfony\Component\DependencyInjection\ContainerInterface
+	 * 
+	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 */
+	public function __construct(ContainerInterface $containerService)
+	{
+		parent::__construct($containerService, 'WIDGET', 'block', $this::FORM_TYPE_NAME, $this::FORM_DECORATOR, $this::FORM_NAME);
+	}
+	
+	/**
+	 * Return list of available content types for all type pages.
+	 *
+	 * @param  array	$options
+	 * @return array
+	 * @access public
+	 * @static
+	 *
+	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @since 2012-09-11
+	 */
+	public static function getContents()
+	{
+		return array(
+				PiFormBuilderManager::CONTENT_RENDER_TITLE	=> "Widget Block",
+				PiFormBuilderManager::CONTENT_RENDER_DESC   => "Create a block",
+		);
+	}
+
+	/**
+	 * Chargement du template de formulaire.
+	 *
+	 * @access protected
+	 * @return string
+	 *
+	 * @author (c) Etienne de Longeaux <etienne_delongeaux@hotmail.com>
+	 * @since 2012-09-11
+	 */	
+    public function buildForm(FormBuilder $builder, array $options)
+    {   
+    	$query		= $this->_em->getRepository("PiAppGedmoBundle:Block")->getAllByCategory('', null, "DESC", '', true)->getQuery();
+    	$choiceList = $this->_em->getRepository("PiAppGedmoBundle:Block")->findTranslationsByQuery($this->_locale, $query, 'object', false);
+    	
+    	$result = array();
+    	if(is_array($choiceList)) {
+    		foreach ($choiceList as $key => $field) {
+    			$title = $field->getTitle();
+    			if(!empty($title) && is_object($field->getCategory()))
+    				$result[ $field->getId() ] = $field->getCategory()->getName() .  " >> " . $field->getTitle() . ' ('.$field->getId().')';
+    			elseif(!empty($title))
+    				$result[ $field->getId() ] = $field->getTitle() . ' ('.$field->getId().')';
+    		}
+    	}
+
+        $builder
+	        ->add('choice', 'choice', array(
+	        		'choices'   => array("insert"=>"Insert", "create"=>"Create"),
+	        		'data'  => "insert",
+	        		'required'  => false,
+	        		'multiple'	=> false,
+	        		'expanded' => true,
+	        		"label_attr" => array(
+	        				"class"=>"select_choice",
+	        		),
+	        ))
+        	->add('id_block', 'choice', array(
+	        		'choices'   => $result,
+			        'multiple'	=> false,
+			        'required'  => true,
+			        'empty_value' => 'Choice a block',
+			        "attr" => array(
+			        		"class"=>"pi_simpleselect",
+		        	),
+        			"label_attr" => array(
+        					"class"=>"insert_collection",
+        			),        			
+	        ))
+        	->add('template', 'choice', array(
+	        		'choices'   => array(
+	        				'_tmp_show-block-descriptif.html.twig'		=> 'pi.block.formbuilder.template.choice0',
+	        				'_tmp_show-block-testimonial.html.twig'		=> 'pi.block.formbuilder.template.choice1',
+	        				'_tmp_show-block-video.html.twig.twig'		=> 'pi.block.formbuilder.template.choice2',
+	        		),
+	        		'multiple'	=> false,
+	        		'required'  => true,
+	        		'empty_value' => 'Choose a template',
+	        		"attr" => array(
+	        				"class"=>"pi_simpleselect",
+	        		),
+	        ))
+	        ->add('category', 'entity', array(
+	        		'class' => 'PiAppGedmoBundle:Category',
+	        		'property' => 'name',
+	        		'empty_value' => 'Choose an option',
+	        		'multiple'	=> false,
+	        		'required'  => false,
+	        		"attr" => array(
+	        				"class"=>"pi_simpleselect",
+	        		),
+	        		"label_attr" => array(
+	        				"class"=>"block_collection",
+	        		),
+	        ))
+	        ->add('title', 'text', array(
+	        		"label_attr" => array(
+	        				"class"=>"block_collection",
+	        		),
+	        ))
+	        ->add('descriptif', 'textarea', array(
+	        		'label'	=> 'pi.form.label.field.description',
+	        		"label_attr" => array(
+	        				"class"=>"block_collection",
+	        		),
+	        ))
+	        ->add('content', 'textarea', array(
+	        		'required'  => false,
+	        		"attr" => array(
+	        				"class"	=>"pi_editor",
+	        		),
+	        		"label_attr" => array(
+	        				"class"=>"block_collection",
+	        		),
+	        ))
+	        ->add('author', 'text', array(
+	        		'required'  => false,
+	        		"label_attr" => array(
+	        				"class"=>"block_collection",
+	        		),
+	        ))
+	        ;
+    }
+	
+	/**
+	 * Sets JS script.
+	 *
+	 * @param	array $options
+	 * @access public
+	 * @return void
+	 *
+	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 */
+	public function renderScript(array $option) {
+		// We open the buffer.
+		ob_start ();
+		?>
+			<script type="text/javascript">
+			// <![CDATA[
+			jQuery(document).ready(function(){		
+				var  create_content_form  = $(".block_collection");
+				var  insert_content_form  = $(".insert_collection");
+
+				create_content_form.parents('.clearfix').hide();
+
+				$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_id_block").attr("required", "required");
+				$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_title").removeAttr("required");
+				$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_descriptif").removeAttr("required");
+
+				$("input[id='piappgedmobundlemanagerformbuilderpimodelwidgetblock_choice_insert']").change(function () {
+					if($(this).is(':checked')){
+						create_content_form.parents('.clearfix').hide();
+						insert_content_form.parents('.clearfix').show();
+
+						$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_id_block").attr("required", "required");
+						$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_title").removeAttr("required");
+						$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_descriptif").removeAttr("required");
+					}else{
+						create_content_form.parents('.clearfix').show();
+						insert_content_form.parents('.clearfix').hide();
+
+						$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_id_block").removeAttr("required");
+						$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_title").attr("required", "required");
+						$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_descriptif").attr("required", "required");
+					}
+		       	});
+				$("input[id='piappgedmobundlemanagerformbuilderpimodelwidgetblock_choice_create']").change(function () {
+					if($(this).is(':checked')){
+						create_content_form.parents('.clearfix').show();
+						insert_content_form.parents('.clearfix').hide();
+
+						$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_id_block").removeAttr("required");
+						$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_title").attr("required", "required");
+						$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_descriptif").attr("required", "required");
+					}else{
+						create_content_form.parents('.clearfix').hide();
+						insert_content_form.parents('.clearfix').show();
+
+						$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_id_block").attr("required", "required");
+						$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_title").removeAttr("required");
+						$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_descriptif").removeAttr("required");
+					}
+		       	});
+		       			       	
+			});
+			// ]]>
+			</script> 
+		<?php
+		// We retrieve the contents of the buffer.
+		$_content = ob_get_contents ();
+		// We clean the buffer.
+		ob_clean ();
+		// We close the buffer.
+		ob_end_flush ();
+		
+		return $_content;
+	}				
+	
+	/**
+	 *
+	 *
+	 * @access public
+	 * @return void
+	 *
+	 * @author (c) Etienne de Longeaux <etienne_delongeaux@hotmail.com>
+	 * @since 2012-09-11
+	 */
+	public function preEventBindRequest(){
+		$this->_createentity	= 	new  \PiApp\GedmoBundle\Entity\Block();
+		//$this->_form    		= $this->container->get('form.factory')->create(new PiModelWidgetBlock($this->container));
+	}	
+
+	/**
+	 *
+	 *
+	 * @access public
+	 * @return void
+	 *
+	 * @author (c) Etienne de Longeaux <etienne_delongeaux@hotmail.com>
+	 * @since 2012-09-11
+	 */
+	public function preEventActionForm(array $data){
+		if($data["choice"] == "create"){
+			$this->_createentity->setEnabled(true);
+			$this->_createentity->setCategory($this->_data['category']);
+			$this->_createentity->setTitle($this->_data['descriptif']);
+			$this->_createentity->setDescriptif($this->_data['descriptif']);
+			$this->_createentity->setContent($this->_data['content']);
+			$this->_createentity->setAuthor($this->_data['author']);
+			$this->_createentity->setPublishedAt(new \DateTime());
+			$this->_createentity->setCreatedAt(new \DateTime());
+				
+			$this->_createentity->setTranslatableLocale($this->_locale);
+			$this->_em->persist($this->_createentity);
+			$this->_em->flush();
+				
+			$this->_data['id_block'] = $this->_createentity->getId();
+		}
+	}
+	
+	/**
+	 *
+	 *
+	 * @access public
+	 * @return void
+	 *
+	 * @author (c) Etienne de Longeaux <etienne_delongeaux@hotmail.com>
+	 * @since 2012-09-11
+	 */
+	public function postEventActionForm(array $data){}	
+	
+	/**
+	 *
+	 *
+	 * @access public
+	 * @return array		Xml config in array format.
+	 *
+	 * @author (c) Etienne de Longeaux <etienne_delongeaux@hotmail.com>
+	 * @since 2012-09-11
+	 */
+	public function XmlConfigWidget(array $data)
+	{
+		return
+		array(
+				'plugin'	=> 'gedmo',
+				'action'	=> 'listener',
+				'xml' 		=> Array (
+						"widgets" 	=> Array (
+								"gedmo"		=> Array (
+										"controller"	=> 'PiAppGedmoBundle:Block:_template_show',
+										"params"		=> Array (
+												"id" 		=> $data['id_block'],
+												"template"	=> $data['template']
+										)
+								)
+						)
+				),
+		);
+	}	
+
+}

@@ -1,0 +1,73 @@
+	<table class="grid">
+		<caption>Translation de page</caption>
+	    <tbody>
+	        <tr>
+	            <th>Id</th>
+	            <td>{{ entity.id }}</td>
+	        </tr>
+	        <tr>
+	            <th>Cacheable</th>
+	            <td>{{ entity.cacheable }}</td>
+	        </tr>
+	        <tr>
+	            <th>Public</th>
+	            <td>{{ entity.public }}</td>
+	        </tr>
+	        <tr>
+	            <th>Lifetime</th>
+	            <td>{{ entity.lifetime }}</td>
+	        </tr>
+	        <tr>
+	            <th>Route_name</th>
+	            <td>
+            		<a href="{{ path_url(entity.routeName, {'locale':app.session.locale}) }}" target="_blank" title="{{ path_url(entity.routeName, {'locale':app.session.locale}) }}" class="info-tooltip">
+            			{{ entity.routeName }}
+            		</a>
+	            	<input type="hidden" id="piapp_adminbundle_pagetype_route_name" name="piapp_adminbundle_pagetype[route_name]"  value="{{ entity.routename }}">
+	            </td>
+	        </tr>
+	        <tr>
+	            <th>Url</th>
+	            <td>{{ entity.url }}</td>
+	        </tr>
+	        <tr>
+	            <th>Meta_content_type</th>
+	            <td>{{ entity.metacontenttype }}</td>
+	        </tr>
+	        <tr>
+	            <th>Enabled</th>
+	            <td>{{ entity.enabled }}</td>
+	        </tr>
+	    </tbody>
+	</table>
+
+	{% if is_granted('ROLE_ALLOWED_TO_SWITCH') %}
+	<ul class="record_actions">
+	    <li>
+	        <form action="{{ path('admin_pagebytrans') }}" method="post">
+	            <button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
+	        </form>	        
+	    </li>
+	    <li>
+	        <form action="{{ path('admin_pagebytrans_edit', { 'id': entity.id, 'NoLayout':NoLayout }) }}" method="post">
+	            <button type="submit">{{ 'pi.grid.action.edit'|trans }}</button>
+	        </form>	        
+	    </li>
+	    <li>
+	        <form action="{{ path('admin_pagebytrans_delete', { 'id': entity.id }) }}" method="post">
+	            {{ form_widget(delete_form) }}
+	            <button type="submit">{{ 'pi.grid.action.delete'|trans }}</button>
+	        </form>
+	    </li>
+	</ul>
+	
+	{% render "PiAppAdminBundle:TranslationPage:index" with {'page': entity.id} %}
+	
+	<script type="text/javascript">
+	//<![CDATA[
+		$(document).ready(function() {
+			$("button[type='submit']").button();
+		});
+	//]]>
+	</script>	
+	{% endif %}

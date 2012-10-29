@@ -1,0 +1,44 @@
+<div id="novActivity"> 
+	<h1>Category list</h1>
+		
+	<div class="novActivityCore">
+		<br>
+	    {% for entity in entities %}
+			<div class="novArticleResume">
+
+				<div class="novArticlePicture">
+					<div class="imageleft">
+			            <a href="#" title="">
+			                {% media entity.image, 'default_small' %}
+    				    </a>    
+		            </div>
+				</div>
+				
+				<div class="novArticleTitle">
+					<a href="#" style="text-decoration:none;" title="">
+						<h3>{{ entity.translate(locale).getDescriptif()|replace({'<p>': '', '</p>': ''})|raw }}</h3>
+					</a>
+				</div> 
+				
+		        <div class="novArticleLegend legend">
+	        	  Le :
+	        	  {% if entity.publishedat %}
+	        	  	{{ entity.publishedat|date('Y/m/d') }}
+	        	  {% else %}
+	        	  	{% if entity.createdat %}
+	        	  		{{ entity.createdat|date('Y/m/d') }}
+	        	  	{% endif%}
+	        	  {% endif%}
+				</div>
+						
+				<div class="novArticleText">
+					<a href="#" title="">
+						{{ entity.translate(locale).getContent()|limite('0', 210)|replace({'<p>': '', '</p>': ''})|raw }}
+					</a>
+				</div>
+				
+			</div>	        
+	    {% endfor %}
+	</div>
+	    
+</div>
