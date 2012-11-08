@@ -14,10 +14,10 @@ The bundle has been split into 2 directories :
 **BootStrap**
 
 ``` bash
-* AclManagerBundle : A bundle which provides classes to run ACL Manager's utilities for Symfony2
+* AclManagerBundle : A bundle which provides classes to run ACL Manager\'s utilities for Symfony2
 * AdminBundle : A bundle which overload the SonataAdminBundle
 * CacheBundle : A bundle which provides classes to cache handlers (memcache, files)
-* DatabaseBundle : A bundle which provides classes and commands to run DB vendor's utilities to backup and restore databases. 
+* DatabaseBundle : A bundle which provides classes and commands to run DB vendor\'s utilities to backup and restore databases. 
 * FacebookBundle : A bundle which provides a factory of classes allowing to work and develop utilities of facebook API.
 * GoogleBundle : A bundle which provides a factory of classes allowing to work and develop utilities of google API.
 * MediaBundle : A bundle which overload the SonataMediaBundle.
