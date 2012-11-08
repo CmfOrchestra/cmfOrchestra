@@ -12,6 +12,10 @@
             <tag name="form.type" alias="bootstrap_security_permissions" />
             <argument type="service" id="sonata.admin.pool" />
         </service>
+        <service id="sonata.user.form.type.routes" class="BootStrap\AdminBundle\Form\Type\RoutesType">
+            <tag name="form.type" alias="bootstrap_routes" />
+            <argument type="service" id="sonata.admin.pool" />
+        </service>        
     </services>
 
 </container>

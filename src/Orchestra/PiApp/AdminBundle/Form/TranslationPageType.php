@@ -14,6 +14,7 @@ namespace PiApp\AdminBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 use PiApp\AdminBundle\Repository\TranslationPageRepository;
 use Doctrine\ORM\EntityRepository;
@@ -28,14 +29,52 @@ use Doctrine\ORM\EntityRepository;
  */
 class TranslationPageType extends AbstractType
 {
+	/**
+	 * @var \Symfony\Component\DependencyInjection\ContainerInterface
+	 */
+	protected $_container;
+	
+	/**
+	 * @var string
+	 */
+	protected $_locale;	
+	
+	/**
+	 * Constructor.
+	 *
+	 * @param \Doctrine\ORM\EntityManager $em
+	 * @return void
+	 */
+	public function __construct($locale, ContainerInterface $container)
+	{
+		$this->_container 	= $container;
+		$this->_locale		= $locale;
+	}	
+		
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-            ->add('enabled')
+            ->add('enabled', 'checkbox', array(
+        			'data'  => true,
+        			'label'	=> 'pi.form.label.field.enabled',
+        	))
+        	->add('secure', 'checkbox', array(
+        			'label'	=> 'pi.page.form.secure',
+        			'required' => false,
+        	))
+        	->add('heritage', 'bootstrap_security_roles', array(
+        			'multiple' => true,
+        			'required' => false,
+        			'label'	=> 'pi.page.form.heritage'
+        	))
+        	->add('indexable', 'hidden', array(
+        			'label'	=> 'pi.page.form.indexable',
+        			'required' => false,
+        	))        	
         	->add('published_at', 'date', array(
 	        		'widget' => 'single_text', // choice, text, single_text
 	        		'input' => 'datetime',
-	        		'format' => 'MM/dd/yyyy',
+	        		'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
 	        		//'empty_value' => array('year' => 'Année', 'month' => 'Mois', 'day' => 'Jour'),
 	        		//'pattern' => "{{ day }}/{{ month }}/{{ year }}",
 	        		//'data_timezone' => "Europe/Paris",
@@ -48,7 +87,7 @@ class TranslationPageType extends AbstractType
 	        ->add('archive_at', 'date', array(
 	        		'widget' => 'single_text', // choice, text, single_text
 	        		'input' => 'datetime',
-	        		'format' => 'MM/dd/yyyy',
+	        		'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction("fr_FR"),// 'dd/MM/yyyy', 'MM/dd/yyyy',
 	        		//'empty_value' => array('year' => 'Année', 'month' => 'Mois', 'day' => 'Jour'),
 	        		//'pattern' => "{{ day }}/{{ month }}/{{ year }}",
 	        		//'data_timezone' => "Europe/Paris",
@@ -60,6 +99,7 @@ class TranslationPageType extends AbstractType
 	        ))
         	->add('langCode', 'entity', array(
 					'class' => 'PiAppAdminBundle:Langue',
+        			"label"	=> "pi.form.label.field.language",
         			"attr" => array(
         					"class"=>"pi_simpleselect",
         			),        	
@@ -72,39 +112,47 @@ class TranslationPageType extends AbstractType
 //             ))            
             ->add('status', 'choice', array(
             		'choices'   => TranslationPageRepository::getAvailableStatus(),
+            		'label'	=> 'pi.page.form.status',
             		'required'  => true,
             		'multiple'	=> false,
             		'expanded' => true,
             ))     
-            ->add('secure')
-            ->add('heritage', 'bootstrap_security_roles', array( 'multiple' => true, 'required' => false))
-            ->add('indexable')
             ->add('tags', 'entity', array(
             		'class' => 'PiAppAdminBundle:Tag',
             		'query_builder' => function(EntityRepository $er) {
-            		return $er->createQueryBuilder('k')
-            		->select('k')
-            		->where('k.enabled = :enabled')
-            		->orderBy('k.groupname', 'ASC')
-            		->setParameter('enabled', 1);
+	            		return $er->createQueryBuilder('k')
+	            		->select('k')
+	            		->where('k.enabled = :enabled')
+	            		->orderBy('k.groupname', 'ASC')
+	            		->setParameter('enabled', 1);
 		            },
 		            'multiple'	=> true,
 		            'required'  => false,
+		            'label'	=> 'pi.page.form.tags',
 		            "attr" => array(
 		            		"class"=>"pi_multiselect",
 		            ),
             ))
-            ->add('breadcrumb')
-            ->add('slug')
-            ->add('meta_title')
-            ->add('meta_keywords')
-            ->add('meta_description')
-//             ->add('surtitre')
-//             ->add('titre')
-//             ->add('soustitre')
-//             ->add('descriptif')
-//             ->add('chapo')
-//             ->add('ps')
+            ->add('breadcrumb', 'hidden', array(
+            		'label'	=> 'pi.page.form.breadcrumb',
+            		'required' => false,
+            ))
+            ->add('slug', 'text', array(
+            		'label'	=> 'pi.page.form.slug',
+            		'required' => false,
+            ))
+            ->add('meta_title', 'text', array(
+            		"label" => "pi.form.label.field.meta_title",
+            		'required' => false,
+            ))
+            ->add('meta_keywords', 'text', array(
+            		"label" => "pi.form.label.field.meta_keywords",
+            		'required' => false,
+            ))
+            ->add('meta_description', 'text', array(
+            		"label" => "pi.form.label.field.meta_description",
+            		'required' => false,
+            ))
         ;
     }
 

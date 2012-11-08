@@ -60,7 +60,8 @@ class OrganigramType extends AbstractType
 	            		return $er->getAllPageHtml();
 		            },
 		            'property' => 'route_name',
-		            'empty_value' => 'Choose an option',
+		            'empty_value' => 'pi.form.label.select.choose.option',
+		            "label" 	=> "pi.form.label.field.url",
 		            'multiple'	=> false,
 		            'required'  => false,
 		            "attr" => array(
@@ -71,13 +72,14 @@ class OrganigramType extends AbstractType
 	        		'choices'   => $choiceList,
 			        'multiple'	=> false,
 			        'required'  => false,
-			        'empty_value' => 'Choose a type',
+			        'empty_value' => 'pi.form.label.select.choose.category',
+	        		'label'	=> "pi.form.label.field.category",
 			        "attr" => array(
 			        		"class"=>"pi_simpleselect",
 		        	),
 	        ))
 	        ->add('categoryother', 'text', array(
-	        		'label'=>'ou',
+	        		"label" 	=> "pi.form.label.field.or",
 	        		'required'  => false,
 	        ))           
  			->add('parent', 'entity', array(
@@ -87,17 +89,22 @@ class OrganigramType extends AbstractType
 		        		->select('k')
 		        		->orderBy('k.lft', 'ASC');
 			        },
-			        'empty_value' => 'Choose an option',
+			        'empty_value' => 'pi.form.label.select.choose.option',
 			        'multiple'	=> false,
 			        'required'  => false,
 			        "attr" => array(
 			        		"class"=>"pi_simpleselect",
 			        ),
 	        ))
-	        ->add('title')
-	        ->add('descriptif')
+	        ->add('title', 'text', array(
+ 					'label'	=> "pi.form.label.field.title",
+ 			))            
+ 			->add('descriptif', 'textarea', array(
+ 					'label'	=> 'pi.form.label.field.description',
+ 			))   
 	        ->add('question')
 	        ->add('content', 'textarea', array(
+	        		'label'	=> "pi.form.label.field.content",
 	        		"attr" => array(
 	        				"class"	=>"pi_editor",
 	        		),

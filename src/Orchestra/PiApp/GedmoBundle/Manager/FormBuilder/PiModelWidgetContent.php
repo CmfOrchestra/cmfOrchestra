@@ -68,7 +68,7 @@ class PiModelWidgetContent extends PiFormBuilderManager
 	{
 		return array(
 				PiFormBuilderManager::CONTENT_RENDER_TITLE	=> "Widget Content",
-				PiFormBuilderManager::CONTENT_RENDER_DESC   => "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam magna sem, fringilla in, commodo a, rutrum ut, massa. Donec id nibh eu dui auctor tempor. Morbi laoreet eleifend dolor. Suspendisse pede odio, accumsan vitae, auctor non, suscipit at, ipsum. Cras varius sapien vel lectus.",
+				PiFormBuilderManager::CONTENT_RENDER_DESC   => "Call for inserting or creating a content.",
 		);
 	}
 
@@ -86,11 +86,16 @@ class PiModelWidgetContent extends PiFormBuilderManager
     	$query		= $this->_em->getRepository("PiAppGedmoBundle:Content")->getAllByCategory('', null, "DESC", '', true)->getQuery();
     	$choiceList = $this->_em->getRepository("PiAppGedmoBundle:Content")->findTranslationsByQuery($this->_locale, $query, 'object', false);
     	
-    	$result = array();
+    	$result 	= array();
+    	$categories = array();
     	if(is_array($choiceList)) {
     		foreach ($choiceList as $key => $field) {
     			$desc = $field->getDescriptif();
     			$cat  = $field->getCategory();
+    			
+    			if(!empty($cat))
+    				$categories[ $cat ] = $cat;
+    			
     			if(!empty($desc) && !empty($cat))
     				$result[ $field->getId() ] = $field->getCategory() .  " >> " . $field->getDescriptif() . ' ('.$field->getId().')';
     			elseif(!empty($desc))
@@ -105,6 +110,7 @@ class PiModelWidgetContent extends PiFormBuilderManager
             		'required'  => false,
             		'multiple'	=> false,
             		'expanded' => true,
+        			'label'	=> "pi.form.label.field.choice",
         			"label_attr" => array(
         					"class"=>"select_choice",
         			),
@@ -113,7 +119,7 @@ class PiModelWidgetContent extends PiFormBuilderManager
 	        		'choices'   => $result,
 			        'multiple'	=> false,
 			        'required'  => false,
-			        'empty_value' => 'Choice a content',
+			        'empty_value' => 'pi.form.label.select.choose.content',
 			        "attr" => array(
 			        		"class"=>"pi_simpleselect",
 		        	),
@@ -137,24 +143,26 @@ class PiModelWidgetContent extends PiFormBuilderManager
 	        		"attr" => array(
 	        				"class"=>"pi_simpleselect",
 	        		),
+        			'empty_value' => 'pi.form.label.select.choose.template',
         			"label_attr" => array(
         					"class"=>"select_choice",
         			),
 	        ))
 	        ->add('category', 'choice', array(
-	        		'choices'   => $choiceList,
+	        		'choices'   => $categories,
 			        'multiple'	=> false,
 			        'required'  => false,
-			        'empty_value' => 'Choose a type',
+			        'empty_value' => 'pi.form.label.select.choose.category',
 			        "attr" => array(
 			        		"class"=>"pi_simpleselect",
 		        	),
+	        		'label'	=> "pi.form.label.field.category",
 	        		"label_attr" => array(
 	        				"class"=>"content_collection",
 	        		),
 	        ))
 	        ->add('categoryother', 'text', array(
-	        		'label'=>'ou',
+	        		'label'=>'pi.form.label.field.or',
 	        		'required'  => false,
 	        		"label_attr" => array(
 	        				"class"=>"content_collection",
@@ -171,6 +179,7 @@ class PiModelWidgetContent extends PiFormBuilderManager
             				"class"	=>"pi_editor",
             		),
  					'required'  => false,
+ 					'label'	=> "pi.form.label.field.content",
  					"label_attr" => array(
  							"class"=>"content_collection",
  					),

@@ -127,6 +127,7 @@ class PiToolExtension extends \Twig_Extension
 				'metas_page'				=> new \Twig_Function_Method($this, 'getMetaPageFunction'),
 				'title_page'				=> new \Twig_Function_Method($this, 'getTitlePageFunction'),
 				'picture_form'				=> new \Twig_Function_Method($this, 'getPictureFormFunction'),
+				'get_pattern_by_local'		=> new \Twig_Function_Method($this, 'getDatePatternByLocalFunction'),				
 		);
 	}
 	
@@ -134,7 +135,71 @@ class PiToolExtension extends \Twig_Extension
 	/**
 	 * Functions
 	 */
+	
+	/**
+	 * translation of date.
+	 *
+	 * @author (c) <riad hellal> <r.helal@novediagroup.com>
+	 */
+	public function getDatePatternByLocalFunction($locale, $dir='/web/bundles/piappadmin/js/wijmo/external/cultures/', $fileName = 'cultures_date.json')
+	{
+		// $isGood = $this->updateCulturesJsFilesFunction($dir, $fileName);
 		
+		$dates 		= array();
+		$root_file  = $this->container->get("kernel")->getRootDir() .'/../'. $dir . $fileName;
+		$dates		= json_decode(file_get_contents($root_file));
+	
+		if(isset($dates->{$locale}))
+			return $dates->{$locale};
+		else
+			return $dates->{'en_GB'};
+	}
+	
+	/**
+	 * parsing translaion js files.
+	 *
+	 * @author (c) <riad hellal> <r.helal@novediagroup.com>
+	 */
+	private function updateCulturesJsFilesFunction($dir='/web/bundles/piappadmin/js/wijmo/external/cultures/', $fileName = 'cultures_date.json')
+	{
+		$root_dir = $this->container->get("kernel")->getRootDir() .'/../'. $dir;
+	
+		$MyDirectory = opendir($root_dir) or die('Erreur');
+		$fp = fopen($root_dir.$fileName, 'w');
+		while($Entry = @readdir($MyDirectory)) {
+			if($Entry != '.' && $Entry != '..') {
+				$ch = file_get_contents($root_dir.$Entry, FILE_USE_INCLUDE_PATH);
+					
+				preg_match('/Globalize.addCultureInfo\(((.+)\})\);/is', $ch, $match);
+	
+				$strm = $match[1];
+				preg_match('/(.+), (\{(.+)\})/is', $strm, $tabres);
+				$str = $tabres[2];
+				preg_match('/d: \"(.+)\"/', $str, $es);
+	
+				$tabln =  explode( ',', $tabres[1] ) ;
+				if($es){
+					$ln =  trim(str_replace('"', '', $tabln[0])) ;
+					$ln =  str_replace('-', '_', $ln) ;
+					$posts[$ln] =  $es[1];
+	
+				}
+					
+			}
+		}
+	
+		fwrite($fp, json_encode($posts));
+		fclose($fp);
+		closedir($MyDirectory);
+			
+		return true;
+	}	
+		
+	/**
+	 * moving an image.
+	 *
+	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 */
 	public function getPictureFormFunction($media, $nameForm, $format = 'reference', $style = "display: block; text-align:center;margin: 30px auto;") {
 		if($media instanceof \BootStrap\MediaBundle\Entity\Media){
 			$id 		= $media->getId();
@@ -158,6 +223,11 @@ class PiToolExtension extends \Twig_Extension
 		}
 	}	
 		
+	/**
+	 * Creating a link.
+	 *
+	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 */	
 	public function linkFunction( $label, $path, $options = array() ) {
 		$attributes = '';
 		foreach( $options as $key=>$value )
@@ -166,6 +236,11 @@ class PiToolExtension extends \Twig_Extension
 		return '<a href="' . $path . '"' . $attributes . '>' . $label . '</a>';
 	}
 	
+	/**
+	 * Return the $returnTrue value if the route of the page is include in $paths value, else return the $returnFalse value.
+	 *
+	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 */	
 	public function inPathsFunction($paths, $returnTrue = '', $returnFalse = '')
 	{
 		$route = (string) $this->container->get('request')->get('_route');
@@ -189,6 +264,11 @@ class PiToolExtension extends \Twig_Extension
 		}
 	}	
 	
+	/**
+	 * Return the image flag of a country.
+	 *
+	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 */	
 	public function getImgFlagByCountryFunction($country, $type ="img", $taille="16")
 	{
 		$locale				= $this->container->get('session')->getLocale();
@@ -214,6 +294,11 @@ class PiToolExtension extends \Twig_Extension
         
 	}	
 	
+	/**
+	 * Return the meta title of a page.
+	 *
+	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 */	
 	public function getTitlePageFunction($title)
 	{
 		if(empty($title))
@@ -265,6 +350,11 @@ class PiToolExtension extends \Twig_Extension
 		}
 	}
 	
+	/**
+	 * Return the metas of a page.
+	 *
+	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 */	
 	public function getMetaPageFunction(array $options)
 	{
 		// we get the param.

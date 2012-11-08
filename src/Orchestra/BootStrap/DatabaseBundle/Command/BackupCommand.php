@@ -22,8 +22,8 @@ use Symfony\Component\Console\Input\InputOption;
  * Command to create a new backup of the database.
  *
  * <code>
- * 		php app/console pi:database:backup C:\xampp\htdocs\symf_orchestra\app\cache\Backup doctrine_backup_database-symforchestra_default.sql
- * 		php app/console pi:database:backup /home/www/orchestra/app/cache/Backup
+ * 		php app/console orchestra:database:backup C:\xampp\htdocs\symf_orchestra\app\cache\Backup doctrine_backup_database-symforchestra_default.sql
+ * 		php app/console orchestra:database:backup /home/www/orchestra/app/cache/Backup
  * </code>
  *
  * @category   Bootstrap_Command
@@ -36,7 +36,7 @@ class BackupCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('pi:database:backup')
+            ->setName('orchestra:database:backup')
             ->setDefinition(array(
                 new InputArgument('path', InputArgument::OPTIONAL, 'The directory where the backup file will be saved.'),
                 new InputArgument('filename', InputArgument::OPTIONAL, 'The name for the backup file.')
@@ -49,7 +49,7 @@ to generate a backup from is supported.
 
 An example of usage of the command:
 
-<info>./app/console pi:database:backup "my-connection-service-id" "/var/tmp" [my_sql_file_name.sql]</info>
+<info>./app/console orchestra:database:backup "my-connection-service-id" "/var/tmp" [my_sql_file_name.sql]</info>
 
 EOT
             )

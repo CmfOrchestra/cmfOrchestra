@@ -22,7 +22,7 @@
         	$entity->addTranslation(new {{ entity }}Translation($locale));            
         }
 
-        $editForm   = $this->createForm(new {{ entity_class }}Type($em, $locale), $entity, array('show_legend' => false));
+        $editForm   = $this->createForm(new {{ entity_class }}Type($em, $this->container), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
 
 {% if 'annotation' == format %}

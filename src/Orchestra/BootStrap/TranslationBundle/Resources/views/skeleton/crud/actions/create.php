@@ -18,7 +18,7 @@
     
         $entity  = new {{ entity_class }}();
         $request = $this->getRequest();
-        $form    = $this->createForm(new {{ entity_class }}Type($em, $locale), $entity, array('show_legend' => false));
+        $form    = $this->createForm(new {{ entity_class }}Type($em, $this->container), $entity, array('show_legend' => false));
         $form->bindRequest($request);
 
         if ($form->isValid()) {

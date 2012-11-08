@@ -1,0 +1,73 @@
+# pi :: dashboard
+pi.dashboard.search: Recherche
+pi.dashboard.myaccount: Mon Compte
+pi.dashboard.logout: Déconnexion
+
+pi.dashboard.common.view_all: Voir tous
+pi.dashboard.common.new: Nouveau
+
+pi.dashboard.menu1.title: Tableau de bord 
+pi.dashboard.menu1.media_media: Media
+pi.dashboard.menu1.media_gallery: Galerie
+pi.dashboard.menu1.group_list: Groupes
+pi.dashboard.menu1.group_user: Utilisateurs
+pi.dashboard.menu1.group_role: Rôles
+pi.dashboard.menu1.group_permission: Permissions
+pi.dashboard.menu1.cms_historicalpage: Historiques de page
+
+pi.dashboard.menu2.title: CMS
+pi.dashboard.menu2.layout: Layout
+pi.dashboard.menu2.page: Page
+pi.dashboard.menu2.cssjs: Css/Js
+pi.dashboard.menu2.snippet: Snippet
+
+pi.dashboard.menu3.title: Données
+pi.dashboard.menu3.rubrique: Rubrique
+pi.dashboard.menu3.language: Langues
+pi.dashboard.menu3.tag: Tag
+pi.dashboard.menu3.keyword: Mots clé
+pi.dashboard.menu3.comment: Commentaire
+
+pi.dashboard.menu4.title: Widget
+pi.dashboard.menu4.page: Page
+pi.dashboard.menu4.content: Contenu
+pi.dashboard.menu4.menu: Menu
+pi.dashboard.menu4.slider: Slider
+pi.dashboard.menu4.organigram: Organigramme
+pi.dashboard.menu4.block: Bloc
+pi.dashboard.menu4.media: Media
+pi.dashboard.menu4.category: Catégorie
+
+# ENTITY :: MENU
+pi.menu.translation.title: Traductions de menu
+pi.menu.form.picture: Image
+pi.menu.form.group.pictures: Images
+
+# ENTITY :: ACTIVITY
+pi.activity.translation.title: Traductions d'activité
+
+# ENTITY :: ORGANIGRAM
+pi.organigram.translation.title: Traductions d'organigram
+pi.organigram.form.group.pictures: Images
+
+# ENTITY :: SLIDER
+pi.slider.translation.title: Traductions de slider
+pi.slider.template.more: en savoir plus
+pi.slider.form.group.pictures: Images
+
+# ENTITY :: BLOCK
+pi.block.formbuilder.template.choice0: Block descriptif 
+pi.block.formbuilder.template.choice1: BLock testimonial
+pi.block.formbuilder.template.choice2: BLock Video
+pi.block.form.group.pictures: Images
+
+# ENTITY :: CONTENT
+pi.content.translation.title: Traductions de contenu
+
+pi.content.formbuilder.template.choice0: Simple content
+pi.content.formbuilder.template.choice1: Content dans une balise P
+pi.content.formbuilder.template.choice2: Content dans une balise DIV
+pi.content.formbuilder.template.choice3: Content dans une balise SPAN
+pi.content.formbuilder.template.choice4: Content dans une balise H1
+pi.content.formbuilder.template.choice5: Content dans une balise H2
+pi.content.formbuilder.template.choice6: Content dans une balise H3

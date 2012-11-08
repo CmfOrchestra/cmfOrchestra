@@ -125,6 +125,10 @@ class Configuration implements ConfigurationInterface
 			    		->defaultValue(false)
 			    		->end()			    		
 
+			    	->booleanNode('switch_page_other_language_if_doesnt_exist')
+			    		->defaultValue(false)
+			    		->end()
+			    					    		
 			    	->booleanNode('switch_layout_mobile_authorized')
 			    		->defaultValue(false)
 			    		->end()

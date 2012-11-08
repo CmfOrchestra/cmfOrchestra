@@ -35,6 +35,13 @@ class TranslationWidgetsFixtures extends AbstractFixture implements OrderedFixtu
 	 */
     public function load(ObjectManager $manager)
     {
+    	$field2 = new TranslationWidget();
+    	$field2->setLangCode($this->getReference('lang-ar'));
+    	$field2->setWidget($this->getReference('widget-error'));
+    	$field2->setContent("القطعة غير موجودة!");
+    	$field2->setEnabled(true);
+    	$manager->persist($field2);
+    	    	
         $field3 = new TranslationWidget();
         $field3->setLangCode($this->getReference('lang-fr'));
         $field3->setWidget($this->getReference('widget-error'));
@@ -45,12 +52,13 @@ class TranslationWidgetsFixtures extends AbstractFixture implements OrderedFixtu
         $field4 = new TranslationWidget();
         $field4->setLangCode($this->getReference('lang-en'));
         $field4->setWidget($this->getReference('widget-error'));
-        $field3->setContent("The widget doesn't exist !");
+        $field4->setContent("The widget doesn't exist !");
         $field4->setEnabled(true);
         $manager->persist($field4);        
 
         $manager->flush();
         
+        $this->addReference('transwidget-error-ar-404', $field2);
         $this->addReference('transwidget-error-fr-404', $field3);
         $this->addReference('transwidget-error-en-404', $field4);
     }

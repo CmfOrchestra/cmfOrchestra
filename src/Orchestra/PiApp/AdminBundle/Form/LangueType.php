@@ -47,12 +47,13 @@ class LangueType extends AbstractType
         $builder
         	->add('enabled', 'checkbox', array(
             		'data'  => true,
-            )) 
+ 					'label'	=> 'pi.form.label.field.enabled',
+            ))
             ->add('id', 'choice', array(
             		'choices'   => \PiApp\AdminBundle\Util\PiStringManager::allLocales($this->_locale), //array('fr_FR'=>'fr', 'en_GB'=>'en'),
             		'multiple'	=> false,
             		'required'  => true,
-            		'empty_value' => 'Choose a type',
+            		'empty_value' => 'pi.form.label.select.choose.option',
             		"attr" => array(
             				"class"=>"pi_simpleselect",
             		),

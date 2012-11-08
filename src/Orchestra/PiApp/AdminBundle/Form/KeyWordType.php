@@ -50,21 +50,26 @@ class KeyWordType extends AbstractType
     		$choiceList = array();
     	    	
         $builder
-        	->add('enabled')
+        	->add('enabled', 'checkbox', array(
+            		'data'  => true,
+ 					'label'	=> 'pi.form.label.field.enabled',
+            ))
             ->add('groupname', 'choice', array(
             		'choices'   => $choiceList,
             		'multiple'	=> false,
             		'required'  => false,
-            		'empty_value' => 'Choose a type',
+            		'empty_value' => 'pi.form.label.select.choose.option',
             		"attr" => array(
             				"class"=>"pi_simpleselect",
             		),
             ))
             ->add('groupnameother', 'text', array(
-            		'label'=>'ou',
+            		"label" 	=> "pi.form.label.field.or",
             		'required'  => false,
             ))            
-            ->add('name')
+            ->add('name', 'text', array(
+ 				'label' => "pi.form.label.field.name"
+ 			))
         ;
     }
 

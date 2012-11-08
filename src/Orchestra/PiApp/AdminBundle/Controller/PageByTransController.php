@@ -169,11 +169,12 @@ class PageByTransController extends abstractController
      */
     public function newAction()
     {
+    	$locale	= $this->container->get('session')->getLocale();
     	$User   = $this->get('security.context')->getToken()->getUser();
     	$entity = new Page();
         $entity->setMetaContentType(PageRepository::TYPE_TEXT_HTML);
         $entity->setUser($User);
-        $form   = $this->createForm(new PageType($User->getRoles()), $entity, array('show_legend' => false));
+        $form   = $this->createForm(new PageType($locale, $User->getRoles(), $this->container), $entity, array('show_legend' => false));
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout)
@@ -202,12 +203,13 @@ class PageByTransController extends abstractController
      */
     public function createAction()
     {
+    	$locale	 = $this->container->get('session')->getLocale();
     	$User 	 = $this->get('security.context')->getToken()->getUser();
         $entity  = new Page();
         $entity->setMetaContentType(PageRepository::TYPE_TEXT_HTML);
         $entity->setUser($User);
         $request = $this->getRequest();
-        $form    = $this->createForm(new PageType($User->getRoles()), $entity, array('show_legend' => false));
+        $form    = $this->createForm(new PageType($locale, $User->getRoles(), $this->container), $entity, array('show_legend' => false));
         $form->bindRequest($request);
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
@@ -254,6 +256,7 @@ class PageByTransController extends abstractController
      */
     public function editAction($id)
     {
+    	$locale	= $this->container->get('session')->getLocale();
     	$User 	= $this->get('security.context')->getToken()->getUser();
         $em 	= $this->getDoctrine()->getEntityManager();
         $entity = $em->getRepository('PiAppAdminBundle:Page')->find($id);
@@ -268,7 +271,7 @@ class PageByTransController extends abstractController
             throw ControllerException::NotFoundException('Page');
         }
 
-        $editForm = $this->createForm(new PageType($User->getRoles()), $entity, array('show_legend' => false));
+        $editForm = $this->createForm(new PageType($locale, $User->getRoles(), $this->container), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
         
         return $this->render("PiAppAdminBundle:PageByTrans:$template", array(
@@ -290,6 +293,7 @@ class PageByTransController extends abstractController
      */
     public function updateAction($id)
     {
+    	$locale	= $this->container->get('session')->getLocale();
     	$User 	= $this->get('security.context')->getToken()->getUser();
         $em 	= $this->getDoctrine()->getEntityManager();
         $entity = $em->getRepository('PiAppAdminBundle:Page')->find($id);
@@ -304,7 +308,7 @@ class PageByTransController extends abstractController
             throw ControllerException::NotFoundException('Page');
         }
         
-        $editForm   = $this->createForm(new PageType($User->getRoles()), $entity, array('show_legend' => false));
+        $editForm   = $this->createForm(new PageType($locale, $User->getRoles(), $this->container), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
         $editForm->bindRequest($this->getRequest());
         

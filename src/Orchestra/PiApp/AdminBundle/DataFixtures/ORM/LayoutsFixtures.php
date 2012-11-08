@@ -70,7 +70,7 @@ class LayoutsFixtures extends AbstractFixture implements OrderedFixtureInterface
 	<blocks>
 		<name>pc_header</name>
 		<name>pc_menuwrapper</name>
-		<name>pc_content</name>
+		<name>content</name>
 		<name>pc_footer</name>
 		<name>mobile_novHeader</name>
 		<name>mobile_content</name>
@@ -89,7 +89,7 @@ class LayoutsFixtures extends AbstractFixture implements OrderedFixtureInterface
 	<blocks>
 		<name>pc_header</name>
 		<name>pc_menuwrapper</name>
-		<name>pc_content</name>
+		<name>content</name>
 		<name>pc_footer</name>
 		<name>mobile_novHeader</name>
 		<name>mobile_content</name>
@@ -108,7 +108,7 @@ class LayoutsFixtures extends AbstractFixture implements OrderedFixtureInterface
 	<blocks>
 		<name>pc_header</name>
 		<name>pc_menuwrapper</name>
-		<name>pc_content</name>
+		<name>content</name>
 		<name>pc_footer</name>
 		<name>mobile_novHeader</name>
 		<name>mobile_content</name>
@@ -127,7 +127,7 @@ class LayoutsFixtures extends AbstractFixture implements OrderedFixtureInterface
 	<blocks>
 		<name>pc_header</name>
 		<name>pc_menuwrapper</name>
-		<name>pc_content</name>
+		<name>content</name>
 		<name>pc_footer</name>
 		<name>mobile_novHeader</name>
 		<name>mobile_content</name>
@@ -146,7 +146,7 @@ class LayoutsFixtures extends AbstractFixture implements OrderedFixtureInterface
 	<blocks>
 		<name>pc_header</name>
 		<name>pc_menuwrapper</name>
-		<name>pc_content</name>
+		<name>content</name>
 		<name>pc_footer</name>
 		<name>mobile_novHeader</name>
 		<name>mobile_content</name>
@@ -165,8 +165,8 @@ class LayoutsFixtures extends AbstractFixture implements OrderedFixtureInterface
 	<blocks>
 		<name>pc_header</name>
 		<name>pc_menuwrapper</name>
-		<name>pc_content_secondaire</name>
-		<name>pc_content</name>
+		<name>content_secondaire</name>
+		<name>content</name>
 		<name>pc_footer</name>
 		<name>mobile_novHeader</name>
 		<name>mobile_content</name>
@@ -185,8 +185,8 @@ class LayoutsFixtures extends AbstractFixture implements OrderedFixtureInterface
 	<blocks>
 		<name>pc_header</name>
 		<name>pc_menuwrapper</name>
-		<name>pc_content</name>
-		<name>pc_content_secondaire</name>
+		<name>content</name>
+		<name>content_secondaire</name>
 		<name>pc_footer</name>
 		<name>mobile_novHeader</name>
 		<name>mobile_content</name>
@@ -205,8 +205,8 @@ class LayoutsFixtures extends AbstractFixture implements OrderedFixtureInterface
 	<blocks>
 		<name>pc_header</name>
 		<name>pc_menuwrapper</name>
-		<name>pc_content</name>
-        <name>pc_content_secondaire</name>
+		<name>content</name>
+        <name>content_secondaire</name>
 		<name>pc_footer</name>
 		<name>mobile_novHeader</name>
 		<name>mobile_content</name>
@@ -225,7 +225,7 @@ class LayoutsFixtures extends AbstractFixture implements OrderedFixtureInterface
 	<blocks>
 		<name>pc_header</name>
 		<name>pc_menuwrapper</name>
-		<name>pc_content</name>
+		<name>content</name>
 		<name>pc_footer</name>
 		<name>mobile_novHeader</name>
 		<name>mobile_content</name>
@@ -244,7 +244,7 @@ class LayoutsFixtures extends AbstractFixture implements OrderedFixtureInterface
 	<blocks>
 		<name>pc_header</name>
 		<name>pc_menuwrapper</name>
-		<name>pc_content</name>
+		<name>content</name>
 		<name>mobile_novHeader</name>
 		<name>mobile_content</name>
 		<name>mobile_novFooter</name>
@@ -262,7 +262,7 @@ class LayoutsFixtures extends AbstractFixture implements OrderedFixtureInterface
 	<blocks>
 		<name>pc_header</name>
 		<name>pc_menuwrapper</name>
-		<name>pc_content</name>
+		<name>content</name>
 		<name>pc_footer</name>
 		<name>mobile_novHeader</name>
 		<name>mobile_content</name>

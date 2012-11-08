@@ -70,7 +70,7 @@ class PiModelWidgetSnippet extends PiFormBuilderManager
 	{
 		return array(
 				PiFormBuilderManager::CONTENT_RENDER_TITLE	=> "Widget Snippet",
-				PiFormBuilderManager::CONTENT_RENDER_DESC   => "call for inserting a snippet",
+				PiFormBuilderManager::CONTENT_RENDER_DESC   => "Call for inserting a snippet.",
 		);
 	}
 
@@ -101,6 +101,7 @@ class PiModelWidgetSnippet extends PiFormBuilderManager
 	        		'required'  => false,
 	        		'multiple'	=> false,
 	        		'expanded' => true,
+	        		'label'	=> "pi.form.label.field.choice",
 	        		"label_attr" => array(
 	        				"class"=>"select_choice",
 	        		),
@@ -109,7 +110,7 @@ class PiModelWidgetSnippet extends PiFormBuilderManager
 	        		'choices'   => $result,
 			        'multiple'	=> false,
 			        'required'  => true,
-			        'empty_value' => 'Choice a content',
+			        'empty_value' => 'pi.form.label.select.choose.snippet',
 			        "attr" => array(
 			        		"class"=>"pi_simpleselect",
 		        	),

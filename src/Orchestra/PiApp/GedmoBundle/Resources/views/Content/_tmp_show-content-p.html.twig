@@ -2,7 +2,7 @@
 {% if entity.pageurl.getRouteName() is defined %}
 	{% set url = path_url(entity.pageurl.getRouteName(),{'locale':locale}) %}
 	<a href="{{ entity.url }}" >
-{% elseif entity.url is defined %}
+{% elseif entity.url is not empty %}
 	{% set url = entity.url %}
 	<a href="http://{{ entity.url|replace({'http://':'', 'https://':''}) }}" >
 {% endif %}

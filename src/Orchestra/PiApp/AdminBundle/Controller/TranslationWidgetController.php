@@ -132,7 +132,7 @@ class TranslationWidgetController extends abstractController
     public function newAction()
     {
         $entity = new TranslationWidget();
-        $form   = $this->createForm(new TranslationWidgetType(), $entity);
+        $form   = $this->createForm(new TranslationWidgetType($this->container), $entity);
 
         return $this->render('PiAppAdminBundle:TranslationWidget:new.html.twig', array(
             'entity' => $entity,
@@ -153,7 +153,7 @@ class TranslationWidgetController extends abstractController
     {
         $entity  = new TranslationWidget();
         $request = $this->getRequest();
-        $form    = $this->createForm(new TranslationWidgetType(), $entity);
+        $form    = $this->createForm(new TranslationWidgetType($this->container), $entity);
         $form->bindRequest($request);
 
         if ($form->isValid()) {
@@ -190,7 +190,7 @@ class TranslationWidgetController extends abstractController
             throw ControllerException::NotFoundException('TranslationWidget');
         }
 
-        $editForm = $this->createForm(new TranslationWidgetType(), $entity);
+        $editForm = $this->createForm(new TranslationWidgetType($this->container), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('PiAppAdminBundle:TranslationWidget:edit.html.twig', array(
@@ -219,7 +219,7 @@ class TranslationWidgetController extends abstractController
             throw ControllerException::NotFoundException('TranslationWidget');
         }
 
-        $editForm   = $this->createForm(new TranslationWidgetType(), $entity);
+        $editForm   = $this->createForm(new TranslationWidgetType($this->container), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();

@@ -68,7 +68,6 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 		
 		// 	Initialize page
 		if ($this->getCurrentPage()){
-
 			// we get the current page.
 			$page = $this->getCurrentPage();
 			// we set the page.
@@ -86,27 +85,32 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 		// if the page is enabled.
 		if($page->getEnabled()){
 			// 	Initialize response
-			$response = $this->getResponseByIdAndType('page', $page->getId());
+			$response = $this->getResponseByIdAndType('page', $page->getId());			
 			
-			// we register all translations page linked to one page.
-			$this->setTranslations($page);
+			// Recovering the parameter learning about the authorization to switch translation page to an other language.
+			$switch_page_other_language_if_doesnt_exist = $this->container->getParameter('pi_app_admin.page.switch_page_other_language_if_doesnt_exist');
+			if($switch_page_other_language_if_doesnt_exist)
+				// we register all translations page linked to one page.
+				$this->setTranslations($page);
+			else
+				// we register only the translation page asked in the $lang value.
+				$this->setTranslations($page, $lang);
+			
 			// we get the translation of the current page in terms of the lang value.
 			$pageTrans		= $this->getTranslationByPageId($page->getId(), $lang);
 			
 			// If the translation page is secure and the user is not connected, we return to the home page.
-			if($pageTrans->getSecure() && $this->isAnonymousToken()){
-				//$this->setFlash("pi.session.flash.page.notpermission", 'notice');
+			if($pageTrans && $pageTrans->getSecure() && $this->isAnonymousToken()){
 				return $this->redirectHomePublicPage();
 			}	
 
 			// If the translation page is not authorized to publish, we return to the home page.
-			if( ($pageTrans->getStatus() != TranslationPageRepository::STATUS_PUBLISH) && $this->isAnonymousToken()){
-				//$this->setFlash("pi.session.flash.page.notpermission", 'notice');
+			if($pageTrans && ($pageTrans->getStatus() != TranslationPageRepository::STATUS_PUBLISH) && $this->isAnonymousToken()){
 				return $this->redirectHomePublicPage();
 			}		
 
 			// If the translation page is secure and the user is not authorized, we return to the home page.
-			if($pageTrans->getSecure() && $this->isUsernamePasswordToken()){
+			if($pageTrans && $pageTrans->getSecure() && $this->isUsernamePasswordToken()){
 				$user_roles 			= $this->getUserRoles();
 				$authorized_page_roles 	= $pageTrans->getHeritage();
 			
@@ -127,11 +131,12 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 			// * the translation doesn't have a published status.
 			if (!$page || !$pageTrans) {
 				$page 			= $this->getRepository('page')->getPageByUrlAndSlug('error', 'error404-'.$this->language);
-				// we set the page.
-				$this->setPage($page);				
 				if (!$page)
-					throw new \InvalidArgumentException("We haven't set the data fixtures !");
+					throw new \InvalidArgumentException("We haven't set in the data fixtures the error page message in the $lang locale !");
 		
+				// we set the page.
+				$this->setPage($page);
+								
 				$response->setStatusCode(404);
 			}
 			
@@ -242,7 +247,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 		$source 	.= "{{ title_page('{$title}') }} \n";
 		$source 	.= "{% endblock %} \n";
 		
-		$source 	.= "{% set global_local_language = '".strtolower($this->language)."' %} \n";
+		$source 	.= "{% set global_local_language = '".$this->language."' %} \n";
 		$source 	.= " \n";
 		
 		$source 	.= "{% block global_meta %} \n";
@@ -471,14 +476,20 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-23
 	 */
-	private function setTranslations(Page $page)
+	private function setTranslations(Page $page, $locale = false)
 	{
-		if(!isset($this->translations[$page->getId()]) || empty($this->translations[$page->getId()])){
-			$all_translations = $page->getTranslations();
-			
-			// records all translations
-			foreach ($all_translations as $translation) {
-				$this->translations[$page->getId()][$translation->getLangCode()->getId()] = $translation;
+		if(!isset($this->translations[$page->getId()]) || empty($this->translations[$page->getId()])){			
+			if(!$locale){
+				// records all translations
+				$all_translations = $page->getTranslations();
+				foreach ($all_translations as $translation) {
+					$this->translations[$page->getId()][$translation->getLangCode()->getId()] = $translation;
+				}
+			}else{
+				$translationPage = $this->getRepository('translationPage')->findOneBy(array('page' => $page->getId(), 'langCode'=>$locale));
+				
+				if($translationPage instanceof \PiApp\AdminBundle\Entity\TranslationPage)
+					$this->translations[$page->getId()][$locale] = $translationPage;
 			}
 		}
 	}	

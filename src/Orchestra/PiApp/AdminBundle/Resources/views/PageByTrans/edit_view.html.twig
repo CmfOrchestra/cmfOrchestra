@@ -19,7 +19,7 @@
 	</div>
 	<!-- End tag markup -->
 	
-	{% set options = {'prototype-name': ['translations'], 'prototype-tab-title': 'Translate'} %}
+	{% set options = {'prototype-name': ['translations'], 'prototype-tab-title': 'pi.page.translation.prototype-tab-title'|trans } %}
 	{{ renderJquery('FORM', 'prototype-bytab', options )|raw }}
 	
 	<ul class="record_actions">

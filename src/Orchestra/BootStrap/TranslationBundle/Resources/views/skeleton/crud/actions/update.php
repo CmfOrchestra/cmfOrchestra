@@ -21,7 +21,7 @@
         	$entity = $em->getRepository("{{ bundle }}:{{ entity }}")->find($id);
         }
 
-        $editForm   = $this->createForm(new {{ entity_class }}Type($em, $locale), $entity, array('show_legend' => false));
+        $editForm   = $this->createForm(new {{ entity_class }}Type($em, $this->container), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
 
         $editForm->bindRequest($this->getRequest(), $entity);

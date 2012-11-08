@@ -31,8 +31,9 @@ class WidgetByTransType extends AbstractType
     {
 	        $builder
             ->add('enabled', 'checkbox', array(
-            		'data'  => true,
-            ))
+        			'data'  => true,
+        			'label'	=> 'pi.form.label.field.enabled',
+        	))
             ->add('configCssClass', 'text', array(
             		'label'     => 'Class Name / Snippet Name',
             ))

@@ -116,7 +116,7 @@ class PiFormSimpleManager extends PiJqueryExtension
 							script_url : '//<?php echo $this->container->get('Request')->getHttpHost(); ?><?php echo $this->container->get('Request')->getBasePath(); ?>/bundles/piappadmin/js/tiny_mce/tiny_mce.js',
 							// General options
 							theme : "advanced",
-							language : "<?php echo $this->locale; ?>",
+							language : "<?php echo strtolower(current(explode("_", $this->locale))); ?>",
 							plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist",
 							// don't replace encoding character like : Ã© to &eacutes;
 							entity_encoding : "raw",		
@@ -161,7 +161,7 @@ class PiFormSimpleManager extends PiJqueryExtension
 							script_url : '//<?php echo $this->container->get('Request')->getHttpHost(); ?><?php echo $this->container->get('Request')->getBasePath(); ?>/bundles/piappadmin/js/tiny_mce/tiny_mce.js',
 							// General options
 							theme : "advanced",
-							language : "<?php echo $this->locale; ?>",
+							language : "<?php echo strtolower(current(explode("_", $this->locale))); ?>",
 							plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist",
 							// don't replace encoding character like : Ã© to &eacutes;
 							entity_encoding : "raw",		
@@ -323,20 +323,20 @@ class PiFormSimpleManager extends PiJqueryExtension
 					$("<?php echo $options['form-name']; ?> select.pi_simpleselect").multiselect({
 					   multiple: false,
 					   header: true,
-					   noneSelectedText: "Select an Option",
+					   noneSelectedText: "<?php echo $this->translator->trans('pi.form.label.select.choose.option'); ?>",
 					   selectedList: 1
 					}).multiselectfilter();										        
 
 					$("<?php echo $options['form-name']; ?> select.pi_multiselect").multiselect({
-						   multiple: true,
-						   header: true,
-						   noneSelectedText: "Select an Option",
-						   selectedList: 4
+					   multiple: true,
+					   header: true,
+					   noneSelectedText: "<?php echo $this->translator->trans('pi.form.label.select.choose.options'); ?>",
+					   selectedList: 4
 					}).multiselectfilter();										        
 					
 			        $("<?php echo $options['form-name']; ?> .pi_datepicker").wijinputdate({
 			        	showTrigger: true,
-			        	culture:'en-GB',  // <?php echo str_replace("_", "-", $this->locale); ?>
+			        	culture: '<?php echo str_replace("_", "-", $this->locale); ?>',
 	            		//dateFormat: 'MM/dd/yyyy'
 			        });
 

@@ -1,56 +1,57 @@
-#
-# PiAppAdminBundle configuration
-#
-pi_app_admin:
-    layout:
-        init_pc:
-            template_name: layout-pi-page1.html.twig
-            route_redirection_name: home_page
-        init_mobile:
-            template_name: Default
-            route_redirection_name: home_page
-        login_role:
-            redirection_admin: admin_homepage
-            template_admin: layout-pi-admin.html.twig
-            redirection_user: admin_homepage
-            template_user: layout-pi-admin.html.twig
-            redirection_subscriber: home_page
-            template_subscriber: layout-pi-page.html.twig
-        template:
-            template_connection: layout-security.html.twig
-            template_form: fields.html.twig
-            template_grid: grid.theme.html.twig
-            template_flash: flash.html.twig
-        meta_head:
-            author: Orchestra
-            copyright: http://www.cmf-orchestra.net/
-            description: Based in Europe with operational offices in Switzerland, France, Russia, West and South Africa, Singapore.
-            title: Orchestra
-            keywords: Orchestra, symfony 2, framework, CMF, CMS, PHP web applications
-            og_type: Orchestra
-            og_image: bundles/piappadmin/images/logo/logo-orchestra-white.png
-            og_site_name: http://www.cmf-orchestra.com/
-    page:
-        homepage_deletewidget: true
-        page_management_by_user_only: true
-        single_slug: false
-        refresh_allpage_containing_snippet: true
-        indexation_authorized_automatically: false
-        switch_language_browser_authorized: false
-        switch_layout_mobile_authorized: false
-        switch_layout_init_redirection_authorized: false
-        memcache_enable: false
-        media_pixel: Translucent_50%_white.png
-        google_analytic: true
-        google_analytic_tracker: default
-        google_analytic_template: BootStrapGoogleBundle:Analytics:default.html.twig
-        google_analytic_template2: BootStrapGoogleBundle:Analytics:api.html.twig
-    form:
-        show_legend: true
-        show_child_legend: false
-        error_type: inline
-    admin:
-        context_menu_theme: pi2 # {'xp', 'default', 'vista', 'osx', 'human', 'gloss', 'gloss,gloss-cyan', 'gloss,gloss-semitransparent', 'pi', 'pi2'}
-        grid_index_css: style-grid-1.css             
-        grid_show_css: style-grid-1.css
-        grid_theme_css: aristo # {'aristo', 'cobalt', 'midnight', 'rocket', 'sterling'}
+##
+## PiAppAdminBundle configuration
+##
+#pi_app_admin:
+#    layout:
+#        init_pc:
+#            template_name: layout-pi-orchestra.html.twig
+#            route_redirection_name: home_page
+#        init_mobile:
+#            template_name: Default
+#            route_redirection_name: home_page
+#        login_role:
+#            redirection_admin: admin_homepage
+#            template_admin: layout-pi-admin.html.twig
+#            redirection_user: admin_homepage
+#            template_user: layout-pi-admin.html.twig
+#            redirection_subscriber: home_page
+#            template_subscriber: layout-pi-orchestra.html.twig
+#        template:
+#            template_connection: layout-security.html.twig
+#            template_form: fields.html.twig
+#            template_grid: grid.theme.html.twig
+#            template_flash: flash.html.twig
+#        meta_head:
+#            author: Orchestra
+#            copyright: http://www.cmf-orchestra.net/
+#            description: Based in Europe with operational offices in Switzerland, France, Russia, West and South Africa, Singapore.
+#            title: Orchestra
+#            keywords: Orchestra, symfony 2, framework, CMF, CMS, PHP web applications
+#            og_type: Orchestra
+#            og_image: bundles/piappadmin/images/logo/logo-orchestra-white.png
+#            og_site_name: http://www.cmf-orchestra.com/
+#    page:
+#        homepage_deletewidget: true
+#        page_management_by_user_only: true
+#        single_slug: false
+#        refresh_allpage_containing_snippet: true
+#        indexation_authorized_automatically: false
+#        switch_page_other_language_if_doesnt_exist: false
+#        switch_language_browser_authorized: false
+#        switch_layout_mobile_authorized: false
+#        switch_layout_init_redirection_authorized: false
+#        memcache_enable: false
+#        media_pixel: Translucent_50%_white.png
+#        google_analytic: true
+#        google_analytic_tracker: default
+#        google_analytic_template: BootStrapGoogleBundle:Analytics:default.html.twig
+#        google_analytic_template2: BootStrapGoogleBundle:Analytics:api.html.twig
+#    form:
+#        show_legend: true
+#        show_child_legend: false
+#        error_type: inline
+#    admin:
+#        context_menu_theme: pi2 # {'xp', 'default', 'vista', 'osx', 'human', 'gloss', 'gloss,gloss-cyan', 'gloss,gloss-semitransparent', 'pi', 'pi2'}
+#        grid_index_css: style-grid-1.css             
+#        grid_show_css: style-grid-1.css
+#        grid_theme_css: aristo # {'aristo', 'cobalt', 'midnight', 'rocket', 'sterling'}

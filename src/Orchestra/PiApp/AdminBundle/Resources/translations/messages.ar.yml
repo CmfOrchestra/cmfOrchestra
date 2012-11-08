@@ -1,4 +1,3 @@
-#/orchestra/src/Orchestra/PiApp/AdminBundle/Resources/translations/messages.ar.yml
 # CONTEXT MENU
 pi.contextmenu.go_homepage: انتقل إلى موقع
 pi.contextmenu.go_admin: انتقل إلى إدارة
@@ -27,7 +26,6 @@ pi.delete : احذف
 pi.create : أنشئ
 pi.save : احفظ
 pi.refresh : تحديث
-pi.choice.category : اختر فئة
 pi.admin : إداري
 pi.allwidgets : جميع القطع
 pi.readmore: اقرأ المزيد...
@@ -38,7 +36,11 @@ pi.result_plural: النتائج %s
 # Page accueil
 pi.welcome.title: أهلاً بك في Orchestra!
 
+#wizard
+pi.wizard.intro: انقر لتحديد كل الصفحات التابعة لمركز المطلوبة
+
 # grid
+pi.grid.action.title: أعمال
 pi.grid.action.show: عرض
 pi.grid.action.edit: حرر
 pi.grid.action.update: حَدِّث
@@ -80,7 +82,30 @@ pi.form.label.date.updating: تاريخ التحديث
 pi.form.label.date.archivage: تاريخ الأرشيف
 pi.form.label.media.picture: الصورة
 pi.form.label.media.file: ملف
+
+pi.form.label.field.enabled: تمكين
+pi.form.label.field.language: اللغة
+pi.form.label.field.category: الفئة
+pi.form.label.field.title: لقب
 pi.form.label.field.description: الوصف
+pi.form.label.field.content: محتوى
+pi.form.label.field.url: رابط
+pi.form.label.field.or: أو
+pi.form.label.field.choice: الاختيار
+pi.form.label.field.author: كاتب
+pi.form.label.field.user: مستخدم
+pi.form.label.field.name: الاسم
+pi.form.label.field.meta_title: العنوان الفوقية
+pi.form.label.field.meta_keywords: الكلمات الرئيسية ميتا
+pi.form.label.field.meta_description: الوصف ميتا
+pi.form.label.select.choose.option: اختر خيارا
+pi.form.label.select.choose.options: الاختيار خيارات
+pi.form.label.select.choose.type: اختيار نوع
+pi.form.label.select.choose.category: اختر فئة
+pi.form.label.select.choose.template: اختيار قالب
+pi.form.label.select.choose.block: اختيار كتلة
+pi.form.label.select.choose.content: اختيار المحتوى
+pi.form.label.select.choose.snippet: اختيار قصاصة
 
 # Footer
 pi.footer.copyright: حق النشر
@@ -107,11 +132,11 @@ pi.session.flash.rolecache.created: تم إنشاء ملف الميراث في �
 
 # ENTITY :: PAGE
 pi.page.translation.title: ترجمات الصفحة
-pi.widget.translation.title: ترجمات القطعة
-pi.snippet.translation.title: ترجمات مقتطف
+pi.page.translation.prototype-tab-title: ترادكشن
 pi.page.block.title: كتلة الصفحة
 pi.page.widget.title: كتلة القطعة
 pi.page.cssjs.title: Css/Js صفحة
+pi.page.index.title: الصفحة قائمة
 
 pi.page.Draft: مسودة
 pi.page.Reviewed: علق عليها
@@ -131,7 +156,29 @@ pi.page.indexation.delete.success: تمت إزالة صفحة بنجاح!
 pi.page.update: تحديث الصفحة
 pi.page.create: إنشاء صفحة
 
+pi.page.form.rubrique: القسم
+pi.page.form.layout: تخطيط
+pi.page.form.page_css:  المغلق الصفحة
+pi.page.form.page_js: شبيبة الصفحة
+pi.page.form.keywords: تلميحات
+pi.page.form.meta_content_type: محتوى ميتا نوع
+pi.page.form.cacheable: المحتوى الثابت؟
+pi.page.form.public: الزوار-مستقلة المحتوى؟
+pi.page.form.lifetime: العمر الكاش
+pi.page.form.route_name: (page_my_test:الصفحة رقم (مثلا
+pi.page.form.url: عنوان مشترك لجميع صفحات ترجمة
+pi.page.form.status: الحالة
+pi.page.form.secure: تأمين وصول
+pi.page.form.heritage: التراث
+pi.page.form.indexable: فهرسة
+pi.page.form.tags: الكلمات
+pi.page.form.breadcrumb: التفصيلي
+pi.page.form.slug: سبيكة
+
 # ENTITY :: WIDGET
+pi.widget.translation.title: ترجمات القطعة
+pi.snippet.translation.title: ترجمات مقتطف
+
 pi.widget.ajaxaction.widget_action_delete: هل أنت متأكد أنك تريد حذف القطعة؟
 pi.widget.ajaxaction.widget_action_move_up: هل أنت متأكد أنك تريد الارتقاء في القطعة؟
 pi.widget.ajaxaction.widget_action_move_down: هل أنت متأكد أنك تريد نقل إلى أسفل القطعة؟

@@ -98,9 +98,9 @@ class Indexation
         	$indexValues['Contents'] = \PiApp\AdminBundle\Util\PiStringManager::minusculesSansAccents($indexValues['Contents']);
         	// Remove all doublons
         	$indexValues['Contents'] = \PiApp\AdminBundle\Util\PiStringManager::uniqueWord($indexValues['Contents']);
-        	
+        	// clean the content
         	$indexValues['Contents'] = \PiApp\AdminBundle\Util\PiStringManager::cleanContent($indexValues['Contents']);        	
-        	
+        	// Delete all stop words
         	$stopWord 				 = \PiApp\AdminBundle\Util\PiStringManager::stopWord("", strtolower($locale));
         	if($stopWord){
         		$wordsIndex 			 = explode(' ', $indexValues['Contents']);

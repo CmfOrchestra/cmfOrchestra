@@ -1,5 +1,7 @@
 # pi :: dashboard
 pi.dashboard.search: بحث
+pi.dashboard.myaccount: حسابي
+pi.dashboard.logout: خروج
 
 pi.dashboard.common.view_all: عرض الكل
 pi.dashboard.common.new: جديد

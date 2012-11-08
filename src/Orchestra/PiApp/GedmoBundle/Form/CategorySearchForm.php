@@ -59,7 +59,8 @@ class CategorySearchForm extends AbstractType
 	        		'choices'   => $choiceList,
 			        'multiple'	=> false,
 			        'required'  => false,
-			        'empty_value' => 'pi.choice.category',
+			        'empty_value' => 'pi.form.label.select.choose.category',
+        			'label'	=> "pi.form.label.field.category",
 			        "attr" => array(
 			        		"class"=>"pi_simpleselect",
 		        	),

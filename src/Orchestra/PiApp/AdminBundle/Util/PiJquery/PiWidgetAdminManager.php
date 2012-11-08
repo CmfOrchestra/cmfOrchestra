@@ -157,7 +157,7 @@ class PiWidgetAdminManager extends PiJqueryExtension
 	            	            cache: false,
 	            	            error: function(msg){ alert( "Error !: " + msg );},            
 	            	            success: function(response){
-	            	            	$('#page-action-dialog').html(response);
+	            	            	//$('#page-action-dialog').html(response);
 	            	            	$('#page-action-dialog').html("<?php echo $this->translator->trans("pi.page.indexation.success"); ?>");
 	            	            	$('#page-action-dialog').attr('title', '<?php echo $this->translator->trans("pi.contextmenu.page.indexation"); ?>');
 

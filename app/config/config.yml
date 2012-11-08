@@ -7,7 +7,7 @@ framework:
     #esi:             ~    # esi: { enabled: true }
     # The fallback option defines the fallback locale when a translation does not exist
     # in the user's locale
-    translator:      { fallback: en_GB }
+    translator:      { fallback: en }
     secret:          %secret%
     charset:         utf-8
     router:          { resource: "%kernel.root_dir%/config/routing.yml" }

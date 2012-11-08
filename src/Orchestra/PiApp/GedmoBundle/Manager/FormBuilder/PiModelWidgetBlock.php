@@ -69,7 +69,7 @@ class PiModelWidgetBlock extends PiFormBuilderManager
 	{
 		return array(
 				PiFormBuilderManager::CONTENT_RENDER_TITLE	=> "Widget Block",
-				PiFormBuilderManager::CONTENT_RENDER_DESC   => "Create a block",
+				PiFormBuilderManager::CONTENT_RENDER_DESC   => "Call for inserting or creating a block.",
 		);
 	}
 
@@ -105,6 +105,7 @@ class PiModelWidgetBlock extends PiFormBuilderManager
 	        		'required'  => false,
 	        		'multiple'	=> false,
 	        		'expanded' => true,
+	        		'label'	=> "pi.form.label.field.choice",
 	        		"label_attr" => array(
 	        				"class"=>"select_choice",
 	        		),
@@ -113,7 +114,7 @@ class PiModelWidgetBlock extends PiFormBuilderManager
 	        		'choices'   => $result,
 			        'multiple'	=> false,
 			        'required'  => true,
-			        'empty_value' => 'Choice a block',
+			        'empty_value' => 'pi.form.label.select.choose.block',
 			        "attr" => array(
 			        		"class"=>"pi_simpleselect",
 		        	),
@@ -129,7 +130,7 @@ class PiModelWidgetBlock extends PiFormBuilderManager
 	        		),
 	        		'multiple'	=> false,
 	        		'required'  => true,
-	        		'empty_value' => 'Choose a template',
+	        		'empty_value' => 'pi.form.label.select.choose.template',
 	        		"attr" => array(
 	        				"class"=>"pi_simpleselect",
 	        		),
@@ -137,17 +138,19 @@ class PiModelWidgetBlock extends PiFormBuilderManager
 	        ->add('category', 'entity', array(
 	        		'class' => 'PiAppGedmoBundle:Category',
 	        		'property' => 'name',
-	        		'empty_value' => 'Choose an option',
+	        		'empty_value' => 'pi.form.label.select.choose.category',
 	        		'multiple'	=> false,
 	        		'required'  => false,
 	        		"attr" => array(
 	        				"class"=>"pi_simpleselect",
 	        		),
+	        		'label'	=> "pi.form.label.field.category",
 	        		"label_attr" => array(
 	        				"class"=>"block_collection",
 	        		),
 	        ))
 	        ->add('title', 'text', array(
+	        		'label'	=> "pi.form.label.field.title",
 	        		"label_attr" => array(
 	        				"class"=>"block_collection",
 	        		),
@@ -163,12 +166,14 @@ class PiModelWidgetBlock extends PiFormBuilderManager
 	        		"attr" => array(
 	        				"class"	=>"pi_editor",
 	        		),
+	        		'label'	=> "pi.form.label.field.content",
 	        		"label_attr" => array(
 	        				"class"=>"block_collection",
 	        		),
 	        ))
 	        ->add('author', 'text', array(
 	        		'required'  => false,
+	        		"label" 	=> "pi.form.label.field.author",
 	        		"label_attr" => array(
 	        				"class"=>"block_collection",
 	        		),
@@ -277,7 +282,7 @@ class PiModelWidgetBlock extends PiFormBuilderManager
 		if($data["choice"] == "create"){
 			$this->_createentity->setEnabled(true);
 			$this->_createentity->setCategory($this->_data['category']);
-			$this->_createentity->setTitle($this->_data['descriptif']);
+			$this->_createentity->setTitle($this->_data['title']);
 			$this->_createentity->setDescriptif($this->_data['descriptif']);
 			$this->_createentity->setContent($this->_data['content']);
 			$this->_createentity->setAuthor($this->_data['author']);

@@ -14,6 +14,7 @@ namespace {{ namespace }}\Form{{ entity_namespace ? '\\' ~ entity_namespace : ''
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 
@@ -33,6 +34,11 @@ class {{ form_class }} extends AbstractType
 	protected $_em;
 	
 	/**
+	 * @var \Symfony\Component\DependencyInjection\ContainerInterface
+	 */
+	protected $_container;	
+	
+	/**
 	 * @var string
 	 */
 	protected $_locale;	
@@ -44,10 +50,11 @@ class {{ form_class }} extends AbstractType
 	 * @param string	$locale
 	 * @return void
 	 */
-	public function __construct(EntityManager $em, $locale)
+	public function __construct(EntityManager $em, $locale, ContainerInterface $container)
 	{
-		$this->_em 		= $em;
-		$this->_locale	= $locale;
+		$this->_em 			= $em;
+		$this->_locale		= $container->get('session')->getLocale();
+		$this->_container 	= $container;
 	}
 		
     public function buildForm(FormBuilder $builder, array $options)
@@ -66,7 +73,7 @@ class {{ form_class }} extends AbstractType
  			->add('created_at', 'date', array(
  					'widget' => 'single_text', // choice, text, single_text
  					'input' => 'datetime',
- 					'format' => 'MM/dd/yyyy',
+ 					'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
  					"attr" => array(
  							"class"=>"pi_datepicker",
  					),
@@ -78,7 +85,7 @@ class {{ form_class }} extends AbstractType
  			->add('updated_at', 'date', array(
  					'widget' => 'single_text', // choice, text, single_text
  					'input' => 'datetime',
- 					'format' => 'MM/dd/yyyy',
+ 					'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
  					"attr" => array(
  							"class"=>"pi_datepicker",
  					),
@@ -90,7 +97,7 @@ class {{ form_class }} extends AbstractType
  			->add('published_at', 'date', array(
  					'widget' => 'single_text', // choice, text, single_text
  					'input' => 'datetime',
- 					'format' => 'MM/dd/yyyy',
+ 					'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
  					"attr" => array(
  							"class"=>"pi_datepicker",
  					),
@@ -102,7 +109,7 @@ class {{ form_class }} extends AbstractType
  			->add('archive_at', 'date', array(
  					'widget' => 'single_text', // choice, text, single_text
  					'input' => 'datetime',
- 					'format' => 'MM/dd/yyyy',
+ 					'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
  					"attr" => array(
  							"class"=>"pi_datepicker",
  					),

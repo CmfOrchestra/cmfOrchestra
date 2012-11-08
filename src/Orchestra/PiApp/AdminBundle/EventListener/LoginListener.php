@@ -72,21 +72,15 @@ class LoginListener
 	protected $container;	
 	
 	/**
-	 * @var boolean $redirectToAdmin
-	 */
-	protected $redirectToAdmin = false;	
-
-	/**
-	 * @var boolean $redirectToUser
-	 */
-	protected $redirectToUser = false;	
+	 * @var $redirect		route name of the redirection
+	 */	
+	protected $redirect = "";
 	
 	/**
-	 * @var redirection user params
+	 * @var $template		layout file name
 	 */	
-	protected $redirect_admin;
-	protected $redirect_user;
-	protected $redirect_subscriber;	
+	protected $template = "";
+
 	
 	/**
 	 * Constructs a new instance of SecurityListener.
@@ -117,14 +111,11 @@ class LoginListener
 		// Sets event.
 		$this->event	= $event;
 		
-		// Sets parameter template values
-		$this->setParams();		
-		
 		// Sets the user local value.
 		$this->setLocaleUser();
 		
 		// Sets the state of the redirection.
-		$this->isRedirect();
+		$this->setParams();
 		
 		// Sets the layout based on user role.
 		$this->setLayout();
@@ -149,11 +140,11 @@ class LoginListener
 		/*     	$response = $event->getResponse();
 		 // .. modify the response object */
 		
-		if($this->redirectToAdmin)
-			// no need to do any checks since this method will only be called if user is admin
-			$event->setResponse( new RedirectResponse($this->router->generate($this->redirect_admin)) );		
-		elseif($this->redirectToUser)
-			// no need to do any checks since this method will only be called if user is user
+		if(!empty($this->redirect))
+			$event->setResponse( new RedirectResponse($this->router->generate($this->redirect)) );
+		elseif( $this->security->isGranted('ROLE_CONTENT_MANAGER') || $this->security->isGranted('ROLE_ADMIN') || $this->security->isGranted('ROLE_SUPER_ADMIN') )
+			$event->setResponse( new RedirectResponse($this->router->generate($this->redirect_admin)) );
+		elseif( $this->security->isGranted('ROLE_USER') )
 			$event->setResponse( new RedirectResponse($this->router->generate($this->redirect_user)) );
 		else
 			$event->setResponse( new RedirectResponse($this->router->generate($this->redirect_subscriber)) );
@@ -213,7 +204,7 @@ class LoginListener
 	}
 	
 	/**
-	 * Sets parameter template values
+	 * Sets the state of the redirection.
 	 *
 	 * @return void
 	 * @access protected
@@ -222,31 +213,25 @@ class LoginListener
 	 */
 	protected function setParams()
 	{
+		// we get the best role of of all user roles.
+		$BEST_ROLE_NAME = $this->getBestRoleUser();
+		if(!empty($BEST_ROLE_NAME)){
+			$role 		= $this->em->getRepository("BootStrapUserBundle:Role")->findOneBy(array('name' => $BEST_ROLE_NAME));
+			if($role instanceof \BootStrap\UserBundle\Entity\Role){
+				$this->redirect = $role->getRouteName();
+				
+				if($role->getLayout() instanceof \PiApp\AdminBundle\Entity\Layout)
+					$this->template = $role->getLayout()->getFilePc();
+			}
+		}
+		
 		$this->redirect_admin		= $this->container->getParameter('pi_app_admin.layout.login.admin_redirect');
 		$this->redirect_user 		= $this->container->getParameter('pi_app_admin.layout.login.user_redirect');
 		$this->redirect_subscriber	= $this->container->getParameter('pi_app_admin.layout.login.subscriber_redirect');
 		
 		$this->template_admin		= $this->container->getParameter('pi_app_admin.layout.login.admin_template');
 		$this->template_user		= $this->container->getParameter('pi_app_admin.layout.login.user_template');
-		$this->template_subscriber	= $this->container->getParameter('pi_app_admin.layout.login.subscriber_template');
-	}	
-	
-	/**
-	 * Sets the state of the redirection.
-	 *
-	 * @return void
-	 * @access protected
-	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
-	 */
-	protected function isRedirect()
-	{
-		if( $this->security->isGranted('ROLE_CONTENT_MANAGER') || $this->security->isGranted('ROLE_ADMIN') || $this->security->isGranted('ROLE_SUPER_ADMIN') )
-			// since the user is an admin attach this listener for kernel.response event
-			$this->redirectToAdmin	= true;
-		elseif( $this->security->isGranted('ROLE_USER') )
-			// since the user is an user attach this listener for kernel.response event
-			$this->redirectToUser	= true;
+		$this->template_subscriber	= $this->container->getParameter('pi_app_admin.layout.login.subscriber_template');		
 	}	
 	
 	/**
@@ -268,28 +253,22 @@ class LoginListener
 			$request->setRequestFormat('mobile');
 			
 			// 	we calculate the layout to be applied.
-			if( $this->security->isGranted('ROLE_CONTENT_MANAGER') || $this->security->isGranted('ROLE_ADMIN') || $this->security->isGranted('ROLE_SUPER_ADMIN') ){
-				// Applying the layout of admin.
+			if( $this->security->isGranted('ROLE_CONTENT_MANAGER') || $this->security->isGranted('ROLE_ADMIN') || $this->security->isGranted('ROLE_SUPER_ADMIN') )
 				$layout	= 'PiAppTemplateBundle::Template\\Layout\\Mobile\\Admin\\'. $WurflScreen . '.html.twig';
-			}elseif( $this->security->isGranted('ROLE_USER') ){
-				// Applying the layout of user.
+			elseif( $this->security->isGranted('ROLE_USER') )
 				$layout	= 'PiAppTemplateBundle::Template\\Layout\\Mobile\\User\\'. $WurflScreen . '.html.twig';
-			}else{
-				// Applying the super layout of page.
+			else
 				$layout	= 'PiAppTemplateBundle::Template\\Layout\\Mobile\\Default\\'. $WurflScreen . '.html.twig';
-			}			
 		}else{
 			// 	we calculate the layout to be applied.
-			if( $this->security->isGranted('ROLE_CONTENT_MANAGER') || $this->security->isGranted('ROLE_ADMIN') || $this->security->isGranted('ROLE_SUPER_ADMIN') ){
-				// Applying the layout of admin.
+			if(!empty($this->template))
+				$layout	= 'PiAppTemplateBundle::Template\\Layout\\Pc\\'.$this->template;
+			elseif( $this->security->isGranted('ROLE_CONTENT_MANAGER') || $this->security->isGranted('ROLE_ADMIN') || $this->security->isGranted('ROLE_SUPER_ADMIN') )
 				$layout	= 'PiAppTemplateBundle::Template\\Layout\\Pc\\'.$this->template_admin;
-			}elseif( $this->security->isGranted('ROLE_USER') ){
-				// Applying the layout of user.
+			elseif( $this->security->isGranted('ROLE_USER') )
 				$layout	= 'PiAppTemplateBundle::Template\\Layout\\Pc\\'.$this->template_user;
-			}else{
-				// Applying the super layout of page.
+			else
 				$layout	= 'PiAppTemplateBundle::Template\\Layout\\Pc\\'.$this->template_subscriber;
-			}
 		}
 		
 		// Record the layout variable in session.	
@@ -354,5 +333,58 @@ class LoginListener
 		$session->setFlash('notice', "pi.session.flash.welcom");
 		//$session->setFlash('success', "Mrs/Mlle " . ucfirst($username));
 	}	
+	
+	/**
+	 * Gets the best role of all user roles.
+	 *
+	 * @return string	the best role of all user roles.
+	 * @access protected
+	 *
+	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 */	
+	protected function getBestRoleUser()
+	{
+		// we get all user roles.
+		$ROLES_USER	= $this->event->getAuthenticationToken()->getUser()->getRoles();
 		
+		// we get the map of all roles.
+		$roleMap = $this->buildRoleMap();		
+		
+		foreach($roleMap as $role => $heritage){
+			if(in_array($role, $ROLES_USER)){
+				$intersect	= array_intersect($heritage, $ROLES_USER);
+				$ROLES_USER	= array_diff($ROLES_USER, $intersect);  // =  $ROLES_USER -  $intersect
+			}	
+		}
+		return end($ROLES_USER);
+	}		
+
+	/**
+	 * Sets the map of all roles.
+	 *
+	 * @return array	role map
+	 * @access protected
+	 *
+	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 */
+	protected function buildRoleMap()
+	{
+		$hierarchy 	= $this->container->getParameter('security.role_hierarchy.roles');
+		$map		= array();
+		foreach ($hierarchy as $main => $roles) {
+			$map[$main] = $roles;
+			$visited = array();
+			$additionalRoles = $roles;
+			while ($role = array_shift($additionalRoles)) {
+				if (!isset($hierarchy[$role])) {
+					continue;
+				}
+	
+				$visited[] = $role;
+				$map[$main] = array_unique(array_merge($map[$main], $hierarchy[$role]));
+				$additionalRoles = array_merge($additionalRoles, array_diff($hierarchy[$role], $visited));
+			}
+		}
+		return $map;
+	}	
 }
