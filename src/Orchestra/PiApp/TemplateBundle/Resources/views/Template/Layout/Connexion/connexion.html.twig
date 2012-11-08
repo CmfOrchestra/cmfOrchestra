@@ -1,15 +1,15 @@
 			{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 
 				<div class="nav-divider">&nbsp;</div>
-				{% set options_languagechoice = {'class': 'language-choice', 'img-arrow': 'lang_arrow_blue.png'} %}
+				{% set options_languagechoice = {'class': 'language-choice', 'img-arrow': 'lang_arrow_index.png'} %}
 				{{ renderJquery('TOOL', 'languagechoice', options_languagechoice )|raw }}					
 
 				<div class="nav-divider">&nbsp;</div>
-				<div class="showhide-account"><img src="{{ asset('bundles/piappadmin/images/shared/nav/nav_myaccount.gif') }}" width="93" height="14" alt="" /></div>
+				<div class="showhide-account"><img src="{{ asset('bundles/piappadmin/images/shared/nav/nav_myaccount.png') }}" width="93" height="14" alt="" /><span class="connexion-my-account">{{ 'pi.dashboard.myaccount'|trans }}</span></div>
 				
 				<div class="nav-divider">&nbsp;</div>
 				<a href="{{ path('fos_user_security_logout') }}" id="logout" title="">
-					<img src="{{ asset('bundles/piappadmin/images/shared/nav/nav_logout.gif') }}" width="64" height="14" alt="" />
+					<img src="{{ asset('bundles/piappadmin/images/shared/nav/nav_logout.png') }}" width="64" height="14" alt="" /><span class="connexion-login-logout">{{ 'pi.dashboard.logout'|trans }}</span>
 				</a>
 				<div class="clear">&nbsp;</div>
 

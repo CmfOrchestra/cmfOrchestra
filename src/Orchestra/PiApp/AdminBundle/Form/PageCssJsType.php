@@ -31,8 +31,13 @@ class PageCssJsType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
+        	->add('enabled', 'checkbox', array(
+        			'data'  => true,
+        			'label'	=> 'pi.form.label.field.enabled',
+        	))
             ->add('user', 'entity', array(
             		'class' => 'BootStrapUserBundle:User',
+            		'label'	=> 'pi.form.label.field.user',
             		"attr" => array(
             				"class"=>"pi_simpleselect",
             		),
@@ -58,7 +63,6 @@ class PageCssJsType extends AbstractType
             		'multiple'	=> false,
             		'expanded'  => true,
             ))
-            ->add('enabled')
         	->add('cacheable', 'checkbox', array(
     				'label'     => 'Static Content?',
         			'required'  => false,

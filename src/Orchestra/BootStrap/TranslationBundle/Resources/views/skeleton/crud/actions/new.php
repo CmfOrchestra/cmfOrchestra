@@ -11,9 +11,8 @@
     public function newAction()
     {
     	$em 	= $this->getDoctrine()->getEntityManager();
-    	$locale	= $this->container->get('session')->getLocale();
     	$entity = new {{ entity_class }}();
-        $form   = $this->createForm(new {{ entity_class }}Type($em, $locale), $entity, array('show_legend' => false));
+        $form   = $this->createForm(new {{ entity_class }}Type($em, $this->container), $entity, array('show_legend' => false));
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout)	$template = "new.html.twig";  else 	$template = "new.html.twig";        

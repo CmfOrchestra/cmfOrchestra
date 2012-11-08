@@ -2,7 +2,7 @@
 
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
-date_default_timezone_set("Europe/Paris");
+
 class AppKernel extends Kernel
 {
     public function registerBundles()
@@ -31,17 +31,17 @@ class AppKernel extends Kernel
         	new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
         		
         	# sonata admin
-        	new Sonata\AdminBundle\SonataAdminBundle(), //
-        	new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(), //
-        	new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(), //
+        	new Sonata\AdminBundle\SonataAdminBundle(),
+        	new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
+        	new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
         	new Sonata\CacheBundle\SonataCacheBundle(),
         	new Sonata\BlockBundle\SonataBlockBundle(),
-        	new Sonata\MediaBundle\SonataMediaBundle(), //
+        	new Sonata\MediaBundle\SonataMediaBundle(),
         
         	# tools
-        	new FOS\UserBundle\FOSUserBundle(), // gestion user/groupe
-        	new Knp\Bundle\MenuBundle\KnpMenuBundle(), // gestion menu
-        	new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(), // gestion pagination        	
+        	new FOS\UserBundle\FOSUserBundle(),
+        	new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+        	new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),        	
         	
         	# boostrap
         	new BootStrap\DatabaseBundle\BootStrapDatabaseBundle(), 
@@ -55,7 +55,7 @@ class AppKernel extends Kernel
         	new BootStrap\GoogleBundle\BootStrapGoogleBundle(),
         	new BootStrap\FacebookBundle\BootStrapFacebookBundle(),
         		
-        	# métiers
+        	# trades
         	new PiApp\AdminBundle\PiAppAdminBundle(),
         	new PiApp\GedmoBundle\PiAppGedmoBundle(),
         	new PiApp\TemplateBundle\PiAppTemplateBundle(),

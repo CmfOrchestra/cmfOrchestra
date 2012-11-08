@@ -54,10 +54,20 @@ class TranslationPagesFixtures extends AbstractFixture implements OrderedFixture
         $field2->setPage($this->getReference('page-homepage'));
         $field2->setEnabled(true);
         $field2->setPublishedAt(new \DateTime());
-        $manager->persist($field2);        
+        $manager->persist($field2);   
+
+        $field6 = new TranslationPage();
+        $field6->setSlug('');
+        $field6->setLangCode($this->getReference('lang-ar'));
+        $field6->setStatus(TranslationPageRepository::STATUS_PUBLISH);
+        $field6->setLangStatus(TranslationPageRepository::LANG_TRADUCTION);
+        $field6->setPage($this->getReference('page-homepage'));
+        $field6->setEnabled(true);
+        $field6->setPublishedAt(new \DateTime());
+        $manager->persist($field6);        
 
         $field3 = new TranslationPage();
-        $field3->setSlug('error404-fr');
+        $field3->setSlug('error-fr');
         $field3->setLangCode($this->getReference('lang-fr'));
         $field3->setStatus(TranslationPageRepository::STATUS_PUBLISH);
         $field3->setLangStatus(TranslationPageRepository::LANG_REFERENCE);
@@ -67,21 +77,33 @@ class TranslationPagesFixtures extends AbstractFixture implements OrderedFixture
         $manager->persist($field3);
         
         $field4 = new TranslationPage();
-        $field4->setSlug('error404-en');
+        $field4->setSlug('error-en');
         $field4->setLangCode($this->getReference('lang-en'));
         $field4->setStatus(TranslationPageRepository::STATUS_PUBLISH);
         $field4->setLangStatus(TranslationPageRepository::LANG_TRADUCTION);
         $field4->setPage($this->getReference('page-error'));
         $field4->setEnabled(true);
         $field4->setPublishedAt(new \DateTime());
-        $manager->persist($field4);        
+        $manager->persist($field4);     
+
+        $field5 = new TranslationPage();
+        $field5->setSlug('error-ar');
+        $field5->setLangCode($this->getReference('lang-ar'));
+        $field5->setStatus(TranslationPageRepository::STATUS_PUBLISH);
+        $field5->setLangStatus(TranslationPageRepository::LANG_TRADUCTION);
+        $field5->setPage($this->getReference('page-error'));
+        $field5->setEnabled(true);
+        $field5->setPublishedAt(new \DateTime());
+        $manager->persist($field5);        
 
         $manager->flush();
         
         $this->addReference('transpage-homepage-fr', $field1);
         $this->addReference('transpage-homepage-en', $field2);
+        $this->addReference('transpage-homepage-ar', $field6);
         $this->addReference('transpage-error-fr-404', $field3);
         $this->addReference('transpage-error-en-404', $field4);
+        $this->addReference('transpage-error-ar-404', $field5);
     }
     
     /**

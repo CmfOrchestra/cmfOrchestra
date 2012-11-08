@@ -15,7 +15,7 @@
 		<div id="entete">
 			{% block pc_header %}
 			<h1>
-				<img src="bundles/piappadmin/css/layout/pi/models/picto/01.png" alt="">
+				<img src="/bundles/piappadmin/css/layout/pi/models/picto/01.png" alt="">
 				Orchestra - Content Management Framework
 			</h1>
 			<p class="sous-titre">
@@ -37,10 +37,12 @@
 				<li><a href="credits.html">Crédits</a></li>
 			</ul>
 			{% endblock %}
+			
+			{% include "BootStrapUserBundle::connexion-ul-li.html.twig" %}
 		</div><!-- #navigation -->
 		
 		<div id="contenu">
-			{% block pc_content %}
+			{% block content %}
 			<h2>À propos du gabarit 01</h2>
 			<h3>Code HTML et CSS</h3>
 			<p>Ce gabarit est structuré de la manière suivante:</p>
@@ -59,7 +61,7 @@
 		<div id="pied">
 			<p id="copyright">
 				{% block pc_footer %}
-				<a href="{{ path('pi_layout_choisir_langue', {'langue' : 'fr'}) }}" title="">FR</a> | <a href="{{ path('pi_layout_choisir_langue', {'langue' : 'en'}) }}" title="">EN</a> | 
+				<a href="{{ path('pi_layout_choisir_langue', {'langue' : 'fr_FR'}) }}" title="">FR</a> | <a href="{{ path('pi_layout_choisir_langue', {'langue' : 'en_GB'}) }}" title="">EN</a> | <a href="{{ path('pi_layout_choisir_langue', {'langue' : 'ar_SA'}) }}" title="">AR</a> | 
 				<a href="www.cmf-orchestra.net" title="">cmf-orchestra.net</a> |  
 				<span>Mise en page d'après Elephorm et Alsacréations: www.alsacreations.com/gabarits</span>
 				{% endblock %}

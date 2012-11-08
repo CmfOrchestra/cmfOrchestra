@@ -22,7 +22,7 @@ use Symfony\Component\Console\Input\InputOption;
  * Command to parse all routes and register them in the database.
  * 
  * <code>
- * 		php app/console pi:database:routes:parse
+ * 		php app/console orchestra:database:routes:parse
  * </code>
  * 
  * @category   Bootstrap_Command
@@ -35,7 +35,7 @@ class RoutesCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('pi:database:routes:parse')
+            ->setName('orchestra:database:routes:parse')
             ->setHelp(<<<EOT
 The <info>database:routes:parse</info> command parse all routes and register them in the database.
 An example of usage of the command:

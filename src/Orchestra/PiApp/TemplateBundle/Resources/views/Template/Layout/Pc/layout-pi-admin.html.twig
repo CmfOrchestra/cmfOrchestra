@@ -1,5 +1,5 @@
 {% stylesheet "bundles/piappadmin/css/layout/admin/screen.css" %}
-{%  initJquery 'TOOL:languagechoice' %}
+{% initJquery 'TOOL:languagechoice' %}
 {% extends "PiAppTemplateBundle::Template\\Layout\\layout-global.html.twig" %}
 
 {% set global_local_language = app.session.getLocale()|lower %}

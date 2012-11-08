@@ -99,6 +99,7 @@ class UserAdmin extends Admin
     {
         $formMapper
             ->with('General')
+                ->add('enabled', null, array('required' => false))
             	->add('langCode')
                 ->add('username')
                 ->add('email')
@@ -118,7 +119,6 @@ class UserAdmin extends Admin
                 ->add('permissions', 'bootstrap_security_permissions', array( 'multiple' => true, 'required' => false))
                 ->add('locked', null, array('required' => false))
                 ->add('expired', null, array('required' => false))
-                ->add('enabled', null, array('required' => false))
                 ->add('credentialsExpired', null, array('required' => false))
             ->end()
             ;

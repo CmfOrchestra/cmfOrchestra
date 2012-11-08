@@ -27,7 +27,7 @@ $loader->registerNamespaces(array(
 		'Assetic'          => __DIR__.'/../vendor/assetic/src',
 		'Metadata'         => __DIR__.'/../vendor/metadata/src',
 		
-		// ajout gestionplugin
+		// BUNDLES
 		'FOS' 			   => __DIR__.'/../vendor/bundles',
 		'Genemu'		   => __DIR__.'/../vendor/bundles',
 		'Exporter'   	   => __DIR__.'/../vendor/exporter/lib',
@@ -43,7 +43,7 @@ $loader->registerNamespaces(array(
 		'Gaufrette'        => __DIR__.'/../vendor/gaufrette/src', // dependency : sonata Media
 		'Buzz'             => __DIR__.'/../vendor/buzz/lib', // dependency : sonata Media
 		
-		// ORCHESTRA
+		// ORCHESTRA BUNDLES
 		'BootStrap'  	  	=> __DIR__.'/../src/Orchestra',
 		'PiApp'    			=> __DIR__.'/../src/Orchestra',
 				

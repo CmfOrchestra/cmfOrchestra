@@ -20,7 +20,7 @@ use Sensio\Bundle\GeneratorBundle\Command\GenerateDoctrineCrudCommand as BaseGen
  * Command CRUD.
  *
  * <code>
- * 		php app/console pi:generate:crud
+ * 		php app/console orchestra:generate:crud
  * </code>
  * 
  * @category   BootStrap_Command
@@ -33,7 +33,7 @@ class DoctrineCrudCommand extends BaseGenerator
     protected function configure()
     {
         parent::configure();
-        $this->setName('pi:generate:crud');
+        $this->setName('orchestra:generate:crud');
     }
 
     protected function getGenerator()

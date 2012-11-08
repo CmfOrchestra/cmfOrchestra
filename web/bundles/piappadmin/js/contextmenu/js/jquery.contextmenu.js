@@ -165,7 +165,7 @@
 		
 		// Create the shadow object
 		createShadow: function(cmenu) {
-			cmenu.shadowObj = $('<div class="'+cmenu.shadowClass+'"></div>').css( {display:'none',position:"absolute", zIndex:9998, opacity:cmenu.shadowOpacity, backgroundColor:cmenu.shadowColor } );
+			cmenu.shadowObj = $('<div class="'+cmenu.shadowClass+'"></div>').css( {display:'none',position:"absolute", zIndex:99999998, opacity:cmenu.shadowOpacity, backgroundColor:cmenu.shadowColor } );
 			$(cmenu.appendTo).append(cmenu.shadowObj);
 		},
 		
@@ -206,7 +206,7 @@
 				if (cmenu.useIframe) {
 					$c.find('iframe').css({width:$c.width()+cmenu.shadowOffsetX+cmenu.shadowWidthAdjust,height:$c.height()+cmenu.shadowOffsetY+cmenu.shadowHeightAdjust});
 				}
-				$c.css( {top:pos.y+"px", left:pos.x+"px", position:"absolute",zIndex:9999} )[cmenu.showTransition](cmenu.showSpeed,((cmenu.showCallback)?function(){cmenu.showCallback.call(cmenu);}:null));
+				$c.css( {top:pos.y+"px", left:pos.x+"px", position:"absolute",zIndex:99999999} )[cmenu.showTransition](cmenu.showSpeed,((cmenu.showCallback)?function(){cmenu.showCallback.call(cmenu);}:null));
 				cmenu.shown=true;
 				$(document).one('click',null,function(){cmenu.hide()}); // Handle a single click to the document to hide the menu
 			}

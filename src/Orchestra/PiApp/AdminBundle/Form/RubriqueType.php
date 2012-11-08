@@ -30,7 +30,10 @@ class RubriqueType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-        	->add('enabled')
+        	->add('enabled', 'checkbox', array(
+        			'data'  => true,
+        			'label'	=> 'pi.form.label.field.enabled',
+        	))
 	        ->add('parent', 'entity', array(
 	        		'class' => 'PiAppAdminBundle:Rubrique',
 	        		'query_builder' => function(EntityRepository $er) {
@@ -47,7 +50,9 @@ class RubriqueType extends AbstractType
 			        		"class"=>"pi_simpleselect",
 			        ),
 	        ))
-            ->add('titre')
+            ->add('titre', 'text', array(
+            		'label'	=> "pi.form.label.field.title",
+            ))
             ->add('descriptif', 'text', array(
  					'label'	=> 'pi.form.label.field.description',
  			))  

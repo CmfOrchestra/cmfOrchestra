@@ -46,7 +46,9 @@ class CategoryType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder            
- 			->add('name')
+ 			->add('name', 'text', array(
+ 				'label' => "pi.form.label.field.name"
+ 			))
         ;
     }
 

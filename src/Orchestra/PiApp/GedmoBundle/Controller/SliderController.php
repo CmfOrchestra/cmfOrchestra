@@ -154,6 +154,7 @@ class SliderController extends abstractController
      */
     public function newAction()
     {
+    	$locale	= $this->container->get('session')->getLocale();
     	$em 	= $this->getDoctrine()->getEntityManager();
     	$entity = new Slider();
     	
@@ -164,7 +165,7 @@ class SliderController extends abstractController
         if($category)
         	$entity->setCategory($category);
         
-        $form   = $this->createForm(new SliderType($em), $entity, array('show_legend' => false));
+        $form   = $this->createForm(new SliderType($em, $locale, $this->container), $entity, array('show_legend' => false));
         return $this->render("PiAppGedmoBundle:Slider:$template", array(
             'entity' 	=> $entity,
             'form'   	=> $form->createView(),
@@ -191,7 +192,7 @@ class SliderController extends abstractController
     
         $entity  = new Slider();
         $request = $this->getRequest();
-        $form    = $this->createForm(new SliderType($em), $entity, array('show_legend' => false));
+        $form    = $this->createForm(new SliderType($em, $locale, $this->container), $entity, array('show_legend' => false));
         $form->bindRequest($request);
 
         if ($form->isValid()) {
@@ -232,7 +233,7 @@ class SliderController extends abstractController
         	$entity->addTranslation(new SliderTranslation($locale));            
         }
 
-        $editForm   = $this->createForm(new SliderType($em), $entity, array('show_legend' => false));
+        $editForm   = $this->createForm(new SliderType($em, $locale, $this->container), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render("PiAppGedmoBundle:Slider:$template", array(
@@ -265,7 +266,7 @@ class SliderController extends abstractController
         	$entity = $em->getRepository("PiAppGedmoBundle:Slider")->find($id);
         }
 
-        $editForm   = $this->createForm(new SliderType($em), $entity, array('show_legend' => false));
+        $editForm   = $this->createForm(new SliderType($em, $locale, $this->container), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
 
         $editForm->bindRequest($this->getRequest(), $entity);

@@ -31,9 +31,13 @@ class TranslationCssJsPageType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-	        ->add('enabled')
+	        ->add('enabled', 'checkbox', array(
+        			'data'  => true,
+        			'label'	=> 'pi.form.label.field.enabled',
+        	))
         	->add('langCode', 'entity', array(
 					'class' => 'PiAppAdminBundle:Langue',
+        			"label"	=> "pi.form.label.field.language",
         			"attr" => array(
         					"class"=>"pi_simpleselect",
         			),        	

@@ -14,6 +14,7 @@ namespace PiApp\GedmoBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 
@@ -33,14 +34,26 @@ class BlockType extends AbstractType
 	protected $_em;
 	
 	/**
+	 * @var \Symfony\Component\DependencyInjection\ContainerInterface
+	 */
+	protected $_container;
+	
+	/**
+	 * @var string
+	 */
+	protected $_locale;	
+	
+	/**
 	 * Constructor.
 	 *
 	 * @param \Doctrine\ORM\EntityManager $em
 	 * @return void
 	 */
-	public function __construct(EntityManager $em)
+	public function __construct(EntityManager $em, $locale, ContainerInterface $container)
 	{
-		$this->_em = $em;
+		$this->_em 			= $em;
+		$this->_container 	= $container;
+		$this->_locale		= $locale;		
 	}
 		
     public function buildForm(FormBuilder $builder, array $options)
@@ -48,6 +61,7 @@ class BlockType extends AbstractType
         $builder            
  			->add('enabled', 'checkbox', array(
             		'data'  => true,
+ 					'label'	=> 'pi.form.label.field.enabled',
  					"label_attr" => array(
  							"class"=>"block_collection",
  					),
@@ -55,7 +69,7 @@ class BlockType extends AbstractType
  			->add('published_at', 'date', array(
 	        		'widget' => 'single_text', // choice, text, single_text
 	        		'input' => 'datetime',
-	        		'format' => 'MM/dd/yyyy',
+	        		'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
  					'required'  => false,
 	        		'empty_value' => array('year' => 'Année', 'month' => 'Mois', 'day' => 'Jour'),
 	        		//'pattern' => "{{ day }}/{{ month }}/{{ year }}",
@@ -72,7 +86,8 @@ class BlockType extends AbstractType
  			->add('category', 'entity', array(
 	        		'class' => 'PiAppGedmoBundle:Category',
 	        		'property' => 'name',
-	        		'empty_value' => 'Choose an option',
+	        		'empty_value' => 'pi.form.label.select.choose.category',
+ 					'label'	=> "pi.form.label.field.category",
 	        		'multiple'	=> false,
 	        		'required'  => false,
 	        		"attr" => array(
@@ -83,6 +98,7 @@ class BlockType extends AbstractType
  					),
 	        ))   
  			->add('title', 'text', array(
+ 					'label'	=> "pi.form.label.field.title",
  					"label_attr" => array(
  							"class"=>"block_collection",
  					),
@@ -98,12 +114,14 @@ class BlockType extends AbstractType
             		"attr" => array(
             				"class"	=>"pi_editor",
             		),
+ 					'label'	=> "pi.form.label.field.content",
  					"label_attr" => array(
  							"class"=>"block_collection",
  					),
             ))             
  			->add('author', 'text', array(
  					'required'  => false,
+ 					"label" 	=> "pi.form.label.field.author",
  					"label_attr" => array(
  							"class"=>"block_collection",
  					), 					
@@ -114,10 +132,10 @@ class BlockType extends AbstractType
  						return $er->getAllPageHtml();
  					},
  					'property' => 'route_name',
- 					'empty_value' => 'Choose an option',
+ 					'empty_value' => 'pi.form.label.select.choose.option',
  					'multiple'	=> false,
  					'required'  => false,
- 					"label" 	=> "Link page",
+ 					"label" 	=> "pi.form.label.field.url",
  					"attr" => array(
  							"class"=>"pi_simpleselect",
  					),
@@ -127,7 +145,7 @@ class BlockType extends AbstractType
  			)) 			           
  			->add('url', 'text', array(
  					'required'  => false,
- 					"label" 	=> "Or",
+ 					"label" 	=> "pi.form.label.field.or",
  					"label_attr" => array(
  							"class"=>"block_collection",
  					), 					

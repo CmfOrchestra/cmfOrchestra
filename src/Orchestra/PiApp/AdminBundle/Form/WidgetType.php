@@ -31,8 +31,9 @@ class WidgetType extends AbstractType
     {
 	        $builder
             ->add('enabled', 'checkbox', array(
-            		'data'  => true,
-            ))
+        			'data'  => true,
+        			'label'	=> 'pi.form.label.field.enabled',
+        	))
 //             ->add('cacheable', 'checkbox', array(
 //             		'label'     => 'Static Content?',
 //             		'required'  => false,

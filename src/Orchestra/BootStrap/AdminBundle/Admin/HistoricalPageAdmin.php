@@ -97,15 +97,13 @@ class HistoricalPageAdmin extends Admin
     {
         $formMapper
             ->with('General')
+            	->add('enabled', null, array('required' => false))
                 ->add('status')
             ->end()
             ->with('Groups')
             	->add('pageTranslation')
                 ->add('comment')
             ->end()
-            ->with('Other')
-            	->add('enabled', null, array('required' => false))
-            ->end()            
         ;
     }
     

@@ -85,17 +85,15 @@ class PiLanguageChoiceManager extends PiJqueryExtension
 		?>		
 				<div class="<?php echo $options['class']; ?>" id="language_menu">
 					<ul>
-						<li id="selected_language">
-							<?php echo $locale; ?>
-						</li>
+						<li id="selected_language"><?php echo locale_get_display_name(strtolower($locale), strtolower($locale)); ?></li>
 						<?php foreach($entities as $key=>$entity){ 
 				            $url = $this->container->get('router')->generate('pi_layout_choisir_langue', array('langue' => $entity->getId()));
 				            if($entity->getId() != $locale){
+							
+							$name_language = locale_get_display_name(strtolower($entity->getId()), strtolower($locale));
 				        ?>
 						<li>
-							<a href="<?php echo $url; ?>"  id="lang_select_<?php echo $entity->getId(); ?>" title="<?php echo $entity->getId(); ?>">
-								<?php echo $entity->getId(); ?>
-							</a>
+							<a href="<?php echo $url; ?>"  id="lang_select_<?php echo $entity->getId(); ?>" title="<?php echo $name_language; ?>"><?php echo $name_language; ?></a>
 						</li>
 						<?php } } ?>
 					</ul>

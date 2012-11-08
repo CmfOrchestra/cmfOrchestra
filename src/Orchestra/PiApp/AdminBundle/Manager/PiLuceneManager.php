@@ -166,14 +166,15 @@ class PiLuceneManager extends PiCoreManager implements PiSearchLuceneManagerBuil
 		// we get the page manager
 		$pageManager  	= $this->container->get('pi_app_admin.manager.page');
 		// we set the object Translation Page by route
-		$pageManager->setPageByRoute($page->getRouteName());		
-		
+		$pageManager->setPageByRoute($page->getRouteName());	
+
 		// we set the indexation of the locale translations of the page.
 		$translationPage = $page->getTranslationByLocale($this->language);
 		if($translationPage instanceof \PiApp\AdminBundle\Entity\TranslationPage){
 			$pathInfo	= str_replace($this->container->get('request')->getUriForPath(''), '', $this->container->get('request')->headers->get('referer'));
 			$match		= $this->container->get('i18n_routing.router')->match($pathInfo);
 			$route		= $match['_route'];
+			
 			if(isset($GLOBALS['ROUTE']['SLUGGABLE'][ $route ]) && !empty($GLOBALS['ROUTE']['SLUGGABLE'][ $route ])){
 				$sluggable_entity 		= $GLOBALS['ROUTE']['SLUGGABLE'][ $route ]['entity'];
 				$sluggable_field_search = $GLOBALS['ROUTE']['SLUGGABLE'][ $route ]['field_search'];
@@ -215,7 +216,7 @@ class PiLuceneManager extends PiCoreManager implements PiSearchLuceneManagerBuil
 			$indexValues['Route']	 = $page->getRouteName();
 			$indexValues['Contents'] = $this->deleteTags($pageManager->render($this->language)->getContent());		
 			$indexValues['Keywords'] = $translationPage->getMetaKeywords();
-			$indexValues['Subject']	 = $translationPage->getMetaDescription();			
+			$indexValues['Subject']	 = $translationPage->getMetaDescription();	
 
 			self::$_index = Indexation::index(self::$_index, 'page', $indexValues, $this->language);
 		}		

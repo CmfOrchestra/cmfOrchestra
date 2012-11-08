@@ -14,7 +14,10 @@ namespace BootStrap\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 use BootStrap\UserBundle\Repository\RoleRepository;
+
 
 /**
  * BootStrap\UserBundle\Entity\Role
@@ -22,6 +25,7 @@ use BootStrap\UserBundle\Repository\RoleRepository;
  * @ORM\Table(name="fos_role")
  * @ORM\Entity(repositoryClass="BootStrap\UserBundle\Repository\RoleRepository")
  * @ORM\HasLifecycleCallbacks() 
+ * @UniqueEntity(fields="name", message="this value already exists")
  * 
  * @category   BootStrap_Entities
  * @package    Entity
@@ -77,6 +81,22 @@ class Role
      * @ORM\Column(type="array", nullable=true)
      */
     protected $heritage;
+    
+    /**
+     * @var string $route_name
+     * 
+     * @ORM\Column(name="route_name", type="string", nullable=true, unique=true)
+     * @Assert\MinLength(limit = 3, message = "Le route name doit avoir au moins {{ limit }} caractères")
+     */
+    protected $route_name;
+
+    /**
+     * @var integer $layout
+     * 
+     * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Layout", inversedBy="roles", cascade={"persist"})
+     * @ORM\JoinColumn(name="layout_id", referencedColumnName="id", nullable=true)
+     */
+    protected $layout;    
     
     /**
      * @var boolean $enabled
@@ -234,6 +254,46 @@ class Role
     {
         return $this->accessControl;
     }
+    
+    /**
+     * Set route_name
+     *
+     * @param string $routeName
+     */
+    public function setRouteName($routeName)
+    {
+        $this->route_name = $routeName;
+    }
+
+    /**
+     * Get route_name
+     *
+     * @return string 
+     */
+    public function getRouteName()
+    {
+        return $this->route_name;
+    }
+    
+    /**
+     * Set layout
+     *
+     * @param \PiApp\AdminBundle\Entity\Layout
+     */
+    public function setLayout(\PiApp\AdminBundle\Entity\Layout $layout)
+    {
+        $this->layout = $layout;
+    }
+
+    /**
+     * Get layout
+     *
+     * @return \PiApp\AdminBundle\Entity\Layout 
+     */
+    public function getLayout()
+    {
+        return $this->layout;
+    }   
 
     /**
      * Set enabled

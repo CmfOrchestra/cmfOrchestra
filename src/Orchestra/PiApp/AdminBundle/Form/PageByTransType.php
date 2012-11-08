@@ -14,6 +14,7 @@ namespace PiApp\AdminBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 use PiApp\AdminBundle\Repository\PageRepository;
 use Doctrine\ORM\EntityRepository;
@@ -34,14 +35,26 @@ class PageByTransType extends AbstractType
 	protected $_roles_user;
 	
 	/**
+	 * @var \Symfony\Component\DependencyInjection\ContainerInterface
+	 */
+	protected $_container;	
+	
+	/**
+	 * @var string
+	 */
+	protected $_locale;	
+	
+	/**
 	 * Constructor.
 	 *
 	 * @param array $roles_user
 	 * @return void
 	 */
-	public function __construct($roles_user = array('ROLE_ADMIN', 'ROLE_SUPER_ADMIN', 'ROLE_CONTENT_MANAGER'))
+	public function __construct($locale, $roles_user = array('ROLE_ADMIN', 'ROLE_SUPER_ADMIN', 'ROLE_CONTENT_MANAGER'), ContainerInterface $container)
 	{
-		$this->_roles_user = $roles_user;
+		$this->_roles_user 	= $roles_user;
+		$this->_container 	= $container;
+		$this->_locale		= $locale;
 	}
 		
     public function buildForm(FormBuilder $builder, array $options)
@@ -52,9 +65,14 @@ class PageByTransType extends AbstractType
     		$read_only = true;
     	
         $builder
+        	->add('enabled', 'checkbox', array(
+        			'data'  => true,
+        			'label'	=> 'pi.form.label.field.enabled',
+        	))
             ->add('user', 'entity', array(
             		'class' 	=> 'BootStrapUserBundle:User',
             		'read_only'	=> $read_only,
+            		'label'	=> 'pi.form.label.field.user',
             		"attr" 		=> array(
             				"class"=>"pi_simpleselect",
             		),
@@ -65,7 +83,8 @@ class PageByTransType extends AbstractType
 	            		return $er->getAllPageRubrique();
 		            },
 		            'property' => 'titre',
-		            'empty_value' => 'Choose an option',
+		            'empty_value' => 'pi.form.label.select.choose.option',
+		            'label'     => 'pi.page.form.rubrique',
 		            'multiple'	=> false,
 		            'required'  => false,
 		            "attr" => array(
@@ -74,6 +93,7 @@ class PageByTransType extends AbstractType
             ))
             ->add('layout', 'entity', array(
             		'class' => 'PiAppAdminBundle:Layout',
+            		'label'     => 'pi.page.form.layout',
             		"attr" => array(
             				"class"=>"pi_simpleselect",
             		),
@@ -86,6 +106,8 @@ class PageByTransType extends AbstractType
 		            'property' => 'url',
 		            'multiple'	=> true,
 		            'required'  => false,
+		            'empty_value' => 'pi.form.label.select.choose.option',
+		            'label'     => 'pi.page.form.page_css',
 		            "attr" => array(
 		            		"class"=>"pi_multiselect",
 		            ),
@@ -98,6 +120,8 @@ class PageByTransType extends AbstractType
 		            'property' => 'url',
 		            'multiple'	=> true,
 		            'required'  => false,
+		            'empty_value' => 'pi.form.label.select.choose.option',
+		            'label'     => 'pi.page.form.page_js',
 		            "attr" => array(
 		            		"class"=>"pi_multiselect",
 		            ),
@@ -109,42 +133,48 @@ class PageByTransType extends AbstractType
 				    },
 				    'multiple'	=> true,
 				    'required'  => false,
+				    'empty_value' => 'pi.form.label.select.choose.option',
+				    'label'     => 'pi.page.form.keywords',
 				    "attr" => array(
 				    		"class"=>"pi_multiselect",
 				    ),
 			))      
             ->add('meta_content_type', 'choice', array(
             		'choices'   => PageRepository::getAvailableContentTypes(),
+            		'label'     => 'pi.page.form.meta_content_type',
             		'required'  => true,
             		'multiple'	=> false,
             		'expanded'  => true,
             		'read_only'	=> true,
             ))
-            ->add('enabled')
         	->add('cacheable', 'checkbox', array(
-    				'label'     => 'Static Content?',
+    				'label'     => 'pi.page.form.cacheable',
         			'required'  => false,
         			'help_block' => 'Returns a 304 "not modified" status, when the template has not changed since last visit.'
         	))
             ->add('public', 'checkbox', array(
-    				'label'     => 'Visitor-independant content?',
+    				'label'     => 'pi.page.form.public',
             		'required'  => false,
             		'help_block' => 'Allows proxies to cache the same content for different visitors.'
         	))
             ->add('lifetime', 'number', array(
-            		'label'     => 'Cache Lifetime',
+            		'label'     => 'pi.page.form.lifetime',
             		'required'  => false,
             		'help_block' => 'Does a full content caching during the specified lifetime. Leave empty for no cache.'
             ))
-            ->add('route_name')
-            ->add('url')
+            ->add('route_name', 'text', array(
+            		'label'	=> 'pi.page.form.route_name'
+            ))
+            ->add('url', 'text', array(
+            		'label'	=> 'pi.page.form.url'
+            ))
 			->add('translations', 'collection', array(
             		'allow_add' => true,
             		'allow_delete' => true,
             		'prototype'	=> true,
 					// Post update
 					'by_reference' => true,					
-            		'type'   => new TranslationPageType,
+            		'type'   => new TranslationPageType($this->_locale, $this->_container),
 					'options'  => array(
 							'attr'      => array('class' => 'translation_widget')
 					),					

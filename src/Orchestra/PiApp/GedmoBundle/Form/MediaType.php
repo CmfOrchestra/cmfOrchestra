@@ -84,31 +84,34 @@ class MediaType extends AbstractType
 	        $builder            
 	 			->add('enabled', 'checkbox', array(
 	            		'data'  => true,
+	 					'label'	=> 'pi.form.label.field.enabled',
 	 					"label_attr" => array(
 	 							"class"=> $this->_class,
 	 					),
 	            ))           
 	 			->add('category', 'entity', array(
-		        		'class' => 'PiAppGedmoBundle:Category',
-		        		'property' => 'name',
-		        		'empty_value' => 'Choose an option',
-		        		'multiple'	=> false,
-		        		'required'  => false,
+		        		'class' 		=> 'PiAppGedmoBundle:Category',
+		        		'property' 		=> 'name',
+		        		'empty_value' 	=> 'pi.form.label.select.choose.category',
+		        		'multiple'		=> false,
+		        		'required'  	=> false,
 		        		"attr" => array(
 		        				"class"=>"pi_simpleselect",
 		        		),
-	
+	 					'label'	=> "pi.form.label.field.category",
 	 					"label_attr" => array(
 	 							"class"=> $this->_class,
 	 					),
 		        ))               
 	 			->add('title', 'text', array(
-	 					"label_attr" => array(
+	 					'label'			=> "pi.form.label.field.title",
+	 					"label_attr" 	=> array(
 	 							"class"=> $this->_class,
 	 					),
-	 					'required'  => false,
+	 					'required'  	=> false,
 	 			))            
 	 			->add('url', 'text', array(
+	 					"label" 	=> "pi.form.label.field.url",
 	 					"label_attr" => array(
 	 							"class"=> $this->_class,
 	 					),
@@ -117,19 +120,23 @@ class MediaType extends AbstractType
 	        ;
     	}elseif($this->_simpleLink == "simpleCategory"){
     		$builder
-	    		->add('enabled', 'hidden', array(
-	    				'data'  => true,
-	    		))
+	    		->add('enabled', 'checkbox', array(
+	            		'data'  => true,
+	 					'label'	=> 'pi.form.label.field.enabled',
+	 					"label_attr" => array(
+	 							"class"=> $this->_class,
+	 					),
+	            ))   
 	    		->add('category', 'entity', array(
 			        		'class' => 'PiAppGedmoBundle:Category',
 			        		'property' => 'name',
-			        		'empty_value' => 'Choose an option',
+			        		'empty_value' => 'pi.form.label.select.choose.category',
 			        		'multiple'	=> false,
 			        		'required'  => false,
 			        		"attr" => array(
 			        				"class"=>"pi_simpleselect",
 			        		),
-		
+	    					'label'	=> "pi.form.label.field.category",
 		 					"label_attr" => array(
 		 							"class"=> $this->_class,
 		 					),
@@ -137,9 +144,14 @@ class MediaType extends AbstractType
     		;    
     	}elseif($this->_simpleLink == "simpleLink"){
     		$builder
-    		->add('enabled', 'hidden', array(
-    				'data'  => true,
-    		));
+    		->add('enabled', 'checkbox', array(
+	            		'data'  => true,
+	 					'label'	=> 'pi.form.label.field.enabled',
+	 					"label_attr" => array(
+	 							"class"=> $this->_class,
+	 					),
+	            ))
+    		;
     	}
     	
   		if($this->_status == "file"){

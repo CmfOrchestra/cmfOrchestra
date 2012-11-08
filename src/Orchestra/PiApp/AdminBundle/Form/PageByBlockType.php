@@ -52,9 +52,14 @@ class PageByBlockType extends AbstractType
     		$read_only = true;
     	    	
         $builder
+        	->add('enabled', 'checkbox', array(
+        			'data'  => true,
+        			'label'	=> 'pi.form.label.field.enabled',
+        	))
             ->add('user', 'entity', array(
             		'class' 	=> 'BootStrapUserBundle:User',
             		'read_only'	=> $read_only,
+            		'label'	=> 'pi.form.label.field.user',
             		"attr" 		=> array(
             				"class"=>"pi_simpleselect",
             		),
@@ -127,7 +132,6 @@ class PageByBlockType extends AbstractType
             		'expanded'  => true,
             		'read_only'	=> true,
             ))
-            ->add('enabled')
         	->add('cacheable', 'checkbox', array(
     				'label'     => 'Static Content?',
         			'required'  => false,

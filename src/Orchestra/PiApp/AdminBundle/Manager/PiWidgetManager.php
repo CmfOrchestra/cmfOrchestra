@@ -101,24 +101,23 @@ class PiWidgetManager extends PiCoreManager implements PiWidgetManagerBuilderInt
 		if (!$widget || !$this->isWidgetSupported($widget)) {
 			$transWidgetError 	= $this->getRepository('translationWidget')->getTranslationByParams(1, 'content', 'error', $lang);
 			if (!$transWidgetError)
-				throw new \InvalidArgumentException("We haven't set the data fixtures !");
+				throw new \InvalidArgumentException("We haven't set in the data fixtures the error widget message in the $lang locale !");
 			
 			$response->setStatusCode(404);
 			
 			// We set the Etag value
-			$id 			= $transWidgetError->getId();
-			$lang_			= $transWidgetError->getLangCode()->getId();
-			$this->setEtag("transwidget:$id:$lang_");
+			$id			= $transWidgetError->getId();
+			$this->setEtag("transwidget:$id:$lang");
 			
 			// create a Response with a Last-Modified header
-			$response = $this->configureCache($transWidgetError, $response);			
+			$response	= $this->configureCache($transWidgetError, $response);			
 		}else{
 			// We set the Etag value
-			$id 				= $widget->getId();
+			$id			= $widget->getId();
 			$this->setEtag("widget:$id:$lang");
 			
 			// create a Response with a Last-Modified header
-			$response = $this->configureCache($widget, $response);			
+			$response	= $this->configureCache($widget, $response);			
 		}
 		
 		// Check that the Response is not modified for the given Request

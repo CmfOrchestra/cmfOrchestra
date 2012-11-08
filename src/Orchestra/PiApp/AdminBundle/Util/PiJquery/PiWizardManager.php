@@ -47,12 +47,13 @@ class PiWizardManager extends PiJqueryExtension
 	 */	
 	protected function init() {
 		// css
-		$this->container->get('pi_app_admin.twig.extension.layouthead')->addCssFile("bundles/piappadmin/css/themes/wijmo/jquery.wijmo.wijwizard.css", "prepend");
-		$this->container->get('pi_app_admin.twig.extension.layouthead')->addCssFile("bundles/piappadmin/css/themes/wijmo/jquery.wijmo-open.2.1.2.css", "prepend");
+		//$this->container->get('pi_app_admin.twig.extension.layouthead')->addCssFile("bundles/piappadmin/css/themes/wijmo/jquery.wijmo.wijwizard.css", "prepend");
+		$this->container->get('pi_app_admin.twig.extension.layouthead')->addCssFile("bundles/piappadmin/css/themes/wijmo/jquery.wijmo-complete.2.1.2.css", "prepend");
 
 		// js
+		$this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/wijmo/external/jquery.wijmo-complete.all.2.1.2.min.js");
 		$this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/wijmo/external/jquery.wijmo-open.all.2.1.2.min.js");
-		$this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/wijmo/minified/jquery.wijmo.wijwizard.min.js");
+		//$this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/wijmo/minified/jquery.wijmo.wijwizard.min.js");
 	}	
 	
     /**
@@ -93,25 +94,27 @@ class PiWizardManager extends PiJqueryExtension
 			<div id="<?php echo $options['id']; ?>">
 				<ul>
 					<li data-id="0" >
-						<h1>Intro</h1>
-						Preload
+						<h1><a style="color:#238BDB">»</a></h1>
+						...
 					</li>				
 					<?php $p = 0 ; foreach($all_title as $key => $title){ $p++; ?>
 					<li data-id="<?php echo $p; ?>" >
 						<h1><?php echo $this->translator->trans($title); ?></h1>
-						Ajax
+						...
 					</li>
 					<?php } ?>
 				</ul>
 				<div>
 					<p>
-						All pages recorder
+						<?php echo $this->translator->trans("pi.wizard.intro"); ?>
 					</p>
 				</div>
 				<?php foreach($all_url as $key => $url){ ?>
 					<div src="<?php echo $url; ?>"></div>
 				<?php } ?>
 			</div>
+			<div id="pager" style="position:relative;width:100px;float:right"> 
+            </div>
 		
 		
 			<script id="scriptInit" type="text/javascript">
@@ -119,24 +122,35 @@ class PiWizardManager extends PiJqueryExtension
 			
 				$(document).ready(function () {
 						var wizard_obj = $("#<?php echo $options['id']; ?>").wijwizard({
+							navButtons: 'none',
 							cache:false,
 							showOption: {blind: false,fade: true,duration: 200},
 							hideOption: {blind: false,fade: true,duration: 200},
-						});
+						});		
 
-						$(".wijmo-wijwizard-buttons").prependTo('#<?php echo $options['id']; ?>');
+						$("#pager").wijpager({ 
+			                pageCount: $("#<?php echo $options['id']; ?>").wijwizard('count'), 
+			                pageIndex: $("#<?php echo $options['id']; ?>").wijwizard('option', 'activeIndex'), 
+			                mode: "nextPreviousFirstLast", 
+			                pageIndexChanged: function () { 
+			                    var pageIndex = $("#pager").wijpager("option", "pageIndex"); 
+			                    $("#<?php echo $options['id']; ?>").wijwizard({ activeIndex: pageIndex }); 
+			                } 
+			            }); 		
+
+						$("#pager").prependTo('#<?php echo $options['id']; ?>');
 
 						$("#<?php echo $options['id']; ?> li").bind("click", function(){
 							var id_target = $(this).data("id");
 							var id_source = $("#<?php echo $options['id']; ?> li[aria-selected='true']").data("id");
-							
+
 							if(id_target > id_source){
 								var steps = id_target - id_source;
-								$(".wijmo-wijwizard-buttons a:last-child").trigger("click");
+								$(".ui-icon-seek-next").trigger("click");
 							}
 							if(id_target < id_source){
 								var steps = id_target - id_source;
-								$(".wijmo-wijwizard-buttons a:first-child").trigger("click");
+								$(".ui-icon-seek-prev").trigger("click");
 							}							
 						});
 				});

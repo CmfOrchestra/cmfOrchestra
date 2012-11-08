@@ -46,7 +46,15 @@ class Layout
      * @ORM\OneToMany(targetEntity="Page", mappedBy="layout", cascade={"all"})
      * @Assert\NotBlank()
      */
-    protected $pages;    
+    protected $pages;  
+
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="BootStrap\UserBundle\Entity\Role", mappedBy="layout", cascade={"all"})
+     * @Assert\NotBlank()
+     */
+    protected $roles;    
     
     /**
      * @var string $name

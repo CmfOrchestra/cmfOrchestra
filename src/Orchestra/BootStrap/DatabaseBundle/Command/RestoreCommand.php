@@ -24,8 +24,8 @@ use Symfony\Component\Console\Input\InputOption;
  * we have to be connected for restore the databse otherwhise the database server has gone away.
  *
  * <code>
- * 		php app/console pi:database:restore C:\xampp\htdocs\symf_orchestra\app\cache\Backup doctrine_backup_database-symforchestra_default.sql
- * 		php app/console pi:database:restore /home/www/orchestra/app/cache/Backup doctrine_backup_database-symforchestra_default.sql
+ * 		php app/console orchestra:database:restore C:\xampp\htdocs\symf_orchestra\app\cache\Backup doctrine_backup_database-symforchestra_default.sql
+ * 		php app/console orchestra:database:restore /home/www/orchestra/app/cache/Backup doctrine_backup_database-symforchestra_default.sql
  * </code>
  * 
  * @category   Bootstrap_Command
@@ -38,7 +38,7 @@ class RestoreCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('pi:database:restore')
+            ->setName('orchestra:database:restore')
             ->setDefinition(array(
                 new InputArgument('path', InputArgument::OPTIONAL, 'The directory where the restore file will be done.'),
                 new InputArgument('filename', InputArgument::OPTIONAL, 'The name for the restore file.')
@@ -51,7 +51,7 @@ to generate a backup from is supported.
 
 An example of usage of the command:
 
-<info>./app/console pi:database:restore "my-connection-service-id" "/var/tmp" [my_sql_file_name.sql]</info>
+<info>./app/console orchestra:database:restore "my-connection-service-id" "/var/tmp" [my_sql_file_name.sql]</info>
 
 EOT
             )

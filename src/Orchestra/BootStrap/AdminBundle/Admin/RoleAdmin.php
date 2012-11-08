@@ -52,6 +52,9 @@ class RoleAdmin extends Admin
             ->add('label')
             ->add('name')
             ->add('comment')
+            ->add('Heritage')
+            ->add('route_name')
+            ->add('layout')
             ->add('enabled')
             ->add('id')
     	;
@@ -96,6 +99,7 @@ class RoleAdmin extends Admin
     {
         $formMapper
             ->with('General')
+            	->add('enabled', null, array('required' => false))
                 ->add('label')
                 ->add('name')
             ->end()
@@ -105,9 +109,10 @@ class RoleAdmin extends Admin
             ->with('Heritage')
                 ->add('heritage', 'bootstrap_security_roles', array( 'multiple' => true, 'required' => false))
             ->end()
-            ->with('Other')
-            	->add('enabled', null, array('required' => false))
-            ->end()
+            ->with('Redirection')
+            	->add('route_name', 'bootstrap_routes', array( 'multiple' => false, 'required' => false))
+            	->add('layout', null, array('required' => false))
+            ->end()            
         ;
     }
     

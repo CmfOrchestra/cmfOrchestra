@@ -93,14 +93,12 @@ class PermissionAdmin extends Admin
     {
         $formMapper
             ->with('General')
+	            ->add('enabled', null, array('required' => false))
                 ->add('name')
             ->end()
             ->with('Groups')
                 ->add('comment')
             ->end()
-            ->with('Other')
-            	->add('enabled', null, array('required' => false))
-            ->end()            
         ;
     }
     

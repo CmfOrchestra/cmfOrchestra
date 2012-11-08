@@ -51,7 +51,10 @@ class TagType extends AbstractType
     		$choiceList = array();
     	    	
         $builder
-            ->add('enabled')
+            ->add('enabled', 'checkbox', array(
+        			'data'  => true,
+        			'label'	=> 'pi.form.label.field.enabled',
+        	))
             ->add('groupname', 'choice', array(
             		'choices'   => $choiceList,
             		'multiple'	=> false,
@@ -62,10 +65,12 @@ class TagType extends AbstractType
             		),
             ))
             ->add('groupnameother', 'text', array(
-            		'label'=>'ou',
+            		"label" 	=> "pi.form.label.field.or",
             		'required'  => false,
             ))
-            ->add('name')
+            ->add('name', 'text', array(
+ 				'label' => "pi.form.label.field.name"
+ 			))
             ->add('color')
             ->add('Hicolor')
         ;

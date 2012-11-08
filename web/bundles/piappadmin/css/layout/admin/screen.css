@@ -284,14 +284,22 @@ height:15px;
 	position: relative;
 	}
 a.action-slider	{
-	background: url(../../../images/table/dropdown_actions.gif) no-repeat;
+	background: url(../../../images/table/dropdown_actions.png) no-repeat;
 	display: block;
 	height: 30px;
 	width: 110px;
 	margin-top:11px;
 	}
+a.action-slider span{
+	position: absolute;
+	font-weight: bold;
+	font-size: 17px;
+	color: #272727;
+	padding: 6px 8px 4px 12px;
+	height: 18px;
+}
 a.action-slider.activated	{
-	background: url(../../../images/table/dropdown_actions.gif) no-repeat 0 -30px;
+	background: url(../../../images/table/dropdown_actions.png) no-repeat 0 -30px;
 	display: block;
 	height: 30px;
 	width: 110px;
@@ -304,7 +312,7 @@ a.action-slider.activated	{
 	padding-top: 10px;
 	position: absolute;
 	top: 24px;
-	width: 109px;
+	width: 110px;
 	margin-top:13px;
 	}
 #actions-box-slider-inner	{
@@ -494,7 +502,7 @@ a:hover.action-delete	{
 #nav-right	{
 	float: right;
 	position: relative;
-	width: 280px;
+	width: auto;
 	z-index: 999;
 	height: 50px;
 	}
@@ -551,6 +559,7 @@ a:hover.action-delete	{
 	float: left;
 	margin: 10px 5px 0 5px;
 	}
+	
 .account-drop-inner a	{
 	color: #fff;
 	font-size: 12px;
@@ -721,6 +730,7 @@ Copyright (c) 2005-2007 Stu Nicholls. All rights reserved. This stylesheet and t
 .nav .current .show	{
 	z-index: 10;
 	}
+
 .nav .select :hover .sub li a, 
 .nav .current .show .sub li a	{
 	background: transparent;
@@ -1134,4 +1144,29 @@ a:hover.back-login	{
 	}
 .submit-login:hover	{
 	background: url(../../../images/login/submit_login.gif) no-repeat 0 -29px;
+	}
+	
+	
+	
+	
+span.connexion-my-account,
+span.connexion-login-logout{
+	position: relative;
+	color: white;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 19px;
+	margin: 0px 0px 0px -74px;
+	padding: 0 0 0 0;
+	-webkit-transition: color .6s ease-in;
+	-moz-transition: color .6s ease-in;
+	-o-transition: color .6s ease-in;
+	transition: color .6s ease-in;
+	}
+span.connexion-login-logout{
+	margin: 0px 0px 0px -41px;
+}
+span.connexion-my-account:hover,
+span.connexion-login-logout:hover{
+	color: #238bdb;
 	}

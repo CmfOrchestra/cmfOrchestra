@@ -142,6 +142,7 @@ class FrontendController extends BaseController
 		$pageManager  = $this->get('pi_app_admin.manager.page');
 		// we get the object Page by route
 		$page		= $pageManager->setPageByRoute($data['_route'], true);
+		
 		// we set the result
 		if($page instanceof Page){
 			switch ($action) {

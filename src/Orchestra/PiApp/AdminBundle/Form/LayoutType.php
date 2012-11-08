@@ -28,8 +28,13 @@ class LayoutType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-            ->add('enabled')
-        	->add('name')
+            ->add('enabled', 'checkbox', array(
+            		'data'  => true,
+ 					'label'	=> 'pi.form.label.field.enabled',
+            ))
+        	->add('name', 'text', array(
+ 				'label' => "pi.form.label.field.name"
+ 			))
             ->add('filePc')
             ->add('fileMobile')
             ->add('configXml')

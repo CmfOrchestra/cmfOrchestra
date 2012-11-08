@@ -153,8 +153,10 @@ class BlockController extends abstractController
     public function newAction()
     {
     	$em 	= $this->getDoctrine()->getEntityManager();
+    	$locale	= $this->container->get('session')->getLocale();
+    	
     	$entity = new Block();
-        $form   = $this->createForm(new BlockType($em), $entity, array('show_legend' => false));
+        $form   = $this->createForm(new BlockType($em, $locale, $this->container), $entity, array('show_legend' => false));
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout)	$template = "new.html.twig";  else 	$template = "new.html.twig";        
@@ -185,7 +187,7 @@ class BlockController extends abstractController
     
         $entity  = new Block();
         $request = $this->getRequest();
-        $form    = $this->createForm(new BlockType($em), $entity, array('show_legend' => false));
+        $form    = $this->createForm(new BlockType($em, $locale, $this->container), $entity, array('show_legend' => false));
         $form->bindRequest($request);
 
         if ($form->isValid()) {
@@ -227,7 +229,7 @@ class BlockController extends abstractController
         	$entity->addTranslation(new BlockTranslation($locale));            
         }
 
-        $editForm   = $this->createForm(new BlockType($em), $entity, array('show_legend' => false));
+        $editForm   = $this->createForm(new BlockType($em, $locale, $this->container), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render("PiAppGedmoBundle:Block:$template", array(
@@ -260,7 +262,7 @@ class BlockController extends abstractController
         	$entity = $em->getRepository("PiAppGedmoBundle:Block")->find($id);
         }
 
-        $editForm   = $this->createForm(new BlockType($em), $entity, array('show_legend' => false));
+        $editForm   = $this->createForm(new BlockType($em, $locale, $this->container), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
 
         $editForm->bindRequest($this->getRequest(), $entity);

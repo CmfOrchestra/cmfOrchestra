@@ -565,8 +565,8 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	/**
 	 * Returns the translation of a page.
 	 *
-	 * @param int $idpage	id page
-	 * @param string $lang
+	 * @param int 		$idpage		id page
+	 * @param string 	$lang
 	 * 
 	 * @return \PiApp\AdminBundle\Entity\TranslationPage
 	 * @access public
@@ -577,22 +577,20 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	public function getTranslationByPageId($idpage, $lang = '')
 	{
 		if(isset($this->translations[$idpage]) && !empty($this->translations[$idpage])){
-			if( !empty($lang) && isset($this->translations[$idpage][$lang]) && !empty($this->translations[$idpage][$lang]) )
-				$result = $this->translations[$idpage][$lang];
-			elseif( !empty($this->language) && isset($this->translations[$idpage][$this->language]) && !empty($this->translations[$idpage][$this->language]) )
-				$result = $this->translations[$idpage][$this->language];
-			else
-				$result =  $this->translations[$idpage];
+			if( !empty($lang) && isset($this->translations[$idpage][$lang]) && !empty($this->translations[$idpage][$lang]) ){
+				$result 		= $this->translations[$idpage][$lang];
+				$this->language = $lang;
+			}elseif( !empty($this->language) && isset($this->translations[$idpage][$this->language]) && !empty($this->translations[$idpage][$this->language]) ){
+				$result 		= $this->translations[$idpage][$this->language];
+			}else{
+				$result 		=  end($this->translations[$idpage]);
+				if($result instanceof TranslationPage)
+					$this->language = $result->getLangCode()->getId();
+				else 
+					$result = false;
+			}
 		}else
 			$result = false;
-		
-		// we secure if the result is an array of translation object.
-		if(is_array($result))
-			$result = end($result);
-		
-		// Initialize Locale
-		if($result instanceof TranslationPage)
-			$this->language = $result->getLangCode()->getId();
 		
 		return $result;
 	}
@@ -600,8 +598,8 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	/**
 	 * Returns the translation of a widget.
 	 *
-	 * @param int $idwidget	id widget
-	 * @param string $lang
+	 * @param int 		$idwidget		id widget
+	 * @param string 	$lang
 	 *
 	 * @return \PiApp\AdminBundle\Entity\TranslationWidget
 	 * @access public

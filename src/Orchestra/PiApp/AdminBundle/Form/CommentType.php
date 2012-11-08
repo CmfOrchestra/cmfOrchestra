@@ -28,6 +28,10 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
+        	->add('enabled', 'checkbox', array(
+        		'data'  => true,
+        		'label'	=> 'pi.form.label.field.enabled',
+        	))
             ->add('user')
             ->add('comment')
             ->add('email')
@@ -71,7 +75,6 @@ class CommentType extends AbstractType
 	        		),
             		'label'	=> 'pi.form.label.date.archivage',
 	        ))
-            ->add('enabled')
             ->add('pageTranslation')
         ;
     }
