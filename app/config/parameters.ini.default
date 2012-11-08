@@ -1,0 +1,13 @@
+[parameters]
+    database_driver="pdo_mysql"
+    database_host="localhost"
+    database_port=""
+    database_name="symforchestra"
+    database_user="root"
+    database_password=""
+    mailer_transport="smtp"
+    mailer_host="localhost"
+    mailer_user=""
+    mailer_password=""
+    locale="en_GB"
+    secret="5b5a0ff57bd45284dafe7f104fc7d8e15"
