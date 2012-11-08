@@ -36,7 +36,7 @@
 #        single_slug: false
 #        refresh_allpage_containing_snippet: true
 #        indexation_authorized_automatically: false
-#        switch_page_other_language_if_doesnt_exist: false
+#        switch_page_other_language_if_doesnt_exist: true
 #        switch_language_browser_authorized: false
 #        switch_layout_mobile_authorized: false
 #        switch_layout_init_redirection_authorized: false
