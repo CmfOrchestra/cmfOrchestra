@@ -83,18 +83,12 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 		}
 		
 		// if the page is enabled.
-		if($page->getEnabled()){
+		if($page && $page->getEnabled()){
 			// 	Initialize response
 			$response = $this->getResponseByIdAndType('page', $page->getId());			
 			
-			// Recovering the parameter learning about the authorization to switch translation page to an other language.
-			$switch_page_other_language_if_doesnt_exist = $this->container->getParameter('pi_app_admin.page.switch_page_other_language_if_doesnt_exist');
-			if($switch_page_other_language_if_doesnt_exist)
-				// we register all translations page linked to one page.
-				$this->setTranslations($page);
-			else
-				// we register only the translation page asked in the $lang value.
-				$this->setTranslations($page, $lang);
+			// we register only the translation page asked in the $lang value.
+			$this->setTranslations($page, $lang);
 			
 			// we get the translation of the current page in terms of the lang value.
 			$pageTrans		= $this->getTranslationByPageId($page->getId(), $lang);
@@ -126,18 +120,24 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 			
 			// Handle 404
 			// We don't show the page if :
-			// * the page doesn't exist.
 			// * The page doesn't have a translation set.
 			// * the translation doesn't have a published status.
-			if (!$page || !$pageTrans) {
-				$page 			= $this->getRepository('page')->getPageByUrlAndSlug('error', 'error404-'.$this->language);
-				if (!$page)
-					throw new \InvalidArgumentException("We haven't set in the data fixtures the error page message in the $lang locale !");
-		
-				// we set the page.
-				$this->setPage($page);
-								
-				$response->setStatusCode(404);
+			if (!$pageTrans) {
+				// we register all translations page linked to one page.
+				$this->setTranslations($page);
+				// we get the translation of the current page in another language if it exists.
+				$pageTrans		= $this->getTranslationByPageId($page->getId(), $lang);
+				
+				if (!$pageTrans) {
+					$page 			= $this->getRepository('page')->getPageByUrlAndSlug('error', 'error404-'.$this->language);
+					if (!$page)
+						throw new \InvalidArgumentException("We haven't set in the data fixtures the error page message in the $lang locale !");
+			
+					// we set the page.
+					$this->setPage($page);
+									
+					$response->setStatusCode(404);
+				}
 			}
 			
 			// We set the Etag value
@@ -1403,6 +1403,5 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 		}
 
 		return $urls;
-	}	
-		
+	}		
 }

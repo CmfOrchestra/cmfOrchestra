@@ -61,5 +61,4 @@ class PiTransWidgetManager extends PiCoreManager implements PiTransWidgetManager
 		else
 			return '&nbsp;';
 	}	
-	
 }

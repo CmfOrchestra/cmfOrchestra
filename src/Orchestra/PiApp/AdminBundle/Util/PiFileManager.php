@@ -551,6 +551,5 @@ class PiFileManager implements PiFileManagerBuilderInterface
     	// autres caracteres
     	$value = preg_replace("/[^a-z0-9\-\_]/","-",$value);
     	return $value;
-    }    
-
+    }
 }

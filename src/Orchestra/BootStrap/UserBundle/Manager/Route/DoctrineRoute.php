@@ -43,8 +43,7 @@ class DoctrineRoute implements DoctrineRouteInterface
      *
      * @var bool
      */
-    private $primeCache;
-    
+    private $primeCache;    
 
     /**
      * Constructor.

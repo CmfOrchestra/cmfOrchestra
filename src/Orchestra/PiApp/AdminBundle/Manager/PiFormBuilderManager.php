@@ -961,7 +961,5 @@ class PiFormBuilderManager extends AbstractType implements PiFormBuilderManagerI
 		} catch (\Exception $e) {
 			return false;
 		}				
-	}
-		
+	}	
 }
-?>

@@ -84,8 +84,5 @@ class PiLocaleManager implements PiLocaleManagerBuilderInterface
 		    }
 	    }
 	    return strtolower(substr($deflang,0,2));
-    }    
-    
-  
-
+    }
 }

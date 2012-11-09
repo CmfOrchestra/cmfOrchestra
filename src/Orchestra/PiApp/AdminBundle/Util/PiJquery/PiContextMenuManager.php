@@ -412,15 +412,14 @@ class PiContextMenuManager extends PiJqueryExtension
   				}				
 			]
 	
-	<?php
-	// We retrieve the contents of the buffer.
-	$_content = ob_get_contents ();
-	// We clean the buffer.
-	ob_clean ();
-	// We close the buffer.
-	ob_end_flush ();
-	
-	return $_content;
-	}
+		<?php
+		// We retrieve the contents of the buffer.
+		$_content = ob_get_contents ();
+		// We clean the buffer.
+		ob_clean ();
+		// We close the buffer.
+		ob_end_flush ();
 		
+		return $_content;
+	}		
 }

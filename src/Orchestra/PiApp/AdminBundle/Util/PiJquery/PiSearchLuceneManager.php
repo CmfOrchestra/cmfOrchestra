@@ -206,6 +206,5 @@ class PiSearchLuceneManager extends PiJqueryExtension
 			return $result_searchpage =  $searchManager->searchPage($query, $options, $this->locale);
 		}else
 			throw ExtensionException::serviceUndefined('PiSearchLuceneManager');		
-	}
-	
+	}	
 }

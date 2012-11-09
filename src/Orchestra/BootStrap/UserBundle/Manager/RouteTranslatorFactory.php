@@ -370,6 +370,4 @@ class RouteTranslatorFactory extends AbstractFactory implements RouteTranslatorF
 		$I18Route =  new I18nRoute($name, $locales, $defaults, $requirements, $options);
 		return $I18Route->getCollection();
 	}	
-
-	
 }

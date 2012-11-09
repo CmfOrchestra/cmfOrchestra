@@ -984,6 +984,5 @@ class PiWidgetExtension extends \Twig_Extension
     		$set  = " {{ getService(\"pi_app_admin.twig.extension.jquery\").FactoryFunction(\"$JQcontainer\", \"$method\")|raw }} \n";
     
     	return $set;
-    }
-    
+    }    
 }

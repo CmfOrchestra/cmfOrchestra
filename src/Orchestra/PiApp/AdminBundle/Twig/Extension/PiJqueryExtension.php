@@ -248,8 +248,6 @@ class PiJqueryExtension extends \Twig_Extension
      */
     final public function run($options = null)
     {
-    	return $this->render($options);
-    	
     	try{
     		return $this->render($options);
     	} catch (\Exception $e) {

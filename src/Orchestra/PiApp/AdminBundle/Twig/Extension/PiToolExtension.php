@@ -129,8 +129,7 @@ class PiToolExtension extends \Twig_Extension
 				'picture_form'				=> new \Twig_Function_Method($this, 'getPictureFormFunction'),
 				'get_pattern_by_local'		=> new \Twig_Function_Method($this, 'getDatePatternByLocalFunction'),				
 		);
-	}
-	
+	}	
 	
 	/**
 	 * Functions
@@ -641,5 +640,5 @@ class PiToolExtension extends \Twig_Extension
 	
 	public function slugifyFilter($string) {
 		return $this->container->get('pi_app_admin.string_manager')->slugify($string);
-	}	
+	}
 }

@@ -597,6 +597,5 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
 		ob_end_flush ();
 		
 		return $_content;
-	}
-	
+	}	
 }

@@ -433,5 +433,4 @@ class PiContentManager extends PiWidgetExtension
 		
 		return $_content;
 	}	
-	
 }

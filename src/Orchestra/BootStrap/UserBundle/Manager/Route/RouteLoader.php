@@ -148,6 +148,5 @@ class RouteLoader implements LoaderInterface
     public function setResolver(LoaderResolver $resolver)
     {
     	// irrelevant to us, since we don't need a resolver
-    } 
-    
+    }    
 }

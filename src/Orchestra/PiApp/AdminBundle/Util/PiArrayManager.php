@@ -624,7 +624,5 @@ class PiArrayManager implements PiArrayManagerBuilderInterface
 	private static function isValidTagName($tag){
 		$pattern = '/^[a-z_]+[a-z0-9\:\-\.\_]*[^:]*$/i';
 		return preg_match($pattern, $tag, $matches) && $matches[0] == $tag;
-	}	
-	
-		
+	}		
 }

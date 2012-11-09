@@ -82,9 +82,7 @@ class PiDateExtension extends \Twig_Extension
     
     /**
      * Callbacks
-     */
-    
-    
+     */   
     
     public function convertToDattimeFilter($string)
     {

@@ -788,5 +788,4 @@ class PiGedmoManager extends PiWidgetExtension
 		
 		return $_content;
 	}	
-	
 }

@@ -416,5 +416,4 @@ class PiTreeManager extends PiCoreManager implements PiTreeManagerBuilderInterfa
 		
 		return $tree;
 	}	
-	
 }

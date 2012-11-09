@@ -343,5 +343,4 @@ class PiwidgetimportManager extends PiJqueryExtension
 	{
 		return $this->container->get('pi_app_admin.manager.formbuilder')->executeAllFormByContainer('WIDGET');
 	}	
-	
 }

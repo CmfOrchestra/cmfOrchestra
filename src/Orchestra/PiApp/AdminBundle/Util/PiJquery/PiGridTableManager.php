@@ -755,5 +755,4 @@ class PiGridTableManager extends PiJqueryExtension
 		
 		return $_content;
 	}	
-	
 }

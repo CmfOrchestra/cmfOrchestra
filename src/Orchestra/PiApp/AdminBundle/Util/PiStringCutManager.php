@@ -239,9 +239,7 @@ class PiStringCutManager {
 			/* Ferme la balise */
 			$this->strChaineCoupee .= '</' . $strBaliseOuverte . '>';
 	}
-
 }
-
 
 /*
 <?

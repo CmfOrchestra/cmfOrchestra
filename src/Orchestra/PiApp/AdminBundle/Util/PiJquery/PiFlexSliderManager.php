@@ -588,6 +588,4 @@ class PiFlexSliderManager extends PiJqueryExtension
 	
 		return $content;
 	}	
-
-	
 }

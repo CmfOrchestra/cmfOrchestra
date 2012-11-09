@@ -840,6 +840,5 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	
 		if(!empty($type))
 			$this->container->get('session')->setFlash($type, $message);
-	}	
-		
+	}		
 }

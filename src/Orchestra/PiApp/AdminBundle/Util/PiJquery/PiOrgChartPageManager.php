@@ -319,6 +319,4 @@ class PiOrgChartPageManager extends PiJqueryExtension
 		}else
 			throw ExtensionException::serviceUndefined('PiTreeManager');
 	}	
-
-	
 }

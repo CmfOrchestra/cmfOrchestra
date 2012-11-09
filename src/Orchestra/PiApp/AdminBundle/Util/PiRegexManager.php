@@ -325,10 +325,7 @@ class PiRegexManager implements PiRegexManagerBuilderInterface
 		}else
 			return false;
 	}
-
 }
-
-
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //							Fonction depreciated													//

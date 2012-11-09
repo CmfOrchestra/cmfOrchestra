@@ -286,6 +286,5 @@ class PiWidgetManager extends PiCoreManager implements PiWidgetManagerBuilderInt
 	private function setResponse($widget, Response $response)
 	{
 		$this->responses['widget'][$widget->getId()] = $response;
-	}	
-		
+	}		
 }

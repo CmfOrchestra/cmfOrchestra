@@ -161,6 +161,4 @@ class PiRouteExtension extends \Twig_Extension
     	}
    		return $match;
     }    
-
-    
 }

@@ -70,6 +70,5 @@ class PiJqextManager extends PiCoreManager implements PiJqextManagerBuilderInter
 			return $this->container->get('pi_app_admin.twig.extension.jquery')->FactoryFunction($JQcontainer, $JQservice, $params);
 		else
 			throw new \InvalidArgumentException("you have not configure correctly the attibute id");
-	}
-	
+	}	
 }

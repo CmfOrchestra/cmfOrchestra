@@ -159,6 +159,5 @@ class Analyzer_Accent extends \Zend_Search_Lucene_Analysis_Analyzer
     private function deleteAccent($str)
     {
     	return iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $str);
-    }    
-           
+    }           
 }

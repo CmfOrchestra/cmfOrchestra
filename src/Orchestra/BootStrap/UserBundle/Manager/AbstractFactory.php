@@ -277,5 +277,4 @@ abstract class AbstractFactory
     	else
     		throw UserException::serviceNotSupported();
     }    
-    
 }

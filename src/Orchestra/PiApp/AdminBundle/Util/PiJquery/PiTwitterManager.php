@@ -215,5 +215,4 @@ class PiTwitterManager extends PiJqueryExtension
 		}
 		
 	}	
-	
 }

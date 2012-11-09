@@ -182,5 +182,4 @@ class PiDateManager implements PiDateManagerBuilderInterface
     
     	return $amount." ".pluralize($unit, $amount)." ".$word;
     }    
-    
 }

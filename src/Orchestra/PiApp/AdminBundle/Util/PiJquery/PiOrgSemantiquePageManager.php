@@ -211,6 +211,5 @@ class PiOrgSemantiquePageManager extends PiJqueryExtension
     		'node'	 	=> $node,
     		'childs' 	=> $nodes,		
     	);
-	}
-	
+	}	
 }

@@ -1256,5 +1256,4 @@ class PiStringManager implements PiStringManagerBuilderInterface
 		strtolower($clean) :
 		$clean;
 	}
-
 }

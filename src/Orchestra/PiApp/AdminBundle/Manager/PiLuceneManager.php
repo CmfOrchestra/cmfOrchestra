@@ -604,6 +604,4 @@ class PiLuceneManager extends PiCoreManager implements PiSearchLuceneManagerBuil
 		
 		return $body;
 	}	
-		
-	
 }

@@ -199,7 +199,5 @@ class PiOrgTreePageManager extends PiJqueryExtension
 			return $htmlTree;
 		}else 
 			throw ExtensionException::serviceUndefined('PiPageManager');		
-	}
-
-	
+	}	
 }

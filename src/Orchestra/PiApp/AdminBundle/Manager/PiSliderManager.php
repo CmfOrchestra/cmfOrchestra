@@ -113,5 +113,4 @@ class PiSliderManager extends PiCoreManager implements PiSliderManagerBuilderInt
 		
 		return array('content'=>$_content, 'routenames'=>$RouteNames);		
 	}	
-	
 }
