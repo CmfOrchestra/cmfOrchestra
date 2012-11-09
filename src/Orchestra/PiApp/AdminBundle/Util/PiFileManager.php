@@ -220,14 +220,14 @@ class PiFileManager implements PiFileManagerBuilderInterface
      * 
      * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
      */
-    public static function getContentCodeFile($file_code)
+    public function getContentCodeFile($file_code)
     {    	
     	// We get the real path of the file
     	$path     	  	= $this->decodeFilePath($file_code);
     	
     	// We get the content of the file
-    	$content_file 	= $this->getFileContent($path);
-    	$ext_file		= $this->getFileExtension($path);
+    	$content_file 	= self::getFileContent($path);
+    	$ext_file		= self::getFileExtension($path);
     	
     	// We send the response
     	$response = new Response($content_file, 200);
@@ -244,7 +244,7 @@ class PiFileManager implements PiFileManagerBuilderInterface
     /**
      * Parse a file name coded and returns the real path
      *
-     * @param string $file_code		file name consists of: bundle_piappadmin_css_screen__css for express this path : bundle/piappadmin/css/screen.css
+     * @param string $file_code		file name consists of: web_bundle_piappadmin_css_screen__css for express this path : web/bundle/piappadmin/css/screen.css
      * 
      * @return string
      * @access private
@@ -262,11 +262,11 @@ class PiFileManager implements PiFileManagerBuilderInterface
     	$namespace	= array_shift($dirs);
     
     	// building to the proper path
-    	$root_dir	= $this->container->get('kernel')->getRootDir() . '/../web/' . $namespace . '/';
-    
+    	$root_dir	= $this->container->get('kernel')->getRootDir() . '/../' . $namespace . '/';
+    	
     	// returning realpath or throw everything to the trashcan
     	$realpath		= realpath($root_dir . implode('/', $dirs) . '.' . $ext);
-    
+    	
     	if($realpath === false)
     		throw new \InvalidArgumentException('The $file argument "' . $file_code .'" doesn\'t match a valid file');
     
@@ -276,7 +276,7 @@ class PiFileManager implements PiFileManagerBuilderInterface
     /**
      * Create a directory and all subdirectories needed.
      * @param string $pathname
-     * @param octal $mode example 0666
+     * @param octal $mode example 0777
      */
     public static function mkdirr($pathname, $mode = null)
     {
@@ -290,7 +290,7 @@ class PiFileManager implements PiFileManagerBuilderInterface
     	}
     	// Crawl up the directory tree
     	$nextPathname = substr($pathname, 0, strrpos($pathname, "/"));
-    	if ($this->mkdirr($nextPathname, $mode)) {
+    	if (self::mkdirr($nextPathname, $mode)) {
     		if (!file_exists($pathname)) {
     			if (is_null($mode)) {
     				return mkdir($pathname);
@@ -316,7 +316,7 @@ class PiFileManager implements PiFileManagerBuilderInterface
     		while ($item = readdir($handle)) {
     			if ( ($item != ".") && ($item != "..") ) {
     				if (is_dir("$dir/$item")) {
-    					$this->rmdirr("$dir/$item");
+    					self::rmdirr("$dir/$item");
     				} else {
     					unlink("$dir/$item");
     				}
@@ -352,19 +352,21 @@ class PiFileManager implements PiFileManagerBuilderInterface
     /**
      * Save a content in the file given in parameter.
      *
-     * @param  string    $path  path du fichier
+     * @param  string    $path  	path file
+     * @param  string    $content  	content to push in th file
+     * @param  int		 $mode  	mode file
      *
-     * @return string
+     * @return booean	return 0 if the file is save correctly.	
      * @access public
      *
      * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
      */
-    public static function save($path, $content= '')
+    public static function save($path, $content = '',  $mode = 0777)
     {
-    	$dirpath = dirname($path);
-    	if(@mkdir("$dirpath", 0777)) {}
-    
-    	file_put_contents($path, $content);
+    	if(self::mkdirr(dirname($path), $mode))   
+    		return file_put_contents($path, $content);
+    	else
+    		return false;
     }    
     
     /**

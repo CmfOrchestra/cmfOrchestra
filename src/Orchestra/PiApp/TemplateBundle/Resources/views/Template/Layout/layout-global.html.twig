@@ -20,17 +20,17 @@
         
         <!--  Css core -->
         {% stylesheet "bundles/piappadmin/css/layout/screen-layout-global.css:prepend" %}
-        {% stylesheets %}  
+   		{% CMFstylesheets 'php' %}
         
         <!--[if lt IE 9]>
-			<script type="text/javascript"src="/bundles/piappadmin/js/html5shiv/html5shiv.js"></script>
-			<script type="text/javascript"src="/bundles/piappadmin/js/html5shiv/html5shiv-printshiv.js"></script>
+			<script type="text/javascript" src="/bundles/piappadmin/js/html5shiv/html5shiv.js"></script>
+			<script type="text/javascript" src="/bundles/piappadmin/js/html5shiv/html5shiv-printshiv.js"></script>
 		<![endif]-->        
         
         <!--  Js core -->
 		{% javascript "bundles/piappadmin/js/ui/jquery-ui-1.8.18.custom.min.js" %}
-		{% javascript "bundles/piappadmin/js/jquery/jquery-1.7.1.min.js" %}   
-		{% javascripts %}     
+		{% javascript "bundles/piappadmin/js/jquery/jquery-1.7.1.min.js" %}
+   		{% CMFjavascripts 'php' %}
         
         <!--  script divers -->
         {% block global_script_divers %}

@@ -121,6 +121,10 @@ class Configuration implements ConfigurationInterface
 			    		->defaultValue(true)
 			    		->end()
 			    		
+			    	->booleanNode('refresh_css_js_cache_file')
+			    		->defaultValue(true)
+			    		->end()			    		
+			    		
 			    	->booleanNode('indexation_authorized_automatically')
 			    		->defaultValue(false)
 			    		->end()			    		

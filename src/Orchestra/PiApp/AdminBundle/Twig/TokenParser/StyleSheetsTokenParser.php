@@ -50,9 +50,11 @@ class StyleSheetsTokenParser extends \Twig_TokenParser
     {
         $lineno = $token->getLine();
         $stream = $this->parser->getStream();
+        
+        $value = $this->parser->getExpressionParser()->parseExpression();
         $stream->expect(\Twig_Token::BLOCK_END_TYPE);
 
-        return new StyleSheetsNode($this->extensionName, $lineno, $this->getTag());
+        return new StyleSheetsNode($this->extensionName, $value, $lineno, $this->getTag());
     }
 
     /**
@@ -62,6 +64,6 @@ class StyleSheetsTokenParser extends \Twig_TokenParser
      */
     public function getTag()
     {
-        return 'stylesheets';
+        return 'CMFstylesheets';
     }
 }

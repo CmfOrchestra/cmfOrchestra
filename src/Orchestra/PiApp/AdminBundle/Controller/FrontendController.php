@@ -42,7 +42,7 @@ class FrontendController extends BaseController
 	/**
 	 * Parse a file and returns the contents
 	 *
-	 * @param string	$file 		file name consists of: bundle_piappadmin_css_screen__css for express this path : bundle/piappadmin/css/screen.css
+	 * @param string	$file 		file name consists of: web_bundle_piappadmin_css_screen__css for express this path : web/bundle/piappadmin/css/screen.css
 	 * @return string	content of the file
 	 *
 	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>

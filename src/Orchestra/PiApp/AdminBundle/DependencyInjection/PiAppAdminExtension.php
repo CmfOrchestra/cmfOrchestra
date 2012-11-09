@@ -69,6 +69,8 @@ class PiAppAdminExtension extends Extension
         		$container->setParameter('pi_app_admin.page.single_slug', $config['page']['single_slug']);
         	if(isset($config['page']['refresh_allpage_containing_snippet']))
         		$container->setParameter('pi_app_admin.page.refresh_allpage_containing_snippet', $config['page']['refresh_allpage_containing_snippet']);
+        	if(isset($config['page']['refresh_css_js_cache_file']))
+        		$container->setParameter('pi_app_admin.page.refresh_css_js_cache_file', $config['page']['refresh_css_js_cache_file']);
         	if(isset($config['page']['indexation_authorized_automatically']))
         		$container->setParameter('pi_app_admin.page.indexation_authorized_automatically', $config['page']['indexation_authorized_automatically']);
         	if(isset($config['page']['switch_page_other_language_if_doesnt_exist']))

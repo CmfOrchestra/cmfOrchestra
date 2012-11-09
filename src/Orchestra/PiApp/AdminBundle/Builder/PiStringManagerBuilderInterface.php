@@ -42,6 +42,7 @@ interface PiStringManagerBuilderInterface
 	public static function remove_doublewhitespace($string = null);
 	public static function remove_whitespace($string = null);
 	public static function remove_whitespace_feed( $string = null);
+	public static function remove_comment_in_css_file($string = null);
 	public static function json_encodeDecToUTF8($array);
 	public static function minusculesSansAccents($texte);
 	public static function uniqueWord($text);

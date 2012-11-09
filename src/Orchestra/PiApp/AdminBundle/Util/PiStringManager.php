@@ -511,7 +511,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	}
 	
 	/**
-	 * Remove doublewhitespace of s string
+	 * Remove doublewhitespace of a string
 	 *
 	 * @param string $text
 	 * @access public
@@ -553,6 +553,21 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	public static function remove_whitespace_feed( $string = null)
 	{
 		return $ret = preg_replace('/[\t\n\r\0\x0B]/', '', $string);
+	}	
+	
+	/**
+	 * Remove comment of a css string file.
+	 *
+	 * @param string $text
+	 * @access public
+	 * @return string
+	 * @static
+	 *
+	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 */
+	public static function remove_comment_in_css_file($string = null)
+	{
+		return  $ret = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $string);
 	}	
 	
 	/**
