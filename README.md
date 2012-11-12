@@ -222,6 +222,9 @@ Then you must add the uploads/media folder to allow specific users to load :
 mkdir web/uploads
 mkdir web/uploads/media
 chmod –R 0777 web/uploads
+
+mkdir web/yui
+chmod –R 0777 web/yui
 ```
 
 ### Step 3: Create database, tables and fixtures
