@@ -259,6 +259,16 @@ class FrontendController extends BaseController
     {
     	$em			= $this->getDoctrine()->getEntityManager();
     	
+//     	$message = \Swift_Message::newInstance()
+//     	->setSubject('Hello Email')
+//     	->setFrom('send@example.com')
+//     	->setTo('etienne_delongeaux@hotmail.com')
+//     	->setBody('codicydblciudycdcpi')
+//     	;
+    	
+//     	//print_r(get_class($this->get('mailer')));exit;    	
+//     	$this->get('mailer')->send($message);
+    	
     	return $this->render('PiAppAdminBundle:Frontend:index.html.twig', array(
     	));
     }  

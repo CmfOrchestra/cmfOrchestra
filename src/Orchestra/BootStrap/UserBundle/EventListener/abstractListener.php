@@ -108,6 +108,10 @@ abstract class abstractListener
             $entity->setCreatedAt(new \DateTime());
         }
         
+        if($entity instanceof \BootStrap\UserBundle\Entity\User){
+        	return true;
+        }        
+        
         // If AnonymousToken user,
         if ($isAnonymousToken && $this->isAnonymousToken()) {
         	// we schedules the orphaned entity for removal

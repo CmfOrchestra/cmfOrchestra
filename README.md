@@ -174,10 +174,11 @@ Register all namespace before using the bundle. Add the following line to your `
 
 To use Doctrine, you will need to have installed PDO. And you must have installed the PDO driver for the database server you want to use.    
 
-### Step 1: Configuring BDD
+### Step 1: Configuring paramaters BDD and mailer
 
 * Open the file orchestra_project / app / config / parameters.ini.
 * Give the name "mydatabase" for example in the database and choose the type pdo_mysql to use a MySQL database.
+* Give your user and password of your Gmail count.
 * Change the secret code that will be used to protect your application from XSS attacks.
 
 ``` bash
@@ -188,11 +189,11 @@ To use Doctrine, you will need to have installed PDO. And you must have installe
     database_name="mydatabase"
     database_user="root"
     database_password=""
-    mailer_transport="smtp"
-    mailer_host="localhost"
-    mailer_user=""
-    mailer_password=""
-    locale="fr"
+    mailer_transport="gmail"
+    mailer_host=""
+    mailer_user="MyUserGMAIL"
+    mailer_password="MyPswGMAIL"
+    locale="en_GB"
     secret="5b5a0ff57bd45284dafe7f104fc7d8e15"
 ```
 
