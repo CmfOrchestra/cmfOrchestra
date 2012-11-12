@@ -1,0 +1,21 @@
+{# src/MyApp/MonBundle/Resources/views/Registration/registration.email.twig #}
+
+{% block subject %}Confirmation d'inscription{% endblock %}
+
+{% block body_text %}
+{% autoescape false %}
+Bonjour {{ user.username }} !
+
+Vous devez confirmé voter inscription [....] en cliquant sur le lien suivant : {{ confirmationUrl }}
+
+Amicalement,
+Administrateur de monsiteweb.com
+{% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+{#
+    Vous pouvez ici définir le HTML que vous souhaitez ou même utiliser la force de twig, à savoir l'inclusion de template : 
+    include 'MyAppMonBundle:User:registration_email.html.twig'
+#}
+{% endblock %}

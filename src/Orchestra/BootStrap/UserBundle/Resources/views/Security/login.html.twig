@@ -26,7 +26,8 @@
 		</table>
 </form>
 <p>
-    <a href="{{ path('fos_user_resetting_request') }}" title="">{{ 'resetting.request.submit'|trans([], 'FOSUserBundle') }}</a>
+    <a href="{{ path('fos_user_resetting_request') }}" class="reset-pwd" title="">{{ 'resetting.request.submit'|trans([], 'FOSUserBundle') }}</a>
+    <a href="{{ path('fos_user_registration_register') }}" class="user-register" title="">{{ 'layout.register'|trans([], 'FOSUserBundle') }}</a>
 </p>
 
 {% endblock content %}

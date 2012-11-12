@@ -325,10 +325,23 @@ class PiLayoutHeadExtension extends \Twig_Extension
     		
     		if(strtolower($this->options['type']) == "css"){
     			$content_file	= str_replace(array('url("', "url('", "')", '")'), array('url(', 'url(', ')', ')'), file_get_contents($file)) or die("Cannot read from uploaded file");
-    			$this->string  .= str_replace(array('url('), array('url(../../'.$basePath.'/'), $content_file);
+    			$content_file   = str_replace(array('url('), array('url(../../'.$basePath.'/'), $content_file);
+    			
+    			$content_file   = str_replace('@import "', "   @import \"../../".$basePath."/", $content_file);
+    			$content_file   = str_replace('";', '";   ', $content_file);
+    			
+    			$this->string  .= $content_file;
     		}else
     			$this->string  .=  file_get_contents($file) or die("Cannot read from uploaded file");
     	}    	
+    	
+    	if(preg_match_all('/@import "([^`]*?)";/i', $this->string, $allImports, PREG_SET_ORDER)){
+    		$this->string = preg_replace('/@import "([^`]*?)";/i', '', $this->string);
+    		foreach($allImports as $k => $import){
+    			$this->string = $import[0] . "  " . $this->string;
+    		}
+    	}
+    	
     	// create single file from all input
     	$input_hash = sha1($this->string);
     	// create path file
@@ -375,16 +388,12 @@ class PiLayoutHeadExtension extends \Twig_Extension
     				$flattened_output = implode("\n", $raw_output);    		
     				// we put the compressor content in the file.
     				file_put_contents($file, $flattened_output);
-    				// we initialize the content.
-    				$this->string = "";
     				break;
     			case ($compressor == "php_js"):
     				$flattened_output = str_replace("/*\n", "\n\n /*\n", $this->string);
     				$flattened_output = str_replace("/*!\n", "\n\n /*!\n", $flattened_output);
     				// we put the compressor content in the file.
     				file_put_contents($file, $flattened_output);
-    				// we initialize the content.
-    				$this->string = "";
     				break;
     			case ($compressor == "php_css"):
     				// Remove comments
@@ -395,14 +404,15 @@ class PiLayoutHeadExtension extends \Twig_Extension
     				$flattened_output = $this->container->get('pi_app_admin.string_manager')->cleanWhitespace($flattened_output);
     				// we put the compressor content in the file.
     				file_put_contents($file, $flattened_output);
-    				// we initialize the content.
-    				$this->string = "";
     				break;
     			default:
     				// use default
     				break;
     		}
     	}
+    	
+    	// we initialize the content.
+    	$this->string = "";
     	
     	switch (true) {
     		case ($result == "content"):

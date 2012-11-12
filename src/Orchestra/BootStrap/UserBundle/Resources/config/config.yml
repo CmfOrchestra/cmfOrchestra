@@ -42,8 +42,10 @@ fos_user:
             from_email: # Use this node only if you don't want the global email address for the confirmation email
                 address:        etienne.delongeaux@gmail.com
                 sender_name:    commercial
-            enabled:    false # change to true for required email confirmation
-            template:   FOSUserBundle:Registration:email.txt.twig
+            enabled:    true # change to true for required email confirmation
+            #template:   FOSUserBundle:Registration:email.txt.twig
+        #email:
+            template:   FOSUserBundle:Registration:registration.email.twig
         form:
             type:               fos_user_registration
             handler:            fos_user.registration.form.handler.default

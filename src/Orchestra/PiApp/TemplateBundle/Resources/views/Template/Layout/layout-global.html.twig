@@ -20,7 +20,12 @@
         
         <!--  Css core -->
         {% stylesheet "bundles/piappadmin/css/layout/screen-layout-global.css:prepend" %}
-   		{% CMFstylesheets 'php' %}
+        
+        {% if (is_granted('ROLE_USER')) %}
+   			{% CMFstylesheets 'file' %}
+   		{% else %}	
+   			{% CMFstylesheets 'php' %}
+   		{% endif %}	
         
         <!--[if lt IE 9]>
 			<script type="text/javascript" src="/bundles/piappadmin/js/html5shiv/html5shiv.js"></script>
@@ -30,7 +35,12 @@
         <!--  Js core -->
 		{% javascript "bundles/piappadmin/js/ui/jquery-ui-1.8.18.custom.min.js" %}
 		{% javascript "bundles/piappadmin/js/jquery/jquery-1.7.1.min.js" %}
-   		{% CMFjavascripts 'php' %}
+		{% if (is_granted('ROLE_USER')) %}
+   			{% CMFjavascripts 'file' %}
+   		{% else %}	
+			{% CMFjavascripts 'php' %}
+   		{% endif %}	
+   		
         
         <!--  script divers -->
         {% block global_script_divers %}

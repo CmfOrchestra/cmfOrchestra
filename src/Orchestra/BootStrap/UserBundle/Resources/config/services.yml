@@ -37,6 +37,23 @@ services:
         class: %bootstrap.EntitiesContainer.listener.class%
         arguments: ['@service_container']  
         
+    bootstrap_user.registration.form.type:
+        class: BootStrap\UserBundle\Form\Type\RegistrationFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: bootstrap_user_registration }
+
+    bootstrap_user.form.handler.registration:
+        class: BootStrap\UserBundle\Form\Handler\RegistrationFormHandler
+        arguments: ["@fos_user.registration.form", "@request", "@fos_user.user_manager", "@fos_user.mailer"]
+        scope: request
+        public: false
+                    
+    bootstrap_user.profile.form.type:
+        class: BootStrap\UserBundle\Form\Type\ProfileFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: bootstrap_user_profile }
     #
     # configuration of IP address allowed for the Admin and user access control
     #    

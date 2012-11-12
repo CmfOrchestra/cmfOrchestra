@@ -90,8 +90,8 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
      */
     public function preUpdate(EventArgs $eventArgs)
     {
-    	$this->_MediaGedmo($eventArgs);
-    	
+    	$this->_MediaSonata($eventArgs);
+    	$this->_MediaGedmo($eventArgs);    	
     	$this->_deleteOldMedia($eventArgs);
     }
     
@@ -122,10 +122,7 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
      */
     public function prePersist(EventArgs $eventArgs)
     {
-    	// we set the PrePersist sonata Media management
     	$this->_MediaSonata($eventArgs);
-    	 
-    	// we set the PrePersist orchestra Media management
     	$this->_MediaGedmo($eventArgs);
     }    
     
@@ -260,7 +257,7 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
     		$setImage = "setImage{$i}";
     		if ( $this->isUsernamePasswordToken() && method_exists($entity, $getImage) && ($entity->$getImage() instanceof \BootStrap\MediaBundle\Entity\Media) ){
     			$name = $entity->$getImage()->getName();
-    			if(empty($name)){
+    			if(empty($name) && !($eventArgs instanceof PreUpdateEventArgs)){
     				$entity->$setImage($this->_DefaultMediaPixel($eventArgs));
     			}
     		}
@@ -272,12 +269,18 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
     		$getFile  = "getFile{$i}";
     		$setFile  = "setFile{$i}";
     		if ( $this->isUsernamePasswordToken() && method_exists($entity, $getFile) && ($entity->$getFile() instanceof \BootStrap\MediaBundle\Entity\Media) ){
-    			$name = $entity->$getFile()->getName();
-    			if(empty($name)){
+    			$name = $entity->$getImage()->getName();
+    			if(empty($name) && !($eventArgs instanceof PreUpdateEventArgs)){
     				$entity->$setFile($this->_DefaultMediaPixel($eventArgs));
     			}
     		}
     	}
+    	
+    	if ( $this->isUsernamePasswordToken() && ($entity instanceof \BootStrap\MediaBundle\Entity\Media) ){
+    		$name = \PiApp\AdminBundle\Util\PiStringManager::minusculesSansAccents($entity->getName());
+    		$name = \PiApp\AdminBundle\Util\PiStringManager::cleanFilename($name);
+    		$entity->setName($name);
+    	}  	
     }
     
     /**

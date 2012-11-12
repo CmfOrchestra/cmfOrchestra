@@ -77,7 +77,6 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
 		
 		// main
 		$this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/wijmo/external/cultures/globalize.cultures.js");
-		$this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/wijmo/external/globalize.min.js");
 		//$this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/wijmo/external/jquery.mousewheel.min.js");
 		
 		// theme form + wijmo rocket

@@ -1085,6 +1085,32 @@ a.forgot-pwd	{
 a:hover.forgot-pwd	{
 	color: #fff;
 	}
+a.reset-pwd  {
+  bottom: 40px;
+  color: #161616;
+  font-family: Tahoma;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 12px;
+  position: absolute;
+  right: 40px;
+  }
+a:hover.reset-pwd  {
+  color: #fff;
+  }	
+a.user-register  {
+  bottom: 25px;
+  color: #161616;
+  font-family: Tahoma;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 12px;
+  position: absolute;
+  right: 82px;
+  }
+a:hover.user-register  {
+  color: #fff;
+  } 
 #forgotbox-text	{
 	color: #161616;
 	font-family: Tahoma;
@@ -1118,6 +1144,7 @@ a:hover.forgot-pwd	{
 #forgot-inner td	{
 	padding: 0 0 6px 0;
 	}
+
 a.back-login	{
 	background: url(../../../images/login/icon_back_login.gif) no-repeat 0 4px;
 	bottom: 30px;
@@ -1145,9 +1172,27 @@ a:hover.back-login	{
 .submit-login:hover	{
 	background: url(../../../images/login/submit_login.gif) no-repeat 0 -29px;
 	}
-	
-	
-	
+#login-inner input[type="submit"]{
+  background: url(../../../images/login/submit_login.gif) no-repeat;
+  border: none;
+  cursor: pointer;
+  display: block;
+  height: 29px;
+  text-indent: -3000px;
+  width: 73px;
+}	
+#login-inner input[type="submit"]:hover {
+  background: url(../../../images/login/submit_login.gif) no-repeat 0 -29px;
+  }	
+#login-inner input[type="text"],input[type="email"],input[type="password"]  {
+  background: url(../../../images/login/inp_login.gif) no-repeat;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  height: 28px;
+  padding: 6px 6px 0 10px;
+  width: 204px;
+  }	
 	
 span.connexion-my-account,
 span.connexion-login-logout{

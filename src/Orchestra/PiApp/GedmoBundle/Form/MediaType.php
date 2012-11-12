@@ -222,6 +222,5 @@ class MediaType extends AbstractType
     	return array(
     			'data_class' => 'PiApp\GedmoBundle\Entity\Media',
     	);
-    }    
-        
+    }       
 }
