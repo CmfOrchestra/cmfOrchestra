@@ -239,11 +239,11 @@ class PiLayoutHeadExtension extends \Twig_Extension
         }elseif($compressor == 'php'){
         	$this->options['type'] = "css";
         	//return '<link type="text/css" rel="stylesheet" href="/css/app_cache_yui_css_'.$this->compress("path", "php_css").'__css" />';
-        	return '<link type="text/css" rel="stylesheet" href="yui/css' . $this->container->get('Request')->getBasePath() . '/' . $this->compress("path", "php_css").'.css'.'" />';
+        	return '<link type="text/css" rel="stylesheet" href="/yui/css' . $this->container->get('Request')->getBasePath() . '/' . $this->compress("path", "php_css").'.css'.'" />';
    		}elseif($compressor == 'yui'){
         	$this->options['type'] = "css";
         	//return '<link type="text/css" rel="stylesheet" href="/css/app_cache_yui_css_'.$this->compress("path", "yui").'__css" />';
-        	return '<link type="text/css" rel="stylesheet" href="yui/css' . $this->container->get('Request')->getBasePath() . '/' . $this->compress("path", "yui").'.css'.'" />';
+        	return '<link type="text/css" rel="stylesheet" href="/yui/css' . $this->container->get('Request')->getBasePath() . '/' . $this->compress("path", "yui").'.css'.'" />';
    		}elseif($compressor == 'array'){
         	return $linksPath;
    		}
@@ -296,11 +296,11 @@ class PiLayoutHeadExtension extends \Twig_Extension
    		}elseif($compressor == 'php'){
    			$this->options['type'] = "js";
    			//return '<script type="text/javascript" src="/js/app_cache_yui_js_'.$this->compress("path", "php_js").'__js" ></script>';
-   			return '<script type="text/javascript" src="yui/js' . $this->container->get('Request')->getBasePath() . '/' . $this->compress("path", "php_js").'.js'.'" ></script>';
+   			return '<script type="text/javascript" src="/yui/js' . $this->container->get('Request')->getBasePath() . '/' . $this->compress("path", "php_js").'.js'.'" ></script>';
    		}elseif($compressor == 'yui'){
    			$this->options['type'] = "js";
    			//return '<script type="text/javascript" src="/js/app_cache_yui_js_'.$this->compress("path", "yui").'__js" ></script>';
-   			return '<script type="text/javascript" src="yui/js' . $this->container->get('Request')->getBasePath() . '/' . $this->compress("path", "yui").'.js'.'" ></script>';
+   			return '<script type="text/javascript" src="/yui/js' . $this->container->get('Request')->getBasePath() . '/' . $this->compress("path", "yui").'.js'.'" ></script>';
    		}elseif($compressor == 'array'){
         	return $linksPath;
    		}    
