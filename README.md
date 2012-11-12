@@ -174,7 +174,7 @@ Register all namespace before using the bundle. Add the following line to your `
 
 To use Doctrine, you will need to have installed PDO. And you must have installed the PDO driver for the database server you want to use.    
 
-### Step 1: Configuring paramaters BDD and mailer
+### Step 1: Configuring parameters  BDD and mailer
 
 * Open the file orchestra_project / app / config / parameters.ini.
 * Give the name "mydatabase" for example in the database and choose the type pdo_mysql to use a MySQL database.
