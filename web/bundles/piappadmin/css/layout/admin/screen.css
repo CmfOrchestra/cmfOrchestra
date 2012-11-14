@@ -280,7 +280,7 @@ height:15px;
 /*  ACTIONS BOX ----------------------------------------------- */	
 #actions-box	{
 	float: left;
-	margin: 0 0 0 10px;
+	margin: 0 0 0 0px;
 	position: relative;
 	}
 a.action-slider	{
