@@ -8,23 +8,19 @@
         <title>{% block global_title %}{% endblock %}</title>
         
         <!--  Meta core -->
-        {% block global_meta %}{% endblock %}       
-         
+        {% block global_meta %}{% endblock %}        
         
         <!--  Css core -->
         {% stylesheet "bundles/piappadmin/css/layout/screen-layout-ajax.css:prepend" %}
-        {% stylesheets %}
-        
+		{% CMFstylesheets 'file' %}      
         
         <!--  Js core -->
 		{% javascript "bundles/piappadmin/js/ui/jquery-ui-1.8.18.custom.min.js" %}
 		{% javascript "bundles/piappadmin/js/jquery/jquery-1.7.1.min.js" %}
-        {% javascripts %}
-        
+		{% CMFjavascripts 'file' %}       
         
         <!--  script Js core -->
-        {% block global_script_js %}{% endblock %}
-        
+        {% block global_script_js %}{% endblock %}        
         
         <!--  script Css core -->
         {% block global_script_css %}{% endblock %}

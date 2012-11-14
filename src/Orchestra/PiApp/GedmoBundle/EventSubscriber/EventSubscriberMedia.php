@@ -104,7 +104,6 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
     	$entity			= $eventArgs->getEntity();
     	$entityManager 	= $eventArgs->getEntityManager();
 
-    	// we set the persist of the PiApp\GedmoBundle\Entity\Media entity
     	if ( $this->isUsernamePasswordToken() && ($entity instanceof \PiApp\GedmoBundle\Entity\Media) )
     	{
     			try {
@@ -171,7 +170,6 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
         $entity			= $eventArgs->getEntity();
     	$entityManager 	= $eventArgs->getEntityManager();
     
-    	// we set the persist of the PiApp\GedmoBundle\Entity\Media entity
     	if ( $this->isUsernamePasswordToken() && ($entity instanceof \PiApp\GedmoBundle\Entity\Media) && ($entity->getMediadelete() == true) )
     	{
     		if($entity->getMenu() instanceof \PiApp\GedmoBundle\Entity\Menu){
@@ -207,7 +205,6 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
     	}    
     
     	for($i=0;$i<=4;$i++){
-    		// we set the persist of the PiApp\GedmoBundle\Entity\Media entity
     		if($i==0) $i = "";
     		$getMedia = "getMedia{$i}";
     		$setMedia = "setMedia{$i}";
@@ -251,7 +248,6 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
     	$entityManager 	= $eventArgs->getEntityManager();
     	
     	for($i=0;$i<=4;$i++){
-    		// we set the persist of the PiApp\GedmoBundle\Entity\Media entity
     		if($i==0) $i = "";
     		$getImage = "getImage{$i}";
     		$setImage = "setImage{$i}";
@@ -264,7 +260,6 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
     	}
     
     	for($i=0;$i<=4;$i++){
-    		// we set the persist of the PiApp\GedmoBundle\Entity\Media entity
     		if($i==0) $i = "";
     		$getFile  = "getFile{$i}";
     		$setFile  = "setFile{$i}";
