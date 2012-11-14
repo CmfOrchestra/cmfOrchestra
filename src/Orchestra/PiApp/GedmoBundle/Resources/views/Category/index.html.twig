@@ -49,10 +49,10 @@
 		{% if NoLayout == false %}
 	<!--  start actions-box ............................................... -->
 	<div id="actions-box">
-		<a href="" class="action-slider" title=""></a>
+		<a href="" class="action-slider"><span>{{ 'pi.grid.action.title'|trans }}</span></a>
 		<div id="actions-box-slider">
-			<a href="javascript:void(0);" class="action-edit" title="{{ 'pi.grid.action.edit'|trans }}">{{ 'pi.grid.action.edit'|trans }}</a>
-			<a href="javascript:void(0);" class="action-delete" title="{{ 'pi.grid.action.delete'|trans }}">{{ 'pi.grid.action.delete'|trans }}</a>
+			{#<a href="javascript:void(0);" class="action-edit" title="{{ 'pi.grid.action.edit'|trans }}">{{ 'pi.grid.action.edit'|trans }}</a>#}
+			{#<a href="javascript:void(0);" class="action-delete" title="{{ 'pi.grid.action.delete'|trans }}">{{ 'pi.grid.action.delete'|trans }}</a>#}
 			<a href="{{ path('admin_gedmo_category_new') }}" class="action-edit" title="{{ 'pi.grid.action.create'|trans }}">{{ 'pi.grid.action.create'|trans }}</a>
 		</div>
 		<div class="clear"></div>
