@@ -21,7 +21,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use BootStrap\UserBundle\EventListener\abstractListener;
 
 /**
- * News entity Subscriber.
+ * Position Subscriber.
  *
  * @category   Gedmo_EventSubscriber
  * @package    EventSubscriber

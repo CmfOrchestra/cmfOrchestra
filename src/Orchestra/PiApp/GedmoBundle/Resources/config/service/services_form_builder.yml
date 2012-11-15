@@ -2,6 +2,7 @@ parameters:
     piapp.manager.formbuilder.model.snippet.class: PiApp\GedmoBundle\Manager\FormBuilder\PiModelWidgetSnippet   
     piapp.manager.formbuilder.model.block.class: PiApp\GedmoBundle\Manager\FormBuilder\PiModelWidgetBlock
     piapp.manager.formbuilder.model.content.class: PiApp\GedmoBundle\Manager\FormBuilder\PiModelWidgetContent
+    piapp.manager.formbuilder.model.contact.class: PiApp\GedmoBundle\Manager\FormBuilder\PiModelWidgetContact
     piapp.manager.formbuilder.model.slide.class: PiApp\GedmoBundle\Manager\FormBuilder\PiModelWidgetSlide    
     
 services:
@@ -18,7 +19,11 @@ services:
         
     pi_app_admin.formbuilder_manager.model.content:
         class: %piapp.manager.formbuilder.model.content.class%
-        arguments: ['@service_container']        
+        arguments: ['@service_container']       
+        
+    pi_app_admin.formbuilder_manager.model.contact:
+        class: %piapp.manager.formbuilder.model.contact.class%
+        arguments: ['@service_container']         
         
     pi_app_admin.formbuilder_manager.model.slide:
         class: %piapp.manager.formbuilder.model.slide.class%

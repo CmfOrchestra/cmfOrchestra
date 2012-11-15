@@ -120,9 +120,8 @@ class MediaType extends AbstractType
 	        ;
     	}elseif($this->_simpleLink == "simpleCategory"){
     		$builder
-	    		->add('enabled', 'checkbox', array(
+	    		->add('enabled', 'hidden', array(
 	            		'data'  => true,
-	 					'label'	=> 'pi.form.label.field.enabled',
 	 					"label_attr" => array(
 	 							"class"=> $this->_class,
 	 					),
@@ -144,9 +143,8 @@ class MediaType extends AbstractType
     		;    
     	}elseif($this->_simpleLink == "simpleLink"){
     		$builder
-    		->add('enabled', 'checkbox', array(
+    		->add('enabled', 'hidden', array(
 	            		'data'  => true,
-	 					'label'	=> 'pi.form.label.field.enabled',
 	 					"label_attr" => array(
 	 							"class"=> $this->_class,
 	 					),

@@ -1,0 +1,184 @@
+# CONTEXT MENU
+pi.contextmenu.go_homepage: انتقل إلى موقع
+pi.contextmenu.go_admin: انتقل إلى إدارة
+pi.contextmenu.page.organigram: مخطط الصفحات
+pi.contextmenu.page.tree: شجرة الصفحات
+pi.contextmenu.page.structure: عرض هيكل الصفحة
+pi.contextmenu.widget.add:  إضافة القطعة
+pi.contextmenu.page.refresh: تحديث الصفحة
+pi.contextmenu.page.add: إضافة صفحة
+pi.contextmenu.page.update: تحرير الصفحة
+pi.contextmenu.page.indexation: فهرسة الصفحة
+pi.contextmenu.page.desindexation: إزالة فهرسة الصفحة
+pi.contextmenu.image.view: مشاهد
+pi.contextmenu.disconnection: خروج
+
+# COMMUN
+pi.title: العنوان
+pi.register: تسجيل
+pi.move-up : تحريك لأعلى 
+pi.move-down : تحريك لأسفل
+pi.show : عرض
+pi.add : أضف
+pi.edit : حرر
+pi.update : حَدِّث
+pi.delete : احذف
+pi.create : أنشئ
+pi.save : احفظ
+pi.refresh : تحديث
+pi.admin : إداري
+pi.allwidgets : جميع القطع
+pi.readmore: اقرأ المزيد...
+pi.form : استمارة
+pi.result: نتيجة %s 
+pi.result_plural: النتائج %s
+
+# Page accueil
+pi.welcome.title: أهلاً بك في Orchestra!
+
+#wizard
+pi.wizard.intro: انقر لتحديد كل الصفحات التابعة لمركز المطلوبة
+
+# grid
+pi.grid.action.title: أعمال
+pi.grid.action.show: عرض
+pi.grid.action.edit: حرر
+pi.grid.action.update: حَدِّث
+pi.grid.action.save: احفظ
+pi.grid.action.delete: احذف
+pi.grid.action.create: أنشئ
+pi.grid.action.back-to-the-list: العودة إلى القائمة
+pi.grid.action.add-tab: إضافة التبويب
+pi.grid.action.copy: نسخ إلى الحافظة
+pi.grid.action.print: طباعة الجدول
+pi.grid.action.export: صَدِّر
+pi.grid.action.search: ابحث
+pi.grid.action.first: الأولى
+pi.grid.action.previous: السابقة
+pi.grid.action.next: التالية
+pi.grid.action.last: آخر
+pi.grid.action.lenghtmenu: عرض سجلات لكل صفحة _MENU_
+pi.grid.action.info: عرض _START_ ل_END_ من السجلات _TOTAL_
+pi.grid.action.info.empty: إظهار 0 إلى 0 من 0 السجلات
+pi.grid.action.info.filtered: (تصفية من السجلات _MAX_ مجموع)
+pi.grid.action.waiting: انتظر
+pi.grid.action.row_enabled: مُفَعَّل
+pi.grid.action.row_disable: عَطِّل
+pi.grid.action.row_delete: احذف
+pi.grid.action.select_all: اختر كل
+pi.grid.action.select_none: ألغ  كل
+
+#form
+pi.form.tab.box.close: إغلاق
+pi.form.tab.box.title: إضافة التبويب
+pi.form.tab.box.click: انقر لإضافة علامة تبويب جديدة!
+pi.form.tab.box.add: أضف
+pi.form.tab.box.cancel: إلغاء
+pi.form.title.default.create: إنشاء استمارة
+pi.form.title.default.update: تحديث استمارة
+pi.form.label.date.publication: تاريخ النشر
+pi.form.label.date.creation: تاريخ الإنشاء
+pi.form.label.date.updating: تاريخ التحديث
+pi.form.label.date.archivage: تاريخ الأرشيف
+pi.form.label.media.picture: الصورة
+pi.form.label.media.file: ملف
+
+pi.form.label.field.enabled: تمكين
+pi.form.label.field.language: اللغة
+pi.form.label.field.category: الفئة
+pi.form.label.field.title: لقب
+pi.form.label.field.description: الوصف
+pi.form.label.field.content: محتوى
+pi.form.label.field.url: رابط
+pi.form.label.field.or: أو
+pi.form.label.field.choice: الاختيار
+pi.form.label.field.author: كاتب
+pi.form.label.field.user: مستخدم
+pi.form.label.field.name: الاسم
+pi.form.label.field.meta_title: العنوان الفوقية
+pi.form.label.field.meta_keywords: الكلمات الرئيسية ميتا
+pi.form.label.field.meta_description: الوصف ميتا
+pi.form.label.select.choose.option: اختر خيارا
+pi.form.label.select.choose.options: الاختيار خيارات
+pi.form.label.select.choose.type: اختيار نوع
+pi.form.label.select.choose.category: اختر فئة
+pi.form.label.select.choose.template: اختيار قالب
+pi.form.label.select.choose.block: اختيار كتلة
+pi.form.label.select.choose.content: اختيار المحتوى
+pi.form.label.select.choose.snippet: اختيار قصاصة
+
+# Footer
+pi.footer.copyright: حق النشر
+
+# session flash
+pi.session.flash.title: رسالة تأكيد
+pi.session.flash.form.errors: خطأ عند التحقق من صحة النموذج
+pi.session.flash.welcom: أهلا وسهلا! كان الدخول الخاص بك بنجاح.
+pi.session.flash.right.undelete:  ليس لديك إذن لحذف! يرجى الاتصال بالمسؤول.
+pi.session.flash.right.delete: لقد نجحت في إزالة الخانات!
+pi.session.flash.right.unupdate:  ليس لديك إذن لتحديث! يرجى الاتصال بالمسؤول.
+pi.session.flash.right.update: تم تحديث المعلومات!
+pi.session.flash.right.uncreate:  ليس لديك إذن لإنشاء! يرجى الاتصال بالمسؤول.
+pi.session.flash.right.create: تم إنشاء عنصر جديد!
+pi.session.flash.right.anonymous: كمستخدم مجهول،  ليس لديك حقوق حذف.
+pi.session.flash.right.homepage.undelete: ليس لديك إذن لحذف الصفحة الرئيسية!
+pi.session.flash.right.homepage.notchange:  ليس لديك إذن لتحديث اسم المسار من الصفحة الرئيسية
+pi.session.flash.right.page.management_by_user_only: ليس لديك إذن لإدارة هذه الصفحة!
+pi.session.flash.page.slug.exist: عنوان الموقع {{ url }} موجود مسبقا! 
+pi.session.flash.page.notexist: أنت لم تطلب صفحة موجودة!
+pi.session.flash.page.notpermission: ليس لديك إذن لعرض هذه الصفحة!
+pi.session.flash.layout.notexist : التخطيط الذي حددته غير موجود!
+pi.session.flash.rolecache.created: تم إنشاء ملف الميراث في ذاكرة التخزين المؤقت
+
+# ENTITY :: PAGE
+pi.page.translation.title: ترجمات الصفحة
+pi.page.translation.prototype-tab-title: ترادكشن
+pi.page.block.title: كتلة الصفحة
+pi.page.widget.title: كتلة القطعة
+pi.page.cssjs.title: Css/Js صفحة
+pi.page.index.title: الصفحة قائمة
+
+pi.page.Draft: مسودة
+pi.page.Reviewed: علق عليها
+pi.page.Published: نشرت
+pi.page.Hidden: مخفي
+pi.page.Trash: سلة المهملات
+pi.page.Refused: رفض
+pi.page.All: كل
+
+pi.page.Reference: مرجع
+pi.page.Traduction: ترجمة
+pi.page.Default: الافتراضي
+
+pi.page.indexation.success: صفحة مفهرسة بنجاح!
+pi.page.indexation.delete.success: تمت إزالة صفحة بنجاح!
+
+pi.page.update: تحديث الصفحة
+pi.page.create: إنشاء صفحة
+
+pi.page.form.rubrique: القسم
+pi.page.form.layout: تخطيط
+pi.page.form.page_css:  المغلق الصفحة
+pi.page.form.page_js: شبيبة الصفحة
+pi.page.form.keywords: تلميحات
+pi.page.form.meta_content_type: محتوى ميتا نوع
+pi.page.form.cacheable: المحتوى الثابت؟
+pi.page.form.public: الزوار-مستقلة المحتوى؟
+pi.page.form.lifetime: العمر الكاش
+pi.page.form.route_name: (page_my_test:الصفحة رقم (مثلا
+pi.page.form.url: عنوان مشترك لجميع صفحات ترجمة
+pi.page.form.status: الحالة
+pi.page.form.secure: تأمين وصول
+pi.page.form.heritage: التراث
+pi.page.form.indexable: فهرسة
+pi.page.form.tags: الكلمات
+pi.page.form.breadcrumb: التفصيلي
+pi.page.form.slug: سبيكة
+
+# ENTITY :: WIDGET
+pi.widget.translation.title: ترجمات القطعة
+pi.snippet.translation.title: ترجمات مقتطف
+
+pi.widget.ajaxaction.widget_action_delete: هل أنت متأكد أنك تريد حذف القطعة؟
+pi.widget.ajaxaction.widget_action_move_up: هل أنت متأكد أنك تريد الارتقاء في القطعة؟
+pi.widget.ajaxaction.widget_action_move_down: هل أنت متأكد أنك تريد نقل إلى أسفل القطعة؟

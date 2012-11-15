@@ -27,6 +27,7 @@ pi.dashboard.menu3.language: لغة
 pi.dashboard.menu3.tag: وسم
 pi.dashboard.menu3.keyword: كلمة البحث الرئيسية
 pi.dashboard.menu3.comment: تعليق
+pi.dashboard.menu3.word: الكلمات
 
 pi.dashboard.menu4.title: قطعة
 pi.dashboard.menu4.page: صفحة
@@ -37,6 +38,8 @@ pi.dashboard.menu4.organigram: الهيكل التنظيمي
 pi.dashboard.menu4.block: الصندوق
 pi.dashboard.menu4.media: الإعلام
 pi.dashboard.menu4.category: فئة
+pi.dashboard.menu4.news: الأخبار
+pi.dashboard.menu4.contact: الاتصال
 
 # ENTITY :: MENU
 pi.menu.translation.title:  ترجمة القائمة
@@ -71,3 +74,20 @@ pi.content.formbuilder.template.choice3: المحتوى في علامة SPAN
 pi.content.formbuilder.template.choice4: المحتوى في علامة H1
 pi.content.formbuilder.template.choice5: المحتوى في علامة H2
 pi.content.formbuilder.template.choice6: المحتوى في علامة H3
+
+# ENTITÉ :: CONTACT
+pi.contact.form.picture.left: يسار الصورة
+pi.contact.form.picture.right: الحق صور
+pi.contact.form.group.addess: العنوان
+pi.contact.form.group.email: نموذج البريد الإلكتروني
+pi.contact.form.group.website: الموقع الإلكتروني
+pi.contact.form.group.pictures: صور
+pi.contact.formbuilder.template.choice0: القالب الافتراضي
+
+# ENTITY :: NEWS
+pi.news.form.picture: صورتي
+pi.news.form.group.pictures: الصور
+pi.news.form.group.links: روابط
+pi.news.form.group.information: معلومات
+
+

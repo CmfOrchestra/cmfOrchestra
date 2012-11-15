@@ -1,0 +1,22 @@
+parameters:
+    bootstrap_translator.translation_cache.class: BootStrap\TranslatorBundle\Manager\WordsLoader
+    bootstrap_translator.event_subscriber.word.class: BootStrap\TranslatorBundle\EventSubscriber\EventSubscriberWord
+    
+services:
+    #
+    # configuration of the main repository manager allowed for the repository management
+    #  
+#    bootstrap_translator.translation_cache:
+#        class: %bootstrap_translator.translation_cache.class%
+#        arguments: ['@service_container']
+#        tags:
+#            - { name: translation.loader, alias: yml }
+
+    #
+    # configuration of the event subscriber of entities
+    #         
+    bootstrap_translator.event_subscriber.media:
+        class: %bootstrap_translator.event_subscriber.word.class%
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_subscriber }  

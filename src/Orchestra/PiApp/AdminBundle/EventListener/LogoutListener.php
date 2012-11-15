@@ -212,8 +212,12 @@ class LogoutListener
 		}
 		
 		// Sets redirection.
-		if(is_object($this->redirection) && $this->is_init_redirection_authorized){
-			$event->setResponse( $this->redirection );
+		$route = $this->container->get('request')->get('_route');
+		if(($route == 'fos_user_security_login') && $this->isUsernamePasswordToken()){
+			$this->redirection = new RedirectResponse($this->router->generate("admin_homepage"));
+			$this->event->setResponse( $this->redirection );
+		}elseif(is_object($this->redirection) && $this->is_init_redirection_authorized){
+			$this->event->setResponse( $this->redirection );
 		}		
 	}	
 	
@@ -228,6 +232,22 @@ class LogoutListener
 	protected function getSession()
 	{
 		return $this->event->getRequest()->getSession();
+	}	
+	
+	/**
+	 * Return if yes or no the user is UsernamePassword token.
+	 *
+	 * @return boolean
+	 * @access protected
+	 *
+	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 */
+	protected function isUsernamePasswordToken()
+	{
+		if ($this->container->get('security.context')->getToken() instanceof \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken)
+			return true;
+		else
+			return false;
 	}	
 	
 	/**

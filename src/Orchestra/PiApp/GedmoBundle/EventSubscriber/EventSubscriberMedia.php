@@ -22,7 +22,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use BootStrap\UserBundle\EventListener\abstractListener;
 
 /**
- * News entity Subscriber.
+ * Media entity Subscriber.
  *
  * @category   Gedmo_EventSubscriber
  * @package    EventSubscriber

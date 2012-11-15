@@ -48,4 +48,10 @@ BootStrapAdminBundle:
 #   Import SonataPageBundle routing files
 #     
 BootStrapMediaBundle:
-    resource: "@BootStrapMediaBundle/Resources/config/routing.yml"     
+    resource: "@BootStrapMediaBundle/Resources/config/routing.yml"
+    
+#
+#   Import SonataPageBundle routing files
+#     
+BootStrapTranslatorBundle:
+    resource: "@BootStrapTranslatorBundle/Resources/config/routing.yml"       

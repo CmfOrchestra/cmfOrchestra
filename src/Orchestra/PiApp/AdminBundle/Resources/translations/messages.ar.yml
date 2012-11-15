@@ -89,6 +89,7 @@ pi.form.label.field.category: الفئة
 pi.form.label.field.title: لقب
 pi.form.label.field.description: الوصف
 pi.form.label.field.content: محتوى
+pi.form.label.field.content.detail: المحتوى التفصيل
 pi.form.label.field.url: رابط
 pi.form.label.field.or: أو
 pi.form.label.field.choice: الاختيار
@@ -98,6 +99,15 @@ pi.form.label.field.name: الاسم
 pi.form.label.field.meta_title: العنوان الفوقية
 pi.form.label.field.meta_keywords: الكلمات الرئيسية ميتا
 pi.form.label.field.meta_description: الوصف ميتا
+pi.form.label.field.adress.main: العنوان
+pi.form.label.field.adress.coordinates: الإحداثيات
+pi.form.label.field.adress.phone:  الهاتف
+pi.form.label.field.adress.fax: فاكس
+pi.form.label.field.email:  البريد الإلكتروني
+pi.form.label.field.email.subject:  موضوع
+pi.form.label.field.email.body: الجسم
+pi.form.label.field.email.cc:  نسخة
+pi.form.label.field.email.bcc: مخفية
 pi.form.label.select.choose.option: اختر خيارا
 pi.form.label.select.choose.options: الاختيار خيارات
 pi.form.label.select.choose.type: اختيار نوع

@@ -89,6 +89,7 @@ pi.form.label.field.category: Catégorie
 pi.form.label.field.title: Titre
 pi.form.label.field.description: Description
 pi.form.label.field.content: Contenu
+pi.form.label.field.content.detail: Détail du contenu
 pi.form.label.field.url: Lien
 pi.form.label.field.or: Ou
 pi.form.label.field.choice: Choix
@@ -98,6 +99,15 @@ pi.form.label.field.name: Nom
 pi.form.label.field.meta_title: Titre meta
 pi.form.label.field.meta_keywords: Mots-clés meta
 pi.form.label.field.meta_description: Description meta
+pi.form.label.field.adress.main: Adresse
+pi.form.label.field.adress.coordinates: Coordonnées
+pi.form.label.field.adress.phone: Téléphone
+pi.form.label.field.adress.fax: Fax
+pi.form.label.field.email: Email
+pi.form.label.field.email.subject: Objet
+pi.form.label.field.email.body: Corps
+pi.form.label.field.email.cc: Cc
+pi.form.label.field.email.bcc: Bcc
 pi.form.label.select.choose.option: Choisissez une option
 pi.form.label.select.choose.options: Sélectionnez les options
 pi.form.label.select.choose.type: Choisissez un type

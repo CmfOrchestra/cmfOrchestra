@@ -68,34 +68,14 @@ class SliderType extends AbstractType
         			'label'	=> 'pi.form.label.field.enabled',
 	        ))
 	        ->add('published_at', 'date', array(
-	        		'widget' => 'single_text', // choice, text, single_text
-	        		'input' => 'datetime',
-	        		'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
-	        		'empty_value' => array('year' => 'Année', 'month' => 'Mois', 'day' => 'Jour'),
-	        		//'pattern' => "{{ day }}/{{ month }}/{{ year }}",
-	        		//'data_timezone' => "Europe/Paris",
-	        		//'user_timezone' => "Europe/Paris",
-	        		"attr" => array(
+	        		'widget' 	=> 'single_text', // choice, text, single_text
+	        		'input' 	=> 'datetime',
+	        		'format' 	=> $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
+	        		"attr" 	=> array(
 	        				"class"=>"pi_datepicker",
 	        		),
 	        		'label'	=> 'pi.form.label.date.publication',
 	        ))
-// 	        ->add('archive_at', 'date', array(
-// 	        		'widget' => 'single_text', // choice, text, single_text
-// 	        		'input' => 'datetime',
-// 	        		'format' => 'MM/dd/yyyy',
-// 	        		'empty_value' => array('year' => 'Année', 'month' => 'Mois', 'day' => 'Jour'),
-// 	        		//'pattern' => "{{ day }}/{{ month }}/{{ year }}",
-// 	        		//'data_timezone' => "Europe/Paris",
-// 	        		//'user_timezone' => "Europe/Paris",
-// 	        		"attr" => array(
-// 	        				"class"=>"pi_datepicker",
-// 	        		),
-// 	        		'label'	=> 'pi.form.label.date.archivage',
-// 	        ))
-	        
-	        ->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.menu.form.picture'))
-	        
 	        ->add('title', 'text', array(
 	        		'label'		=> "pi.form.label.field.title",
 	        		'required'  => false,
@@ -125,8 +105,6 @@ class SliderType extends AbstractType
 	        )) 	
 
 	        
-//	        ->add('CssClass')
-           
 	        ->add('subtitle', 'text', array(
             		"label" => 'Sub title',
             		"label_attr" => array(
@@ -174,6 +152,8 @@ class SliderType extends AbstractType
             		),
             		'required'  => false,
             ))            
+            
+            
             ->add('meta_keywords', 'textarea', array(
             		"label" => "pi.form.label.field.meta_keywords",
             		"label_attr" => array(
@@ -188,7 +168,9 @@ class SliderType extends AbstractType
             		),
             		'required'  => false,
             ))            
-//            ->add('pagecssclass')
+
+            
+            ->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.menu.form.picture'))
         ;
     }
 

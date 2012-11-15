@@ -1,3 +1,10 @@
+#
+#   import routes from a controller directory
+#
+annotation_gedmo:
+    resource: "@PiAppGedmoBundle/Controller"
+    type:     annotation
+
 #PiAppGedmoBundle:Category
 piapp_gedmo_category:
     resource: "@PiAppGedmoBundle/Resources/config/routing/category.xml"
@@ -25,4 +32,12 @@ piapp_gedmo_slider:
 #PiAppGedmoBundle:Organigram
 piapp_gedmo_organigram:
     resource: "@PiAppGedmoBundle/Resources/config/routing/organigram.xml"
-    prefix: /admin/gedmo/organigram     
+    prefix: /admin/gedmo/organigram
+#PiAppGedmoBundle:News
+piapp_gedmo_news:
+    resource: "@PiAppGedmoBundle/Resources/config/routing/news.xml"
+    prefix: /admin/gedmo/news
+#PiAppGedmoBundle:Contact
+piapp_gedmo_contact:
+    resource: "@PiAppGedmoBundle/Resources/config/routing/contact.xml"
+    prefix: /admin/gedmo/contact    

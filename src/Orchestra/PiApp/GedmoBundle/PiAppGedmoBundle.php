@@ -20,11 +20,20 @@ $GLOBALS['FORM']['WIDGET'] = array(
 		'snippet'			=> 'pi_app_admin.formbuilder_manager.model.snippet',
 		'block'				=> 'pi_app_admin.formbuilder_manager.model.block',
 		'content'			=> 'pi_app_admin.formbuilder_manager.model.content',
+		'contact'			=> 'pi_app_admin.formbuilder_manager.model.contact',
 		//'slide'				=> 'pi_app_admin.formbuilder_manager.model.slide',
 );
 
 /**************************  MATRIX SLUGGABLE ROUTE ***************************/
-$GLOBALS['ROUTE']['SLUGGABLE'] = array();
+$GLOBALS['ROUTE']['SLUGGABLE'] = array(
+		'page_new_detail'	=> array(
+				'entity'		=> 'PiAppGedmoBundle:News',
+				'field_search'	=> 'slug',
+				'field_title'	=> 'title',
+				'field_resume'	=> 'meta_description',
+				'field_keywords'=> 'meta_keywords',
+		),
+);
 
 /**************************  MATRIX LISTENER ***************************/
 $GLOBALS['GEDMO_WIDGET_LISTENER']['media'] = array(
@@ -52,6 +61,18 @@ $GLOBALS['GEDMO_WIDGET_LISTENER']['content'] = array(
 		),
 		'_template_list'	 => array(
 				'edit'		=> 'admin_gedmo_content',
+		),
+);
+$GLOBALS['GEDMO_WIDGET_LISTENER']['news'] = array(
+		'method' => array('_template_show', '_template_list', '_template_archive'),
+		'_template_show'	 => array(
+				'edit'		=> 'admin_gedmo_news',
+		),
+		'_template_list'	 => array(
+				'edit'		=> 'admin_gedmo_news',
+		),
+		'_template_archive'	 => array(
+				'edit'		=> 'admin_gedmo_news',
 		),
 );
 /**************************  MATRIX NAVIGATION ***************************/
@@ -133,6 +154,5 @@ class PiAppGedmoBundle extends Bundle
 	 */
 	public function shutdown()
 	{
-	}	
-		
+	}		
 }

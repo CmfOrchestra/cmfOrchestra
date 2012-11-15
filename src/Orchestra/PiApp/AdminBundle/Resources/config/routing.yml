@@ -1,9 +1,6 @@
 #
 #   import routes from a controller directory
 #
-annotation_gedmo:
-    resource: "@PiAppGedmoBundle/Controller"
-    type:     annotation
 annotation_admin:
     resource: "@PiAppAdminBundle/Controller"
     type:     annotation

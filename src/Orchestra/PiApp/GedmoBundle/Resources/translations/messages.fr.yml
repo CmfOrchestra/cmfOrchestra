@@ -27,6 +27,7 @@ pi.dashboard.menu3.language: Langues
 pi.dashboard.menu3.tag: Tag
 pi.dashboard.menu3.keyword: Mots clé
 pi.dashboard.menu3.comment: Commentaire
+pi.dashboard.menu3.word: Mots
 
 pi.dashboard.menu4.title: Widget
 pi.dashboard.menu4.page: Page
@@ -37,6 +38,8 @@ pi.dashboard.menu4.organigram: Organigramme
 pi.dashboard.menu4.block: Bloc
 pi.dashboard.menu4.media: Media
 pi.dashboard.menu4.category: Catégorie
+pi.dashboard.menu4.news: Actualités
+pi.dashboard.menu4.contact: Contact
 
 # ENTITY :: MENU
 pi.menu.translation.title: Traductions de menu
@@ -71,3 +74,18 @@ pi.content.formbuilder.template.choice3: Content dans une balise SPAN
 pi.content.formbuilder.template.choice4: Content dans une balise H1
 pi.content.formbuilder.template.choice5: Content dans une balise H2
 pi.content.formbuilder.template.choice6: Content dans une balise H3
+
+# ENTITY :: CONTACT
+pi.contact.form.picture.left: Photo de gauche
+pi.contact.form.picture.right: Photo de droite
+pi.contact.form.group.addess: Adresse
+pi.contact.form.group.email: Email
+pi.contact.form.group.website: Site Web
+pi.contact.form.group.pictures: Photos
+pi.contact.formbuilder.template.choice0: Template par défaut
+
+# ENTITY :: NEWS
+pi.news.form.picture: Photo
+pi.news.form.group.pictures: Photos
+pi.news.form.group.links: Liens
+pi.news.form.group.information: Information

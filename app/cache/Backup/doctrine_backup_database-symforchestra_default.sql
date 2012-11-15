@@ -1,5 +1,5 @@
 ###################################### 
-### Doctrine Backup File Generated on 2012-11-12 10:11:38 
+### Doctrine Backup File Generated on 2012-11-15 13:11:26 
 ### Backup DATABASE symforchestra 
 ###################################### 
 SET FOREIGN_KEY_CHECKS=0; 
@@ -33,13 +33,17 @@ INSERT INTO fos_role (`id`, `layout_id`, `label`, `name`, `comment`, `heritage`,
 INSERT INTO fos_role (`id`, `layout_id`, `label`, `name`, `comment`, `heritage`, `route_name`, `enabled`) VALUES(10, NULL, 'Super administrator', 'ROLE_SUPER_ADMIN', 'Utilisateur ayant un accès total du backoffice avec l\'accès à l\'admin SONATA.', 'a:4:{i:0;s:10:\"ROLE_ADMIN\";i:1;s:22:\"ROLE_ALLOWED_TO_SWITCH\";i:2;s:17:\"ROLE_SONATA_ADMIN\";i:3;s:6:\"SONATA\";}', NULL, 1); 
 
 
-INSERT INTO fos_user (`id`, `lang_code`, `username`, `username_canonical`, `email`, `email_canonical`, `enabled`, `salt`, `password`, `last_login`, `locked`, `expired`, `expires_at`, `confirmation_token`, `password_requested_at`, `roles`, `credentials_expired`, `credentials_expire_at`, `permissions`) VALUES(1, 'en_GB', 'admin', 'admin', 'admin@hotmail.com', 'admin@hotmail.com', 1, 'iurk5dv2sk084kk44w8cw8g4wg8os44', 'PzmNCwcjWOKVlFZTqA8KUdSjxVQAvgEKPRcew1mm8ZvL9ADcHkCK2GqmcB5fWtu3zm2Y0EJYDGLKzTL/5mHfiQ==', NULL, 0, 0, NULL, '2v7m8cp40fs44c08w8sss8skoocksc08o8k4ocksc8s8gkgc4c', NULL, 'a:1:{i:0;s:10:\"ROLE_ADMIN\";}', 0, NULL, 'a:4:{i:0;s:4:\"VIEW\";i:1;s:4:\"EDIT\";i:2;s:6:\"CREATE\";i:3;s:6:\"DELETE\";}'); 
-INSERT INTO fos_user (`id`, `lang_code`, `username`, `username_canonical`, `email`, `email_canonical`, `enabled`, `salt`, `password`, `last_login`, `locked`, `expired`, `expires_at`, `confirmation_token`, `password_requested_at`, `roles`, `credentials_expired`, `credentials_expire_at`, `permissions`) VALUES(2, 'en_GB', 'superadmin', 'superadmin', 'superadmin@gmail.com', 'superadmin@gmail.com', 1, 'qgg0j3pvhb4kcgok08w4kw0sc0wsg0', 'lZH4SX/a5Yy3RiObK9az3lCFIhby6bTT9s48pvtvfDU9IytT33FmsghAarT7ujFH61+pyuARnF0fJ+WOvpPqtQ==', NULL, 0, 0, NULL, '60fvxq22f1gkg8kcg4s4s884k484wkkkwgw40csscgsco0k8c4', NULL, 'a:2:{i:0;s:10:\"ROLE_ADMIN\";i:1;s:16:\"ROLE_SUPER_ADMIN\";}', 0, NULL, 'a:4:{i:0;s:4:\"VIEW\";i:1;s:4:\"EDIT\";i:2;s:6:\"CREATE\";i:3;s:6:\"DELETE\";}'); 
+INSERT INTO fos_user (`id`, `lang_code`, `username`, `username_canonical`, `email`, `email_canonical`, `enabled`, `salt`, `password`, `last_login`, `locked`, `expired`, `expires_at`, `confirmation_token`, `password_requested_at`, `roles`, `credentials_expired`, `credentials_expire_at`, `permissions`) VALUES(1, 'en_GB', 'admin', 'admin', 'admin@hotmail.com', 'admin@hotmail.com', 1, 'iurk5dv2sk084kk44w8cw8g4wg8os44', 'PzmNCwcjWOKVlFZTqA8KUdSjxVQAvgEKPRcew1mm8ZvL9ADcHkCK2GqmcB5fWtu3zm2Y0EJYDGLKzTL/5mHfiQ==', '2012-11-14 14:04:53', 0, 0, NULL, '2v7m8cp40fs44c08w8sss8skoocksc08o8k4ocksc8s8gkgc4c', NULL, 'a:1:{i:0;s:10:\"ROLE_ADMIN\";}', 0, NULL, 'a:4:{i:0;s:4:\"VIEW\";i:1;s:4:\"EDIT\";i:2;s:6:\"CREATE\";i:3;s:6:\"DELETE\";}'); 
+INSERT INTO fos_user (`id`, `lang_code`, `username`, `username_canonical`, `email`, `email_canonical`, `enabled`, `salt`, `password`, `last_login`, `locked`, `expired`, `expires_at`, `confirmation_token`, `password_requested_at`, `roles`, `credentials_expired`, `credentials_expire_at`, `permissions`) VALUES(2, 'en_GB', 'superadmin', 'superadmin', 'superadmin@gmail.com', 'superadmin@gmail.com', 1, 'qgg0j3pvhb4kcgok08w4kw0sc0wsg0', 'lZH4SX/a5Yy3RiObK9az3lCFIhby6bTT9s48pvtvfDU9IytT33FmsghAarT7ujFH61+pyuARnF0fJ+WOvpPqtQ==', '2012-11-15 12:36:57', 0, 0, NULL, '60fvxq22f1gkg8kcg4s4s884k484wkkkwgw40csscgsco0k8c4', NULL, 'a:2:{i:0;s:10:\"ROLE_ADMIN\";i:1;s:16:\"ROLE_SUPER_ADMIN\";}', 0, NULL, 'a:4:{i:0;s:4:\"VIEW\";i:1;s:4:\"EDIT\";i:2;s:6:\"CREATE\";i:3;s:6:\"DELETE\";}'); 
 INSERT INTO fos_user (`id`, `lang_code`, `username`, `username_canonical`, `email`, `email_canonical`, `enabled`, `salt`, `password`, `last_login`, `locked`, `expired`, `expires_at`, `confirmation_token`, `password_requested_at`, `roles`, `credentials_expired`, `credentials_expire_at`, `permissions`) VALUES(3, 'fr_FR', 'user', 'user', 'user@gmail.com', 'user@gmail.com', 1, 'bds34phsj0g0k4wcwss84og888g4kw4', 'CY4lb3K6TQaCondC+vRlsaXcRBZdJmRFkYxoDTqYDW67xps30Zf/nw0ImEEATUJ+aLoJ+K8lePiLYIZQUpUaCg==', NULL, 0, 0, NULL, '2lkz2t99tvcwgokws8cg0cwk044o0g48os8kgg84sog4s04ows', NULL, 'a:0:{}', 0, NULL, 'a:3:{i:0;s:4:\"VIEW\";i:1;s:4:\"EDIT\";i:2;s:6:\"CREATE\";}'); 
 
 INSERT INTO fos_user_group (`user_id`, `group_id`) VALUES(3, 1); 
 INSERT INTO fos_user_group (`user_id`, `group_id`) VALUES(1, 2); 
 INSERT INTO fos_user_group (`user_id`, `group_id`) VALUES(2, 3); 
+
+
+
+
 
 
 
@@ -96,8 +100,8 @@ INSERT INTO pi_layout (`id`, `name`, `file_pc`, `file_mobile`, `configXml`, `cre
 INSERT INTO pi_layout (`id`, `name`, `file_pc`, `file_mobile`, `configXml`, `created_at`, `updated_at`, `archive_at`, `enabled`) VALUES(13, 'pi-model-two-fluid-columns', 'models\\layout-pi-model-two-fluid-columns.html.twig', 'Default', '<?xml version=\"1.0\"?>\n<config>\n	<blocks>\n		<name>pc_header</name>\n		<name>pc_menuwrapper</name>\n		<name>content</name>\n		<name>mobile_novHeader</name>\n		<name>mobile_content</name>\n		<name>mobile_novFooter</name>\n	</blocks>\n</config>', '2012-11-12 10:42:52', '2012-11-12 10:42:52', NULL, 1); 
 INSERT INTO pi_layout (`id`, `name`, `file_pc`, `file_mobile`, `configXml`, `created_at`, `updated_at`, `archive_at`, `enabled`) VALUES(14, 'pi-model-two-fluid-intelligent-columns', 'models\\layout-pi-model-two-fluid-intelligent-columns.html.twig', 'Default', '<?xml version=\"1.0\"?>\n<config>\n	<blocks>\n		<name>pc_header</name>\n		<name>pc_menuwrapper</name>\n		<name>content</name>\n		<name>pc_footer</name>\n		<name>mobile_novHeader</name>\n		<name>mobile_content</name>\n		<name>mobile_novFooter</name>\n	</blocks>\n</config>', '2012-11-12 10:42:52', '2012-11-12 10:42:52', NULL, 1); 
 
-INSERT INTO pi_page (`id`, `layout_id`, `rubrique_id`, `user_id`, `is_cacheable`, `is_public`, `lifetime`, `route_name`, `url`, `meta_content_type`, `created_at`, `updated_at`, `archive_at`, `enabled`) VALUES(1, 2, NULL, 1, 1, 1, 86400, 'home_page', NULL, 'text/html', '2012-11-12 10:42:52', '2012-11-12 10:42:52', NULL, 1); 
-INSERT INTO pi_page (`id`, `layout_id`, `rubrique_id`, `user_id`, `is_cacheable`, `is_public`, `lifetime`, `route_name`, `url`, `meta_content_type`, `created_at`, `updated_at`, `archive_at`, `enabled`) VALUES(2, 3, NULL, 1, 0, 1, NULL, 'error_404', 'error', 'text/html', '2012-11-12 10:42:52', '2012-11-12 10:42:52', NULL, 1); 
+INSERT INTO pi_page (`id`, `rubrique_id`, `layout_id`, `user_id`, `is_cacheable`, `is_public`, `lifetime`, `route_name`, `url`, `meta_content_type`, `created_at`, `updated_at`, `archive_at`, `enabled`) VALUES(1, NULL, 2, 1, 1, 1, 86400, 'home_page', NULL, 'text/html', '2012-11-12 10:42:52', '2012-11-12 10:42:52', NULL, 1); 
+INSERT INTO pi_page (`id`, `rubrique_id`, `layout_id`, `user_id`, `is_cacheable`, `is_public`, `lifetime`, `route_name`, `url`, `meta_content_type`, `created_at`, `updated_at`, `archive_at`, `enabled`) VALUES(2, NULL, 3, 1, 0, 1, NULL, 'error_404', 'error', 'text/html', '2012-11-12 10:42:52', '2012-11-12 10:42:52', NULL, 1); 
 
 
 
@@ -121,6 +125,5 @@ INSERT INTO pi_widget (`id`, `block_id`, `plugin`, `action`, `is_cacheable`, `is
 INSERT INTO pi_widget_translation (`id`, `lang_code`, `widget_id`, `content`, `created_at`, `updated_at`, `published_at`, `archive_at`, `enabled`) VALUES(1, 'ar_SA', 1, 'القطعة غير موجودة!', '2012-11-12 10:43:02', '2012-11-12 10:43:02', NULL, NULL, 1); 
 INSERT INTO pi_widget_translation (`id`, `lang_code`, `widget_id`, `content`, `created_at`, `updated_at`, `published_at`, `archive_at`, `enabled`) VALUES(2, 'fr_FR', 1, 'Le widget n\'existe pas !', '2012-11-12 10:43:02', '2012-11-12 10:43:02', NULL, NULL, 1); 
 INSERT INTO pi_widget_translation (`id`, `lang_code`, `widget_id`, `content`, `created_at`, `updated_at`, `published_at`, `archive_at`, `enabled`) VALUES(3, 'en_GB', 1, 'The widget doesn\'t exist !', '2012-11-12 10:43:02', '2012-11-12 10:43:02', NULL, NULL, 1); 
-
 
 SET FOREIGN_KEY_CHECKS=1; 

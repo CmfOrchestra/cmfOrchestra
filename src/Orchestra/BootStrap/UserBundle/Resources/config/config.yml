@@ -147,6 +147,7 @@ doctrine:
             StofDoctrineExtensionsBundle: ~
             BootStrapUserBundle: ~
             BootStrapTranslationBundle: ~
+            BootStrapTranslatorBundle: ~
             PiAppAdminBundle: ~
             PiAppGedmoBundle: ~
             SonataMediaBundle: ~

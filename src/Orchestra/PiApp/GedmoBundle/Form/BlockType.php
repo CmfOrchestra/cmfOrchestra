@@ -71,10 +71,6 @@ class BlockType extends AbstractType
 	        		'input' => 'datetime',
 	        		'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
  					'required'  => false,
-	        		'empty_value' => array('year' => 'Année', 'month' => 'Mois', 'day' => 'Jour'),
-	        		//'pattern' => "{{ day }}/{{ month }}/{{ year }}",
-	        		//'data_timezone' => "Europe/Paris",
-	        		//'user_timezone' => "Europe/Paris",
 	        		"attr" => array(
 	        				"class"=>"pi_datepicker",
 	        		),

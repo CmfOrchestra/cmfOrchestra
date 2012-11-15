@@ -50,7 +50,7 @@ class {{ form_class }} extends AbstractType
 	 * @param string	$locale
 	 * @return void
 	 */
-	public function __construct(EntityManager $em, $locale, ContainerInterface $container)
+	public function __construct(EntityManager $em, ContainerInterface $container)
 	{
 		$this->_em 			= $em;
 		$this->_locale		= $container->get('session')->getLocale();
@@ -74,6 +74,7 @@ class {{ form_class }} extends AbstractType
  					'widget' => 'single_text', // choice, text, single_text
  					'input' => 'datetime',
  					'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
+ 					'required'  => false,
  					"attr" => array(
  							"class"=>"pi_datepicker",
  					),
@@ -86,6 +87,7 @@ class {{ form_class }} extends AbstractType
  					'widget' => 'single_text', // choice, text, single_text
  					'input' => 'datetime',
  					'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
+ 					'required'  => false,
  					"attr" => array(
  							"class"=>"pi_datepicker",
  					),
@@ -98,6 +100,7 @@ class {{ form_class }} extends AbstractType
  					'widget' => 'single_text', // choice, text, single_text
  					'input' => 'datetime',
  					'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
+ 					'required'  => false,
  					"attr" => array(
  							"class"=>"pi_datepicker",
  					),
@@ -110,6 +113,7 @@ class {{ form_class }} extends AbstractType
  					'widget' => 'single_text', // choice, text, single_text
  					'input' => 'datetime',
  					'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
+ 					'required'  => false,
  					"attr" => array(
  							"class"=>"pi_datepicker",
  					),

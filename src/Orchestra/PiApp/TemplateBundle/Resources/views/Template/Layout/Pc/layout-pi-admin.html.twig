@@ -156,14 +156,15 @@
 			
 			<div class="nav-divider">&nbsp;</div>
 			
-			<ul {{ in_paths("admin_rubrique_tree:admin_keyword:admin_tag:admin_langue", 'class="current"', 'class="select"')|raw }} ><li><a href="#nogo"><strong>{{ 'pi.dashboard.menu3.title'|trans }}</strong><!--[if IE 7]><!--></a><!--<![endif]-->
+			<ul {{ in_paths("admin_word:admin_rubrique_tree:admin_keyword:admin_tag:admin_langue", 'class="current"', 'class="select"')|raw }} ><li><a href="#nogo"><strong>{{ 'pi.dashboard.menu3.title'|trans }}</strong><!--[if IE 7]><!--></a><!--<![endif]-->
 			<!--[if lte IE 6]><table><tr><td><![endif]-->
-			<div class="select_sub {{ in_paths("admin_rubrique_tree:admin_keyword:admin_tag:admin_langue", 'show')|raw }} ">
+			<div class="select_sub {{ in_paths("admin_word:admin_rubrique_tree:admin_keyword:admin_tag:admin_langue", 'show')|raw }} ">
 				<ul class="sub">
 					<li {{ in_paths("admin_rubrique_tree", 'class="sub_show"')|raw }}	><a href="{{ path("admin_rubrique_tree") }}" >{{ 'pi.dashboard.menu3.rubrique'|trans }}</a></li>
 					<li {{ in_paths("admin_langue", 'class="sub_show"')|raw }}		><a href="{{ path("admin_langue") }}" >{{ 'pi.dashboard.menu3.language'|trans }}</a></li>
 					<li {{ in_paths("admin_tag", 'class="sub_show"')|raw }}			><a href="{{ path("admin_tag") }}" >{{ 'pi.dashboard.menu3.tag'|trans }}</a></li>
-					<li {{ in_paths("admin_keyword", 'class="sub_show"')|raw }}		><a href="{{ path("admin_keyword") }}" >{{ 'pi.dashboard.menu3.keyword'|trans }}</a></li>				
+					<li {{ in_paths("admin_keyword", 'class="sub_show"')|raw }}		><a href="{{ path("admin_keyword") }}" >{{ 'pi.dashboard.menu3.keyword'|trans }}</a></li>
+					<li {{ in_paths("admin_word", 'class="sub_show"')|raw }}		><a href="{{ path("admin_word") }}" >{{ 'pi.dashboard.menu3.word'|trans }}</a></li>	
 				</ul>
 			</div>
 			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
@@ -172,9 +173,9 @@
 			
 			<div class="nav-divider">&nbsp;</div>
 			
-			<ul {{ in_paths("admin_gedmo_organigram_tree:admin_gedmo_media:admin_gedmo_category:admin_snippet:admin_gedmo_sicap_picture:admin_gedmo_block:admin_gedmo_content:admin_gedmo_menu:admin_gedmo_slider:admin_gedmo_menu_tree:admin_gedmo_pressrelease:admin_gedmo_contact", 'class="current"', 'class="select"')|raw }} ><li><a href="#nogo"><strong>{{ 'pi.dashboard.menu4.title'|trans }}</strong><!--[if IE 7]><!--></a><!--<![endif]-->
+			<ul {{ in_paths("admin_gedmo_contact:admin_gedmo_organigram_tree:admin_gedmo_media:admin_gedmo_category:admin_snippet:admin_gedmo_sicap_picture:admin_gedmo_block:admin_gedmo_content:admin_gedmo_menu:admin_gedmo_slider:admin_gedmo_menu_tree:admin_gedmo_pressrelease:admin_gedmo_contact", 'class="current"', 'class="select"')|raw }} ><li><a href="#nogo"><strong>{{ 'pi.dashboard.menu4.title'|trans }}</strong><!--[if IE 7]><!--></a><!--<![endif]-->
 			<!--[if lte IE 6]><table><tr><td><![endif]-->
-			<div class="select_sub {{ in_paths("admin_gedmo_organigram_tree:admin_gedmo_media:admin_gedmo_category:admin_snippet:admin_gedmo_sicap_picture:admin_gedmo_block:admin_gedmo_content:admin_gedmo_menu:admin_gedmo_slider:admin_gedmo_menu_tree:admin_gedmo_pressrelease:admin_gedmo_contact", 'show')|raw }} ">
+			<div class="select_sub {{ in_paths("admin_gedmo_contact:admin_gedmo_organigram_tree:admin_gedmo_media:admin_gedmo_category:admin_snippet:admin_gedmo_sicap_picture:admin_gedmo_block:admin_gedmo_content:admin_gedmo_menu:admin_gedmo_slider:admin_gedmo_menu_tree:admin_gedmo_pressrelease:admin_gedmo_contact", 'show')|raw }} ">
 				<ul class="sub">
 					<li {{ in_paths("admin_snippet", 'class="sub_show"')|raw }}		><a href="{{ path("admin_snippet") }}" >{{ 'pi.dashboard.menu2.snippet'|trans }}</a></li>
 					<li><a style="color:#238BDB" >&#187;</a></li>
@@ -186,6 +187,10 @@
 					<li {{ in_paths("admin_gedmo_block", 'class="sub_show"')|raw }}			><a href="{{ path("admin_gedmo_block") }}" >{{ 'pi.dashboard.menu4.block'|trans }}</a></li>
 					<li {{ in_paths("admin_gedmo_content", 'class="sub_show"')|raw }}				><a href="{{ path("admin_gedmo_content") }}" >{{ 'pi.dashboard.menu4.content'|trans }}</a></li>
 					<li {{ in_paths("admin_gedmo_media", 'class="sub_show"')|raw }}				><a href="{{ path("admin_gedmo_media") }}" >{{ 'pi.dashboard.menu4.media'|trans }}</a></li>
+					<li><a style="color:#238BDB" >&#187;</a></li>
+					<li {{ in_paths("admin_gedmo_contact", 'class="sub_show"')|raw }}				><a href="{{ path("admin_gedmo_contact") }}" >{{ 'pi.dashboard.menu4.contact'|trans }}</a></li>	
+					<li><a style="color:#238BDB" >&#187;</a></li>
+					<li {{ in_paths("admin_gedmo_news", 'class="sub_show"')|raw }}			><a href="{{ path("admin_gedmo_news") }}" >{{ 'pi.dashboard.menu4.news'|trans }}</a></li>				
 				</ul>
 			</div>
 			<!--[if lte IE 6]></td></tr></table></a><![endif]-->

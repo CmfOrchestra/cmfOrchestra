@@ -10,9 +10,9 @@
      */
     public function indexAction()
     {
-    	$em 		= $this->getDoctrine()->getEntityManager();
+    	$em			= $this->getDoctrine()->getEntityManager();
     	$locale		= $this->container->get('session')->getLocale();
-        $entities 	= $em->getRepository("{{ bundle }}:{{ entity }}")->findAllByEntity($locale, 'object');        
+        $entities	= $em->getRepository("{{ bundle }}:{{ entity }}")->findAllByEntity($locale, 'object');        
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout) 	$template = "index.html.twig"; else $template = "index.html.twig";

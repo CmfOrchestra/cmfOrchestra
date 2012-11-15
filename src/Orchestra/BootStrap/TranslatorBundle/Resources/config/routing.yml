@@ -1,0 +1,11 @@
+#
+#   import routes from a controller directory
+#
+annotation_translator:
+    resource: "@BootStrapTranslatorBundle/Controller"
+    type:     annotation 
+
+#BootStrapTranslatorBundle:Word     
+bootstrap_translator_word:
+    resource: "@BootStrapTranslatorBundle/Resources/config/routing/word.xml"
+    prefix: /admin/gedmo/word
