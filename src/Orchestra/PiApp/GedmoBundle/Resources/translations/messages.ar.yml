@@ -40,6 +40,8 @@ pi.dashboard.menu4.media: الإعلام
 pi.dashboard.menu4.category: فئة
 pi.dashboard.menu4.news: الأخبار
 pi.dashboard.menu4.contact: الاتصال
+pi.dashboard.menu4.pressrelease: النشرات الصحفية
+pi.dashboard.menu4.partner: الشركاء
 
 # ENTITY :: MENU
 pi.menu.translation.title:  ترجمة القائمة
@@ -90,4 +92,13 @@ pi.news.form.group.pictures: الصور
 pi.news.form.group.links: روابط
 pi.news.form.group.information: معلومات
 
+# ENTITY :: PRESS RELEASE
+pi.pressmedia.form.file: ملف
+pi.pressmedia.form.pressmedia: اضغط نوع الإصدار
+
+# ENTITY :: PARTENERS
+pi.partner.form.picture:  التصميم و الجرافيك
+pi.partner.form.group.category: الفئة
+pi.partner.form.group.links: رابط
+pi.partner.form.group.file: ملف
 

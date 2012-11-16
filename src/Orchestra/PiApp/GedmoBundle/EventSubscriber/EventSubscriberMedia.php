@@ -81,7 +81,11 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
      * @return
      */
     public function postPersist(EventArgs $eventArgs)
-    {
+    {    	
+    	$entity			= $eventArgs->getEntity();
+    	$entityManager 	= $eventArgs->getEntityManager();
+    	    	
+    	$this->_PostMediaGedmo($eventArgs);
     }
     
     /**
@@ -90,8 +94,8 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
      */
     public function preUpdate(EventArgs $eventArgs)
     {
-    	$this->_MediaSonata($eventArgs);
     	$this->_MediaGedmo($eventArgs);    	
+    	$this->_PostMediaGedmo($eventArgs);
     	$this->_deleteOldMedia($eventArgs);
     }
     
@@ -123,6 +127,7 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
     {
     	$this->_MediaSonata($eventArgs);
     	$this->_MediaGedmo($eventArgs);
+    	$this->_PostMediaGedmo($eventArgs);
     }    
     
     /**
@@ -131,12 +136,12 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
      * @param \Doctrine\ORM\Event\PreUpdateEventArgs $eventArgs
      *
      * @return void
-     * @access protected
+     * @access private
      * @final
      *
      * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
      */    
-    final protected function _deleteOldMedia(PreUpdateEventArgs $eventArgs)
+    private function _deleteOldMedia(PreUpdateEventArgs $eventArgs)
     {
     	$entity			= $eventArgs->getEntity();
     	$entityManager 	= $eventArgs->getEntityManager();    
@@ -160,18 +165,38 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
      * @param $eventArgs
      *
      * @return void
-     * @access protected
+     * @access private
      * @final
      *
      * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
      */
-    final protected function _MediaGedmo($eventArgs)
+    private function _MediaGedmo($eventArgs)
     {
         $entity			= $eventArgs->getEntity();
     	$entityManager 	= $eventArgs->getEntityManager();
     
     	if ( $this->isUsernamePasswordToken() && ($entity instanceof \PiApp\GedmoBundle\Entity\Media) && ($entity->getMediadelete() == true) )
     	{
+    		if($entity->getPartner() instanceof \PiApp\GedmoBundle\Entity\Partner){
+    			$entity_parent_table	= $this->getOwningTable($eventArgs, $entity->getPartner());
+    			$parent_id				= $entity->getPartner()->getId();
+    		}    		
+    		if($entity->getPressrelease() instanceof \PiApp\GedmoBundle\Entity\Pressrelease){
+    			$entity_parent_table	= $this->getOwningTable($eventArgs, $entity->getPressrelease());
+    			$parent_id				= $entity->getPressrelease()->getId();
+    		}    		
+    		if($entity->getNews() instanceof \PiApp\GedmoBundle\Entity\News){
+    			$entity_parent_table	= $this->getOwningTable($eventArgs, $entity->getNews());
+    			$parent_id				= $entity->getNews()->getId();
+    		}
+    		if($entity->getContact1() instanceof \PiApp\GedmoBundle\Entity\Contact){
+    			$entity_parent_table	= $this->getOwningTable($eventArgs, $entity->getContact1());
+    			$parent_id				= $entity->getContact1()->getId();
+    		}
+    		if($entity->getContact2() instanceof \PiApp\GedmoBundle\Entity\Contact){
+    			$entity_parent_table	= $this->getOwningTable($eventArgs, $entity->getContact2());
+    			$parent_id				= $entity->getContact2()->getId();
+    		}    		
     		if($entity->getMenu() instanceof \PiApp\GedmoBundle\Entity\Menu){
     			$entity_parent_table	= $this->getOwningTable($eventArgs, $entity->getMenu());
     			$parent_id				= $entity->getMenu()->getId();
@@ -212,22 +237,48 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
 	    			&&
 	    			(  ($entity->$getMedia() instanceof \PiApp\GedmoBundle\Entity\Media) )
 	    	){
-	    		$mediaId = null;
 	    		if(($entity->$getMedia()->getImage()->getName() == "")){
 	    			$entity->$setMedia(null);
-	    		}
-	    		elseif(!is_null($entity->$getMedia()->getImage()->getId())){
-	    			$mediaId = $entity->$getMedia()->getImage()->getId();
-	    		}
-	    		
-	    		if(!is_null($mediaId)){
-	    			$entity_table	= $this->getOwningTable($eventArgs, $entity->$getMedia());
-	    			$query 			= "UPDATE $entity_table mytable SET mytable.mediaId = ? WHERE mytable.id = ?";
-	    			$result = $this->_connexion($eventArgs)->executeUpdate($query, array($mediaId, $entity->$getMedia()->getId()));
 	    		}
 	    	}
     	}
     }
+    
+    /**
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $eventArgs
+     *
+     * @return void
+     * @access private
+     * @final
+     *
+     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     */
+    private function _PostMediaGedmo(EventArgs $eventArgs)
+    {
+    	$entity			= $eventArgs->getEntity();
+    	$entityManager 	= $eventArgs->getEntityManager();
+    
+    	for($i=0;$i<=4;$i++){
+    		if($i==0) $i = "";
+    		$getMedia = "getMedia{$i}";
+    		$setMedia = "setMedia{$i}";
+    		if ( $this->isUsernamePasswordToken() && method_exists($entity, $getMedia) && method_exists($entity, $setMedia)
+    				&&
+    				(  ($entity->$getMedia() instanceof \PiApp\GedmoBundle\Entity\Media) )
+    		){
+    			$mediaId = null;
+    			if(!is_null($entity->$getMedia()->getImage()->getId())){
+    				$mediaId = $entity->$getMedia()->getImage()->getId();
+    			}
+    
+    			if(!is_null($mediaId)){
+    				$entity_table	= $this->getOwningTable($eventArgs, $entity->$getMedia());
+    				$query 			= "UPDATE $entity_table mytable SET mytable.mediaId = ? WHERE mytable.id = ?";
+    				$result = $this->_connexion($eventArgs)->executeUpdate($query, array($mediaId, $entity->$getMedia()->getId()));
+    			}
+    		}
+    	}
+    }    
     
     /**
      * We are setting the default picture to all methods which are named like
@@ -237,12 +288,12 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
      * @param \Doctrine\ORM\Event\LifecycleEventArgs $eventArgs
      *
      * @return void
-     * @access protected
+     * @access private
      * @final
      *
      * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
      */
-    final protected function _MediaSonata($eventArgs)
+    private function _MediaSonata($eventArgs)
     {
     	$entity			= $eventArgs->getEntity();
     	$entityManager 	= $eventArgs->getEntityManager();
@@ -271,6 +322,7 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
     		}
     	}
     	
+    	// we clean the filename.
     	if ( $this->isUsernamePasswordToken() && ($entity instanceof \BootStrap\MediaBundle\Entity\Media) ){
     		$name = \PiApp\AdminBundle\Util\PiStringManager::minusculesSansAccents($entity->getName());
     		$name = \PiApp\AdminBundle\Util\PiStringManager::cleanFilename($name);

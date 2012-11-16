@@ -14,6 +14,7 @@ namespace PiApp\AdminBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 use PiApp\AdminBundle\Twig\Extension\PiWidgetExtension;
 
@@ -27,6 +28,28 @@ use PiApp\AdminBundle\Twig\Extension\PiWidgetExtension;
  */
 class WidgetByTransType extends AbstractType
 {
+	/**
+	 * @var \Symfony\Component\DependencyInjection\ContainerInterface
+	 */
+	protected $_container;
+	
+	/**
+	 * @var string
+	 */
+	protected $_locale;
+	
+	/**
+	 * Constructor.
+	 *
+	 * @param \Doctrine\ORM\EntityManager $em
+	 * @return void
+	 */
+	public function __construct(ContainerInterface $container)
+	{
+		$this->_container 	= $container;
+		$this->_locale		= $container->get('session')->getLocale();
+	}
+		
     public function buildForm(FormBuilder $builder, array $options)
     {
 	        $builder
@@ -73,7 +96,7 @@ class WidgetByTransType extends AbstractType
             		'prototype'	=> true,
             		// Post update
             		'by_reference' => true,
-            		'type'   => new TranslationWidgetType,
+            		'type'   => new TranslationWidgetType($this->_container),
             		'options'  => array(
             				'attr'      => array('class' => 'translation_widget')
             		),

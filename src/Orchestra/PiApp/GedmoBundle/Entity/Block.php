@@ -166,27 +166,6 @@ class Block extends AbstractDefault
     }
     
     /**
-     * Set page url
-     *
-     * @param \PiApp\AdminBundle\Entity\Page
-     */
-    public function setPageurl($pageurl)
-    {
-    	$this->pageurl = $pageurl;
-    	return $this;
-    }
-    
-    /** 
-     * Get page url
-     *
-     * @return \PiApp\AdminBundle\Entity\Page
-     */
-    public function getPageurl()
-    {
-    	return $this->pageurl;
-    }
-        
-    /**
      * Set category
      *
      * @param string $category
@@ -236,6 +215,7 @@ class Block extends AbstractDefault
     public function setDescriptif($descriptif)
     {
     	$this->descriptif = $descriptif;
+    	return $this;
     }
     
     /**
@@ -266,6 +246,7 @@ class Block extends AbstractDefault
     public function setContent($text)
     {
     	$this->content = $text;
+    	return $this;
     }
     
     /**
@@ -288,6 +269,27 @@ class Block extends AbstractDefault
         $this->author = $author;
         return $this;
     }
+    
+    /**
+     * Set page url
+     *
+     * @param \PiApp\AdminBundle\Entity\Page
+     */
+    public function setPageurl($pageurl)
+    {
+    	$this->pageurl = $pageurl;
+    	return $this;
+    }
+    
+    /**
+     * Get page url
+     *
+     * @return \PiApp\AdminBundle\Entity\Page
+     */
+    public function getPageurl()
+    {
+    	return $this->pageurl;
+    }    
 
     /**
      * Set $url
@@ -297,6 +299,7 @@ class Block extends AbstractDefault
     public function setUrl($url)
     {
     	$this->url = $url;
+    	return $this;
     }
     
     /**

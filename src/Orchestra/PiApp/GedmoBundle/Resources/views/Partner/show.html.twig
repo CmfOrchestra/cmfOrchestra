@@ -13,15 +13,27 @@
 {% block content %}
 
 	<table class="grid">
-		<caption>News</caption>
+		<caption>Partenaires</caption>
 	    <tbody>	
 	        <tr>
 	            <th>Id</th>	
 	            <td>{{ entity.id }}</td>	
 	        </tr>	
 	        <tr>
+	            <th>Category</th>	
+	            <td>{{ entity.category }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>Categoryother</th>	
+	            <td>{{ entity.categoryother }}</td>	
+	        </tr>	
+	        <tr>
 	            <th>Title</th>	
 	            <td>{{ entity.title }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>Subtitle</th>	
+	            <td>{{ entity.subtitle }}</td>	
 	        </tr>	
 	        <tr>
 	            <th>Descriptif</th>	
@@ -32,24 +44,24 @@
 	            <td>{{ entity.content }}</td>	
 	        </tr>	
 	        <tr>
-	            <th>Contentdetail</th>	
-	            <td>{{ entity.contentdetail }}</td>	
+	            <th>Url</th>	
+	            <td>{{ entity.url }}</td>	
 	        </tr>	
 	        <tr>
-	            <th>Slug</th>	
-	            <td>{{ entity.slug }}</td>	
+	            <th>Created_at</th>	
+	            <td>{{ entity.createdat|date('Y-m-d H:i:s') }}</td>	
 	        </tr>	
 	        <tr>
-	            <th>Meta_keywords</th>	
-	            <td>{{ entity.metakeywords }}</td>	
-	        </tr>	
-	        <tr>
-	            <th>Meta_description</th>	
-	            <td>{{ entity.metadescription }}</td>	
+	            <th>Updated_at</th>	
+	            <td>{{ entity.updatedat|date('Y-m-d H:i:s') }}</td>	
 	        </tr>	
 	        <tr>
 	            <th>Published_at</th>	
 	            <td>{{ entity.publishedat|date('Y-m-d H:i:s') }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>Archive_at</th>	
+	            <td>{{ entity.archiveat|date('Y-m-d H:i:s') }}</td>	
 	        </tr>	
 	        <tr>
 	            <th>Enabled</th>	
@@ -59,51 +71,37 @@
 	            <th>Position</th>	
 	            <td>{{ entity.position }}</td>	
 	        </tr>	
-			<tr>
-	        	<th>Media</th>
-	        	<td>
-					{% if entity.media.image is defined %}
-	        			{% media entity.media.image, 'reference' %}
-	        		{% endif %}	        	
-	        	</td>
-	        </tr>		        
 	    </tbody>
 	</table>
 
 	{% if is_granted('ROLE_ALLOWED_TO_SWITCH') %}
-	
-				
 	<ul class="record_actions">
 		<li>
-	        <form action="{{ path('admin_gedmo_news', { 'NoLayout': NoLayout }) }}" method="post">
+	        <form action="{{ path('admin_gedmo_partner', { 'NoLayout': NoLayout }) }}" method="post">
 	            <button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
 	        </form>	        
 		</li>
 			<li>
-	        <form action="{{ path('admin_gedmo_news_edit', { 'id': entity.id, 'NoLayout':NoLayout }) }}" method="post">
+	        <form action="{{ path('admin_gedmo_partner_edit', { 'id': entity.id, 'NoLayout':NoLayout }) }}" method="post">
 	            <button type="submit">{{ 'pi.grid.action.update'|trans }}</button>
 	        </form>	        
 		</li>
-			
 		{% if NoLayout == false %}
 	    <li>
-	        <form action="{{ path('admin_gedmo_news_delete', { 'id': entity.id, 'NoLayout':NoLayout }) }}" method="post">
+	        <form action="{{ path('admin_gedmo_partner_delete', { 'id': entity.id, 'NoLayout':NoLayout }) }}" method="post">
 	            {{ form_widget(delete_form) }}
 	            <button type="submit">{{ 'pi.grid.action.delete'|trans }}</button>
 	        </form>
 	    </li>
-	    {% endif %}
-	    
-	
+	    {% endif %}    
 	</ul>	
-		<script type="text/javascript">
-		//<![CDATA[
-			$(document).ready(function() {
-				$("button[type='submit']").button();
-			});
-		//]]>
-		</script>
-		
+	<script type="text/javascript">
+	//<![CDATA[
+		$(document).ready(function() {
+			$("button[type='submit']").button();
+		});
+	//]]>
+	</script>		
 	{% endif %}		
 		
 {% endblock %}

@@ -40,6 +40,8 @@ pi.dashboard.menu4.media: Media
 pi.dashboard.menu4.category: Catégorie
 pi.dashboard.menu4.news: Actualités
 pi.dashboard.menu4.contact: Contact
+pi.dashboard.menu4.pressrelease: Communiqués de presse
+pi.dashboard.menu4.partner: Partenaires
 
 # ENTITY :: MENU
 pi.menu.translation.title: Traductions de menu
@@ -89,3 +91,14 @@ pi.news.form.picture: Photo
 pi.news.form.group.pictures: Photos
 pi.news.form.group.links: Liens
 pi.news.form.group.information: Information
+
+# ENTITY :: PRESS RELEASE
+pi.pressmedia.form.file: Fichier
+pi.pressmedia.form.pressmedia: Type Communiqué de presse
+
+# ENTITY :: PARTENERS
+pi.partner.form.picture: Logo
+pi.partner.form.group.category: Categorie
+pi.partner.form.group.links: Lien
+pi.partner.form.group.file: Fichier
+

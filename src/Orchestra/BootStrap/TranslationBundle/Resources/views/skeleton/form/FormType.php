@@ -66,6 +66,7 @@ class {{ form_class }} extends AbstractType
         	
  			->add('enabled', 'checkbox', array(
             		'data'  => true,
+ 					'label'	=> 'pi.form.label.field.enabled',
             ))
             
  			{%- elseif field in ['created_at'] %}

@@ -1,0 +1,123 @@
+{% initJquery 'GRID:grid-table' %}
+{% stylesheet getParameter('pi_app_admin.admin.grid_theme_css') %}
+{% if NoLayout %}
+	{% stylesheet 'bundles/piappadmin/css/layout/admin/screen.css' %}
+	{% javascript 'bundles/piappadmin/js/jquery/custom_jquery.js' %}
+	{% set layout_nav = 'PiAppTemplateBundle::Template\\Layout\\layout-ajax.html.twig' %}
+{% else %}
+	{% set layout_nav = app.session.get('wurfl-layout') %}
+{% endif %}	
+{% extends layout_nav %}
+
+{% block title %}
+	<h1>Pressrelease</h1>
+{% endblock %}
+ 
+{% block content %}
+
+	<table id="grid_pressrelease" class="grid" >
+	    <thead>
+	        <tr>	            
+	            <th class="position" ><a href="javascript:void(0);" title="Position">Position</a></th>	        
+	        	<th><a href="javascript:void(0);" title="Id">Id</a></th>	            
+	            <th><a href="javascript:void(0);" title="Category">Category</a></th>	            
+	            <th><a href="javascript:void(0);" title="Title">Title</a></th>	            
+	            <th><a href="javascript:void(0);" title="Pressmedia">Pressmedia</a></th>	            
+	            <th><a href="javascript:void(0);" title="File">File</a></th>
+	            <th><a href="javascript:void(0);" title="Published_at">Published_at</a></th>	            
+	            <th><a href="javascript:void(0);" title="Archive_at">Archive_at</a></th>	            
+	            <th><a href="javascript:void(0);" title="Enabled">Enabled</a></th>	        	
+	            <th><a href="javascript:void(0);" title="Actions">Actions</a></th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	    {% set num_line = 0 %}
+	    {% for entity in entities %}
+	        <tr {% if(num_line == 0) %}class="odd"{% endif %}  id='{{ entity.position }}_row_{{ entity.id }}'  >
+	        	<td class="position" >{{ entity.position}}</td>	
+	            <td><a href="{{ path('admin_gedmo_pressrelease_show', { 'id': entity.id, 'NoLayout': NoLayout }) }}" title="">{{ entity.id }}</a></td>	
+	            <td>
+	            	{{ entity.category|limite("0", 55)|raw }}
+	            </td>	
+	            <td>
+	            	{% if entity.pageurl.getId() is defined %}
+	                	{%  set url = path_url(entity.pageurl.getRouteName(), {'locale':app.session.locale}) %}
+	                {% else %}  
+	                	{% set url = entity.url|limite("0", 55)|raw %}
+	                {% endif %}       
+	                <a href="{{ url }}" target="_blank" title="{{ url }}" class="info-tooltip" >
+						{{ entity.title|limite("0", 55)|raw }}
+	            	</a> 
+	            </td>
+	            <td>
+	            	{{ entity.pressmedia|limite("0", 55)|raw }}
+	            </td>
+	            <td>
+	           		{% if entity.media.mediaId is defined %}
+						<a href="{{ media_url(entity.media.mediaId, 'reference', true, entity.media.getUpdatedAt(), 'pressrelaes_') }}" target="_blank" >
+							Load
+						</a>
+					{% endif %}
+	            </td>	            	
+	            <td>{% if entity.publishedat %}{{ entity.publishedat|date('Y-m-d') }}{% endif%}</td>	
+	            <td>{% if entity.archiveat %}{{ entity.archiveat|date('Y-m-d') }}{% endif%}</td>	
+	            <td class="enabled" >{{ entity.enabled}}</td>
+				<td>
+					<a href="{{ path('admin_gedmo_pressrelease_show', { 'id': entity.id, 'NoLayout':NoLayout }) }}" title="{{ 'pi.grid.action.show'|trans }}" class="icon-3 info-tooltip" >&nbsp;</a>
+                	<a href="{{ path('admin_gedmo_pressrelease_edit', { 'id': entity.id, 'NoLayout':NoLayout }) }}" title="{{ 'pi.grid.action.edit'|trans }}" class="icon-1 info-tooltip" >&nbsp;</a>
+				</td>	
+	        </tr>
+	        {% if num_line == 0 %} 
+	        	{% set num_line = 1 %}
+	        {% else %}
+	        	{% set num_line = 0 %}
+	        {% endif %}	
+	                
+	    {% endfor %}
+	    </tbody>
+	</table>
+
+		{% if NoLayout == false %}
+	<!--  start actions-box ............................................... -->
+	<div id="actions-box">
+		<a href="" class="action-slider"><span>{{ 'pi.grid.action.title'|trans }}</span></a>
+		<div id="actions-box-slider">
+			<a href="{{ path('admin_gedmo_pressrelease_new') }}" class="action-edit" title="{{ 'pi.grid.action.create'|trans }}">{{ 'pi.grid.action.create'|trans }}</a>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!-- end actions-box........... -->
+	{% endif %}
+	
+	{% set options_gridtabale = {'grid-name': 'grid_pressrelease', 'grid-type':'simple', 
+			'grid-paginate':'true',
+			'grid-filters': { 
+				'1':'Position',
+				'2':'Identifiant',
+				'3':'Category',
+				'4':'Title',
+				'5':'Media',
+				'6':'Date Publish',
+				'7':'Date Archive',
+				'8':'Enable' 
+				},
+			'grid-sorting': { 
+					'0':'asc',
+				},
+			'grid-visible': {
+				'0':'true',
+				'1':'false',
+				},						
+			'grid-actions': { 
+					'rows_grouping': {'columnIndex':2, 'Collapsible':'true'},
+					'rows_enabled': {'sButtonText':'pi.grid.action.row_enabled', 'route':'admin_gedmo_pressrelease_enabledentity_ajax',},
+					'rows_disable': {'sButtonText':'pi.grid.action.row_disable', 'route':'admin_gedmo_pressrelease_disablentity_ajax'},
+					'rows_delete': {'sButtonText':'pi.grid.action.row_delete', 'route':'admin_gedmo_pressrelease_deletentity_ajax'},
+					'select_all': {'sButtonText':'pi.grid.action.select_all'},
+					'select_none': {'sButtonText':'pi.grid.action.select_none'},
+				}		
+			} 			
+	%}
+	{{ renderJquery('GRID', 'grid-table', options_gridtabale )|raw }}	
+
+{% endblock %}

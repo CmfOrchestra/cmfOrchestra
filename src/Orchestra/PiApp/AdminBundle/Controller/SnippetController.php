@@ -127,7 +127,7 @@ class SnippetController extends abstractController
     public function newAction()
     {
         $entity = new Widget();
-        $form   = $this->createForm(new WidgetByTransType(), $entity, array('show_legend' => false));
+        $form   = $this->createForm(new WidgetByTransType($this->container), $entity, array('show_legend' => false));
 
         return $this->render('PiAppAdminBundle:Snippet:new.html.twig', array(
             'entity' => $entity,
@@ -148,7 +148,7 @@ class SnippetController extends abstractController
     {
         $entity  = new Widget();
         $request = $this->getRequest();
-        $form    = $this->createForm(new WidgetByTransType(), $entity, array('show_legend' => false));
+        $form    = $this->createForm(new WidgetByTransType($this->container), $entity, array('show_legend' => false));
         $form->bindRequest($request);
 
         if ($form->isValid()) {
@@ -190,7 +190,7 @@ class SnippetController extends abstractController
             throw ControllerException::NotFoundException('Widget');
         }
 
-        $editForm 	= $this->createForm(new WidgetByTransType(), $entity, array('show_legend' => false));
+        $editForm 	= $this->createForm(new WidgetByTransType($this->container), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('PiAppAdminBundle:Snippet:edit.html.twig', array(
@@ -219,7 +219,7 @@ class SnippetController extends abstractController
             throw ControllerException::NotFoundException('Widget');
         }
 
-        $editForm   = $this->createForm(new WidgetByTransType(), $entity, array('show_legend' => false));
+        $editForm   = $this->createForm(new WidgetByTransType($this->container), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();

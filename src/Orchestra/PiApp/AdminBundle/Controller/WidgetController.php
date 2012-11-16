@@ -153,7 +153,7 @@ class WidgetController extends abstractController
     	$NoLayout   = $this->container->get('request')->query->get('NoLayout');
     	
         $entity = new Widget();
-        $form   = $this->createForm(new WidgetByTransType(), $entity, array('show_legend' => false));
+        $form   = $this->createForm(new WidgetByTransType($this->container), $entity, array('show_legend' => false));
 
         return $this->render('PiAppAdminBundle:Widget:new.html.twig', array(
             'entity' => $entity,
@@ -176,7 +176,7 @@ class WidgetController extends abstractController
     	$NoLayout   = $this->container->get('request')->query->get('NoLayout');
         $entity  = new Widget();
         $request = $this->getRequest();
-        $form    = $this->createForm(new WidgetByTransType(), $entity, array('show_legend' => false));
+        $form    = $this->createForm(new WidgetByTransType($this->container), $entity, array('show_legend' => false));
         $form->bindRequest($request);
 
         if ($form->isValid()) {
@@ -225,7 +225,7 @@ class WidgetController extends abstractController
             throw ControllerException::NotFoundException('Widget');
         }
 
-        $editForm 	= $this->createForm(new WidgetByTransType(), $entity, array('show_legend' => false));
+        $editForm 	= $this->createForm(new WidgetByTransType($this->container), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render("PiAppAdminBundle:Widget:$template", array(
@@ -260,7 +260,7 @@ class WidgetController extends abstractController
             throw ControllerException::NotFoundException('Widget');
         }
 
-        $editForm   = $this->createForm(new WidgetByTransType(), $entity, array('show_legend' => false));
+        $editForm   = $this->createForm(new WidgetByTransType($this->container), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();

@@ -40,4 +40,12 @@ piapp_gedmo_news:
 #PiAppGedmoBundle:Contact
 piapp_gedmo_contact:
     resource: "@PiAppGedmoBundle/Resources/config/routing/contact.xml"
-    prefix: /admin/gedmo/contact    
+    prefix: /admin/gedmo/contact
+#PiAppGedmoBundle:Pressrelease
+piapp_gedmo_pressrelease:
+    resource: "@PiAppGedmoBundle/Resources/config/routing/pressrelease.xml"
+    prefix: /admin/gedmo/pressrelease
+#PiAppGedmoBundle:Partner
+piapp_gedmo_partenaires:
+    resource: "@PiAppGedmoBundle/Resources/config/routing/partner.xml"
+    prefix: /admin/gedmo/partner 

@@ -1,0 +1,71 @@
+{%  initJquery 'FORM:prototype-bytab' %}
+{% if NoLayout %}
+	{% set layout_nav = 'PiAppTemplateBundle::Template\\Layout\\layout-ajax.html.twig' %}
+{% else %}
+	{% set layout_nav = app.session.get('wurfl-layout') %}
+{% endif %}	
+{% extends layout_nav %}
+
+{% block title %}
+	<h1>Pressrelease</h1>
+{% endblock %}
+ 
+{% block content %}
+
+	<!-- Begin tag markup -->
+	<div id="tabs">
+		<ul>
+			<li>
+				<a href="#tabs-1" title="{{ 'pi.form.title.default.update'|trans }}">{{ 'pi.form.title.default.update'|trans }}</a> 
+				<span class="ui-icon ui-icon-close">Remove Tab</span>
+			</li>
+		</ul>
+
+		{% form_theme edit_form getParameter('pi_app_admin.layout.template.form') %}
+		<form class="myform" action="{{ path('admin_gedmo_pressrelease_update', { 'id': entity.id, 'NoLayout': NoLayout }) }}" method="post" {{ form_enctype(edit_form) }} novalidate>
+		    <div id="tabs-1">
+		    	{{ form_widget(edit_form) }}
+		    </div>
+		    <p>
+		        <!-- <input id="add_tab" type="button" value="{{ 'pi.grid.action.add-tab'|trans }}" /> -->
+		        <button type="submit">{{ 'pi.grid.action.save'|trans }}</button>
+		    </p>		    
+		</form>
+		
+	</div>
+	<!-- End tag markup -->	
+	
+	{% set options = {'prototype-name': ['translations'], 'prototype-tab-title': 'Translate'} %}
+	{{ renderJquery('FORM', 'prototype-bytab', options )|raw }}
+		
+	<ul class="record_actions">
+		<li>
+	        <form action="{{ path('admin_gedmo_pressrelease', { 'NoLayout': NoLayout }) }}" method="post">
+	            <button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
+	        </form>	        
+		</li>
+		{% if NoLayout == false %}
+	    <li>
+	        <form action="{{ path('admin_gedmo_pressrelease_delete', { 'id': entity.id, 'NoLayout':NoLayout }) }}" method="post">
+	            {{ form_widget(delete_form) }}
+	            <button type="submit">{{ 'pi.grid.action.delete'|trans }}</button>
+	        </form>
+	    </li>
+	    {% endif %}   
+	</ul>
+	
+	<script type="text/javascript">
+	//<![CDATA[
+	
+			//j_prototype_bytabs.ftc_dialog_form("category_collection", "", ".myform", 400, 766, "center");
+	        j_prototype_bytabs.ftc_accordion_form("category_collection", "{{ 'pi.partner.form.group.category'|trans }}", ".myform");	
+
+	        //j_prototype_bytabs.ftc_dialog_form("link_collection", "", ".myform", 400, 766, "center");
+	        j_prototype_bytabs.ftc_accordion_form("link_collection", "{{ 'pi.partner.form.group.links'|trans }}", ".myform");
+
+	      	//j_prototype_bytabs.ftc_dialog_form("file_collection", "", ".myform", 400, 766, "center");
+	        j_prototype_bytabs.ftc_accordion_form("file_collection", "{{ 'pi.partner.form.group.file'|trans }}", ".myform");           
+								
+	//]]>
+	</script>	
+{% endblock %}		

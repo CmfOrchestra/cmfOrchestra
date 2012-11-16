@@ -203,6 +203,7 @@ class MediaType extends AbstractType
  				'data'  => false,
  				'required'  => false,
  				'help_block' => "Action to delete the {$this->_status} media",
+ 				'label'		=> "pi.delete",
  				"label_attr" => array(
  						"class"=> $this->_class,
  				),

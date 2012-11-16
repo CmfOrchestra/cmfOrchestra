@@ -122,6 +122,27 @@ class Media extends AbstractDefault
     
 
     /**
+     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Partner", mappedBy="media");
+     */
+    protected $partner;
+    /**
+     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Pressrelease", mappedBy="media");
+     */
+    protected $pressrelease;    
+    /**
+     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\News", mappedBy="media");
+     */
+    protected $news;    
+    /**
+     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Contact", mappedBy="media");
+     */
+    protected $contact1;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Contact", mappedBy="media1");
+     */
+    protected $contact2;
+    /**
      * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Menu", mappedBy="media");
      */
     protected $menu;    
@@ -332,6 +353,26 @@ class Media extends AbstractDefault
      *
      * @return \BootStrap\MediaBundle\Entity\Media
      */
+    public function getPartner()
+    {
+    	return $this->partner;
+    }    
+    public function getPressrelease()
+    {
+    	return $this->pressrelease;
+    }    
+    public function getNews()
+    {
+    	return $this->news;
+    }    
+    public function getContact1()
+    {
+    	return $this->contact1;
+    }
+    public function getContact2()
+    {
+    	return $this->contact2;
+    }    
     public function getMenu()
     {
     	return $this->menu;
