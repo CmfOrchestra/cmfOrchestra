@@ -118,6 +118,9 @@ class SliderType extends AbstractType
  					"label_attr" => array(
  							"class"=>"detail_collection",
  					),
+	        		"attr" => array(
+	        				"class"	=>"pi_editor_simple",
+	        		),
             ))
 	        ->add('descriptifright', 'textarea', array(
  					'required'  => false,
@@ -125,6 +128,9 @@ class SliderType extends AbstractType
  					"label_attr" => array(
  							"class"=>"detail_collection",
  					),
+	        		"attr" => array(
+	        				"class"	=>"pi_editor_simple",
+	        		),
             ))
             
             

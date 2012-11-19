@@ -70,7 +70,7 @@ class PiLanguageChoiceManager extends PiJqueryExtension
 		
 		$em 		= $this->container->get('doctrine')->getEntityManager();
 		$locale		= $this->container->get('session')->getLocale();
-		$entities 	= $em->getRepository("PiAppAdminBundle:Langue")->findAllByEntity($locale, 'object', false);	
+		$entities 	= $em->getRepository("PiAppAdminBundle:Langue")->getAllEnabled($locale, 'object', false);	
 
 		// if the file doesn't exist, we call an exception
 		$img = "bundles/piappadmin/images/arrow/".$options['img-arrow'];
