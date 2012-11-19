@@ -41,29 +41,37 @@ class RolesFixtures extends AbstractFixture implements OrderedFixtureInterface
     	$field0->setComment('Utilisateur disposant du droit par default');
     	$field0->setEnabled(true);
     	$manager->persist($field0);
+    	
+    	$field1 = new Role();
+    	$field1->setLabel('Subscriber');
+    	$field1->setName('ROLE_SUBSCRIBER');
+    	$field1->setComment('Utilisateur enregistré sur le site.');
+    	$field1->setEnabled(true);
+    	$field1->setHeritage(array('ROLE_ALLOWED_TO_SWITCH'));
+    	$manager->persist($field1);
+
+    	$field2 = new Role();
+    	$field2->setLabel('Member');
+    	$field2->setName('ROLE_MEMBER');
+    	$field2->setComment('Utilisateur enregistré sur le site et identifié comme membre.');
+    	$field2->setEnabled(true);
+    	$field2->setHeritage(array('ROLE_SUBSCRIBER', 'ROLE_ALLOWED_TO_SWITCH'));
+    	$manager->persist($field2);    	
     	    	
-        $field1 = new Role();
-        $field1->setLabel('User');
-        $field1->setName('ROLE_USER');
-        $field1->setComment('Utilisateur disposant d\'un accès à un espace.');
-        $field1->setEnabled(true);
-        $field1->setHeritage(array('ROLE_ALLOWED_TO_SWITCH'));
-        $manager->persist($field1);
-        
-        $field2 = new Role();
-        $field2->setLabel('Subscriber');
-        $field2->setName('ROLE_SUBSCRIBER');
-        $field2->setComment('Utilisateur enregistré sur le site.');
-        $field2->setEnabled(true);
-        $field2->setHeritage(array('ROLE_USER', 'ROLE_ALLOWED_TO_SWITCH'));
-        $manager->persist($field2);    
+        $field3 = new Role();
+        $field3->setLabel('User');
+        $field3->setName('ROLE_USER');
+        $field3->setComment('Utilisateur disposant d\'un accès à un espace.');
+        $field3->setEnabled(true);
+        $field3->setHeritage(array('ROLE_ALLOWED_TO_SWITCH'));
+        $manager->persist($field3);  
 
         $field4 = new Role();
         $field4->setLabel('Editor');
         $field4->setName('ROLE_EDITOR');
         $field4->setComment('Utilisateur ayant un accès restreint du backoffice, et pouvant ecrire, modifier des pages sans les publier.');
         $field4->setEnabled(true);
-        $field4->setHeritage(array('ROLE_USER', 'ROLE_ALLOWED_TO_SWITCH'));
+        $field4->setHeritage(array('ROLE_MEMBER', 'ROLE_USER', 'ROLE_ALLOWED_TO_SWITCH'));
         $manager->persist($field4); 
 
         $field5 = new Role();
@@ -79,7 +87,7 @@ class RolesFixtures extends AbstractFixture implements OrderedFixtureInterface
         $field6->setName('ROLE_DESIGNER');
         $field6->setComment('Utilisateur ayant un accès restreint du backoffice, et capable de modifier seulement le code des block des pages, des css et layout.');
         $field6->setEnabled(true);
-        $field6->setHeritage(array('ROLE_USER', 'ROLE_ALLOWED_TO_SWITCH'));
+        $field6->setHeritage(array('ROLE_MEMBER', 'ROLE_USER', 'ROLE_ALLOWED_TO_SWITCH'));
         $manager->persist($field6);        
         
         $field7 = new Role();
@@ -118,8 +126,9 @@ class RolesFixtures extends AbstractFixture implements OrderedFixtureInterface
         $manager->flush();
         
         $this->addReference('role-default', $field0);
-        $this->addReference('role-user', $field1);
-        $this->addReference('role-subscriber', $field2);
+        $this->addReference('role-subscriber', $field1);
+        $this->addReference('role-member', $field2);
+        $this->addReference('role-user', $field3);
         $this->addReference('role-editor', $field4);
         $this->addReference('role-moderator', $field5);
         $this->addReference('role-designer', $field6);

@@ -25,7 +25,6 @@ use BootStrap\UserBundle\Repository\RoleRepository;
  * @ORM\Table(name="fos_role")
  * @ORM\Entity(repositoryClass="BootStrap\UserBundle\Repository\RoleRepository")
  * @ORM\HasLifecycleCallbacks() 
- * @UniqueEntity(fields="name", message="this value already exists")
  * 
  * @category   BootStrap_Entities
  * @package    Entity
@@ -85,8 +84,9 @@ class Role
     /**
      * @var string $route_name
      * 
-     * @ORM\Column(name="route_name", type="string", nullable=true, unique=true)
+     * @ORM\Column(name="route_name", type="string", nullable=true)
      * @Assert\MinLength(limit = 3, message = "Le route name doit avoir au moins {{ limit }} caractères")
+     * @Assert\Blank
      */
     protected $route_name;
 
