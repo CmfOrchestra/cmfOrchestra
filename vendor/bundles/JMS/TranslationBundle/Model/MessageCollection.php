@@ -50,6 +50,7 @@ class MessageCollection
     public function add(Message $message)
     {
         if (isset($this->messages[$id = $message->getId()])) {
+            $this->checkConsistency($this->messages[$id], $message);
             $this->messages[$id]->merge($message);
 
             return;
@@ -63,7 +64,11 @@ class MessageCollection
      */
     public function set(Message $message)
     {
-        $this->messages[$message->getId()] = $message;
+        if (isset($this->messages[$id = $message->getId()])) {
+            $this->checkConsistency($this->messages[$id], $message);
+        }
+
+        $this->messages[$id] = $message;
     }
 
     /**
@@ -138,6 +143,16 @@ class MessageCollection
     {
         foreach ($domain->all() as $id => $message) {
             $this->add($message);
+        }
+    }
+
+    private function checkConsistency(Message $oldMessage, Message $newMessage)
+    {
+        $oldDesc = $oldMessage->getDesc();
+        $newDesc = $newMessage->getDesc();
+
+        if (0 < strlen($oldDesc) && 0 < strlen($newDesc) && $oldDesc != $newDesc) {
+            throw new \RuntimeException(sprintf("The message '%s' exists with two different descs: '%s' in %s, and '%s' in %s", $oldMessage->getId(), $oldMessage->getDesc(), current($oldMessage->getSources()), $newMessage->getDesc(), current($newMessage->getSources())));
         }
     }
 }

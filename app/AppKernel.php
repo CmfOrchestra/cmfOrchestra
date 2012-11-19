@@ -21,6 +21,7 @@ class AppKernel extends Kernel
        		new JMS\AopBundle\JMSAopBundle(),
        		new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
        		new JMS\DiExtraBundle\JMSDiExtraBundle($this),  
+        	new JMS\TranslationBundle\JMSTranslationBundle(),
         		
         	# route
         	new BeSimple\I18nRoutingBundle\BeSimpleI18nRoutingBundle(),
@@ -51,6 +52,7 @@ class AppKernel extends Kernel
         	new BootStrap\AdminBundle\BootStrapAdminBundle(),
         	new BootStrap\UserBundle\BootStrapUserBundle(),
         	new BootStrap\TranslationBundle\BootStrapTranslationBundle(),
+        	new BootStrap\TranslatorBundle\BootStrapTranslatorBundle(),
         	new BootStrap\MediaBundle\BootStrapMediaBundle(),
         	new BootStrap\GoogleBundle\BootStrapGoogleBundle(),
         	new BootStrap\FacebookBundle\BootStrapFacebookBundle(),

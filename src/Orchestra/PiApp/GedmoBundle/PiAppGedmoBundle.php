@@ -75,6 +75,36 @@ $GLOBALS['GEDMO_WIDGET_LISTENER']['news'] = array(
 				'edit'		=> 'admin_gedmo_news',
 		),
 );
+$GLOBALS['GEDMO_WIDGET_LISTENER']['partner'] = array(
+		'method' => array('_template_show', '_template_list'),
+		'_template_show'	 => array(
+				'edit'		=> 'admin_gedmo_partner_edit',
+		),
+		'_template_archive'	 => array(
+				'edit'		=> 'admin_gedmo_partner',
+		),
+);
+$GLOBALS['GEDMO_WIDGET_LISTENER']['pressrelease'] = array(
+		'method' => array('_template_show', '_template_list', '_template_archive'),
+		'_template_show'	 => array(
+				'edit'		=> 'admin_gedmo_pressrelease_edit',
+		),
+		'_template_archive'	 => array(
+				'edit'		=> 'admin_gedmo_pressrelease',
+		),
+		'_template_archive'	 => array(
+				'edit'		=> 'admin_gedmo_pressrelease',
+		),
+);
+$GLOBALS['GEDMO_WIDGET_LISTENER']['contact'] = array(
+		'method' => array('_template_show', '_template_list'),
+		'_template_show'	 => array(
+				'edit'		=> 'admin_gedmo_contact_edit',
+		),
+		'_template_list'	 => array(
+				'edit'		=> 'admin_gedmo_contact',
+		),
+);
 /**************************  MATRIX NAVIGATION ***************************/
 $GLOBALS['GEDMO_WIDGET_NAVIGATION']['menu'] = array(
 		'method' => array('_navigation_default'),

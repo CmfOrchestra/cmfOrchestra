@@ -398,4 +398,39 @@ class PressreleaseController extends abstractController
         ));
     }     
     
+    /**
+     * Template : Finds and displays an archive of Pressrelease entity.
+     *
+     * @Cache(maxage="86400")
+     * @access  public
+     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     */
+    public function _template_archiveAction($category = '', $MaxResults = null, $template = '_tmp_list.html.twig', $order = 'DESC', $lang = "")
+    {
+    	$em         = $this->getDoctrine()->getEntityManager();
+    
+    	if(empty($lang))
+    		$lang   = $this->container->get('session')->getLocale();
+    
+    	$query      = $em->getRepository("PiAppGedmoBundle:Pressrelease")->getAllByCategory($category, $MaxResults, $order)->getQuery();
+    	$entities   = $em->getRepository("PiAppGedmoBundle:Pressrelease")->findTranslationsByQuery($lang, $query, 'object', false);
+    
+    	foreach($entities as $key => $entity){
+    		$year   = $entity->getPublishedAt()->format('Y');
+    		$month  = $entity->getPublishedAt()->format('m');
+    
+    		$date   = new \DateTime($year.'-'.$month);
+    		$date   = $this->container->get('pi_app_admin.date_manager')->format($date, 'long', 'medium', $lang, 'MMMM YYYY');
+    
+    		$archive[$year][$date][] =  $entity;
+    	}
+    
+    	return $this->render("PiAppGedmoBundle:Pressrelease:$template", array(
+    			'archive' => $archive,
+    			'cat'      => ucfirst($category),
+    			'locale'   => $lang,
+    			'lang'     => $lang,
+    	));
+    }    
+    
 }

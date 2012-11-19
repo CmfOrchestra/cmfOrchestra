@@ -1,0 +1,28 @@
+<section id="presse">
+    <div id="infoCenter" class="flexcroll">
+        <section class="hidden_content" style="display: block;">   
+      {% set style_display = 'style="display: block;"'  %}
+      {% for year,entitiesByYear in archive %}
+            <section class= "bloc_mois">
+                <h3>{{ year }}</h3>
+                <div class="long_filet"></div>                                              
+                {% for entity in entitiesByYear %}         
+                        <section class="bloc_presse">
+                            <h4>{{ entity.translate(locale).getTitle()|limite('0', 210)|replace({"<p>": "", "</p>": ""})|raw }}</h4><br clear="all"/>
+                            <div>{{ entity.origin }}   Le: {{ entity.publishedat|date('m/d/Y') }}</div>
+                        </section>
+                        {#
+                        {% if entity.image not empty %}
+                        <a href="#" title="">
+                            {{ getService('sonata.media.twig.extension').media(entity.image1, 'reference', {'title': entity.image.authorname, 'alt': entity.image.authorname})|raw }}<div>(321,06kB)</div>
+                        </a>
+                        {% endif %}
+                        #}
+             {% endfor %}   
+            </section> 
+            <div class="button_lnk"><a href="{{ archivesLink }}">ARCHIVES</a></div>
+       {% endfor %}
+        </section>
+    </div>
+    <div id="infoCenter-flexcroll-vscroller"><div class="flexcroll-scrollbar"></div></div>
+</section>

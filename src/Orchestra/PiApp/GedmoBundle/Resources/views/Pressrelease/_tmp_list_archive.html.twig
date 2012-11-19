@@ -1,0 +1,67 @@
+				<section id="novLeftMenu" class="menu_archives">
+                    <ul>
+                        <li class="archives">ARCHIVES</li>
+                        <li class="bouton">
+                        	<img id="archiveBtn" src="{{ asset('bundles/piappadmin/images/layout/novedia/BOUTONS/plus.png') }}"  alt="" />
+                            <ul id="hiddenMenu">
+                            	{% for year,entitiesByYear in archive %}
+                                <li class="annee" name="{{ year }}">{{ year }}</li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+                <!--FIN ID="novLeftMenu2"-->
+                
+                <section id="news">
+                    <div id="infoCenter" class="flexcroll">                    
+                    
+                      {% set style_display = 'style="display: block;"'  %}
+					  {% for year,entitiesByYear in archive %}
+					  		<section id="{{ year }}" class="hidden_content" {{ style_display|raw }}>
+					  		{% set style_display = '' %}
+					  		{% for month,entitiesByMonth in entitiesByYear %}	
+								<section class="bloc_mois">
+						    	<h3>{{ month }}</h3>
+								<div class="long_filet"></div>					  						  	
+					  			{% for entity in entitiesByMonth %}			
+										<section class="bloc_presse">
+						                    <h4>{{ entity.translate(locale).getTitle()|limite('0', 210)|replace({"<p>": "", "</p>": ""})|raw }}</h4><br clear="all"/>
+		                					<div>{{ entity.origin }}   Le: {{ entity.publishedat|date('d/m/Y') }}</div>
+										</section>
+						                {#
+						                {% if entity.image not empty %}
+				                		<a href="#" title="">
+											{{ getService('sonata.media.twig.extension').media(entity.image1, 'reference', {'title': entity.image.authorname, 'alt': entity.image.authorname})|raw }}<div>(321,06kB)</div>
+										</a>
+										{% endif %}
+										#}
+			                 	{% endfor %}
+			                 	</section>
+			                 {% endfor %}	
+			                 </section>	
+					   {% endfor %}
+                        
+                    </div>
+                    <div id="infoCenter-flexcroll-vscroller"><div class="flexcroll-scrollbar"></div></div>
+                    <!--FIN ID="infoCenter"-->
+                </section>               
+                
+                <script type="text/javascript">
+                $(document).ready(function(){
+			 		
+			 		$("#archiveBtn").click(function(){  
+			 			$(".menu_archives #hiddenMenu").slideToggle('fast'); 
+			 		});
+			        
+			        $("#hiddenMenu > li.annee").click(function(){
+			            $(this).removeClass('annee');
+			            $(this).addClass('annee_highlight');
+			            $(this).siblings().removeClass('annee_highlight');
+			            
+			            var target = $(this).attr('name');
+			            $('.hidden_content').hide();
+			            $('#'+target).show();
+			        }) 
+			    });  
+			    </script>               

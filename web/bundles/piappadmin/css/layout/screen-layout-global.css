@@ -45,7 +45,7 @@
 
  /* WIDGET --------------------------------------------------------*/
   #global-layout h6.widget_action_menu {
- 	clear: both;
+ 	/*clear: both;*/
 	position:relative
 	z-index:9999;
  	display: none;

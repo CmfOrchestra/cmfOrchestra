@@ -167,9 +167,9 @@ class WordController extends abstractController
      */
     public function newAction()
     {
-    		$em 		= $this->getDoctrine()->getEntityManager();
-    		$entity = new Word();
-    		$locale	= $this->container->get('session')->getLocale();
+    	$em 	= $this->getDoctrine()->getEntityManager();
+    	$entity = new Word();
+    	$locale	= $this->container->get('session')->getLocale();
         $form   = $this->createForm(new WordType($em, $locale, $this->container), $entity, array('show_legend' => false));
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
@@ -209,6 +209,8 @@ class WordController extends abstractController
             $em->persist($entity);
             $em->flush();
 
+            $this->_wordsTranslation();
+            
             return $this->redirect($this->generateUrl('admin_word_show', array('id' => $entity->getId(), 'NoLayout' => $NoLayout)));
                         
         }
@@ -266,7 +268,7 @@ class WordController extends abstractController
     public function updateAction($id)
     {
         $em 	= $this->getDoctrine()->getEntityManager();
-    	$locale	= $this->container->get('session')->getLocale();
+    		$locale	= $this->container->get('session')->getLocale();
         $entity = $em->getRepository("BootStrapTranslatorBundle:Word")->findOneByEntity($locale, $id, "object"); 
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
@@ -284,7 +286,9 @@ class WordController extends abstractController
             $entity->setTranslatableLocale($locale);
             $em->persist($entity);
             $em->flush();
-
+						
+            $this->_wordsTranslation();
+            
             return $this->redirect($this->generateUrl('admin_word_edit', array('id' => $id, 'NoLayout' => $NoLayout)));
         }
 
@@ -308,9 +312,9 @@ class WordController extends abstractController
     public function deleteAction($id)
     {
         $em 	 = $this->getDoctrine()->getEntityManager();
-	    $locale	 = $this->container->get('session')->getLocale();
+	    	$locale	 = $this->container->get('session')->getLocale();
 	    
-	    $NoLayout   = $this->container->get('request')->query->get('NoLayout');	    
+	    	$NoLayout   = $this->container->get('request')->query->get('NoLayout');	    
     
         $form 	 = $this->createDeleteForm($id);
         $request = $this->getRequest();
@@ -338,65 +342,53 @@ class WordController extends abstractController
             ->getForm()
         ;
     }
-
-    /**
-     * Template : Finds and displays a Word entity.
-     * 
-     * @Cache(maxage="86400")
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
-     * @access	public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com> 
-     */
-    public function _template_showAction($id, $template = '_tmp_show.html.twig', $lang = "")
-    {
-    	$em 	= $this->getDoctrine()->getEntityManager();
-    	
-    	if(empty($lang))
-    		$lang	= $this->container->get('session')->getLocale();
-    		
-    	$entity = $em->getRepository("BootStrapTranslatorBundle:Word")->findOneByEntity($lang, $id, 'object', false);
-    	
-    	if (!$entity) {
-    		throw ControllerException::NotFoundException('Word');
-    	}
-    	
-    	if(method_exists($entity, "getTemplate") && $entity->getTemplate() != "")
-    		$template = $entity->getTemplate();     	
     
-    	return $this->render("BootStrapTranslatorBundle:Word:$template", array(
-    			'entity'	=> $entity,
-    			'locale'	=> $lang,
-    	));
-    }
-
-	/**
-     * Template : Finds and displays a list of Word entity.
-     * 
-     * @Cache(maxage="86400")
-     * @return \Symfony\Component\HttpFoundation\Response
+    /**
+     * Sets the specific sortOrders.
      *
-     * @access	public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com> 
+     * @param EventArgs		$eventArgs
+     * @access private
+     * @return array
+     *
+     * @author (c) <riad hellal> <r.helal@novediagroup.com>
      */
-    public function _template_listAction($category = '', $MaxResults = null, $template = '_tmp_list.html.twig', $order = 'DESC', $lang = "")
+    private function _wordsTranslation()
     {
-    	$em 		= $this->getDoctrine()->getEntityManager();
 
-    	if(empty($lang))
-    		$lang	= $this->container->get('session')->getLocale();
-    		
-    	if(method_exists($entity, "getTemplate") && $entity->getTemplate() != "")
-    		$template = $entity->getTemplate();    		
-    		
-    	$query		= $em->getRepository("BootStrapTranslatorBundle:Word")->getAllByCategory($category, $MaxResults, $order)->getQuery();
-        $entities   = $em->getRepository("BootStrapTranslatorBundle:Word")->findTranslationsByQuery($lang, $query, 'object', false);                   
+    	$entityManager 	= $this->getDoctrine()->getEntityManager();
+    	$locale	= $this->container->get('session')->getLocale();
 
-        return $this->render("BootStrapTranslatorBundle:Word:$template", array(
-            'entities' => $entities,
-            'cat'	   => ucfirst($category),
-        	'locale'   => $lang,
-        ));
-    }     
+    	$basePath 		= $this->container->getParameter("kernel.cache_dir"). '/../translation/';
+    	$dir 			= \PiApp\AdminBundle\Util\PiFileManager::mkdirr($basePath);
+    	$all_files 		= \PiApp\AdminBundle\Util\PiFileManager::getFilesByType($basePath, "yml");
+    	$languages 		= $entityManager->getRepository("PiAppAdminBundle:Langue")->findAllByEntity($locale, 'object', false);
+    	 
+    	$array = array();
+    	foreach($languages as $language){
+    		$filename 	= $basePath."messages.".$language->getId().".yml";
+    		$Words 		= $entityManager->getRepository("BootStrapTranslatorBundle:Word")->findAllByEntity($language->getId(), 'object', false);
+    		foreach ($Words as $word){
+    			$array["{$word->getKeyword()}"] = $word->translate($language->getId())->getLabel()? $word->translate($language->getId())->getLabel():' ';
+    		}
+    		$yaml = \Symfony\Component\Yaml\Yaml::dump($array, 2);
+    		file_put_contents($filename, $yaml);
+    	}
+    	 
+    	//$this->_executeClearCache();
+    }    
+    
+    /**
+     * Execute the clear cache command
+     *
+     * @return string		status of the executed command
+     * @access protected
+     *
+     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @since 2012-11-14
+     */
+    private function _executeClearCache()
+    {
+    	return exec(sprintf('php app/console cache:clear'));
+    }    
     
 }
