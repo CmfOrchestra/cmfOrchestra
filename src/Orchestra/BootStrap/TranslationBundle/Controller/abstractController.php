@@ -167,7 +167,7 @@ abstract class abstractController extends Controller
     		array_multisort($new_pos, SORT_ASC, $new_data);
     		
     		foreach ($new_data as $key => $value) {
-    			$entity = $em->getRepository("PiAppGedmoBundle:Social")->find($value['id']);
+    			$entity = $em->getRepository($this->_entityName)->find($value['id']);
     			$em->remove($entity);
     			$em->flush();
     		}
