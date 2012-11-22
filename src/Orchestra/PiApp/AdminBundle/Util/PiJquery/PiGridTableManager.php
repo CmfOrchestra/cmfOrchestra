@@ -381,12 +381,12 @@ class PiGridTableManager extends PiJqueryExtension
 												"formButtons": [
 				        							{
 				        								"label": "Valider",
-							                            "fn": function () {
-							                                this.submit();
-							                                $("tr.DTTT_selected").text("");
-							                                //$( '#ToolTables_grid_Sondage_4' ).click ();
+				        								"className": "save",
+							                            "fn": function (e) {
+							                            	this.submit(function(){
+							                                	window.location.reload();
+							                                });
 							                            },
-
 							                        }
 							                    ],
 							                    "formTitle": "Suppression de donnée",

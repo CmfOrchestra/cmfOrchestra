@@ -77,15 +77,32 @@ class Category extends AbstractDefault
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      * 
+     * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Contact", mappedBy="category")
+     */
+    protected $items_contacts;
+    
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
      * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Block", mappedBy="category")
      */
-    protected $items;
+    protected $items_blocks;    
+    
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Media", mappedBy="category")
+     */
+    protected $items_medias;    
 
+    
     public function __construct()
     {
     	parent::__construct();
     	
-        $this->items = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->items_contacts 	 = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->items_blocks 	 = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->items_medias 	 = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**

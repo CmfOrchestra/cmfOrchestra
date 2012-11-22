@@ -68,10 +68,30 @@ class Contact extends AbstractDefault
     protected $id;
     
     /**
-     * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Category", inversedBy="items")
+     * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Category", inversedBy="items_contacts")
      * @ORM\JoinColumn(name="category", referencedColumnName="id", nullable=true)
      */
     protected $category;   
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Ads", inversedBy="responses")
+     * @ORM\JoinColumn(name="category", referencedColumnName="id", nullable=true)
+     */
+    protected $ads;    
+    
+    /**
+     * @var string $name
+     *
+     * @ORM\Column(name="name", type="text", nullable = true)
+     */
+    protected $name;
+    
+    /**
+     * @var string $nickname
+     *
+     * @ORM\Column(name="nickname", type="text", nullable = true)
+     */
+    protected $nickname;    
     
     /**
      * @var string $title
@@ -95,6 +115,48 @@ class Contact extends AbstractDefault
      * @ORM\Column(name="address", type="text", length=255, nullable = true)
      */
     protected $address;    
+    
+    /**
+     * @var string $address
+     *
+     * @ORM\Column(name="address1", type="text", length=255, nullable = true)
+     */
+    protected $address1;
+
+    /**
+     * @var string $address
+     *
+     * @ORM\Column(name="address2", type="text", length=255, nullable = true)
+     */
+    protected $address2;
+
+    /**
+     * @var string $address
+     *
+     * @ORM\Column(name="address3", type="text", length=255, nullable = true)
+     */
+    protected $address3;    
+    
+    /**
+     * @var string $cp
+     *
+     * @ORM\Column(name="cp", type="text", length=255, nullable = true)
+     */
+    protected $cp;    
+    
+    /**
+     * @var string $city
+     *
+     * @ORM\Column(name="city", type="text", length=255, nullable = true)
+     */
+    protected $city;    
+    
+    /**
+     * @var string $country
+     *
+     * @ORM\Column(name="country", type="string", length=2, nullable=true)
+     */
+    protected $country;    
 
     /**
      * @var string $phone
@@ -102,6 +164,13 @@ class Contact extends AbstractDefault
      * @ORM\Column(name="phone", type="string", length=255, nullable = true)
      */
     protected $phone;
+    
+    /**
+     * @var string $mobile
+     *
+     * @ORM\Column(name="mobile", type="string", length=255, nullable = true)
+     */
+    protected $mobile;    
 
     /**
      * @var string $fax
@@ -255,6 +324,69 @@ class Contact extends AbstractDefault
     }    
     
     /**
+     * Set Ads
+     *
+     * @param string $Ads
+     */
+    public function setAds($Ads)
+    {
+    	$this->ads = $Ads;
+    	return $this;
+    }
+    
+    /**
+     * Get Ads
+     *
+     * @return string
+     */
+    public function getAds()
+    {
+    	return $this->ads;
+    }    
+    
+    /**
+     * Set name
+     *
+     * @param string $name
+     */
+    public function setName($name)
+    {
+    	$this->name = $name;
+    	return $this;
+    }
+    
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+    	return $this->name;
+    }
+
+    /**
+     * Set nickname
+     *
+     * @param string $nickname
+     */
+    public function setNickname($nickname)
+    {
+    	$this->nickname = $nickname;
+    	return $this;
+    }
+    
+    /**
+     * Get nickname
+     *
+     * @return string
+     */
+    public function getNickname()
+    {
+    	return $this->nickname;
+    }    
+    
+    /**
      * Set title
      *
      * @param string $title
@@ -317,6 +449,137 @@ class Contact extends AbstractDefault
     {
     	return $this->address;
     }
+    
+    /**
+     * Set address1
+     *
+     * @param string $address
+     * @return this
+     */
+    public function setAddress1($address)
+    {
+    	$this->address1 = $address;
+    	return $this;
+    }
+    
+    /**
+     * Get address1
+     *
+     * @return string
+     */
+    public function getAddress1()
+    {
+    	return $this->address1;
+    }    
+    
+    /**
+     * Set address2
+     *
+     * @param string $address
+     * @return this
+     */
+    public function setAddress2($address)
+    {
+    	$this->address2 = $address;
+    	return $this;
+    }
+    
+    /**
+     * Get address2
+     *
+     * @return string
+     */
+    public function getAddress2()
+    {
+    	return $this->address2;
+    }    
+    
+    /**
+     * Set address3
+     *
+     * @param string $address
+     * @return this
+     */
+    public function setAddress3($address)
+    {
+    	$this->address3 = $address;
+    	return $this;
+    }
+    
+    /**
+     * Get address3
+     *
+     * @return string
+     */
+    public function getAddress3()
+    {
+    	return $this->address3;
+    }    
+    
+    /**
+     * Set cp
+     *
+     * @param string $cp
+     * @return this
+     */
+    public function setCp($cp)
+    {
+    	$this->cp = $cp;
+    	return $this;
+    }
+    
+    /**
+     * Get cp
+     *
+     * @return string
+     */
+    public function getCp()
+    {
+    	return $this->cp;
+    }    
+    
+    /**
+     * Set city
+     *
+     * @param string $city
+     * @return this
+     */
+    public function setCcity($city)
+    {
+    	$this->city = $city;
+    	return $this;
+    }
+    
+    /**
+     * Get city
+     *
+     * @return string
+     */
+    public function getCity()
+    {
+    	return $this->city;
+    }    
+    
+    /**
+     * Get country
+     *
+     * @return string
+     */
+    public function getCountry()
+    {
+    	return $this->country;
+    }
+    
+    /**
+     * Set country
+     *
+     * @param string $country
+     */
+    public function setCountry($country)
+    {
+    	$this->country = $country;
+    	return $this;
+    }    
         
     /**
      * Set phone
@@ -339,6 +602,28 @@ class Contact extends AbstractDefault
     {
         return $this->phone;
     }
+    
+    /**
+     * Set mobile
+     *
+     * @param string $mobile
+     * @return this
+     */
+    public function setMobile($mobile)
+    {
+    	$this->mobile = $mobile;
+    	return $this;
+    }
+    
+    /**
+     * Get phone
+     *
+     * @return string
+     */
+    public function getMobile()
+    {
+    	return $this->mobile;
+    }    
 
     /**
      * Set fax

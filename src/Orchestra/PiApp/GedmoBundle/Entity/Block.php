@@ -68,7 +68,7 @@ class Block extends AbstractDefault
     protected $id;
     
     /**
-     * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Category", inversedBy="items")
+     * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Category", inversedBy="items_blocks")
      * @ORM\JoinColumn(name="category", referencedColumnName="id", nullable=true)
      */
     protected $category; 

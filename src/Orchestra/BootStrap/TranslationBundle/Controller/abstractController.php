@@ -172,7 +172,7 @@ abstract class abstractController extends Controller
     			$em->flush();
     		}
     		$em->clear();
-    
+    		
     		// we disable all flash message
             $this->container->get('session')->setFlashes(array());
             

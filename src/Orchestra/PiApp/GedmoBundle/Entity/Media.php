@@ -68,7 +68,7 @@ class Media extends AbstractDefault
     protected $id;
     
     /**
-     * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Category", inversedBy="items")
+     * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Category", inversedBy="items_medias")
      * @ORM\JoinColumn(name="category", referencedColumnName="id", nullable=true)
      */
     protected $category;    
@@ -120,7 +120,33 @@ class Media extends AbstractDefault
 
     
     
+    
+    
+    /**
+     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Individual", mappedBy="media");
+     */
+    protected $individual;
+        
+    /**
+     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Corporation", mappedBy="media");
+     */
+    protected $corporation;
+        
+    /**
+     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Newsletter", mappedBy="media");
+     */
+    protected $newsletter;    
+    
+    /**
+     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Rss", mappedBy="media");
+     */
+    protected $rss;    
 
+    /**
+     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Ads", mappedBy="media");
+     */
+    protected $ads;
+        
     /**
      * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Partner", mappedBy="media");
      */
@@ -160,7 +186,7 @@ class Media extends AbstractDefault
     /**
      * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Menu", mappedBy="media");
      */
-    protected $organigram;    
+    protected $organigram; 
     
     
     /**
@@ -353,6 +379,28 @@ class Media extends AbstractDefault
      *
      * @return \BootStrap\MediaBundle\Entity\Media
      */
+    public function getIndividual()
+    {
+    	return $this->individual;
+    }
+    public function getCorporation()
+    {
+    	return $this->corporation;
+    }
+    public function getNewsletter()
+    {
+    	return $this->newsletter;
+    }
+    public function getRss()
+    {
+    	return $this->rss;
+    }
+    public function getAds()
+    {
+    	return $this->ads;
+    }
+
+    
     public function getPartner()
     {
     	return $this->partner;

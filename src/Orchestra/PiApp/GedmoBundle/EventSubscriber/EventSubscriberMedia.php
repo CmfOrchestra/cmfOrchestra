@@ -105,18 +105,6 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
      */
     public function preRemove(EventArgs $eventArgs)
     {
-    	$entity			= $eventArgs->getEntity();
-    	$entityManager 	= $eventArgs->getEntityManager();
-
-    	if ( $this->isUsernamePasswordToken() && ($entity instanceof \PiApp\GedmoBundle\Entity\Media) )
-    	{
-    			try {
-    				$this->_container()->get('sonata.media.provider.image')->preRemove($entity->getImage());
-    				$this->_connexion($eventArgs)->delete($this->getOwningTable($eventArgs, $entity->getImage()), array('id'=>$entity->getImage()->getId()));
-    				$this->_container()->get('sonata.media.provider.image')->postRemove($entity->getImage());
-    			} catch (\Exception $e) {
-    			}
-    	}    	
     }
     
     /**
@@ -177,6 +165,26 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
     
     	if ( $this->isUsernamePasswordToken() && ($entity instanceof \PiApp\GedmoBundle\Entity\Media) && ($entity->getMediadelete() == true) )
     	{
+    		if($entity->getIndividual() instanceof \PiApp\GedmoBundle\Entity\Individual){
+    			$entity_parent_table	= $this->getOwningTable($eventArgs, $entity->getIndividual());
+    			$parent_id				= $entity->getIndividual()->getId();
+    		}
+    		if($entity->getCorporation() instanceof \PiApp\GedmoBundle\Entity\Corporation){
+    			$entity_parent_table	= $this->getOwningTable($eventArgs, $entity->getCorporation());
+    			$parent_id				= $entity->getCorporation()->getId();
+    		}
+    		if($entity->getNewsletter() instanceof \PiApp\GedmoBundle\Entity\Newsletter){
+    			$entity_parent_table	= $this->getOwningTable($eventArgs, $entity->getNewsletter());
+    			$parent_id				= $entity->getNewsletter()->getId();
+    		}
+    		if($entity->getRss() instanceof \PiApp\GedmoBundle\Entity\Rss){
+    			$entity_parent_table	= $this->getOwningTable($eventArgs, $entity->getRss());
+    			$parent_id				= $entity->getRss()->getId();
+    		}
+    		if($entity->getAds() instanceof \PiApp\GedmoBundle\Entity\Ads){
+    			$entity_parent_table	= $this->getOwningTable($eventArgs, $entity->getAds());
+    			$parent_id				= $entity->getAds()->getId();
+    		}    		
     		if($entity->getPartner() instanceof \PiApp\GedmoBundle\Entity\Partner){
     			$entity_parent_table	= $this->getOwningTable($eventArgs, $entity->getPartner());
     			$parent_id				= $entity->getPartner()->getId();
