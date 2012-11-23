@@ -4,7 +4,7 @@
  *
  * @category   Admin_Entities
  * @package    Entity
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2011-12-28
  *
  * For the full copyright and license information, please view the LICENSE
@@ -28,7 +28,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @category   Admin_Entities
  * @package    Entity
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class Page
 {
@@ -377,7 +377,7 @@ class Page
     /**
      * Set the collection of related translations
      *
-     * @param \Doctrine\Common\Collections\ArrayCollection
+     * @param \Doctrine\Common\Collections\ArrayCollection	$translations
      */
     public function setTranslations(\Doctrine\Common\Collections\ArrayCollection $translations)
     {
@@ -387,7 +387,7 @@ class Page
     /**
      * Add a translation to the collection of related translations
      *
-     * @param \PiApp\AdminBundle\Entity\TranslationPage
+     * @param \PiApp\AdminBundle\Entity\TranslationPage	$translation
      */
     public function addTranslation(\PiApp\AdminBundle\Entity\TranslationPage $translation)
     {
@@ -398,7 +398,7 @@ class Page
     /**
      * Remove a translation from the collection of related translations
      *
-     * @param  \PiApp\AdminBundle\Entity\TranslationPage
+     * @param  \PiApp\AdminBundle\Entity\TranslationPage	$translation
      */
     public function removeTranslation(\PiApp\AdminBundle\Entity\TranslationPage $translation)
     {
@@ -410,7 +410,7 @@ class Page
     /**
      *  Get the collection of related translations
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\ArrayCollection 
      */
     public function getTranslations()
     {
@@ -421,7 +421,7 @@ class Page
      *  Get the translation according to the language
      *
      * @param string $locale
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \PiApp\AdminBundle\Entity\TranslationPage
      */
     public function getTranslationByLocale($locale)
     {
@@ -435,7 +435,7 @@ class Page
     /**
      * Add blocks
      *
-     * @param \PiApp\AdminBundle\Entity\Block
+     * @param \PiApp\AdminBundle\Entity\Block	$block
      */
     public function addBlock(\PiApp\AdminBundle\Entity\Block $block)
     {
@@ -446,7 +446,7 @@ class Page
     /**
      * Get blocks
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\ArrayCollection
      */
     public function getBlocks()
     {
@@ -456,7 +456,7 @@ class Page
     /**
      * Set rubrique
      *
-     * @param \PiApp\AdminBundle\Entity\Rubrique
+     * @param \PiApp\AdminBundle\Entity\Rubrique	$rubrique
      */
     public function setRubrique(\PiApp\AdminBundle\Entity\Rubrique $rubrique)
     {
@@ -476,7 +476,7 @@ class Page
     /**
      * Set layout
      *
-     * @param \PiApp\AdminBundle\Entity\Layout
+     * @param \PiApp\AdminBundle\Entity\Layout	$layout
      */
     public function setLayout(\PiApp\AdminBundle\Entity\Layout $layout)
     {
@@ -496,7 +496,7 @@ class Page
     /**
      * Add Css Page
      *
-     * @param \PiApp\AdminBundle\Entity\Page
+     * @param \PiApp\AdminBundle\Entity\Page	$Page
      */
     public function addPageCss(\PiApp\AdminBundle\Entity\Page $Page)
     {
@@ -506,17 +506,17 @@ class Page
     /**
      * Set Css Page
      *
-     * @param \Doctrine\Common\Collections\Collection
+     * @param \Doctrine\Common\Collections\ArrayCollection	$Page
      */
-    public function setPageCss($Page)
+    public function setPageCss($Pages)
     {
-    	$this->page_css = $Page;
+    	$this->page_css = $Pages;
     }
     
     /**
      * Get Css Pages
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\ArrayCollection
      */
     public function getPageCss()
     {
@@ -525,8 +525,8 @@ class Page
     
     /**
      * Add Js Page
-     *
-     * @param \PiApp\AdminBundle\Entity\Page
+     *	
+     * @param \PiApp\AdminBundle\Entity\Page	$Page
      */
     public function addPageJs(\PiApp\AdminBundle\Entity\Page $Page)
     {
@@ -536,17 +536,17 @@ class Page
     /**
      * Set Js Page
      *
-     * @param \Doctrine\Common\Collections\Collection
+     * @param \Doctrine\Common\Collections\ArrayCollection	$Pages
      */    
-    public function setPageJs($Page)
+    public function setPageJs($Pages)
     {
-    	$this->page_js = $Page;
+    	$this->page_js = $Pages;
     }    
 
     /**
      * Get Js Pages
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\ArrayCollection
      */
     public function getPageJs()
     {
@@ -556,7 +556,7 @@ class Page
     /**
      * Add keyWord
      *
-     * @param \PiApp\AdminBundle\Entity\KeyWord
+     * @param \PiApp\AdminBundle\Entity\KeyWord	$keywords
      */
     public function addKeyWord(\PiApp\AdminBundle\Entity\KeyWord $keywords)
     {
@@ -566,7 +566,7 @@ class Page
     /**
      * Set keywords
      *
-     * @param \Doctrine\Common\Collections\Collection
+     * @param \Doctrine\Common\Collections\ArrayCollection	$keyword
      */    
     public function setKeywords($keyword)
     {
@@ -576,7 +576,7 @@ class Page
     /**
      * Get keywords
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\ArrayCollection
      */
     public function getKeywords()
     {

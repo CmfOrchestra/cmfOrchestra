@@ -4,7 +4,7 @@
  *
  * @category   Gedmo_Entities
  * @package    Entity
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-03-08
  *
  * For the full copyright and license information, please view the LICENSE
@@ -32,7 +32,7 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  * @category   Gedmo_Entities
  * @package    Entity
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class Organigram extends AbstractDefault 
 {
@@ -185,7 +185,7 @@ class Organigram extends AbstractDefault
     /**
      * Set page
      *
-     * @param \PiApp\AdminBundle\Entity\Page
+     * @param \PiApp\AdminBundle\Entity\Page	$page
      */
     public function setPage($page)
     {
@@ -399,7 +399,7 @@ class Organigram extends AbstractDefault
     /**
      * Get childrens
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\ArrayCollection
      */
     public function getChildrens()
     {
@@ -409,7 +409,7 @@ class Organigram extends AbstractDefault
     /**
      * Set parent
      *
-     * @param \PiApp\GedmoBundle\Entity\Organigram
+     * @param \PiApp\GedmoBundle\Entity\Organigram	$parent
      */
     public function setParent(\PiApp\GedmoBundle\Entity\Organigram $parent)
     {
@@ -557,7 +557,6 @@ class Organigram extends AbstractDefault
     public function getRgt()
     {
     	return $this->rgt;
-    }
-   
+    } 
     
 }

@@ -4,7 +4,7 @@
  *
  * @category   Admin_Managers
  * @package    Page
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-06-26
  *
  * For the full copyright and license information, please view the LICENSE
@@ -22,7 +22,7 @@ use PiApp\AdminBundle\Manager\PiFormBuilderManager;
 * @category   Admin_Managers
 * @package    Page
 *
-* @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+* @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 */
 class PiModelWidgetContact extends PiFormBuilderManager
 {
@@ -46,7 +46,7 @@ class PiModelWidgetContact extends PiFormBuilderManager
 	 *
 	 * @param \Symfony\Component\DependencyInjection\ContainerInterface
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public function __construct(ContainerInterface $containerService)
 	{
@@ -61,7 +61,7 @@ class PiModelWidgetContact extends PiFormBuilderManager
 	 * @access public
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-09-11
 	 */
 	public static function getContents()

@@ -4,7 +4,7 @@
  * 
  * @category   Admin_Utils
  * @package    Util
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-19
  *
  * For the full copyright and license information, please view the LICENSE
@@ -25,7 +25,7 @@ use PiApp\AdminBundle\Builder\PiArrayManagerBuilderInterface;
  * @category   Admin_Utils
  * @package    Util
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PiArrayManager implements PiArrayManagerBuilderInterface 
 {
@@ -38,7 +38,7 @@ class PiArrayManager implements PiArrayManagerBuilderInterface
 	 * @param	integer		level
 	 * @return array
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	public function recursive_method(array &$array, $method, $curlevel=0)
 	{
@@ -57,7 +57,7 @@ class PiArrayManager implements PiArrayManagerBuilderInterface
 	 * @param       array      $Input      Input array
 	 * @return array
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public function TrimArray($Input)
 	{
@@ -73,7 +73,7 @@ class PiArrayManager implements PiArrayManagerBuilderInterface
 	 * @param array $_ARRAY
 	 * @return string
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function dump($_ARRAY)
 	{
@@ -90,7 +90,7 @@ class PiArrayManager implements PiArrayManagerBuilderInterface
 	 * @param string $value
 	 * @return mixed
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function splitOnValue($array, $value)
 	{
@@ -120,7 +120,7 @@ class PiArrayManager implements PiArrayManagerBuilderInterface
 	 *
 	 * @param array $array
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function makeHashFromArray($array)
 	{
@@ -153,7 +153,7 @@ class PiArrayManager implements PiArrayManagerBuilderInterface
 	 * and splits it into 2 equal (more or less) groups
 	 * @param unknown_type $groups
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function splitGroups($groups)
 	{
@@ -197,7 +197,7 @@ class PiArrayManager implements PiArrayManagerBuilderInterface
 	 * @param string $getParams
 	 * @return array
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function arrayFromGet($getParams)
 	{
@@ -218,7 +218,7 @@ class PiArrayManager implements PiArrayManagerBuilderInterface
 	/**
 	 * Convertir un tableau PHP en Javascript
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function writeArray($aInput, $jsVarName, $eol=PHP_EOL) 
 	{
@@ -254,7 +254,7 @@ class PiArrayManager implements PiArrayManagerBuilderInterface
 	 * @param int		$Nbre_bal		détermine le nombre de contenus de balise composant une ligne.
 	 * @return array
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	public static function InnerHTML($HTML,$Balise,$Prem_val='',$Affiche_prems=true,$Nbre_bal=0)
 	{
@@ -364,7 +364,7 @@ class PiArrayManager implements PiArrayManagerBuilderInterface
 	 * @param string	$Val		
 	 * @return array
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function findIndice($Tableau,$Val)
 	{
@@ -418,7 +418,7 @@ class PiArrayManager implements PiArrayManagerBuilderInterface
 	 * @param array $_ARRAY
 	 * @return array
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function XmlString2array($string) {
 		try {
@@ -441,7 +441,7 @@ class PiArrayManager implements PiArrayManagerBuilderInterface
 	 * @param array $_ARRAY
 	 * @return string
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	public static function Xmlobject2json($object) {
 		return @json_encode($object);
@@ -453,7 +453,7 @@ class PiArrayManager implements PiArrayManagerBuilderInterface
 	 * @param array $_ARRAY
 	 * @return array
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	public static function Xmlobject2array($object) {
 		return @json_decode(@json_encode($object),1);
@@ -465,7 +465,7 @@ class PiArrayManager implements PiArrayManagerBuilderInterface
 	 * @param array $_ARRAY
 	 * @return array
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	public static function array_to_object($array)
 	{

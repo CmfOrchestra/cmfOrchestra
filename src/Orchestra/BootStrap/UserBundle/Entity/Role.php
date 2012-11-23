@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Entities
  * @package    Entity
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2011-12-30
  *
  * For the full copyright and license information, please view the LICENSE
@@ -29,7 +29,7 @@ use BootStrap\UserBundle\Repository\RoleRepository;
  * @category   BootStrap_Entities
  * @package    Entity
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class Role
 {
@@ -248,7 +248,7 @@ class Role
     /**
      * Get accessControl
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\ArrayCollection 
      */
     public function getAccessControl()
     {
@@ -278,7 +278,7 @@ class Role
     /**
      * Set layout
      *
-     * @param \PiApp\AdminBundle\Entity\Layout
+     * @param \PiApp\AdminBundle\Entity\Layout	$layout
      */
     public function setLayout(\PiApp\AdminBundle\Entity\Layout $layout)
     {

@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Manager
  * @package    Database
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-06-28
  *
  * For the full copyright and license information, please view the LICENSE
@@ -23,7 +23,7 @@ use BootStrap\DatabaseBundle\Manager\Database\AbstractManager;
  * @category   BootStrap_Manager
  * @package    Database
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class BackupSqlitePlatform extends AbstractManager
 {
@@ -33,7 +33,7 @@ class BackupSqlitePlatform extends AbstractManager
 	 * @param \Doctrine\DBAL\Connection $connection
 	 * @param \Symfony\Component\DependencyInjection\ContainerInterface;
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
     public function __construct(Connection $connection, ContainerInterface $container)
     {
@@ -46,7 +46,7 @@ class BackupSqlitePlatform extends AbstractManager
      * @return void
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-06-28
      */
     protected function disableForeignKeys(){
@@ -59,7 +59,7 @@ class BackupSqlitePlatform extends AbstractManager
      * @return void
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-06-28
      */
     protected function EnabledForeignKeys(){

@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Eventlistener
  * @package    EventListener
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2011-01-30
  *
  * For the full copyright and license information, please view the LICENSE
@@ -36,7 +36,7 @@ use PiApp\AdminBundle\Manager\SearchLucene\Indexation;
  * @package    EventListener
  * @abstract
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 abstract class CoreListener extends abstractListener
 {
@@ -49,7 +49,7 @@ abstract class CoreListener extends abstractListener
 	 * @access protected
 	 * @final
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	final protected function _Heritage_roles(LifecycleEventArgs $eventArgs){
 		$entity 		= $eventArgs->getEntity();
@@ -82,7 +82,7 @@ abstract class CoreListener extends abstractListener
 	 * @access protected
 	 * @final
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	final protected function _TwigCache($eventArgs)
 	{
@@ -114,7 +114,7 @@ abstract class CoreListener extends abstractListener
 	 * @return void
 	 * @access private
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	private function _recursive($eventArgs, $entity, $all_lang)
 	{
@@ -223,7 +223,7 @@ abstract class CoreListener extends abstractListener
 	 * @access protected
 	 * @final
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	final protected function _widgetListener($eventArgs)
 	{
@@ -300,7 +300,7 @@ abstract class CoreListener extends abstractListener
      * @access protected
      * @final
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     final protected function _Layout($eventArgs)
     {
@@ -375,7 +375,7 @@ abstract class CoreListener extends abstractListener
      * @access protected
      * @final
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     final protected function _NoUpdate_RouteName_HomePage(PreUpdateEventArgs $eventArgs)
     {
@@ -416,7 +416,7 @@ abstract class CoreListener extends abstractListener
      * @access protected
      * @final
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     final protected function _Undelete_HomePage(LifecycleEventArgs $eventArgs)
     {
@@ -464,7 +464,7 @@ abstract class CoreListener extends abstractListener
      * @access protected
      * @final
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     final protected function _Delete_Permission_Page_ByUser(LifecycleEventArgs $eventArgs){
     	$entity 		= $eventArgs->getEntity();
@@ -512,7 +512,7 @@ abstract class CoreListener extends abstractListener
      * @access protected
      * @final
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     final protected function _Update_Permission_Page_ByUser($eventArgs)
     {
@@ -537,7 +537,7 @@ abstract class CoreListener extends abstractListener
      * @access protected
      * @final
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     final protected function _Persist_Permission_Page_ByUser($eventArgs)
     {
@@ -560,7 +560,7 @@ abstract class CoreListener extends abstractListener
      * @access protected
      * @final
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     private function _permission_management_Page_ByUser($eventArgs)
     {
@@ -636,7 +636,7 @@ abstract class CoreListener extends abstractListener
      * @access protected
      * @final
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     final protected function _Create_Block_Page(LifecycleEventArgs $eventArgs)
     {
@@ -698,7 +698,7 @@ abstract class CoreListener extends abstractListener
      * @access protected
      * @final
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     final protected function _single_SlugByPage($eventArgs)
     {
@@ -785,7 +785,7 @@ abstract class CoreListener extends abstractListener
      * @access protected
      * @final
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
     final protected function _Search_lucene(LifecycleEventArgs $eventArgs, $action)
     {
@@ -854,7 +854,7 @@ abstract class CoreListener extends abstractListener
      * @access protected
      * @final
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     final protected function _updateCacheUrlGenerator(LifecycleEventArgs $eventArgs)
     {
@@ -882,7 +882,7 @@ abstract class CoreListener extends abstractListener
      * @access protected
      * @final
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
     final protected function _TranslationPage(PreUpdateEventArgs $eventArgs)
     {

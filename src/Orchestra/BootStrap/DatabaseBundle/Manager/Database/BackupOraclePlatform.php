@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Manager
  * @package    Database
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-06-28
  *
  * For the full copyright and license information, please view the LICENSE
@@ -23,7 +23,7 @@ use BootStrap\DatabaseBundle\Manager\Database\AbstractManager;
  * @category   BootStrap_Manager
  * @package    Database
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class BackupOraclePlatform extends AbstractManager
 {
@@ -33,7 +33,7 @@ class BackupOraclePlatform extends AbstractManager
 	 * @param \Doctrine\DBAL\Connection $connection
 	 * @param \Symfony\Component\DependencyInjection\ContainerInterface;
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
     public function __construct(Connection $connection, ContainerInterface $container)
     {
@@ -48,7 +48,7 @@ class BackupOraclePlatform extends AbstractManager
      * @return \Symfony\Component\Console\Output\OutputInterface
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */
     public function run(OutputInterface $output, Array $options = null)
@@ -83,7 +83,7 @@ class BackupOraclePlatform extends AbstractManager
      * @return void
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-06-28
      */
     protected function disableForeignKeys(){
@@ -107,7 +107,7 @@ class BackupOraclePlatform extends AbstractManager
      * @return void
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-06-28
      */
     protected function EnabledForeignKeys(){

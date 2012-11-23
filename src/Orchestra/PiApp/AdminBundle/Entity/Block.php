@@ -4,7 +4,7 @@
  *
  * @category   Admin_Entities
  * @package    Entity
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2011-12-28
  *
  * For the full copyright and license information, please view the LICENSE
@@ -26,7 +26,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @category   Admin_Entities
  * @package    Entity
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class Block
 {
@@ -263,7 +263,7 @@ class Block
     /**
      * Set page
      *
-     * @param \PiApp\AdminBundle\Entity\Page
+     * @param \PiApp\AdminBundle\Entity\Page	$page
      */
     public function setPage(\PiApp\AdminBundle\Entity\Page $page)
     {
@@ -283,7 +283,7 @@ class Block
     /**
      * Add widgets
      *
-     * @param \PiApp\AdminBundle\Entity\Widget
+     * @param \PiApp\AdminBundle\Entity\Widget	$widgets
      * 
      */
     public function addWidget(\PiApp\AdminBundle\Entity\Widget $widgets)

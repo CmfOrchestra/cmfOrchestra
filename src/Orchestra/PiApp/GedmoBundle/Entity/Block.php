@@ -4,7 +4,7 @@
  *
  * @category   Gedmo_Entities
  * @package    Entity
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-07-31
  *
  * For the full copyright and license information, please view the LICENSE
@@ -31,7 +31,7 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  * @category   Gedmo_Entities
  * @package    Entity
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class Block extends AbstractDefault 
 {
@@ -168,23 +168,23 @@ class Block extends AbstractDefault
     /**
      * Set category
      *
-     * @param string $category
+     * @param string \PiApp\GedmoBundle\Entity\Category $category
      */
-    public function setCategory($category)
+    public function setCategory(\PiApp\GedmoBundle\Entity\Category $category)
     {
-   		$this->category = $category;
-   		return $this;
+    	$this->category = $category;
+    	return $this;
     }
     
     /**
      * Get category
      *
-     * @return string
+     * @return \PiApp\GedmoBundle\Entity\Category
      */
     public function getCategory()
     {
     	return $this->category;
-    }
+    } 
     
     /**
      * Set title
@@ -332,5 +332,5 @@ class Block extends AbstractDefault
     {
     	return $this->media;
     }    
-    
+
 }

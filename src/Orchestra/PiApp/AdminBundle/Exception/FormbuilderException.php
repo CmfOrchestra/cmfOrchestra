@@ -4,7 +4,7 @@
  *
  * @category   Admin_Exception
  * @package    Exception
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2011-02-10
  *
  * For the full copyright and license information, please view the LICENSE
@@ -18,7 +18,7 @@ namespace PiApp\AdminBundle\Exception;
  * @category   Admin_Exception
  * @package    Exception
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class FormbuilderException extends \Exception
 {

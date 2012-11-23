@@ -4,7 +4,7 @@
  *
  * @category   Admin_Util
  * @package    Extension_jquery 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-02-29
  *
  * For the full copyright and license information, please view the LICENSE
@@ -23,7 +23,7 @@ use PiApp\AdminBundle\Exception\ExtensionException;
  * @category   Admin_Util
  * @package    Extension_jquery 
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PiLanguageChoiceManager extends PiJqueryExtension
 {

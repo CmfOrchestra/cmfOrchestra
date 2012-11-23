@@ -4,7 +4,7 @@
  *
  * @category   PI_CRUD_Controllers
  * @package    Controller
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since XXXX-XX-XX
  *
  * For the full copyright and license information, please view the LICENSE
@@ -40,7 +40,7 @@ use {{ namespace }}\Entity\Translation\{{ entity }}Translation;
  * @category   PI_CRUD_Controllers
  * @package    Controller
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class {{ entity_class }}Controller extends abstractController
 {
@@ -79,7 +79,6 @@ class {{ entity_class }}Controller extends abstractController
     
    	{%- include 'actions/_template_show.php' %}
     
-   	{%- include 'actions/_template_list.php' %}
-    
+   	{%- include 'actions/_template_list.php' %}    
     
 }

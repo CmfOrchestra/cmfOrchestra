@@ -22,7 +22,7 @@
 		</ul>
 
 		{{ "{% form_theme edit_form getParameter('pi_app_admin.layout.template.form') %}" }}
-		<form class="myform" action="{{ "{{ path('"~ route_name_prefix ~"_update', { 'id': entity.id, 'NoLayout': NoLayout }) }}" }}" method="post" {{ "{{ form_enctype(edit_form) }}" }} novalidate>
+		<form class="myform" action="{{ "{{ path('"~ route_name_prefix ~"_update', { 'id': entity.id, 'NoLayout': NoLayout, 'category':category }) }}" }}" method="post" {{ "{{ form_enctype(edit_form) }}" }} novalidate>
 		    <div id="tabs-1">
 		    	{{ "{{ form_widget(edit_form) }}" }}
 		    </div>

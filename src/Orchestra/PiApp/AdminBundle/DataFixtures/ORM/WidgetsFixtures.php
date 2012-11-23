@@ -4,7 +4,7 @@
  *
  * @category   Admin_DataFixtures
  * @package    ORM
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-23
  *
  * For the full copyright and license information, please view the LICENSE
@@ -23,14 +23,14 @@ use PiApp\AdminBundle\Entity\Widget;
  * @category   Admin_DataFixtures
  * @package    ORM
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class WidgetsFixtures extends AbstractFixture implements OrderedFixtureInterface
 {
 	/**
 	 * Load language fixtures
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-23
 	 */
     public function load(ObjectManager $manager)
@@ -55,7 +55,7 @@ class WidgetsFixtures extends AbstractFixture implements OrderedFixtureInterface
      *
      * @return integer 
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-01-23
      */
     public function getOrder()

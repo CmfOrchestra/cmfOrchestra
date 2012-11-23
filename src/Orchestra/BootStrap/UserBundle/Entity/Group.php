@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Entities
  * @package    Entity
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2011-11-28
  *
  * For the full copyright and license information, please view the LICENSE
@@ -22,7 +22,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @category   BootStrap_Entities
  * @package    Entity
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class Group extends BaseGroup
 {

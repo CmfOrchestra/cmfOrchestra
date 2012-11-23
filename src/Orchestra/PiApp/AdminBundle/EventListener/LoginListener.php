@@ -4,7 +4,7 @@
  *
  * @category   Admin_Eventlistener
  * @package    EventListener
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2011-01-25
  *
  * For the full copyright and license information, please view the LICENSE
@@ -37,7 +37,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @category   Admin_Eventlistener
  * @package    EventListener
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class LoginListener
 {
@@ -104,7 +104,7 @@ class LoginListener
 	 * 
 	 * @param InteractiveLoginEvent $event The event
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public function onSecurityInteractiveLogin(InteractiveLoginEvent  $event)
 	{
@@ -133,7 +133,7 @@ class LoginListener
 	 *
 	 * @param FilterResponseEvent $event The event
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public function onKernelResponse(FilterResponseEvent $event)
 	{
@@ -155,7 +155,7 @@ class LoginListener
 	 *
 	 * @param FilterControllerEvent $event The event
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	public function onKernelController(FilterControllerEvent $event)
 	{
@@ -173,7 +173,7 @@ class LoginListener
 	 *
 	 * @param FilterControllerEvent $event The event
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	public function onKernelView(GetResponseForControllerResultEvent $event)
 	{
@@ -189,7 +189,7 @@ class LoginListener
 	 *
 	 * @param FilterControllerEvent $event The event
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	public function onKernelException(GetResponseForExceptionEvent $event)
 	{
@@ -209,7 +209,7 @@ class LoginListener
 	 * @return void
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	protected function setParams()
 	{
@@ -240,7 +240,7 @@ class LoginListener
 	 * @return void
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	protected function setLayout()
 	{
@@ -281,7 +281,7 @@ class LoginListener
 	 * @return object ymfony\Component\HttpFoundation\Session
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	protected function getSession()
 	{
@@ -294,7 +294,7 @@ class LoginListener
 	 * @return object BootStrap\UserBundle\Entity\user
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	protected function getUser()
 	{
@@ -307,7 +307,7 @@ class LoginListener
 	 * @return void
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	protected function setLocaleUser()
 	{
@@ -326,7 +326,7 @@ class LoginListener
 	 * @return void
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	protected function setFlash($session, $username)
 	{
@@ -340,7 +340,7 @@ class LoginListener
 	 * @return string	the best role of all user roles.
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	protected function getBestRoleUser()
 	{
@@ -365,7 +365,7 @@ class LoginListener
 	 * @return array	role map
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	protected function buildRoleMap()
 	{

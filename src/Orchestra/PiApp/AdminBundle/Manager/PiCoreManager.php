@@ -4,7 +4,7 @@
  *
  * @category   Admin_Managers
  * @package    Page
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-23
  *
  * For the full copyright and license information, please view the LICENSE
@@ -31,7 +31,7 @@ use PiApp\AdminBundle\Entity\TranslationWidget;
  * @package    Page
  * @abstract
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 abstract class PiCoreManager implements PiCoreManagerBuilderInterface 
 {  
@@ -215,7 +215,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	 * @return void
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-03-20
 	 */
 	protected function setEtag($Etag)
@@ -284,7 +284,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-05
 	 */
 	protected function configureCache($object, Response $response)
@@ -323,7 +323,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	 * @return string
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-04-03
 	 */
 	public function cacheRefreshByname($name)
@@ -352,7 +352,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	 * @return void
 	 * @access private
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-04-19
 	 */
 	private function setResponse($Etag, Response $response)
@@ -366,7 +366,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	 * @return \Symfony\Component\DependencyInjection\ContainerInterface
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public function getContainer()
 	{
@@ -379,7 +379,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	 * @return \PiApp\AdminBundle\Entity\Page
 	 * @access public
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-23
 	 */
 	public function getCurrentPage()
@@ -395,7 +395,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	 * @return void
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-23
 	 */
 	public function setCurrentPage(Page $page = null)
@@ -410,7 +410,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	 * @return \PiApp\AdminBundle\Entity\Widget
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-31
 	 */
 	public function getCurrentWidget()
@@ -426,7 +426,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	 * @return void
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-31
 	 */
 	public function setCurrentWidget(Widget $widget = null)
@@ -443,7 +443,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	 * @return \PiApp\AdminBundle\Entity\TranslationWidget
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-02-15
 	 */
 	public function getCurrentTransWidget()
@@ -459,7 +459,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	 * @return void
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-02-15
 	 */
 	public function setCurrentTransWidget(TranslationWidget $transWidget = null)
@@ -475,7 +475,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	 * @return void
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-02-13
 	 */
 	protected function setWidgetTranslations(Widget $widgets){}
@@ -489,7 +489,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	 * @return \PiApp\AdminBundle\Entity\Page
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-31
 	 */
 	public function getPageById($idpage, $isForce = false)
@@ -513,7 +513,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	 * @return array of \PiApp\AdminBundle\Entity\Block
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-23
 	 */
 	public function getBlocksByPageId($idpage)
@@ -532,7 +532,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	 * @return \PiApp\AdminBundle\Entity\Widget
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-31
 	 */
 	public function getWidgetById($idWidget)
@@ -554,7 +554,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	 * @return \PiApp\AdminBundle\Entity\Block
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-05-09
 	 */
 	public function getBlockById($idBlock)
@@ -571,7 +571,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	 * @return \PiApp\AdminBundle\Entity\TranslationPage
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-23
 	 */
 	public function getTranslationByPageId($idpage, $lang = '')
@@ -604,7 +604,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	 * @return \PiApp\AdminBundle\Entity\TranslationWidget
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-02-13
 	 */
 	public function getTranslationByWidgetId($idwidget, $lang = '')
@@ -646,7 +646,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-31
 	 */
 	public function getResponseByIdAndType($type, $id)
@@ -665,7 +665,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	 * @return array
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-31
 	 */	
 	public function parseTemplateParam($RenderResponseParam)
@@ -697,7 +697,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	 * @return array
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-02-16
 	 */
 	public function getScript($script, $type = 'string')
@@ -719,7 +719,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	 * @return void
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-23
 	 */
 	protected function setRepository()
@@ -733,7 +733,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	 * @return ObjectRepository
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-23
 	 */
 	protected function getRepository($nameEntity = '')
@@ -753,7 +753,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	 * @return \BootStrap\UserBundle\Entity\user
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	protected function getToken()
 	{
@@ -766,7 +766,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	 * @return boolean
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	protected function isAnonymousToken()
 	{
@@ -782,7 +782,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	 * @return boolean
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	protected function isUsernamePasswordToken()
 	{
@@ -798,7 +798,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	 * @return array	user roles
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	protected function getUserRoles()
 	{
@@ -813,7 +813,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	 * @return boolean
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	protected function isWidgetSupported(Widget $widget)
 	{
@@ -832,7 +832,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	 * @return void
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	protected function setFlash($message, $type = "")
 	{

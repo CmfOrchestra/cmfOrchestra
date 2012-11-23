@@ -4,7 +4,7 @@
  *
  * @category   Admin_Managers
  * @package    Manager
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-06-11
  *
  * For the full copyright and license information, please view the LICENSE
@@ -24,7 +24,7 @@ use PiApp\AdminBundle\Manager\SearchLucene\Indexation;
  * @category   Admin_Managers
  * @package    Manager
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PiLuceneManager extends PiCoreManager implements PiSearchLuceneManagerBuilderInterface 
 {

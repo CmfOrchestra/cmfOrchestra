@@ -4,7 +4,7 @@
  *
  * @category   Bundle
  * @package    DependencyInjection
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-11-14
  *
  * For the full copyright and license information, please view the LICENSE
@@ -22,7 +22,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  * @category   Bundle
  * @package    DependencyInjection
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class Configuration implements ConfigurationInterface
 {

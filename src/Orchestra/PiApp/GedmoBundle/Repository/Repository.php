@@ -4,7 +4,7 @@
  * 
  * @category   Admin_Repositories
  * @package    Repository
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-05
  *
  * For the full copyright and license information, please view the LICENSE
@@ -25,7 +25,7 @@ use PiApp\GedmoBundle\Builder\RepositoryBuilderInterface;
  * @category   Admin_Repositories
  * @package    Repository
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class Repository implements RepositoryBuilderInterface
 {

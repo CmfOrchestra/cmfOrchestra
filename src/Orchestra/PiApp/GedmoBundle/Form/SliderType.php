@@ -4,7 +4,7 @@
  *
  * @category   PI_CRUD_Form
  * @package    Form
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-04-11
  *
  * For the full copyright and license information, please view the LICENSE
@@ -24,7 +24,7 @@ use Doctrine\ORM\EntityRepository;
  * @category   PI_CRUD_Form
  * @package    Form
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class SliderType extends AbstractType
 {
@@ -176,7 +176,7 @@ class SliderType extends AbstractType
             ))            
 
             
-            ->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.menu.form.picture'))
+            ->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
         ;
     }
 

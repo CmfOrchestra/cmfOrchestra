@@ -4,7 +4,7 @@
  *
  * @category   Admin_Utils
  * @package    Util
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-18
  *
  * For the full copyright and license information, please view the LICENSE
@@ -26,7 +26,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @category   Admin_Utils
  * @package    Util
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PiLocaleManager implements PiLocaleManagerBuilderInterface 
 {    
@@ -53,7 +53,7 @@ class PiLocaleManager implements PiLocaleManagerBuilderInterface
      * @return string
      * @access private
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
     public function parseDefaultLanguage($deflang = "fr")
     {

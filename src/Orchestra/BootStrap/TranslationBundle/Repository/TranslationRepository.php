@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Repositories
  * @package    Repository
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-03-09
  *
  * For the full copyright and license information, please view the LICENSE
@@ -32,7 +32,7 @@ use BootStrap\TranslationBundle\Builder\RepositoryBuilderInterface;
  * @category   BootStrap_Repositories
  * @package    Repository
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class TranslationRepository extends EntityRepository implements RepositoryBuilderInterface
 {
@@ -70,7 +70,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
 //      * @return \Gedmo\Translatable\TranslatableListener
 //      * @access	private
 //      * 
-//      * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+//      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 //      */
 //     private function getTranslatableListener()
 //     {
@@ -109,7 +109,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @return string				the count of all fields.
      * @access	public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function count($enabled = null){
     	if(!is_null($enabled))
@@ -129,7 +129,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @return array/object of result query
      * @access	public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function findTranslationsByQuery($locale, Query $query, $result = "array", $INNER_JOIN = false)
     {
@@ -166,7 +166,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @param bool	$INNER_JOIN	     
      * @access	public
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function setTranslatableHints(Query $query, $locale, $INNER_JOIN = false)
     {
@@ -192,7 +192,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @return array\object
      * @access	public
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
     public function findAllByEntity($locale, $result = "array", $INNER_JOIN = false, $MaxResults = null)
     {
@@ -212,7 +212,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @return object
      * @access	public
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
     public function findOneByEntity($locale, $id, $result = "array", $INNER_JOIN = false)
     {
@@ -233,7 +233,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @return object
      * @access	public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function findOneQueryByEntity($id)
     {
@@ -256,7 +256,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @return array list of translations in locale groups
      * @access	public
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function findTranslations($entity)
     {
@@ -295,7 +295,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @return array
      * @access	public
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function findTranslationsByObjectId($id)
     {
@@ -333,7 +333,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @return TranslationRepository
      * @access	public
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function translate($entity, $field, $locale, $value)
     {
@@ -404,7 +404,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @return object - instance of $class or null if not found
      * @access	public
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function findObjectByTranslatedField($field, $value, $class)
     {
@@ -435,7 +435,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @return array
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-03-15
      */
     public function getArrayAllCategory()
@@ -465,7 +465,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @return array\entity
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-03-15
      */
     public function getAllByCategory($category = '', $MaxResults = null, $ORDER_PublishDate = '', $ORDER_Position = '', $enabled = true)
@@ -519,7 +519,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @return int
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-10-05
      */
     public function getAllOrderByField($field = 'createat', $ORDER = "DESC", $enabled = null)
@@ -544,7 +544,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @return int
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-10-04
      */
     public function getAllBetweenPosition($FirstPosition = null, $LastPosition = null, $enabled = null)
@@ -581,7 +581,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @return int
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-10-04
      */
     public function getMaxOrMinValueOfColumn($field, $type = 'MAX', $enabled = null)
@@ -616,7 +616,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @return object
      * @access	public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function getAllEnabled($locale, $result = "object", $INNER_JOIN = false, $MaxResults = null)
     {
@@ -641,7 +641,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @return object
      * @access	public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function getAllEnableByCat($locale, $category, $result = "object", $INNER_JOIN = false)
     {
@@ -667,7 +667,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @return object
      * @access	public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function getAllEnableByCatAndByPosition($locale, $category, $result = "object", $INNER_JOIN = false)
     {
@@ -694,7 +694,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @return object
      * @access	public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function getContentByField($locale, array $fields, $INNER_JOIN = false)
     {
@@ -751,7 +751,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @return object
      * @access	public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function getEntityByField($locale, array $fields, $result = "object", $INNER_JOIN = false)
     {

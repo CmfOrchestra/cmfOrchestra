@@ -4,7 +4,7 @@
  *
  * @category   Admin_Eventlistener
  * @package    EventListener
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2011-01-25
  *
  * For the full copyright and license information, please view the LICENSE
@@ -31,7 +31,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @category   Admin_Eventlistener
  * @package    EventListener
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class LogoutListener
 {
@@ -91,7 +91,7 @@ class LogoutListener
 	 *
 	 * @param FilterResponseEvent $event The event
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public function onKernelResponse(FilterResponseEvent $event)
 	{
@@ -113,7 +113,7 @@ class LogoutListener
 	 *
 	 * @param FilterControllerEvent $event The event
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	public function onKernelController(FilterControllerEvent $event)
 	{
@@ -132,7 +132,7 @@ class LogoutListener
 	 *
 	 * @param FilterControllerEvent $event The event
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	public function onKernelView(GetResponseForControllerResultEvent $event)
 	{
@@ -148,7 +148,7 @@ class LogoutListener
 	 *
 	 * @param FilterControllerEvent $event The event
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	public function onKernelException(GetResponseForExceptionEvent $event)
 	{
@@ -168,7 +168,7 @@ class LogoutListener
 	 * @return void
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	protected function setParams()
 	{
@@ -187,7 +187,7 @@ class LogoutListener
 	 * @return void
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	protected function setValues()
 	{
@@ -227,7 +227,7 @@ class LogoutListener
 	 * @return object ymfony\Component\HttpFoundation\Session
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	protected function getSession()
 	{
@@ -240,7 +240,7 @@ class LogoutListener
 	 * @return boolean
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	protected function isUsernamePasswordToken()
 	{
@@ -256,7 +256,7 @@ class LogoutListener
 	 * @return void
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	protected function setLocaleUser()
 	{

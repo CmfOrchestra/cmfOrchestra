@@ -4,7 +4,7 @@
  *
  * @category   Admin_Entities
  * @package    Entity
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2011-12-28
  *
  * For the full copyright and license information, please view the LICENSE
@@ -25,7 +25,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @category   Admin_Entities
  * @package    Entity
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class TranslationWidget
 {
@@ -260,7 +260,7 @@ class TranslationWidget
     /**
      * Set widget
      *
-     * @param \PiApp\AdminBundle\Entity\Widget
+     * @param \PiApp\AdminBundle\Entity\Widget	$widget
      */
     public function setWidget(\PiApp\AdminBundle\Entity\Widget $widget)
     {
@@ -280,7 +280,7 @@ class TranslationWidget
     /**
      * Set langCode
      *
-     * @param \PiApp\AdminBundle\Entity\Langue
+     * @param \PiApp\AdminBundle\Entity\Langue		$langCode
      */
     public function setLangCode(\PiApp\AdminBundle\Entity\Langue $langCode)
     {

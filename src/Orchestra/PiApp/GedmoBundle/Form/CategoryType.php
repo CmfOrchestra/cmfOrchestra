@@ -4,7 +4,7 @@
  *
  * @category   PI_CRUD_Form
  * @package    Form
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 20XX-XX-XX
  *
  * For the full copyright and license information, please view the LICENSE
@@ -23,7 +23,7 @@ use Doctrine\ORM\EntityRepository;
  * @category   PI_CRUD_Form
  * @package    Form
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class CategoryType extends AbstractType
 {

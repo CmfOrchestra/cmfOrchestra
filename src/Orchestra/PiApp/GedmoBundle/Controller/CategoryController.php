@@ -4,7 +4,7 @@
  *
  * @category   PI_CRUD_Controllers
  * @package    Controller
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since XXXX-XX-XX
  *
  * For the full copyright and license information, please view the LICENSE
@@ -35,7 +35,7 @@ use PiApp\GedmoBundle\Entity\Translation\CategoryTranslation;
  * @category   PI_CRUD_Controllers
  * @package    Controller
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class CategoryController extends abstractController
 {
@@ -49,7 +49,7 @@ class CategoryController extends abstractController
 	 * @return \Symfony\Component\HttpFoundation\Response
      *     
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function enabledajaxAction()
     {
@@ -64,7 +64,7 @@ class CategoryController extends abstractController
 	 * @return \Symfony\Component\HttpFoundation\Response
      *     
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function disableajaxAction()
     {
@@ -79,12 +79,27 @@ class CategoryController extends abstractController
 	 * @return \Symfony\Component\HttpFoundation\Response
      *     
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function positionajaxAction()
     {
     	return parent::positionajaxAction();
     } 
+    
+    /**
+     * Delete Category entities.
+     *
+     * @Route("/admin/gedmo/category/delete", name="admin_gedmo_category_deletentity_ajax")
+     * @Secure(roles="ROLE_USER")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access  public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function deleteajaxAction()
+    {
+    	return parent::deletajaxAction();
+    }    
 
     /**
      * Lists all Category entities.
@@ -93,7 +108,7 @@ class CategoryController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @access	public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function indexAction()
     {
@@ -117,7 +132,7 @@ class CategoryController extends abstractController
 	 * @return \Symfony\Component\HttpFoundation\Response
      *
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>    
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function showAction($id)
     {
@@ -149,7 +164,7 @@ class CategoryController extends abstractController
 	 * @return \Symfony\Component\HttpFoundation\Response
      *
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>    
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function newAction()
     {
@@ -174,7 +189,7 @@ class CategoryController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      *
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>     
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
      */
     public function createAction()
     {
@@ -212,7 +227,7 @@ class CategoryController extends abstractController
 	 * @return \Symfony\Component\HttpFoundation\Response
      *
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>    
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function editAction($id)
     {
@@ -246,7 +261,7 @@ class CategoryController extends abstractController
 	 * @return \Symfony\Component\HttpFoundation\Response
      *
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>   
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
      */
     public function updateAction($id)
     {
@@ -288,7 +303,7 @@ class CategoryController extends abstractController
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *     
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>     
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
      */
     public function deleteAction($id)
     {
@@ -331,7 +346,7 @@ class CategoryController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @access	public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com> 
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com> 
      */
     public function _template_showAction($id, $template = '_tmp_show.html.twig', $lang = "")
     {
@@ -360,7 +375,7 @@ class CategoryController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @access	public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com> 
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com> 
      */
     public function _template_listAction($category = '', $MaxResults = null, $template = '_tmp_list.html.twig', $order = 'DESC', $lang = "")
     {

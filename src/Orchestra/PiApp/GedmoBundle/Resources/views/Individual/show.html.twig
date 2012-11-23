@@ -1,0 +1,121 @@
+{% stylesheet getParameter('pi_app_admin.admin.grid_show_css') %}
+{% stylesheet getParameter('pi_app_admin.admin.grid_theme_css') %}
+{% if NoLayout %}
+	{% set layout_nav = 'PiAppTemplateBundle::Template\\Layout\\layout-ajax.html.twig' %}
+{% else %}
+	{% set layout_nav = app.session.get('wurfl-layout') %}
+{% endif %}	
+{% extends layout_nav %}
+
+{% block title %}
+{% endblock %}
+	
+{% block content %}
+
+	<table class="grid">
+		<caption>Individual</caption>
+	    <tbody>	
+	        <tr>
+	            <th>Id</th>	
+	            <td>{{ entity.id }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>Url</th>	
+	            <td>{{ entity.url }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>Inscrname</th>	
+	            <td>{{ entity.InscrName }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>Inscrnickname</th>	
+	            <td>{{ entity.InscrNickname }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>Inscrphone</th>	
+	            <td>{{ entity.InscrPhone }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>Inscrjob</th>	
+	            <td>{{ entity.InscrJob }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>Entrcompany</th>	
+	            <td>{{ entity.EntrCompany }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>Entractivity</th>	
+	            <td>{{ entity.EntrActivity }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>Entrbusiness</th>	
+	            <td>{{ entity.EntrBusiness }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>Entrstaff</th>	
+	            <td>{{ entity.EntrStaff }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>Created_at</th>	
+	            <td>{{ entity.createdat|date('Y-m-d H:i:s') }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>Updated_at</th>	
+	            <td>{{ entity.updatedat|date('Y-m-d H:i:s') }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>Published_at</th>	
+	            <td>{{ entity.publishedat|date('Y-m-d H:i:s') }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>Archive_at</th>	
+	            <td>{{ entity.archiveat|date('Y-m-d H:i:s') }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>Enabled</th>	
+	            <td>{{ entity.enabled }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>Position</th>	
+	            <td>{{ entity.position }}</td>	
+	        </tr>	
+	    </tbody>
+	</table>
+
+	{% if is_granted('ROLE_ALLOWED_TO_SWITCH') %}
+	
+				
+	<ul class="record_actions">
+		<li>
+	        <form action="{{ path('admin_gedmo_individual', { 'NoLayout': NoLayout, 'category':category }) }}" method="post">
+	            <button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
+	        </form>	        
+		</li>
+			<li>
+	        <form action="{{ path('admin_gedmo_individual_edit', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category }) }}" method="post">
+	            <button type="submit">{{ 'pi.grid.action.update'|trans }}</button>
+	        </form>	        
+		</li>
+			
+		{% if NoLayout == false %}
+	    <li>
+	        <form action="{{ path('admin_gedmo_individual_delete', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category }) }}" method="post">
+	            {{ form_widget(delete_form) }}
+	            <button type="submit">{{ 'pi.grid.action.delete'|trans }}</button>
+	        </form>
+	    </li>
+	    {% endif %}
+	    
+	
+	</ul>	
+		<script type="text/javascript">
+		//<![CDATA[
+			$(document).ready(function() {
+				$("button[type='submit']").button();
+			});
+		//]]>
+		</script>
+		
+	{% endif %}		
+		
+{% endblock %}

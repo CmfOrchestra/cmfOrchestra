@@ -4,7 +4,7 @@
  *
  * @category   Admin_Managers
  * @package    Manager
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-04-19
  *
  * For the full copyright and license information, please view the LICENSE
@@ -25,7 +25,7 @@ use PiApp\AdminBundle\Entity\Widget;
  * @category   Admin_Managers
  * @package    Manager
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PiTreeManager extends PiCoreManager implements PiTreeManagerBuilderInterface 
 {    
@@ -89,7 +89,7 @@ class PiTreeManager extends PiCoreManager implements PiTreeManagerBuilderInterfa
 	 * @access	public
 	 * @return string
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public function defaultNavigation($locale, $entity, $category, $template, $separatorClass = "", $ulClass = "", $liClass = "", $params = null)
 	{
@@ -316,7 +316,7 @@ class PiTreeManager extends PiCoreManager implements PiTreeManagerBuilderInterfa
 	 * @return string
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-04-19
 	 */
 	public function defaultOrganigram($locale, $entity, $category, $params = null)

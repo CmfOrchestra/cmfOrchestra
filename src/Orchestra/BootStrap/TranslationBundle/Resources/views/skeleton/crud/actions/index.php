@@ -6,26 +6,33 @@
 	 * @return \Symfony\Component\HttpFoundation\Response
      *
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>   
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
      */
     public function indexAction()
     {
     	$em			= $this->getDoctrine()->getEntityManager();
     	$locale		= $this->container->get('session')->getLocale();
-        $entities	= $em->getRepository("{{ bundle }}:{{ entity }}")->findAllByEntity($locale, 'object');        
         
+        $category   = $this->container->get('request')->query->get('category');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout) 	$template = "index.html.twig"; else $template = "index.html.twig";
+        
+        if($NoLayout && $category && !empty($category))
+    		$entities 	= $em->getRepository("{{ bundle }}:{{ entity }}")->getAllEnableByCatAndByPosition($locale, $category, 'object');
+    	else
+    		$entities	= $em->getRepository("{{ bundle }}:{{ entity }}")->findAllByEntity($locale, 'object');
 
 {% if 'annotation' == format %}
         return array(
-        	'entities' => $entities,
+        	'entities'	=> $entities,
         	'NoLayout'	=> $NoLayout,
+        	'category'	=> $category,
         );
 {% else %}
         return $this->render("{{ bundle }}:{{ entity|replace({'\\': '/'}) }}:$template", array(
-            'entities' => $entities,
+            'entities'	=> $entities,
             'NoLayout'	=> $NoLayout,
+            'category'	=> $category,
         ));
 {% endif %}
     }

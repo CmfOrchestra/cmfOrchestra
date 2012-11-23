@@ -2,7 +2,7 @@
 /**
  * This file is part of the <name> project.
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -18,7 +18,7 @@ use Sonata\MediaBundle\Entity\BaseGallery as BaseGallery;
  * References :
  *   working with object : http://www.doctrine-project.org/projects/orm/2.0/docs/reference/working-with-objects/en
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class Gallery extends BaseGallery
 {

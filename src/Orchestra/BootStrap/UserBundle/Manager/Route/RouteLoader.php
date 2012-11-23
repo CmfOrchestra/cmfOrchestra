@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Manager
  * @package    Route
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-02-27
  *
  * For the full copyright and license information, please view the LICENSE
@@ -25,7 +25,7 @@ use Symfony\Component\Routing\Matcher\Dumper\ApacheMatcherDumper;
  * @category   BootStrap_Manager
  * @package    Route
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class RouteLoader implements LoaderInterface
 {
@@ -62,7 +62,7 @@ class RouteLoader implements LoaderInterface
      * @return \Symfony\Component\Routing\RouteCollection
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-27
      */ 
     public function load($resource, $type = null)
@@ -118,7 +118,7 @@ class RouteLoader implements LoaderInterface
      * @return void
      * @access private
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-27
      */ 
     private function addRouteCollections($name, array $locales, array $defaults = array(), array $requirements = array(), array $options = array())

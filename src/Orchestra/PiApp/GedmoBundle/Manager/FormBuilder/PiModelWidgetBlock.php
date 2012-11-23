@@ -4,7 +4,7 @@
  *
  * @category   Admin_Managers
  * @package    Page
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-09-11
  *
  * For the full copyright and license information, please view the LICENSE
@@ -23,7 +23,7 @@ use Doctrine\ORM\EntityRepository;
 * @category   Admin_Managers
 * @package    Page
 *
-* @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+* @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 */
 class PiModelWidgetBlock extends PiFormBuilderManager
 {
@@ -47,7 +47,7 @@ class PiModelWidgetBlock extends PiFormBuilderManager
 	 *
 	 * @param \Symfony\Component\DependencyInjection\ContainerInterface
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public function __construct(ContainerInterface $containerService)
 	{
@@ -62,7 +62,7 @@ class PiModelWidgetBlock extends PiFormBuilderManager
 	 * @access public
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-09-11
 	 */
 	public static function getContents()
@@ -188,7 +188,7 @@ class PiModelWidgetBlock extends PiFormBuilderManager
 	 * @access public
 	 * @return void
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public function renderScript(array $option) {
 		// We open the buffer.

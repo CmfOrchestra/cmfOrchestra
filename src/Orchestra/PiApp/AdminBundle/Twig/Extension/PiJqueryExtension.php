@@ -4,7 +4,7 @@
  *
  * @category   Admin_Twig
  * @package    Extension_jquery
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-11
  *
  * For the full copyright and license information, please view the LICENSE
@@ -71,7 +71,7 @@ $GLOBALS['JQUERY']['LUCENE'] = array(
  * @category   Admin_Twig
  * @package    Extension_jquery 
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PiJqueryExtension extends \Twig_Extension
 {
@@ -122,7 +122,7 @@ class PiJqueryExtension extends \Twig_Extension
      * @return string The extension name
      * @access public
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
 	final public function getName()
 	{
@@ -140,7 +140,7 @@ class PiJqueryExtension extends \Twig_Extension
      * @return array An array of functions
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     final public function getFunctions()
     {
@@ -159,7 +159,7 @@ class PiJqueryExtension extends \Twig_Extension
      * @return string The extension name
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     final public function getTokenParsers()
     {

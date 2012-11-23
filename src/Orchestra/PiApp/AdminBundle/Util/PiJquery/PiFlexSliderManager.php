@@ -4,7 +4,7 @@
  *
  * @category   Admin_Util
  * @package    Extension_jquery 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-05-3
  *
  * For the full copyright and license information, please view the LICENSE
@@ -25,7 +25,7 @@ use PiApp\AdminBundle\Manager\PiSliderManager;
  * @category   Admin_Util
  * @package    Extension_jquery 
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PiFlexSliderManager extends PiJqueryExtension
 {

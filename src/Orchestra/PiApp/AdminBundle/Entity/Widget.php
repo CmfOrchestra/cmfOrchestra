@@ -4,7 +4,7 @@
  *
  * @category   Admin_Entities
  * @package    Entity
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2011-12-28
  *
  * For the full copyright and license information, please view the LICENSE
@@ -28,7 +28,7 @@ use PiApp\AdminBundle\Twig\Extension\PiWidgetExtension;
  * @category   Admin_Entities
  * @package    Entity
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class Widget
 {
@@ -357,7 +357,7 @@ class Widget
     /**
      * Set the collection of related translations
      *
-     * @param \Doctrine\Common\Collections\ArrayCollection
+     * @param \Doctrine\Common\Collections\ArrayCollection		$translations
      */
     public function setTranslations(\Doctrine\Common\Collections\ArrayCollection $translations)
     {
@@ -367,7 +367,7 @@ class Widget
     /**
      * Add translations
      *
-     * @param \PiApp\AdminBundle\Entity\TranslationWidget
+     * @param \PiApp\AdminBundle\Entity\TranslationWidget		$translation
      */
     public function addTranslation(\PiApp\AdminBundle\Entity\TranslationWidget $translation)
     {
@@ -378,7 +378,7 @@ class Widget
     /**
      * Get translations
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\ArrayCollection 
      */
     public function getTranslations()
     {

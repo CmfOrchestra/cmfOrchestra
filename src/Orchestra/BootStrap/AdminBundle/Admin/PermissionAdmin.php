@@ -4,7 +4,7 @@
  * 
  * @category   BootStrap_sonataAdmin
  * @package    sonataAdmin
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2011-12-30
  *
  * For the full copyright and license information, please view the LICENSE
@@ -28,7 +28,7 @@ use FOS\UserBundle\Model\UserManagerInterface;
  * @category   BootStrap_sonataAdmin
  * @package    sonataAdmin
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PermissionAdmin extends Admin
 {

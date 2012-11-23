@@ -4,7 +4,7 @@
  *
  * @category   Translator_Form
  * @package    Form
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-11-14
  *
  * For the full copyright and license information, please view the LICENSE
@@ -24,7 +24,7 @@ use Doctrine\ORM\EntityRepository;
  * @category   Translator_Form
  * @package    Form
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class WordType extends AbstractType
 {
@@ -97,6 +97,5 @@ class WordType extends AbstractType
     public function getName()
     {
         return 'piapp_TranslatorBundle_wordtype';
-    }
-        
+    }        
 }

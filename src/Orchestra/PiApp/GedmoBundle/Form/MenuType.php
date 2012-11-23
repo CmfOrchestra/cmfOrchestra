@@ -4,7 +4,7 @@
  *
  * @category   PI_CRUD_Form
  * @package    Form
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-03-22
  *
  * For the full copyright and license information, please view the LICENSE
@@ -23,7 +23,7 @@ use Doctrine\ORM\EntityRepository;
  * @category   PI_CRUD_Form
  * @package    Form
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class MenuType extends AbstractType
 {
@@ -102,7 +102,7 @@ class MenuType extends AbstractType
 	        ->add('title', 'text', array(
  					'label'	=> "pi.form.label.field.title",
  			)) 
-	        ->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.menu.form.picture'))	          
+	        ->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))	          
         ;
     }
 

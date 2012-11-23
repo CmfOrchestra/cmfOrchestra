@@ -4,7 +4,7 @@
  *
  * @category   Gedmo_Entities
  * @package    Entity
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-07-31
  *
  * For the full copyright and license information, please view the LICENSE
@@ -31,7 +31,7 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  * @category   Gedmo_Entities
  * @package    Entity
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class Corporation extends AbstractDefault 
 {
@@ -218,5 +218,5 @@ class Corporation extends AbstractDefault
     {
     	return $this->media;
     }    
-    
+
 }

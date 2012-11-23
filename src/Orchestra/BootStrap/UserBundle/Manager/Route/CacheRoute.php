@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Manager
  * @package    Route
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-02-27
  *
  * For the full copyright and license information, please view the LICENSE
@@ -27,7 +27,7 @@ use Symfony\Component\Config\ConfigCache;
  * @category   BootStrap_Manager
  * @package    Route
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class CacheRoute
 {

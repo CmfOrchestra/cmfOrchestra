@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Helper
  * @package    Facebook
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-04-23
  *
  * For the full copyright and license information, please view the LICENSE
@@ -21,7 +21,7 @@ use BootStrap\FacebookBundle\Manager\Client\AnalyticsClient;
  * @category   BootStrap_Helper
  * @package    Google 
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class AnalyticsHelper extends Helper
 {

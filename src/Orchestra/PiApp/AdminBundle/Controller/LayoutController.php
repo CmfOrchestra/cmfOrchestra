@@ -4,7 +4,7 @@
  *
  * @category   Admin_Controllers
  * @package    Controller
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-03
  *
  * For the full copyright and license information, please view the LICENSE
@@ -33,7 +33,7 @@ use PiApp\AdminBundle\Form\LayoutType;
  * @category   Admin_Controllers
  * @package    Controller
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class LayoutController extends abstractController
 {
@@ -46,7 +46,7 @@ class LayoutController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function indexAction()
     {
@@ -67,7 +67,7 @@ class LayoutController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function enabledajaxAction()
     {
@@ -82,7 +82,7 @@ class LayoutController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function disableajaxAction()
     {
@@ -96,7 +96,7 @@ class LayoutController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function showAction($id)
     {
@@ -124,7 +124,7 @@ class LayoutController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function newAction()
     {
@@ -144,7 +144,7 @@ class LayoutController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function createAction()
     {
@@ -175,7 +175,7 @@ class LayoutController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function editAction($id)
     {
@@ -204,7 +204,7 @@ class LayoutController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function updateAction($id)
     {
@@ -244,7 +244,7 @@ class LayoutController extends abstractController
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * 
      * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function deleteAction($id)
     {

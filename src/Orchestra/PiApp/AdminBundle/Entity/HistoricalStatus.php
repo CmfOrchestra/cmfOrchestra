@@ -4,7 +4,7 @@
  *
  * @category   Admin_Entities
  * @package    Entity
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2011-12-28
  *
  * For the full copyright and license information, please view the LICENSE
@@ -24,7 +24,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @category   Admin_Entities
  * @package    Entity
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class HistoricalStatus
 {
@@ -127,7 +127,7 @@ class HistoricalStatus
     /**
      * Set pageTranslation
      *
-     * @param \PiApp\AdminBundle\Entity\TranslationPage
+     * @param \PiApp\AdminBundle\Entity\TranslationPage	$pageTranslation
      */
     public function setPageTranslation(\PiApp\AdminBundle\Entity\TranslationPage $pageTranslation)
     {

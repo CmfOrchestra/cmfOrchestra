@@ -4,7 +4,7 @@
  *
  * @category   PI_CRUD_Controllers
  * @package    Controller
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-04-03
  *
  * For the full copyright and license information, please view the LICENSE
@@ -36,7 +36,7 @@ use PiApp\GedmoBundle\Entity\Translation\OrganigramTranslation;
  * @category   PI_CRUD_Controllers
  * @package    Controller
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class OrganigramController extends abstractController
 {
@@ -47,7 +47,7 @@ class OrganigramController extends abstractController
      *
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>   
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
      */
     public function indexAction()
     {
@@ -72,7 +72,7 @@ class OrganigramController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function enabledajaxAction()
     {
@@ -87,7 +87,7 @@ class OrganigramController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function disableajaxAction()
     {
@@ -102,7 +102,7 @@ class OrganigramController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function positionajaxAction()
     {
@@ -114,7 +114,7 @@ class OrganigramController extends abstractController
      *
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>    
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function showAction($id)
     {
@@ -146,7 +146,7 @@ class OrganigramController extends abstractController
      *
      * @Secure(roles="ROLE_USER")
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>    
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function newAction()
     {
@@ -180,7 +180,7 @@ class OrganigramController extends abstractController
      *
      * @Secure(roles="ROLE_USER")
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>     
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
      */
     public function createAction()
     {
@@ -219,7 +219,7 @@ class OrganigramController extends abstractController
      *
      * @Secure(roles="ROLE_USER")
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>    
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function editAction($id)
     {
@@ -254,7 +254,7 @@ class OrganigramController extends abstractController
      *
      * @Secure(roles="ROLE_USER")
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>   
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
      */
     public function updateAction($id)
     {
@@ -297,7 +297,7 @@ class OrganigramController extends abstractController
      *
      * @Secure(roles="ROLE_USER")
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>     
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
      */
     public function deleteAction($id)
     {
@@ -340,7 +340,7 @@ class OrganigramController extends abstractController
      * @param string $category
      * @access	public
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function treeAction($category)
     {
@@ -436,7 +436,7 @@ class OrganigramController extends abstractController
    	 * @param string $category
    	 * @access	public
    	 * 
-   	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+   	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
    	 */
     public function moveUpAction($id, $category)
     {
@@ -458,7 +458,7 @@ class OrganigramController extends abstractController
    	 * @param string $category
    	 * @access	public
    	 * 
-   	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+   	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function moveDownAction($id, $category)
     {
@@ -480,7 +480,7 @@ class OrganigramController extends abstractController
    	 * @param string $category
    	 * @access	public
    	 * 
-   	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+   	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function removeAction($id, $category)
     {

@@ -4,7 +4,7 @@
  *
  * @category   Admin_DataFixtures
  * @package    ORM
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2011-12-28
  *
  * For the full copyright and license information, please view the LICENSE
@@ -23,14 +23,14 @@ use PiApp\AdminBundle\Entity\Langue;
  * @category   Admin_DataFixtures
  * @package    ORM
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class LanguesFixtures extends AbstractFixture implements OrderedFixtureInterface
 {
 	/**
 	 * Load language fixtures
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2011-12-28
 	 */
     public function load(ObjectManager $manager)
@@ -73,7 +73,7 @@ class LanguesFixtures extends AbstractFixture implements OrderedFixtureInterface
      * Retrieve the order number of current fixture
      *
      * @return integer
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2011-12-28
      */
     public function getOrder()

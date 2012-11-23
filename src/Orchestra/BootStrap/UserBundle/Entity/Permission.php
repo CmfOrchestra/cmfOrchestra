@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Entities
  * @package    Entity
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-04
  *
  * For the full copyright and license information, please view the LICENSE
@@ -25,7 +25,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @category   BootStrap_Entities
  * @package    Entity
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class Permission
 {

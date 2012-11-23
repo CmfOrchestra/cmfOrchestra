@@ -4,7 +4,7 @@
  *
  * @category   Admin_Util
  * @package    Extension_widget 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-06-13
  *
  * For the full copyright and license information, please view the LICENSE
@@ -24,7 +24,7 @@ use PiApp\AdminBundle\Exception\ExtensionException;
  * @category   Admin_Util
  * @package    Extension_widget 
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PiSearchManager extends PiWidgetExtension
 {
@@ -34,7 +34,7 @@ class PiSearchManager extends PiWidgetExtension
 	 * @param \Symfony\Component\DependencyInjection\ContainerInterface
 	 * @param string	action name
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public function __construct(ContainerInterface $container, $action)
 	{
@@ -47,7 +47,7 @@ class PiSearchManager extends PiWidgetExtension
 	 * @access protected
 	 * @return void
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	protected function init()
 	{
@@ -64,7 +64,7 @@ class PiSearchManager extends PiWidgetExtension
 	 * @access protected
 	 * @return BooleanType
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	protected function isAvailableJqueryExtension($JQcontainer, $JQservice)
 	{
@@ -185,7 +185,7 @@ class PiSearchManager extends PiWidgetExtension
 	 * @access public
 	 * @return void
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	public function scriptJs($options = null) {
 		// We open the buffer.
@@ -210,7 +210,7 @@ class PiSearchManager extends PiWidgetExtension
 	 * @access public
 	 * @return void
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	public function scriptCss($options = null) {
 		// We open the buffer.
@@ -235,7 +235,7 @@ class PiSearchManager extends PiWidgetExtension
 	 * @access public
 	 * @return void
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public function scriptEditor($options = null) {
 		// We open the buffer.

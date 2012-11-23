@@ -6,14 +6,15 @@
 	 * @return \Symfony\Component\HttpFoundation\Response
      *
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>   
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
      */
     public function updateAction($id)
     {
-        $em 	= $this->getDoctrine()->getEntityManager();
-    	$locale	= $this->container->get('session')->getLocale();
-        $entity = $em->getRepository("{{ bundle }}:{{ entity }}")->findOneByEntity($locale, $id, "object"); 
+        $em 		= $this->getDoctrine()->getEntityManager();
+    	$locale		= $this->container->get('session')->getLocale();
+        $entity 	= $em->getRepository("{{ bundle }}:{{ entity }}")->findOneByEntity($locale, $id, "object"); 
         
+        $category   = $this->container->get('request')->query->get('category');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout)	$template = "edit.html.twig";  else	$template = "edit.html.twig";        
 
@@ -30,7 +31,7 @@
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('{{ route_name_prefix }}_edit', array('id' => $id, 'NoLayout' => $NoLayout)));
+            return $this->redirect($this->generateUrl('{{ route_name_prefix }}_edit', array('id' => $id, 'NoLayout' => $NoLayout, 'category' => $category)));
         }
 
 {% if 'annotation' == format %}
@@ -39,6 +40,7 @@
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'NoLayout' 	  => $NoLayout,
+            'category'	  => $category,
         );
 {% else %}
         return $this->render("{{ bundle }}:{{ entity|replace({'\\': '/'}) }}:$template", array(
@@ -46,6 +48,7 @@
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'NoLayout' 	  => $NoLayout,
+            'category'	  => $category,
         ));
 {% endif %}
     }

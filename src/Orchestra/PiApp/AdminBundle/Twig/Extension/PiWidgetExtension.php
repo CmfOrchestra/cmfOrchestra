@@ -4,7 +4,7 @@
  *
  * @category   Admin_Twig
  * @package    Extension_widget
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-11
  *
  * For the full copyright and license information, please view the LICENSE
@@ -50,7 +50,7 @@ $GLOBALS['WIDGET']['TAB'] = array(
  * @category   Admin_Twig
  * @package    Extension_widget 
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PiWidgetExtension extends \Twig_Extension
 {
@@ -134,7 +134,7 @@ class PiWidgetExtension extends \Twig_Extension
 	 * @access public
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2011-12-28
 	 */
 	public static function getAvailableWidgetPlugins()
@@ -155,7 +155,7 @@ class PiWidgetExtension extends \Twig_Extension
 	 * @access public
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2011-12-28
 	 */
 	public static function getDefaultConfigXml()
@@ -339,7 +339,7 @@ class PiWidgetExtension extends \Twig_Extension
      * @access public
      * @final
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
 	final public function getName()
 	{
@@ -353,7 +353,7 @@ class PiWidgetExtension extends \Twig_Extension
 	 * @access public
 	 * @final
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	final public function getAction()
 	{
@@ -367,7 +367,7 @@ class PiWidgetExtension extends \Twig_Extension
 	 * @access public
 	 * @final
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	final public function setMethod($method)
 	{
@@ -386,7 +386,7 @@ class PiWidgetExtension extends \Twig_Extension
      * @access public
      * @final
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     final public function getFunctions()
     {
@@ -408,7 +408,7 @@ class PiWidgetExtension extends \Twig_Extension
      * @access public
      * @final
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     final public function getTokenParsers()
     {
@@ -469,7 +469,7 @@ class PiWidgetExtension extends \Twig_Extension
      * @return void
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-14
      */
     protected function setParams($options)
@@ -658,7 +658,7 @@ class PiWidgetExtension extends \Twig_Extension
      * @return void
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function setId($id)
     {
@@ -671,7 +671,7 @@ class PiWidgetExtension extends \Twig_Extension
      * @return id widget value
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function getId()
     {
@@ -685,7 +685,7 @@ class PiWidgetExtension extends \Twig_Extension
      * @return void
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function setConfigXml($configXml)
     {
@@ -698,7 +698,7 @@ class PiWidgetExtension extends \Twig_Extension
      * @return ConfigXml widget value
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function getConfigXml()
     {
@@ -711,7 +711,7 @@ class PiWidgetExtension extends \Twig_Extension
      * @return language value
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function getLanguage()
     {
@@ -724,7 +724,7 @@ class PiWidgetExtension extends \Twig_Extension
      * @return void
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-14
      */
     protected function setWidgetManager()
@@ -738,7 +738,7 @@ class PiWidgetExtension extends \Twig_Extension
      * @return \PiApp\AdminBundle\Manager\PiWidgetManager
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-14
      */
     protected function getWidgetManager()
@@ -755,7 +755,7 @@ class PiWidgetExtension extends \Twig_Extension
      * @return void
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-14
      */
     protected function setTransWidgetManager()
@@ -769,7 +769,7 @@ class PiWidgetExtension extends \Twig_Extension
      * @return \PiApp\AdminBundle\Manager\PiTransWidgetManager
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-14
      */
     protected function getTransWidgetManager()
@@ -786,7 +786,7 @@ class PiWidgetExtension extends \Twig_Extension
      * @return \Symfony\Component\DependencyInjection\ContainerInterface
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function getContainer()
     {
@@ -799,7 +799,7 @@ class PiWidgetExtension extends \Twig_Extension
      * @return void
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-14
      */
     protected function setRepository()
@@ -813,7 +813,7 @@ class PiWidgetExtension extends \Twig_Extension
      * @return ObjectRepository
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-14
      */
     protected function getRepository()
@@ -830,7 +830,7 @@ class PiWidgetExtension extends \Twig_Extension
      * @return void
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-14
      */
     protected function setServiceWidget()
@@ -845,7 +845,7 @@ class PiWidgetExtension extends \Twig_Extension
      * @return Widget service object
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-14
      */
     protected function getServiceWidget()
@@ -862,7 +862,7 @@ class PiWidgetExtension extends \Twig_Extension
      * @return void
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-14
      */    
     public function setTranslationWidget(TranslationWidget $widgetTranslation)
@@ -876,7 +876,7 @@ class PiWidgetExtension extends \Twig_Extension
      * @return \PiApp\AdminBundle\Entity\TranslationWidget
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-14
      */
     public function getTranslationWidget()

@@ -4,7 +4,7 @@
  *
  * @category   Admin_Entities
  * @package    Entity
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2011-12-28
  *
  * For the full copyright and license information, please view the LICENSE
@@ -27,7 +27,7 @@ use BootStrap\UserBundle\Repository\RoleRepository;
  * @category   Admin_Entities
  * @package    Entity
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class TranslationPage
 {
@@ -684,7 +684,7 @@ class TranslationPage
     /**
      * Set page
      *
-     * @param \PiApp\AdminBundle\Entity\Page
+     * @param \PiApp\AdminBundle\Entity\Page	$page
      */
     public function setPage(\PiApp\AdminBundle\Entity\Page $page)
     {
@@ -704,7 +704,7 @@ class TranslationPage
     /**
      * Add tags
      *
-     * @param \PiApp\AdminBundle\Entity\Tag
+     * @param \PiApp\AdminBundle\Entity\Tag		$tags
      */
     public function addTag(\PiApp\AdminBundle\Entity\Tag $tags)
     {
@@ -719,7 +719,7 @@ class TranslationPage
     /**
      * Get tags
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\ArrayCollection
      */
     public function getTags()
     {
@@ -729,7 +729,7 @@ class TranslationPage
     /**
      * Add comments
      *
-     * @param \PiApp\AdminBundle\Entity\Comment
+     * @param \PiApp\AdminBundle\Entity\Comment		$comments
      */
     public function addComment(\PiApp\AdminBundle\Entity\Comment $comments)
     {
@@ -739,7 +739,7 @@ class TranslationPage
     /**
      * Get comments
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\ArrayCollection
      */
     public function getComments()
     {
@@ -749,7 +749,7 @@ class TranslationPage
     /**
      * Set langCode
      *
-     * @param \PiApp\AdminBundle\Entity\Langue
+     * @param \PiApp\AdminBundle\Entity\Langue		$langCode
      */
     public function setLangCode(\PiApp\AdminBundle\Entity\Langue $langCode)
     {
@@ -769,7 +769,7 @@ class TranslationPage
     /**
      * Add historical_status
      *
-     * @param \PiApp\AdminBundle\Entity\HistoricalStatus
+     * @param \PiApp\AdminBundle\Entity\HistoricalStatus	$historicalStatus
      */
     public function addHistoricalStatus(\PiApp\AdminBundle\Entity\HistoricalStatus $historicalStatus)
     {
@@ -779,7 +779,7 @@ class TranslationPage
     /**
      * Get historical_status
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\ArrayCollection
      */
     public function getHistoricalStatus()
     {

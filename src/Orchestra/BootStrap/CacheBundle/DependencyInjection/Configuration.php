@@ -8,7 +8,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 /**
  * This is the class that validates and merges configuration from your app/config files
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class Configuration implements ConfigurationInterface
 {

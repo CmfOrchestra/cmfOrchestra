@@ -7,7 +7,7 @@
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @access	public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com> 
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com> 
      */
     public function _template_listAction($category = '', $MaxResults = null, $template = '_tmp_list.html.twig', $order = 'DESC', $lang = "")
     {

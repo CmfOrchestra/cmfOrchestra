@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Repositories
  * @package    Repository
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-03-09
  *
  * For the full copyright and license information, please view the LICENSE
@@ -30,7 +30,7 @@ use Doctrine\DBAL\Types\Type;
  * @category   BootStrap_Repositories
  * @package    Repository
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class TreeRepository extends NestedTreeRepository
 {
@@ -75,7 +75,7 @@ class TreeRepository extends NestedTreeRepository
      * @return array/object of result query
      * @access	public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function findTranslationsByQuery($locale, Query $query, $result = "object", $INNER_JOIN = false)
     {
@@ -110,7 +110,7 @@ class TreeRepository extends NestedTreeRepository
      * @param bool	$INNER_JOIN	     
      * @access	private
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     private function setTranslatableHints(Query $query, $locale, $INNER_JOIN = false)
     {
@@ -136,7 +136,7 @@ class TreeRepository extends NestedTreeRepository
      * @return object
      * @access	public
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */  
     public function findNodeOr404($id, $locale, $result = "object", $INNER_JOIN = false)
     {
@@ -157,7 +157,7 @@ class TreeRepository extends NestedTreeRepository
      * @return object
      * @access	public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function getAllTree($locale, $category = '', $result = "object", $INNER_JOIN = false, $enable = true, $node = null)
     {
@@ -234,7 +234,7 @@ class TreeRepository extends NestedTreeRepository
      * @return array
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-03-15
      */
     public function getArrayAllCategory()
@@ -264,7 +264,7 @@ class TreeRepository extends NestedTreeRepository
      * @return array\entity
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-03-15
      */
     public function getAllByCategory($category = '', $MaxResults = null, $rootOnly = false)
@@ -356,7 +356,7 @@ class TreeRepository extends NestedTreeRepository
      * @return object
      * @access	public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function getContentByField($locale, array $fields, $INNER_JOIN = false)
     {
@@ -413,7 +413,7 @@ class TreeRepository extends NestedTreeRepository
      * @return object
      * @access	public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function getEntityByField($locale, array $fields, $result = "object", $INNER_JOIN = false)
     {

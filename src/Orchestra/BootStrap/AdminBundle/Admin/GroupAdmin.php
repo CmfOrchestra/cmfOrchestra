@@ -4,7 +4,7 @@
  * 
  * @category   BootStrap_sonataAdmin
  * @package    sonataAdmin
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2011-11-17
  *
  * For the full copyright and license information, please view the LICENSE
@@ -26,7 +26,7 @@ use Sonata\AdminBundle\Validator\ErrorElement;
  * @category   BootStrap_sonataAdmin
  * @package    sonataAdmin
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class GroupAdmin extends Admin
 {

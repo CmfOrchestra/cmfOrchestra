@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Manager
  * @package    Facebook
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-04-23
  *
  * For the full copyright and license information, please view the LICENSE
@@ -23,7 +23,7 @@ use BootStrap\FacebookBundle\Builder\FacebookClientInterface;
  * @category   BootStrap_Manager
  * @package    Google
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class FacebookFactory implements FacebookFactoryInterface
 {
@@ -50,7 +50,7 @@ class FacebookFactory implements FacebookFactoryInterface
 	 * @return \Symfony\Component\DependencyInjection\ContainerInterface
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	protected function getContainer()
 	{

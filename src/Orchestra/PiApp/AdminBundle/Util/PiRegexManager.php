@@ -4,7 +4,7 @@
  * 
  * @category   Admin_Utils
  * @package    Util
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-09-20
  *
  * For the full copyright and license information, please view the LICENSE
@@ -25,7 +25,7 @@ use PiApp\AdminBundle\Builder\PiRegexManagerBuilderInterface;
  * @category   Admin_Utils
  * @package    Util
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PiRegexManager implements PiRegexManagerBuilderInterface
 {
@@ -37,7 +37,7 @@ class PiRegexManager implements PiRegexManagerBuilderInterface
 	 * @param string $string
 	 * @return string
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function stripTrailingSlash($string)
 	{
@@ -54,7 +54,7 @@ class PiRegexManager implements PiRegexManagerBuilderInterface
 	 * @param string $content
 	 * @return string
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function replaceTag($tag, $replacement, $content, $attributes = null)
 	{
@@ -72,7 +72,7 @@ class PiRegexManager implements PiRegexManagerBuilderInterface
 	 * @param  str $string la chaine
 	 * @return str   
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function simplifyDatetime($string)
 	{
@@ -87,7 +87,7 @@ class PiRegexManager implements PiRegexManagerBuilderInterface
      * @param String $_string
      * @return bool
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public static function isDateTime($_string)
     {
@@ -100,7 +100,7 @@ class PiRegexManager implements PiRegexManagerBuilderInterface
      * @param String $_string
      * @return bool
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public static function isMd5($_string)
     {
@@ -117,7 +117,7 @@ class PiRegexManager implements PiRegexManagerBuilderInterface
  	 * 						 
 	 * @return array		 tableau des strings compris entre les deux valeurs de début et de fin.
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
     public static function findinside($start, $end, $string) {
         preg_match_all('/' . preg_quote($start, '/') . '([^\.)]+)'. preg_quote($end, '/').'/i', $string, $matches, PREG_SET_ORDER);
@@ -134,7 +134,7 @@ class PiRegexManager implements PiRegexManagerBuilderInterface
  	 * 								syntaxe: $typeExpression = "num | letter | alphanum | nick | mail | url | file | name"; 
 	 * @return str false si la chaine à tester n'est pas vérifiée par l'expression régulière demandée
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function verifByRegularExpression($chaine, $typeExpression = "no")
 	{
@@ -242,7 +242,7 @@ class PiRegexManager implements PiRegexManagerBuilderInterface
 	 * @param  str $tag 		the search term
 	 * @return array 			tags and ID required.  
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function searchIdByTag($chaine,$tag)
 	{
@@ -265,7 +265,7 @@ class PiRegexManager implements PiRegexManagerBuilderInterface
 	 * @param  str $tag 		the search term
 	 * @return array 			tags and ID required.
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function searchLinkByParam($chaine, $tag)
 	{
@@ -288,7 +288,7 @@ class PiRegexManager implements PiRegexManagerBuilderInterface
 	 * @param  str $tag 		the search tag
 	 * @return string 			lthe search
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function deleteDisplayNoneTag($w_var, $tag, $replaceTerm = '')
 	{
@@ -308,7 +308,7 @@ class PiRegexManager implements PiRegexManagerBuilderInterface
 	 * @param  string	 $color		the color value
 	 * @return array 				rbv code+
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	public static function hex2rgb($color){
 		if(preg_match("@#[a-f0-9]{6}@i",$color)){

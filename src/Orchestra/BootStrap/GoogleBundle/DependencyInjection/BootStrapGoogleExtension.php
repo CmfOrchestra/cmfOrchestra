@@ -4,7 +4,7 @@
  *
  * @category   Bundle
  * @package    DependencyInjection
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-04-23
  *
  * For the full copyright and license information, please view the LICENSE
@@ -23,7 +23,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension,
  * @category   Bundle
  * @package    DependencyInjection
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class BootStrapGoogleExtension extends Extension
 {

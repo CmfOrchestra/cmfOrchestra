@@ -4,7 +4,7 @@
  *
  * @category   Admin_Repositories
  * @package    Repository
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-06
  *
  * For the full copyright and license information, please view the LICENSE
@@ -24,7 +24,7 @@ use BootStrap\TranslationBundle\Repository\TranslationRepository;
  * @category   Admin_Repositories
  * @package    Repository
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class TranslationPageRepository extends TranslationRepository
 {
@@ -48,7 +48,7 @@ class TranslationPageRepository extends TranslationRepository
 	 * @access public
 	 * @static
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2011-12-28
 	 */
 	public static function getAvailableLangStatus()
@@ -67,7 +67,7 @@ class TranslationPageRepository extends TranslationRepository
 	 * @access public
 	 * @static
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2011-12-28
 	 */
 	public static function getAvailableStatus()

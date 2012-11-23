@@ -4,7 +4,7 @@
  *
  * @category   Translator_Entities
  * @package    Entity
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-11-14
  *
  * For the full copyright and license information, please view the LICENSE
@@ -29,7 +29,7 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  * @category   Admin_Entities
  * @package    Entity
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class Word extends AbstractDefault
 {
@@ -225,6 +225,5 @@ class Word extends AbstractDefault
     public function getCategoryother()
     {
     	return $this->categoryother;
-    }
-    
+    }    
 }

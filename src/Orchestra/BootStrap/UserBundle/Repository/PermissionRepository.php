@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Repositories
  * @package    Repository
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-02
  *
  * For the full copyright and license information, please view the LICENSE
@@ -23,7 +23,7 @@ use Doctrine\ORM\EntityRepository;
  * @category   BootStrap_Repositories
  * @package    Repository
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PermissionRepository extends EntityRepository
 {
@@ -35,7 +35,7 @@ class PermissionRepository extends EntityRepository
 	 * @return string
 	 * @static
 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2011-12-28
 	 */
 	public static function ShowDefaultPermission()
@@ -48,7 +48,7 @@ class PermissionRepository extends EntityRepository
 	 *
 	 * @return Doctrine\ORM\Query
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-04
 	 */
 	public function getAvailablePermissions()

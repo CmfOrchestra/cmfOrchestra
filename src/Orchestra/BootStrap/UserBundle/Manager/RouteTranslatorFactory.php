@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Manager
  * @package    Route
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-02-03
  *
  * For the full copyright and license information, please view the LICENSE
@@ -32,7 +32,7 @@ use PiApp\AdminBundle\Entity\Page;
  * @category   BootStrap_Manager
  * @package    Route
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class RouteTranslatorFactory extends AbstractFactory implements RouteTranslatorFactoryInterface
 {
@@ -54,7 +54,7 @@ class RouteTranslatorFactory extends AbstractFactory implements RouteTranslatorF
 	 * @return string the url translated to the locale value.
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-02-23
 	 */
 	public function getRefererRoute($langue = '', $options = null)
@@ -99,7 +99,7 @@ class RouteTranslatorFactory extends AbstractFactory implements RouteTranslatorF
 	 * @return string the url translated to the locale value.
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-02-23
 	 */
 	public function getLocaleRoute($langue = '', $options = null)
@@ -135,7 +135,7 @@ class RouteTranslatorFactory extends AbstractFactory implements RouteTranslatorF
 	 * @return string the url translated to the locale value.
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-04-11
 	 */
 	public function getRoute($route_name = null, $params = null)
@@ -174,7 +174,7 @@ class RouteTranslatorFactory extends AbstractFactory implements RouteTranslatorF
 	 * @return string the url translated to the locale value.
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-04-11
 	 */
 	public function getMatchParamOfRoute($param = null, $langue = '')
@@ -210,7 +210,7 @@ class RouteTranslatorFactory extends AbstractFactory implements RouteTranslatorF
 	 * @return \Symfony\Component\Routing\RouteCollection
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-02-27
 	 */
 	public function addAllRoutePageCollections()
@@ -234,7 +234,7 @@ class RouteTranslatorFactory extends AbstractFactory implements RouteTranslatorF
 	 * @return \Symfony\Component\Routing\RouteCollection
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-02-27
 	 */	
 	public function parseRoutePages()
@@ -298,7 +298,7 @@ class RouteTranslatorFactory extends AbstractFactory implements RouteTranslatorF
 	 * @return \BeSimple\I18nRoutingBundle\Routing\Generator\UrlGenerator
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-02-23
 	 */	
 	public function getGenerate($name, array $locales, array $defaults = array(), array $requirements = array(), array $options = array())
@@ -317,7 +317,7 @@ class RouteTranslatorFactory extends AbstractFactory implements RouteTranslatorF
 	 * @return \BeSimple\I18nRoutingBundle\Routing\Generator\UrlGenerator
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-02-23
 	 */	
 	public function getGenerator(RouteCollection $collection = null)
@@ -333,7 +333,7 @@ class RouteTranslatorFactory extends AbstractFactory implements RouteTranslatorF
 	 * @return \Symfony\Component\Routing\RouteCollection
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-02-23
 	 */	
 	private function getCollection()
@@ -362,7 +362,7 @@ class RouteTranslatorFactory extends AbstractFactory implements RouteTranslatorF
 	 * @return \Symfony\Component\Routing\RouteCollection
 	 * @access private
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-02-23
 	 */	
 	private function addRouteCollections($name, array $locales, array $defaults = array(), array $requirements = array(), array $options = array())

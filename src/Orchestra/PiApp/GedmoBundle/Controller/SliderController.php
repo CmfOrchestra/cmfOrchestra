@@ -4,7 +4,7 @@
  *
  * @category   PI_CRUD_Controllers
  * @package    Controller
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-04-11
  *
  * For the full copyright and license information, please view the LICENSE
@@ -35,7 +35,7 @@ use PiApp\GedmoBundle\Entity\Translation\SliderTranslation;
  * @category   PI_CRUD_Controllers
  * @package    Controller
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class SliderController extends abstractController
 {
@@ -49,7 +49,7 @@ class SliderController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function enabledajaxAction()
     {
@@ -64,7 +64,7 @@ class SliderController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function disableajaxAction()
     {
@@ -79,7 +79,7 @@ class SliderController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function positionajaxAction()
     {
@@ -91,7 +91,7 @@ class SliderController extends abstractController
      *
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      * @access	public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function indexAction()
     {
@@ -119,7 +119,7 @@ class SliderController extends abstractController
      *
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>    
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function showAction($id)
     {
@@ -150,7 +150,7 @@ class SliderController extends abstractController
      *
      * @Secure(roles="ROLE_USER")
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>    
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function newAction()
     {
@@ -179,7 +179,7 @@ class SliderController extends abstractController
      *
      * @Secure(roles="ROLE_USER")
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>     
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
      */
     public function createAction()
     {
@@ -201,7 +201,7 @@ class SliderController extends abstractController
             $em->flush();
 
             return $this->redirect($this->generateUrl('admin_gedmo_slider_show', array('id' => $entity->getId(), 'NoLayout' => $NoLayout, 'category' => $category)));
-                    }
+        }
 
         return $this->render("PiAppGedmoBundle:Slider:$template", array(
             'entity' 	=> $entity,
@@ -216,7 +216,7 @@ class SliderController extends abstractController
      *
      * @Secure(roles="ROLE_USER")
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>    
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function editAction($id)
     {
@@ -250,7 +250,7 @@ class SliderController extends abstractController
      *
      * @Secure(roles="ROLE_USER")
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>   
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
      */
     public function updateAction($id)
     {
@@ -292,7 +292,7 @@ class SliderController extends abstractController
      *
      * @Secure(roles="ROLE_USER")
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>     
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
      */
     public function deleteAction($id)
     {

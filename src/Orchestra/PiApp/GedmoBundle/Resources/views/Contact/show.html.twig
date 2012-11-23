@@ -95,6 +95,20 @@
 	            <th>Position</th>	
 	            <td>{{ entity.position }}</td>	
 	        </tr>	
+ 			<tr>
+	        	<th>Media</th>
+	        	<td>
+	        		{% if entity.media.image is defined %}
+	        			{% media entity.media.image, 'reference' %}
+	        		{% endif %}
+	        		
+	        		<br />
+	        		
+	        		{% if entity.media1.image is defined %}
+	        			{% media entity.media1.image, 'reference' %}
+	        		{% endif %}
+	        	</td>
+	        </tr>       
 	    </tbody>
 	</table>
 

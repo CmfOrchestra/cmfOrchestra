@@ -51,23 +51,23 @@ piapp_gedmo_partner:
     prefix: /admin/gedmo/partner
     
     
-##PiAppGedmoBundle:Individual
-#piapp_gedmo_individual:
-#    resource: "@PiAppGedmoBundle/Resources/config/routing/individual.xml"
-#    prefix: /admin/gedmo/individual 
-##PiAppGedmoBundle:Corporation
-#piapp_gedmo_corporation:
-#    resource: "@PiAppGedmoBundle/Resources/config/routing/corporation.xml"
-#    prefix: /admin/gedmo/corporation
-##PiAppGedmoBundle:Newsletter
-#piapp_gedmo_newsletter:
-#    resource: "@PiAppGedmoBundle/Resources/config/routing/newsletter.xml"
-#    prefix: /admin/gedmo/newsletter
-##PiAppGedmoBundle:Rss
-#piapp_gedmo_rss:
-#    resource: "@PiAppGedmoBundle/Resources/config/routing/rss.xml"
-#    prefix: /admin/gedmo/rss   
-##PiAppGedmoBundle:Ads
-#piapp_gedmo_ads:
-#    resource: "@PiAppGedmoBundle/Resources/config/routing/ads.xml"
-#    prefix: /admin/gedmo/ads     
+#PiAppGedmoBundle:Individual
+piapp_gedmo_individual:
+    resource: "@PiAppGedmoBundle/Resources/config/routing/individual.xml"
+    prefix: /admin/gedmo/individual 
+#PiAppGedmoBundle:Corporation
+piapp_gedmo_corporation:
+    resource: "@PiAppGedmoBundle/Resources/config/routing/corporation.xml"
+    prefix: /admin/gedmo/corporation
+#PiAppGedmoBundle:Newsletter
+piapp_gedmo_newsletter:
+    resource: "@PiAppGedmoBundle/Resources/config/routing/newsletter.xml"
+    prefix: /admin/gedmo/newsletter
+#PiAppGedmoBundle:Rss
+piapp_gedmo_rss:
+    resource: "@PiAppGedmoBundle/Resources/config/routing/rss.xml"
+    prefix: /admin/gedmo/rss   
+#PiAppGedmoBundle:Ads
+piapp_gedmo_ads:
+    resource: "@PiAppGedmoBundle/Resources/config/routing/ads.xml"
+    prefix: /admin/gedmo/ads     

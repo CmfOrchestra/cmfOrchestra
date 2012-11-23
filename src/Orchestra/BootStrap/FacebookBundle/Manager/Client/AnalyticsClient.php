@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Manager
  * @package    Facebook
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-04-23
  *
  * For the full copyright and license information, please view the LICENSE
@@ -22,7 +22,7 @@ require_once "facebook.php";
  * @category   BootStrap_Manager
  * @package    Facebook 
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class AnalyticsClient extends AbstractClient
 {	
@@ -43,7 +43,7 @@ class AnalyticsClient extends AbstractClient
      * @return array
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * 
      * Exemple d'appel dans un twig : 
      *           

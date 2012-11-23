@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Eventlistener
  * @package    EventListener
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2011-01-25
  *
  * For the full copyright and license information, please view the LICENSE
@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\Request;
  * @category   BootStrap_Eventlistener
  * @package    EventListener
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class MobileListener
 {
@@ -69,7 +69,7 @@ class MobileListener
 	 * 
      * @param FilterControllerEvent $event The event
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
     public function onKernelController(FilterControllerEvent $event)
     {

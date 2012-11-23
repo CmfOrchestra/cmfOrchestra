@@ -4,7 +4,7 @@
  *
  * @category   Admin_Controllers
  * @package    Controller
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-03
  *
  * For the full copyright and license information, please view the LICENSE
@@ -34,7 +34,7 @@ use PiApp\AdminBundle\Form\PageByTransType as PageType;
  * @category   Admin_Controllers
  * @package    Controller
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PageByTransController extends abstractController
 {
@@ -47,7 +47,7 @@ class PageByTransController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function indexAction()
     {
@@ -67,7 +67,7 @@ class PageByTransController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function enabledajaxAction()
     {
@@ -82,7 +82,7 @@ class PageByTransController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function disableajaxAction()
     {
@@ -96,7 +96,7 @@ class PageByTransController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function wizardAction($status)
     {
@@ -132,7 +132,7 @@ class PageByTransController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function showAction($id)
     {
@@ -165,7 +165,7 @@ class PageByTransController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function newAction()
     {
@@ -199,7 +199,7 @@ class PageByTransController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function createAction()
     {
@@ -252,7 +252,7 @@ class PageByTransController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function editAction($id)
     {
@@ -289,7 +289,7 @@ class PageByTransController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function updateAction($id)
     {
@@ -338,7 +338,7 @@ class PageByTransController extends abstractController
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * 
      * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function deleteAction($id)
     {

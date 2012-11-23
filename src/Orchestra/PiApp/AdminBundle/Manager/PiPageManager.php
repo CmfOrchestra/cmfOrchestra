@@ -4,7 +4,7 @@
  *
  * @category   Admin_Managers
  * @package    Manager
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-23
  *
  * For the full copyright and license information, please view the LICENSE
@@ -30,7 +30,7 @@ use PiApp\AdminBundle\Entity\Widget;
  * @category   Admin_Managers
  * @package    Manager
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterface 
 {    
@@ -350,7 +350,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 	 * @return void
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-02-16
 	 */
 	public function setPageById($idPage)
@@ -378,7 +378,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 	 * @return \PiApp\AdminBundle\Entity\Page
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-23
 	 */
 	public function setPageByParams($url, $slug, $isSetPage = false) 
@@ -414,7 +414,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 	 * @return \PiApp\AdminBundle\Entity\Page
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-23
 	 */
 	public function setPageByRoute($route = '', $isSetPage = false)
@@ -447,7 +447,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 	 * @return void
 	 * @access private
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-31
 	 */
 	private function setPage(Page $page)
@@ -473,7 +473,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 	 * @return void
 	 * @access private
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-23
 	 */
 	private function setTranslations(Page $page, $locale = false)
@@ -502,7 +502,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 	 * @return void
 	 * @access private
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-23
 	 */
 	private function setBlocks(Page $page)
@@ -525,7 +525,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 	 * @return void
 	 * @access private
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-31
 	 */
 	private function setWidgets(Page $page)
@@ -552,7 +552,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 	 * @return void
 	 * @access private
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-31
 	 */
 	private function setResponse($page, Response $response)
@@ -566,7 +566,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 	 * @return void
 	 * @access private
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-31
 	 */
 	private function setWidgetManager()
@@ -580,7 +580,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 	 * @return \PiApp\AdminBundle\Manager\PiWidgetManager
 	 * @access private
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-31
 	 */
 	private function getWidgetManager()
@@ -597,7 +597,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 	 * @return void
 	 * @access private
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-02-14
 	 */
 	private function redirectHomePublicPage(){
@@ -615,7 +615,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 	 * @return string
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-02-29
 	 */
 	public function getChildrenHierarchyRub()
@@ -647,7 +647,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 	 * @return string
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-02-29
 	 */
 	public function setTreeWithPages($htmlTree)
@@ -693,7 +693,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 	 * @return string
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-02-29
 	 */
 	public function setHomePage($htmlTree)
@@ -734,7 +734,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 	 * @return string
 	 * @access private
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-02-28
 	 */
 	private function getPagesByRub($idRubrique)
@@ -784,7 +784,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 	 * @return string
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-02-29
 	 */
 	public function setNode($htmlTree)
@@ -836,7 +836,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 	 * @return string
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-05-11
 	 */
 	public function cacheTreeChartPageRefresh()
@@ -868,7 +868,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 	 * @return string
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-04-03
 	 */	
 	public function cacheRefresh()
@@ -1226,7 +1226,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 	 * @return string				Returns the requested url.
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-04-03
 	 */
 	public function getUrlByType($type, $entity = null)
@@ -1369,7 +1369,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 	 * @return array
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-06-21
 	 */
 	public function getUrlByPage(\PiApp\AdminBundle\Entity\Page $page, $type = '')

@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Extension
  * @package    Google
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-04-23
  *
  * For the full copyright and license information, please view the LICENSE
@@ -20,7 +20,7 @@ use BootStrap\GoogleBundle\Helper\AnalyticsHelper;
  * @category   BootStrap_Extension
  * @package    Google
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class AnalyticsExtension extends \Twig_Extension
 {

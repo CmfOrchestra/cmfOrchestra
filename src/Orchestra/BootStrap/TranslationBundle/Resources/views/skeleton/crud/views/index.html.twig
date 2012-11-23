@@ -46,7 +46,7 @@
 	    {%- for field, metadata in fields %}
 	        {%- if loop.first and ('show' in actions) %}
 	
-	            <td><a href="{{ "{{ path('"~ route_name_prefix ~"_show', { 'id': entity.id, 'NoLayout': NoLayout }) }}" }}" title="">{{ '{{ entity.'~ field|replace({'_': ''}) ~' }}' }}</a></td>
+	            <td><a href="{{ "{{ path('"~ route_name_prefix ~"_show', { 'id': entity.id, 'NoLayout': NoLayout, 'category':entity.category }) }}" }}" title="">{{ '{{ entity.'~ field|replace({'_': ''}) ~' }}' }}</a></td>
 	
 	        {%- elseif metadata.type in ['date', 'datetime'] %}
 	
@@ -74,8 +74,8 @@
 	        {%- if loop.last %}
 	
 				<td>
-
-				{%- include "views/others/actions.html.twig" %}
+				
+	        	{%- include "views/others/actions.html.twig" %}
 
 				</td>
 	
@@ -99,7 +99,7 @@
 	<div id="actions-box">
 		<a href="" class="action-slider"><span>{{ "{{ 'pi.grid.action.title'|trans }}" }}</span></a>
 		<div id="actions-box-slider">
-			<a href="{{ "{{ path('"~ route_name_prefix ~"_new') }}" }}" class="action-edit" title="{{ "{{ 'pi.grid.action.create'|trans }}" }}">{{ "{{ 'pi.grid.action.create'|trans }}" }}</a>
+			<a href="{{ "{{ path('"~ route_name_prefix ~"_new', {'NoLayout':NoLayout, 'category':category}) }}" }}" class="action-edit" title="{{ "{{ 'pi.grid.action.create'|trans }}" }}">{{ "{{ 'pi.grid.action.create'|trans }}" }}</a>
 		</div>
 		<div class="clear"></div>
 	</div>

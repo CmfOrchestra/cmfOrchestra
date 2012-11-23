@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_DataFixtures
  * @package    ORM
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2011-12-28
  *
  * For the full copyright and license information, please view the LICENSE
@@ -23,14 +23,14 @@ use BootStrap\UserBundle\Entity\User;
  * @category   BootStrap_DataFixtures
  * @package    ORM
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class UsersFixtures extends AbstractFixture implements OrderedFixtureInterface
 {
 	/**
 	 * Load user fixtures
 	 *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2011-12-28
 	 */	
     public function load(ObjectManager $manager)
@@ -85,7 +85,7 @@ class UsersFixtures extends AbstractFixture implements OrderedFixtureInterface
      * Retrieve the order number of current fixture
      *
      * @return integer
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2011-12-28
      */
     public function getOrder()

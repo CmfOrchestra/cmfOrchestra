@@ -4,7 +4,7 @@
  *
  * @category   Admin_Controllers
  * @package    Controller
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-03
  *
  * For the full copyright and license information, please view the LICENSE
@@ -35,7 +35,7 @@ use PiApp\AdminBundle\Entity\TranslationPage;
  * @category   Admin_Controllers
  * @package    Controller
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class FrontendController extends BaseController
 {
@@ -45,7 +45,7 @@ class FrontendController extends BaseController
 	 * @param string	$file 		file name consists of: web_bundle_piappadmin_css_screen__css for express this path : web/bundle/piappadmin/css/screen.css
 	 * @return string	content of the file
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-12
 	 */
 	public function contentfileAction($file)
@@ -60,7 +60,7 @@ class FrontendController extends BaseController
 	 * @param string $langue
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  	 * @since 2011-12-29
 	 */	
 	public function setLocalAction($langue = '')
@@ -75,7 +75,7 @@ class FrontendController extends BaseController
 	 *
 	 * @return \Symfony\Component\HttpFoundation\Response
      * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-24
 	 */
 	public function pageAction()
@@ -98,7 +98,7 @@ class FrontendController extends BaseController
 	 * @Secure(roles="ROLE_USER")
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-04-02
 	 */
 	public function refreshpageAction()
@@ -129,7 +129,7 @@ class FrontendController extends BaseController
 	 * @Secure(roles="ROLE_USER")
 	 * @return \Symfony\Component\HttpFoundation\Response
      * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-06-02
 	 */
 	public function indexationAction($action)
@@ -167,7 +167,7 @@ class FrontendController extends BaseController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-05-04
      */    
     public function urlmanagementAction()
@@ -230,7 +230,7 @@ class FrontendController extends BaseController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-06-22
      */
     public function importmanagementAction()
@@ -252,7 +252,7 @@ class FrontendController extends BaseController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-01-24
      */    
     public function indexAction()
@@ -278,7 +278,7 @@ class FrontendController extends BaseController
      * @Secure(roles="ROLE_USER")
      * @return json
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-22
      */
     public function chainedAction()
@@ -296,5 +296,45 @@ class FrontendController extends BaseController
     	$response->headers->set('Content-Type', 'application/json');
     	return $response;
     }
+    
+    /**
+     *
+     * @author Riad HELLAL <r.hellal@novediagroup.com>
+     * @return type
+     */
+    public function contactAction()
+    {
+    	$enquiry = new Enquiry();
+    	$form = $this->createForm(new EnquiryType(), $enquiry);
+    
+    	$request = $this->getRequest();
+    	if ($request->getMethod() == 'POST') {
+    		$form->bindRequest($request);
+    
+    		if ($form->isValid()) {
+    			// action sending an email
+    			$message = \Swift_Message::newInstance()
+    			->setSubject('Contact enquiry from orchestra')
+    			->setFrom('enquiries@orchestra.dev')
+    			->setTo('email@email.com')
+    			->setBody($this->renderView('PiAppAdminBundle:Frontend:contactEmail.txt.twig', array('enquiry' => $enquiry)));
+    			
+    			if($this->get('mailer')->send($message))
+    			{
+    				// Redirect - This is important to prevent users re-posting
+    				// the form if they refresh the page
+    				$this->get('session')->setFlash('success', 'Your contact enquiry was successfully sent. Thank you!');
+    			}
+    			else {
+    				$this->get('session')->setFlash('notice', 'Your contact enquiry was NOT sent. Thank you!');
+    			}
+    			return $this->redirect($this->generateUrl('public_contact'));
+    		}
+    	}
+    
+    	return $this->render('PiAppAdminBundle:Frontend:contact.html.twig', array(
+    			'form' => $form->createView()
+    	));    
+    }    
         
 }

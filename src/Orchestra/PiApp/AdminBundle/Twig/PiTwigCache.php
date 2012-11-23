@@ -4,7 +4,7 @@
  *
  * @category   Admin_Twig
  * @package    Cache
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-12
  *
  * For the full copyright and license information, please view the LICENSE
@@ -21,7 +21,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @category   Admin_Twig
  * @package    Cache
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PiTwigCache
 {
@@ -131,7 +131,7 @@ class PiTwigCache
      * @return boolean
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     protected function isUsernamePasswordToken()
     {

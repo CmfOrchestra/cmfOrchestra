@@ -4,7 +4,7 @@
  * 
  * @category   Admin_Repositories
  * @package    Repository
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2011-12-28
  *
  * For the full copyright and license information, please view the LICENSE
@@ -24,7 +24,7 @@ use BootStrap\TranslationBundle\Repository\TranslationRepository;
  * @category   Admin_Repositories
  * @package    Repository
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PageRepository extends TranslationRepository
 {
@@ -41,7 +41,7 @@ class PageRepository extends TranslationRepository
 	 * @access public
 	 * @static
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2011-12-28
 	 */
 	public static function getAvailableContentTypes()
@@ -60,7 +60,7 @@ class PageRepository extends TranslationRepository
 	 * @access public
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2011-12-28
 	 */
 	public static function getAvailableCssJsContentTypes()
@@ -77,7 +77,7 @@ class PageRepository extends TranslationRepository
 	 * @return \PiApp\AdminBundle\Entity\Page
 	 * @access public
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-23
 	 */
 	public function getHomePage()
@@ -97,7 +97,7 @@ class PageRepository extends TranslationRepository
 	 * @return \PiApp\AdminBundle\Entity\Page
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-23
 	 */
 	public function getPageByUrlAndSlug($url, $slug)
@@ -129,7 +129,7 @@ class PageRepository extends TranslationRepository
 	 * @return \PiApp\AdminBundle\Entity\Page
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-23
 	 */
 	public function getAllPageHtml($user_id = null)
@@ -162,7 +162,7 @@ class PageRepository extends TranslationRepository
 	 * @return \PiApp\AdminBundle\Entity\Page
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-23
 	 */
 	public function getAllPageCssJs()
@@ -186,7 +186,7 @@ class PageRepository extends TranslationRepository
 	 * @return \PiApp\AdminBundle\Entity\Page
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-23
 	 */
 	public function getAllPageCss()
@@ -208,7 +208,7 @@ class PageRepository extends TranslationRepository
 	 * @return \PiApp\AdminBundle\Entity\Page
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-23
 	 */
 	public function getAllPageJs()
@@ -230,7 +230,7 @@ class PageRepository extends TranslationRepository
 	 * @return \PiApp\AdminBundle\Entity\Page
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-23
 	 */
 	public function getAllPageByRubriqueId($idRubrique)
@@ -256,7 +256,7 @@ class PageRepository extends TranslationRepository
 	 * @return \PiApp\AdminBundle\Entity\Page
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-23
 	 */
 	public function getAllPageByStatus($lang, $status, $user_id = null)
@@ -295,7 +295,7 @@ class PageRepository extends TranslationRepository
 	 * @return \PiApp\AdminBundle\Entity\Page
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-23
 	 */
 	public function getPageByLocale($id, $locale)

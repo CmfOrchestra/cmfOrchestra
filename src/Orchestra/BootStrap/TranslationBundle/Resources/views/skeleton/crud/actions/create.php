@@ -6,19 +6,20 @@
      * @return \Symfony\Component\HttpFoundation\Response
      *
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>     
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
      */
     public function createAction()
     {
-        $em 	= $this->getDoctrine()->getEntityManager();
-        $locale	= $this->container->get('session')->getLocale();
+        $em 		= $this->getDoctrine()->getEntityManager();
+        $locale		= $this->container->get('session')->getLocale();
         
+        $category   = $this->container->get('request')->query->get('category');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout)	$template = "new.html.twig";  else 	$template = "new.html.twig";        
     
-        $entity  = new {{ entity_class }}();
-        $request = $this->getRequest();
-        $form    = $this->createForm(new {{ entity_class }}Type($em, $this->container), $entity, array('show_legend' => false));
+        $entity 	= new {{ entity_class }}();
+        $request 	= $this->getRequest();
+        $form    	= $this->createForm(new {{ entity_class }}Type($em, $this->container), $entity, array('show_legend' => false));
         $form->bindRequest($request);
 
         if ($form->isValid()) {
@@ -27,7 +28,7 @@
             $em->flush();
 
             {% if 'show' in actions -%}
-                return $this->redirect($this->generateUrl('{{ route_name_prefix }}_show', array('id' => $entity->getId(), 'NoLayout' => $NoLayout)));
+                return $this->redirect($this->generateUrl('{{ route_name_prefix }}_show', array('id' => $entity->getId(), 'NoLayout' => $NoLayout, 'category' => $category)));
             {% else -%}
                 return $this->redirect($this->generateUrl('{{ route_name_prefix }}'));
             {%- endif %}
@@ -36,15 +37,17 @@
 
 {% if 'annotation' == format %}
         return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+            'entity' 	=> $entity,
+            'form'   	=> $form->createView(),
             'NoLayout'  => $NoLayout,
+            'category'	=> $category,
         );
 {% else %}
         return $this->render("{{ bundle }}:{{ entity|replace({'\\': '/'}) }}:$template", array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+            'entity' 	=> $entity,
+            'form'   	=> $form->createView(),
             'NoLayout'  => $NoLayout,
+            'category'	=> $category,
         ));
 {% endif %}
     }

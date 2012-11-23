@@ -4,7 +4,7 @@
  *
  * @category   Gedmo_Entities
  * @package    Entity
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-07-18
  *
  * For the full copyright and license information, please view the LICENSE
@@ -31,7 +31,7 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  * @category   Gedmo_Entities
  * @package    Entity
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class News extends AbstractDefault 
 {
@@ -364,8 +364,7 @@ class News extends AbstractDefault
     public function getSlug()
     {
     	return $this->slug;
-    }   
-
+    }
 
     /**
      * Set meta_keywords
@@ -406,4 +405,5 @@ class News extends AbstractDefault
     {
     	return $this->meta_description;
     }    
+
 }

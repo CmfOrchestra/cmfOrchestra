@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Controllers
  * @package    Controller
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-24
  *
  * For the full copyright and license information, please view the LICENSE
@@ -26,7 +26,7 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
  * @category   BootStrap_Controllers
  * @package    Controller
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class ErrorController extends BaseController
 {

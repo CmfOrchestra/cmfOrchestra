@@ -4,7 +4,7 @@
  *
  * @category   Admin_Repositories
  * @package    Repository
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2011-12-28
  *
  * For the full copyright and license information, please view the LICENSE
@@ -24,7 +24,7 @@ use BootStrap\TranslationBundle\Repository\TranslationRepository;
  * @category   Admin_Repositories
  * @package    Repository
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class CommentRepository extends TranslationRepository
 {
@@ -34,7 +34,7 @@ class CommentRepository extends TranslationRepository
 	 * @return array\PiApp\AdminBundle\Entity\Comment
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-23
 	 */	
 	public function getCommentsByPage($pageTransID, $approved = true)
@@ -59,7 +59,7 @@ class CommentRepository extends TranslationRepository
 	 * @return array\PiApp\AdminBundle\Entity\Comment
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-23
 	 */	
 	public function getLatestComments($limit = 10)

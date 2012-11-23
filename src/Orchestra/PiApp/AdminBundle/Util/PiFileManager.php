@@ -4,7 +4,7 @@
  *
  * @category   Admin_Utils
  * @package    Util
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-18
  *
  * For the full copyright and license information, please view the LICENSE
@@ -27,7 +27,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @category   Admin_Utils
  * @package    Util
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PiFileManager implements PiFileManagerBuilderInterface 
 {    
@@ -54,7 +54,7 @@ class PiFileManager implements PiFileManagerBuilderInterface
 	 * @return string
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function getFileContent($path)
 	{
@@ -71,7 +71,7 @@ class PiFileManager implements PiFileManagerBuilderInterface
 	 * @return string
 	 * @access public
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function getFileExtension($filename)
 	{
@@ -86,7 +86,7 @@ class PiFileManager implements PiFileManagerBuilderInterface
 	 * @return string
 	 * @access public
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function getFileName($path)
 	{
@@ -105,7 +105,7 @@ class PiFileManager implements PiFileManagerBuilderInterface
 	 * @return array	array list of all files.
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	public static function getFilesByType($path, $type = false, $appendPath = false, $includeExtension = true)
 	{
@@ -165,7 +165,7 @@ class PiFileManager implements PiFileManagerBuilderInterface
 	 * @return array	array list of all files.
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	public static function ListFiles($dir, $type = false)
 	{
@@ -218,7 +218,7 @@ class PiFileManager implements PiFileManagerBuilderInterface
      * @access public
      * @throws \InvalidArgumentException If fails parsing the string
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function getContentCodeFile($file_code)
     {    	
@@ -250,7 +250,7 @@ class PiFileManager implements PiFileManagerBuilderInterface
      * @access private
      * @throws \Exception If fails parsing the string
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
     private function decodeFilePath($file_code)
     {
@@ -335,7 +335,7 @@ class PiFileManager implements PiFileManagerBuilderInterface
      * @return boolean
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public static function delete($path)
     {
@@ -359,7 +359,7 @@ class PiFileManager implements PiFileManagerBuilderInterface
      * @return booean	return 0 if the file is save correctly.	
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public static function save($path, $content = '',  $mode = 0777)
     {

@@ -4,7 +4,7 @@
  *
  * @category   PI_CRUD_Controllers
  * @package    Controller
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-07-02
  *
  * For the full copyright and license information, please view the LICENSE
@@ -35,7 +35,7 @@ use PiApp\GedmoBundle\Entity\Translation\ContentTranslation;
  * @category   PI_CRUD_Controllers
  * @package    Controller
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class ContentController extends abstractController
 {
@@ -49,7 +49,7 @@ class ContentController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function enabledajaxAction()
     {
@@ -64,7 +64,7 @@ class ContentController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function disableajaxAction()
     {
@@ -79,7 +79,7 @@ class ContentController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function positionajaxAction()
     {
@@ -92,7 +92,7 @@ class ContentController extends abstractController
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      * @Template()
      * @access	public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function indexAction()
     {
@@ -121,7 +121,7 @@ class ContentController extends abstractController
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      * @Template()
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>    
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function showAction($id)
     {
@@ -153,7 +153,7 @@ class ContentController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @Template()
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>    
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function newAction()
     {
@@ -180,7 +180,7 @@ class ContentController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @Template()
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>     
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
      */
     public function createAction()
     {
@@ -219,7 +219,7 @@ class ContentController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @Template()
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>    
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function editAction($id)
     {
@@ -254,7 +254,7 @@ class ContentController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @Template()
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>   
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
      */
     public function updateAction($id)
     {
@@ -296,7 +296,7 @@ class ContentController extends abstractController
      *
      * @Secure(roles="ROLE_SUPER_ADMIN")
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>     
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
      */
     public function deleteAction($id)
     {
@@ -339,7 +339,7 @@ class ContentController extends abstractController
      * @Cache(maxage="86400")
      *
      * @access	public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com> 
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com> 
      */
     public function _template_showAction($id, $template = '_tmp_show.html.twig', $lang = "")
     {
@@ -367,7 +367,7 @@ class ContentController extends abstractController
      * @Cache(maxage="86400")
      *
      * @access	public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com> 
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com> 
      */
     public function _template_listAction($category = '', $MaxResults = null, $template = '_tmp_list.html.twig', $order = 'DESC', $lang = "")
     {

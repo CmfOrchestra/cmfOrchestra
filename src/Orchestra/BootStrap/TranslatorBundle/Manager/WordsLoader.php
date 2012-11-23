@@ -4,7 +4,8 @@
  *
  * @category   BootStrap_Manager
  * @package    translator
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Riad HELLAL <r.hellal@novediagroup.com>
+ * @author etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-11-14
  *
  * For the full copyright and license information, please view the LICENSE
@@ -14,18 +15,16 @@ namespace BootStrap\TranslatorBundle\Manager;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Translation\Loader\LoaderInterface;
-//use Symfony\Component\Translation\MessageCatalogue;
-use BootStrap\TranslatorBundle\Model\MessageCatalogue;
-//use BootStrap\TranslatorBundle\Manager\Loader\LoaderInterface;
-
+use Symfony\Component\Translation\MessageCatalogue;
 
 /**
  * Words translator management.
  *
  * @category   BootStrap_Manager
  * @package    translator
- *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Riad HELLAL <r.hellal@novediagroup.com>
+ * @author etienne de Longeaux <etienne.delongeaux@gmail.com>
+ * 
  */
 class WordsLoader implements LoaderInterface
 {
@@ -50,149 +49,66 @@ class WordsLoader implements LoaderInterface
 	 * @return \Symfony\Component\Routing\RouteCollection
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Riad HELLAL <r.hellal@novediagroup.com>
+     * @author etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-11-14
 	 */	
-	public function load($resource, $locale, $domain = 'messages')
+	public function load($resource, $userLocale, $domain = 'messages')
 	{
-		$info_locale = explode("_", $locale);
-		$lang	     = $info_locale[0];
-		$targetLocale = $locale;
-		//$catalogue  = new MessageCatalogue($locale);
-		$catalogue = new MessageCatalogue();
-		$catalogue->setLocale($targetLocale);
-		$finder 	= new \Symfony\Component\Finder\Finder();
-
+		// get a new instance of the catalogue
+		$catalogue  = new MessageCatalogue($userLocale);
+		
+		// set the cache file path of all translations words of the locale.
 		$basePath	= $this->container->getParameter("kernel.cache_dir"). '/../translation/';
-		$paths_messages[] 	= realpath($basePath."messages.".$locale.".yml");
-		//print_r($locale);die;
-		$bundles 	= $this->container->get("kernel")->getBundles();		
+		$filepath 	= $basePath."messages.".$userLocale.".yml";
+	    
+	    if(!file_exists($filepath)){
+	      $this->wordsTranslation();
+	    }
+	    $path_message 	= realpath($filepath);    
+
+	    // get all bundles translaions in user locale
+	    $bundles 	= $this->container->get("kernel")->getBundles();
+	    
 		if(is_array($bundles)){
-			foreach($bundles as $key => $bundle){
+			foreach($bundles as $bundle){
 				$dir_path = realpath($bundle->getPath() . '/Resources/translations/');
 				
-				if($dir_path){
-					
+				if($dir_path){					
 					$files = \JMS\TranslationBundle\Util\FileUtils::findTranslationFiles($dir_path);
-
 					foreach ($files as $domain => $locales) {
 						foreach ($locales as $locale => $data) {
-							if ($locale !== $targetLocale) {
+							if ($locale !== $userLocale) {
 								continue;
-							}
-							
+							}							
 							list($format, $file) = $data;
 							
-							//print_r(get_class($this->loadFile($file, $format, $locale, $domain)));
-							//$catalogue->merge($this->loadFile($file, $format, $locale, $domain));exit;
-					//print_r($catalogue);die;
+              				// merge catalogues
+							$loader = $this->loadFile($file, $format, $locale, $domain);
+							$catalogue->addCatalogue($loader);
 						}
 					}
-					//
-					//return $catalogue;
-					
-					
-					
-					
-					
-					
-					
-					/*$files = $finder->files()->name("*messages.{$lang}.yml")->in($dir_path);
-					foreach ($files as $file) {
-						$paths_messages[] = $file->getPathname();
-					}
-					
-// 					$files = $finder->files()->name("*messages.{$locale}.yml")->in($dir_path);	
-// 					foreach ($files as $file) {
-// 						$paths_messages[] = $file->getPathname();
-// 					}
-					
-					$files = $finder->files()->name("*validators.{$lang}.yml")->in($dir_path);
-					foreach ($files as $file) {
-						$paths_validators[] = $file->getPathname();
-					}*/
-						
-// 					$files = $finder->files()->name("*validators.{$locale}.yml")->in($dir_path);
-// 					foreach ($files as $file) {
-// 						$paths_validators[] = $file->getPathname();
-// 					}					
-				
-					//$translationsDir = $this->configFactory->getConfig($config, 'en')->getTranslationsDir();
-					/*$files = \JMS\TranslationBundle\Util\FileUtils::findTranslationFiles($dir_path);
-					if (empty($files)) {
-						throw new RuntimeException('There are no translation files for this config, please run the translation:extract command first.');
-					}
-					
-					$domains = array_keys($files);
-					$domain = reset($domains);
-					if (!isset($files[$domain])) {
-						$domain = reset($domains);
-					}
-					
-					$locales = array_keys($files[$domain]);
-					print_r($locale);
-					if (!$locale || !isset($files[$domain][$locale])) {
-						$locale = reset($locales);
-					}
-					print_r($locale);
-					
-					if($files[$domain][$locale][0] == "yml"){
-						$messages = \Symfony\Component\Yaml\Yaml::parse($files[$domain][$locale][1]->getPathName());
-			
-					die();
-					}*/
-				//print_r($catalogue);
-				
-				
-				
 				}	
-			}			
+			}		
 		}		
-		
-		/*$paths_messages = array_unique($paths_messages);		
-		if(is_array($paths_messages)){
-			foreach($paths_messages as $key => $path){
-				$yaml = \Symfony\Component\Yaml\Yaml::parse($path);
-	
-				if(is_array($yaml)){
-					foreach($yaml as $keywords => $words){
-						$catalogue->set($keywords, $words, "messages");
-					}
-				}
-			}
-		}
-		
-		$paths_validators = array_unique($paths_validators);
-		if(is_array($paths_validators)){
-			foreach($paths_validators as $key => $path){
-				$yaml = \Symfony\Component\Yaml\Yaml::parse($path);
-		
-				if(is_array($yaml)){
-					foreach($yaml as $keywords => $words){
-						$catalogue->set($keywords, $words, "validators");
-					}
-				}
-			}
-		}		*/
-
-// 		print_r($paths_messages);
-// 		print_r($paths_validators);
-// 		exit;
-		
-// 		print_r($catalogue->getDomains());exit;
+    
+	    // add words translations here
+	    $loader = $this->loadFile($path_message, 'yml', $userLocale, 'messages');
+	    $catalogue->addCatalogue($loader);
 		
 		return $catalogue;
 	}
 	
 	/**
-	 * @param $format
-	 * @return mixed
+   	 * @param $format
 	 * @throws \InvalidArgumentException
 	 * @return \BootStrap\TranslatorBundle\Manager\Loader\LoaderInterface
+	 * @access private
+	 * 
+	 * @author Riad HELLAL <r.hellal@novediagroup.com>
 	 */
-	protected function getLoader($format)
+	private function getLoader($format)
 	{
-		$loader;
 		if ($format == 'yml') {
 			$loader = $this->container->get('translation.loader.yml');
 		}
@@ -202,13 +118,15 @@ class WordsLoader implements LoaderInterface
 		elseif ($format == 'xliff'){
 			$loader = $this->container->get('translation.loader.xliff');
 		}
+		elseif ($format == 'csv'){
+			$loader = $this->container->get('translation.loader.csv');
+		}    
 		else{
 				throw new InvalidArgumentException(sprintf('The format "%s" does not exist.', $format));
 		}
 		
 		return $loader;
-	}
-	
+	}	
 
 	/**
 	 * @param $file
@@ -216,10 +134,43 @@ class WordsLoader implements LoaderInterface
 	 * @param $locale
 	 * @param string $domain
 	 * @return mixed
+	 * @access private
+	 * 
+	 * @author Riad HELLAL <r.hellal@novediagroup.com>
 	 */
-	public function loadFile($file, $format, $locale, $domain = 'messages')
+	private function loadFile($file, $format, $locale, $domain = 'messages')
 	{
-		return $this->getLoader($format)->load($file, $locale, $domain);
-	}
-	
+		$loader = $this->getLoader($format);
+    	return $loader->load($file, $locale, $domain);
+	}  
+  
+    /**
+     * Sets the specific sortOrders.
+     *
+     * @return void
+     * @access private
+     *
+     * @author Riad HELLAL <r.hellal@novediagroup.com>
+     */
+    private function wordsTranslation()
+    {
+    	$entityManager 	= $this->container->get('doctrine')->getEntityManager();
+    	$locale	= $this->container->get('session')->getLocale();
+
+    	$basePath 		= $this->container->getParameter("kernel.cache_dir"). '/../translation/';
+    	$dir 			= \PiApp\AdminBundle\Util\PiFileManager::mkdirr($basePath);
+
+    	$languages 		= $entityManager->getRepository("PiAppAdminBundle:Langue")->findAllByEntity($locale, 'object', false);
+    	 
+    	$array = array();
+    	foreach($languages as $language){
+    		$filename 	= $basePath."messages.".$language->getId().".yml";
+    		$Words 		= $entityManager->getRepository("BootStrapTranslatorBundle:Word")->findAllByEntity($language->getId(), 'object', false);
+    		foreach ($Words as $word){
+    			$array["{$word->getKeyword()}"] = $word->translate($language->getId())->getLabel()? $word->translate($language->getId())->getLabel():' ';
+    		}
+    		$yaml = \Symfony\Component\Yaml\Yaml::dump($array, 2);
+    		file_put_contents($filename, $yaml);
+    	}
+    }  
 }

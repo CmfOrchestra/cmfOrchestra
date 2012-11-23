@@ -9,7 +9,7 @@ use BootStrap\CacheBundle\Builder\CacheClientInterface;
  * 
  * @package 
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 interface CacheInterface
 {

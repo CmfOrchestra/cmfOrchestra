@@ -4,7 +4,7 @@
  *
  * @category   Admin_Managers
  * @package    Manager
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-06-26
  *
  * For the full copyright and license information, please view the LICENSE
@@ -25,7 +25,7 @@ use PiApp\AdminBundle\Exception\FormbuilderException;
 * @category   Admin_Managers
 * @package    Manager
 *
-* @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+* @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 */
 class PiFormBuilderManager extends AbstractType implements PiFormBuilderManagerInterface
 {
@@ -578,7 +578,7 @@ class PiFormBuilderManager extends AbstractType implements PiFormBuilderManagerI
 	 * @access	private
 	 * @return	Zend_Form 	Objet du formulaire une foix le template parsé et le formulaire initialisé.
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-06-26
 	 */
 	private function setFormByControls()
@@ -693,7 +693,7 @@ class PiFormBuilderManager extends AbstractType implements PiFormBuilderManagerI
 	 * @access private
 	 * @return Void
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-09-11
 	 */
 	private function setControlAction()
@@ -717,7 +717,7 @@ class PiFormBuilderManager extends AbstractType implements PiFormBuilderManagerI
 	 * @access	private
 	 * @return	boolean
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-09-11
 	 */
 	private function isSubmitted()
@@ -761,7 +761,7 @@ class PiFormBuilderManager extends AbstractType implements PiFormBuilderManagerI
 	 * @access private
 	 * @return void
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-06-26
 	 */
 	private function actionSubmit()
@@ -782,7 +782,7 @@ class PiFormBuilderManager extends AbstractType implements PiFormBuilderManagerI
 	 * @access private
 	 * @return void
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-06-26
 	 */
 	private function getPerformName()
@@ -802,7 +802,7 @@ class PiFormBuilderManager extends AbstractType implements PiFormBuilderManagerI
 	 * @access private
 	 * @return void
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-09-11
 	 */
 	private function dispatchAction()
@@ -855,7 +855,7 @@ class PiFormBuilderManager extends AbstractType implements PiFormBuilderManagerI
 	 * @return void
 	 * @access private
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-09-11
 	 */
 	private function setFlash($message, $type = "")
@@ -873,7 +873,7 @@ class PiFormBuilderManager extends AbstractType implements PiFormBuilderManagerI
 	 * @access private
 	 * @return boolean
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-09-11
 	 */
 	private function is_Index_exist()
@@ -890,7 +890,7 @@ class PiFormBuilderManager extends AbstractType implements PiFormBuilderManagerI
 	 * @access private
 	 * @return void
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-06-26
 	 */		
 	private function populateForm(){}	
@@ -904,7 +904,7 @@ class PiFormBuilderManager extends AbstractType implements PiFormBuilderManagerI
 	 * @access private
 	 * @return boolean		if the insertion is correct.
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-09-11
 	 */
 	private function insertWidget($plugin, $action, $message = "pi.session.flash.right.create")
@@ -939,7 +939,7 @@ class PiFormBuilderManager extends AbstractType implements PiFormBuilderManagerI
 	 * @access private
 	 * @return boolean		if the updated is correct.
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-09-11
 	 */
 	private function updateWidget($plugin, $action, $message = "pi.session.flash.right.update")

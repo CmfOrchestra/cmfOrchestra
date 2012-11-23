@@ -4,7 +4,7 @@
  *
  * @category   PI_CRUD_Controllers
  * @package    Controller
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since XXXX-XX-XX
  *
  * For the full copyright and license information, please view the LICENSE
@@ -35,7 +35,7 @@ use PiApp\GedmoBundle\Entity\Translation\ContactTranslation;
  * @category   PI_CRUD_Controllers
  * @package    Controller
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class ContactController extends abstractController
 {
@@ -49,7 +49,7 @@ class ContactController extends abstractController
 	 * @return \Symfony\Component\HttpFoundation\Response
      *     
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function enabledajaxAction()
     {
@@ -64,7 +64,7 @@ class ContactController extends abstractController
 	 * @return \Symfony\Component\HttpFoundation\Response
      *     
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function disableajaxAction()
     {
@@ -79,7 +79,7 @@ class ContactController extends abstractController
 	 * @return \Symfony\Component\HttpFoundation\Response
      *     
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function positionajaxAction()
     {
@@ -94,12 +94,13 @@ class ContactController extends abstractController
 	 * @return \Symfony\Component\HttpFoundation\Response
      *     
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function deleteajaxAction()
     {
     	return parent::deletajaxAction();
-    }   
+    } 
+      
     /**
      * Lists all Contact entities.
      *
@@ -107,7 +108,7 @@ class ContactController extends abstractController
 	 * @return \Symfony\Component\HttpFoundation\Response
      *
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>   
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
      */
     public function indexAction()
     {
@@ -131,7 +132,7 @@ class ContactController extends abstractController
 	 * @return \Symfony\Component\HttpFoundation\Response
      *
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>    
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function showAction($id)
     {
@@ -163,7 +164,7 @@ class ContactController extends abstractController
 	 * @return \Symfony\Component\HttpFoundation\Response
      *
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>    
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function newAction()
     {
@@ -188,7 +189,7 @@ class ContactController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      *
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>     
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
      */
     public function createAction()
     {
@@ -226,7 +227,7 @@ class ContactController extends abstractController
 	 * @return \Symfony\Component\HttpFoundation\Response
      *
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>    
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function editAction($id)
     {
@@ -260,7 +261,7 @@ class ContactController extends abstractController
 	 * @return \Symfony\Component\HttpFoundation\Response
      *
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>   
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
      */
     public function updateAction($id)
     {
@@ -302,7 +303,7 @@ class ContactController extends abstractController
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *     
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>     
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
      */
     public function deleteAction($id)
     {
@@ -345,7 +346,7 @@ class ContactController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @access	public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com> 
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com> 
      */
     public function _template_showAction($id, $template = '_tmp_show.html.twig', $lang = "")
     {
@@ -376,7 +377,7 @@ class ContactController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @access	public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com> 
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com> 
      */
     public function _template_listAction($category = '', $MaxResults = null, $template = '_tmp_list.html.twig', $order = 'DESC', $lang = "")
     {

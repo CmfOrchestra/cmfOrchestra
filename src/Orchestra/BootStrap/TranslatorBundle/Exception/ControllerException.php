@@ -4,7 +4,7 @@
  *
  * @category   Translator_Exception
  * @package    Exception
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2011-11-14
  *
  * For the full copyright and license information, please view the LICENSE
@@ -18,7 +18,7 @@ namespace BootStrap\TranslatorBundle\Exception;
  * @category   Translator_Exception
  * @package    Exception
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class ControllerException extends \Exception
 {

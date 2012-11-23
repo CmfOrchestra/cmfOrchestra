@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Manager
  * @package    Database
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-02-03
  *
  * For the full copyright and license information, please view the LICENSE
@@ -24,7 +24,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @category   BootStrap_Manager
  * @package    Database
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class RestoreManager extends AbstractManager
 {
@@ -45,7 +45,7 @@ class RestoreManager extends AbstractManager
      * @return \Symfony\Component\Console\Output\OutputInterface
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */
     public function run(OutputInterface $output, Array $options = null)

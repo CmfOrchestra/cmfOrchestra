@@ -4,7 +4,7 @@
  *
  * @category   Admin_Twig
  * @package    Loader
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-03
  *
  * For the full copyright and license information, please view the LICENSE
@@ -27,7 +27,7 @@ use PiApp\AdminBundle\Builder\PiSearchLuceneManagerBuilderInterface;
  * @category   Admin_Twig
  * @package    Loader
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PiTwigLoader implements \Twig_LoaderInterface
 {

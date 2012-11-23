@@ -4,7 +4,7 @@
  *
  * @category   Admin_Controllers
  * @package    Controller
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-03
  *
  * For the full copyright and license information, please view the LICENSE
@@ -34,7 +34,7 @@ use PiApp\AdminBundle\Form\PageByBlockType as PageType;
  * @category   Admin_Controllers
  * @package    Controller
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PageByBlockController extends abstractController
 {
@@ -47,7 +47,7 @@ class PageByBlockController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function indexAction()
     {
@@ -68,7 +68,7 @@ class PageByBlockController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function enabledajaxAction()
     {
@@ -83,7 +83,7 @@ class PageByBlockController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function disableajaxAction()
     {
@@ -97,7 +97,7 @@ class PageByBlockController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function showAction($id)
     {
@@ -125,7 +125,7 @@ class PageByBlockController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function newAction()
     {
@@ -151,7 +151,7 @@ class PageByBlockController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function createAction()
     {
@@ -197,7 +197,7 @@ class PageByBlockController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function editAction($id)
     {
@@ -226,7 +226,7 @@ class PageByBlockController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function updateAction($id)
     {
@@ -270,7 +270,7 @@ class PageByBlockController extends abstractController
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * 
      * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function deleteAction($id)
     {

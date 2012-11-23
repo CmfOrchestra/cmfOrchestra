@@ -4,7 +4,7 @@
  * 
  * @category   BootStrap_Entities
  * @package    Entity
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2011-11-28
  *
  * For the full copyright and license information, please view the LICENSE
@@ -25,7 +25,7 @@ use BootStrap\UserBundle\Repository\PermissionRepository;
  * @category   BootStrap_Entities
  * @package    Entity
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class User extends BaseUser
 {
@@ -37,6 +37,20 @@ class User extends BaseUser
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
 	protected $id;
+	
+	/**
+	 * @var array of \Doctrine\Common\Collections\ArrayCollection newsletters
+	 *
+	 * @ORM\ManyToMany(targetEntity="PiApp\GedmoBundle\Entity\Newsletter", mappedBy="users")
+	 */
+	protected $newsletters;
+	
+	/**
+	 * @var array of \Doctrine\Common\Collections\ArrayCollection $rssneeds
+	 *
+	 * @ORM\ManyToMany(targetEntity="PiApp\GedmoBundle\Entity\Rss", mappedBy="users")
+	 */
+	protected $rssneeds;	
 
  	/**
      * @ORM\ManyToMany(targetEntity="BootStrap\UserBundle\Entity\Group")
@@ -65,7 +79,10 @@ class User extends BaseUser
     public function __construct()
     {
     	parent::__construct();
-    	// your own logic
+    	
+    	$this->groups		= new \Doctrine\Common\Collections\ArrayCollection();
+    	$this->newsletters	= new \Doctrine\Common\Collections\ArrayCollection();
+    	$this->rssneeds		= new \Doctrine\Common\Collections\ArrayCollection();
     }    
     
     /**
@@ -102,7 +119,7 @@ class User extends BaseUser
     /**
      * Get groups
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\ArrayCollection
      */
     public function getGroupsUser()
     {
@@ -171,5 +188,25 @@ class User extends BaseUser
     {
         return $this->langCode;
     }
+    
+    /**
+     * Get events
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getNewsletters()
+    {
+    	return $this->newsletters;
+    }
+    
+    /**
+     * Get events
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getRssneeds()
+    {
+    	return $this->rssneeds;
+    }    
 
 }

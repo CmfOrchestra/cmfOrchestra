@@ -86,6 +86,7 @@ Register all bundle in your `app/AppKernel.php` file:
         	new BootStrap\AdminBundle\BootStrapAdminBundle(),
         	new BootStrap\UserBundle\BootStrapUserBundle(),
         	new BootStrap\TranslationBundle\BootStrapTranslationBundle(),
+        	new BootStrap\TranslatorBundle\BootStrapTranslatorBundle(),
         	new BootStrap\MediaBundle\BootStrapMediaBundle(),
         	new BootStrap\GoogleBundle\BootStrapGoogleBundle(),
         	new BootStrap\FacebookBundle\BootStrapFacebookBundle(),

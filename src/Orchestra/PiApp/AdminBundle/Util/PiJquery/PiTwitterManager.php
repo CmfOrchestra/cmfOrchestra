@@ -23,7 +23,7 @@ use PiApp\AdminBundle\Exception\ExtensionException;
  * @category   Admin_Util
  * @package    Extension_jquery 
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PiTwitterManager extends PiJqueryExtension
 {

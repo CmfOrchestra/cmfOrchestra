@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Eventlistener
  * @package    EventListener
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2011-02-08
  *
  * For the full copyright and license information, please view the LICENSE
@@ -26,7 +26,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @category   BootStrap_Eventlistener
  * @package    EventListener
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class EntitiesContainer
 {	
@@ -102,7 +102,7 @@ class EntitiesContainer
      * @return void
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function addPersistEntities($entity)
     {
@@ -115,7 +115,7 @@ class EntitiesContainer
      * @return array	user roles
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function getPersistEntities()
     {
@@ -130,7 +130,7 @@ class EntitiesContainer
      * @return boolean true if the entity has been deleted in the queued Entity 
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function unsetPersistEntities($entity)
     {
@@ -149,7 +149,7 @@ class EntitiesContainer
      * @return void
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function persistEntities($eventArgs)
     {
@@ -173,7 +173,7 @@ class EntitiesContainer
      * @return \Doctrine\DBAL\Connection
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function getConnection($eventArgs)
     {
@@ -189,7 +189,7 @@ class EntitiesContainer
      * @return integer The number of affected rows.
      * @access private
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     private function executeInsert($entity)
     {
@@ -215,7 +215,7 @@ class EntitiesContainer
      * @return integer The number of affected rows.
      * @access private
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function executeUpdate($eventArgs, $entity, $Identifier)
     {
@@ -252,7 +252,7 @@ class EntitiesContainer
      * return The reference to the data array.
      * @access private
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     private function _prepareData($entity, $isInsert = false)
     {
@@ -320,7 +320,7 @@ class EntitiesContainer
      * @return string the name of the table entity that we have to insert.
      * @access private
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function getOwningTable($eventArgs = null, $entity = null)
     {

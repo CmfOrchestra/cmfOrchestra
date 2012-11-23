@@ -4,7 +4,7 @@
  *
  * @category   Admin_Twig
  * @package    Extension
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-03
  *
  * For the full copyright and license information, please view the LICENSE
@@ -20,7 +20,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @category   Admin_Twig
  * @package    Extension
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PiServiceExtension extends \Twig_Extension
 {
@@ -45,7 +45,7 @@ class PiServiceExtension extends \Twig_Extension
      * @return string The extension name
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function getName()
     {
@@ -62,7 +62,7 @@ class PiServiceExtension extends \Twig_Extension
      * @return array An array of functions
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function getFunctions()
     {
@@ -80,7 +80,7 @@ class PiServiceExtension extends \Twig_Extension
      * @return string
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function getServiceFunction($service)
     {
@@ -98,7 +98,7 @@ class PiServiceExtension extends \Twig_Extension
      * @return string
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function getParameterFunction($name)
     {

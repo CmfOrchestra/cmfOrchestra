@@ -4,7 +4,7 @@
  * 
  * @category   Admin_Utils
  * @package    Util
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-19
  *
  * For the full copyright and license information, please view the LICENSE
@@ -25,7 +25,7 @@ use PiApp\AdminBundle\Builder\PiStringManagerBuilderInterface;
  * @category   Admin_Utils
  * @package    Util
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PiStringManager implements PiStringManagerBuilderInterface
 {
@@ -38,7 +38,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	 * @access public
 	 * @static
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function random($length = 8)
 	{
@@ -80,7 +80,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	 * @access public
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function trimUltime($chaine)
 	{
@@ -101,7 +101,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	 * @access public
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function filtreString($string)
 	{
@@ -126,7 +126,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	 * @access public
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function LimiteCaractere($letexte, $mincara, $nbr_cara)
 	{
@@ -236,7 +236,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	 * @access public
 	 * @static
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function closetags($string)
 	{
@@ -281,7 +281,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	 * @access public
 	 * @static
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function addHyphens($string)
 	{
@@ -296,7 +296,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	 * @access public
 	 * @static
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function stripHyphens($string)
 	{
@@ -311,7 +311,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	 * @access public
 	 * @static
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function addUnderscores($string, $relative = false)
 	{
@@ -329,7 +329,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	 * @access public
 	 * @static
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function stripUnderscores($string, $relative = false)
 	{
@@ -350,7 +350,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	 * @return string
 	 * @static
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function stripLeading($replace, $string)
 	{
@@ -431,7 +431,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	 * @return string
 	 * @static
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function cleanFilename($fileName)
 	{
@@ -453,7 +453,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	 * @return string
 	 * @static
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function cleanString($string)
 	{
@@ -474,7 +474,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	 * @return string
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function cleanContent($string)
 	{
@@ -506,7 +506,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	 * @return string
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function cleanWhitespace($string)
 	{
@@ -522,7 +522,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	 * @return string
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function remove_doublewhitespace($string = null)
 	{
@@ -537,7 +537,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	 * @return string
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function remove_whitespace($string = null)
 	{
@@ -552,7 +552,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	 * @return string
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function remove_whitespace_feed( $string = null)
 	{
@@ -567,7 +567,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	 * @return string
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function remove_comment_in_css_file($string = null)
 	{
@@ -582,7 +582,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	 * @return string
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function json_encodeDecToUTF8($array)
 	{
@@ -609,7 +609,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	 * @return string
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	public static function minusculesSansAccents($text)
 	{
@@ -644,7 +644,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	 * @return string
 	 * @static
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function uniqueWord($string)
 	{
@@ -672,7 +672,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	 * @return string
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function filtreConvertUTF8ToDec($string)
 	{
@@ -826,7 +826,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	 * @return	string
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function taille_content($text)
 	{
@@ -845,7 +845,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	 * @return string
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	public static function stopWord($text, $locale)
 	{
@@ -997,7 +997,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	 * @return array
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function allLocales($locale)
 	{
@@ -1017,7 +1017,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	 * @return array
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	public static function allCountries($locale, $strtolowerKeys = true)
 	{
@@ -1142,7 +1142,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	 * @return string
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public static function pluralize($string, $number = null)
 	{
@@ -1193,7 +1193,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	 * @return string
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>     
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
 	 */
 	public static function depluralize($string, $number = null) 
 	{
@@ -1243,7 +1243,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	 * @return string
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>     
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
 	 */
 	public static function sanitize($string, $force_lowercase = true, $anal = false, $trunc = 100)
 	{

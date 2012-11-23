@@ -4,7 +4,7 @@
  *
  * @category   Gedmo_Entities
  * @package    Entity
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-03-08
  *
  * For the full copyright and license information, please view the LICENSE
@@ -32,7 +32,7 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  * @category   Gedmo_Entities
  * @package    Entity
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class Menu extends AbstractDefault 
 {
@@ -169,7 +169,7 @@ class Menu extends AbstractDefault
     /**
      * Set page
      *
-     * @param \PiApp\AdminBundle\Entity\Page
+     * @param \PiApp\AdminBundle\Entity\Page	$page
      */
     public function setPage($page)
     {
@@ -345,7 +345,7 @@ class Menu extends AbstractDefault
     /**
      * Get childrens
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\ArrayCollection
      */
     public function getChildrens()
     {
@@ -355,7 +355,7 @@ class Menu extends AbstractDefault
     /**
      * Set parent
      *
-     * @param \PiApp\GedmoBundle\Entity\Menu
+     * @param \PiApp\GedmoBundle\Entity\Menu	$parent
      */
     public function setParent(\PiApp\GedmoBundle\Entity\Menu $parent)
     {
@@ -503,7 +503,6 @@ class Menu extends AbstractDefault
     public function getRgt()
     {
     	return $this->rgt;
-    }
-   
+    }  
     
 }

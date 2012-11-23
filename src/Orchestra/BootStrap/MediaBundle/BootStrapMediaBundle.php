@@ -2,7 +2,7 @@
 /**
  * This file is part of the <name> project.
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -19,7 +19,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  * References :
  *   bundles : http://symfony.com/doc/current/book/bundles.html
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class BootStrapMediaBundle extends Bundle
 {

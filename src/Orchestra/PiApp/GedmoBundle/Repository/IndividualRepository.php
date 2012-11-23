@@ -4,7 +4,7 @@
  *
  * @category   Gedmo_Repositories
  * @package    Repository
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-07-31
  *
  * For the full copyright and license information, please view the LICENSE
@@ -24,7 +24,7 @@ use BootStrap\TranslationBundle\Repository\TranslationRepository;
  * @category   Gedmo_Repositories
  * @package    Repository
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class IndividualRepository extends TranslationRepository
 {

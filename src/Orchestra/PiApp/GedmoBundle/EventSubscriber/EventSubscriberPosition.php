@@ -4,7 +4,7 @@
  *
  * @category   Gedmo_EventSubscriber
  * @package    EventSubscriber
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-10-08
  *
  * For the full copyright and license information, please view the LICENSE
@@ -26,14 +26,14 @@ use BootStrap\UserBundle\EventListener\abstractListener;
  * @category   Gedmo_EventSubscriber
  * @package    EventSubscriber
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class EventSubscriberPosition  extends abstractListener implements EventSubscriber
 {
     /**
      * @return array
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function getSubscribedEvents()
     {
@@ -51,7 +51,7 @@ class EventSubscriberPosition  extends abstractListener implements EventSubscrib
      * @param \Doctrine\Common\EventArgs $args
      * @return void
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     protected function recomputeSingleEntityChangeSet(EventArgs $args)
     {
@@ -67,7 +67,7 @@ class EventSubscriberPosition  extends abstractListener implements EventSubscrib
      * @param \Doctrine\Common\EventArgs $args
      * @return void
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function postUpdate(EventArgs $eventArgs)
     {
@@ -77,7 +77,7 @@ class EventSubscriberPosition  extends abstractListener implements EventSubscrib
      * @param \Doctrine\Common\EventArgs $args
      * @return void
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function postRemove(EventArgs $eventArgs)
     {
@@ -87,7 +87,7 @@ class EventSubscriberPosition  extends abstractListener implements EventSubscrib
      * @param \Doctrine\Common\EventArgs $args
      * @return void
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function postPersist(EventArgs $eventArgs)
     {
@@ -97,7 +97,7 @@ class EventSubscriberPosition  extends abstractListener implements EventSubscrib
      * @param \Doctrine\Common\EventArgs $args
      * @return void
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function preUpdate(PreUpdateEventArgs $eventArgs)
     {
@@ -185,7 +185,7 @@ class EventSubscriberPosition  extends abstractListener implements EventSubscrib
      * @param \Doctrine\Common\EventArgs $args
      * @return void
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function preRemove(EventArgs $eventArgs)
     {
@@ -211,7 +211,7 @@ class EventSubscriberPosition  extends abstractListener implements EventSubscrib
      * @param \Doctrine\Common\EventArgs $args
      * @return void
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function prePersist(EventArgs $eventArgs)
     {
@@ -268,7 +268,7 @@ class EventSubscriberPosition  extends abstractListener implements EventSubscrib
      * @access private
      * @return array
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
     private function getSortableOrders($eventArgs)
     {
@@ -306,6 +306,37 @@ class EventSubscriberPosition  extends abstractListener implements EventSubscrib
     			$results['sort_position_by_where']	= " WHERE (mytable.category  = '{$category->getId()}')";
     		}
     	}
+    	
+    	
+    	if(($entity instanceof \PiApp\GedmoBundle\Entity\Pressrelease) && method_exists($entity, 'getCategory')){
+    		$category	= $entity->getCategory();
+    		if(!empty($category)){
+    			$results['sort_position_by_and'] 	= " AND (mytable.category  = '{$category}')";
+    			$results['sort_position_by_where']	= " WHERE (mytable.category  = '{$category}')";
+    		}
+    	}    	
+    	if(($entity instanceof \PiApp\GedmoBundle\Entity\Partner) && method_exists($entity, 'getCategory')){
+    		$category	= $entity->getCategory();
+    		if(!empty($category)){
+    			$results['sort_position_by_and'] 	= " AND (mytable.category  = '{$category}')";
+    			$results['sort_position_by_where']	= " WHERE (mytable.category  = '{$category}')";
+    		}
+    	}   
+    	if(($entity instanceof \PiApp\GedmoBundle\Entity\Newsletter) && method_exists($entity, 'getCategory')){
+    		$category	= $entity->getCategory();
+    		if(!empty($category)){
+    			$results['sort_position_by_and'] 	= " AND (mytable.category  = '{$category}')";
+    			$results['sort_position_by_where']	= " WHERE (mytable.category  = '{$category}')";
+    		}
+    	}    	
+    	if(($entity instanceof \PiApp\GedmoBundle\Entity\Contact) && method_exists($entity, 'getCategory')){
+    		$category	= $entity->getCategory();
+    		if($category instanceof \PiApp\GedmoBundle\Entity\Category){
+    			$results['sort_position_by_and'] 	= " AND (mytable.category  = '{$category->getId()}')";
+    			$results['sort_position_by_where']	= " WHERE (mytable.category  = '{$category->getId()}')";
+    		}
+    	}  	 	
+    	
     	
     	return $results;
     }

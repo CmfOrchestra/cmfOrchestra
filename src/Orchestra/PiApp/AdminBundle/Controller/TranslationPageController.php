@@ -4,7 +4,7 @@
  *
  * @category   Admin_Controllers
  * @package    Controller
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-03
  *
  * For the full copyright and license information, please view the LICENSE
@@ -33,7 +33,7 @@ use PiApp\AdminBundle\Form\TranslationPageType;
  * @category   Admin_Controllers
  * @package    Controller
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class TranslationPageController extends abstractController
 {
@@ -46,7 +46,7 @@ class TranslationPageController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function indexAction($page)
     {
@@ -70,7 +70,7 @@ class TranslationPageController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function enabledajaxAction()
     {
@@ -85,7 +85,7 @@ class TranslationPageController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function disableajaxAction()
     {
@@ -99,7 +99,7 @@ class TranslationPageController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function showAction($id)
     {
@@ -127,7 +127,7 @@ class TranslationPageController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function newAction()
     {
@@ -147,7 +147,7 @@ class TranslationPageController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function createAction()
     {
@@ -178,7 +178,7 @@ class TranslationPageController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function editAction($id)
     {
@@ -207,7 +207,7 @@ class TranslationPageController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function updateAction($id)
     {
@@ -247,7 +247,7 @@ class TranslationPageController extends abstractController
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * 
      * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function deleteAction($id)
     {

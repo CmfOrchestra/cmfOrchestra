@@ -4,7 +4,7 @@
  *
  * @category   Gedmo_Entities
  * @package    Entity
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-07-31
  *
  * For the full copyright and license information, please view the LICENSE
@@ -31,7 +31,7 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  * @category   Gedmo_Entities
  * @package    Entity
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class Individual extends AbstractDefault 
 {
@@ -96,7 +96,63 @@ class Individual extends AbstractDefault
      * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Media" , cascade={"all"}, inversedBy="individual");
      * @ORM\JoinColumn(name="media_id", referencedColumnName="id", nullable=true)
      */
-    protected $media;    
+    protected $media;
+
+    /**
+     * @var string $Inscrname
+     *
+     * @ORM\Column(name="inscr_name", type="text", nullable = true)
+     */
+    protected $InscrName;
+    
+    /**
+     * @var string $InscrNickname
+     *
+     * @ORM\Column(name="inscr_nickname", type="text", nullable = true)
+     */
+    protected $InscrNickname;
+    
+    /**
+     * @var string $InscrPhone
+     *
+     * @ORM\Column(name="inscr_phone", type="text", nullable = true)
+     */
+    protected $InscrPhone;
+    
+    /**
+     * @var string $InscrJob
+     *
+     * @ORM\Column(name="inscr_entr_job", type="text", nullable = true)
+     */
+    protected $InscrJob;
+    
+    /**
+     * @var string $EntrCompany
+     *
+     * @ORM\Column(name="entr_company", type="text", nullable = true)
+     */
+    protected $EntrCompany;
+    
+    /**
+     * @var string $EntrActivity
+     *
+     * @ORM\Column(name="entr_activity", type="text", nullable = true)
+     */
+    protected $EntrActivity;
+    
+    /**
+     * @var string $EntrBusiness
+     *
+     * @ORM\Column(name="entr_business", type="text", nullable = true)
+     */
+    protected $EntrBusiness;
+    
+    /**
+     * @var string $EntrStaff
+     *
+     * @ORM\Column(name="entr_staff", type="text", nullable = true)
+     */
+    protected $EntrStaff;    
     
     /**
      * Constructor
@@ -219,4 +275,164 @@ class Individual extends AbstractDefault
     	return $this->media;
     }    
     
+    /**
+     * Set InscrName
+     *
+     * @param text $inscrName
+     */
+    public function setInscrName($inscrName)
+    {
+        $this->InscrName = $inscrName;
+    }
+
+    /**
+     * Get InscrName
+     *
+     * @return text 
+     */
+    public function getInscrName()
+    {
+        return $this->InscrName;
+    }
+
+    /**
+     * Set InscrNickname
+     *
+     * @param text $inscrNickname
+     */
+    public function setInscrNickname($inscrNickname)
+    {
+        $this->InscrNickname = $inscrNickname;
+    }
+
+    /**
+     * Get InscrNickname
+     *
+     * @return text 
+     */
+    public function getInscrNickname()
+    {
+        return $this->InscrNickname;
+    }
+
+    /**
+     * Set InscrPhone
+     *
+     * @param text $inscrPhone
+     */
+    public function setInscrPhone($inscrPhone)
+    {
+        $this->InscrPhone = $inscrPhone;
+    }
+
+    /**
+     * Get InscrPhone
+     *
+     * @return text 
+     */
+    public function getInscrPhone()
+    {
+        return $this->InscrPhone;
+    }
+
+    /**
+     * Set InscrJob
+     *
+     * @param text $inscrJob
+     */
+    public function setInscrJob($inscrJob)
+    {
+        $this->InscrJob = $inscrJob;
+    }
+
+    /**
+     * Get InscrJob
+     *
+     * @return text 
+     */
+    public function getInscrJob()
+    {
+        return $this->InscrJob;
+    }
+
+    /**
+     * Set EntrCompany
+     *
+     * @param text $entrCompany
+     */
+    public function setEntrCompany($entrCompany)
+    {
+        $this->EntrCompany = $entrCompany;
+    }
+
+    /**
+     * Get EntrCompany
+     *
+     * @return text 
+     */
+    public function getEntrCompany()
+    {
+        return $this->EntrCompany;
+    }
+
+    /**
+     * Set EntrActivity
+     *
+     * @param text $entrActivity
+     */
+    public function setEntrActivity($entrActivity)
+    {
+        $this->EntrActivity = $entrActivity;
+    }
+
+    /**
+     * Get EntrActivity
+     *
+     * @return text 
+     */
+    public function getEntrActivity()
+    {
+        return $this->EntrActivity;
+    }
+
+    /**
+     * Set EntrBusiness
+     *
+     * @param text $entrBusiness
+     */
+    public function setEntrBusiness($entrBusiness)
+    {
+        $this->EntrBusiness = $entrBusiness;
+    }
+
+    /**
+     * Get EntrBusiness
+     *
+     * @return text 
+     */
+    public function getEntrBusiness()
+    {
+        return $this->EntrBusiness;
+    }
+
+    /**
+     * Set EntrStaff
+     *
+     * @param text $entrStaff
+     */
+    public function setEntrStaff($entrStaff)
+    {
+        $this->EntrStaff = $entrStaff;
+    }
+
+    /**
+     * Get EntrStaff
+     *
+     * @return text 
+     */
+    public function getEntrStaff()
+    {
+        return $this->EntrStaff;
+    }
+
 }

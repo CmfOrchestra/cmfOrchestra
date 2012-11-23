@@ -4,7 +4,7 @@
  *
  * @category   Admin_Twig
  * @package    Extension_layoutHead 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-11
  *
  * For the full copyright and license information, please view the LICENSE
@@ -26,7 +26,7 @@ use PiApp\AdminBundle\Twig\TokenParser\JavascriptTokenParser;
  * @category   Admin_Twig
  * @package    Extension_layoutHead 
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PiLayoutHeadExtension extends \Twig_Extension
 {
@@ -66,7 +66,7 @@ class PiLayoutHeadExtension extends \Twig_Extension
      * @return string The extension name
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
     public function getName()
     {
@@ -86,7 +86,7 @@ class PiLayoutHeadExtension extends \Twig_Extension
      * @return string The extension name
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
     public function getTokenParsers()
     {
@@ -108,7 +108,7 @@ class PiLayoutHeadExtension extends \Twig_Extension
      * @return array An array of functions
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function getFunctions() {
     	return array(
@@ -130,7 +130,7 @@ class PiLayoutHeadExtension extends \Twig_Extension
      * @return void
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
     public function addCssFile($file, $order = "append")
     {
@@ -166,7 +166,7 @@ class PiLayoutHeadExtension extends \Twig_Extension
      * @return void
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function addJsFile($file, $order = "append")
     {
@@ -200,7 +200,7 @@ class PiLayoutHeadExtension extends \Twig_Extension
      * @return string
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function renderLink($compressor = "yui")
     {
@@ -257,7 +257,7 @@ class PiLayoutHeadExtension extends \Twig_Extension
      * @return string
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
     public function renderScript($compressor = 'yui')
     {
@@ -315,7 +315,7 @@ class PiLayoutHeadExtension extends \Twig_Extension
      * @return string	file path result
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
     private function compress($result = "path", $compressor = "yui")
     {    

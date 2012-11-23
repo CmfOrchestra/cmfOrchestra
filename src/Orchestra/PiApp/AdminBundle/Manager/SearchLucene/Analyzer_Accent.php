@@ -5,7 +5,7 @@
  * @category   Admin_Managers
  * @package    Search
  * @subpackage Indexation
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-06-11
  *
  * For the full copyright and license information, please view the LICENSE
@@ -22,7 +22,7 @@ namespace PiApp\AdminBundle\Manager\SearchLucene;
  * @package    Search
  * @subpackage Indexation
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-06-11
  */
 class Analyzer_Accent extends \Zend_Search_Lucene_Analysis_Analyzer

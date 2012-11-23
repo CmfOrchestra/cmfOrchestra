@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\Loader;
 /**
  * This is the class that loads and manages your bundle configuration
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class BootStrapCacheExtension extends Extension
 {

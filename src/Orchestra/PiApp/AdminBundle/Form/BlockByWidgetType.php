@@ -4,7 +4,7 @@
  *
  * @category   Admin_Form
  * @package    CMS_Form
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-07
  *
  * For the full copyright and license information, please view the LICENSE
@@ -23,7 +23,7 @@ use PiApp\AdminBundle\Form\WidgetType;
  * @category   Admin_Form
  * @package    CMS_Form
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class BlockByWidgetType extends AbstractType
 {

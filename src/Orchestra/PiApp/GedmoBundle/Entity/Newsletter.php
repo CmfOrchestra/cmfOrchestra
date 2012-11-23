@@ -4,7 +4,7 @@
  *
  * @category   Gedmo_Entities
  * @package    Entity
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-03-08
  *
  * For the full copyright and license information, please view the LICENSE
@@ -31,7 +31,7 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  * @category   Gedmo_Entities
  * @package    Entity
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class Newsletter extends AbstractDefault 
 {
@@ -150,7 +150,7 @@ class Newsletter extends AbstractDefault
     /**
      * @var string $status
      *
-     * @ORM\Column(name="status", type="string", nullable=false)
+     * @ORM\Column(name="status", type="string", nullable=true)
      * @Assert\NotBlank(message = "erreur.status.notblank")
      */
     protected $status;   
@@ -199,6 +199,37 @@ class Newsletter extends AbstractDefault
     {
         return $this->id;
     }
+    
+    /**
+     * Set all users
+     *
+     * @param \Doctrine\Common\Collections\ArrayCollection $users
+     */
+    public function setUsers(\Doctrine\Common\Collections\ArrayCollection $users)
+    {
+    	$this->users = $users;
+    	return $this;
+    }
+    
+    /**
+     * Get all users
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getUsers()
+    {
+    	return $this->users;
+    }     
+
+    /**
+     * Add users
+     *
+     * @param \BootStrap\UserBundle\Entity\User $users
+     */
+    public function addUser(\BootStrap\UserBundle\Entity\User $users)
+    {
+    	$this->users[] = $users;
+    }    
     
     /**
      * Set category

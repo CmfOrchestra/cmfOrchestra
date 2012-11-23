@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Manager
  * @package    Facebook
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-04-23
  *
  * For the full copyright and license information, please view the LICENSE
@@ -23,7 +23,7 @@ use BootStrap\FacebookBundle\Exception\ClientException;
  * @package    Facebook
  * @abstract
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 abstract class AbstractClient implements FacebookClientInterface
 {
@@ -70,7 +70,7 @@ abstract class AbstractClient implements FacebookClientInterface
      * @return \Symfony\Component\DependencyInjection\ContainerInterface
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     protected function getContainer()
     {
@@ -83,7 +83,7 @@ abstract class AbstractClient implements FacebookClientInterface
      * @return string
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     protected function getClient()
     {

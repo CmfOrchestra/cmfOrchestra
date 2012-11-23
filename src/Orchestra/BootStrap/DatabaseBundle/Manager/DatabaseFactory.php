@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Manager
  * @package    Database
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-02-03
  *
  * For the full copyright and license information, please view the LICENSE
@@ -43,7 +43,7 @@ use BootStrap\DatabaseBundle\Builder\DatabaseFactoryInterface;
  * @category   BootStrap_Manager
  * @package    Database
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class DatabaseFactory extends AbstractFactory implements DatabaseFactoryInterface
 {
@@ -63,7 +63,7 @@ class DatabaseFactory extends AbstractFactory implements DatabaseFactoryInterfac
 	 * @return \BootStrap\UserBundle\Manager\Database\BackupManager
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-02-03
 	 */	
     public function getBackupFactory()
@@ -112,7 +112,7 @@ class DatabaseFactory extends AbstractFactory implements DatabaseFactoryInterfac
      * @return \BootStrap\UserBundle\Manager\Database\RestoreManager
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */    
     public function getRestoreFactory()

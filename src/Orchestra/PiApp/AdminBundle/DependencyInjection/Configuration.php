@@ -4,7 +4,7 @@
  *
  * @category   Bundle
  * @package    DependencyInjection
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-11
  *
  * For the full copyright and license information, please view the LICENSE
@@ -22,7 +22,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  * @category   Bundle
  * @package    DependencyInjection
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class Configuration implements ConfigurationInterface
 {
@@ -53,7 +53,7 @@ class Configuration implements ConfigurationInterface
      * @return void
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
     protected function addAdminConfig(ArrayNodeDefinition $rootNode){
     	$rootNode
@@ -96,7 +96,7 @@ class Configuration implements ConfigurationInterface
      * @return void
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
     protected function addPageConfig(ArrayNodeDefinition $rootNode){
     	$rootNode
@@ -182,7 +182,7 @@ class Configuration implements ConfigurationInterface
      * @return void
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
     protected function addFormConfig(ArrayNodeDefinition $rootNode){
         $rootNode
@@ -218,7 +218,7 @@ class Configuration implements ConfigurationInterface
      * @return void
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
     protected function addLayoutConfig(ArrayNodeDefinition $rootNode){
     	$rootNode

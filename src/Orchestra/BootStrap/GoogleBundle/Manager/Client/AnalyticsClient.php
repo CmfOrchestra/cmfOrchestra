@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Manager
  * @package    Google
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-04-23
  *
  * For the full copyright and license information, please view the LICENSE
@@ -22,7 +22,7 @@ use BootStrap\GoogleBundle\Lib\GoogleAnalyticsAPI;
  * @category   BootStrap_Manager
  * @package    Google 
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class AnalyticsClient extends AbstractClient
 {	
@@ -63,7 +63,7 @@ class AnalyticsClient extends AbstractClient
      * @return void
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function addTacker($name, array $options)
     {
@@ -79,7 +79,7 @@ class AnalyticsClient extends AbstractClient
      * @return array
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function getTrackers($trackerKey = "")
     {
@@ -94,7 +94,7 @@ class AnalyticsClient extends AbstractClient
      * @return boolean $allowHash
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com> 
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com> 
      */
     public function isAllowHash($trackerKey)
     {
@@ -113,7 +113,7 @@ class AnalyticsClient extends AbstractClient
      * @return boolean $allowLinker
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com> 
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com> 
      */
     public function isAllowLinker($trackerKey)
     {
@@ -132,7 +132,7 @@ class AnalyticsClient extends AbstractClient
      * @return boolean $trackPageLoadTime
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com> 
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com> 
      */
     public function isTrackPageLoadTime($trackerKey)
     {

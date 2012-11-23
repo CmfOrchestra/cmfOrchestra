@@ -4,7 +4,7 @@
  *
  * @category   Admin_Managers
  * @package    Manager
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-04-25
  *
  * For the full copyright and license information, please view the LICENSE
@@ -25,7 +25,7 @@ use PiApp\AdminBundle\Entity\Widget;
  * @category   Admin_Managers
  * @package    Manager
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PiSliderManager extends PiCoreManager implements PiSliderManagerBuilderInterface 
 {    
@@ -84,7 +84,7 @@ class PiSliderManager extends PiCoreManager implements PiSliderManagerBuilderInt
 	 * @return string
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-05-03
 	 */
 	public function getSlider($locale, $entity, $category, $template, $parameters = null)

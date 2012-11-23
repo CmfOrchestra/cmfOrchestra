@@ -4,7 +4,7 @@
  *
  * @category   Gedmo_Entities
  * @package    Entity
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-07-11
  *
  * For the full copyright and license information, please view the LICENSE
@@ -31,7 +31,7 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  * @category   Gedmo_Entities
  * @package    Entity
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class Contact extends AbstractDefault 
 {
@@ -305,9 +305,9 @@ class Contact extends AbstractDefault
     /**
      * Set category
      *
-     * @param string $category
+     * @param string \PiApp\GedmoBundle\Entity\Category $category
      */
-    public function setCategory($category)
+    public function setCategory(\PiApp\GedmoBundle\Entity\Category $category)
     {
     	$this->category = $category;
     	return $this;
@@ -316,7 +316,7 @@ class Contact extends AbstractDefault
     /**
      * Get category
      *
-     * @return string
+     * @return \PiApp\GedmoBundle\Entity\Category
      */
     public function getCategory()
     {
@@ -326,9 +326,9 @@ class Contact extends AbstractDefault
     /**
      * Set Ads
      *
-     * @param string $Ads
+     * @param string \PiApp\GedmoBundle\Entity\Ads $Ads
      */
-    public function setAds($Ads)
+    public function setAds(\PiApp\GedmoBundle\Entity\Ads $Ads)
     {
     	$this->ads = $Ads;
     	return $this;
@@ -544,7 +544,7 @@ class Contact extends AbstractDefault
      * @param string $city
      * @return this
      */
-    public function setCcity($city)
+    public function setCity($city)
     {
     	$this->city = $city;
     	return $this;
@@ -874,5 +874,5 @@ class Contact extends AbstractDefault
     {
     	return $this->coordinates;
     }
-        
+
 }

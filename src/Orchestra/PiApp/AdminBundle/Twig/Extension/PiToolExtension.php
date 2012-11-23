@@ -4,7 +4,7 @@
  *
  * @category   Admin_Twig
  * @package    Extension
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-11
  *
  * For the full copyright and license information, please view the LICENSE
@@ -21,7 +21,7 @@ use PiApp\AdminBundle\Exception\ExtensionException;
  * @category   Admin_Twig
  * @package    Extension
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PiToolExtension extends \Twig_Extension
 {
@@ -46,7 +46,7 @@ class PiToolExtension extends \Twig_Extension
      * @return string The extension name
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
 	public function getName() {
 		return 'admin_tool_extension';
@@ -64,7 +64,7 @@ class PiToolExtension extends \Twig_Extension
 	 * @return array An array of filters
 	 * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	public function getFilters() {
 		return array(
@@ -117,7 +117,7 @@ class PiToolExtension extends \Twig_Extension
 	 * @return array An array of functions
 	 * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public function getFunctions() {
 		return array(
@@ -197,7 +197,7 @@ class PiToolExtension extends \Twig_Extension
 	/**
 	 * moving an image.
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public function getPictureFormFunction($media, $nameForm, $format = 'reference', $style = "display: block; text-align:center;margin: 30px auto;") {
 		if($media instanceof \BootStrap\MediaBundle\Entity\Media){
@@ -225,7 +225,7 @@ class PiToolExtension extends \Twig_Extension
 	/**
 	 * Creating a link.
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	public function linkFunction( $label, $path, $options = array() ) {
 		$attributes = '';
@@ -238,7 +238,7 @@ class PiToolExtension extends \Twig_Extension
 	/**
 	 * Return the $returnTrue value if the route of the page is include in $paths value, else return the $returnFalse value.
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	public function inPathsFunction($paths, $returnTrue = '', $returnFalse = '')
 	{
@@ -266,7 +266,7 @@ class PiToolExtension extends \Twig_Extension
 	/**
 	 * Return the image flag of a country.
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	public function getImgFlagByCountryFunction($country, $type ="img", $taille="16")
 	{
@@ -296,7 +296,7 @@ class PiToolExtension extends \Twig_Extension
 	/**
 	 * Return the meta title of a page.
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	public function getTitlePageFunction($title)
 	{
@@ -352,7 +352,7 @@ class PiToolExtension extends \Twig_Extension
 	/**
 	 * Return the metas of a page.
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	public function getMetaPageFunction(array $options)
 	{

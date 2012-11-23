@@ -4,7 +4,7 @@
  *
  * @category   PI_CRUD_Form
  * @package    Form
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-04-20
  *
  * For the full copyright and license information, please view the LICENSE
@@ -22,7 +22,7 @@ use Symfony\Component\Form\FormBuilder;
  * @category   PI_CRUD_Form
  * @package    Form
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class CategorySearchForm extends AbstractType
 {

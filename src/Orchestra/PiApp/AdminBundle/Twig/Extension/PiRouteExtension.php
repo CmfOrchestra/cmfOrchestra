@@ -4,7 +4,7 @@
  * 
  * @category   Admin_Twig
  * @package    Extension
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-11
  *
  * For the full copyright and license information, please view the LICENSE
@@ -20,7 +20,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @category   Admin_Twig
  * @package    Extension
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PiRouteExtension extends \Twig_Extension
 {
@@ -45,7 +45,7 @@ class PiRouteExtension extends \Twig_Extension
      * @return string The extension name
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function getName()
     {
@@ -62,7 +62,7 @@ class PiRouteExtension extends \Twig_Extension
      * @return array An array of functions
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function getFunctions()
     {
@@ -87,7 +87,7 @@ class PiRouteExtension extends \Twig_Extension
      * @return string
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
     public function getMediaUrlFunction($id, $format = "default_small", $cachable = true, $modifdate = false, $pattern = "media_")
     {
@@ -128,7 +128,7 @@ class PiRouteExtension extends \Twig_Extension
      * @return string
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function getUrlByRouteFunction($routeName, $params = null)
     {
@@ -149,7 +149,7 @@ class PiRouteExtension extends \Twig_Extension
      * @return array
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function getMatchUrlFunction($pathInfo)
     {

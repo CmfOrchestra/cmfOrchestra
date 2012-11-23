@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Manager
  * @package    Database
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-02-03
  *
  * For the full copyright and license information, please view the LICENSE
@@ -25,7 +25,7 @@ use BootStrap\DatabaseBundle\Exception\DatabaseException;
  * @package    Database
  * @abstract
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 abstract class AbstractManager implements DatabaseManagerInterface
 {
@@ -77,7 +77,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
 	 *
 	 * @param \Doctrine\DBAL\Connection $connection
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
     public function __construct(Connection $connection, ContainerInterface $container)
     {
@@ -93,7 +93,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      * @return \Symfony\Component\Console\Output\OutputInterface
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */
     public function run(OutputInterface $output, Array $options = null){
@@ -106,7 +106,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      * @return void
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-06-28
      */
     protected function disableForeignKeys(){
@@ -119,7 +119,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      * @return void
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-06-28
      */
     protected function EnabledForeignKeys(){
@@ -132,7 +132,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      * @return void
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */
     protected function _setHead()
@@ -152,7 +152,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      * @return void
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */
     protected function _setFooter()
@@ -167,7 +167,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      * @return string		status of the executed command
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */
     protected function _executeDropDatabase()
@@ -181,7 +181,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      * @return string		status of the executed command
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */
     protected function _executeCreateDatabase()
@@ -195,7 +195,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      * @return string		status of the executed command
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */
     protected function _executeCreateTable()
@@ -209,7 +209,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      * @return void
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */
     protected function _writeSelectTable($tableName)
@@ -302,7 +302,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      * @return \Symfony\Component\DependencyInjection\ContainerInterface
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */
     protected function getContainer()
@@ -317,7 +317,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      * @return void
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */    
     protected function setConnection(Connection $connection)
@@ -332,7 +332,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      * @return void
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */
     protected function setOutputWriter(OutputInterface $output)
@@ -346,7 +346,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      * @return \Symfony\Component\Console\Output\OutputInterface
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */
     protected function getOutputWriter()
@@ -360,7 +360,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      * @return \Doctrine\DBAL\Connection
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */    
     protected function getConnection()
@@ -375,7 +375,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      * @return void
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */    
     protected function setDatabase($database)
@@ -389,7 +389,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      * @return void
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */    
     protected function getDatabase()
@@ -403,7 +403,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      * @return \Doctrine\DBAL\Platforms\AbstractPlatform
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */
     protected function getDatabasePlatform()
@@ -417,7 +417,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      * @return \Doctrine\DBAL\Schema\AbstractSchemaManager
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */
     protected function getSchemaManager()
@@ -431,7 +431,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      * @return \Doctrine\DBAL\Query\QueryBuilder
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */
     protected function createQueryBuilder()
@@ -446,7 +446,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      * @return void
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */
     protected function setPath(Array $options = null)
@@ -473,7 +473,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      * @return void
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */
     protected function getPath()
@@ -488,7 +488,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      * @param  string		$nameTable		Nom de la table.
      * @return \Doctrine\DBAL\Schema\Table
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-06-29
      */
     protected function getTableDetails($nameTable)
@@ -503,7 +503,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      * @param  string		$nameTable		Nom de la table.
      * @return array		les clés primaires de la table.
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-06-29
      */
     protected function getIndexes($nameTable)
@@ -519,7 +519,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      * @param  string		$nameTable		Nom de la table.
      * @return \Doctrine\DBAL\Schema\ForeignKeyConstraint|array
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-06-29
      */
     protected function getForeignKeys($nameTable)
@@ -535,7 +535,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      * @param  string		$nameTable
      * @return \Doctrine\DBAL\Schema\Column|array
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-06-29
      */
     protected function getColumns($nameTable)

@@ -4,7 +4,7 @@
  *
  * @category   PI_CRUD_Controllers
  * @package    Controller
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-10-01
  *
  * For the full copyright and license information, please view the LICENSE
@@ -24,7 +24,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @category   PI_CRUD_Controllers
  * @package    Controller
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 abstract class abstractController extends Controller
 {
@@ -34,7 +34,7 @@ abstract class abstractController extends Controller
 	 * @return \Symfony\Component\HttpFoundation\Response
      *     
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function enabledajaxAction()
     {
@@ -90,7 +90,7 @@ abstract class abstractController extends Controller
 	 * @return \Symfony\Component\HttpFoundation\Response
      *     
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function disableajaxAction()
     {
@@ -145,7 +145,7 @@ abstract class abstractController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @access	public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function deletajaxAction()
     {
@@ -195,7 +195,7 @@ abstract class abstractController extends Controller
 	 * @return \Symfony\Component\HttpFoundation\Response
      *     
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function positionajaxAction()
     {
@@ -243,7 +243,7 @@ abstract class abstractController extends Controller
      * @return void
      *
      * @access	public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 20012-10-05
      */
     public function SortDisabledFieldsAction()

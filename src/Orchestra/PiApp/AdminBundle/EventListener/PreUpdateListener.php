@@ -4,7 +4,7 @@
  *
  * @category   Admin_Eventlistener
  * @package    EventListener
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2011-01-27
  *
  * For the full copyright and license information, please view the LICENSE
@@ -25,7 +25,7 @@ use PiApp\AdminBundle\EventListener\CoreListener;
  * @category   Admin_Eventlistener
  * @package    EventListener
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PreUpdateListener extends CoreListener
 {
@@ -44,7 +44,7 @@ class PreUpdateListener extends CoreListener
 	 *
 	 * @param \Doctrine\ORM\Event\PreUpdateEventArgs $eventArgs
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
     public function PreUpdate(PreUpdateEventArgs $eventArgs)
     {

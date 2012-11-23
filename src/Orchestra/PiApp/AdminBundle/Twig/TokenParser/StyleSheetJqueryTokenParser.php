@@ -4,7 +4,7 @@
  *
  * @category   Admin_Twig
  * @package    Extension_jquery
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-18
  *
  * For the full copyright and license information, please view the LICENSE
@@ -20,7 +20,7 @@ use PiApp\AdminBundle\Twig\Node\StyleSheetJqueryNode;
  * @category   Admin_Twig
  * @package    Extension_jquery
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class StyleSheetJqueryTokenParser extends \Twig_TokenParser
 {

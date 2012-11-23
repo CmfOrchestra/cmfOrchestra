@@ -4,7 +4,7 @@
  *
  * @category   Translator_Controllers
  * @package    Controller
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-11-14
  *
  * For the full copyright and license information, please view the LICENSE
@@ -35,7 +35,7 @@ use BootStrap\TranslatorBundle\Entity\Translation\WordTranslation;
  * @category   Translator_Controllers
  * @package    Controller
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class WordController extends abstractController
 {
@@ -49,7 +49,7 @@ class WordController extends abstractController
 	 * @return \Symfony\Component\HttpFoundation\Response
      *     
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function enabledajaxAction()
     {
@@ -64,7 +64,7 @@ class WordController extends abstractController
 	 * @return \Symfony\Component\HttpFoundation\Response
      *     
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function disableajaxAction()
     {
@@ -79,7 +79,7 @@ class WordController extends abstractController
 	 * @return \Symfony\Component\HttpFoundation\Response
      *     
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function positionajaxAction()
     {
@@ -94,7 +94,7 @@ class WordController extends abstractController
 	 * @return \Symfony\Component\HttpFoundation\Response
      *     
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function deleteajaxAction()
     {
@@ -107,7 +107,7 @@ class WordController extends abstractController
 	 * @return \Symfony\Component\HttpFoundation\Response
      *
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>   
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
      */
     public function indexAction()
     {
@@ -131,7 +131,7 @@ class WordController extends abstractController
 	 * @return \Symfony\Component\HttpFoundation\Response
      *
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>    
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function showAction($id)
     {
@@ -163,7 +163,7 @@ class WordController extends abstractController
 	 * @return \Symfony\Component\HttpFoundation\Response
      *
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>    
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function newAction()
     {
@@ -189,7 +189,7 @@ class WordController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      *
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>     
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
      */
     public function createAction()
     {
@@ -229,7 +229,7 @@ class WordController extends abstractController
 	 * @return \Symfony\Component\HttpFoundation\Response
      *
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>    
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function editAction($id)
     {
@@ -263,7 +263,7 @@ class WordController extends abstractController
 	 * @return \Symfony\Component\HttpFoundation\Response
      *
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>   
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
      */
     public function updateAction($id)
     {
@@ -307,7 +307,7 @@ class WordController extends abstractController
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *     
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>     
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
      */
     public function deleteAction($id)
     {
@@ -373,22 +373,5 @@ class WordController extends abstractController
     		$yaml = \Symfony\Component\Yaml\Yaml::dump($array, 2);
     		file_put_contents($filename, $yaml);
     	}
-    	 
-    	//$this->_executeClearCache();
     }    
-    
-    /**
-     * Execute the clear cache command
-     *
-     * @return string		status of the executed command
-     * @access protected
-     *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
-     * @since 2012-11-14
-     */
-    private function _executeClearCache()
-    {
-    	return exec(sprintf('php app/console cache:clear'));
-    }    
-    
 }

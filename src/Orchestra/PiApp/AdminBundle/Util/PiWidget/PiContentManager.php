@@ -4,7 +4,7 @@
  *
  * @category   Admin_Util
  * @package    Extension_widget 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-02-10
  *
  * For the full copyright and license information, please view the LICENSE
@@ -24,7 +24,7 @@ use PiApp\AdminBundle\Exception\ExtensionException;
  * @category   Admin_Util
  * @package    Extension_widget 
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PiContentManager extends PiWidgetExtension
 {
@@ -34,7 +34,7 @@ class PiContentManager extends PiWidgetExtension
 	 * @param \Symfony\Component\DependencyInjection\ContainerInterface
 	 * @param string	action name
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public function __construct(ContainerInterface $container, $action)
 	{
@@ -48,7 +48,7 @@ class PiContentManager extends PiWidgetExtension
 	 * @access public
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-07-23
 	 */
 	public static function getAvailableJqext()
@@ -79,7 +79,7 @@ class PiContentManager extends PiWidgetExtension
 	 * @access protected
 	 * @return BooleanType
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	protected function isAvailableJqueryExtension($JQcontainer, $JQservice)
 	{
@@ -95,7 +95,7 @@ class PiContentManager extends PiWidgetExtension
 	 * @access protected
 	 * @return void
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	protected function init()
 	{
@@ -111,7 +111,7 @@ class PiContentManager extends PiWidgetExtension
       * @access protected
       * @return void
       *
-      * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
       */
 	public function renderText($options = null)
 	{        
@@ -149,7 +149,7 @@ class PiContentManager extends PiWidgetExtension
 	 * @access protected
 	 * @return void
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public function renderMedia($options = null)
 	{
@@ -244,7 +244,7 @@ class PiContentManager extends PiWidgetExtension
 	 * @access protected
 	 * @return void
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public function renderSnippet($options = null)
 	{
@@ -319,7 +319,7 @@ class PiContentManager extends PiWidgetExtension
 	 * @access protected
 	 * @return void
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public function renderJqext($options = null)
 	{
@@ -366,7 +366,7 @@ class PiContentManager extends PiWidgetExtension
 	 * @access public
 	 * @return void
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	public function scriptJs($options = null) {
 		// We open the buffer.
@@ -391,7 +391,7 @@ class PiContentManager extends PiWidgetExtension
 	 * @access public
 	 * @return void
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	public function scriptCss($options = null) {
 		// We open the buffer.
@@ -416,7 +416,7 @@ class PiContentManager extends PiWidgetExtension
 	 * @access public
 	 * @return void
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public function scriptEditor($options = null) {
 		// We open the buffer.

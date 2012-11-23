@@ -56,6 +56,14 @@
 	    {% endif %}
 	</ul>
 	
+	{% if entity.media.image is defined %}
+	{{ picture_form(entity.media.image, "piapp_gedmobundle_contacttype_media_image_binaryContent",  'reference', 'display: block; text-align:left;')|raw }}
+	{% endif %}
+	
+	{% if entity.media1.image is defined %}
+	{{ picture_form(entity.media1.image, "piapp_gedmobundle_contacttype_media1_image_binaryContent",  'reference', 'display: block; text-align:left;')|raw }}
+	{% endif %}
+	
 	<script type="text/javascript">
 	//<![CDATA[
 

@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 /**
  * Provides a command-line interface for viewing cache client stats
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class CacheClientStatsCommand extends ContainerAwareCommand
 {

@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Model
  * @package    Model
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-03-08
  *
  * For the full copyright and license information, please view the LICENSE
@@ -25,7 +25,7 @@ use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
  * @package    Model
  * @abstract
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 abstract class AbstractTranslation implements Translatable
 {
@@ -55,7 +55,7 @@ abstract class AbstractTranslation implements Translatable
      * @return \BootStrap\TranslationBundle\Translator\TranslationProxy
      * @final
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
     final public function translate($locale = null)
     {
@@ -73,7 +73,7 @@ abstract class AbstractTranslation implements Translatable
 	 * @param string $locale
      * @final
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	final public function setTranslatableLocale($locale)
 	{
@@ -86,7 +86,7 @@ abstract class AbstractTranslation implements Translatable
 	 * @return string
      * @final
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	final public function getTranslatableLocale()
 	{
@@ -96,10 +96,10 @@ abstract class AbstractTranslation implements Translatable
 	/**
 	 *  Get the collection of related translations
 	 *
-	 * @return array\Doctrine\Common\Collections\Collection
+	 * @return \Doctrine\Common\Collections\ArrayCollection
      * @final
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	final public function getTranslations()
 	{
@@ -112,7 +112,7 @@ abstract class AbstractTranslation implements Translatable
 	 * @param \Doctrine\Common\Collections\ArrayCollection
      * @final
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	final public function setTranslations(\Doctrine\Common\Collections\ArrayCollection $translations)
 	{
@@ -125,7 +125,7 @@ abstract class AbstractTranslation implements Translatable
 	 * @param \Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation
      * @final
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	final public function addTranslation(AbstractPersonalTranslation $translation)
 	{
@@ -141,7 +141,7 @@ abstract class AbstractTranslation implements Translatable
 	 * @param \Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation
      * @final
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	final public function removeTranslation(AbstractPersonalTranslation $translation)
 	{

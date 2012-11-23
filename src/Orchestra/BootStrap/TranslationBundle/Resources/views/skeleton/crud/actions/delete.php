@@ -6,17 +6,18 @@
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *     
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>     
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
      */
     public function deleteAction($id)
     {
-        $em 	 = $this->getDoctrine()->getEntityManager();
-	    $locale	 = $this->container->get('session')->getLocale();
+        $em 	 	= $this->getDoctrine()->getEntityManager();
+	    $locale	 	= $this->container->get('session')->getLocale();
 	    
 	    $NoLayout   = $this->container->get('request')->query->get('NoLayout');	    
+	    $category   = $this->container->get('request')->query->get('category');
     
-        $form 	 = $this->createDeleteForm($id);
-        $request = $this->getRequest();
+        $form 	 	= $this->createDeleteForm($id);
+        $request 	= $this->getRequest();
 
         $form->bindRequest($request);
 
@@ -31,7 +32,7 @@
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('{{ route_name_prefix }}', array('NoLayout' => $NoLayout)));
+        return $this->redirect($this->generateUrl('{{ route_name_prefix }}', array('NoLayout' => $NoLayout, 'category' => $category)));
     }
 
     private function createDeleteForm($id)

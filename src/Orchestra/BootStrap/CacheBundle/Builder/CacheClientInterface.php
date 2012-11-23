@@ -8,7 +8,7 @@ namespace BootStrap\CacheBundle\Builder;
  * @package 
  * @version $id$
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 interface CacheClientInterface
 {

@@ -4,7 +4,7 @@
  *
  * @category   Admin_Twig
  * @package    Extension_layoutHead
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-11
  *
  * For the full copyright and license information, please view the LICENSE
@@ -20,7 +20,7 @@ use PiApp\AdminBundle\Twig\Node\StyleSheetNode;
  * @category   Admin_Twig
  * @package    Extension_layoutHead
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class StyleSheetTokenParser extends \Twig_TokenParser
 {

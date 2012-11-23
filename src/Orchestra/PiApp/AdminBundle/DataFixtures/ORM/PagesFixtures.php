@@ -4,7 +4,7 @@
  *
  * @category   Admin_DataFixtures
  * @package    ORM
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-23
  *
  * For the full copyright and license information, please view the LICENSE
@@ -24,14 +24,14 @@ use PiApp\AdminBundle\Repository\PageRepository;
  * @category   Admin_DataFixtures
  * @package    ORM
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PagesFixtures extends AbstractFixture implements OrderedFixtureInterface
 {
 	/**
 	 * Load language fixtures
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-23
 	 */
     public function load(ObjectManager $manager)
@@ -70,7 +70,7 @@ class PagesFixtures extends AbstractFixture implements OrderedFixtureInterface
      *
      * @return integer 
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-01-23
      */
     public function getOrder()

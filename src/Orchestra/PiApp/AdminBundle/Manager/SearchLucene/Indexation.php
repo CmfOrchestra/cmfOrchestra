@@ -5,7 +5,7 @@
  * @category   Admin_Managers
  * @package    Search
  * @subpackage Indexation
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-06-11
  *
  * For the full copyright and license information, please view the LICENSE
@@ -29,7 +29,7 @@ use PiApp\AdminBundle\Manager\SearchLucene\Modele;
  * @package    Search
  * @subpackage Indexation
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-06-11
  */
 class Indexation
@@ -197,7 +197,7 @@ class Indexation
      * $doc->addField(Zend_Search_Lucene_Field::UnStored('contents', 'My document content'));
      *
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-06-11
      */
     public static function defaultAddFields($values)

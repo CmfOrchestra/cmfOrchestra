@@ -4,7 +4,7 @@
  *
  * @category   Admin_Util
  * @package    Extension_jquery 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-11
  *
  * For the full copyright and license information, please view the LICENSE
@@ -24,7 +24,7 @@ use PiApp\AdminBundle\Manager\PiPageManager;
  * @category   Admin_Util
  * @package    Extension_jquery 
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PiOrgTreePageManager extends PiJqueryExtension
 {

@@ -4,7 +4,7 @@
  * 
  * @category   Admin_Utils
  * @package    Util
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-11
  *
  * For the full copyright and license information, please view the LICENSE
@@ -26,7 +26,7 @@ use PiApp\AdminBundle\Builder\PiDateManagerBuilderInterface;
  * @category   Admin_Utils
  * @package    Util
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PiDateManager implements PiDateManagerBuilderInterface 
 {    
@@ -48,7 +48,7 @@ class PiDateManager implements PiDateManagerBuilderInterface
      * @access public 
      * @throws \Exception If fails parsing the string
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function parse($date, $locale = null)
     {
@@ -74,7 +74,7 @@ class PiDateManager implements PiDateManagerBuilderInterface
      * @return string The string representation
      * @access public
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function format($date, $dateType = 'medium', $timeType = 'none', $locale = null, $pattern = null)
     {	
@@ -100,7 +100,7 @@ class PiDateManager implements PiDateManagerBuilderInterface
      * @access public
      * @throws \Exception If fails parsing the string
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     private function parseTimestamp($date, $locale = null) {
         // try time default formats

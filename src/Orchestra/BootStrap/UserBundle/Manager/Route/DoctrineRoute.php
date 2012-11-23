@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Manager
  * @package    Route
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-02-27
  *
  * For the full copyright and license information, please view the LICENSE
@@ -23,7 +23,7 @@ use Doctrine\DBAL\Schema\Schema;
  * @category   BootStrap_Manager
  * @package    Route
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class DoctrineRoute implements DoctrineRouteInterface
 {
@@ -65,7 +65,7 @@ class DoctrineRoute implements DoctrineRouteInterface
      * @return \Doctrine\DBAL\Connection
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */
     public function getConnection()
@@ -79,7 +79,7 @@ class DoctrineRoute implements DoctrineRouteInterface
      * @return array
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-27
      */    
     public function getAllRouteValues()
@@ -103,7 +103,7 @@ class DoctrineRoute implements DoctrineRouteInterface
      * @return array
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-27
      */    
     public function getAllRouteNames()
@@ -123,7 +123,7 @@ class DoctrineRoute implements DoctrineRouteInterface
      * @return array
      * @access public
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-27
      */
     public function getRoute($route)
@@ -155,7 +155,7 @@ class DoctrineRoute implements DoctrineRouteInterface
      * @return void
      * @access public
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-27
      */ 
     public function addRoute($route, $fieldEntity, array $locales, array $defaults = array(), array $requirements = array())

@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Manager
  * @package    Database
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-02-03
  *
  * For the full copyright and license information, please view the LICENSE
@@ -29,7 +29,7 @@ use BeSimple\I18nRoutingBundle\Routing\Translator\DoctrineDBALTranslator;
  * @package    Database
  * @abstract
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 abstract class AbstractFactory
 {
@@ -85,7 +85,7 @@ abstract class AbstractFactory
      * @return void
      * @access private
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */
     private function setConnection()
@@ -99,7 +99,7 @@ abstract class AbstractFactory
      * @return \Doctrine\DBAL\Connection
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */
     protected function getConnection()
@@ -119,7 +119,7 @@ abstract class AbstractFactory
      * @return \Doctrine\DBAL\Platforms\AbstractPlatform
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */
     protected function getDatabasePlatform()
@@ -133,7 +133,7 @@ abstract class AbstractFactory
      * @return void
      * @access private
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */
     private function setEntityManager()
@@ -147,7 +147,7 @@ abstract class AbstractFactory
      * @return \Doctrine\ORM\EntityManager
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      *@since 2012-02-03
      */
     protected function getEntityManager()
@@ -167,7 +167,7 @@ abstract class AbstractFactory
      * @return \Symfony\Component\DependencyInjection\ContainerInterface
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     protected function getContainer()
     {
@@ -180,7 +180,7 @@ abstract class AbstractFactory
      * @return void
      * @access private
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */
     private function setDoctrineTranslator()
@@ -194,7 +194,7 @@ abstract class AbstractFactory
      * @return \BeSimple\I18nRoutingBundle\Routing\Translator\DoctrineDBALTranslator
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */
     protected function getDoctrineTranslator()
@@ -214,7 +214,7 @@ abstract class AbstractFactory
      * @return void
      * @access private
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */
     private function setDoctrineRoute()
@@ -230,7 +230,7 @@ abstract class AbstractFactory
      * @return \BootStrap\UserBundle\Manager\Route\DoctrineRoute
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */
     protected function getDoctrineRoute()
@@ -250,7 +250,7 @@ abstract class AbstractFactory
      * @return void
      * @access private
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */
     private function setRouterTranslator()
@@ -264,7 +264,7 @@ abstract class AbstractFactory
      * @return \BeSimple\I18nRoutingBundle\Routing\Router
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-03
      */
     protected function getRouterTranslator()

@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Helper
  * @package    Google
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-04-23
  *
  * For the full copyright and license information, please view the LICENSE
@@ -21,7 +21,7 @@ use BootStrap\GoogleBundle\Manager\Client\AnalyticsClient;
  * @category   BootStrap_Helper
  * @package    Google 
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class AnalyticsHelper extends Helper
 {
@@ -47,7 +47,7 @@ class AnalyticsHelper extends Helper
      * @return array
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
     public function getTrackers($trackerKey = "")
     {
@@ -61,7 +61,7 @@ class AnalyticsHelper extends Helper
      * @return boolean
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
     public function isAllowHash($trackerKey)
     {
@@ -75,7 +75,7 @@ class AnalyticsHelper extends Helper
      * @return boolean
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
     public function isAllowLinker($trackerKey)
     {
@@ -89,7 +89,7 @@ class AnalyticsHelper extends Helper
      * @return boolean
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
     public function isTrackPageLoadTime($trackerKey)
     {

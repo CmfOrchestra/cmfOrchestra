@@ -4,7 +4,7 @@
  *
  * @category   Gedmo_Entities
  * @package    Entity
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-07-31
  *
  * For the full copyright and license information, please view the LICENSE
@@ -31,7 +31,7 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  * @category   Gedmo_Entities
  * @package    Entity
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class Category extends AbstractDefault
 {
@@ -147,5 +147,64 @@ class Category extends AbstractDefault
     {
     	return $this->name;
     }    
-    
+
+    /**
+     * Add items_contacts
+     *
+     * @param PiApp\GedmoBundle\Entity\Contact $itemsContacts
+     */
+    public function addContact(\PiApp\GedmoBundle\Entity\Contact $itemsContacts)
+    {
+        $this->items_contacts[] = $itemsContacts;
+    }
+
+    /**
+     * Get items_contacts
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getItemsContacts()
+    {
+        return $this->items_contacts;
+    }
+
+    /**
+     * Add items_blocks
+     *
+     * @param PiApp\GedmoBundle\Entity\Block $itemsBlocks
+     */
+    public function addBlock(\PiApp\GedmoBundle\Entity\Block $itemsBlocks)
+    {
+        $this->items_blocks[] = $itemsBlocks;
+    }
+
+    /**
+     * Get items_blocks
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getItemsBlocks()
+    {
+        return $this->items_blocks;
+    }
+
+    /**
+     * Add items_medias
+     *
+     * @param PiApp\GedmoBundle\Entity\Media $itemsMedias
+     */
+    public function addMedia(\PiApp\GedmoBundle\Entity\Media $itemsMedias)
+    {
+        $this->items_medias[] = $itemsMedias;
+    }
+
+    /**
+     * Get items_medias
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getItemsMedias()
+    {
+        return $this->items_medias;
+    }
 }

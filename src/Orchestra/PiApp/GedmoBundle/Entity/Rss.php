@@ -4,7 +4,7 @@
  *
  * @category   Gedmo_Entities
  * @package    Entity
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-07-31
  *
  * For the full copyright and license information, please view the LICENSE
@@ -31,7 +31,7 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  * @category   Gedmo_Entities
  * @package    Entity
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class Rss extends AbstractDefault 
 {
@@ -142,6 +142,37 @@ class Rss extends AbstractDefault
     }
     
     /**
+     * Set all users
+     *
+     * @param \Doctrine\Common\Collections\ArrayCollection $users
+     */
+    public function setUsers(\Doctrine\Common\Collections\ArrayCollection $users)
+    {
+    	$this->users = $users;
+    	return $this;
+    }
+    
+    /**
+     * Get all users
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getUsers()
+    {
+    	return $this->users;
+    }
+    
+    /**
+     * Add users
+     *
+     * @param \BootStrap\UserBundle\Entity\User $users
+     */
+    public function addUser(\BootStrap\UserBundle\Entity\User $users)
+    {
+    	$this->users[] = $users;
+    }    
+    
+    /**
      * Set page url
      *
      * @param \PiApp\AdminBundle\Entity\Page
@@ -203,5 +234,5 @@ class Rss extends AbstractDefault
     {
     	return $this->media;
     }    
-    
+
 }

@@ -4,7 +4,7 @@
  *
  * @category   Admin_Validators
  * @package    Validator
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-24
  *
  * For the full copyright and license information, please view the LICENSE
@@ -33,7 +33,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  * @category   Admin_Validators
  * @package    Validator
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class CollectionOfValidator extends ConstraintValidator {
 	

@@ -4,7 +4,7 @@
  *
  * @category   Admin_Twig
  * @package    Extension 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-11
  *
  * For the full copyright and license information, please view the LICENSE
@@ -21,7 +21,7 @@ use Symfony\Component\Locale\Locale;
  * @category   Admin_Twig
  * @package    Extension 
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PiDateExtension extends \Twig_Extension
 {
@@ -46,7 +46,7 @@ class PiDateExtension extends \Twig_Extension
      * @return string The extension name
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
 	public function getName() {
 		return 'admin_date_extension';
@@ -66,7 +66,7 @@ class PiDateExtension extends \Twig_Extension
 	 * @return array An array of filters
 	 * @access public
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
     public function getFilters()
     {
@@ -102,7 +102,7 @@ class PiDateExtension extends \Twig_Extension
      * @return string
      * @access public
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
     public function createdAgoFilter(\DateTime $dateTime)
     {
@@ -152,7 +152,7 @@ class PiDateExtension extends \Twig_Extension
      * @access public
      * @static
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function countryFilter($country, $default = '', $locale = null)
     {
@@ -179,7 +179,7 @@ class PiDateExtension extends \Twig_Extension
      * @access public
      * @static
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function localeDateFilter($date, $dateType = 'medium', $timeType = 'none', $locale = null, $pattern = null)
     {
@@ -206,7 +206,7 @@ class PiDateExtension extends \Twig_Extension
      * @access public
      * @static
      * 
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
     public function relativetimeAgoFilter($when, $from = null)
     {

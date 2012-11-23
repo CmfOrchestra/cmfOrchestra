@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Manager
  * @package    Google
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-04-23
  *
  * For the full copyright and license information, please view the LICENSE
@@ -23,7 +23,7 @@ use BootStrap\GoogleBundle\Builder\GoogleClientInterface;
  * @category   BootStrap_Manager
  * @package    Google
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class GoogleFactory implements GoogleFactoryInterface
 {
@@ -50,7 +50,7 @@ class GoogleFactory implements GoogleFactoryInterface
 	 * @return \Symfony\Component\DependencyInjection\ContainerInterface
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	protected function getContainer()
 	{
@@ -64,7 +64,7 @@ class GoogleFactory implements GoogleFactoryInterface
 	 * @access public
 	 * @return void
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public function setClient( GoogleClientInterface $client )
 	{
@@ -83,7 +83,7 @@ class GoogleFactory implements GoogleFactoryInterface
 	 * @access public
 	 * @return void
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public function getClient()
 	{

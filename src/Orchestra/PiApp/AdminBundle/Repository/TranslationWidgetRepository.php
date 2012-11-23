@@ -4,7 +4,7 @@
  *
  * @category   Admin_Repositories
  * @package    Repository
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-06
  *
  * For the full copyright and license information, please view the LICENSE
@@ -24,7 +24,7 @@ use BootStrap\TranslationBundle\Repository\TranslationRepository;
  * @category   Admin_Repositories
  * @package    Repository
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class TranslationWidgetRepository extends TranslationRepository
 {
@@ -39,7 +39,7 @@ class TranslationWidgetRepository extends TranslationRepository
 	 * @return \PiApp\AdminBundle\Entity\Page
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-23
 	 */
 	public function getTranslationByParams($enabled, $plugin, $action, $lang)
@@ -69,7 +69,7 @@ class TranslationWidgetRepository extends TranslationRepository
 	 * @return \PiApp\AdminBundle\Entity\Page
 	 * @access public
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-01-23
 	 */
 	public function getTranslationById($idWidget, $lang)

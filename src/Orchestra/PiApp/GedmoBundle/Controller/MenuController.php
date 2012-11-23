@@ -4,7 +4,7 @@
  *
  * @category   PI_CRUD_Controllers
  * @package    Controller
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-03-22
  *
  * For the full copyright and license information, please view the LICENSE
@@ -36,7 +36,7 @@ use PiApp\GedmoBundle\Entity\Translation\MenuTranslation;
  * @category   PI_CRUD_Controllers
  * @package    Controller
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class MenuController extends abstractController
 {
@@ -50,7 +50,7 @@ class MenuController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function enabledajaxAction()
     {
@@ -65,7 +65,7 @@ class MenuController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function disableajaxAction()
     {
@@ -80,7 +80,7 @@ class MenuController extends abstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * 
      * @access  public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function positionajaxAction()
     {
@@ -92,7 +92,7 @@ class MenuController extends abstractController
      *
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      * @access	public
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function indexAction()
     {
@@ -114,7 +114,7 @@ class MenuController extends abstractController
      *
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>    
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function showAction($id)
     {
@@ -146,7 +146,7 @@ class MenuController extends abstractController
      *
      * @Secure(roles="ROLE_USER")
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>    
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function newAction()
     {
@@ -180,7 +180,7 @@ class MenuController extends abstractController
      *
      * @Secure(roles="ROLE_USER")
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>     
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
      */
     public function createAction()
     {
@@ -216,7 +216,7 @@ class MenuController extends abstractController
      *
      * @Secure(roles="ROLE_USER")
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>    
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function editAction($id)
     {
@@ -251,7 +251,7 @@ class MenuController extends abstractController
      *
      * @Secure(roles="ROLE_USER")
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>   
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
      */
     public function updateAction($id)
     {
@@ -294,7 +294,7 @@ class MenuController extends abstractController
      *
      * @Secure(roles="ROLE_USER")
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>     
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
      */
     public function deleteAction($id)
     {
@@ -333,7 +333,7 @@ class MenuController extends abstractController
     /**
      * @Secure(roles="ROLE_USER")
 	 * @access	public
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>    
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function knpAction()
     {
@@ -358,7 +358,7 @@ class MenuController extends abstractController
      * @param string $category
 	 * @access	public
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>    
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function treeAction($category)
     {
@@ -452,7 +452,7 @@ class MenuController extends abstractController
    	 * @param string $category
    	 * @access	public
    	 * 
-   	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+   	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function moveUpAction($id, $category)
     {
@@ -492,7 +492,7 @@ class MenuController extends abstractController
    	 * @param string $category
    	 * @access	public
    	 * 
-   	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+   	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function moveDownAction($id, $category)
     {
@@ -532,7 +532,7 @@ class MenuController extends abstractController
    	 * @param string $category
    	 * @access	public
    	 * 
-   	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+   	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function removeAction($id, $category)
     {

@@ -4,7 +4,7 @@
  *
  * @category   BootStrap_Eventlistener
  * @package    EventListener
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2011-01-30
  *
  * For the full copyright and license information, please view the LICENSE
@@ -25,7 +25,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @package    EventListener
  * @abstract
  *
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 abstract class abstractListener
 {
@@ -56,7 +56,7 @@ abstract class abstractListener
 	 * @return ObjectRepository
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-02-27
 	 */
 	protected function _addRoutingTable(GenerateSchemaEventArgs $eventArgs)
@@ -89,7 +89,7 @@ abstract class abstractListener
 	 * @access protected
 	 * @final
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	final protected function _prePersist(LifecycleEventArgs $eventArgs, $isAnonymousToken = true, $isUsernamePasswordToken = true, $isAllPermissions = false)
 	{    	
@@ -166,7 +166,7 @@ abstract class abstractListener
 	 * @access protected
 	 * @final
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	final protected function _preUpdate(LifecycleEventArgs $eventArgs, $isAnonymousToken = true, $isUsernamePasswordToken = true, $isAllPermissions = false)
 	{
@@ -231,7 +231,7 @@ abstract class abstractListener
 	 * @access protected
 	 * @final
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	final protected function _preRemove(LifecycleEventArgs $eventArgs, $isAnonymousToken = true, $isUsernamePasswordToken = true, $isAllPermissions = false)
 	{
@@ -289,7 +289,7 @@ abstract class abstractListener
 	 * @return string the name of the table entity that we have to insert.
 	 * @access private
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	protected function getOwningTable($eventArgs, $entity)
 	{
@@ -306,7 +306,7 @@ abstract class abstractListener
 	 * @return void
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	protected function _updateEntity($eventArgs, $entity, $Identifier)
 	{
@@ -321,7 +321,7 @@ abstract class abstractListener
 	 * @return void
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	protected function _persistEntities($eventArgs)
 	{
@@ -336,7 +336,7 @@ abstract class abstractListener
      * @return void
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
 	protected function _addPersistEntities($entity)
 	{
@@ -351,7 +351,7 @@ abstract class abstractListener
 	 * @return \Doctrine\DBAL\Connection
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	protected function _connexion(LifecycleEventArgs $eventArgs)
 	{
@@ -364,7 +364,7 @@ abstract class abstractListener
 	 * @return \Symfony\Component\DependencyInjection\ContainerInterface
 	 * @access protected
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	protected function _container()
 	{
@@ -377,7 +377,7 @@ abstract class abstractListener
      * @return \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     protected function getToken()
     {
@@ -390,7 +390,7 @@ abstract class abstractListener
      * @return string	user name
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     protected function getUserName()
     {
@@ -403,7 +403,7 @@ abstract class abstractListener
      * @return array	user permissions
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     protected function getUserPermissions()
     {
@@ -416,7 +416,7 @@ abstract class abstractListener
      * @return array	user roles
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     protected function getUserRoles()
     {
@@ -432,7 +432,7 @@ abstract class abstractListener
      * @return void
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     protected function setFlash($message, $type = "")
     {
@@ -449,7 +449,7 @@ abstract class abstractListener
      * @return boolean
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     protected function isAnonymousToken()
     {
@@ -465,7 +465,7 @@ abstract class abstractListener
      * @return boolean
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     protected function isUsernamePasswordToken()
     {
@@ -481,7 +481,7 @@ abstract class abstractListener
      * @return boolean
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     protected function isPersistRight()
     {
@@ -497,7 +497,7 @@ abstract class abstractListener
      * @return boolean
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     protected function isUpdateRight()
     {
@@ -513,7 +513,7 @@ abstract class abstractListener
      * @return boolean
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     protected function isDeleteRight()
     {
@@ -529,7 +529,7 @@ abstract class abstractListener
      * @return void
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-01-23
      */
     protected function setRepository()
@@ -543,7 +543,7 @@ abstract class abstractListener
      * @return ObjectRepository
      * @access protected
      *
-     * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-01-23
      */
     protected function getRepository($nameEntity = '')

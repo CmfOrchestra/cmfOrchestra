@@ -4,7 +4,7 @@
  *
  * @category   Admin_Util
  * @package    Extension_widget 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-03-11
  *
  * For the full copyright and license information, please view the LICENSE
@@ -26,7 +26,7 @@ use PiApp\AdminBundle\Exception\ExtensionException;
  * @category   Admin_Util
  * @package    Extension_widget 
  * 
- * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PiGedmoManager extends PiWidgetExtension
 {
@@ -36,7 +36,7 @@ class PiGedmoManager extends PiWidgetExtension
 	 * @param \Symfony\Component\DependencyInjection\ContainerInterface
 	 * @param string	action name
 	 * 
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public function __construct(ContainerInterface $container, $action)
 	{
@@ -50,7 +50,7 @@ class PiGedmoManager extends PiWidgetExtension
 	 * @access public
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-04-27
 	 */
 	public static function getAvailableSnippet()
@@ -65,7 +65,7 @@ class PiGedmoManager extends PiWidgetExtension
 	 * @access public
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-03-11
 	 */
 	public static function getAvailableListener()
@@ -85,7 +85,7 @@ class PiGedmoManager extends PiWidgetExtension
 	 * @access public
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-03-11
 	 */
 	public static function getAvailableNavigation()
@@ -105,7 +105,7 @@ class PiGedmoManager extends PiWidgetExtension
 	 * @access public
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-03-11
 	 */
 	public static function getAvailableOrganigram()
@@ -125,7 +125,7 @@ class PiGedmoManager extends PiWidgetExtension
 	 * @access public
 	 * @static
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-03-11
 	 */
 	public static function getAvailableSlider()
@@ -145,7 +145,7 @@ class PiGedmoManager extends PiWidgetExtension
 	 * @access protected
 	 * @return BooleanType
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-03-11
 	 */		
 	protected function isAvailableAction($controller)
@@ -174,7 +174,7 @@ class PiGedmoManager extends PiWidgetExtension
 	 * @access protected
 	 * @return void
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-03-11
 	 */	
 	protected function init()
@@ -207,7 +207,7 @@ class PiGedmoManager extends PiWidgetExtension
 	 * @access protected
 	 * @return void
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public function renderSnippet($options = null)
 	{
@@ -264,7 +264,7 @@ class PiGedmoManager extends PiWidgetExtension
 	 * @access public
 	 * @return void
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-03-11
 	 */
 	public function renderListener($options = null)
@@ -347,7 +347,7 @@ class PiGedmoManager extends PiWidgetExtension
 	 * @access public
 	 * @return void
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-04-19
 	 */
 	public function renderNavigation($options = null)
@@ -530,7 +530,7 @@ class PiGedmoManager extends PiWidgetExtension
 	 * @access public
 	 * @return void
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-04-20
 	 */
 	public function renderOrganigram($options = null)
@@ -646,7 +646,7 @@ class PiGedmoManager extends PiWidgetExtension
 	 * @access public
 	 * @return void
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public function renderSlider($options = null)
 	{
@@ -721,7 +721,7 @@ class PiGedmoManager extends PiWidgetExtension
 	 * @access public
 	 * @return void
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	public function scriptJs($options = null) {
 		// We open the buffer.
@@ -746,7 +746,7 @@ class PiGedmoManager extends PiWidgetExtension
 	 * @access public
 	 * @return void
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
 	public function scriptCss($options = null) {
 		// We open the buffer.
@@ -771,7 +771,7 @@ class PiGedmoManager extends PiWidgetExtension
 	 * @access public
 	 * @return void
 	 *
-	 * @author (c) <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
 	public function scriptEditor($options = null) {
 		// We open the buffer.
