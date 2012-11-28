@@ -19,6 +19,10 @@
 	            <th>Id</th>	
 	            <td>{{ entity.id }}</td>	
 	        </tr>	
+			<tr>
+	            <th>User</th>	
+	            <td>{{ entity.user }}</td>	
+	        </tr>		        
 	        <tr>
 	            <th>Status</th>	
 	            <td>{{ entity.status }}</td>	
@@ -40,10 +44,6 @@
 	            <td>{{ entity.author }}</td>	
 	        </tr>	
 	        <tr>
-	            <th>Expired_at</th>	
-	            <td>{{ entity.expiredat|date('Y-m-d H:i:s') }}</td>	
-	        </tr>	
-	        <tr>
 	            <th>Created_at</th>	
 	            <td>{{ entity.createdat|date('Y-m-d H:i:s') }}</td>	
 	        </tr>	
@@ -56,7 +56,7 @@
 	            <td>{{ entity.publishedat|date('Y-m-d H:i:s') }}</td>	
 	        </tr>	
 	        <tr>
-	            <th>Archive_at</th>	
+	            <th>Expire_at</th>	
 	            <td>{{ entity.archiveat|date('Y-m-d H:i:s') }}</td>	
 	        </tr>	
 	        <tr>

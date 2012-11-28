@@ -15,7 +15,7 @@
 	        <tr {% if(num_line == 0) %}class="odd"{% endif %} id="{{ entity.position }}_row_{{ entity.id }}"  >	
 	        	<td><a href="{{ path('admin_gedmo_content_show', { 'id': entity.id, 'NoLayout': NoLayout, 'category':entity.category }) }}">{{ entity.id }}</a></td>
 	            <td>
-	            {{ entity.category|limite("0", 55)|raw }}
+	            {{ entity.category }}
 	            </td>	
 	            <td>
 	            {{ entity.descriptif|limite("0", 55)|raw }}

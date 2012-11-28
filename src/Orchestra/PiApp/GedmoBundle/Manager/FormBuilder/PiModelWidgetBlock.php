@@ -137,6 +137,13 @@ class PiModelWidgetBlock extends PiFormBuilderManager
 	        ))
 	        ->add('category', 'entity', array(
 	        		'class' => 'PiAppGedmoBundle:Category',
+	        		'query_builder' => function(EntityRepository $er) {
+	        			return $er->createQueryBuilder('k')
+	        			->select('k')
+	        			->where('k.type = :type')
+	        			->orderBy('k.name', 'ASC')
+	        			->setParameter('type', 1);
+	        		},
 	        		'property' => 'name',
 	        		'empty_value' => 'pi.form.label.select.choose.category',
 	        		'multiple'	=> false,

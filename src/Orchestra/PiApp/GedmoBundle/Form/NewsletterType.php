@@ -110,8 +110,6 @@ class NewsletterType extends AbstractType
  			))
 
  			->add('status')
- 			->add('users')
- 			
  			->add('title', 'text', array(
  					'label'	=> "pi.form.label.field.title",
  					"label_attr" => array(

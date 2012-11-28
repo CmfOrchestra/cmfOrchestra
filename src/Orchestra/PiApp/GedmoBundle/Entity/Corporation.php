@@ -70,7 +70,7 @@ class Corporation extends AbstractDefault
     /**
      * @var integer $user
      *
-     * @ORM\ManyToOne(targetEntity="BootStrap\UserBundle\Entity\User")
+     * @ORM\OneToOne(targetEntity="BootStrap\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     protected $user;    

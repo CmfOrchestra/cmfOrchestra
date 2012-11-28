@@ -20,6 +20,12 @@
 	            <td>{{ entity.id }}</td>	
 	        </tr>	
 	        <tr>
+	        	<th>Type</th>
+	        	<td>
+	            	{{ ("pi.category.type."~entity.type)|trans }}
+	            </td>
+	        </tr>
+	        <tr>
 	            <th>Name</th>	
 	            <td>{{ entity.name }}</td>	
 	        </tr>	

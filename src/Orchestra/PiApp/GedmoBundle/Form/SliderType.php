@@ -58,10 +58,6 @@ class SliderType extends AbstractType
 		
     public function buildForm(FormBuilder $builder, array $options)
     {
-    	$choiceList = $this->_em->getRepository("PiAppGedmoBundle:Slider")->getArrayAllCategory();
-    	if(!isset($choiceList) || !count($choiceList))
-    		$choiceList = array();
-    	    	
         $builder  
         	->add('enabled', 'checkbox', array(
 	        		'data'  => true,
@@ -76,33 +72,31 @@ class SliderType extends AbstractType
 	        		),
 	        		'label'	=> 'pi.form.label.date.publication',
 	        ))
-	        ->add('title', 'text', array(
-	        		'label'		=> "pi.form.label.field.title",
-	        		'required'  => false,
-	        ))	              
-	        
-	        
-	        
-	        ->add('category', 'choice', array(
-	        		'choices'   => $choiceList,
+	        ->add('category', 'entity', array(
+	        		'class' => 'PiAppGedmoBundle:Category',
+	        		'query_builder' => function(EntityRepository $er) {
+	        			return $er->createQueryBuilder('k')
+	        			->select('k')
+	        			->where('k.type = :type')
+	        			->orderBy('k.name', 'ASC')
+	        			->setParameter('type', 4);
+	        		},
+	        		'property' => 'name',
+	        		'empty_value' => 'pi.form.label.select.choose.category',
+	        		'label'	=> "pi.form.label.field.category",
 	        		'multiple'	=> false,
 	        		'required'  => false,
-	        		'empty_value' => 'pi.form.label.select.choose.category',
- 					'label'	=> "pi.form.label.field.category",
 	        		"attr" => array(
 	        				"class"=>"pi_simpleselect",
 	        		),
 	        		"label_attr" => array(
 	        				"class"=>"category_collection",
-	        		),
-	        ))
-	        ->add('categoryother', 'text', array(
-	        		"label" 	=> "pi.form.label.field.or",
+	        		),	        		
+	        ))	  
+	        ->add('title', 'text', array(
+	        		'label'		=> "pi.form.label.field.title",
 	        		'required'  => false,
-	        		"label_attr" => array(
-	        				"class"=>"category_collection",
-	        		),
-	        )) 	
+	        ))
 
 	        
 	        ->add('subtitle', 'text', array(

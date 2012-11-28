@@ -68,7 +68,7 @@ class Contact extends AbstractDefault
     protected $id;
     
     /**
-     * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Category", inversedBy="items_contacts")
+     * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Category", inversedBy="items_contact")
      * @ORM\JoinColumn(name="category", referencedColumnName="id", nullable=true)
      */
     protected $category;   

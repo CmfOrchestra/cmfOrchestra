@@ -84,6 +84,21 @@ class SliderController extends abstractController
     public function positionajaxAction()
     {
     	return parent::positionajaxAction();
+    }   
+
+    /**
+     * Delete Slider entities.
+     *
+     * @Route("/admin/gedmo/slider/delete", name="admin_gedmo_slider_deletentity_ajax")
+     * @Secure(roles="ROLE_USER")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access  public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function deleteajaxAction()
+    {
+    	return parent::deletajaxAction();
     }    
 
     /**

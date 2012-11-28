@@ -45,46 +45,29 @@ class MenuType extends AbstractType
 		
     public function buildForm(FormBuilder $builder, array $options)
     {
-    	$choiceList = $this->_em->getRepository("PiAppGedmoBundle:Menu")->getArrayAllCategory();
-    	if(!isset($choiceList) || !count($choiceList))
-    		$choiceList = array();
-    	    	
         $builder            
  			->add('enabled', 'checkbox', array(
 	        		'data'  => true,
+ 					'label'	=> 'pi.form.label.field.enabled',
 	        ))            
-	        ->add('page', 'entity', array(
-            		'class' => 'PiAppAdminBundle:Page',
-            		'query_builder' => function(EntityRepository $er) {
-	            		return $er->getAllPageHtml();
-		            },
-		            'property' => 'route_name',
-		            'empty_value' => 'pi.form.label.select.choose.option',
-		            "label" 	=> "pi.form.label.field.url",
-		            'multiple'	=> false,
-		            'required'  => false,
-		            "attr" => array(
-		            		"class"=>"pi_simpleselect",
-		            ),		            
-            ))
-            ->add('url', 'text', array(
-            		'label'=>'pi.form.label.field.or',
-            		'required'  => false,
-            ))
-	        ->add('category', 'choice', array(
-	        		'choices'   => $choiceList,
-			        'multiple'	=> false,
-			        'required'  => false,
-			        'empty_value' => 'pi.form.label.select.choose.category',
+	        ->add('category', 'entity', array(
+	        		'class' => 'PiAppGedmoBundle:Category',
+	        		'query_builder' => function(EntityRepository $er) {
+	        			return $er->createQueryBuilder('k')
+	        			->select('k')
+	        			->where('k.type = :type')
+	        			->orderBy('k.name', 'ASC')
+	        			->setParameter('type', 5);
+	        		},
+	        		'property' => 'name',
+	        		'empty_value' => 'pi.form.label.select.choose.category',
 	        		'label'	=> "pi.form.label.field.category",
-			        "attr" => array(
-			        		"class"=>"pi_simpleselect",
-		        	),
-	        ))
-	        ->add('categoryother', 'text', array(
-	        		'label'=>'pi.form.label.field.or',
+	        		'multiple'	=> false,
 	        		'required'  => false,
-	        ))           
+	        		"attr" => array(
+	        				"class"=>"pi_simpleselect",
+	        		),
+	        ))	             
  			->add('parent', 'entity', array(
 	        		'class' => 'PiAppGedmoBundle:Menu',
 	        		'query_builder' => function(EntityRepository $er) {
@@ -102,6 +85,24 @@ class MenuType extends AbstractType
 	        ->add('title', 'text', array(
  					'label'	=> "pi.form.label.field.title",
  			)) 
+ 			->add('page', 'entity', array(
+ 					'class' => 'PiAppAdminBundle:Page',
+ 					'query_builder' => function(EntityRepository $er) {
+ 						return $er->getAllPageHtml();
+ 					},
+ 					'property' => 'route_name',
+ 					'empty_value' => 'pi.form.label.select.choose.option',
+ 					"label" 	=> "pi.form.label.field.url",
+ 					'multiple'	=> false,
+ 					'required'  => false,
+ 					"attr" => array(
+ 							"class"=>"pi_simpleselect",
+ 					),
+ 			))
+ 			->add('url', 'text', array(
+ 					'label'=>'pi.form.label.field.or',
+ 					'required'  => false,
+ 			)) 			
 	        ->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))	          
         ;
     }

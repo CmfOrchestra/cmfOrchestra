@@ -80,6 +80,7 @@ pi.form.label.date.publication: Publication date
 pi.form.label.date.creation: Created date
 pi.form.label.date.updating: Updated date
 pi.form.label.date.archivage: Archive date
+pi.form.label.date.expired: Expiration date
 pi.form.label.media.picture: Picture
 pi.form.label.media.file: File
 
@@ -87,6 +88,7 @@ pi.form.label.field.enabled: Enabled
 pi.form.label.field.language: Language
 pi.form.label.field.category: Category
 pi.form.label.field.title: Title
+pi.form.label.field.subtitle: Subtitle
 pi.form.label.field.description: Description
 pi.form.label.field.content: Content
 pi.form.label.field.content.detail: Content detail

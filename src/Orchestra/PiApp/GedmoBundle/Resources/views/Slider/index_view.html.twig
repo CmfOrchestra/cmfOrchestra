@@ -6,8 +6,7 @@
 	            <th><a>Id</a></th>	        
 	            <th><a>Category</a></th>	        
 	            <th><a>Title</a></th>	        
-	            <th><a>Page</a></th>
-	            <th><a>Css Class</a></th>
+	            <th><a>Subtitle</a></th>
 	            <th><a>Published_at</a></th>	        
 	            <th class="position" ><a>Position</a></th>
 	            <th><a>Enabled</a></th>	        
@@ -23,10 +22,15 @@
 	            {{ entity.category|limite("0", 55)|raw }}
 	            </td>	
 	            <td>
-	            {{ entity.title|limite("0", 55)|raw }}
+	            	{% set url = "#" %}
+                    {% if entity.page.getId() is defined %}
+	                	{%  set url = path_url(entity.page.getRouteName(), {'locale':app.session.locale, 'slug':entity.slug}) %}
+	                {% endif %}        
+	                <a href="{{ url }}" target="_blank" title="{{ url }}" class="info-tooltip" >
+						{{ entity.title|limite("0", 55)|raw }}
+	            	</a>  
 	            </td>
-	            <td>{{ entity.page }}</td>		            
-	            <td>{{ entity.CssClass}}</td>	            
+	            <td>{{ entity.subtitle}}</td>	            
 	            <td>{% if entity.publishedat %}{{ entity.publishedat|date('Y-m-d') }}{% endif%}</td>
 	        	<td  class="position" >{{ entity.position }}</td>	
 	            <td class="enabled">{{ entity.enabled }}</td>	
@@ -64,11 +68,10 @@
 				'2':'Identifiant',
 				'3':'Category',
 				'4':'Title',
-				'5':'Page',
-				'6':'Css Class',
-				'7':'Position',
-				'8':'Date Publish',
-				'9':'Enable' 
+				'5':'Subtitle',
+				'6':'Position',
+				'7':'Date Publish',
+				'8':'Enable' 
 			},
 		'grid-sorting': { 
 				'1':'desc',

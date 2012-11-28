@@ -43,6 +43,14 @@ pi.dashboard.menu4.contact: الاتصال
 pi.dashboard.menu4.pressrelease: النشرات الصحفية
 pi.dashboard.menu4.partner: الشركاء
 
+pi.dashboard.menu5.title: العمل
+pi.dashboard.menu5.individual: الفردية
+pi.dashboard.menu5.corporation: الشركة
+pi.dashboard.menu5.rss: Rss
+pi.dashboard.menu5.newsletter: النشرة الإخبارية
+pi.dashboard.menu5.event: الحدث
+pi.dashboard.menu5.ads: الإعلانات
+
 # ENTITY :: MENU
 pi.menu.translation.title:  ترجمة القائمة
 pi.menu.form.picture: صورة
@@ -59,6 +67,14 @@ pi.organigram.form.group.pictures: الصور
 pi.slider.translation.title: ترجمة المنزلق
 pi.slider.template.more: مزيد
 pi.slider.form.group.pictures: الصور
+
+# ENTITY :: CATEGORY
+pi.category.type.0: الاتصال
+pi.category.type.1: منع
+pi.category.type.2: الإعلام
+pi.category.type.3: المحتويات
+pi.category.type.4: المنزلق
+pi.category.type.5: القائمة
 
 # ENTITY :: BLOCK
 pi.block.formbuilder.template.choice0: كتلة وصف 

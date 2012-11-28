@@ -80,6 +80,7 @@ pi.form.label.date.publication: تاريخ النشر
 pi.form.label.date.creation: تاريخ الإنشاء
 pi.form.label.date.updating: تاريخ التحديث
 pi.form.label.date.archivage: تاريخ الأرشيف
+pi.form.label.date.expired: تاريخ الانتهاء
 pi.form.label.media.picture: الصورة
 pi.form.label.media.file: ملف
 
@@ -87,6 +88,7 @@ pi.form.label.field.enabled: تمكين
 pi.form.label.field.language: اللغة
 pi.form.label.field.category: الفئة
 pi.form.label.field.title: لقب
+pi.form.label.field.subtitle: العنوان الفرعي
 pi.form.label.field.description: الوصف
 pi.form.label.field.content: محتوى
 pi.form.label.field.content.detail: المحتوى التفصيل

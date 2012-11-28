@@ -291,21 +291,55 @@ class EventSubscriberPosition  extends abstractListener implements EventSubscrib
     			$results['sort_position_by_and'] 	= " AND (mytable.block_id  = '{$Block->getId()}')";
     			$results['sort_position_by_where']	= " WHERE (mytable.block_id  = '{$Block->getId()}')";
     		}
-    	}  	
-    	if(($entity instanceof \PiApp\GedmoBundle\Entity\Slider) && method_exists($entity, 'getCategory')){
-    		$category	= $entity->getCategory();
-    		if(!empty($category)){
-    			$results['sort_position_by_and'] 	= " AND (mytable.category  = '{$category}')";
-    			$results['sort_position_by_where']	= " WHERE (mytable.category  = '{$category}')";
-    		}
     	}
+
+    	
+    	
+    	
     	if(($entity instanceof \PiApp\GedmoBundle\Entity\Media) && method_exists($entity, 'getCategory')){
     		$category	= $entity->getCategory();
     		if($category instanceof \PiApp\GedmoBundle\Entity\Category){
     			$results['sort_position_by_and'] 	= " AND (mytable.category  = '{$category->getId()}')";
     			$results['sort_position_by_where']	= " WHERE (mytable.category  = '{$category->getId()}')";
     		}
+    	}  
+    	if(($entity instanceof \PiApp\GedmoBundle\Entity\Block) && method_exists($entity, 'getCategory')){
+    		$category	= $entity->getCategory();
+    		if($category instanceof \PiApp\GedmoBundle\Entity\Category){
+    			$results['sort_position_by_and'] 	= " AND (mytable.category  = '{$category->getId()}')";
+    			$results['sort_position_by_where']	= " WHERE (mytable.category  = '{$category->getId()}')";
+    		}
+    	}    	
+    	if(($entity instanceof \PiApp\GedmoBundle\Entity\Content) && method_exists($entity, 'getCategory')){
+    		$category	= $entity->getCategory();
+    		if($category instanceof \PiApp\GedmoBundle\Entity\Category){
+    			$results['sort_position_by_and'] 	= " AND (mytable.category  = '{$category->getId()}')";
+    			$results['sort_position_by_where']	= " WHERE (mytable.category  = '{$category->getId()}')";
+    		}
     	}
+    	if(($entity instanceof \PiApp\GedmoBundle\Entity\Contact) && method_exists($entity, 'getCategory')){
+    		$category	= $entity->getCategory();
+    		if($category instanceof \PiApp\GedmoBundle\Entity\Category){
+    			$results['sort_position_by_and'] 	= " AND (mytable.category  = '{$category->getId()}')";
+    			$results['sort_position_by_where']	= " WHERE (mytable.category  = '{$category->getId()}')";
+    		}
+    	}
+    	if(($entity instanceof \PiApp\GedmoBundle\Entity\Slider) && method_exists($entity, 'getCategory')){
+    		$category	= $entity->getCategory();
+    		if($category instanceof \PiApp\GedmoBundle\Entity\Category){
+    			$results['sort_position_by_and'] 	= " AND (mytable.category  = '{$category->getId()}')";
+    			$results['sort_position_by_where']	= " WHERE (mytable.category  = '{$category->getId()}')";
+    		}
+    	}
+    	if(($entity instanceof \PiApp\GedmoBundle\Entity\Menu) && method_exists($entity, 'getCategory')){
+    		$category	= $entity->getCategory();
+    		if($category instanceof \PiApp\GedmoBundle\Entity\Category){
+    			$results['sort_position_by_and'] 	= " AND (mytable.category  = '{$category->getId()}')";
+    			$results['sort_position_by_where']	= " WHERE (mytable.category  = '{$category->getId()}')";
+    		}
+    	}    	    
+    	
+    	  	
     	
     	
     	if(($entity instanceof \PiApp\GedmoBundle\Entity\Pressrelease) && method_exists($entity, 'getCategory')){
@@ -329,14 +363,6 @@ class EventSubscriberPosition  extends abstractListener implements EventSubscrib
     			$results['sort_position_by_where']	= " WHERE (mytable.category  = '{$category}')";
     		}
     	}    	
-    	if(($entity instanceof \PiApp\GedmoBundle\Entity\Contact) && method_exists($entity, 'getCategory')){
-    		$category	= $entity->getCategory();
-    		if($category instanceof \PiApp\GedmoBundle\Entity\Category){
-    			$results['sort_position_by_and'] 	= " AND (mytable.category  = '{$category->getId()}')";
-    			$results['sort_position_by_where']	= " WHERE (mytable.category  = '{$category->getId()}')";
-    		}
-    	}  	 	
-    	
     	
     	return $results;
     }

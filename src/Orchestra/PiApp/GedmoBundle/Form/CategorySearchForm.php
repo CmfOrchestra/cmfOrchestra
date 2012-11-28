@@ -14,6 +14,7 @@ namespace PiApp\GedmoBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormBuilder;
 
 /**
@@ -50,20 +51,31 @@ class CategorySearchForm extends AbstractType
 		
     public function buildForm(FormBuilder $builder, array $options)
     {       
-    	$choiceList = $this->_em->getRepository("PiAppGedmoBundle:$this->_entity")->getArrayAllCategory();
-    	if(!isset($choiceList) || !count($choiceList))
-    		$choiceList = array();
-    	    	 
+    	if($this->_entity == 'Menu')	$choiceList = 5;
+    	if($this->_entity == 'Slider')	$choiceList = 4;
+    	if($this->_entity == 'Content')	$choiceList = 3;
+    	if($this->_entity == 'Media')	$choiceList = 2;
+    	if($this->_entity == 'Block')	$choiceList = 1;
+    	if($this->_entity == 'Contact')	$choiceList = 0;
+    	
         $builder
-        	->add('category', 'choice', array(
-	        		'choices'   => $choiceList,
-			        'multiple'	=> false,
-			        'required'  => false,
-			        'empty_value' => 'pi.form.label.select.choose.category',
-        			'label'	=> "pi.form.label.field.category",
-			        "attr" => array(
-			        		"class"=>"pi_simpleselect",
-		        	),
+        	->add('category', 'entity', array(
+	        		'class' => 'PiAppGedmoBundle:Category',
+	        		'query_builder' => function(EntityRepository $er) use($choiceList) {
+	        			return $er->createQueryBuilder('k')
+	        			->select('k')
+	        			->where('k.type = :type')
+	        			->orderBy('k.name', 'ASC')
+	        			->setParameter('type', $choiceList);
+	        		},
+	        		'property' => 'name',
+	        		'empty_value' => 'pi.form.label.select.choose.category',
+	        		'label'	=> "pi.form.label.field.category",
+	        		'multiple'	=> false,
+	        		'required'  => false,
+	        		"attr" => array(
+	        				"class"=>"pi_simpleselect",
+	        		),
 	        ));
     }
 	

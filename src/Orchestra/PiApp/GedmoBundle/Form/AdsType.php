@@ -64,47 +64,10 @@ class AdsType extends AbstractType
     	//	$choiceList = array();
     	
         $builder 			
- 			->add('status') 			
- 			->add('typology') 			
- 			->add('title', 'text', array(
- 					'label'	=> "pi.form.label.field.title",
- 					"label_attr" => array(
- 							"class"=>"text_collection",
- 					),
- 					'required'  => false,
- 			)) 			
- 			->add('content', 'textarea', array(
- 					'label'	=> "pi.form.label.field.content",
- 					"label_attr" => array(
- 							"class"=>"text_collection",
- 					), 	
- 					"attr" => array(
- 							"class"	=>"pi_editor_simple",
- 					),
- 					'required'  => false,
- 			)) 			
- 			->add('author') 			
- 			->add('expired_at') 			
- 			->add('created_at', 'date', array(
- 					'widget' => 'single_text', // choice, text, single_text
- 					'input' => 'datetime',
- 					'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
- 					'required'  => false,
- 					"attr" => array(
- 							"class"=>"pi_datepicker",
- 					),
- 					'label'	=> 'pi.form.label.date.creation',
- 			)) 			
- 			->add('updated_at', 'date', array(
- 					'widget' => 'single_text', // choice, text, single_text
- 					'input' => 'datetime',
- 					'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
- 					'required'  => false,
- 					"attr" => array(
- 							"class"=>"pi_datepicker",
- 					),
- 					'label'	=> 'pi.form.label.date.updating',
- 			)) 			
+ 			->add('enabled', 'checkbox', array(
+ 					'data'  => true,
+ 					'label'	=> 'pi.form.label.field.enabled',
+ 			))
  			->add('published_at', 'date', array(
  					'widget' => 'single_text', // choice, text, single_text
  					'input' => 'datetime',
@@ -123,14 +86,56 @@ class AdsType extends AbstractType
  					"attr" => array(
  							"class"=>"pi_datepicker",
  					),
- 					'label'	=> 'pi.form.label.date.archivage',
+ 					'label'	=> 'pi.form.label.date.expired',
  			))        	
- 			->add('enabled', 'checkbox', array(
-            		'data'  => true,
- 					'label'	=> 'pi.form.label.field.enabled',
-            )) 			
- 			->add('position') 			
- 			->add('user') 			
+			
+
+ 			->add('user', 'entity', array(
+            		'class' 	=> 'BootStrapUserBundle:User',
+            		'label'	=> 'pi.form.label.field.user',
+            		"attr" 		=> array(
+            				"class"=>"pi_simpleselect",
+            		),
+            )) 	
+
+ 			->add('tags', 'entity', array(
+ 					'class' => 'PiAppAdminBundle:Tag',
+ 					'query_builder' => function(EntityRepository $er) {
+ 						return $er->createQueryBuilder('k')
+ 						->select('k')
+ 						->where('k.enabled = :enabled')
+ 						->orderBy('k.groupname', 'ASC')
+ 						->setParameter('enabled', 1);
+ 					},
+ 					'multiple'	=> true,
+ 					'required'  => false,
+ 					'label'	=> 'pi.page.form.tags',
+ 					"attr" => array(
+ 							"class"=>"pi_multiselect",
+ 					),
+ 			))
+ 			
+ 			->add('status')
+ 			->add('typology')
+ 			->add('title', 'text', array(
+ 					'label'	=> "pi.form.label.field.title",
+ 					"label_attr" => array(
+ 							"class"=>"text_collection",
+ 					),
+ 					'required'  => false,
+ 			))
+ 			->add('content', 'textarea', array(
+ 					'label'	=> "pi.form.label.field.content",
+ 					"label_attr" => array(
+ 							"class"=>"text_collection",
+ 					),
+ 					"attr" => array(
+ 							"class"	=>"pi_editor_simple",
+ 					),
+ 					'required'  => false,
+ 			))
+ 			->add('author')
+ 			
  			->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
         ;
     }

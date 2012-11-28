@@ -64,43 +64,12 @@ class CorporationType extends AbstractType
     	//	$choiceList = array();
     	
         $builder 			
- 			->add('url', 'text', array(
- 					"label" 	=> "pi.form.label.field.url",
- 					"label_attr" => array(
- 							"class"=>"page_collection",
- 					),
- 					'required'  => false,
- 			)) 			
- 			->add('created_at', 'date', array(
- 					'widget' => 'single_text', // choice, text, single_text
- 					'input' => 'datetime',
- 					'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
- 					'required'  => false,
- 					"attr" => array(
- 							"class"=>"pi_datepicker",
- 					),
- 					'label'	=> 'pi.form.label.date.creation',
- 			)) 			
- 			->add('updated_at', 'date', array(
- 					'widget' => 'single_text', // choice, text, single_text
- 					'input' => 'datetime',
- 					'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
- 					'required'  => false,
- 					"attr" => array(
- 							"class"=>"pi_datepicker",
- 					),
- 					'label'	=> 'pi.form.label.date.updating',
- 			)) 			
- 			->add('published_at', 'date', array(
- 					'widget' => 'single_text', // choice, text, single_text
- 					'input' => 'datetime',
- 					'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
- 					'required'  => false,
- 					"attr" => array(
- 							"class"=>"pi_datepicker",
- 					),
- 					'label'	=> 'pi.form.label.date.publication',
- 			)) 			
+	
+
+ 			->add('enabled', 'checkbox', array(
+ 					'data'  => true,
+ 					'label'	=> 'pi.form.label.field.enabled',
+ 			))
  			->add('archive_at', 'date', array(
  					'widget' => 'single_text', // choice, text, single_text
  					'input' => 'datetime',
@@ -111,12 +80,7 @@ class CorporationType extends AbstractType
  					),
  					'label'	=> 'pi.form.label.date.archivage',
  			))        	
- 			->add('enabled', 'checkbox', array(
-            		'data'  => true,
- 					'label'	=> 'pi.form.label.field.enabled',
-            )) 			
- 			->add('position') 			
- 			->add('user') 			
+ 			->add('user', new \BootStrap\UserBundle\Form\Type\RegistrationFormType('collection'))	
  			->add('pageurl', 'entity', array(
  					'class' => 'PiAppAdminBundle:Page',
  					'query_builder' => function(EntityRepository $er) {
@@ -133,7 +97,14 @@ class CorporationType extends AbstractType
  					),
  					'multiple'	=> false,
  					'required'  => false,
- 			)) 			
+ 			)) 	
+ 			->add('url', 'text', array(
+ 					"label" 	=> "pi.form.label.field.url",
+ 					"label_attr" => array(
+ 							"class"=>"page_collection",
+ 					),
+ 					'required'  => false,
+ 			)) 					
  			->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
         ;
     }

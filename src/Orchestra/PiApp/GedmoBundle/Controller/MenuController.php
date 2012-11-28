@@ -86,6 +86,21 @@ class MenuController extends abstractController
     {
     	return parent::positionajaxAction();
     }    
+    
+    /**
+     * Delete Menu entities.
+     *
+     * @Route("/admin/gedmo/menu/delete", name="admin_gedmo_menu_deletentity_ajax")
+     * @Secure(roles="ROLE_USER")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access  public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function deleteajaxAction()
+    {
+    	return parent::deletajaxAction();
+    }    
 
     /**
      * Lists all Menu entities.
@@ -159,7 +174,7 @@ class MenuController extends abstractController
 
         $category   = $this->container->get('request')->query->get('category');
         if($category)
-        	$entity->setCategory($category);
+        	$entity->setCategory($em->getRepository("PiAppGedmoBundle:Category")->find($category));
         
         $parent_id   = $this->container->get('request')->query->get('parent');
         if($parent_id){
@@ -369,16 +384,20 @@ class MenuController extends abstractController
     	if(!$NoLayout) 	$template = "tree.html.twig"; else $template = "tree_ajax.html.twig";
 
     	// from search category management
-    	$form_search	= $this->createForm(new CategorySearchForm($em, "menu"));
-    	$data = array();
-    	$data['category'] = $category;
+    	$form_search		= $this->createForm(new CategorySearchForm($em, "menu"));
+    	$data 				= array();
+    	$data['category'] 	= $em->getRepository("PiAppGedmoBundle:Category")->find($category);
+    	
     	$form_search->setData($data);
     	if ($this->getRequest()->getMethod() == 'POST') {
     		$form_search->bindRequest($this->getRequest());
     		$data 		= $form_search->getData();
     		$category	= $data['category'];
     		
-    		return $this->redirect($this->generateUrl('admin_gedmo_menu_tree', array('NoLayout' => $NoLayout, 'category' => $category)));
+    		if($category instanceof \PiApp\GedmoBundle\Entity\Category)   		
+    			return $this->redirect($this->generateUrl('admin_gedmo_menu_tree', array('NoLayout' => $NoLayout, 'category' => $category->getId())));
+    		else
+    			return $this->redirect($this->generateUrl('admin_gedmo_menu_tree', array('NoLayout' => $NoLayout, 'category' => '')));
     	}
     	
     	//print_r($category);exit;

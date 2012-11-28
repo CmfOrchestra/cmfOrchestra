@@ -18,7 +18,8 @@
 	<table id="grid_category" class="grid" >
 	    <thead>
 	        <tr>	            
-	            <th><a href="javascript:void(0);" title="Id">Id</a></th>	            
+	            <th><a href="javascript:void(0);" title="Id">Id</a></th>
+	            <th><a href="javascript:void(0);" title="Type">Type</a></th>	 	            
 	            <th><a href="javascript:void(0);" title="Name">Name</a></th>	        
 	            <th><a href="javascript:void(0);" title="Actions">Actions</a></th>
 	        </tr>
@@ -27,7 +28,10 @@
 	    {% set num_line = 0 %}
 	    {% for entity in entities %}
 	        <tr {% if(num_line == 0) %}class="odd"{% endif %}  id='{{ entity.position }}_row_{{ entity.id }}'  >	
-	            <td><a href="{{ path('admin_gedmo_category_show', { 'id': entity.id, 'NoLayout': NoLayout }) }}" title="">{{ entity.id }}</a></td>	
+	            <td><a href="{{ path('admin_gedmo_category_show', { 'id': entity.id, 'NoLayout': NoLayout }) }}" title="">{{ entity.id }}</a></td>
+	            <td>
+	            	{{ ("pi.category.type."~entity.type)|trans }}
+	            </td>	
 	            <td>
 	            	{{ entity.name|limite("0", 55)|raw }}
 	            </td>	
@@ -72,6 +76,9 @@
 				'0':'false',
 				},						
 			'grid-actions': { 
+					'rows_grouping': {'Collapsible':'true', 
+						'GroupBy':'name', 'columnIndex':1, 'HideColumn':'true', 'SortDirection':'desc',
+					},
 					'rows_enabled': {'sButtonText':'pi.grid.action.row_enabled', 'route':'admin_gedmo_category_enabledentity_ajax',},
 					'rows_disable': {'sButtonText':'pi.grid.action.row_disable', 'route':'admin_gedmo_category_disablentity_ajax'},
 					'rows_delete': {'sButtonText':'pi.grid.action.row_delete', 'route':'admin_gedmo_category_deletentity_ajax'},

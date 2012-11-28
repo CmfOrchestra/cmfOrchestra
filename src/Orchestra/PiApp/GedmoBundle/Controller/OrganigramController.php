@@ -110,6 +110,21 @@ class OrganigramController extends abstractController
     }    
 
     /**
+     * Delete Organigram entities.
+     *
+     * @Route("/admin/gedmo/organigram/delete", name="admin_gedmo_organigram_deletentity_ajax")
+     * @Secure(roles="ROLE_USER")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access  public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function deleteajaxAction()
+    {
+    	return parent::deletajaxAction();
+    }
+        
+    /**
      * Finds and displays a Organigram entity.
      *
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")

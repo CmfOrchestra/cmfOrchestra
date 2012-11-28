@@ -43,6 +43,14 @@ pi.dashboard.menu4.contact: Contact
 pi.dashboard.menu4.pressrelease: Press releases
 pi.dashboard.menu4.partner: Partners
 
+pi.dashboard.menu5.title: Work
+pi.dashboard.menu5.individual: Individual
+pi.dashboard.menu5.corporation: Corporation
+pi.dashboard.menu5.rss: Rss
+pi.dashboard.menu5.newsletter: Newsletter
+pi.dashboard.menu5.event: Event
+pi.dashboard.menu5.ads: Ads
+
 # ENTITY :: MENU
 pi.menu.translation.title: Translation menu
 pi.menu.form.picture: Picture
@@ -59,6 +67,14 @@ pi.organigram.form.group.pictures: Pictures
 pi.slider.translation.title: Slider translation
 pi.slider.template.more: more
 pi.slider.form.group.pictures: Pictures
+
+# ENTITY :: CATEGORY
+pi.category.type.0: Contact
+pi.category.type.1: Block
+pi.category.type.2: Media
+pi.category.type.3: Contents
+pi.category.type.4: Slider
+pi.category.type.5: Menu
 
 # ENTITY :: BLOCK
 pi.block.formbuilder.template.choice0: Block descriptif 

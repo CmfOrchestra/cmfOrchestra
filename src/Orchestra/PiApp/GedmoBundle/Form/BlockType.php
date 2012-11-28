@@ -81,6 +81,13 @@ class BlockType extends AbstractType
 	        ))          
  			->add('category', 'entity', array(
 	        		'class' => 'PiAppGedmoBundle:Category',
+ 					'query_builder' => function(EntityRepository $er) {
+ 						return $er->createQueryBuilder('k')
+ 						->select('k')
+ 						->where('k.type = :type')
+ 						->orderBy('k.name', 'ASC')
+ 						->setParameter('type', 1);
+ 					},
 	        		'property' => 'name',
 	        		'empty_value' => 'pi.form.label.select.choose.category',
  					'label'	=> "pi.form.label.field.category",
@@ -101,6 +108,9 @@ class BlockType extends AbstractType
  			))            
  			->add('descriptif', 'textarea', array(
  					'label'	=> 'pi.form.label.field.description',
+ 					"attr" => array(
+ 							"class"	=>"pi_editor_simple",
+ 					),
  					"label_attr" => array(
  							"class"=>"block_collection",
  					),

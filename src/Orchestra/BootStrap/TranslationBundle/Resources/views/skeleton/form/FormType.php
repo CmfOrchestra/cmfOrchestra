@@ -280,6 +280,13 @@ class {{ form_class }} extends AbstractType
  			
 //  			->add('{{ field }}', 'entity', array(
 //  					'class' => 'PiAppGedmoBundle:Category',
+//			 			'query_builder' => function(EntityRepository $er) {
+//			 				return $er->createQueryBuilder('k')
+//			 				->select('k')
+//			 				->where('k.type = :type')
+//			 				->orderBy('k.name', 'ASC')
+//			 				->setParameter('type', 3);
+//			 			},
 //  					'property' => 'name',
 //  					'empty_value' => 'pi.form.label.select.choose.category',
 //  					'label'	=> "pi.form.label.field.category",

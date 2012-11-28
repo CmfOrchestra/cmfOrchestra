@@ -63,34 +63,13 @@ class RssType extends AbstractType
     	//if(!isset($choiceList) || !count($choiceList))
     	//	$choiceList = array();
     	
-        $builder 			
- 			->add('url', 'text', array(
- 					"label" 	=> "pi.form.label.field.url",
- 					"label_attr" => array(
- 							"class"=>"page_collection",
- 					),
- 					'required'  => false,
- 			)) 			
- 			->add('created_at', 'date', array(
- 					'widget' => 'single_text', // choice, text, single_text
- 					'input' => 'datetime',
- 					'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
- 					'required'  => false,
- 					"attr" => array(
- 							"class"=>"pi_datepicker",
- 					),
- 					'label'	=> 'pi.form.label.date.creation',
- 			)) 			
- 			->add('updated_at', 'date', array(
- 					'widget' => 'single_text', // choice, text, single_text
- 					'input' => 'datetime',
- 					'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
- 					'required'  => false,
- 					"attr" => array(
- 							"class"=>"pi_datepicker",
- 					),
- 					'label'	=> 'pi.form.label.date.updating',
- 			)) 			
+        $builder
+	        ->add('enabled', 'checkbox', array(
+	        		'data'  => true,
+	        		'label'	=> 'pi.form.label.field.enabled',
+	        ))
+        
+ 					
  			->add('published_at', 'date', array(
  					'widget' => 'single_text', // choice, text, single_text
  					'input' => 'datetime',
@@ -100,23 +79,14 @@ class RssType extends AbstractType
  							"class"=>"pi_datepicker",
  					),
  					'label'	=> 'pi.form.label.date.publication',
- 			)) 			
- 			->add('archive_at', 'date', array(
- 					'widget' => 'single_text', // choice, text, single_text
- 					'input' => 'datetime',
- 					'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
- 					'required'  => false,
- 					"attr" => array(
- 							"class"=>"pi_datepicker",
+ 			)) 		
+ 			->add('title', 'text', array(
+ 					'label'	=> "pi.form.label.field.title",
+ 					"label_attr" => array(
+ 							"class"=>"text_collection",
  					),
- 					'label'	=> 'pi.form.label.date.archivage',
- 			))        	
- 			->add('enabled', 'checkbox', array(
-            		'data'  => true,
- 					'label'	=> 'pi.form.label.field.enabled',
-            )) 			
- 			->add('position') 			
- 			->add('users') 			
+ 					'required'  => false,
+ 			))
  			->add('pageurl', 'entity', array(
  					'class' => 'PiAppAdminBundle:Page',
  					'query_builder' => function(EntityRepository $er) {
@@ -133,7 +103,14 @@ class RssType extends AbstractType
  					),
  					'multiple'	=> false,
  					'required'  => false,
- 			)) 			
+ 			))
+ 			->add('url', 'text', array(
+ 					"label" 	=> "pi.form.label.field.or",
+ 					"label_attr" => array(
+ 							"class"=>"page_collection",
+ 					),
+ 					'required'  => false,
+ 			))
  			->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
         ;
     }

@@ -70,7 +70,7 @@ class Individual extends AbstractDefault
     /**
      * @var integer $user
      *
-     * @ORM\ManyToOne(targetEntity="BootStrap\UserBundle\Entity\User")
+     * @ORM\OneToOne(targetEntity="BootStrap\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     protected $user;    
@@ -101,56 +101,56 @@ class Individual extends AbstractDefault
     /**
      * @var string $Inscrname
      *
-     * @ORM\Column(name="inscr_name", type="text", nullable = true)
+     * @ORM\Column(name="inscr_name", type="string", nullable = true)
      */
     protected $InscrName;
     
     /**
      * @var string $InscrNickname
      *
-     * @ORM\Column(name="inscr_nickname", type="text", nullable = true)
+     * @ORM\Column(name="inscr_nickname", type="string", nullable = true)
      */
     protected $InscrNickname;
     
     /**
      * @var string $InscrPhone
      *
-     * @ORM\Column(name="inscr_phone", type="text", nullable = true)
+     * @ORM\Column(name="inscr_phone", type="string", nullable = true)
      */
     protected $InscrPhone;
     
     /**
      * @var string $InscrJob
      *
-     * @ORM\Column(name="inscr_entr_job", type="text", nullable = true)
+     * @ORM\Column(name="inscr_entr_job", type="string", nullable = true)
      */
     protected $InscrJob;
     
     /**
      * @var string $EntrCompany
      *
-     * @ORM\Column(name="entr_company", type="text", nullable = true)
+     * @ORM\Column(name="entr_company", type="string", nullable = true)
      */
     protected $EntrCompany;
     
     /**
      * @var string $EntrActivity
      *
-     * @ORM\Column(name="entr_activity", type="text", nullable = true)
+     * @ORM\Column(name="entr_activity", type="string", nullable = true)
      */
     protected $EntrActivity;
     
     /**
      * @var string $EntrBusiness
      *
-     * @ORM\Column(name="entr_business", type="text", nullable = true)
+     * @ORM\Column(name="entr_business", type="string", nullable = true)
      */
     protected $EntrBusiness;
     
     /**
      * @var string $EntrStaff
      *
-     * @ORM\Column(name="entr_staff", type="text", nullable = true)
+     * @ORM\Column(name="entr_staff", type="string", nullable = true)
      */
     protected $EntrStaff;    
     

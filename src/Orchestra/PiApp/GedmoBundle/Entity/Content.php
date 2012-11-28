@@ -75,18 +75,10 @@ class Content extends AbstractDefault
     protected $pagecssclass;    
     
     /**
-     * @var string
-     *
-     * @ORM\Column(name="category", type="string", length=128, nullable=true)
+     * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Category", inversedBy="items_content")
+     * @ORM\JoinColumn(name="category", referencedColumnName="id", nullable=true)
      */
-    protected $category;  
-
-    /**
-     * @var string
-     * 
-     * @ORM\Column(name="categoryother", type="string", length=128, nullable=true)
-     */
-    protected $categoryother;    
+    protected $category; 
     
     /**
      * @var text $descriptif
@@ -145,11 +137,6 @@ class Content extends AbstractDefault
      */
     public function setUpdatedValue()
     {
-    	$other  = $this->getCategoryother();
-    	if(!empty($other)){
-    		$this->setCategory($other);
-    		$this->setCategoryother('');
-    	}
     }  
     
     /**
@@ -185,43 +172,23 @@ class Content extends AbstractDefault
     /**
      * Set category
      *
-     * @param string $category
+     * @param string \PiApp\GedmoBundle\Entity\Category $category
      */
-    public function setCategory($category)
+    public function setCategory(\PiApp\GedmoBundle\Entity\Category $category)
     {
-   		$this->category = $category;
+    	$this->category = $category;
+    	return $this;
     }
     
     /**
      * Get category
      *
-     * @return string
+     * @return \PiApp\GedmoBundle\Entity\Category
      */
     public function getCategory()
     {
     	return $this->category;
-    }
-    
-    /**
-     * Set category
-     *
-     * @param string $category
-     */
-    public function setCategoryother($category)
-    {
-   		$this->categoryother = $category;
-    }
-    
-    /**
-     * Get category
-     *
-     * @return string
-     */
-    public function getCategoryother()
-    {
-    	return $this->categoryother;
-    }
-    
+    } 
 
     /**
      * Set descriptif

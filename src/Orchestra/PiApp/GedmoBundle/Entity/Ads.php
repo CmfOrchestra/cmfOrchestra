@@ -68,6 +68,18 @@ class Ads extends AbstractDefault
     protected $id;
     
     /**
+     * @var array $tags
+     *
+     * @ORM\ManyToMany(targetEntity="PiApp\AdminBundle\Entity\Tag")
+     * @ORM\JoinTable(name="gedmo_ads_tag",
+     *      joinColumns={@ORM\JoinColumn(name="ads_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
+     *      )
+     * @Assert\Valid()
+     */
+    protected $tags;    
+    
+    /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Contact", mappedBy="ads")
@@ -130,20 +142,14 @@ class Ads extends AbstractDefault
     protected $media;   
 
     /**
-     * @var datetime $expired_at
-     *
-     * @ORM\Column(name="expired_at", type="datetime", nullable=true)
-     */
-    protected $expired_at;    
-    
-    /**
      * Constructor
      */    
     public function __construct()
     {
     	parent::__construct();
     	
-    	$this->responses 	 = new \Doctrine\Common\Collections\ArrayCollection();
+    	$this->tags 		= new \Doctrine\Common\Collections\ArrayCollection();
+    	$this->responses 	= new \Doctrine\Common\Collections\ArrayCollection();
     }    
     
     /**
@@ -237,6 +243,17 @@ class Ads extends AbstractDefault
     {
     	return $this->typology;
     }    
+    
+    /**
+     * Set title
+     *
+     * @param string $title
+     */
+    public function setTitle($title)
+    {
+    	$this->title = $title;
+    	return $this;
+    }    
         
     /**
      * Get title
@@ -312,27 +329,6 @@ class Ads extends AbstractDefault
     }    
     
     /**
-     * Set expired_at
-     *
-     * @param datetime $expiredAt
-     */
-    public function setExpiredAt($expiredAt)
-    {
-    	$this->expired_at = $expiredAt;
-    	return $this;
-    }
-    
-    /**
-     * Get expired_at
-     *
-     * @return datetime
-     */
-    public function getExpiredAt()
-    {
-    	return $this->expired_at;
-    }    
-    
-    /**
      * Get responses
      *
      * @return \Doctrine\Common\Collections\ArrayCollection
@@ -345,10 +341,35 @@ class Ads extends AbstractDefault
     /**
      * Add responses
      *
-     * @param PiApp\GedmoBundle\Entity\Contact $responses
+     * @param \PiApp\GedmoBundle\Entity\Contact $responses
      */
     public function addResponse(\PiApp\GedmoBundle\Entity\Contact $responses)
     {
         $this->responses[] = $responses;
     }
+    
+    /**
+     * Add tags
+     *
+     * @param \PiApp\AdminBundle\Entity\Tag
+     */
+    public function addTag(\PiApp\AdminBundle\Entity\Tag $tags)
+    {
+    	$this->tags[] = $tags;
+    }
+    
+    public function setTags($tags)
+    {
+    	$this->tags = $tags;
+    }
+    
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getTags()
+    {
+    	return $this->tags;
+    }    
 }

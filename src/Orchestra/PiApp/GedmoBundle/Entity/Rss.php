@@ -41,7 +41,7 @@ class Rss extends AbstractDefault
 	 * @var array
 	 * @access  protected
 	 */
-	protected $_fields	= array();
+	protected $_fields	= array('title');
 
 	/**
 	 * Name of the Translation Entity
@@ -66,6 +66,22 @@ class Rss extends AbstractDefault
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+    
+    /**
+     * @var string
+     *
+     * @Gedmo\Translatable
+     * @ORM\Column(name="title", type="string", length=128, nullable=false)
+     */
+    protected $title;
+
+    /**
+     * @var string $status
+     *
+     * @ORM\Column(name="status", type="string", nullable=true)
+     * @Assert\NotBlank(message = "erreur.status.notblank")
+     */
+    protected $status;    
     
     /**
      * @var array $users
@@ -173,6 +189,26 @@ class Rss extends AbstractDefault
     }    
     
     /**
+     * Set $title
+     *
+     * @param string $title
+     */
+    public function setTitle($title)
+    {
+    	$this->title = $title;
+    }
+    
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+    	return $this->title;
+    }    
+    
+    /**
      * Set page url
      *
      * @param \PiApp\AdminBundle\Entity\Page
@@ -233,6 +269,27 @@ class Rss extends AbstractDefault
     public function getMedia()
     {
     	return $this->media;
+    }    
+    
+    /**
+     * Set status
+     *
+     * @param string $status
+     */
+    public function setStatus($status)
+    {
+    	$this->status = $status;
+    	return $this;
+    }
+    
+    /**
+     * Get status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+    	return $this->status;
     }    
 
 }
