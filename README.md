@@ -238,7 +238,7 @@ chmod –R 0777 web/yui
 
 ``` bash
 
-	php  app/console  **doctrine:database:create**
+	php  app/console  doctrine:database:create
 
 ```
 
@@ -246,7 +246,7 @@ chmod –R 0777 web/yui
 
 ``` bash
 
-	php  app/console  **doctrine:schema:create**
+	php  app/console  doctrine:schema:create
 
 ```
 
@@ -254,7 +254,7 @@ chmod –R 0777 web/yui
 
 ``` bash
 
-	php  app/console  **doctrine:fixtures:load**
+	php  app/console  doctrine:fixtures:load
 
 ```
 
