@@ -236,8 +236,9 @@ class Media extends AbstractDefault
      *
      * @param string \PiApp\GedmoBundle\Entity\Category $category
      */
-    public function setCategory(\PiApp\GedmoBundle\Entity\Category $category)
+    public function setCategory($category)
     {
+    	
     	$this->category = $category;
     	return $this;
     }
