@@ -200,7 +200,7 @@ To use Doctrine, you will need to have installed PDO. And you must have installe
 
 ### Step 2: Setting up Permissions
 
-* Les répertoires app / cache et app / logs doivent être accessibles en écriture à la fois par le serveur web et l'utilisateur.
+* The directories app / cache app / logs should be writable by both the web server and the user.
 * On a UNIX system, if your web server is different from your user, you can run the following commands once in your project to ensure that the permissions are correctly installed. 
 * We must change www-data on your web server.
 
