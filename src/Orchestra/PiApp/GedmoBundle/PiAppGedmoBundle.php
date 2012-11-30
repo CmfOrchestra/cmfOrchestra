@@ -66,7 +66,7 @@ $GLOBALS['GEDMO_WIDGET_LISTENER']['content'] = array(
 $GLOBALS['GEDMO_WIDGET_LISTENER']['news'] = array(
 		'method' => array('_template_show', '_template_list', '_template_archive'),
 		'_template_show'	 => array(
-				'edit'		=> 'admin_gedmo_news',
+				'edit'		=> 'admin_gedmo_news_edit',
 		),
 		'_template_list'	 => array(
 				'edit'		=> 'admin_gedmo_news',

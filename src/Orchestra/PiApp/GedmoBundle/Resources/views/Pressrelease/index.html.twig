@@ -35,9 +35,9 @@
 	    {% for entity in entities %}
 	        <tr {% if(num_line == 0) %}class="odd"{% endif %}  id='{{ entity.position }}_row_{{ entity.id }}'  >
 	        	<td class="position" >{{ entity.position}}</td>	
-	            <td><a href="{{ path('admin_gedmo_pressrelease_show', { 'id': entity.id, 'NoLayout': NoLayout }) }}" title="">{{ entity.id }}</a></td>	
+	            <td><a href="{{ path('admin_gedmo_pressrelease_show', { 'id': entity.id, 'NoLayout': NoLayout }) }}" title="">{{ entity.id }}</a></td>
 	            <td>
-	            	{{ entity.category|limite("0", 55)|raw }}
+	            	{{ entity.category }}
 	            </td>	
 	            <td>
 	            	{% if entity.pageurl.getId() is defined %}

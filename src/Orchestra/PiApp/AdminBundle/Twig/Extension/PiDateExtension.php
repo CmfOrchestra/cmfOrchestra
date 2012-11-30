@@ -61,6 +61,8 @@ class PiDateExtension extends \Twig_Extension
 	 *  {{ comment.created|localedate }} to have a medium date and no time, in the current locale
 	 *  {{ comment.country|country }} to have the country, in the current locale
 	 *  {{ comment.country|country('c ountry does not exist') }} Define the returned value if the country does not exist
+	 *  {{ 'now' | convertToTimestamp  }}
+	 *  {{ 'December 20, 2011' | convertToTimestamp('en_GB')  }}
 	 * </code>
 	 * 
 	 * @return array An array of filters
@@ -77,6 +79,7 @@ class PiDateExtension extends \Twig_Extension
        		'localedate'  		=> new \Twig_Filter_Method($this, 'localeDateFilter'),
         	'convertToDateTime'	=> new \Twig_Filter_Method($this, 'convertToDattimeFilter'),
         	'convertMonthNumberToString'	=> new \Twig_Filter_Method($this, 'convertMonthNumberToStringFilter'),
+        	'convertToTimestamp'=> new \Twig_Filter_Method($this, 'convertToTimestampFilter'),
         );
     }
     
@@ -212,4 +215,24 @@ class PiDateExtension extends \Twig_Extension
     {
     	return $this->container->get('pi_app_admin.date_manager')->relative_time($when, $from);
     }
+    
+    /**
+     * Parse a string representation of a date to a timestamp.
+     *
+     * @param string $date
+     * @param string $locale
+     *
+     * @return int Timestamp
+     * @access public
+     * @throws \Exception If fails parsing the string
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function convertToTimestampFilter($date, $locale = null){
+    	if($date == 'now'){
+    		$result = new \DateTime();
+    		return $result->getTimestamp();
+    	}else
+    		return $this->container->get('pi_app_admin.date_manager')->parseTimestamp($date, $locale);
+    }    
 }

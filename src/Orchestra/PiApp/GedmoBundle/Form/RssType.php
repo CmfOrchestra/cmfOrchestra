@@ -59,10 +59,6 @@ class RssType extends AbstractType
 		
     public function buildForm(FormBuilder $builder, array $options)
     {
-    	//$choiceList = $this->_em->getRepository("bundle:entity")->getArrayAllCategory();
-    	//if(!isset($choiceList) || !count($choiceList))
-    	//	$choiceList = array();
-    	
         $builder
 	        ->add('enabled', 'checkbox', array(
 	        		'data'  => true,
@@ -80,6 +76,31 @@ class RssType extends AbstractType
  					),
  					'label'	=> 'pi.form.label.date.publication',
  			)) 		
+ 			
+ 			
+ 			->add('category', 'entity', array(
+ 					'class' => 'PiAppGedmoBundle:Category',
+ 					'query_builder' => function(EntityRepository $er) {
+ 						return $er->createQueryBuilder('k')
+ 						->select('k')
+ 						->where('k.type = :type')
+ 						->orderBy('k.name', 'ASC')
+ 						->setParameter('type', 6);
+ 					},
+ 					'property' => 'name',
+ 					'empty_value' => 'pi.form.label.select.choose.category',
+ 					'label'	=> "pi.form.label.field.category",
+ 					'multiple'	=> false,
+ 					'required'  => false,
+ 					"attr" => array(
+ 							"class"=>"pi_simpleselect",
+ 					),
+ 					"label_attr" => array(
+ 							"class"=>"category_collection",
+ 					),
+ 			)) 			
+ 			
+ 			
  			->add('title', 'text', array(
  					'label'	=> "pi.form.label.field.title",
  					"label_attr" => array(
@@ -87,6 +108,8 @@ class RssType extends AbstractType
  					),
  					'required'  => false,
  			))
+ 			
+ 			
  			->add('pageurl', 'entity', array(
  					'class' => 'PiAppAdminBundle:Page',
  					'query_builder' => function(EntityRepository $er) {

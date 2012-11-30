@@ -59,10 +59,6 @@ class PartnerType extends AbstractType
 		
     public function buildForm(FormBuilder $builder, array $options)
     {
-    	$choiceList = $this->_em->getRepository("PiAppGedmoBundle:Partner")->getArrayAllCategory();
-    	if(!isset($choiceList) || !count($choiceList))
-    		$choiceList = array();
-    	    	
         $builder 	
         	->add('enabled', 'checkbox', array(
         			'data'  => true,
@@ -91,44 +87,39 @@ class PartnerType extends AbstractType
 
 	        
 	        
-	        ->add('category', 'choice', array(
-	        		'choices'   => $choiceList,
-	        		'multiple'	=> false,
-	        		'required'  => false,
-	        		'empty_value' => 'pi.form.label.select.choose.category',
-	        		'label'	=> "pi.form.label.field.category",
-	        		"attr" => array(
-	        				"class"=>"pi_simpleselect",
-	        		),
-	        		"label_attr" => array(
-	        				"class"=>"category_collection",
-	        		),
-	        ))
-	        ->add('categoryother', 'text', array(
-	        		"label" 	=> "pi.form.label.field.or",
-	        		'required'  => false,
-	        		"label_attr" => array(
-	        				"class"=>"category_collection",
-	        		),
-	        ))
+	        ->add('category', 'entity', array(
+ 					'class' => 'PiAppGedmoBundle:Category',
+ 					'query_builder' => function(EntityRepository $er) {
+ 						return $er->createQueryBuilder('k')
+ 						->select('k')
+ 						->where('k.type = :type')
+ 						->orderBy('k.name', 'ASC')
+ 						->setParameter('type', 8);
+ 					},
+ 					'property' => 'name',
+ 					'empty_value' => 'pi.form.label.select.choose.category',
+ 					'label'	=> "pi.form.label.field.category",
+ 					'multiple'	=> false,
+ 					'required'  => false,
+ 					"attr" => array(
+ 							"class"=>"pi_simpleselect",
+ 					),
+ 					"label_attr" => array(
+ 							"class"=>"category_collection",
+ 					),
+ 			))
 	        
 	        
 	        ->add('title', 'text', array(
 	        		'label'	=> "pi.form.label.field.title",
-	        		"label_attr" => array(
-	        				"class"=>"info_collection",
-	        		),
 	        ))
 	        ->add('subtitle', 'text', array(
 	        		'label'	=> "pi.form.label.field.subtitle",
-	        		"label_attr" => array(
-	        				"class"=>"info_collection",
-	        		),
 	        ))	        
 	        ->add('descriptif', 'textarea', array(
 	        		'label'	=> 'pi.form.label.field.description',
 	        		"label_attr" => array(
-	        				"class"=>"info_collection",
+	        				"class"=>"text_collection",
 	        		),
 	        ))
 	        ->add('content', 'textarea', array(
@@ -138,7 +129,7 @@ class PartnerType extends AbstractType
 	        		),
 	        		'label'	=> "pi.form.label.field.content",
 	        		"label_attr" => array(
-	        				"class"=>"info_collection",
+	        				"class"=>"text_collection",
 	        		),
 	        ))	
 	        
@@ -158,18 +149,18 @@ class PartnerType extends AbstractType
  							"class"=>"pi_simpleselect",
  					),
  					"label_attr" => array(
- 							"class"=>"link_collection",
+ 							"class"=>"page_collection",
  					), 					
  			))
  			->add('url', 'text', array(
  					'required'  => false,
  					"label" 	=> "pi.form.label.field.or",
  					"label_attr" => array(
- 							"class"=>"link_collection",
+ 							"class"=>"page_collection",
  					),
  			))		
  						
- 			->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'picture_collection', "simpleLink", 'pi.partner.form.picture'))		
+ 			->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))		
         ;
     }
 

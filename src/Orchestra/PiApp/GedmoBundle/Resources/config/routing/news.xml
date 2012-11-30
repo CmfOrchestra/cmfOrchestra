@@ -23,6 +23,7 @@
 
     <route id="admin_gedmo_news_edit" pattern="/{id}/edit">
         <default key="_controller">PiAppGedmoBundle:News:edit</default>
+        <requirement key="id">\d*</requirement>
     </route>
 
     <route id="admin_gedmo_news_update" pattern="/{id}/update">

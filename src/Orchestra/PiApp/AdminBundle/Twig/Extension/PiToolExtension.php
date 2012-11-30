@@ -84,13 +84,16 @@ class PiToolExtension extends \Twig_Extension
 				
 				// text
 				'substr'			=> new \Twig_Filter_Method($this, 'substrFilter'),
-				'limite'			=> new \Twig_Filter_Method($this, 'limitecaractereFilter'),
-				'truncateText'		=> new \Twig_Filter_Method($this, 'truncateFilter'),
-				'cutText'			=> new \Twig_Filter_Method($this, 'cutTextFilter'),
 				'ucfirst'			=> new \Twig_Filter_Method($this, 'ucfirstFilter'),
 				'ucwords'			=> new \Twig_Filter_Method($this, 'ucwordsFilter'),
 				'sanitize'			=> new \Twig_Filter_Method($this, 'sanitizeFilter'),	
-				'slugify'			=> new \Twig_Filter_Method($this, 'slugifyFilter'),		
+				'slugify'			=> new \Twig_Filter_Method($this, 'slugifyFilter'),
+
+				'limite'			=> new \Twig_Filter_Method($this, 'limitecaractereFilter'),
+				'splitText' 		=> new \Twig_Filter_Method($this, 'splitTextFilter'),
+				'splitHtml' 		=> new \Twig_Filter_Method($this, 'splitHtmlFilter'),
+				'truncateText'		=> new \Twig_Filter_Method($this, 'truncateFilter'),
+				'cutText'			=> new \Twig_Filter_Method($this, 'cutTextFilter'),
 				
 				//array
 				'count'				=> new \Twig_Filter_Method($this, 'countFilter'),
@@ -138,7 +141,7 @@ class PiToolExtension extends \Twig_Extension
 	/**
 	 * translation of date.
 	 *
-	 * @author (c) <riad hellal> <r.helal@novediagroup.com>
+	 * @author riad hellal <r.hellal@novediagroup.com>
 	 */
 	public function getDatePatternByLocalFunction($locale, $dir='/web/bundles/piappadmin/js/wijmo/external/cultures/', $fileName = 'cultures_date.json')
 	{
@@ -157,7 +160,7 @@ class PiToolExtension extends \Twig_Extension
 	/**
 	 * parsing translaion js files.
 	 *
-	 * @author (c) <riad hellal> <r.helal@novediagroup.com>
+	 * @author riad hellal <r.hellal@novediagroup.com>
 	 */
 	private function updateCulturesJsFilesFunction($dir='/web/bundles/piappadmin/js/wijmo/external/cultures/', $fileName = 'cultures_date.json')
 	{
@@ -611,10 +614,6 @@ class PiToolExtension extends \Twig_Extension
 	/**
 	 * text filters
 	 */
-	public function limitecaractereFilter($string, $mincara, $nbr_cara) {
-		return $this->container->get('pi_app_admin.string_manager')->LimiteCaractere($string, $mincara, $nbr_cara);
-	}	
-
 	public function ucfirstFilter($string) {
 		return ucfirst($string);
 	}
@@ -625,6 +624,21 @@ class PiToolExtension extends \Twig_Extension
 	
 	public function sanitizeFilter($string, $force_lowercase = true, $anal = false, $trunc = 100) {
 		return $this->container->get('pi_app_admin.string_manager')->sanitize($string, $force_lowercase, $anal, $trunc);
+	}
+	
+	public function slugifyFilter($string) {
+		return $this->container->get('pi_app_admin.string_manager')->slugify($string);
+	}
+	
+	public function limitecaractereFilter($string, $mincara, $nbr_cara) {
+		return $this->container->get('pi_app_admin.string_manager')->LimiteCaractere($string, $mincara, $nbr_cara);
+	}	
+	
+	public function splitTextFilter($string){
+		return $this->container->get('pi_app_admin.string_manager')->splitText($string);
+	}
+	public function splitHtmlFilter($string){
+		return $this->container->get('pi_app_admin.string_manager')->splitHtml($string);
 	}
 	
 	public function truncateFilter($string, $length = 100, $ending = "...", $exact = false, $html = false) {
@@ -638,7 +652,4 @@ class PiToolExtension extends \Twig_Extension
 		return $HtmlCutter->run();
 	}
 	
-	public function slugifyFilter($string) {
-		return $this->container->get('pi_app_admin.string_manager')->slugify($string);
-	}
 }

@@ -68,18 +68,10 @@ class Pressrelease extends AbstractDefault
     protected $id;   
     
     /**
-     * @var string
-     *
-     * @ORM\Column(name="category", type="string", length=128, nullable=true)
+     * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Category", inversedBy="items_pressrelease")
+     * @ORM\JoinColumn(name="category", referencedColumnName="id", nullable=true)
      */
-    protected $category;  
-
-    /**
-     * @var string
-     * 
-     * @ORM\Column(name="categoryother", type="string", length=128, nullable=true)
-     */
-    protected $categoryother; 
+    protected $category; 
         
     /**
      * @var string
@@ -139,11 +131,6 @@ class Pressrelease extends AbstractDefault
      */
     public function setUpdatedValue()
     {
-    	$other  = $this->getCategoryother();
-    	if(!empty($other)){
-    		$this->setCategory($other);
-    		$this->setCategoryother('');
-    	}
     }
         
     /**
@@ -159,42 +146,23 @@ class Pressrelease extends AbstractDefault
     /**
      * Set category
      *
-     * @param string $category
+     * @param \PiApp\GedmoBundle\Entity\Category $category
      */
     public function setCategory($category)
     {
-   		$this->category = $category;
+    	$this->category = $category;
+    	return $this;
     }
     
     /**
      * Get category
      *
-     * @return string
+     * @return \PiApp\GedmoBundle\Entity\Category
      */
     public function getCategory()
     {
     	return $this->category;
-    }
-    
-    /**
-     * Set category
-     *
-     * @param string $category
-     */
-    public function setCategoryother($category)
-    {
-   		$this->categoryother = $category;
-    }
-    
-    /**
-     * Get category
-     *
-     * @return string
-     */
-    public function getCategoryother()
-    {
-    	return $this->categoryother;
-    }    
+    } 
         
     /**
      * Set title

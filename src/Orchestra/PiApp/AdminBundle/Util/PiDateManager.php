@@ -102,7 +102,7 @@ class PiDateManager implements PiDateManagerBuilderInterface
      * 
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    private function parseTimestamp($date, $locale = null) {
+    public function parseTimestamp($date, $locale = null) {
         // try time default formats
         foreach ($this->formats as $timeFormat) {
             // try date default formats

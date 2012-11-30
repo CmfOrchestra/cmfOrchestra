@@ -117,6 +117,73 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	
 		return $valeurFiltree;
 	}
+	
+	/**
+	 * Splits a html string in order to all <p> tag and returns it in two parts.
+	 *
+	 * @param string $string
+	 * @return array
+	 * @access public
+	 * @static
+	 *
+	 * @author riad hellal <r.hellal@novediagroup.com>
+	 */	
+	public static function splitHtml($string){
+		$cpt = 0;    $left = '';    $right = '';
+		
+		// replace all br tags by "</p><p>"
+		$pattern = "/<br[^>]*>/i";
+		$replace = "</p><p>";
+		$string = preg_replace($pattern, $replace, $string);
+		// replace all div tags by p tags
+		$pattern = "/div>/i";
+		$replace = "p>";
+		$string = preg_replace($pattern, $replace, $string);
+		
+		//count words in $string
+		$words = count(preg_split("/[\s\n\r\t ]+/", strip_tags($string), -1, PREG_SPLIT_NO_EMPTY));
+		//get all p tag in $string
+		preg_match_all("/<p[^>]*>.*?<\/p>/", $string, $matches, PREG_SET_ORDER);
+		//get the left text part
+		// loop while count words of $left is not reached (<= $words/2) and not last p tag
+		while(count(preg_split("/[\s\n\r\t ]+/", strip_tags($left), -1, PREG_SPLIT_NO_EMPTY))<  ($words/2) && ($cpt < count($matches)-1)){
+			$left .= $matches[$cpt][0];
+			$cpt++;
+		}
+		//get the right text part
+		for($i=$cpt;$i< count($matches);$i++){
+			$right .= $matches[$i][0];
+		}
+
+		return array('left'=>$left, 'right'=>$right);
+	}
+
+	/**
+	 * Splits a string without html tags and returns it in two parts.
+	 *
+	 * @param string $string
+	 * @return array
+	 * @access public
+	 * @static
+	 *
+	 * @author riad hellal <r.hellal@novediagroup.com>
+	 */	
+	public static function splitText($string){
+		$left = substr($string, 0, strlen($string)/2);
+		$spacepos = strrpos($left, ' ');
+		if (isset($spacepos)) {
+			// ...and cut the text in this position
+			$left = substr($left, 0, $spacepos);
+		}
+		$right = substr($string, strlen($left), strlen($string));
+		$spacepos = strpos($right, ' ');
+		if (isset($spacepos)) {
+			// ...and cut the text in this position
+			$right = substr($right, $spacepos);
+		}
+	
+		return array('left'=>$left, 'right'=>$right);
+	}	
 
 	/**
 	 * Returns the first x words from a text.

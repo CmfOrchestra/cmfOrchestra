@@ -337,32 +337,36 @@ class EventSubscriberPosition  extends abstractListener implements EventSubscrib
     			$results['sort_position_by_and'] 	= " AND (mytable.category  = '{$category->getId()}')";
     			$results['sort_position_by_where']	= " WHERE (mytable.category  = '{$category->getId()}')";
     		}
-    	}    	    
-    	
-    	  	
-    	
-    	
+    	}  	    
     	if(($entity instanceof \PiApp\GedmoBundle\Entity\Pressrelease) && method_exists($entity, 'getCategory')){
     		$category	= $entity->getCategory();
-    		if(!empty($category)){
-    			$results['sort_position_by_and'] 	= " AND (mytable.category  = '{$category}')";
-    			$results['sort_position_by_where']	= " WHERE (mytable.category  = '{$category}')";
+    		if($category instanceof \PiApp\GedmoBundle\Entity\Category){
+    			$results['sort_position_by_and'] 	= " AND (mytable.category  = '{$category->getId()}')";
+    			$results['sort_position_by_where']	= " WHERE (mytable.category  = '{$category->getId()}')";
     		}
     	}    	
     	if(($entity instanceof \PiApp\GedmoBundle\Entity\Partner) && method_exists($entity, 'getCategory')){
     		$category	= $entity->getCategory();
-    		if(!empty($category)){
-    			$results['sort_position_by_and'] 	= " AND (mytable.category  = '{$category}')";
-    			$results['sort_position_by_where']	= " WHERE (mytable.category  = '{$category}')";
+    		if($category instanceof \PiApp\GedmoBundle\Entity\Category){
+    			$results['sort_position_by_and'] 	= " AND (mytable.category  = '{$category->getId()}')";
+    			$results['sort_position_by_where']	= " WHERE (mytable.category  = '{$category->getId()}')";
     		}
     	}   
     	if(($entity instanceof \PiApp\GedmoBundle\Entity\Newsletter) && method_exists($entity, 'getCategory')){
     		$category	= $entity->getCategory();
-    		if(!empty($category)){
-    			$results['sort_position_by_and'] 	= " AND (mytable.category  = '{$category}')";
-    			$results['sort_position_by_where']	= " WHERE (mytable.category  = '{$category}')";
+    		if($category instanceof \PiApp\GedmoBundle\Entity\Category){
+    			$results['sort_position_by_and'] 	= " AND (mytable.category  = '{$category->getId()}')";
+    			$results['sort_position_by_where']	= " WHERE (mytable.category  = '{$category->getId()}')";
     		}
-    	}    	
+    	}   
+    	if(($entity instanceof \PiApp\GedmoBundle\Entity\Rss) && method_exists($entity, 'getCategory')){
+    		$category	= $entity->getCategory();
+    		if($category instanceof \PiApp\GedmoBundle\Entity\Category){
+    			$results['sort_position_by_and'] 	= " AND (mytable.category  = '{$category->getId()}')";
+    			$results['sort_position_by_where']	= " WHERE (mytable.category  = '{$category->getId()}')";
+    		}
+    	}
+    	
     	
     	return $results;
     }

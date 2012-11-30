@@ -232,7 +232,13 @@ class NewsController extends abstractController
     {
         $em 	= $this->getDoctrine()->getEntityManager();
     	$locale	= $this->container->get('session')->getLocale();
-        $entity = $em->getRepository("PiAppGedmoBundle:News")->findOneByEntity($locale, $id, 'object');
+    	
+    	if(!empty($id)){
+    		$entity	= $em->getRepository("PiAppGedmoBundle:News")->findOneByEntity($locale, $id, 'object', false);
+    	}else{   		
+    		$slug	= $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('slug', $locale);
+    		$entity	= $this->container->get('doctrine')->getEntityManager()->getRepository("PiAppGedmoBundle:News")->getEntityByField($locale, array('content_search' => array('slug' =>$slug)), 'object');
+    	}
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout)	$template = "edit.html.twig";  else	$template = "edit.html.twig";        
@@ -354,7 +360,7 @@ class NewsController extends abstractController
     	if(empty($lang))
     		$lang	= $this->container->get('session')->getLocale();
     	
-    	if(!is_null($id)){
+    	if(!empty($id)){
     		$entity	= $em->getRepository("PiAppGedmoBundle:News")->findOneByEntity($lang, $id, 'object', false);
     	}else{   		
     		$slug	= $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('slug', $lang);

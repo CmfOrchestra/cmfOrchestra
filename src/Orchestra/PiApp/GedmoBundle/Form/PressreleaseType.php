@@ -59,10 +59,6 @@ class PressreleaseType extends AbstractType
 		
     public function buildForm(FormBuilder $builder, array $options)
     {
-    	$choiceList = $this->_em->getRepository("PiAppGedmoBundle:Pressrelease")->getArrayAllCategory();
-    	if(!isset($choiceList) || !count($choiceList))
-    		$choiceList = array();
-    	    	
         $builder 
         	->add('enabled', 'checkbox', array(
         			'data'  => true,
@@ -87,34 +83,47 @@ class PressreleaseType extends AbstractType
  							"class"=>"pi_datepicker",
  					),
  					'label'	=> 'pi.form.label.date.archivage',
- 			)) 		
- 			->add('category', 'choice', array(
- 					'choices'   => $choiceList,
- 					'multiple'	=> false,
- 					'required'  => false,
+ 			)) 	
+
+ 			
+ 			->add('category', 'entity', array(
+ 					'class' => 'PiAppGedmoBundle:Category',
+ 					'query_builder' => function(EntityRepository $er) {
+ 						return $er->createQueryBuilder('k')
+ 						->select('k')
+ 						->where('k.type = :type')
+ 						->orderBy('k.name', 'ASC')
+ 						->setParameter('type', 7);
+ 					},
+ 					'property' => 'name',
  					'empty_value' => 'pi.form.label.select.choose.category',
  					'label'	=> "pi.form.label.field.category",
+ 					'multiple'	=> false,
+ 					'required'  => false,
  					"attr" => array(
  							"class"=>"pi_simpleselect",
  					),
  					"label_attr" => array(
  							"class"=>"category_collection",
  					),
- 			))
- 			->add('categoryother', 'text', array(
- 					"label" 	=> "pi.form.label.field.or",
- 					'required'  => false,
- 					"label_attr" => array(
- 							"class"=>"category_collection",
- 					),
- 			)) 			
+ 			))		
+ 			
+ 			
  			->add('title', 'text', array(
  					'label'	=> "pi.form.label.field.title",
+ 					"label_attr" => array(
+ 							"class"=>"text_collection",
+ 					),
  			)) 		
  			->add('pressmedia', 'text', array(
  					'label'	=> "pi.pressmedia.form.pressmedia",
  					'required'  => false,
+ 					"label_attr" => array(
+ 							"class"=>"text_collection",
+ 					),
  			)) 		
+ 			
+ 			
  			->add('pageurl', 'entity', array(
  					'class' => 'PiAppAdminBundle:Page',
  					'query_builder' => function(EntityRepository $er) {
@@ -129,14 +138,14 @@ class PressreleaseType extends AbstractType
  							"class"=>"pi_simpleselect",
  					),
  					"label_attr" => array(
- 							"class"=>"link_collection",
+ 							"class"=>"page_collection",
  					), 					
  			))
  			->add('url', 'text', array(
  					'required'  => false,
  					"label" 	=> "pi.form.label.field.or",
  					"label_attr" => array(
- 							"class"=>"link_collection",
+ 							"class"=>"page_collection",
  					),
  			))		
  						

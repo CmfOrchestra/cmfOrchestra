@@ -156,13 +156,13 @@ Register all namespace before using the bundle. Add the following line to your `
 
 **Required** : 
 
-- PHP avec au minimum la version 5.3.2 de PHP
-- Sqlite3 doit être activé
-- JSON doit être activé
-- ctype doit être activé
-- Le module PHP-XML doit être installé
-- Installtion de la bibliothèque gd (pour les sessions) : apt-get install php5-gd [command linux]
-- PHP.ini doit avoir les extensions:
+- PHP with at least version 5.3.2 of PHP
+- Sqlite3 must be enabled
+- JSON must be enabled
+- Ctype must be enabled
+- PHP-XML module must be installed
+- Installtion the gd library (for images): apt-get install php5-gd [command linux]
+- PHP.ini must have the extensions:
 
     - date.timezone
     - php_fileinfo.dll

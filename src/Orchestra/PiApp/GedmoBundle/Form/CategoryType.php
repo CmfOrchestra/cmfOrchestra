@@ -47,7 +47,18 @@ class CategoryType extends AbstractType
     {
         $builder 
 	        ->add('type', 'choice', array(
-	        		'choices'   => array(0=>"pi.category.type.0", 1=>"pi.category.type.1", 2=>"pi.category.type.2", 3=>"pi.category.type.3", 4=>"pi.category.type.4", 5=>"pi.category.type.5"),
+	        		'choices'   => array(
+	        							0=>"pi.category.type.0", 
+	        							1=>"pi.category.type.1",
+	        							2=>"pi.category.type.2",
+	        							3=>"pi.category.type.3", 
+	        							4=>"pi.category.type.4", 
+	        							5=>"pi.category.type.5", 
+	        							6=>"pi.category.type.6", 
+	        							7=>"pi.category.type.7", 
+	        							8=>"pi.category.type.8", 
+	        							9=>"pi.category.type.9"
+	        						),
 	        		'label'	=> 'pi.page.form.status',
 	        		'required'  => true,
 	        		'multiple'	=> false,

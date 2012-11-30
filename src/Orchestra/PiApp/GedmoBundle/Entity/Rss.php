@@ -66,23 +66,7 @@ class Rss extends AbstractDefault
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
-    /**
-     * @var string
-     *
-     * @Gedmo\Translatable
-     * @ORM\Column(name="title", type="string", length=128, nullable=false)
-     */
-    protected $title;
 
-    /**
-     * @var string $status
-     *
-     * @ORM\Column(name="status", type="string", nullable=true)
-     * @Assert\NotBlank(message = "erreur.status.notblank")
-     */
-    protected $status;    
-    
     /**
      * @var array $users
      *
@@ -92,8 +76,23 @@ class Rss extends AbstractDefault
      *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
      *      )
      */
-    protected $users;   
-
+    protected $users;
+    
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Category", inversedBy="items_rss")
+     * @ORM\JoinColumn(name="category", referencedColumnName="id", nullable=true)
+     */
+    protected $category;    
+    
+    /**
+     * @var string
+     *
+     * @Gedmo\Translatable
+     * @ORM\Column(name="title", type="string", length=128, nullable=false)
+     */
+    protected $title;
+    
     /**
      * @var integer $pageurl
      *
@@ -189,6 +188,27 @@ class Rss extends AbstractDefault
     }    
     
     /**
+     * Set category
+     *
+     * @param \PiApp\GedmoBundle\Entity\Category $category
+     */
+    public function setCategory($category)
+    {
+    	$this->category = $category;
+    	return $this;
+    }
+    
+    /**
+     * Get category
+     *
+     * @return \PiApp\GedmoBundle\Entity\Category
+     */
+    public function getCategory()
+    {
+    	return $this->category;
+    }
+        
+    /**
      * Set $title
      *
      * @param string $title
@@ -269,27 +289,6 @@ class Rss extends AbstractDefault
     public function getMedia()
     {
     	return $this->media;
-    }    
-    
-    /**
-     * Set status
-     *
-     * @param string $status
-     */
-    public function setStatus($status)
-    {
-    	$this->status = $status;
-    	return $this;
-    }
-    
-    /**
-     * Get status
-     *
-     * @return string
-     */
-    public function getStatus()
-    {
-    	return $this->status;
     }    
 
 }

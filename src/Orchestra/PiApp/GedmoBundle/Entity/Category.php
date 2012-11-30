@@ -119,7 +119,35 @@ class Category extends AbstractDefault
      *
      * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Menu", mappedBy="category")
      */
-    protected $items_menu;    
+    protected $items_menu;  
+
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Rss", mappedBy="category")
+     */
+    protected $items_rss;
+
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Partner", mappedBy="category")
+     */
+    protected $items_partner;
+
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Pressrelease", mappedBy="category")
+     */
+    protected $items_pressrelease;   
+
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Newsletter", mappedBy="category")
+     */
+    protected $items_newsletter;    
 
     
     public function __construct()
@@ -131,7 +159,11 @@ class Category extends AbstractDefault
         $this->items_media 		 = new \Doctrine\Common\Collections\ArrayCollection();
         $this->items_content 	 = new \Doctrine\Common\Collections\ArrayCollection();
         $this->items_slider 	 = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->items_menu	 	 = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->items_menu	 	 = new \Doctrine\Common\Collections\ArrayCollection();        
+        $this->items_rss	 	 = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->items_partner	 = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->items_pressrelease= new \Doctrine\Common\Collections\ArrayCollection();
+        $this->items_newsletter	 = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -199,7 +231,7 @@ class Category extends AbstractDefault
     }    
 
     /**
-     * Add items_contacts
+     * Add items_contact
      *
      * @param \PiApp\GedmoBundle\Entity\Contact $itemsContacts
      */
@@ -209,7 +241,7 @@ class Category extends AbstractDefault
     }
     
     /**
-     * Get items_contacts
+     * Get all items_contact
      *
      * @return \Doctrine\Common\Collections\ArrayCollection
      */
@@ -219,7 +251,7 @@ class Category extends AbstractDefault
     }
     
     /**
-     * Add items_blocks
+     * Add items_block
      *
      * @param \PiApp\GedmoBundle\Entity\Block $itemsBlocks
      */
@@ -229,7 +261,7 @@ class Category extends AbstractDefault
     }
     
     /**
-     * Get items_blocks
+     * Get all items_block
      *
      * @return \Doctrine\Common\Collections\ArrayCollection
      */
@@ -239,7 +271,7 @@ class Category extends AbstractDefault
     }
     
     /**
-     * Add items_medias
+     * Add items_media
      *
      * @param \PiApp\GedmoBundle\Entity\Media $itemsMedias
      */
@@ -249,7 +281,7 @@ class Category extends AbstractDefault
     }
     
     /**
-     * Get items_medias
+     * Get all items_media
      *
      * @return \Doctrine\Common\Collections\ArrayCollection
      */
@@ -269,7 +301,7 @@ class Category extends AbstractDefault
     }
     
     /**
-     * Get items_content
+     * Get all items_content
      *
      * @return \Doctrine\Common\Collections\ArrayCollection
      */
@@ -289,7 +321,7 @@ class Category extends AbstractDefault
     }
     
     /**
-     * Get items_slider
+     * Get all items_slider
      *
      * @return \Doctrine\Common\Collections\ArrayCollection
      */
@@ -301,7 +333,7 @@ class Category extends AbstractDefault
     /**
      * Add items_menu
      *
-     * @param PiApp\GedmoBundle\Entity\Menu $items_menu
+     * @param \PiApp\GedmoBundle\Entity\Menu $items_menu
      */
     public function addMenu(\PiApp\GedmoBundle\Entity\Menu $items_menu)
     {
@@ -309,12 +341,97 @@ class Category extends AbstractDefault
     }
     
     /**
-     * Get items_medias
+     * Get all items_menu
      *
      * @return \Doctrine\Common\Collections\ArrayCollection
      */
     public function getItemsMenu()
     {
     	return $this->items_menu;
+    } 
+
+    
+    
+    
+    
+    
+    /**
+     * Add items_partner
+     *
+     * @param PiApp\GedmoBundle\Entity\Partner $items_partner
+     */
+    public function addPartner(\PiApp\GedmoBundle\Entity\Partner $items_partner)
+    {
+    	$this->items_partner[] = $items_partner;
+    }
+    
+    /**
+     * Get all items_partner
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getPartner()
+    {
+    	return $this->items_partner;
+    }
+
+    /**
+     * Add items_rss
+     *
+     * @param \PiApp\GedmoBundle\Entity\Rss $items_rss
+     */
+    public function addRss(\PiApp\GedmoBundle\Entity\Rss $items_rss)
+    {
+    	$this->items_rss[] = $items_rss;
+    }
+    
+    /**
+     * Get all items_rss
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getItemsRss()
+    {
+    	return $this->items_rss;
+    }
+
+    /**
+     * Add items_pressrelease
+     *
+     * @param \PiApp\GedmoBundle\Entity\Pressrelease $items_pressrelease
+     */
+    public function addPressrelease(\PiApp\GedmoBundle\Entity\Pressrelease $items_pressrelease)
+    {
+    	$this->items_pressrelease[] = $items_pressrelease;
+    }
+    
+    /**
+     * Get all items_pressrelease
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getItemsPressrelease()
+    {
+    	return $this->items_pressrelease;
+    }
+
+    /**
+     * Add items_newsletter
+     *
+     * @param \PiApp\GedmoBundle\Entity\Newsletter $items_menu
+     */
+    public function addNewsletter(\PiApp\GedmoBundle\Entity\Newsletter $items_newsletter)
+    {
+    	$this->items_newsletter[] = $items_newsletter;
+    }
+    
+    /**
+     * Get all items_newsletter
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getItemsNewsletter()
+    {
+    	return $this->items_newsletter;
     }    
 }

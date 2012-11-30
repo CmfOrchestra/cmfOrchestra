@@ -25,4 +25,5 @@ interface PiDateManagerBuilderInterface
     public function parse($date, $locale = null);
     public function format($date, $dateType = 'medium', $timeType = 'none', $locale = null, $pattern = null);
     public function relative_time($when, $from = null);
+    public function parseTimestamp($date, $locale = null);
 }

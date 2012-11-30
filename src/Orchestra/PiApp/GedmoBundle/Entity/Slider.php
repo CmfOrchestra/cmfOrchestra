@@ -280,7 +280,7 @@ class Slider extends AbstractDefault
     /**
      * Set category
      *
-     * @param string \PiApp\GedmoBundle\Entity\Category $category
+     * @param \PiApp\GedmoBundle\Entity\Category $category
      */
     public function setCategory($category)
     {

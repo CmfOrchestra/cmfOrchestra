@@ -25,6 +25,8 @@ interface PiStringManagerBuilderInterface
 	public static function random($length = 8);
 	public static function trimUltime($chaine);
 	public static function filtreString($string);
+	public static function splitHtml($string);
+	public static function splitText($string);
 	public static function LimiteCaractere($letexte, $mincara, $nbr_cara);
 	public static function truncate($text, $length = 100, $ending = "...", $exact = false, $html = false);
 	public static function closetags($string);

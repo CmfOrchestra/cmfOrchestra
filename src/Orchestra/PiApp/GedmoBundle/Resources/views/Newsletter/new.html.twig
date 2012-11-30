@@ -44,7 +44,16 @@
 	        <form action="{{ path('admin_gedmo_newsletter', { 'NoLayout': NoLayout, 'category':category }) }}" method="post">
 	            <button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
 	        </form>	        
-		</li>
-		
+		</li>		
 	</ul>
+	
+	<script type="text/javascript">
+	//<![CDATA[
+
+	        j_prototype_bytabs.ftc_accordion_form("text_collection", "{{ 'pi.newsletter.form.group.text'|trans }}", ".myform");
+			j_prototype_bytabs.ftc_accordion_form("page_collection", "{{ 'pi.newsletter.form.group.page'|trans }}", ".myform");			        
+			j_prototype_bytabs.ftc_accordion_form("image_collection", "{{ 'pi.newsletter.form.group.picture'|trans }}", ".myform");
+								
+	//]]>
+	</script>	
 {% endblock %}

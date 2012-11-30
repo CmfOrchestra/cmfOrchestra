@@ -75,6 +75,10 @@ pi.category.type.2: Média
 pi.category.type.3: Contenu
 pi.category.type.4: Slider
 pi.category.type.5: Menu
+pi.category.type.6: Rss
+pi.category.type.7: Communiqué de presse
+pi.category.type.8: Partenaire
+pi.category.type.9: Newsletter
 
 # ENTITY :: BLOCK
 pi.block.formbuilder.template.choice0: Block descriptif 
@@ -108,13 +112,20 @@ pi.news.form.group.pictures: Photos
 pi.news.form.group.links: Liens
 pi.news.form.group.information: Information
 
+# ENTITY :: RSS
+pi.rss.form.group.pictures: Photos
+
 # ENTITY :: PRESS RELEASE
 pi.pressmedia.form.file: Fichier
 pi.pressmedia.form.pressmedia: Type Communiqué de presse
 
 # ENTITY :: PARTENERS
-pi.partner.form.picture: Logo
-pi.partner.form.group.category: Categorie
-pi.partner.form.group.links: Lien
-pi.partner.form.group.file: Fichier
+pi.partner.form.group.text: Information
+pi.partner.form.group.page: Lien
+pi.partner.form.group.picture: Logo
+
+# ENTITY :: NEWSLETTER
+pi.newsletter.form.group.text: Information
+pi.newsletter.form.group.page: Lien
+pi.newsletter.form.group.picture: Logo
 

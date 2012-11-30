@@ -17,12 +17,13 @@
 
 	<table id="grid_rss" class="grid" >
 	    <thead>
-	        <tr>	            
-	            <th><a href="javascript:void(0);" title="Id">Id</a></th>	            
+	        <tr>
+	            <th class="position" ><a href="javascript:void(0);" title="Position">Position</a></th>	        
+	            <th><a href="javascript:void(0);" title="Id">Id</a></th>
+	            <th><a href="javascript:void(0);" title="Category">Category</a></th>		            
 	            <th><a href="javascript:void(0);" title="Title">Title</a></th>	            
 	            <th><a href="javascript:void(0);" title="Published_at">Published_at</a></th>	            
 	            <th><a href="javascript:void(0);" title="Enabled">Enabled</a></th>	        	
-	            <th class="position" ><a href="javascript:void(0);" title="Position">Position</a></th>	        
 	            <th><a href="javascript:void(0);" title="Actions">Actions</a></th>
 	        </tr>
 	    </thead>
@@ -30,8 +31,11 @@
 	    {% set num_line = 0 %}
 	    {% for entity in entities %}
 	        <tr {% if(num_line == 0) %}class="odd"{% endif %}  id='{{ entity.position }}_row_{{ entity.id }}'  >
-	        <td class="position" >{{ entity.position}}</td>	
-	            <td><a href="{{ path('admin_gedmo_rss_show', { 'id': entity.id, 'NoLayout': NoLayout, 'category':entity.category }) }}" title="">{{ entity.id }}</a></td>	
+	        	<td class="position" >{{ entity.position}}</td>	
+	            <td><a href="{{ path('admin_gedmo_rss_show', { 'id': entity.id, 'NoLayout': NoLayout, 'category':entity.category }) }}" title="">{{ entity.id }}</a></td>
+	            <td>
+	            	{{ entity.category }}
+	            </td>	
 	            <td>
 	            	{{ entity.title|limite("0", 55)|raw }}
 	            </td>	
@@ -78,6 +82,7 @@
 				'1':'false',
 				},						
 			'grid-actions': { 
+					'rows_grouping': {'columnIndex':2, 'Collapsible':'true', 'HideColumn':'true', 'SortDirection':'desc'},
 					'rows_position': {'route':'admin_gedmo_rss_position_ajax',},
 					'rows_enabled': {'sButtonText':'pi.grid.action.row_enabled', 'route':'admin_gedmo_rss_enabledentity_ajax',},
 					'rows_disable': {'sButtonText':'pi.grid.action.row_disable', 'route':'admin_gedmo_rss_disablentity_ajax'},

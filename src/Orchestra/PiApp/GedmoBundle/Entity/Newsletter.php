@@ -79,18 +79,10 @@ class Newsletter extends AbstractDefault
     protected $users;    
     
     /**
-     * @var string
-     *
-     * @ORM\Column(name="category", type="string", length=128, nullable=true)
+     * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Category", inversedBy="items_newsletter")
+     * @ORM\JoinColumn(name="category", referencedColumnName="id", nullable=true)
      */
     protected $category;
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="categoryother", type="string", length=128, nullable=true)
-     */
-    protected $categoryother;    
 
     /**
      * @var string
@@ -146,14 +138,6 @@ class Newsletter extends AbstractDefault
      * @ORM\Column(name="url", type="string", length=314, nullable=true)
      */
     protected $url; 
-
-    /**
-     * @var string $status
-     *
-     * @ORM\Column(name="status", type="string", nullable=true)
-     * @Assert\NotBlank(message = "erreur.status.notblank")
-     */
-    protected $status;   
     
     /**
      * Constructor
@@ -183,11 +167,6 @@ class Newsletter extends AbstractDefault
      */
     public function setUpdatedValue()
     {
-    	$other  = $this->getCategoryother();
-    	if(!empty($other)){
-    		$this->setCategory($other);
-    		$this->setCategoryother('');
-    	}
     }    
     
     /**
@@ -234,42 +213,23 @@ class Newsletter extends AbstractDefault
     /**
      * Set category
      *
-     * @param string $category
+     * @param \PiApp\GedmoBundle\Entity\Category $category
      */
     public function setCategory($category)
     {
     	$this->category = $category;
+    	return $this;
     }
     
     /**
      * Get category
      *
-     * @return string
+     * @return \PiApp\GedmoBundle\Entity\Category
      */
     public function getCategory()
     {
     	return $this->category;
-    }
-    
-    /**
-     * Set category
-     *
-     * @param string $category
-     */
-    public function setCategoryother($category)
-    {
-    	$this->categoryother = $category;
-    }
-    
-    /**
-     * Get category
-     *
-     * @return string
-     */
-    public function getCategoryother()
-    {
-    	return $this->categoryother;
-    }    
+    } 
 
     /**
      * Set $title
@@ -413,26 +373,5 @@ class Newsletter extends AbstractDefault
     {
     	return $this->media;
     }  
-
-    /**
-     * Set status
-     *
-     * @param string $status
-     */
-    public function setStatus($status)
-    {
-    	$this->status = $status;
-    	return $this;
-    }
-    
-    /**
-     * Get status
-     *
-     * @return string
-     */
-    public function getStatus()
-    {
-    	return $this->status;
-    }    
 
 }

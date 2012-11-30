@@ -11,7 +11,6 @@
 {% endblock %}
  
 {% block content %}
-
 	<!-- Begin tag markup -->
 	<div id="tabs">
 		<ul>
@@ -36,15 +35,22 @@
 	<!-- End tag markup -->	
 	
 	{% set options = {'prototype-name': ['translations'], 'prototype-tab-title': 'Translate'} %}
-	{{ renderJquery('FORM', 'prototype-bytab', options )|raw }}
-		
+	{{ renderJquery('FORM', 'prototype-bytab', options )|raw }}		
 		
 	<ul class="record_actions">
 		<li>
 	        <form action="{{ path('admin_gedmo_rss', { 'NoLayout': NoLayout, 'category':category }) }}" method="post">
 	            <button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
 	        </form>	        
-		</li>
-		
+		</li>		
 	</ul>
+
+	<script type="text/javascript">
+	//<![CDATA[
+
+			j_prototype_bytabs.ftc_accordion_form("page_collection", "Url", ".myform");			        
+			j_prototype_bytabs.ftc_accordion_form("image_collection", "{{ 'pi.rss.form.group.pictures'|trans }}", ".myform");
+								
+	//]]>
+	</script>	
 {% endblock %}

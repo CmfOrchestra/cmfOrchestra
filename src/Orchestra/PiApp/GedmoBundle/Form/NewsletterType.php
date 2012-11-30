@@ -59,10 +59,6 @@ class NewsletterType extends AbstractType
 		
     public function buildForm(FormBuilder $builder, array $options)
     {
-    	$choiceList = $this->_em->getRepository("PiAppGedmoBundle:Newsletter")->getArrayAllCategory();
-    	if(!isset($choiceList) || !count($choiceList))
-    		$choiceList = array();
-    	
         $builder 	
 	        ->add('enabled', 'checkbox', array(
 	        		'data'  => true,
@@ -88,12 +84,22 @@ class NewsletterType extends AbstractType
 	        		),
 	        		'label'	=> 'pi.form.label.date.archivage',
 	        ))	        
- 			->add('category', 'choice', array(
- 					'choices'   => $choiceList,
- 					'multiple'	=> false,
- 					'required'  => false,
+	        
+	        
+ 			->add('category', 'entity', array(
+ 					'class' => 'PiAppGedmoBundle:Category',
+ 					'query_builder' => function(EntityRepository $er) {
+ 						return $er->createQueryBuilder('k')
+ 						->select('k')
+ 						->where('k.type = :type')
+ 						->orderBy('k.name', 'ASC')
+ 						->setParameter('type', 9);
+ 					},
+ 					'property' => 'name',
  					'empty_value' => 'pi.form.label.select.choose.category',
  					'label'	=> "pi.form.label.field.category",
+ 					'multiple'	=> false,
+ 					'required'  => false,
  					"attr" => array(
  							"class"=>"pi_simpleselect",
  					),
@@ -101,22 +107,13 @@ class NewsletterType extends AbstractType
  							"class"=>"category_collection",
  					),
  			))
- 			->add('categoryother', 'text', array(
- 					"label" 	=> "pi.form.label.field.or",
- 					'required'  => false,
- 					"label_attr" => array(
- 							"class"=>"category_collection",
- 					),
- 			))
 
- 			->add('status')
  			->add('title', 'text', array(
  					'label'	=> "pi.form.label.field.title",
- 					"label_attr" => array(
- 							"class"=>"text_collection",
- 					),
  			)) 			
- 			->add('subtitle') 			
+ 			->add('subtitle', 'text', array(
+ 					'label'	=> "pi.form.label.field.subtitle",
+ 			)) 			 			
  			->add('descriptif', 'textarea', array(
  					'label'	=> "pi.form.label.field.description",
  					"label_attr" => array(

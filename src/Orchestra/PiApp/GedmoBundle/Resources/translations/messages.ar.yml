@@ -75,6 +75,10 @@ pi.category.type.2: الإعلام
 pi.category.type.3: المحتويات
 pi.category.type.4: المنزلق
 pi.category.type.5: القائمة
+pi.category.type.6: Rss
+pi.category.type.7: البيان الصحفي
+pi.category.type.8: الشريكة
+pi.category.type.9: النشرة الإخبارية
 
 # ENTITY :: BLOCK
 pi.block.formbuilder.template.choice0: كتلة وصف 
@@ -102,8 +106,11 @@ pi.contact.form.group.website: الموقع الإلكتروني
 pi.contact.form.group.pictures: صور
 pi.contact.formbuilder.template.choice0: القالب الافتراضي
 
+# ENTITY :: RSS
+pi.rss.form.group.pictures: صور
+
 # ENTITY :: NEWS
-pi.news.form.picture: صورتي
+pi.news.form.picture: الصور
 pi.news.form.group.pictures: الصور
 pi.news.form.group.links: روابط
 pi.news.form.group.information: معلومات
@@ -113,8 +120,13 @@ pi.pressmedia.form.file: ملف
 pi.pressmedia.form.pressmedia: اضغط نوع الإصدار
 
 # ENTITY :: PARTENERS
-pi.partner.form.picture:  التصميم و الجرافيك
-pi.partner.form.group.category: الفئة
-pi.partner.form.group.links: رابط
-pi.partner.form.group.file: ملف
+pi.partner.form.group.text: المعلومات
+pi.partner.form.group.page: الرابط
+pi.partner.form.group.picture: الشعار
+
+# ENTITY :: NEWSLETTER
+pi.newsletter.form.group.text: المعلومات
+pi.newsletter.form.group.page: الرابط
+pi.newsletter.form.group.picture: الشعار
+
 
