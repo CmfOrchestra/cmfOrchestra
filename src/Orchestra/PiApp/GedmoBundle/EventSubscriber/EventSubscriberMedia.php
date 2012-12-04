@@ -135,7 +135,7 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
     	$entityManager 	= $eventArgs->getEntityManager();    
 
     	$right = true;
-    	if(isset($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) && in_array(get_class($entity), $GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) ){
+    	if($this->isUsernamePasswordToken() && isset($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) && in_array(get_class($entity), $GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) ){
     		// Gets all user roles.
     		$user_roles 			= array_unique(array_merge($this->getAllHeritageByRoles($this->getBestRoles($this->getUserRoles())), $this->getUserRoles()));
     		// Gets the best role authorized to access to the entity.

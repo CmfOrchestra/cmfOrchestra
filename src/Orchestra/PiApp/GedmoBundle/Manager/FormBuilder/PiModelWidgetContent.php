@@ -93,8 +93,8 @@ class PiModelWidgetContent extends PiFormBuilderManager
     			$desc = $field->getDescriptif();
     			$cat  = $field->getCategory();
     			
-    			if(!empty($cat))
-    				$categories[ $cat ] = $cat;
+    			if($cat instanceof \PiApp\GedmoBundle\Entity\Category)
+    				$categories[ $cat->getId() ] = $cat->getName();
     			
     			if(!empty($desc) && !empty($cat))
     				$result[ $field->getId() ] = $field->getCategory() .  " >> " . $field->getDescriptif() . ' ('.$field->getId().')';
