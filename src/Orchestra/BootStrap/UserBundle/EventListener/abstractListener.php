@@ -108,12 +108,6 @@ abstract class abstractListener
             $entity->setCreatedAt(new \DateTime());
         }
         
-        //update heritage field when method setHeritage exists in entity object
-        if (method_exists($entity, 'setHeritage')) {
-        	// we modify the heritage value
-        	$entity->setHeritage($this->getUserRoles());
-        }
-        
         if($entity instanceof \BootStrap\UserBundle\Entity\User){
         	return true;
         }        
@@ -130,6 +124,13 @@ abstract class abstractListener
         
         // If  autentication user
         if ($isUsernamePasswordToken && $this->isUsernamePasswordToken()) {
+        	
+        	//update heritage field when method setHeritage exists in entity object
+        	if (method_exists($entity, 'setHeritage')) {
+        		// we modify the heritage value
+        		$entity->setHeritage($this->getUserRoles());
+        	}
+        	        	
         	// if user have the create right
         	if( in_array('CREATE', $this->getUserPermissions()) || in_array('ROLE_SUPER_ADMIN', $this->getUserRoles()) || $isAllPermissions) {
         		//ini_set('memory_limit', '-1');
