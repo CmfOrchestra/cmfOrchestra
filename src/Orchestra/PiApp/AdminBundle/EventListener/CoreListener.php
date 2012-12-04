@@ -70,6 +70,18 @@ abstract class CoreListener extends abstractListener
 			
 			if($result)
 				$this->setFlash('pi.session.flash.rolecache.created');
+
+			$path_files[] = realpath($this->_container()->getParameter("kernel.root_dir") . "/cache/dev/appDevDebugProjectContainer.php");
+			$path_files[] = realpath($this->_container()->getParameter("kernel.root_dir") . "/cache/dev/appDevDebugProjectContainer.php.meta");
+			$path_files[] = realpath($this->_container()->getParameter("kernel.root_dir") . "/cache/dev/appDevDebugProjectContainer.xml");
+			$path_files[] = realpath($this->_container()->getParameter("kernel.root_dir") . "/cache/dev/appDevDebugProjectContainerCompiler.log");
+			$path_files[] = realpath($this->_container()->getParameter("kernel.root_dir") . "/cache/prod/appProdProjectContainer.php");
+			$path_files = array_unique($path_files);
+			
+			foreach($path_files as $key=>$file){
+				if(!empty($file))
+					unlink($file);
+			}
 		}
 	}
 
