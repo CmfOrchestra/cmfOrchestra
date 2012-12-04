@@ -35,6 +35,25 @@ $GLOBALS['ROUTE']['SLUGGABLE'] = array(
 		),
 );
 
+/**************************  MATRIX ENTITIES of RESTRICTION ROLES ***************************/
+$GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']= array(
+		'Proxies\PiAppGedmoBundleEntityMediaProxy',
+		'Proxies\BootStrapMediaBundleEntityMediaProxy',
+		'PiApp\GedmoBundle\Entity\Media',
+		'PiApp\GedmoBundle\Entity\Block',
+		'PiApp\GedmoBundle\Entity\Translation\BlockTranslation',
+		'PiApp\GedmoBundle\Entity\Content',
+		'PiApp\GedmoBundle\Entity\Translation\ContentTranslation',
+		'PiApp\GedmoBundle\Entity\News',
+		'PiApp\GedmoBundle\Entity\Translation\NewsTranslation',
+		'PiApp\GedmoBundle\Entity\Partner',
+		'PiApp\GedmoBundle\Entity\Translation\PartnerTranslation',
+		'PiApp\GedmoBundle\Entity\Pressrelease',
+		'PiApp\GedmoBundle\Entity\Translation\PressreleaseTranslation',
+		'PiApp\GedmoBundle\Entity\Contact',
+		'PiApp\GedmoBundle\Entity\Translation\ContactTranslation',
+);
+
 /**************************  MATRIX LISTENER ***************************/
 $GLOBALS['GEDMO_WIDGET_LISTENER']['media'] = array(
 		'method' => array('_template_show', '_template_list'),

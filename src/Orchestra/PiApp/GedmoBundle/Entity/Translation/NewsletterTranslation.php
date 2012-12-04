@@ -13,7 +13,7 @@
 namespace PiApp\GedmoBundle\Entity\Translation;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
+use BootStrap\TranslationBundle\Model\AbstractTranslationEntity;
 
 /**
  * @ORM\Entity(repositoryClass="PiApp\GedmoBundle\Repository\NewsletterRepository")
@@ -24,7 +24,7 @@ use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
  *         })}
  * )
  */
-class NewsletterTranslation extends AbstractPersonalTranslation
+class NewsletterTranslation extends AbstractTranslationEntity
 {
 	/**
 	 * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Newsletter", inversedBy="translations")

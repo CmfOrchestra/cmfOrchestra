@@ -66,9 +66,10 @@ class UserAdmin extends Admin
         $listMapper
             ->addIdentifier('username')
             ->add('email')
+            ->add('langCode')
+            ->add('roles')
             ->add('enabled')
             ->add('locked')
-            ->add('createdAt')
             
             ->add('_action', 'actions', array( 'actions' => array(  
 					 'edit'   => array(),

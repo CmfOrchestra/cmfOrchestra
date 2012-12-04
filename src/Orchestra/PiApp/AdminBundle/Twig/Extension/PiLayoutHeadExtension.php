@@ -423,3 +423,5 @@ class PiLayoutHeadExtension extends \Twig_Extension
     			return "";
     	}    	
     }
+    
+}

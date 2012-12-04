@@ -105,15 +105,21 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 
 			// If the translation page is secure and the user is not authorized, we return to the home page.
 			if($pageTrans && $pageTrans->getSecure() && $this->isUsernamePasswordToken()){
-				$user_roles 			= $this->getUserRoles();
-				$authorized_page_roles 	= $pageTrans->getHeritage();
-			
+				// Gets all user roles.
+				$user_roles 			= array_unique(array_merge($this->getAllHeritageByRoles($this->getBestRoles($this->getUserRoles())), $this->getUserRoles()));
+				// Gets the best role authorized to access to the page.
+				$authorized_page_roles 	= $this->getBestRoles($pageTrans->getHeritage());
+				
 				$right = false;
-				foreach($user_roles as $key => $role){
-					if(in_array($role, $authorized_page_roles))
-						$right = true;
+				if(is_null($authorized_page_roles))
+					$right = true;
+				else{
+					foreach($authorized_page_roles as $key=>$role_page){
+						if(in_array($role_page, $user_roles))
+							$right = true;
+					}
 				}
-			
+				
 				if(!$right)
 					return $this->redirectHomePublicPage();
 			}			
@@ -1403,5 +1409,87 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 		}
 
 		return $urls;
-	}		
+	}	
+	
+	/**
+	 * Gets the best roles of many of roles.
+	 *
+	 * @param  array 	$ROLES
+	 * @return array	the best roles of all roles.
+	 * @access protected
+	 *
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+	 */
+	protected function getBestRoles($ROLES)
+	{
+		if(is_null($ROLES))
+			return null;
+		
+		// we get the map of all roles.
+		$roleMap = $this->buildRoleMap();
+	
+		foreach($roleMap as $role => $heritage){
+			if(in_array($role, $ROLES)){
+				$intersect	= array_intersect($heritage, $ROLES);
+				$ROLES		= array_diff($ROLES, $intersect);  // =  $ROLES_USER -  $intersect
+			}
+		}
+		return $ROLES;
+	}	
+	
+	/**
+	 * Gets all heritage roles of many of roles.
+	 *
+	 * @param array 	$ROLES
+	 * @return array	the best roles of all user roles.
+	 * @access protected
+	 *
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+	 */
+	protected function getAllHeritageByRoles($ROLES)
+	{
+		if(is_null($ROLES))
+			return null;
+		
+		$results = array();
+		
+		// we get the map of all roles.
+		$roleMap = $this->buildRoleMap();
+		
+		foreach($ROLES as $key => $role){
+			if(isset($roleMap[$role]))
+				$results = array_unique(array_merge($results, $roleMap[$role]));
+		}
+		
+		return $results;
+	}	
+
+	/**
+	 * Sets the map of all roles.
+	 *
+	 * @return array	role map
+	 * @access protected
+	 *
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+	 */
+	protected function buildRoleMap()
+	{
+		$hierarchy 	= $this->container->getParameter('security.role_hierarchy.roles');
+		$map		= array();
+		foreach ($hierarchy as $main => $roles) {
+			$map[$main] = $roles;
+			$visited = array();
+			$additionalRoles = $roles;
+			while ($role = array_shift($additionalRoles)) {
+				if (!isset($hierarchy[$role])) {
+					continue;
+				}
+	
+				$visited[] = $role;
+				$map[$main] = array_unique(array_merge($map[$main], $hierarchy[$role]));
+				$additionalRoles = array_merge($additionalRoles, array_diff($hierarchy[$role], $visited));
+			}
+		}
+		return $map;
+	}	
 }

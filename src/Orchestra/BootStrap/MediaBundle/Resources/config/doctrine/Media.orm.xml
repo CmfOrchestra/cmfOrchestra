@@ -16,7 +16,9 @@
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>
-
+        
+        <field name="heritage"      column="secure_roles"            type="array"   nullable="true"  />
+        
         <one-to-many
             field="galleryHasMedias"
             target-entity="BootStrap\MediaBundle\Entity\GalleryHasMedia"

@@ -134,7 +134,24 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
     	$entity			= $eventArgs->getEntity();
     	$entityManager 	= $eventArgs->getEntityManager();    
 
-    	if ( $this->isUsernamePasswordToken() && ($entity instanceof \BootStrap\MediaBundle\Entity\Media)){
+    	$right = true;
+    	if(isset($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) && in_array(get_class($entity), $GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) ){
+    		// Gets all user roles.
+    		$user_roles 			= array_unique(array_merge($this->getAllHeritageByRoles($this->getBestRoles($this->getUserRoles())), $this->getUserRoles()));
+    		// Gets the best role authorized to access to the entity.
+    		$authorized_page_roles 	= $this->getBestRoles($entity->getHeritage());
+    		 
+    		$right = false;
+    		if(!is_null($authorized_page_roles))
+    		{
+    			foreach($authorized_page_roles as $key=>$role_page){
+    				if(in_array($role_page, $user_roles))
+    					$right = true;
+    			}
+    		}
+    	}
+    	
+    	if ($right && $this->isUsernamePasswordToken() && ($entity instanceof \BootStrap\MediaBundle\Entity\Media) ){
 	    	if ($eventArgs->hasChangedField('name')) {
 	    		$old_entity = clone($entity);
 	    		$old_entity->setProviderReference($eventArgs->getOldValue('providerReference'));

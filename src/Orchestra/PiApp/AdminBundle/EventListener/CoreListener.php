@@ -71,8 +71,8 @@ abstract class CoreListener extends abstractListener
 			if($result)
 				$this->setFlash('pi.session.flash.rolecache.created');
 		}
-	}	
-	
+	}
+
 	/**
 	 * We remove twig cached file of Page, Widget and translationWidget template.
 	 *

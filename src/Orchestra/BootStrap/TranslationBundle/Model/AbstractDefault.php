@@ -69,7 +69,13 @@ abstract class AbstractDefault extends AbstractTranslation
     /**
      * @ORM\Column(name="position", type="integer",  nullable=true)
      */
-    protected $position;   
+    protected $position;  
+
+    /**
+     * @var array
+     * @ORM\Column(name="secure_roles", type="array", nullable=true)
+     */
+    protected $heritage;    
     
     /**
      * Constructor
@@ -205,6 +211,44 @@ abstract class AbstractDefault extends AbstractTranslation
     public function getPosition()
     {
     	return $this->position;
+    }    
+    
+    /**
+     * Set Role
+     *
+     * @param array $heritage
+     */
+    public function setHeritage( array $heritage)
+    {
+    	$this->heritage = array();
+    
+    	foreach ($heritage as $role) {
+    		$this->addRoleInHeritage($role);
+    	}
+    }
+    
+    /**
+     * Get heritage
+     *
+     * @return array
+     */
+    public function getHeritage()
+    {
+    	return $this->heritage;
+    }
+    
+    /**
+     * Adds a role heritage.
+     *
+     * @param string $role
+     */
+    public function addRoleInHeritage($role)
+    {
+    	$role = strtoupper($role);
+    
+    	if (!in_array($role, $this->heritage, true)) {
+    		$this->heritage[] = $role;
+    	}
     }    
     
 }
