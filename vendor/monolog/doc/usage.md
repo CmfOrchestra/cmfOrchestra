@@ -4,12 +4,12 @@ Using Monolog
 Installation
 ------------
 
-To install Monolog, simply get the code (from github or through PEAR) and
-configure an autoloader for the Monolog namespace.
+Monolog is available on Packagist ([monolog/monolog](http://packagist.org/packages/monolog/monolog))
+and as such installable via [Composer](http://getcomposer.org/).
 
-Monolog does not provide its own autoloader but follows the PSR-0 convention,
-thus allowing you to use any compatible autoloader. You could for instance use
-the [Symfony2 ClassLoader component](https://github.com/symfony/ClassLoader).
+If you do not use Composer, you can grab the code from GitHub, and use any
+PSR-0 compatible autoloader (e.g. the [Symfony2 ClassLoader component](https://github.com/symfony/ClassLoader))
+to load Monolog classes.
 
 Configuring a logger
 --------------------
@@ -94,12 +94,11 @@ Leveraging channels
 
 Channels are a great way to identify to which part of the application a record
 is related. This is useful in big applications (and is leveraged by
-MonologBundle in Symfony2). You can then easily grep through log files for
-example to filter this or that type of log record.
+MonologBundle in Symfony2).
 
-Using different loggers with the same handlers allow to identify the logger
-that issued the record (through the channel name) by keeping the same handlers
-(for instance to use a single log file).
+Picture two loggers sharing a handler that writes to a single log file.
+Channels would allow you to identify the logger that issued every record.
+You can easily grep through the log files filtering this or that channel.
 
 ```php
 <?php

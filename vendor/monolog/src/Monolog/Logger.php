@@ -37,7 +37,12 @@ class Logger
     const INFO = 200;
 
     /**
-     * Exceptional occurences that are not errors
+     * Uncommon events
+     */
+    const NOTICE = 250;
+
+    /**
+     * Exceptional occurrences that are not errors
      *
      * Examples: Use of deprecated APIs, poor use of an API,
      * undesirable things that are not necessarily wrong.
@@ -64,14 +69,26 @@ class Logger
      */
     const ALERT = 550;
 
+    /**
+     * Urgent alert.
+     */
+    const EMERGENCY = 600;
+
     protected static $levels = array(
         100 => 'DEBUG',
         200 => 'INFO',
+        250 => 'NOTICE',
         300 => 'WARNING',
         400 => 'ERROR',
         500 => 'CRITICAL',
         550 => 'ALERT',
+        600 => 'EMERGENCY',
     );
+
+    /**
+     * @var DateTimeZone
+     */
+    protected static $timezone;
 
     protected $name;
 
@@ -90,6 +107,10 @@ class Logger
     public function __construct($name)
     {
         $this->name = $name;
+
+        if (!self::$timezone) {
+            self::$timezone = new \DateTimeZone(date_default_timezone_get() ?: 'UTC');
+        }
     }
 
     /**
@@ -101,7 +122,7 @@ class Logger
     }
 
     /**
-     * Pushes an handler on the stack.
+     * Pushes a handler on to the stack.
      *
      * @param HandlerInterface $handler
      */
@@ -111,7 +132,7 @@ class Logger
     }
 
     /**
-     * Pops an handler from the stack
+     * Pops a handler from the stack
      *
      * @return HandlerInterface
      */
@@ -120,11 +141,12 @@ class Logger
         if (!$this->handlers) {
             throw new \LogicException('You tried to pop from an empty handler stack.');
         }
+
         return array_shift($this->handlers);
     }
 
     /**
-     * Adds a processor in the stack.
+     * Adds a processor on to the stack.
      *
      * @param callable $callback
      */
@@ -146,15 +168,16 @@ class Logger
         if (!$this->processors) {
             throw new \LogicException('You tried to pop from an empty processor stack.');
         }
+
         return array_shift($this->processors);
     }
 
     /**
      * Adds a log record.
      *
-     * @param integer $level The logging level
-     * @param string $message The log message
-     * @param array $context The log context
+     * @param  integer $level   The logging level
+     * @param  string  $message The log message
+     * @param  array   $context The log context
      * @return Boolean Whether the record has been processed
      */
     public function addRecord($level, $message, array $context = array())
@@ -168,7 +191,7 @@ class Logger
             'level' => $level,
             'level_name' => self::getLevelName($level),
             'channel' => $this->name,
-            'datetime' => new \DateTime(),
+            'datetime' => \DateTime::createFromFormat('U.u', sprintf('%.6F', microtime(true)))->setTimeZone(self::$timezone),
             'extra' => array(),
         );
         // check if any message will handle this message
@@ -198,8 +221,8 @@ class Logger
     /**
      * Adds a log record at the DEBUG level.
      *
-     * @param string $message The log message
-     * @param array $context The log context
+     * @param  string  $message The log message
+     * @param  array   $context The log context
      * @return Boolean Whether the record has been processed
      */
     public function addDebug($message, array $context = array())
@@ -210,8 +233,8 @@ class Logger
     /**
      * Adds a log record at the INFO level.
      *
-     * @param string $message The log message
-     * @param array $context The log context
+     * @param  string  $message The log message
+     * @param  array   $context The log context
      * @return Boolean Whether the record has been processed
      */
     public function addInfo($message, array $context = array())
@@ -220,10 +243,22 @@ class Logger
     }
 
     /**
+     * Adds a log record at the NOTICE level.
+     *
+     * @param  string  $message The log message
+     * @param  array   $context The log context
+     * @return Boolean Whether the record has been processed
+     */
+    public function addNotice($message, array $context = array())
+    {
+        return $this->addRecord(self::NOTICE, $message, $context);
+    }
+
+    /**
      * Adds a log record at the WARNING level.
      *
-     * @param string $message The log message
-     * @param array $context The log context
+     * @param  string  $message The log message
+     * @param  array   $context The log context
      * @return Boolean Whether the record has been processed
      */
     public function addWarning($message, array $context = array())
@@ -234,8 +269,8 @@ class Logger
     /**
      * Adds a log record at the ERROR level.
      *
-     * @param string $message The log message
-     * @param array $context The log context
+     * @param  string  $message The log message
+     * @param  array   $context The log context
      * @return Boolean Whether the record has been processed
      */
     public function addError($message, array $context = array())
@@ -246,8 +281,8 @@ class Logger
     /**
      * Adds a log record at the CRITICAL level.
      *
-     * @param string $message The log message
-     * @param array $context The log context
+     * @param  string  $message The log message
+     * @param  array   $context The log context
      * @return Boolean Whether the record has been processed
      */
     public function addCritical($message, array $context = array())
@@ -258,8 +293,8 @@ class Logger
     /**
      * Adds a log record at the ALERT level.
      *
-     * @param string $message The log message
-     * @param array $context The log context
+     * @param  string  $message The log message
+     * @param  array   $context The log context
      * @return Boolean Whether the record has been processed
      */
     public function addAlert($message, array $context = array())
@@ -268,9 +303,21 @@ class Logger
     }
 
     /**
+     * Adds a log record at the EMERGENCY level.
+     *
+     * @param  string  $message The log message
+     * @param  array   $context The log context
+     * @return Boolean Whether the record has been processed
+     */
+    public function addEmergency($message, array $context = array())
+    {
+      return $this->addRecord(self::EMERGENCY, $message, $context);
+    }
+
+    /**
      * Gets the name of the logging level.
      *
-     * @param integer $level
+     * @param  integer $level
      * @return string
      */
     public static function getLevelName($level)
@@ -278,15 +325,40 @@ class Logger
         return self::$levels[$level];
     }
 
-    // ZF Logger Compat
+    /**
+     * Checks whether the Logger has a handler that listens on the given level
+     *
+     * @param  integer $level
+     * @return Boolean
+     */
+    public function isHandling($level)
+    {
+        $record = array(
+            'message' => '',
+            'context' => array(),
+            'level' => $level,
+            'level_name' => self::getLevelName($level),
+            'channel' => $this->name,
+            'datetime' => new \DateTime(),
+            'extra' => array(),
+        );
+
+        foreach ($this->handlers as $key => $handler) {
+            if ($handler->isHandling($record)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     /**
      * Adds a log record at the DEBUG level.
      *
-     * This method allows to have an easy ZF compatibility.
+     * This method allows for compatibility with common interfaces.
      *
-     * @param string $message The log message
-     * @param array $context The log context
+     * @param  string  $message The log message
+     * @param  array   $context The log context
      * @return Boolean Whether the record has been processed
      */
     public function debug($message, array $context = array())
@@ -297,10 +369,10 @@ class Logger
     /**
      * Adds a log record at the INFO level.
      *
-     * This method allows to have an easy ZF compatibility.
+     * This method allows for compatibility with common interfaces.
      *
-     * @param string $message The log message
-     * @param array $context The log context
+     * @param  string  $message The log message
+     * @param  array   $context The log context
      * @return Boolean Whether the record has been processed
      */
     public function info($message, array $context = array())
@@ -311,24 +383,24 @@ class Logger
     /**
      * Adds a log record at the INFO level.
      *
-     * This method allows to have an easy ZF compatibility.
+     * This method allows for compatibility with common interfaces.
      *
-     * @param string $message The log message
-     * @param array $context The log context
+     * @param  string  $message The log message
+     * @param  array   $context The log context
      * @return Boolean Whether the record has been processed
      */
     public function notice($message, array $context = array())
     {
-        return $this->addRecord(self::INFO, $message, $context);
+        return $this->addRecord(self::NOTICE, $message, $context);
     }
 
     /**
      * Adds a log record at the WARNING level.
      *
-     * This method allows to have an easy ZF compatibility.
+     * This method allows for compatibility with common interfaces.
      *
-     * @param string $message The log message
-     * @param array $context The log context
+     * @param  string  $message The log message
+     * @param  array   $context The log context
      * @return Boolean Whether the record has been processed
      */
     public function warn($message, array $context = array())
@@ -339,10 +411,10 @@ class Logger
     /**
      * Adds a log record at the ERROR level.
      *
-     * This method allows to have an easy ZF compatibility.
+     * This method allows for compatibility with common interfaces.
      *
-     * @param string $message The log message
-     * @param array $context The log context
+     * @param  string  $message The log message
+     * @param  array   $context The log context
      * @return Boolean Whether the record has been processed
      */
     public function err($message, array $context = array())
@@ -353,10 +425,10 @@ class Logger
     /**
      * Adds a log record at the CRITICAL level.
      *
-     * This method allows to have an easy ZF compatibility.
+     * This method allows for compatibility with common interfaces.
      *
-     * @param string $message The log message
-     * @param array $context The log context
+     * @param  string  $message The log message
+     * @param  array   $context The log context
      * @return Boolean Whether the record has been processed
      */
     public function crit($message, array $context = array())
@@ -367,10 +439,10 @@ class Logger
     /**
      * Adds a log record at the ALERT level.
      *
-     * This method allows to have an easy ZF compatibility.
+     * This method allows for compatibility with common interfaces.
      *
-     * @param string $message The log message
-     * @param array $context The log context
+     * @param  string  $message The log message
+     * @param  array   $context The log context
      * @return Boolean Whether the record has been processed
      */
     public function alert($message, array $context = array())
@@ -379,16 +451,16 @@ class Logger
     }
 
     /**
-     * Adds a log record at the ALERT level.
+     * Adds a log record at the EMERGENCY level.
      *
-     * This method allows to have an easy ZF compatibility.
+     * This method allows for compatibility with common interfaces.
      *
-     * @param string $message The log message
-     * @param array $context The log context
+     * @param  string  $message The log message
+     * @param  array   $context The log context
      * @return Boolean Whether the record has been processed
      */
     public function emerg($message, array $context = array())
     {
-        return $this->addRecord(self::ALERT, $message, $context);
+        return $this->addRecord(self::EMERGENCY, $message, $context);
     }
 }

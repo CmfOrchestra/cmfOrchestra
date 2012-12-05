@@ -3,7 +3,7 @@
 /*
  * This file is part of the Assetic package, an OpenSky project.
  *
- * (c) 2010-2011 OpenSky Project Inc
+ * (c) 2010-2012 OpenSky Project Inc
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -47,8 +47,7 @@ class AssetCollectionTest extends \PHPUnit_Framework_TestCase
 
         $count = 0;
         $matches = array();
-        $filter = new CallablesFilter(function($asset) use ($content, & $matches, & $count)
-        {
+        $filter = new CallablesFilter(function($asset) use ($content, &$matches, &$count) {
             ++$count;
             if ($content == $asset->getContent()) {
                 $matches[] = $asset;
@@ -70,8 +69,7 @@ class AssetCollectionTest extends \PHPUnit_Framework_TestCase
         $innerColl = new AssetCollection(array($nestedAsset));
 
         $contents = array();
-        $filter = new CallablesFilter(function($asset) use(& $contents)
-        {
+        $filter = new CallablesFilter(function($asset) use (&$contents) {
             $contents[] = $asset->getContent();
         });
 
@@ -126,7 +124,7 @@ class AssetCollectionTest extends \PHPUnit_Framework_TestCase
     public function testIterationFilters()
     {
         $count = 0;
-        $filter = new CallablesFilter(function() use(&$count) { ++$count; });
+        $filter = new CallablesFilter(function() use (&$count) { ++$count; });
 
         $coll = new AssetCollection();
         $coll->add(new StringAsset(''));

@@ -3,7 +3,7 @@
 /*
  * This file is part of the Assetic package, an OpenSky project.
  *
- * (c) 2010-2011 OpenSky Project Inc
+ * (c) 2010-2012 OpenSky Project Inc
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,6 +13,7 @@ namespace Assetic\Asset;
 
 use Assetic\Cache\CacheInterface;
 use Assetic\Filter\FilterInterface;
+use Assetic\Filter\HashableInterface;
 
 /**
  * Caches an asset to avoid the cost of loading and dumping.
@@ -50,6 +51,7 @@ class AssetCache implements AssetInterface
         $cacheKey = self::getCacheKey($this->asset, $additionalFilter, 'load');
         if ($this->cache->has($cacheKey)) {
             $this->asset->setContent($this->cache->get($cacheKey));
+
             return;
         }
 
@@ -122,7 +124,7 @@ class AssetCache implements AssetInterface
      *
      * @return string A key for identifying the current asset
      */
-    static private function getCacheKey(AssetInterface $asset, FilterInterface $additionalFilter = null, $salt = '')
+    private static function getCacheKey(AssetInterface $asset, FilterInterface $additionalFilter = null, $salt = '')
     {
         if ($additionalFilter) {
             $asset = clone $asset;
@@ -135,7 +137,11 @@ class AssetCache implements AssetInterface
         $cacheKey .= $asset->getLastModified();
 
         foreach ($asset->getFilters() as $filter) {
-            $cacheKey .= serialize($filter);
+            if ($filter instanceof HashableInterface) {
+                $cacheKey .= $filter->hash();
+            } else {
+                $cacheKey .= serialize($filter);
+            }
         }
 
         return md5($cacheKey.$salt);

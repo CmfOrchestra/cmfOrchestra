@@ -11,7 +11,6 @@
 
 namespace Monolog\Handler;
 
-use Monolog\Logger;
 use Monolog\Formatter\WildfireFormatter;
 
 /**
@@ -57,9 +56,9 @@ class FirePHPHandler extends AbstractProcessingHandler
     /**
      * Base header creation function used by init headers & record headers
      *
-     * @param array $meta Wildfire Plugin, Protocol & Structure Indexes
-     * @param string $message Log message
-     * @return array Complete header string ready for the client as key and message as value
+     * @param  array  $meta    Wildfire Plugin, Protocol & Structure Indexes
+     * @param  string $message Log message
+     * @return array  Complete header string ready for the client as key and message as value
      */
     protected function createHeader(array $meta, $message)
     {
@@ -72,7 +71,7 @@ class FirePHPHandler extends AbstractProcessingHandler
      * Creates message header from record
      *
      * @see createHeader()
-     * @param array $record
+     * @param  array  $record
      * @return string
      */
     protected function createRecordHeader(array $record)
@@ -154,6 +153,8 @@ class FirePHPHandler extends AbstractProcessingHandler
      */
     protected function headersAccepted()
     {
-        return !isset($_SERVER['HTTP_USER_AGENT']) || preg_match('{\bFirePHP/\d+\.\d+\b}', $_SERVER['HTTP_USER_AGENT']);
+        return !isset($_SERVER['HTTP_USER_AGENT'])
+               || preg_match('{\bFirePHP/\d+\.\d+\b}', $_SERVER['HTTP_USER_AGENT'])
+               || isset($_SERVER['HTTP_X_FIREPHP_VERSION']);
     }
 }

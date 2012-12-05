@@ -35,7 +35,7 @@ class WebProcessor
     }
 
     /**
-     * @param array $record
+     * @param  array $record
      * @return array
      */
     public function __invoke(array $record)
@@ -46,12 +46,18 @@ class WebProcessor
             return $record;
         }
 
+        if (!isset($this->serverData['HTTP_REFERER'])) {
+            $this->serverData['HTTP_REFERER'] = null;
+        }
+
         $record['extra'] = array_merge(
             $record['extra'],
             array(
                 'url'         => $this->serverData['REQUEST_URI'],
                 'ip'          => $this->serverData['REMOTE_ADDR'],
                 'http_method' => $this->serverData['REQUEST_METHOD'],
+                'server'      => $this->serverData['SERVER_NAME'],
+                'referrer'    => $this->serverData['HTTP_REFERER'],
             )
         );
 

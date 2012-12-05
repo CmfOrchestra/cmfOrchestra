@@ -13,15 +13,13 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * This software consists of voluntary contributions made by many individuals
- * and is licensed under the MIT license. For more information, see
+ * and is licensed under the LGPL. For more information, see
  * <http://www.doctrine-project.org>.
  */
 
 namespace Doctrine\DBAL\Driver\OCI8;
 
-use PDO;
-use IteratorAggregate;
-use Doctrine\DBAL\Driver\Statement;
+use \PDO;
 
 /**
  * The OCI8 implementation of the Statement interface.
@@ -29,22 +27,18 @@ use Doctrine\DBAL\Driver\Statement;
  * @since 2.0
  * @author Roman Borschel <roman@code-factory.org>
  */
-class OCI8Statement implements \IteratorAggregate, Statement
+class OCI8Statement implements \Doctrine\DBAL\Driver\Statement
 {
     /** Statement handle. */
-    protected $_dbh;
-    protected $_sth;
-    protected $_conn;
-    protected static $_PARAM = ':param';
-    protected static $fetchModeMap = array(
+    private $_sth;
+    private $_executeMode;
+    private static $_PARAM = ':param';
+    private static $fetchStyleMap = array(
         PDO::FETCH_BOTH => OCI_BOTH,
         PDO::FETCH_ASSOC => OCI_ASSOC,
-        PDO::FETCH_NUM => OCI_NUM,
-        PDO::PARAM_LOB => OCI_B_BLOB,
-        PDO::FETCH_COLUMN => OCI_NUM,
+        PDO::FETCH_NUM => OCI_NUM
     );
-    protected $_defaultFetchMode = PDO::FETCH_BOTH;
-    protected $_paramMap = array();
+    private $_paramMap = array();
 
     /**
      * Creates a new OCI8Statement that uses the given connection handle and SQL statement.
@@ -52,13 +46,12 @@ class OCI8Statement implements \IteratorAggregate, Statement
      * @param resource $dbh The connection handle.
      * @param string $statement The SQL statement.
      */
-    public function __construct($dbh, $statement, OCI8Connection $conn)
+    public function __construct($dbh, $statement, $executeMode)
     {
         list($statement, $paramMap) = self::convertPositionalToNamedPlaceholders($statement);
         $this->_sth = oci_parse($dbh, $statement);
-        $this->_dbh = $dbh;
         $this->_paramMap = $paramMap;
-        $this->_conn = $conn;
+        $this->_executeMode = $executeMode;
     }
 
     /**
@@ -79,7 +72,7 @@ class OCI8Statement implements \IteratorAggregate, Statement
      * @return string
      */
     static public function convertPositionalToNamedPlaceholders($statement)
-    {
+    {   
         $count = 1;
         $inLiteral = false; // a valid query never starts with quotes
         $stmtLen = strlen($statement);
@@ -106,24 +99,17 @@ class OCI8Statement implements \IteratorAggregate, Statement
      */
     public function bindValue($param, $value, $type = null)
     {
-        return $this->bindParam($param, $value, $type, null);
+        return $this->bindParam($param, $value, $type);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function bindParam($column, &$variable, $type = null,$length = null)
+    public function bindParam($column, &$variable, $type = null)
     {
         $column = isset($this->_paramMap[$column]) ? $this->_paramMap[$column] : $column;
-
-        if ($type == \PDO::PARAM_LOB) {
-            $lob = oci_new_descriptor($this->_dbh, OCI_D_LOB);
-            $lob->writeTemporary($variable, OCI_TEMP_BLOB);
-
-            return oci_bind_by_name($this->_sth, $column, $lob, -1, OCI_B_BLOB);
-        } else {
-            return oci_bind_by_name($this->_sth, $column, $variable);
-        }
+        
+        return oci_bind_by_name($this->_sth, $column, $variable);
     }
 
     /**
@@ -136,7 +122,7 @@ class OCI8Statement implements \IteratorAggregate, Statement
         return oci_free_statement($this->_sth);
     }
 
-    /**
+    /** 
      * {@inheritdoc}
      */
     public function columnCount()
@@ -155,7 +141,7 @@ class OCI8Statement implements \IteratorAggregate, Statement
         }
         return $error;
     }
-
+    
     /**
      * {@inheritdoc}
      */
@@ -180,7 +166,7 @@ class OCI8Statement implements \IteratorAggregate, Statement
             }
         }
 
-        $ret = @oci_execute($this->_sth, $this->_conn->getExecuteMode());
+        $ret = @oci_execute($this->_sth, $this->_executeMode);
         if ( ! $ret) {
             throw OCI8Exception::fromErrorInfo($this->errorInfo());
         }
@@ -190,62 +176,28 @@ class OCI8Statement implements \IteratorAggregate, Statement
     /**
      * {@inheritdoc}
      */
-    public function setFetchMode($fetchMode, $arg2 = null, $arg3 = null)
+    public function fetch($fetchStyle = PDO::FETCH_BOTH)
     {
-        $this->_defaultFetchMode = $fetchMode;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getIterator()
-    {
-        $data = $this->fetchAll();
-        return new \ArrayIterator($data);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function fetch($fetchMode = null)
-    {
-        $fetchMode = $fetchMode ?: $this->_defaultFetchMode;
-        if ( ! isset(self::$fetchModeMap[$fetchMode])) {
-            throw new \InvalidArgumentException("Invalid fetch style: " . $fetchMode);
+        if ( ! isset(self::$fetchStyleMap[$fetchStyle])) {
+            throw new \InvalidArgumentException("Invalid fetch style: " . $fetchStyle);
         }
-
-        return oci_fetch_array($this->_sth, self::$fetchModeMap[$fetchMode] | OCI_RETURN_NULLS | OCI_RETURN_LOBS);
+        
+        return oci_fetch_array($this->_sth, self::$fetchStyleMap[$fetchStyle] | OCI_RETURN_NULLS | OCI_RETURN_LOBS);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function fetchAll($fetchMode = null)
+    public function fetchAll($fetchStyle = PDO::FETCH_BOTH)
     {
-        $fetchMode = $fetchMode ?: $this->_defaultFetchMode;
-        if ( ! isset(self::$fetchModeMap[$fetchMode])) {
-            throw new \InvalidArgumentException("Invalid fetch style: " . $fetchMode);
+        if ( ! isset(self::$fetchStyleMap[$fetchStyle])) {
+            throw new \InvalidArgumentException("Invalid fetch style: " . $fetchStyle);
         }
-
+        
         $result = array();
-        if (self::$fetchModeMap[$fetchMode] === OCI_BOTH) {
-            while ($row = $this->fetch($fetchMode)) {
-                $result[] = $row;
-            }
-        } else {
-            $fetchStructure = OCI_FETCHSTATEMENT_BY_ROW;
-            if ($fetchMode == PDO::FETCH_COLUMN) {
-                $fetchStructure = OCI_FETCHSTATEMENT_BY_COLUMN;
-            }
-
-            oci_fetch_all($this->_sth, $result, 0, -1,
-                    self::$fetchModeMap[$fetchMode] | OCI_RETURN_NULLS | $fetchStructure | OCI_RETURN_LOBS);
-
-            if ($fetchMode == PDO::FETCH_COLUMN) {
-                $result = $result[0];
-            }
-        }
-
+        oci_fetch_all($this->_sth, $result, 0, -1,
+            self::$fetchStyleMap[$fetchStyle] | OCI_RETURN_NULLS | OCI_FETCHSTATEMENT_BY_ROW | OCI_RETURN_LOBS);
+        
         return $result;
     }
 
@@ -255,7 +207,7 @@ class OCI8Statement implements \IteratorAggregate, Statement
     public function fetchColumn($columnIndex = 0)
     {
         $row = oci_fetch_array($this->_sth, OCI_NUM | OCI_RETURN_NULLS | OCI_RETURN_LOBS);
-        return isset($row[$columnIndex]) ? $row[$columnIndex] : false;
+        return $row[$columnIndex];
     }
 
     /**
@@ -264,5 +216,5 @@ class OCI8Statement implements \IteratorAggregate, Statement
     public function rowCount()
     {
         return oci_num_rows($this->_sth);
-    }
+    }    
 }

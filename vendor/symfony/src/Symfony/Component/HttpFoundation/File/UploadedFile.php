@@ -93,12 +93,8 @@ class UploadedFile extends File
         if (!ini_get('file_uploads')) {
             throw new FileException(sprintf('Unable to create UploadedFile because "file_uploads" is disabled in your php.ini file (%s)', get_cfg_var('cfg_file_path')));
         }
-        
-        //print_r($path);exit;
 
-        $originalName = str_replace('\\', '/', $originalName);
-        $pos = strrpos($originalName, '/');
-        $this->originalName = false === $pos ? $originalName : substr($originalName, $pos + 1);
+        $this->originalName = $this->getName($originalName);
         $this->mimeType = $mimeType ?: 'application/octet-stream';
         $this->size = $size;
         $this->error = $error ?: UPLOAD_ERR_OK;
@@ -170,7 +166,7 @@ class UploadedFile extends File
     /**
      * Returns whether the file was uploaded successfully.
      *
-     * @return Boolean  True if no error occurred during uploading
+     * @return Boolean True if no error occurred during uploading
      *
      * @api
      */

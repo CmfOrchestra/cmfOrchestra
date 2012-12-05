@@ -3,7 +3,7 @@
 /*
  * This file is part of the Assetic package, an OpenSky project.
  *
- * (c) 2010-2011 OpenSky Project Inc
+ * (c) 2010-2012 OpenSky Project Inc
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -92,5 +92,16 @@ class TwigFormulaLoaderTest extends \PHPUnit_Framework_TestCase
 
         $formulae = $this->loader->load($resource);
         $this->assertEquals($expected, $formulae);
+    }
+
+    public function testUnclosedTag()
+    {
+        $resource = $this->getMock('Assetic\\Factory\\Resource\\ResourceInterface');
+        $resource->expects($this->once())
+            ->method('getContent')
+            ->will($this->returnValue(file_get_contents(__DIR__.'/templates/unclosed_tag.twig')));
+
+        $formulae = $this->loader->load($resource);
+        $this->assertEquals(array(), $formulae);
     }
 }

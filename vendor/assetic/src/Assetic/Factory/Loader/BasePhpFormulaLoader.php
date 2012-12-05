@@ -3,7 +3,7 @@
 /*
  * This file is part of the Assetic package, an OpenSky project.
  *
- * (c) 2010-2011 OpenSky Project Inc
+ * (c) 2010-2012 OpenSky Project Inc
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -147,12 +147,12 @@ abstract class BasePhpFormulaLoader implements FormulaLoaderInterface
      */
     abstract protected function registerSetupCode();
 
-    static protected function tokenToString($token)
+    protected static function tokenToString($token)
     {
         return is_array($token) ? $token[1] : $token;
     }
 
-    static protected function argumentToArray($argument)
+    protected static function argumentToArray($argument)
     {
         return is_array($argument) ? $argument : array_filter(array_map('trim', explode(',', $argument)));
     }

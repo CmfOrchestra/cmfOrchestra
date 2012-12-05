@@ -86,7 +86,6 @@
 
   <xs:complexType name="entity">
     <xs:sequence>
-      <xs:element name="options" type="orm:options" minOccurs="0" />
       <xs:element name="indexes" type="orm:indexes" minOccurs="0"/>
       <xs:element name="unique-constraints" type="orm:unique-constraints" minOccurs="0"/>
       <xs:element name="discriminator-column" type="orm:discriminator-column" minOccurs="0"/>
@@ -111,23 +110,6 @@
     <xs:anyAttribute namespace="##other"/>
   </xs:complexType>
   
-  <xs:complexType name="option" mixed="true">
-    <xs:sequence minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="option" type="orm:option"/>
-      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
-    </xs:sequence>
-    <xs:attribute name="name" type="xs:NMTOKEN" use="required"/>
-    <xs:anyAttribute namespace="##other"/>
-  </xs:complexType>
-
-  <xs:complexType name="options">
-    <xs:sequence>
-      <xs:element name="option" type="orm:option" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
-    </xs:sequence>
-    <xs:anyAttribute namespace="##other"/>
-  </xs:complexType>
-
   <xs:complexType name="mapped-superclass" >
     <xs:complexContent>
       <xs:extension base="orm:entity">
@@ -168,7 +150,7 @@
     <xs:restriction base="xs:token"> 
       <xs:enumeration value="CASCADE"/> 
       <xs:enumeration value="RESTRICT"/> 
-      <xs:enumeration value="SET NULL"/>
+      <xs:enumeration value="SET_NULL"/>
     </xs:restriction> 
   </xs:simpleType>
   
@@ -182,7 +164,6 @@
 
   <xs:complexType name="field">
     <xs:sequence>
-      <xs:element name="options" type="orm:options" minOccurs="0" />
       <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
     </xs:sequence>
     <xs:attribute name="name" type="xs:NMTOKEN" use="required" />
@@ -203,10 +184,9 @@
       <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
     </xs:sequence>
     <xs:attribute name="name" type="xs:NMTOKEN" use="required" />
-    <xs:attribute name="type" type="xs:NMTOKEN"/>
+    <xs:attribute name="type" type="xs:NMTOKEN" use="required" />
     <xs:attribute name="field-name" type="xs:NMTOKEN" />
     <xs:attribute name="length" type="xs:NMTOKEN" />
-    <xs:attribute name="column-definition" type="xs:string" />
     <xs:anyAttribute namespace="##other"/>
   </xs:complexType>
   
@@ -279,7 +259,6 @@
     <xs:attribute name="type" type="xs:NMTOKEN" />
     <xs:attribute name="column" type="xs:NMTOKEN" />
     <xs:attribute name="association-key" type="xs:boolean" default="false" />
-    <xs:attribute name="column-definition" type="xs:string" />
     <xs:anyAttribute namespace="##other"/>
   </xs:complexType>
 
@@ -371,7 +350,6 @@
     <xs:attribute name="index-by" type="xs:NMTOKEN" />
     <xs:attribute name="inversed-by" type="xs:NMTOKEN" />
     <xs:attribute name="fetch" type="orm:fetch-type" default="LAZY" />
-    <xs:attribute name="orphan-removal" type="xs:boolean" default="false" />
     <xs:anyAttribute namespace="##other"/>
   </xs:complexType>
 

@@ -3,7 +3,7 @@
 /*
  * This file is part of the Assetic package, an OpenSky project.
  *
- * (c) 2010-2011 OpenSky Project Inc
+ * (c) 2010-2012 OpenSky Project Inc
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -181,6 +181,14 @@ class AsseticExtensionTest extends \PHPUnit_Framework_TestCase
         $xml = $this->renderXml('function.twig');
         $this->assertEquals(1, count($xml->asset));
         $this->assertStringEndsWith('.css', (string) $xml->asset[0]['url']);
+    }
+
+    /**
+     * @expectedException Twig_Error
+     */
+    public function testUnclosedTag()
+    {
+        $this->renderXml('unclosed_tag.twig');
     }
 
     private function renderXml($name, $context = array())

@@ -13,15 +13,12 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * This software consists of voluntary contributions made by many individuals
- * and is licensed under the MIT license. For more information, see
+ * and is licensed under the LGPL. For more information, see
  * <http://www.doctrine-project.org>.
  */
 
 namespace Doctrine\DBAL\Schema;
 
-use Doctrine\DBAL\Events;
-use Doctrine\DBAL\Event\SchemaColumnDefinitionEventArgs;
-use Doctrine\DBAL\Event\SchemaIndexDefinitionEventArgs;
 use Doctrine\DBAL\Types;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
@@ -68,7 +65,7 @@ abstract class AbstractSchemaManager
     /**
      * Return associated platform.
      *
-     * @return \Doctrine\DBAL\Platforms\AbstractPlatform
+     * @return \Doctrine\DBAL\Platform\AbstractPlatform
      */
     public function getDatabasePlatform()
     {
@@ -76,7 +73,7 @@ abstract class AbstractSchemaManager
     }
 
     /**
-     * Try any method on the schema manager. Normally a method throws an
+     * Try any method on the schema manager. Normally a method throws an 
      * exception when your DBMS doesn't support it or if an error occurs.
      * This method allows you to try and method on your SchemaManager
      * instance and will return false if it does not work or is not supported.
@@ -129,7 +126,7 @@ abstract class AbstractSchemaManager
 
         $sequences = $this->_conn->fetchAll($sql);
 
-        return $this->filterAssetNames($this->_getPortableSequencesList($sequences));
+        return $this->_getPortableSequencesList($sequences);
     }
 
     /**
@@ -148,7 +145,7 @@ abstract class AbstractSchemaManager
      */
     public function listTableColumns($table, $database = null)
     {
-        if ( ! $database) {
+        if (!$database) {
             $database = $this->_conn->getDatabase();
         }
 
@@ -156,7 +153,7 @@ abstract class AbstractSchemaManager
 
         $tableColumns = $this->_conn->fetchAll($sql);
 
-        return $this->_getPortableTableColumnList($table, $database, $tableColumns);
+        return $this->_getPortableTableColumnList($tableColumns);
     }
 
     /**
@@ -178,7 +175,7 @@ abstract class AbstractSchemaManager
 
     /**
      * Return true if all the given tables exist.
-     *
+     * 
      * @param array $tableNames
      * @return bool
      */
@@ -187,6 +184,7 @@ abstract class AbstractSchemaManager
         $tableNames = array_map('strtolower', (array)$tableNames);
         return count($tableNames) == count(\array_intersect($tableNames, array_map('strtolower', $this->listTableNames())));
     }
+
 
     /**
      * Return a list of all tables in the current database
@@ -198,34 +196,8 @@ abstract class AbstractSchemaManager
         $sql = $this->_platform->getListTablesSQL();
 
         $tables = $this->_conn->fetchAll($sql);
-        $tableNames = $this->_getPortableTablesList($tables);
-        return $this->filterAssetNames($tableNames);
-    }
 
-    /**
-     * Filter asset names if they are configured to return only a subset of all
-     * the found elements.
-     *
-     * @param array $assetNames
-     * @return array
-     */
-    protected function filterAssetNames($assetNames)
-    {
-        $filterExpr = $this->getFilterSchemaAssetsExpression();
-        if ( ! $filterExpr) {
-            return $assetNames;
-        }
-        return array_values (
-            array_filter($assetNames, function ($assetName) use ($filterExpr) {
-                $assetName = ($assetName instanceof AbstractAsset) ? $assetName->getName() : $assetName;
-                return preg_match($filterExpr, $assetName);
-            })
-        );
-    }
-
-    protected function getFilterSchemaAssetsExpression()
-    {
-        return $this->_conn->getConfiguration()->getFilterSchemaAssetsExpression();
+        return $this->_getPortableTablesList($tables);
     }
 
     /**
@@ -238,7 +210,7 @@ abstract class AbstractSchemaManager
         $tableNames = $this->listTableNames();
 
         $tables = array();
-        foreach ($tableNames as $tableName) {
+        foreach ($tableNames AS $tableName) {
             $tables[] = $this->listTableDetails($tableName);
         }
 
@@ -296,7 +268,7 @@ abstract class AbstractSchemaManager
 
     /**
      * Drops a database.
-     *
+     * 
      * NOTE: You can not drop the database this SchemaManager is currently connected to.
      *
      * @param string $database The name of the database to drop
@@ -403,7 +375,7 @@ abstract class AbstractSchemaManager
      * Create a new sequence
      *
      * @param Sequence $sequence
-     * @throws \Doctrine\DBAL\ConnectionException     if something fails at database level
+     * @throws Doctrine\DBAL\ConnectionException     if something fails at database level
      */
     public function createSequence($sequence)
     {
@@ -497,7 +469,7 @@ abstract class AbstractSchemaManager
      * Drop and create a new sequence
      *
      * @param Sequence $sequence
-     * @throws \Doctrine\DBAL\ConnectionException     if something fails at database level
+     * @throws Doctrine\DBAL\ConnectionException     if something fails at database level
      */
     public function dropAndCreateSequence(Sequence $sequence)
     {
@@ -549,7 +521,7 @@ abstract class AbstractSchemaManager
     {
         $queries = $this->_platform->getAlterTableSQL($tableDiff);
         if (is_array($queries) && count($queries)) {
-            foreach ($queries as $ddlQuery) {
+            foreach ($queries AS $ddlQuery) {
                 $this->_execSql($ddlQuery);
             }
         }
@@ -576,7 +548,7 @@ abstract class AbstractSchemaManager
     protected function _getPortableDatabasesList($databases)
     {
         $list = array();
-        foreach ($databases as $value) {
+        foreach ($databases as $key => $value) {
             if ($value = $this->_getPortableDatabaseDefinition($value)) {
                 $list[] = $value;
             }
@@ -592,7 +564,7 @@ abstract class AbstractSchemaManager
     protected function _getPortableFunctionsList($functions)
     {
         $list = array();
-        foreach ($functions as $value) {
+        foreach ($functions as $key => $value) {
             if ($value = $this->_getPortableFunctionDefinition($value)) {
                 $list[] = $value;
             }
@@ -608,7 +580,7 @@ abstract class AbstractSchemaManager
     protected function _getPortableTriggersList($triggers)
     {
         $list = array();
-        foreach ($triggers as $value) {
+        foreach ($triggers as $key => $value) {
             if ($value = $this->_getPortableTriggerDefinition($value)) {
                 $list[] = $value;
             }
@@ -624,7 +596,7 @@ abstract class AbstractSchemaManager
     protected function _getPortableSequencesList($sequences)
     {
         $list = array();
-        foreach ($sequences as $value) {
+        foreach ($sequences as $key => $value) {
             if ($value = $this->_getPortableSequenceDefinition($value)) {
                 $list[] = $value;
             }
@@ -646,33 +618,14 @@ abstract class AbstractSchemaManager
      *
      * The name of the created column instance however is kept in its case.
      *
-     * @param  string $table The name of the table.
-     * @param  string $database
-     * @param  array  $tableColumns
+     * @param  array $tableColumns
      * @return array
      */
-    protected function _getPortableTableColumnList($table, $database, $tableColumns)
+    protected function _getPortableTableColumnList($tableColumns)
     {
-        $eventManager = $this->_platform->getEventManager();
-
         $list = array();
-        foreach ($tableColumns as $tableColumn) {
-            $column = null;
-            $defaultPrevented = false;
-
-            if (null !== $eventManager && $eventManager->hasListeners(Events::onSchemaColumnDefinition)) {
-                $eventArgs = new SchemaColumnDefinitionEventArgs($tableColumn, $table, $database, $this->_conn);
-                $eventManager->dispatchEvent(Events::onSchemaColumnDefinition, $eventArgs);
-
-                $defaultPrevented = $eventArgs->isDefaultPrevented();
-                $column = $eventArgs->getColumn();
-            }
-
-            if ( ! $defaultPrevented) {
-                $column = $this->_getPortableTableColumnDefinition($tableColumn);
-            }
-
-            if ($column) {
+        foreach ($tableColumns as $key => $column) {
+            if ($column = $this->_getPortableTableColumnDefinition($column)) {
                 $name = strtolower($column->getQuotedName($this->_platform));
                 $list[$name] = $column;
             }
@@ -698,7 +651,7 @@ abstract class AbstractSchemaManager
     protected function _getPortableTableIndexesList($tableIndexRows, $tableName=null)
     {
         $result = array();
-        foreach($tableIndexRows as $tableIndex) {
+        foreach($tableIndexRows AS $tableIndex) {
             $indexName = $keyName = $tableIndex['key_name'];
             if($tableIndex['primary']) {
                 $keyName = 'primary';
@@ -711,35 +664,15 @@ abstract class AbstractSchemaManager
                     'columns' => array($tableIndex['column_name']),
                     'unique' => $tableIndex['non_unique'] ? false : true,
                     'primary' => $tableIndex['primary'],
-                    'flags' => isset($tableIndex['flags']) ? $tableIndex['flags'] : array(),
                 );
             } else {
                 $result[$keyName]['columns'][] = $tableIndex['column_name'];
             }
         }
 
-        $eventManager = $this->_platform->getEventManager();
-
         $indexes = array();
-        foreach($result as $indexKey => $data) {
-            $index = null;
-            $defaultPrevented = false;
-
-            if (null !== $eventManager && $eventManager->hasListeners(Events::onSchemaIndexDefinition)) {
-                $eventArgs = new SchemaIndexDefinitionEventArgs($data, $tableName, $this->_conn);
-                $eventManager->dispatchEvent(Events::onSchemaIndexDefinition, $eventArgs);
-
-                $defaultPrevented = $eventArgs->isDefaultPrevented();
-                $index = $eventArgs->getIndex();
-            }
-
-            if ( ! $defaultPrevented) {
-                $index = new Index($data['name'], $data['columns'], $data['unique'], $data['primary'], $data['flags']);
-            }
-
-            if ($index) {
-                $indexes[$indexKey] = $index;
-            }
+        foreach($result AS $indexKey => $data) {
+            $indexes[$indexKey] = new Index($data['name'], $data['columns'], $data['unique'], $data['primary']);
         }
 
         return $indexes;
@@ -748,7 +681,7 @@ abstract class AbstractSchemaManager
     protected function _getPortableTablesList($tables)
     {
         $list = array();
-        foreach ($tables as $value) {
+        foreach ($tables as $key => $value) {
             if ($value = $this->_getPortableTableDefinition($value)) {
                 $list[] = $value;
             }
@@ -764,7 +697,7 @@ abstract class AbstractSchemaManager
     protected function _getPortableUsersList($users)
     {
         $list = array();
-        foreach ($users as $value) {
+        foreach ($users as $key => $value) {
             if ($value = $this->_getPortableUserDefinition($value)) {
                 $list[] = $value;
             }
@@ -780,7 +713,7 @@ abstract class AbstractSchemaManager
     protected function _getPortableViewsList($views)
     {
         $list = array();
-        foreach ($views as $value) {
+        foreach ($views as $key => $value) {
             if ($view = $this->_getPortableViewDefinition($value)) {
                 $viewName = strtolower($view->getQuotedName($this->_platform));
                 $list[$viewName] = $view;
@@ -797,7 +730,7 @@ abstract class AbstractSchemaManager
     protected function _getPortableTableForeignKeysList($tableForeignKeys)
     {
         $list = array();
-        foreach ($tableForeignKeys as $value) {
+        foreach ($tableForeignKeys as $key => $value) {
             if ($value = $this->_getPortableTableForeignKeyDefinition($value)) {
                 $list[] = $value;
             }
@@ -819,7 +752,7 @@ abstract class AbstractSchemaManager
 
     /**
      * Create a schema instance for the current database.
-     *
+     * 
      * @return Schema
      */
     public function createSchema()
@@ -843,47 +776,20 @@ abstract class AbstractSchemaManager
         $schemaConfig = new SchemaConfig();
         $schemaConfig->setMaxIdentifierLength($this->_platform->getMaxIdentifierLength());
 
-        $searchPaths = $this->getSchemaSearchPaths();
-        if (isset($searchPaths[0])) {
-            $schemaConfig->setName($searchPaths[0]);
-        }
-
-        $params = $this->_conn->getParams();
-        if (isset($params['defaultTableOptions'])) {
-            $schemaConfig->setDefaultTableOptions($params['defautTableOptions']);
-        }
-
         return $schemaConfig;
-    }
-
-    /**
-     * The search path for namespaces in the currently connected database.
-     *
-     * The first entry is usually the default namespace in the Schema. All
-     * further namespaces contain tables/sequences which can also be addressed
-     * with a short, not full-qualified name.
-     *
-     * For databases that don't support subschema/namespaces this method
-     * returns the name of the currently connected database.
-     *
-     * @return array
-     */
-    public function getSchemaSearchPaths()
-    {
-        return array($this->_conn->getDatabase());
     }
 
     /**
      * Given a table comment this method tries to extract a typehint for Doctrine Type, or returns
      * the type given as default.
-     *
+     * 
      * @param  string $comment
      * @param  string $currentType
      * @return string
      */
     public function extractDoctrineTypeFromComment($comment, $currentType)
     {
-        if (preg_match("(\(DC2Type:([a-zA-Z0-9_]+)\))", $comment, $match)) {
+        if (preg_match("(\(DC2Type:([a-zA-Z0-9]+)\))", $comment, $match)) {
             $currentType = $match[1];
         }
         return $currentType;

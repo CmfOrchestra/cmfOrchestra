@@ -32,7 +32,7 @@ abstract class AbstractHandler implements HandlerInterface
     protected $processors = array();
 
     /**
-     * @param integer $level The minimum logging level at which this handler will be triggered
+     * @param integer $level  The minimum logging level at which this handler will be triggered
      * @param Boolean $bubble Whether the messages that are handled can bubble up the stack or not
      */
     public function __construct($level = Logger::DEBUG, $bubble = true)
@@ -87,6 +87,7 @@ abstract class AbstractHandler implements HandlerInterface
         if (!$this->processors) {
             throw new \LogicException('You tried to pop from an empty processor stack.');
         }
+
         return array_shift($this->processors);
     }
 
@@ -154,7 +155,11 @@ abstract class AbstractHandler implements HandlerInterface
 
     public function __destruct()
     {
-        $this->close();
+        try {
+            $this->close();
+        } catch (\Exception $e) {
+            // do nothing
+        }
     }
 
     /**

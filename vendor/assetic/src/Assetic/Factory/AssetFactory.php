@@ -3,7 +3,7 @@
 /*
  * This file is part of the Assetic package, an OpenSky project.
  *
- * (c) 2010-2011 OpenSky Project Inc
+ * (c) 2010-2012 OpenSky Project Inc
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -335,7 +335,7 @@ class AssetFactory
         }
     }
 
-    static private function isAbsolutePath($path)
+    private static function isAbsolutePath($path)
     {
         return '/' == $path[0] || '\\' == $path[0] || (3 < strlen($path) && ctype_alpha($path[0]) && $path[1] == ':' && ('\\' == $path[2] || '/' == $path[2]));
     }
@@ -348,7 +348,7 @@ class AssetFactory
      *
      * @return string|null The matching root directory, if found
      */
-    static private function findRootDir($path, array $roots)
+    private static function findRootDir($path, array $roots)
     {
         foreach ($roots as $root) {
             if (0 === strpos($path, $root)) {

@@ -3,7 +3,7 @@
 /*
  * This file is part of the Assetic package, an OpenSky project.
  *
- * (c) 2010-2011 OpenSky Project Inc
+ * (c) 2010-2012 OpenSky Project Inc
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -46,7 +46,7 @@ class CompassFilter implements FilterInterface
     private $httpPath;
     private $httpImagesPath;
     private $httpJavascriptsPath;
-    
+
     public function __construct($compassPath = '/usr/bin/compass')
     {
         $this->compassPath = $compassPath;
@@ -108,7 +108,7 @@ class CompassFilter implements FilterInterface
     {
         $this->noLineComments = $noLineComments;
     }
-    
+
     public function setImagesDir($imagesDir)
     {
         $this->imagesDir = $imagesDir;
@@ -139,12 +139,12 @@ class CompassFilter implements FilterInterface
     {
         $this->httpPath = $httpPath;
     }
-    
+
     public function setHttpImagesPath($httpImagesPath)
     {
         $this->httpImagesPath = $httpImagesPath;
     }
-    
+
     public function setHttpJavascriptsPath($httpJavascriptsPath)
     {
         $this->httpJavascriptsPath = $httpJavascriptsPath;
@@ -271,7 +271,14 @@ class CompassFilter implements FilterInterface
         unlink($tempName); // FIXME: don't use tempnam() here
 
         // input
-        $pb->add($input = $tempName.'.'.$type);
+        $input = $tempName.'.'.$type;
+
+        // work-around for https://github.com/chriseppstein/compass/issues/748
+        if (defined('PHP_WINDOWS_VERSION_MAJOR')) {
+            $input = str_replace('\\', '/', $input);
+        }
+
+        $pb->add($input);
         file_put_contents($input, $asset->getContent());
 
         // output
@@ -311,12 +318,12 @@ class CompassFilter implements FilterInterface
 
         // does we have an associative array ?
         if (count(array_filter(array_keys($array), "is_numeric")) != count($array)) {
-            foreach($array as $name => $value) {
+            foreach ($array as $name => $value) {
                 $output[] = sprintf('    :%s => "%s"', $name, addcslashes($value, '\\'));
             }
             $output = "{\n".implode(",\n", $output)."\n}";
         } else {
-            foreach($array as $name => $value) {
+            foreach ($array as $name => $value) {
                 $output[] = sprintf('    "%s"', addcslashes($value, '\\'));
             }
             $output = "[\n".implode(",\n", $output)."\n]";

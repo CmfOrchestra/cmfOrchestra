@@ -138,8 +138,7 @@ class HttpKernel extends BaseHttpKernel
                 $options['attributes']['_format'] = $request->getRequestFormat();
             }
 
-            if(!isset($options['attributes']['_route']))
-            	$options['attributes']['_route'] = '_internal';
+            $options['attributes']['_route'] = '_internal';
             $subRequest = $request->duplicate($options['query'], null, $options['attributes']);
             $subRequest->setMethod('GET');
         }

@@ -3,7 +3,7 @@
 /*
  * This file is part of the Assetic package, an OpenSky project.
  *
- * (c) 2010-2011 OpenSky Project Inc
+ * (c) 2010-2012 OpenSky Project Inc
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -25,7 +25,7 @@ interface CacheInterface
      *
      * @return Boolean Whether the cache has a value for this key
      */
-    function has($key);
+    public function has($key);
 
     /**
      * Returns the value for a key.
@@ -34,7 +34,7 @@ interface CacheInterface
      *
      * @return string|null The value in the cache
      */
-    function get($key);
+    public function get($key);
 
     /**
      * Sets a value in the cache.
@@ -42,12 +42,12 @@ interface CacheInterface
      * @param string $key   A unique key
      * @param string $value The value to cache
      */
-    function set($key, $value);
+    public function set($key, $value);
 
     /**
      * Removes a value from the cache.
      *
      * @param string $key A unique key
      */
-    function remove($key);
+    public function remove($key);
 }

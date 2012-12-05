@@ -29,7 +29,7 @@ class Twig_Parser implements Twig_ParserInterface
     protected $macros;
     protected $env;
     protected $reservedMacroNames;
-    protected $importedFunctions;
+    protected $importedSymbols;
     protected $traits;
     protected $embeddedTemplates = array();
 
@@ -88,7 +88,7 @@ class Twig_Parser implements Twig_ParserInterface
         $this->macros = array();
         $this->traits = array();
         $this->blockStack = array();
-        $this->importedFunctions = array(array());
+        $this->importedSymbols = array(array());
         $this->embeddedTemplates = array();
 
         try {
@@ -162,7 +162,12 @@ class Twig_Parser implements Twig_ParserInterface
                     $subparser = $this->handlers->getTokenParser($token->getValue());
                     if (null === $subparser) {
                         if (null !== $test) {
-                            throw new Twig_Error_Syntax(sprintf('Unexpected tag name "%s" (expecting closing tag for the "%s" tag defined near line %s)', $token->getValue(), $test[0]->getTag(), $lineno), $token->getLine(), $this->stream->getFilename());
+                            $error = sprintf('Unexpected tag name "%s"', $token->getValue());
+                            if (is_array($test) && isset($test[0]) && $test[0] instanceof Twig_TokenParserInterface) {
+                                $error .= sprintf(' (expecting closing tag for the "%s" tag defined near line %s)', $test[0]->getTag(), $lineno);
+                            }
+
+                            throw new Twig_Error_Syntax($error, $token->getLine(), $this->stream->getFilename());
                         }
 
                         $message = sprintf('Unknown tag name "%s"', $token->getValue());
@@ -277,33 +282,33 @@ class Twig_Parser implements Twig_ParserInterface
         $this->embeddedTemplates[] = $template;
     }
 
-    public function addImportedFunction($alias, $name, Twig_Node_Expression $node)
+    public function addImportedSymbol($type, $alias, $name = null, Twig_Node_Expression $node = null)
     {
-        $this->importedFunctions[0][$alias] = array('name' => $name, 'node' => $node);
+        $this->importedSymbols[0][$type][$alias] = array('name' => $name, 'node' => $node);
     }
 
-    public function getImportedFunction($alias)
+    public function getImportedSymbol($type, $alias)
     {
-        foreach ($this->importedFunctions as $functions) {
-            if (isset($functions[$alias])) {
-                return $functions[$alias];
+        foreach ($this->importedSymbols as $functions) {
+            if (isset($functions[$type][$alias])) {
+                return $functions[$type][$alias];
             }
         }
     }
 
     public function isMainScope()
     {
-        return 1 === count($this->importedFunctions);
+        return 1 === count($this->importedSymbols);
     }
 
     public function pushLocalScope()
     {
-        array_unshift($this->importedFunctions, array());
+        array_unshift($this->importedSymbols, array());
     }
 
     public function popLocalScope()
     {
-        array_shift($this->importedFunctions);
+        array_shift($this->importedSymbols);
     }
 
     /**

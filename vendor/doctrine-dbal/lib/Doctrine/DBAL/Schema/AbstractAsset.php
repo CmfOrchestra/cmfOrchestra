@@ -1,5 +1,7 @@
 <?php
 /*
+ *  $Id$
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -13,7 +15,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * This software consists of voluntary contributions made by many individuals
- * and is licensed under the MIT license. For more information, see
+ * and is licensed under the LGPL. For more information, see
  * <http://www.doctrine-project.org>.
  */
 
@@ -27,9 +29,10 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
  * This encapsulation hack is necessary to keep a consistent state of the database schema. Say we have a list of tables
  * array($tableName => Table($tableName)); if you want to rename the table, you have to make sure
  *
- *
+ * @license http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link    www.doctrine-project.org
  * @since   2.0
+ * @version $Revision$
  * @author  Benjamin Eberlei <kontakt@beberlei.de>
  */
 abstract class AbstractAsset
@@ -39,16 +42,6 @@ abstract class AbstractAsset
      */
     protected $_name;
 
-    /**
-     * Namespace of the asset. If none isset the default namespace is assumed.
-     *
-     * @var string
-     */
-    protected $_namespace;
-
-    /**
-     * @var bool
-     */
     protected $_quoted = false;
 
     /**
@@ -58,85 +51,11 @@ abstract class AbstractAsset
      */
     protected function _setName($name)
     {
-        if ($this->isIdentifierQuoted($name)) {
+        if ($this->isQuoted($name)) {
             $this->_quoted = true;
             $name = $this->trimQuotes($name);
         }
-        if (strpos($name, ".") !== false) {
-            $parts = explode(".", $name);
-            $this->_namespace = $parts[0];
-            $name = $parts[1];
-        }
         $this->_name = $name;
-    }
-
-    /**
-     * Is this asset in the default namespace?
-     *
-     * @param string $defaultNamespaceName
-     * @return bool
-     */
-    public function isInDefaultNamespace($defaultNamespaceName)
-    {
-        return $this->_namespace == $defaultNamespaceName || $this->_namespace === null;
-    }
-
-    /**
-     * Get namespace name of this asset.
-     *
-     * If NULL is returned this means the default namespace is used.
-     *
-     * @return string
-     */
-    public function getNamespaceName()
-    {
-        return $this->_namespace;
-    }
-
-    /**
-     * The shortest name is stripped of the default namespace. All other
-     * namespaced elements are returned as full-qualified names.
-     *
-     * @param string
-     * @return string
-     */
-    public function getShortestName($defaultNamespaceName)
-    {
-        $shortestName = $this->getName();
-        if ($this->_namespace == $defaultNamespaceName) {
-            $shortestName = $this->_name;
-        }
-        return strtolower($shortestName);
-    }
-
-    /**
-     * The normalized name is full-qualified and lowerspaced. Lowerspacing is
-     * actually wrong, but we have to do it to keep our sanity. If you are
-     * using database objects that only differentiate in the casing (FOO vs
-     * Foo) then you will NOT be able to use Doctrine Schema abstraction.
-     *
-     * Every non-namespaced element is prefixed with the default namespace
-     * name which is passed as argument to this method.
-     *
-     * @return string
-     */
-    public function getFullQualifiedName($defaultNamespaceName)
-    {
-        $name = $this->getName();
-        if ( ! $this->_namespace) {
-            $name = $defaultNamespaceName . "." . $name;
-        }
-        return strtolower($name);
-    }
-
-    /**
-     * Check if this asset's name is quoted
-     *
-     * @return bool
-     */
-    public function isQuoted()
-    {
-        return $this->_quoted;
     }
 
     /**
@@ -145,32 +64,29 @@ abstract class AbstractAsset
      * @param  string $identifier
      * @return bool
      */
-    protected function isIdentifierQuoted($identifier)
+    protected function isQuoted($identifier)
     {
         return (isset($identifier[0]) && ($identifier[0] == '`' || $identifier[0] == '"'));
     }
 
     /**
      * Trim quotes from the identifier.
-     *
+     * 
      * @param  string $identifier
      * @return string
      */
     protected function trimQuotes($identifier)
     {
-        return str_replace(array('`', '"'), '', $identifier);
+        return trim($identifier, '`"');
     }
 
     /**
      * Return name of this schema asset.
-     *
+     * 
      * @return string
      */
     public function getName()
     {
-        if ($this->_namespace) {
-            return $this->_namespace . "." . $this->_name;
-        }
         return $this->_name;
     }
 
@@ -183,13 +99,7 @@ abstract class AbstractAsset
      */
     public function getQuotedName(AbstractPlatform $platform)
     {
-        $keywords = $platform->getReservedKeywordsList();
-        $parts = explode(".", $this->getName());
-        foreach ($parts as $k => $v) {
-            $parts[$k] = ($this->_quoted || $keywords->isKeyword($v)) ? $platform->quoteIdentifier($v) : $v;
-        }
-
-        return implode(".", $parts);
+        return ($this->_quoted) ? $platform->quoteIdentifier($this->_name) : $this->_name;
     }
 
     /**
@@ -206,6 +116,25 @@ abstract class AbstractAsset
      */
     protected function _generateIdentifierName($columnNames, $prefix='', $maxSize=30)
     {
+        /*$columnCount = count($columnNames);
+        $postfixLen = strlen($postfix);
+        $parts = array_map(function($columnName) use($columnCount, $postfixLen, $maxSize) {
+            return substr($columnName, -floor(($maxSize-$postfixLen)/$columnCount - 1));
+        }, $columnNames);
+        $parts[] = $postfix;
+
+        $identifier = trim(implode("_", $parts), '_');
+        // using implicit schema support of DB2 and Postgres there might be dots in the auto-generated
+        // identifier names which can easily be replaced by underscores.
+        $identifier = str_replace(".", "_", $identifier);
+
+        if (is_numeric(substr($identifier, 0, 1))) {
+            $identifier = "i" . substr($identifier, 0, strlen($identifier)-1);
+        }
+
+        return $identifier;*/
+
+
         $hash = implode("", array_map(function($column) {
             return dechex(crc32($column));
         }, $columnNames));

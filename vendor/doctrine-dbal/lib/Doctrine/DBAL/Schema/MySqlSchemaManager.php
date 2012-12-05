@@ -13,7 +13,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * This software consists of voluntary contributions made by many individuals
- * and is licensed under the MIT license. For more information, see
+ * and is licensed under the LGPL. For more information, see
  * <http://www.doctrine-project.org>.
  */
 
@@ -52,15 +52,12 @@ class MySqlSchemaManager extends AbstractSchemaManager
 
     protected function _getPortableTableIndexesList($tableIndexes, $tableName=null)
     {
-        foreach($tableIndexes as $k => $v) {
+        foreach($tableIndexes AS $k => $v) {
             $v = array_change_key_case($v, CASE_LOWER);
             if($v['key_name'] == 'PRIMARY') {
                 $v['primary'] = true;
             } else {
                 $v['primary'] = false;
-            }
-            if (strpos($v['index_type'], 'FULLTEXT') !== false) {
-                $v['flags'] = array('FULLTEXT');
             }
             $tableIndexes[$k] = $v;
         }
@@ -100,7 +97,7 @@ class MySqlSchemaManager extends AbstractSchemaManager
             $decimal = strtok('(), ') ? strtok('(), '):null;
         }
         $type = array();
-        $fixed = null;
+        $unsigned = $fixed = null;
 
         if ( ! isset($tableColumn['name'])) {
             $tableColumn['name'] = '';
@@ -144,11 +141,17 @@ class MySqlSchemaManager extends AbstractSchemaManager
         }
 
         $length = ((int) $length == 0) ? null : (int) $length;
+        $def =  array(
+            'type' => $type,
+            'length' => $length,
+            'unsigned' => (bool) $unsigned,
+            'fixed' => (bool) $fixed
+        );
 
         $options = array(
             'length'        => $length,
-            'unsigned'      => (bool) (strpos($tableColumn['type'], 'unsigned') !== false),
-            'fixed'         => (bool) $fixed,
+            'unsigned'      => (bool)$unsigned,
+            'fixed'         => (bool)$fixed,
             'default'       => isset($tableColumn['default']) ? $tableColumn['default'] : null,
             'notnull'       => (bool) ($tableColumn['null'] != 'YES'),
             'scale'         => null,
@@ -192,7 +195,7 @@ class MySqlSchemaManager extends AbstractSchemaManager
         }
 
         $result = array();
-        foreach($list as $constraint) {
+        foreach($list AS $constraint) {
             $result[] = new ForeignKeyConstraint(
                 array_values($constraint['local']), $constraint['foreignTable'],
                 array_values($constraint['foreign']), $constraint['name'],

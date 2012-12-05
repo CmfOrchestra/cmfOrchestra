@@ -3,7 +3,7 @@
 /*
  * This file is part of the Assetic package, an OpenSky project.
  *
- * (c) 2010-2011 OpenSky Project Inc
+ * (c) 2010-2012 OpenSky Project Inc
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -104,5 +104,29 @@ class DirectoryResourceTest extends \PHPUnit_Framework_TestCase
     {
         $resource = new DirectoryResource(__DIR__.'foo');
         $this->assertEquals(0, iterator_count($resource), 'works for non-existent directory');
+    }
+
+    public function testFollowSymlinks()
+    {
+        // Create the symlink if it doesn't already exist yet (if someone broke the entire testsuite perhaps)
+        if (!is_dir(__DIR__.'/Fixtures/dir3')) {
+            symlink(__DIR__.'/Fixtures/dir2', __DIR__.'/Fixtures/dir3');
+        }
+
+        $resource = new DirectoryResource(__DIR__.'/Fixtures');
+
+        $count = 0;
+        foreach ($resource as $r) {
+            ++$count;
+        }
+
+        $this->assertEquals(6, $count);
+    }
+
+    public function tearDown()
+    {
+        if (is_dir(__DIR__.'/Fixtures/dir3')) {
+            unlink(__DIR__.'/Fixtures/dir3');
+        }
     }
 }

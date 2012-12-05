@@ -453,8 +453,6 @@ class Form implements \IteratorAggregate, FormInterface
      */
     public function bind($clientData)
     {
-    	//print_r($_FILES);exit;
-    	
         if ($this->readOnly) {
             $this->bound = true;
 
@@ -970,7 +968,7 @@ class Form implements \IteratorAggregate, FormInterface
         for ($i = count($this->normTransformers) - 1; $i >= 0; --$i) {
             $value = $this->normTransformers[$i]->reverseTransform($value);
         }
-        
+
         return $value;
     }
 
