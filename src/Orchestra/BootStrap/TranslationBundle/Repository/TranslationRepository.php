@@ -51,6 +51,11 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @var string
      */
     private $_entityTranslationName = "";    
+    
+	  /**
+	   * @var \Symfony\Component\DependencyInjection\ContainerInterface
+	   */
+	  protected $_container;    
 
     /**
      * {@inheritdoc}
@@ -63,36 +68,31 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
        		$this->_entityTranslationName = $this->getClassMetadata()->associationMappings['translations']['targetEntity'];
     }
     
-//     /**
-//      * Get the currently used TranslatableListener
-//      *
-//      * @throws \Gedmo\Exception\RuntimeException - if listener is not found
-//      * @return \Gedmo\Translatable\TranslatableListener
-//      * @access	private
-//      * 
-//      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-//      */
-//     private function getTranslatableListener()
-//     {
-//     	if (!$this->listener) {
-//     		foreach ($this->_em->getEventManager()->getListeners() as $event => $listeners) {
-//     			foreach ($listeners as $hash => $listener) {
-//     				if ($listener instanceof TranslatableListener) {
-//     					$this->listener = $listener;
-//     					break;
-//     				}
-//     			}
-//     			if ($this->listener) {
-//     				break;
-//     			}
-//     		}
-    
-//     		if (is_null($this->listener)) {
-//     			throw new \Gedmo\Exception\RuntimeException('The translation listener could not be found');
-//     		}
-//     	}
-//     	return $this->listener;
-//     } 
+	/**
+	 * Gets the container instance.
+	 *
+	 * @return \Symfony\Component\DependencyInjection\ContainerInterface
+	 * @access protected  
+	 *
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+	 */
+	protected function getContainer()
+	{
+		return $this->_container;
+	}	
+  
+	/**
+	 * Gets the container instance.
+	 *
+	 * @return \Symfony\Component\DependencyInjection\ContainerInterface
+	 * @access public
+	 *
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+	 */
+	public function setContainer($container)
+	{
+		$this->_container = $container;
+	}	  
 
     /**
      * @return string
@@ -119,6 +119,33 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
     }    
     
     /**
+     * add where for user roles 
+     *
+     * @param \Doctrine\ORM\QueryBuilder $query
+     * @return \Doctrine\ORM\QueryBuilder
+     * @access	public
+     *
+     * @author Riad Hellal <r.hellal@novediagroup.com>
+     */    
+    public function checkRoles(\Doctrine\ORM\QueryBuilder $query){
+      
+       if($this->_container instanceof \Symfony\Component\DependencyInjection\ContainerInterface){
+
+        if(isset($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) && in_array($this->_class->name, $GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) ){
+          // Gets all user roles.
+          $user_best_roles = $this->getBestRoles($this->getUserRoles());
+          $user_roles 			= array_unique(array_merge($this->getAllHeritageByRoles($user_best_roles), $this->getUserRoles()));
+          
+          foreach($user_roles as $key => $role){
+            $query->orWhere($query->expr()->like('a.heritage', $query->expr()->literal('%'.$role.'%')));
+          }
+        }
+      }
+      
+      return $query;
+    }
+    
+    /**
      * Loads all translations with all translatable
      * fields from the given entity
      *
@@ -139,7 +166,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
     				$id
     		));
     	}
-    	
+
     	$query = $this->setTranslatableHints($query, $locale, $INNER_JOIN);
     
     	if($result == 'array')
@@ -196,7 +223,12 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      */    
     public function findAllByEntity($locale, $result = "array", $INNER_JOIN = false, $MaxResults = null)
     {
-    	$query	= $this->_em->createQuery("SELECT p FROM {$this->_entityName} p");
+    	$qb = $this->_em->createQueryBuilder()
+    	->select('a')
+    	->from($this->_entityName, 'a');
+      
+      	$query = $this->checkRoles($qb)->getQuery();
+      
     	if(!is_null($MaxResults))
     		$query->setMaxResults($MaxResults);
     	return $this->findTranslationsByQuery($locale, $query, $result, $INNER_JOIN);    	
@@ -216,7 +248,15 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      */    
     public function findOneByEntity($locale, $id, $result = "array", $INNER_JOIN = false)
     {
-        $query	= $this->_em->createQuery("SELECT p FROM {$this->_entityName} p  WHERE p.id = :id");
+        //$query	= $this->_em->createQuery("SELECT p FROM {$this->_entityName} p  WHERE p.id = :id");
+        
+    	$qb = $this->_em->createQueryBuilder()
+    	->select('a')
+    	->from($this->_entityName, 'a')
+        ->where('a.id = :id');
+      
+        $query = $this->checkRoles($qb)->getQuery();
+      
         $query->setParameter('id', $id);
         $query->setMaxResults(1);
         
@@ -509,6 +549,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
     	if(!is_null($MaxResults))
     		$query->setMaxResults($MaxResults);
     
+    	$query = $this->checkRoles($query);    	
     	return $query;
     }
     
@@ -535,6 +576,8 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
     		));
    		}
     	$query->orderBy("a.{$field}", $ORDER);
+    	
+    	$query = $this->checkRoles($query);    	
     	return $query;
     }
         
@@ -571,7 +614,8 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
     	}    	
 
     	$query->orderBy("a.position", 'ASC');
-    
+    	
+    	$query = $this->checkRoles($query);    
     	return $query;
     }
     
@@ -602,7 +646,8 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
     	}    
     
     	$query->setMaxResults(1);
-    
+    	
+    	$query = $this->checkRoles($query);    
     	return $query;
     }  
 
@@ -625,9 +670,10 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
     	->from($this->_entityName, 'a')
     	->where('a.enabled = :enabled')
     	->setParameter('enabled', 1)
-        ->setMaxResults($MaxResults)
-        ->getQuery();
+        ->setMaxResults($MaxResults);
     
+    	$query = $this->checkRoles($query)->getQuery();
+    	
     	return $this->findTranslationsByQuery($locale, $query, $result, $INNER_JOIN);
     }    
 
@@ -651,9 +697,10 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
     	->where('a.enabled = :enabled')
     	->Andwhere('a.category = :category')
     	->setParameter('enabled', 1)
-    	->setParameter('category', $category)
-    	->getQuery();
+    	->setParameter('category', $category);
     
+    	$query = $this->checkRoles($query)->getQuery();
+    	
     	return $this->findTranslationsByQuery($locale, $query, $result, $INNER_JOIN);
     }    
 
@@ -678,8 +725,9 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
     	->Andwhere('a.category = :category')
     	->orderBy('a.position', 'ASC')
     	->setParameter('enabled', 1)
-    	->setParameter('category', $category)
-    	->getQuery();
+    	->setParameter('category', $category);
+    	
+    	$query = $this->checkRoles($query)->getQuery();
     
     	return $this->findTranslationsByQuery($locale, $query, $result, $INNER_JOIN);
     } 
@@ -773,5 +821,114 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
     	}else
     		return null;
     }   
+
+
+    /**
+     * Return the user roles.
+     *
+     * @return array	user roles
+     * @access protected
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    protected function getUserRoles()
+    {
+    	return $this->getToken()->getUser()->getRoles();
+    }    
+
+    /**
+     * Return the token object.
+     *
+     * @return \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken
+     * @access protected
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    protected function getToken()
+    {
+    	return  $this->_container->get('security.context')->getToken();
+    }
+    
+    /**
+     * Gets the best roles of many of roles.
+     * 
+     * @param array 	$ROLES
+     * @return array	the best roles of all roles.
+     * @access protected
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    protected function getBestRoles($ROLES)
+    {
+    	if(is_null($ROLES))
+    		return null;
+    	
+    	// we get the map of all roles.
+    	$roleMap = $this->buildRoleMap();
+    
+    	foreach($roleMap as $role => $heritage){
+    		if(in_array($role, $ROLES)){
+    			$intersect	= array_intersect($heritage, $ROLES);
+    			$ROLES		= array_diff($ROLES, $intersect);  // =  $ROLES_USER -  $intersect
+    		}
+    	}
+    	return $ROLES;
+    }
+    
+    /**
+     * Gets all heritage roles of many of roles.
+     *
+     * @param array 	$ROLES
+     * @return array	the best roles of all user roles.
+     * @access protected
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    protected function getAllHeritageByRoles($ROLES)
+    {
+    	if(is_null($ROLES))
+    		return null;
+    	
+    	$results = array();
+    
+    	// we get the map of all roles.
+    	$roleMap = $this->buildRoleMap();
+    
+    	foreach($ROLES as $key => $role){
+    		if(isset($roleMap[$role]))
+    			$results = array_unique(array_merge($results, $roleMap[$role]));
+    	}
+    
+    	return $results;
+    }
+    
+    /**
+     * Sets the map of all roles.
+     *
+     * @return array	role map
+     * @access protected
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    protected function buildRoleMap()
+    {
+    	$hierarchy 	= $this->_container->getParameter('security.role_hierarchy.roles');
+    	$map		= array();
+    	foreach ($hierarchy as $main => $roles) {
+    		$map[$main] = $roles;
+    		$visited = array();
+    		$additionalRoles = $roles;
+    		while ($role = array_shift($additionalRoles)) {
+    			if (!isset($hierarchy[$role])) {
+    				continue;
+    			}
+    
+    			$visited[] = $role;
+    			$map[$main] = array_unique(array_merge($map[$main], $hierarchy[$role]));
+    			$additionalRoles = array_merge($additionalRoles, array_diff($hierarchy[$role], $visited));
+    		}
+    	}
+    	return $map;
+    }     
 
 }

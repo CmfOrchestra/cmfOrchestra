@@ -38,6 +38,7 @@ $loader->registerNamespaces(array(
 		'Knp\\Bundle'	   => __DIR__.'/../vendor/bundles',
 		'Knp\\Menu'   	   => __DIR__.'/../vendor/Knp-menu/src',
 		'Knp\\Component'   => __DIR__.'/../vendor/knp-components/src',
+		'Knp\\Snappy'      => __DIR__.'/../vendor/snappy/src',
 		
 		'Imagine'		   => __DIR__.'/../vendor/imagine/lib', // dependency : sonata Media
 		'Gaufrette'        => __DIR__.'/../vendor/gaufrette/src', // dependency : sonata Media

@@ -68,4 +68,14 @@ knp_paginator:
         distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
     template:
         pagination: KnpPaginatorBundle:Pagination:sliding.html.twig     # sliding pagination controls template
-        sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template  
+        sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template 
+        
+knp_snappy:
+    pdf:
+        enabled:    true
+        #binary:     /usr/local/bin/wkhtmltopdf
+        options:    []
+    image:
+        enabled:    true
+        #binary:     /usr/local/bin/wkhtmltoimage
+        options:    []         

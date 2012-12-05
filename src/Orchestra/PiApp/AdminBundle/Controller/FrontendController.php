@@ -119,7 +119,10 @@ class FrontendController extends BaseController
 			$this->container->get('session')->setLocale($lang);			
 		} catch (\Exception $e) {
 			$new_url = $this->container->get('router')->generate('home_page');
-		}		
+		}	
+
+		//$this->container->get('knp_snappy.image')->generate($new_url, $this->container->getParameter("kernel.root_dir") . '/cache/pages/' .$data['_route'].'.jpg');
+		
 		return new RedirectResponse($new_url);
 	}
 	
