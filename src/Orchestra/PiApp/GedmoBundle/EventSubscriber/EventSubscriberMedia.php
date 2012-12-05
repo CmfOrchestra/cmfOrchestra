@@ -337,9 +337,13 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
     			$name = $entity->$getImage()->getName();
     			if(empty($name) && !($eventArgs instanceof PreUpdateEventArgs)){
     				$entity->$setImage($this->_DefaultMediaPixel($eventArgs));
+    				
     				$this->_container()->get('sonata.media.provider.image')->preRemove($entity->$getImage());
-    				$this->_connexion($eventArgs)->delete($this->getOwningTable($eventArgs, $entity->$getImage()), array('id'=>$entity->$getImage()->getId()));
-    				$this->_container()->get('sonata.media.provider.image')->postRemove($entity->$getImage());    				
+    				try {
+    					$this->_connexion($eventArgs)->delete($this->getOwningTable($eventArgs, $entity->$getImage()), array('id'=>$entity->$getImage()->getId()));
+    				} catch (\Exception $e) {
+    				}
+    				$this->_container()->get('sonata.media.provider.image')->postRemove($entity->$getImage());
     			}
     		}
     	}
@@ -352,9 +356,13 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
     			$name = $entity->$getImage()->getName();
     			if(empty($name) && !($eventArgs instanceof PreUpdateEventArgs)){
     				$entity->$setFile($this->_DefaultMediaPixel($eventArgs));
+
     				$this->_container()->get('sonata.media.provider.image')->preRemove($entity->$getImage());
-    				$this->_connexion($eventArgs)->delete($this->getOwningTable($eventArgs, $entity->$getImage()), array('id'=>$entity->$getImage()->getId()));
-    				$this->_container()->get('sonata.media.provider.image')->postRemove($entity->$getImage());    				
+    				try {
+    					$this->_connexion($eventArgs)->delete($this->getOwningTable($eventArgs, $entity->$getImage()), array('id'=>$entity->$getImage()->getId()));
+    				} catch (\Exception $e) {
+    				}
+    				$this->_container()->get('sonata.media.provider.image')->postRemove($entity->$getImage());
     			}
     		}
     	}
@@ -415,7 +423,6 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
     	$string = \PiApp\AdminBundle\Util\PiStringManager::cleanFilename($string);
     	
     	return $string;
-    }
-        
+    }        
         
 }

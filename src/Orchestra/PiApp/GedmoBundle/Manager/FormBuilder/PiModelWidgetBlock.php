@@ -288,7 +288,15 @@ class PiModelWidgetBlock extends PiFormBuilderManager
 	public function preEventActionForm(array $data){
 		if($data["choice"] == "create"){
 			$this->_createentity->setEnabled(true);
-			$this->_createentity->setCategory($this->_data['category']);
+			
+			
+			if(!empty($this->_data['category']) || !is_null($this->_data['category'])){
+				$category = $this->_em->getRepository("PiAppGedmoBundle:Category")->findOneByEntity($this->_locale, $this->_data['category'], 'object');
+				
+				if($category instanceof \PiApp\GedmoBundle\Entity\Category)
+					$this->_createentity->setCategory();
+			}
+			
 			$this->_createentity->setTitle($this->_data['title']);
 			$this->_createentity->setDescriptif($this->_data['descriptif']);
 			$this->_createentity->setContent($this->_data['content']);

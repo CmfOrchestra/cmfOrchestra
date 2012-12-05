@@ -128,7 +128,7 @@ abstract class abstractListener
         	//update heritage field when method setHeritage exists in entity object
         	if (method_exists($entity, 'setHeritage')) {
         		// we modify the heritage value
-        		$entity->setHeritage($this->getUserRoles());
+        		$entity->setHeritage($this->getBestRoles($this->getUserRoles()));
         	}
         	        	
         	// if user have the create right

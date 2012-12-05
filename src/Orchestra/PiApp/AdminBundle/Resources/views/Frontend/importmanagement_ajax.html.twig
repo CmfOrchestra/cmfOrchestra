@@ -7,7 +7,7 @@
 		 				'action':'widgetimport',
 		 				'menu': 'widgetimport',
 		 				'template': 'default.html.twig',
-		 				'locale': 'fr',
+		 				'locale': app.session.locale,
 		 				}
 	%}
 	{{ renderJquery('TOOL', 'widgetimport', options_widgetimport)|raw }}

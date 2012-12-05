@@ -35,7 +35,7 @@
 	    {% for entity in entities %}
 	        <tr {% if(num_line == 0) %}class="odd"{% endif %}  id='{{ entity.position }}_row_{{ entity.id }}'  >
 	        	<td class="position" >{{ entity.position}}</td>	
-	            <td><a href="{{ path('admin_gedmo_individual_show', { 'id': entity.id, 'NoLayout': NoLayout, 'category':entity.category }) }}" title="">{{ entity.id }}</a></td>	
+	            <td><a href="{{ path('admin_gedmo_individual_show', { 'id': entity.id, 'NoLayout': NoLayout, 'category':category }) }}" title="">{{ entity.id }}</a></td>	
 	            <td>
 	            	{{ entity.InscrName|limite("0", 55)|raw }}
 	            </td>	
@@ -56,8 +56,8 @@
 	            </td>	
 	            <td class="enabled" >{{ entity.enabled}}</td>	
 				<td>
-					<a href="{{ path('admin_gedmo_individual_show', { 'id': entity.id, 'NoLayout':NoLayout, 'category':entity.category }) }}" title="{{ 'pi.grid.action.show'|trans }}" class="icon-3 info-tooltip" >&nbsp;</a>
-                	<a href="{{ path('admin_gedmo_individual_edit', { 'id': entity.id, 'NoLayout':NoLayout, 'category':entity.category }) }}" title="{{ 'pi.grid.action.edit'|trans }}" class="icon-1 info-tooltip" >&nbsp;</a>
+					<a href="{{ path('admin_gedmo_individual_show', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category }) }}" title="{{ 'pi.grid.action.show'|trans }}" class="icon-3 info-tooltip" >&nbsp;</a>
+                	<a href="{{ path('admin_gedmo_individual_edit', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category }) }}" title="{{ 'pi.grid.action.edit'|trans }}" class="icon-1 info-tooltip" >&nbsp;</a>
 				</td>	
 	        </tr>
 	        {% if num_line == 0 %} 
