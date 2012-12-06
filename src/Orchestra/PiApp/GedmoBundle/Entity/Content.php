@@ -75,6 +75,8 @@ class Content extends AbstractDefault
     protected $pagecssclass;    
     
     /**
+     * @var \PiApp\GedmoBundle\Entity\Category $category
+     * 
      * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Category", inversedBy="items_content")
      * @ORM\JoinColumn(name="category", referencedColumnName="id", nullable=true)
      */
@@ -97,7 +99,7 @@ class Content extends AbstractDefault
     protected $content;
     
     /**
-     * @var integer $pageurl
+     * @var \PiApp\AdminBundle\Entity\Page $pageurl
      *
      * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Page")
      * @ORM\JoinColumn(name="page_intro_id", referencedColumnName="id", nullable=true)

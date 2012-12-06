@@ -39,6 +39,7 @@ class LanguesFixtures extends AbstractFixture implements OrderedFixtureInterface
         $field1->setId('en_GB');
         $field1->setTranslatableLocale('fr_FR');
         $field1->setLabel('Anglais');
+        $field1->translate('fr_FR')->setLabel('Anglais');
         $field1->translate('en_GB')->setLabel('English');
         $field1->translate('ar_SA')->setLabel('الإنجليزية');
         $field1->setEnabled(true);
@@ -48,6 +49,7 @@ class LanguesFixtures extends AbstractFixture implements OrderedFixtureInterface
         $field2->setId('fr_FR');
         $field2->setTranslatableLocale('fr_FR');
         $field2->setLabel('Français');
+        $field2->translate('fr_FR')->setLabel('Français');
         $field2->translate('en_GB')->setLabel('French');
         $field2->translate('ar_SA')->setLabel('الفرنسية');
         $field2->setEnabled(true);
@@ -55,10 +57,11 @@ class LanguesFixtures extends AbstractFixture implements OrderedFixtureInterface
         
         $field3 = new Langue();
         $field3->setId('ar_SA');
-        $field3->setTranslatableLocale('ar_SA');
-        $field3->setLabel('العربية');
-        $field3->translate('en_GB')->setLabel('Arabic');
+        $field3->setTranslatableLocale('fr_FR');
+        $field3->setLabel('Arabe');
         $field3->translate('fr_FR')->setLabel('Arabe');
+        $field3->translate('en_GB')->setLabel('Arabic');
+        $field3->translate('ar_SA')->setLabel('العربية');
         $field3->setEnabled(true);
         $manager->persist($field3);        
 

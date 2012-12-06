@@ -48,9 +48,9 @@ class Comment
     protected $user;
 
     /**
-     * @var integer $pageTranslation
+     * @var \PiApp\AdminBundle\Entity\TranslationPage $pageTranslation
      * 
-     * @ORM\ManyToOne(targetEntity="TranslationPage", inversedBy="comments", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\TranslationPage", inversedBy="comments", cascade={"persist"})
      * @ORM\JoinColumn(name="pagetrans_id", referencedColumnName="id")
      */
     protected $pageTranslation;    

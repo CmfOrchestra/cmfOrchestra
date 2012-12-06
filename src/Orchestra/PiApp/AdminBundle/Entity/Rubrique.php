@@ -41,16 +41,16 @@ class Rubrique
     protected $id;
 
     /**
-     * @var integer $parent
+     * @var \PiApp\AdminBundle\Entity\Rubrique $parent
      * 
      * @Gedmo\TreeParent
-     * @ORM\ManyToOne(targetEntity="Rubrique", inversedBy="childrens")
+     * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Rubrique", inversedBy="childrens")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true)
      */
     protected $parent;
     
     /**
-     * @var array $childrens
+     * @var \Doctrine\Common\Collections\ArrayCollection $childrens
      *
      * @ORM\OneToMany(targetEntity="Rubrique", mappedBy="parent", cascade={"persist"})
      * @ORM\OrderBy({"lft" = "ASC"})
@@ -87,7 +87,7 @@ class Rubrique
     protected $parents_tree = null;
 
     /**
-     * @var array $keywords
+     * @var \Doctrine\Common\Collections\ArrayCollection $keywords
      *
      * @ORM\ManyToMany(targetEntity="KeyWord")
      * @ORM\JoinTable(name="pi_keyword_rubrique",

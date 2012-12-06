@@ -85,6 +85,10 @@ class MenuType extends AbstractType
 	        ->add('title', 'text', array(
  					'label'	=> "pi.form.label.field.title",
  			)) 
+ 			->add('subtitle', 'text', array(
+ 					'label'	=> "pi.form.label.field.subtitle",
+ 					'required'  => false,
+ 			))
  			->add('page', 'entity', array(
  					'class' => 'PiAppAdminBundle:Page',
  					'query_builder' => function(EntityRepository $er) {

@@ -68,6 +68,8 @@ class Slider extends AbstractDefault
     protected $id;    
     
     /**
+     * @var \PiApp\GedmoBundle\Entity\Category $category
+     * 
      * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Category", inversedBy="items_slider")
      * @ORM\JoinColumn(name="category", referencedColumnName="id", nullable=true)
      */
@@ -115,7 +117,7 @@ class Slider extends AbstractDefault
     protected $descriptifright; 
     
     /**
-     * @var integer $page
+     * @var \PiApp\AdminBundle\Entity\Page $page
      * 
      * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Page")
      * @ORM\JoinColumn(name="page_id", referencedColumnName="id", nullable=true)
@@ -138,7 +140,7 @@ class Slider extends AbstractDefault
     protected $pagecssclass;    
     
     /**
-     * @var integer $media
+     * @var \PiApp\GedmoBundle\Entity\Media $media
      *
      * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Media" , cascade={"all"}, inversedBy="slider");
      * @ORM\JoinColumn(name="media_id", referencedColumnName="id", nullable=true)

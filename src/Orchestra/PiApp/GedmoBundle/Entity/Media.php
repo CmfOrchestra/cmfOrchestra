@@ -68,6 +68,8 @@ class Media extends AbstractDefault
     protected $id;
     
     /**
+     * @var \PiApp\GedmoBundle\Entity\Category $category
+     * 
      * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Category", inversedBy="items_media")
      * @ORM\JoinColumn(name="category", referencedColumnName="id", nullable=true)
      */
@@ -97,7 +99,7 @@ class Media extends AbstractDefault
     protected $url;    
     
     /**
-     * @var integer $image
+     * @var \BootStrap\MediaBundle\Entity\Media $image
      *
      * @ORM\ManyToOne(targetEntity="BootStrap\MediaBundle\Entity\Media", cascade={"all"})
      * @ORM\JoinColumn(name="media", referencedColumnName="id", nullable=true)

@@ -39,17 +39,17 @@ class TranslationWidget
     protected $id;   
 
     /**
-     * @var integer $widget
+     * @var \PiApp\AdminBundle\Entity\Widget $widget
      * 
-     * @ORM\ManyToOne(targetEntity="Widget", inversedBy="translations", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Widget", inversedBy="translations", cascade={"persist"})
      * @ORM\JoinColumn(name="widget_id", referencedColumnName="id")
      */
     protected $widget;
     
     /**
-     * @var string $langCode
+     * @var \PiApp\AdminBundle\Entity\Langue $langCode
      *
-     * @ORM\ManyToOne(targetEntity="Langue", cascade={"persist", "update"})
+     * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Langue", cascade={"persist", "update"})
      * @ORM\JoinColumn(name="lang_code", referencedColumnName="id", nullable=false)
      */
     protected $langCode;

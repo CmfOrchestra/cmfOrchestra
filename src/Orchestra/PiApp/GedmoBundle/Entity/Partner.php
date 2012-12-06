@@ -68,6 +68,8 @@ class Partner extends AbstractDefault
     protected $id;    
     
     /**
+     * @var \PiApp\GedmoBundle\Entity\Category $category
+     * 
      * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Category", inversedBy="items_partner")
      * @ORM\JoinColumn(name="category", referencedColumnName="id", nullable=true)
      */
@@ -106,7 +108,7 @@ class Partner extends AbstractDefault
     protected $content;   
 
     /**
-     * @var integer $media
+     * @var \PiApp\GedmoBundle\Entity\Media $media
      *
      * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Media" , cascade={"all"}, inversedBy="partner");
      * @ORM\JoinColumn(name="media_id", referencedColumnName="id", nullable=true)
@@ -114,7 +116,7 @@ class Partner extends AbstractDefault
     protected $media; 
 
     /**
-     * @var integer $pageurl
+     * @var \PiApp\AdminBundle\Entity\Page $pageurl
      *
      * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Page")
      * @ORM\JoinColumn(name="page_intro_id", referencedColumnName="id", nullable=true)

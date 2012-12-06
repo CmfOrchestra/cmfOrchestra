@@ -451,7 +451,9 @@ class PiToolExtension extends \Twig_Extension
 		}
 		
 		// description management
-		$metas[] = "	<meta http-equiv='Content-Type' content='text/html; charset=".$this->container->get('twig')->getCharset()."'/>";
+		$metas[] = "	<meta charset='".$this->container->get('twig')->getCharset()."'/>";
+		$metas[] = "	<meta http-equiv='Content-Type'/>";
+		$metas[] = "	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'/>";
 		$metas[] = "	<meta name='generator' content=\"Orchestra\"/>";
 		
 		if(isset($author) && !empty($author))
@@ -473,6 +475,9 @@ class PiToolExtension extends \Twig_Extension
 		//$metas[] = "<meta name='apple-mobile-web-app-status-bar-style' content='black'/>";
 		//$metas[] = "<meta name='viewport'	id='viewport'  content='target-densitydpi=device-dpi, user-scalable=no' />";
 		//$metas[] = "<meta name='viewport' content='initial-scale=1.0; user-scalable=0; minimum-scale=1.0; maximum-scale=1.0;' />";
+		
+		$metas[] = "<!-- Mobile viewport optimized: h5bp.com/viewport -->";
+		$metas[] = "<meta name='viewport' content='width=device-width,initial-scale=1,maximum-scale=1'>";
 
 		//Empécher Microsoft de générer des "smart tags" sur notre page web.
 		//$metas[] = "meta name='MSSmartTagsPreventParsing' content='TRUE'/>";

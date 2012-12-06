@@ -102,7 +102,7 @@ class News extends AbstractDefault
     protected $contentdetail;    
     
     /**
-     * @var integer $page
+     * @var \PiApp\AdminBundle\Entity\Page $page
      * 
      * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Page")
      * @ORM\JoinColumn(name="page_intro_id", referencedColumnName="id", nullable=true)
@@ -110,7 +110,7 @@ class News extends AbstractDefault
     protected $page;
 
     /**
-     * @var integer $pagedetail
+     * @var \PiApp\AdminBundle\Entity\Page $pagedetail
      *
      * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Page")
      * @ORM\JoinColumn(name="page_detail_id", referencedColumnName="id", nullable=true)
@@ -134,7 +134,7 @@ class News extends AbstractDefault
     	//	* )    
     
     /**
-     * @var integer $media
+     * @var \PiApp\GedmoBundle\Entity\Media $media
      *
      * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Media" , cascade={"all"}, inversedBy="news");
      * @ORM\JoinColumn(name="media_id", referencedColumnName="id", nullable=true)

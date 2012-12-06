@@ -76,10 +76,12 @@ class Menu extends AbstractDefault
     private $slug;    
     
     /**
+     * @var \PiApp\GedmoBundle\Entity\Category $category
+     * 
      * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Category", inversedBy="items_menu")
      * @ORM\JoinColumn(name="category", referencedColumnName="id", nullable=true)
      */
-    protected $category;  
+    protected $category;    
 
     /**
      * @var string
@@ -91,7 +93,15 @@ class Menu extends AbstractDefault
     protected $title;
     
     /**
-     * @var integer $page
+     * @var string
+     *
+     * @Gedmo\Translatable
+     * @ORM\Column(name="subtitle", type="string", length=128, nullable=true)
+     */
+    protected $subtitle;    
+    
+    /**
+     * @var \PiApp\AdminBundle\Entity\Page $page
      * 
      * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Page")
      * @ORM\JoinColumn(name="page_id", referencedColumnName="id", nullable=true)
@@ -106,7 +116,7 @@ class Menu extends AbstractDefault
     protected $url;    
     
     /**
-     * @var integer $media
+     * @var \PiApp\GedmoBundle\Entity\Media $media
      *
      * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Media" , cascade={"all"}, inversedBy="menu");
      * @ORM\JoinColumn(name="media_id", referencedColumnName="id", nullable=true)
@@ -200,7 +210,6 @@ class Menu extends AbstractDefault
      */
     public function setCategory($category)
     {
-    	
     	$this->category = $category;
     	return $this;
     }
@@ -236,6 +245,26 @@ class Menu extends AbstractDefault
     }
     
     /**
+     * Set $subtitle
+     *
+     * @param string $subtitle
+     */
+    public function setSubtitle($subtitle)
+    {
+    	$this->subtitle = $subtitle;
+    }
+    
+    /**
+     * Get subtitle
+     *
+     * @return string
+     */
+    public function getSubtitle()
+    {
+    	return $this->subtitle;
+    }    
+    
+    /**
      * Set media
      *
      * @param \PiApp\GedmoBundle\Entity\Media $media
@@ -265,18 +294,18 @@ class Menu extends AbstractDefault
     
     
     /**
-     * @var integer $parent
+     * @var \PiApp\GedmoBundle\Entity\Menu $parent
      *
      * @Gedmo\TreeParent
-     * @ORM\ManyToOne(targetEntity="Menu", inversedBy="childrens")
+     * @ORM\ManyToOne(targetEntity="\PiApp\GedmoBundle\Entity\Menu", inversedBy="childrens")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     protected $parent;
     
     /**
-     * @var array $childrens
+     * @var \Doctrine\Common\Collections\ArrayCollection $childrens
      *
-     * @ORM\OneToMany(targetEntity="Menu", mappedBy="parent", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="\PiApp\GedmoBundle\Entity\Menu", mappedBy="parent", cascade={"persist"})
      * @ORM\OrderBy({"lft" = "ASC"})
      */
     protected $childrens;

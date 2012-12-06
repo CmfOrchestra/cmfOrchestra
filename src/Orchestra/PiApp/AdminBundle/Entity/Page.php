@@ -52,7 +52,7 @@ class Page
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      * 
-     * @ORM\OneToMany(targetEntity="TranslationPage", mappedBy="page", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="PiApp\AdminBundle\Entity\TranslationPage", mappedBy="page", cascade={"all"})
      * @Assert\NotBlank()
      */
     protected $translations;  
@@ -60,60 +60,57 @@ class Page
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      * 
-     * @ORM\OneToMany(targetEntity="Block", mappedBy="page", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="PiApp\AdminBundle\Entity\Block", mappedBy="page", cascade={"all"})
      * @Assert\NotBlank()
      */
     protected $blocks;  
 
     /**
-     * @var integer $rubrique
+     * @var \PiApp\AdminBundle\Entity\Rubrique $rubrique
      * 
-     * @ORM\ManyToOne(targetEntity="Rubrique")
+     * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Rubrique")
      * @ORM\JoinColumn(name="rubrique_id", referencedColumnName="id", nullable=true)
      */
     protected $rubrique;
 
     /**
-     * @var integer $layout
+     * @var \PiApp\AdminBundle\Entity\Layout $layout
      * 
-     * @ORM\ManyToOne(targetEntity="Layout", inversedBy="pages", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Layout", inversedBy="pages", cascade={"persist"})
      * @ORM\JoinColumn(name="layout_id", referencedColumnName="id", nullable=true)
      */
     protected $layout;    
     
     /**
-     * @var array $keywords
+     * @var \Doctrine\Common\Collections\ArrayCollection $keywords
      *
-     * @ORM\ManyToMany(targetEntity="KeyWord")
+     * @ORM\ManyToMany(targetEntity="PiApp\AdminBundle\Entity\KeyWord")
      * @ORM\JoinTable(name="pi_keyword_page",
      *      joinColumns={@ORM\JoinColumn(name="page_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="keyword_id", referencedColumnName="id")}
      *      )
-     * @Assert\Valid()
      */
     protected $keywords;    
     
     /**
-     * @var array $page_css
+     * @var \Doctrine\Common\Collections\ArrayCollection $page_css
      *
-     * @ORM\ManyToMany(targetEntity="Page")
+     * @ORM\ManyToMany(targetEntity="PiApp\AdminBundle\Entity\Page")
      * @ORM\JoinTable(name="pi_page_css",
      *      joinColumns={@ORM\JoinColumn(name="page_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="pagecss_id", referencedColumnName="id")}
      *      )
-     * @Assert\Valid()
      */
     protected $page_css; 
 
     /**
-     * @var array $page_js
+     * @var \Doctrine\Common\Collections\ArrayCollection $page_js
      *
-     * @ORM\ManyToMany(targetEntity="Page")
+     * @ORM\ManyToMany(targetEntity="PiApp\AdminBundle\Entity\Page")
      * @ORM\JoinTable(name="pi_page_js",
      *      joinColumns={@ORM\JoinColumn(name="page_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="pagejs_id", referencedColumnName="id")}
      *      )
-     * @Assert\Valid()
      */
     protected $page_js;    
 

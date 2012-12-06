@@ -38,9 +38,9 @@ class HistoricalStatus
     protected $id;
  
     /**
-     * @var object $order
+     * @var \PiApp\AdminBundle\Entity\TranslationPage $order
      *
-     * @ORM\ManyToOne(targetEntity="TranslationPage", inversedBy="historicalStatus", cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\TranslationPage", inversedBy="historicalStatus", cascade={"all"})
      * @ORM\JoinColumn(name="pagetrans_id", referencedColumnName="id")
      */
     protected $pageTranslation;

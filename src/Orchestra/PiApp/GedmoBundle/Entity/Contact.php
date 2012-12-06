@@ -68,12 +68,16 @@ class Contact extends AbstractDefault
     protected $id;
     
     /**
+     * @var \PiApp\GedmoBundle\Entity\Category $category
+     * 
      * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Category", inversedBy="items_contact")
      * @ORM\JoinColumn(name="category", referencedColumnName="id", nullable=true)
      */
     protected $category;   
     
     /**
+     * @var \PiApp\GedmoBundle\Entity\Ads $ads
+     * 
      * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Ads", inversedBy="responses")
      * @ORM\JoinColumn(name="category", referencedColumnName="id", nullable=true)
      */

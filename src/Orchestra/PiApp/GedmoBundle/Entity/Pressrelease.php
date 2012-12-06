@@ -68,6 +68,8 @@ class Pressrelease extends AbstractDefault
     protected $id;   
     
     /**
+     * @var \PiApp\GedmoBundle\Entity\Category $category
+     * 
      * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Category", inversedBy="items_pressrelease")
      * @ORM\JoinColumn(name="category", referencedColumnName="id", nullable=true)
      */
@@ -90,7 +92,7 @@ class Pressrelease extends AbstractDefault
     protected $pressmedia;
     
     /**
-     * @var integer $pageurl
+     * @var \PiApp\AdminBundle\Entity\Page $pageurl
      *
      * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Page")
      * @ORM\JoinColumn(name="page_intro_id", referencedColumnName="id", nullable=true)
@@ -105,7 +107,7 @@ class Pressrelease extends AbstractDefault
     protected $url;
     
     /**
-     * @var integer $media
+     * @var \PiApp\GedmoBundle\Entity\Media $media
      *
      * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Media" , cascade={"all"}, inversedBy="pressrelease");
      * @ORM\JoinColumn(name="media_id", referencedColumnName="id", nullable=true)

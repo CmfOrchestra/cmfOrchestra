@@ -41,36 +41,35 @@ class TranslationPage
     protected $id;   
 
     /**
-     * @var integer $page
+     * @var \PiApp\AdminBundle\Entity\Page $page
      * 
-     * @ORM\ManyToOne(targetEntity="Page", inversedBy="translations", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Page", inversedBy="translations", cascade={"persist"})
      * @ORM\JoinColumn(name="page_id", referencedColumnName="id")
      */
     protected $page;
     
     /**
-     * @var array $tags
+     * @var \Doctrine\Common\Collections\ArrayCollection $tags
      * 
-     * @ORM\ManyToMany(targetEntity="Tag")
+     * @ORM\ManyToMany(targetEntity="PiApp\AdminBundle\Entity\Tag")
      * @ORM\JoinTable(name="pi_tag_page",
      *      joinColumns={@ORM\JoinColumn(name="page_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
      *      )
-     * @Assert\Valid()
      */
     protected $tags;
     
     /**
-     * @var array $comments
+     * @var \Doctrine\Common\Collections\ArrayCollection $comments
      * 
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="pageTranslation", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="PiApp\AdminBundle\Entity\Comment", mappedBy="pageTranslation", cascade={"all"})
      */
     protected $comments;   
 
     /**
-     * @var string $langCode
+     * @var \PiApp\AdminBundle\Entity\Langue $langCode
      *
-     * @ORM\ManyToOne(targetEntity="Langue", cascade={"persist", "update"})
+     * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Langue", cascade={"persist", "update"})
      * @ORM\JoinColumn(name="lang_code", referencedColumnName="id", nullable=false)
      */
     protected $langCode;
@@ -91,9 +90,9 @@ class TranslationPage
     protected $status; 
 
     /**
-     * @var array $historical_status
+     * @var \Doctrine\Common\Collections\ArrayCollection $historicalStatus
      * 
-     * @ORM\OneToMany(targetEntity="HistoricalStatus", mappedBy="pageTranslation", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="PiApp\AdminBundle\Entity\HistoricalStatus", mappedBy="pageTranslation", cascade={"all"})
      */
     protected $historicalStatus;    
 

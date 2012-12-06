@@ -68,7 +68,7 @@ class Newsletter extends AbstractDefault
     protected $id;    
     
     /**
-     * @var array $users
+     * @var \Doctrine\Common\Collections\ArrayCollection $users
      *
      * @ORM\ManyToMany(targetEntity="BootStrap\UserBundle\Entity\User",  inversedBy="newsletters")
      * @ORM\JoinTable(name="gedmo_newsletter_has_user",
@@ -79,6 +79,8 @@ class Newsletter extends AbstractDefault
     protected $users;    
     
     /**
+     * @var \PiApp\GedmoBundle\Entity\Category $category
+     * 
      * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Category", inversedBy="items_newsletter")
      * @ORM\JoinColumn(name="category", referencedColumnName="id", nullable=true)
      */
@@ -117,7 +119,7 @@ class Newsletter extends AbstractDefault
     protected $content;   
 
     /**
-     * @var integer $media
+     * @var \PiApp\GedmoBundle\Entity\Media $media
      *
      * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Media" , cascade={"all"}, inversedBy="newsletter");
      * @ORM\JoinColumn(name="media_id", referencedColumnName="id", nullable=true)
@@ -125,7 +127,7 @@ class Newsletter extends AbstractDefault
     protected $media; 
 
     /**
-     * @var integer $pageurl
+     * @var \PiApp\AdminBundle\Entity\Page $pageurl
      *
      * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Page")
      * @ORM\JoinColumn(name="page_intro_id", referencedColumnName="id", nullable=true)

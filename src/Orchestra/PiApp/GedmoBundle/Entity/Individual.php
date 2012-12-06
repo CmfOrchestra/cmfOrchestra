@@ -68,7 +68,14 @@ class Individual extends AbstractDefault
     protected $id;
     
     /**
-     * @var integer $user
+     * @var \Doctrine\Common\Collections\ArrayCollection corporations
+     *
+     * @ORM\ManyToMany(targetEntity="PiApp\GedmoBundle\Entity\Corporation", mappedBy="partners")
+     */
+    protected $corporations;    
+    
+    /**
+     * @var \BootStrap\UserBundle\Entity\User $user
      *
      * @ORM\OneToOne(targetEntity="BootStrap\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
@@ -76,7 +83,7 @@ class Individual extends AbstractDefault
     protected $user;    
 
     /**
-     * @var integer $pageurl
+     * @var \PiApp\AdminBundle\Entity\Page $pageurl
      *
      * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Page")
      * @ORM\JoinColumn(name="page_intro_id", referencedColumnName="id", nullable=true)
@@ -91,7 +98,7 @@ class Individual extends AbstractDefault
     protected $url;    
     
     /**
-     * @var integer $media
+     * @var \PiApp\GedmoBundle\Entity\Media $media
      *
      * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Media" , cascade={"all"}, inversedBy="individual");
      * @ORM\JoinColumn(name="media_id", referencedColumnName="id", nullable=true)

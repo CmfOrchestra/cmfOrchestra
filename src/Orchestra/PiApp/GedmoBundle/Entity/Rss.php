@@ -68,7 +68,7 @@ class Rss extends AbstractDefault
     protected $id;
 
     /**
-     * @var array $users
+     * @var \Doctrine\Common\Collections\ArrayCollection $users
      *
      * @ORM\ManyToMany(targetEntity="BootStrap\UserBundle\Entity\User",  inversedBy="rssneeds")
      * @ORM\JoinTable(name="gedmo_rss_has_user",
@@ -80,6 +80,8 @@ class Rss extends AbstractDefault
     
     
     /**
+     * @var \PiApp\GedmoBundle\Entity\Category $category
+     * 
      * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Category", inversedBy="items_rss")
      * @ORM\JoinColumn(name="category", referencedColumnName="id", nullable=true)
      */
@@ -94,7 +96,7 @@ class Rss extends AbstractDefault
     protected $title;
     
     /**
-     * @var integer $pageurl
+     * @var \PiApp\AdminBundle\Entity\Page $pageurl
      *
      * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Page")
      * @ORM\JoinColumn(name="page_intro_id", referencedColumnName="id", nullable=true)
@@ -109,7 +111,7 @@ class Rss extends AbstractDefault
     protected $url;    
     
     /**
-     * @var integer $media
+     * @var \PiApp\GedmoBundle\Entity\Media $media
      *
      * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Media" , cascade={"all"}, inversedBy="rss");
      * @ORM\JoinColumn(name="media_id", referencedColumnName="id", nullable=true)

@@ -68,6 +68,8 @@ class Block extends AbstractDefault
     protected $id;
     
     /**
+     * @var \PiApp\GedmoBundle\Entity\Category $category
+     * 
      * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Category", inversedBy="items_block")
      * @ORM\JoinColumn(name="category", referencedColumnName="id", nullable=true)
      */
@@ -105,7 +107,7 @@ class Block extends AbstractDefault
     protected $author;   
 
     /**
-     * @var integer $pageurl
+     * @var \PiApp\AdminBundle\Entity\Page $pageurl
      *
      * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Page")
      * @ORM\JoinColumn(name="page_intro_id", referencedColumnName="id", nullable=true)
@@ -120,7 +122,7 @@ class Block extends AbstractDefault
     protected $url;    
     
     /**
-     * @var integer $media
+     * @var \PiApp\GedmoBundle\Entity\Media $media
      *
      * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Media" , cascade={"all"}, inversedBy="block");
      * @ORM\JoinColumn(name="media_id", referencedColumnName="id", nullable=true)

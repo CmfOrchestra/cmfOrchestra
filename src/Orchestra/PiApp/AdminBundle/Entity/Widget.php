@@ -42,17 +42,17 @@ class Widget
     protected $id;
     
     /**
-     * @var integer $block
+     * @var \PiApp\AdminBundle\Entity\Block $block
      * 
-     * @ORM\ManyToOne(targetEntity="Block", inversedBy="widgets", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Block", inversedBy="widgets", cascade={"persist"})
      * @ORM\JoinColumn(name="block_id", referencedColumnName="id")
      */
     protected $block;    
     
     /**
-     * @var array $translations
+     * @var \Doctrine\Common\Collections\ArrayCollection $translations
      *
-     * @ORM\OneToMany(targetEntity="TranslationWidget", mappedBy="widget", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="PiApp\AdminBundle\Entity\TranslationWidget", mappedBy="widget", cascade={"all"})
      */
     protected $translations;    
     

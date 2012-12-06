@@ -40,17 +40,17 @@ class Block
     protected $id;
     
     /**
-     * @var integer $page
+     * @var \PiApp\AdminBundle\Entity\Page $page
      * 
-     * @ORM\ManyToOne(targetEntity="Page", inversedBy="blocks", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Page", inversedBy="blocks", cascade={"persist"})
      * @ORM\JoinColumn(name="page_id", referencedColumnName="id")
      */
     protected $page;    
     
     /**
-     * @var array $widgets
+     * @var \Doctrine\Common\Collections\ArrayCollection $widgets
      * 
-     * @ORM\OneToMany(targetEntity="Widget", mappedBy="block", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="PiApp\AdminBundle\Entity\Widget", mappedBy="block", cascade={"all"})
      */
     protected $widgets;
         

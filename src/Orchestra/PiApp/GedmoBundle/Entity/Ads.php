@@ -68,14 +68,13 @@ class Ads extends AbstractDefault
     protected $id;
     
     /**
-     * @var array $tags
+     * @var \Doctrine\Common\Collections\ArrayCollection $tags
      *
      * @ORM\ManyToMany(targetEntity="PiApp\AdminBundle\Entity\Tag")
      * @ORM\JoinTable(name="gedmo_ads_tag",
      *      joinColumns={@ORM\JoinColumn(name="ads_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
      *      )
-     * @Assert\Valid()
      */
     protected $tags;    
     
@@ -87,7 +86,7 @@ class Ads extends AbstractDefault
     protected $responses;
         
     /**
-     * @var integer $user
+     * @var \BootStrap\UserBundle\Entity\User $user
      *
      * @ORM\ManyToOne(targetEntity="BootStrap\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
@@ -134,7 +133,7 @@ class Ads extends AbstractDefault
     protected $author;    
     
     /**
-     * @var integer $media
+     * @var \PiApp\GedmoBundle\Entity\Media $media
      *
      * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Media" , cascade={"all"}, inversedBy="ads");
      * @ORM\JoinColumn(name="media_id", referencedColumnName="id", nullable=true)

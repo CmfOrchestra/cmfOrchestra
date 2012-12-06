@@ -68,7 +68,18 @@ class Corporation extends AbstractDefault
     protected $id;
     
     /**
-     * @var integer $user
+     * @var \Doctrine\Common\Collections\ArrayCollection $individuals
+     *
+     * @ORM\ManyToMany(targetEntity="PiApp\GedmoBundle\Entity\Individual",  inversedBy="corporations")
+     * @ORM\JoinTable(name="gedmo_lamelee_corporation_has_individual",
+     *      joinColumns={@ORM\JoinColumn(name="corporation_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="individual_id", referencedColumnName="id")}
+     *      )
+     */
+    protected $individuals;    
+    
+    /**
+     * @var \BootStrap\UserBundle\Entity\User $user
      *
      * @ORM\OneToOne(targetEntity="BootStrap\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
@@ -76,7 +87,7 @@ class Corporation extends AbstractDefault
     protected $user;    
 
     /**
-     * @var integer $pageurl
+     * @var \PiApp\AdminBundle\Entity\Page $pageurl
      *
      * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Page")
      * @ORM\JoinColumn(name="page_intro_id", referencedColumnName="id", nullable=true)
@@ -91,7 +102,7 @@ class Corporation extends AbstractDefault
     protected $url;    
     
     /**
-     * @var integer $media
+     * @var \PiApp\GedmoBundle\Entity\Media $media
      *
      * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Media" , cascade={"all"}, inversedBy="corporation");
      * @ORM\JoinColumn(name="media_id", referencedColumnName="id", nullable=true)
@@ -104,6 +115,8 @@ class Corporation extends AbstractDefault
     public function __construct()
     {
     	parent::__construct();
+    	
+    	$this->individuals			= new \Doctrine\Common\Collections\ArrayCollection();
     }    
     
     /**
@@ -135,6 +148,37 @@ class Corporation extends AbstractDefault
     {
         return $this->id;
     }
+    
+    /**
+     * Set all individuals links
+     *
+     * @param \Doctrine\Common\Collections\ArrayCollection $Individuals
+     */
+    public function setIndividuals(\Doctrine\Common\Collections\ArrayCollection $Individuals)
+    {
+    	$this->individuals = $Individuals;
+    	return $this;
+    }
+    
+    /**
+     * Get all individuals links
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getIndividuals()
+    {
+    	return $this->individuals;
+    }
+    
+    /**
+     * Add individual
+     *
+     * @param \PiApp\GedmoBundle\Entity\Individual $Individual
+     */
+    public function addIndividual(\PiApp\GedmoBundle\Entity\Individual $Individual)
+    {
+    	$this->individuals[] = $Individual;
+    }    
     
     /**
      * Set user
