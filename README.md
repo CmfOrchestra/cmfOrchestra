@@ -243,6 +243,7 @@ chmod –R 0777 web/yui
 	character-set-server = utf8
 
 ```
+
 **or open file \Doctrine\DBAL\Platforms\AbstractPlatform in getCreateTableSQL method and add this following line **
 
 ``` bash
