@@ -936,6 +936,8 @@ abstract class AbstractPlatform
         $options['uniqueConstraints'] = array();
         $options['indexes'] = array();
         $options['primary'] = array();
+        $options['charset'] = 'utf8';
+        $options['collate'] = 'utf8_general_ci';
 
         if (($createFlags&self::CREATE_INDEXES) > 0) {
             foreach ($table->getIndexes() AS $index) {

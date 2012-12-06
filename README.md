@@ -231,6 +231,30 @@ chmod –R 0777 web/yui
 
 ### Step 3: Create database, tables and fixtures
 
+- There's no way to configure these defaults inside Doctrine, as it tries to be as agnostic as possible in terms of environment configuration. 
+- One way to solve this problem is to configure server-level defaults.
+
+**Setting UTF8 defaults for MySQL is as simple as adding a few lines to your configuration file (typically my.cnf)**
+
+``` bash
+
+	[mysqld]
+	collation-server 	 = utf8_general_ci
+	character-set-server = utf8
+
+```
+**or open file \Doctrine\DBAL\Platforms\AbstractPlatform in getCreateTableSQL method and add this following line **
+
+``` bash
+	
+	$options = $table->getOptions();
+	...
+	$options['charset'] = 'utf8';
+    $options['collate'] = 'utf8_general_ci';
+
+```
+
+
 - Open your console (cmd) or Putty.
 - Go to the root of the application orchestra_project.
 

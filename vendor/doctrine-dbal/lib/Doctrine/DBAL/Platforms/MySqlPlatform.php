@@ -423,7 +423,7 @@ class MySqlPlatform extends AbstractPlatform
                 $optionStrings['charset'] .= ' COLLATE ' . $options['collate'];
             }
         }
-
+        
         // get the type of the table
         if (isset($options['engine'])) {
             $optionStrings[] = 'ENGINE = ' . $options['engine'];
