@@ -244,7 +244,7 @@ chmod –R 0777 web/yui
 
 ```
 
-**or open file \Doctrine\DBAL\Platforms\AbstractPlatform in getCreateTableSQL method and add this following line **
+**or open file \Doctrine\DBAL\Platforms\AbstractPlatform in getCreateTableSQL method and add this following line**
 
 ``` bash
 	
