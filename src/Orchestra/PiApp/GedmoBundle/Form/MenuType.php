@@ -89,6 +89,7 @@ class MenuType extends AbstractType
  					'label'	=> "pi.form.label.field.subtitle",
  					'required'  => false,
  			))
+ 			->add('configCssClass')
  			->add('page', 'entity', array(
  					'class' => 'PiAppAdminBundle:Page',
  					'query_builder' => function(EntityRepository $er) {
@@ -107,7 +108,7 @@ class MenuType extends AbstractType
  					'label'=>'pi.form.label.field.or',
  					'required'  => false,
  			)) 			
-	        ->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))	          
+	        ->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'no_image_collection', "simpleLink", 'pi.form.label.media.picture'))	          
         ;
     }
 

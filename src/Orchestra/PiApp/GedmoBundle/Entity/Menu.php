@@ -101,6 +101,13 @@ class Menu extends AbstractDefault
     protected $subtitle;    
     
     /**
+     * @var string $configCssClass
+     *
+     * @ORM\Column(name="config_css_class", type="string", nullable=true)
+     */
+    protected $configCssClass;    
+    
+    /**
      * @var \PiApp\AdminBundle\Entity\Page $page
      * 
      * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Page")
@@ -262,6 +269,26 @@ class Menu extends AbstractDefault
     public function getSubtitle()
     {
     	return $this->subtitle;
+    }    
+    
+    /**
+     * Set configCssClass
+     *
+     * @param string $configCssClass
+     */
+    public function setConfigCssClass($configCssClass)
+    {
+    	$this->configCssClass = $configCssClass;
+    }
+    
+    /**
+     * Get configCssClass
+     *
+     * @return string
+     */
+    public function getConfigCssClass()
+    {
+    	return $this->configCssClass;
     }    
     
     /**

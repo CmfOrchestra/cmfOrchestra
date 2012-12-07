@@ -108,19 +108,15 @@ class PiTreeManager extends PiCoreManager implements PiTreeManagerBuilderInterfa
 			
 		if(isset($params['enabledonly']) && ($params['enabledonly'] == "false")){
 			if(!empty($template))
-				$nodes 		= $em->getRepository($entity)->getAllTree($locale, '', 'object', false, false, $node);
-			elseif(!empty($category))
+				$nodes 		= $em->getRepository($entity)->getAllTree($locale, $category, 'object', false, false, $node);
+			else
 				$nodes 		= $em->getRepository($entity)->getAllTree($locale, $category, 'array', false, false, $node);
-			else
-				$nodes 		= $em->getRepository($entity)->getAllTree($locale, '', 'array', false, false, $node);
 		}else{
-			if(!empty($template))
-				$nodes 		= $em->getRepository($entity)->getAllTree($locale, '', 'object', false, true, $node);
-			elseif(!empty($category))
+			if(!empty($template)){
+				$nodes 		= $em->getRepository($entity)->getAllTree($locale, $category, 'object', false, true, $node);
+			}else
 				$nodes 		= $em->getRepository($entity)->getAllTree($locale, $category, 'array', false, true, $node);
-			else
-				$nodes 		= $em->getRepository($entity)->getAllTree($locale, '', 'array', false, true, $node);
-		}		
+		}	
 		
 		if(!empty($template)){
 			$params['nodes']		= $nodes;
@@ -128,7 +124,7 @@ class PiTreeManager extends PiCoreManager implements PiTreeManagerBuilderInterfa
 			$response 				= $this->container->get('templating')->renderResponse("PiAppTemplateBundle:Template\\Tree:$template", $params);
 			$tree 					= $response->getContent() . " \n";
 			$tree					= $this->container->get('pi_app_admin.string_manager')->closetags($tree);
-			$tree					= mb_convert_encoding($tree, "UTF-8", "HTML-ENTITIES");
+			$tree					= utf8_decode(mb_convert_encoding($tree, "UTF-8", "HTML-ENTITIES"));
 		}else{
 			$self 		   			= &$this;
 			$self->entity  			= $entity;
