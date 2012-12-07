@@ -81,7 +81,7 @@ class Ads extends AbstractDefault
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Contact", mappedBy="ads")
+     * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Contact", mappedBy="ads", cascade={"all"})
      */
     protected $responses;
         

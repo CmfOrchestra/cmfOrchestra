@@ -1,6 +1,6 @@
 							<div class="contact">
 								<h2>{{ entity.translate(locale).getDescriptif()|replace({"<p>": "", "</p>": ""})|raw }}</h2>
-								<a href="mailto:{{ entity.email }}?subject={{ entity.translate(locale).getEmailSubject() }}&body={{ entity.translate(locale).getEmailBody() }}&cc={{ entity.emailCc }}&bcc={{ entity.emailBcc }}" title="Contact">
+								<a href="mailto:{{ entity.email }}?subject={{ entity.translate(locale).getEmailSubject()|replace({'&':'and'}) }}{% if entity.translate(locale).getEmailBody() is not empty %}&body={{ entity.translate(locale).getEmailBody()|replace({'&':'and'}) }}{% endif %}{% if entity.emailCc is not empty %}&cc={{ entity.emailCc }}{% endif %}{% if entity.emailBcc is not empty %}&bcc={{ entity.emailBcc }}{% endif %}" title="Contact">
 									<span>
 									{{ entity.translate(locale).getTitle() }}
 									</span>

@@ -43,14 +43,14 @@ class Layout
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Page", mappedBy="layout", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="Page", mappedBy="layout", cascade={"persist"})
      */
     protected $pages;  
 
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="BootStrap\UserBundle\Entity\Role", mappedBy="layout", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="BootStrap\UserBundle\Entity\Role", mappedBy="layout", cascade={"persist"})
      */
     protected $roles;    
     
