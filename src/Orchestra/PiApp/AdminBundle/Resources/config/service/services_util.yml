@@ -30,6 +30,7 @@ parameters:
     piapp.manager.widget.content.class: PiApp\AdminBundle\Util\PiWidget\PiContentManager
     piapp.manager.widget.gedmo.class: PiApp\AdminBundle\Util\PiWidget\PiGedmoManager
     piapp.manager.widget.search.class: PiApp\AdminBundle\Util\PiWidget\PiSearchManager
+    piapp.manager.widget.user.class: PiApp\AdminBundle\Util\PiWidget\PiUserManager
 
 services:
     #
@@ -179,4 +180,8 @@ services:
         
     pi_app_admin.widget_manager.search.lucene:
         class: %piapp.manager.widget.search.class%
-        arguments: ['@service_container', 'lucene']                                                                                                                                                 
+        arguments: ['@service_container', 'lucene']
+        
+    pi_app_admin.widget_manager.user.connexion:
+        class: %piapp.manager.widget.user.class%
+        arguments: ['@service_container', 'connexion']                                                                                                                                                        

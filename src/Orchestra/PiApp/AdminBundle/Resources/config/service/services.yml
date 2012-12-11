@@ -10,6 +10,7 @@ parameters:
     piapp.admin.manager.jqext.class: PiApp\AdminBundle\Manager\PiJqextManager
     piapp.admin.manager.search_lucene.class: PiApp\AdminBundle\Manager\PiLuceneManager
     piapp.admin.manager.formbuilder.class: PiApp\AdminBundle\Manager\PiFormBuilderManager
+    piapp.admin.manager.authentication.class: PiApp\AdminBundle\Manager\PiAuthenticationManager
 
     piapp.twig.loader.class: PiApp\AdminBundle\Twig\PiTwigLoader
     piapp.twig.caching.class: PiApp\AdminBundle\Twig\PiTwigCache
@@ -59,7 +60,11 @@ services:
         
     pi_app_admin.manager.formbuilder:
         class: %piapp.admin.manager.formbuilder.class%
-        arguments: ['@service_container']        
+        arguments: ['@service_container']      
+        
+    pi_app_admin.manager.authentication: 
+        class: %piapp.admin.manager.authentication.class%
+        arguments: ['@service_container']           
         
     #
     # configuration of the Twig and Template

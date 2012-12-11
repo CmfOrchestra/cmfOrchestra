@@ -188,7 +188,10 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	protected function paramsDecode($params){
 		$params	= $this->_Decode($params);	
 		$params = json_decode($params, true);
-		$this->container->get('pi_app_admin.array_manager')->recursive_method($params, 'krsort');
+		
+		if(is_array($params))
+			$this->container->get('pi_app_admin.array_manager')->recursive_method($params, 'krsort');
+		
 		return $params;
 	}
 	

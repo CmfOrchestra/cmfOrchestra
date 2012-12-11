@@ -20,10 +20,10 @@ use PiApp\AdminBundle\Entity\TranslationWidget;
 
 // Matrix des differents validateurs définis.
 $GLOBALS['WIDGET']['CONTENT'] = array(
-		'snippet'	=> 'pi_app_admin.widget_manager.content.snippet',
-		'text' 		=> 'pi_app_admin.widget_manager.content.text',
-		'media'		=> 'pi_app_admin.widget_manager.content.media',
-		'jqext'		=> 'pi_app_admin.widget_manager.content.jqext',
+		'snippet'		=> 'pi_app_admin.widget_manager.content.snippet',
+		'text' 			=> 'pi_app_admin.widget_manager.content.text',
+		'media'			=> 'pi_app_admin.widget_manager.content.media',
+		'jqext'			=> 'pi_app_admin.widget_manager.content.jqext',
 );
 
 $GLOBALS['WIDGET']['GEDMO'] = array(
@@ -39,6 +39,7 @@ $GLOBALS['WIDGET']['SEARCH'] = array(
 );
 
 $GLOBALS['WIDGET']['USER'] = array(
+		'connexion'		=> 'pi_app_admin.widget_manager.user.connexion',
 );
 
 $GLOBALS['WIDGET']['TAB'] = array(
@@ -143,7 +144,7 @@ class PiWidgetExtension extends \Twig_Extension
 			'content'		=>'Content',
 			'gedmo'			=>'Gedmo',
  			'search'		=>'Search',
-// 			'user'			=>'User',
+ 			'user'			=>'User',
 // 			'tab'			=>'Tab',
 		);
 	}	
@@ -164,6 +165,12 @@ class PiWidgetExtension extends \Twig_Extension
 		$source .=  "<config>\n";
 		$source .=  "	<widgets>\n";
 		
+		/////////// USER WIDGET
+		$source .=  "		<user>\n";
+		$source .=  "			<controller>BootStrapUserBundle:User:_connexion_default</controller>\n";
+		$source .=  "			<template>FOSUserBundle:Security:login.html.twig</template>\n";
+		$source .=  "		</user>\n";
+				
 		/////////// CONTENT WIDGET
 		$source .=  "		<content>\n";
 		// snippet parameters

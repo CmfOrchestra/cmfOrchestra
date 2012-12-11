@@ -402,7 +402,7 @@ class OrganigramController extends abstractController
 	    			$Urlpath4 	= $self->get('templating.helper.assets')->getUrl('bundles/piappadmin/images/icons/tree/remove.png');    			
 			    
 			    	$linkNode 	= '<h3 class="tree-node" >'
-			    	. '<img src="'.$Urlpath0.'" height="21px" />&nbsp;&nbsp;&nbsp;' . $tree->getTitle()
+			    	. '<img src="'.$Urlpath0.'" height="21px" />&nbsp;&nbsp;&nbsp;' . str_replace('<br>', ' ', $tree->getTitle())
 			    	. '&nbsp;&nbsp;&nbsp; (node: ' .  $node['id'] . ', level : ' .  $node['lvl'] . ')'
 			    	. '</h3>';			    
 			    
