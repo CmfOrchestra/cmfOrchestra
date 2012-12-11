@@ -104,7 +104,6 @@ class TranslationPageController extends abstractController
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getEntityManager();
-
         $entity = $em->getRepository('PiAppAdminBundle:TranslationPage')->find($id);
 
         if (!$entity) {
@@ -132,7 +131,8 @@ class TranslationPageController extends abstractController
     public function newAction()
     {
         $entity = new TranslationPage();
-        $form   = $this->createForm(new TranslationPageType(), $entity, array('show_legend' => false));
+        $locale	= $this->container->get('session')->getLocale();
+        $form   = $this->createForm(new TranslationPageType($locale, $this->container), $entity, array('show_legend' => false));
 
         return $this->render('PiAppAdminBundle:TranslationPage:new.html.twig', array(
             'entity' => $entity,
@@ -151,9 +151,10 @@ class TranslationPageController extends abstractController
      */
     public function createAction()
     {
+    	$locale	 = $this->container->get('session')->getLocale();
         $entity  = new TranslationPage();
         $request = $this->getRequest();
-        $form    = $this->createForm(new TranslationPageType(), $entity, array('show_legend' => false));
+        $form    = $this->createForm(new TranslationPageType($locale, $this->container), $entity, array('show_legend' => false));
         $form->bindRequest($request);
 
         if ($form->isValid()) {
@@ -182,15 +183,15 @@ class TranslationPageController extends abstractController
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
-
+        $em 	= $this->getDoctrine()->getEntityManager();
+        $locale	= $this->container->get('session')->getLocale();
         $entity = $em->getRepository('PiAppAdminBundle:TranslationPage')->find($id);
 
         if (!$entity) {
             throw ControllerException::NotFoundException('TranslationPage');
         }
 
-        $editForm = $this->createForm(new TranslationPageType(), $entity, array('show_legend' => false));
+        $editForm 	= $this->createForm(new TranslationPageType($locale, $this->container), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('PiAppAdminBundle:TranslationPage:edit.html.twig', array(
@@ -211,15 +212,15 @@ class TranslationPageController extends abstractController
      */
     public function updateAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
-
+        $em 	= $this->getDoctrine()->getEntityManager();
+        $locale	= $this->container->get('session')->getLocale();
         $entity = $em->getRepository('PiAppAdminBundle:TranslationPage')->find($id);
 
         if (!$entity) {
             throw ControllerException::NotFoundException('TranslationPage');
         }
 
-        $editForm   = $this->createForm(new TranslationPageType(), $entity);
+        $editForm   = $this->createForm(new TranslationPageType($locale, $this->container), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();

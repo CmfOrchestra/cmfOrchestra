@@ -1,0 +1,167 @@
+imports:
+    - { resource: "@BootStrapAclManagerBundle/Resources/config/security.yml" }
+    - { resource: "@BootStrapAdminBundle/Resources/config/config.yml" }
+    - { resource: "@BootStrapAdminBundle/Resources/config/security.yml" }
+    - { resource: "@BootStrapMediaBundle/Resources/config/config.yml" }
+    - { resource: "@BootStrapTranslationBundle/Resources/config/config.yml" }
+    - { resource: "@BootStrapGoogleBundle/Resources/config/config.yml" }
+    - { resource: "@BootStrapFacebookBundle/Resources/config/config.yml" }
+    
+    - { resource: "@PiAppAdminBundle/Resources/config/config.yml" }
+    - { resource: "@PiAppGedmoBundle/Resources/config/config.yml" }
+    - { resource: "@KnpMenuBundle/Resources/config/config.yml" }
+  
+
+#
+# FOSUserBundle configuration
+#
+fos_user:
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: BootStrap\UserBundle\Entity\User
+    use_listener:           true
+    use_username_form_type: true
+    model_manager_name:     null  # change it to the name of your entity/document manager if you don't want to use the default one.
+    from_email:
+        address:       etienne.delongeaux@gmail.com
+        sender_name:   Admin    
+    profile:
+        form:
+            type:               fos_user_profile
+            handler:            fos_user.profile.form.handler.default
+            name:               fos_user_profile_form
+            validation_groups:  [Profile]
+    change_password:
+        form:
+            type:               fos_user_change_password
+            handler:            fos_user.change_password.form.handler.default
+            name:               fos_user_change_password_form
+            validation_groups:  [ChangePassword]
+    registration:
+        confirmation:
+            from_email: # Use this node only if you don't want the global email address for the confirmation email
+                address:        etienne.delongeaux@gmail.com
+                sender_name:    commercial
+            enabled:    true # change to true for required email confirmation
+            #template:   FOSUserBundle:Registration:email.txt.twig
+        #email:
+            template:   FOSUserBundle:Registration:registration.email.twig
+        form:
+            type:               fos_user_registration
+            handler:            fos_user.registration.form.handler.default
+            name:               fos_user_registration_form
+            validation_groups:  [Registration]
+    resetting:
+        token_ttl: 86400
+        email:
+            from_email: # Use this node only if you don't want the global email address for the resetting email
+                address:        etienne.delongeaux@gmail.com
+                sender_name:    admin
+            template:   FOSUserBundle:Resetting:email.txt.twig
+        form:
+            type:               fos_user_resetting
+            handler:            fos_user.resetting.form.handler.default
+            name:               fos_user_resetting_form
+            validation_groups:  [ResetPassword]            
+    service:
+        mailer:                 fos_user.mailer.default
+        email_canonicalizer:    fos_user.util.canonicalizer.default
+        username_canonicalizer: fos_user.util.canonicalizer.default
+        user_manager:           fos_user.user_manager.default
+    template:
+        engine: twig
+    group:
+        group_class: BootStrap\UserBundle\Entity\Group
+        group_manager:  fos_user.group_manager.default
+        form:
+            type:               fos_user_group
+            handler:            fos_user.group.form.handler.default
+            name:               fos_user_group_form
+            validation_groups:  [Registration]
+            
+#
+# SonataDoctrineORMAdminBundle configuration
+#
+sonata_doctrine_orm_admin:
+    # default value is null, so doctrine uses the value defined in the configuration
+    entity_manager: ~
+
+    templates:
+        form:
+            - SonataDoctrineORMAdminBundle:Form:form_admin_fields.html.twig
+        filter:
+            - SonataDoctrineORMAdminBundle:Form:filter_admin_fields.html.twig
+        types:
+            list:
+                array:      SonataAdminBundle:CRUD:list_array.html.twig
+                boolean:    SonataAdminBundle:CRUD:list_boolean.html.twig
+                date:       SonataAdminBundle:CRUD:list_date.html.twig
+                datetime:   SonataAdminBundle:CRUD:list_datetime.html.twig
+                text:       SonataAdminBundle:CRUD:base_list_field.html.twig
+                trans:      SonataAdminBundle:CRUD:list_trans.html.twig
+                string:     SonataAdminBundle:CRUD:base_list_field.html.twig
+                smallint:   SonataAdminBundle:CRUD:base_list_field.html.twig
+                bigint:     SonataAdminBundle:CRUD:base_list_field.html.twig
+                integer:    SonataAdminBundle:CRUD:base_list_field.html.twig
+                decimal:    SonataAdminBundle:CRUD:base_list_field.html.twig
+                identifier: SonataAdminBundle:CRUD:base_list_field.html.twig
+
+            show:
+                array:      SonataAdminBundle:CRUD:show_array.html.twig
+                boolean:    SonataAdminBundle:CRUD:show_boolean.html.twig
+                date:       SonataAdminBundle:CRUD:show_date.html.twig
+                datetime:   SonataAdminBundle:CRUD:show_datetime.html.twig
+                text:       SonataAdminBundle:CRUD:base_show_field.html.twig
+                trans:      SonataAdminBundle:CRUD:show_trans.html.twig
+                string:     SonataAdminBundle:CRUD:base_show_field.html.twig
+                smallint:   SonataAdminBundle:CRUD:base_show_field.html.twig
+                bigint:     SonataAdminBundle:CRUD:base_show_field.html.twig
+                integer:    SonataAdminBundle:CRUD:base_show_field.html.twig
+                decimal:    SonataAdminBundle:CRUD:base_show_field.html.twig
+ 
+#               
+# Doctrine Configuration
+#
+doctrine:
+    dbal:
+        default_connection:       default
+        connections:
+            default:
+                driver:   %database_driver%
+                host:     %database_host%
+                port:     %database_port%
+                dbname:   %database_name%
+                user:     %database_user%
+                password: %database_password%
+                charset:  UTF8
+                mapping_types:
+                      enum:       string
+                      varbinary:  string
+                      tinyblob:   text
+
+    orm:
+        auto_generate_proxy_classes: %kernel.debug%
+        auto_mapping: true
+        mappings:
+            FOSUserBundle: ~
+            StofDoctrineExtensionsBundle: ~
+            BootStrapUserBundle: ~
+            BootStrapTranslationBundle: ~
+            BootStrapTranslatorBundle: ~
+            PiAppAdminBundle: ~
+            PiAppGedmoBundle: ~
+            SonataMediaBundle: ~
+            BootStrapMediaBundle: ~
+            
+#               
+# Doctrine MongoDB Configuration
+#          
+
+                    
+
+#
+# routing configuration
+#        
+be_simple_i18n_routing:
+    connection: default
+    use_translator: true        

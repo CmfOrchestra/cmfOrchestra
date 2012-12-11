@@ -41,7 +41,7 @@
 #        switch_layout_mobile_authorized: false
 #        switch_layout_init_redirection_authorized: false
 #        memcache_enable: false
-#        media_pixel: Translucent_50%_white.png
+#        media_pixel: translucent-50-white.png
 #        google_analytic: true
 #        google_analytic_tracker: default
 #        google_analytic_template: BootStrapGoogleBundle:Analytics:default.html.twig

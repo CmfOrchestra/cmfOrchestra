@@ -324,7 +324,7 @@ class Menu extends AbstractDefault
      * @var \PiApp\GedmoBundle\Entity\Menu $parent
      *
      * @Gedmo\TreeParent
-     * @ORM\ManyToOne(targetEntity="\PiApp\GedmoBundle\Entity\Menu", inversedBy="childrens")
+     * @ORM\ManyToOne(targetEntity="\PiApp\GedmoBundle\Entity\Menu", inversedBy="childrens", cascade={"all"})
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     protected $parent;

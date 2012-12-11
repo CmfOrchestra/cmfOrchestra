@@ -354,7 +354,7 @@ class Organigram extends AbstractDefault
      * @var integer $parent
      *
      * @Gedmo\TreeParent
-     * @ORM\ManyToOne(targetEntity="Organigram", inversedBy="childrens")
+     * @ORM\ManyToOne(targetEntity="Organigram", inversedBy="childrens", cascade={"all"})
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true)
      */
     protected $parent;

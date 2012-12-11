@@ -1,3 +1,4 @@
+							<ul class="">
                             {% for node in nodes %}
                             	
                             		{% set childs_routesnames = getService('doctrine').getEntityManager().getRepository("PiAppGedmoBundle:Menu").findChildsRouteByParentId(node.id, app.session.locale, 'string') %}
@@ -10,8 +11,14 @@
 			                            	{%  set url = path_url(node.page.getRouteName(), {'locale':app.session.locale}) %}
 			                            {% endif %}                 
 			                            
-	                            		<li id="solutionsMenu" class="menuItem {{ "{{ in_paths('"~childs_routesnames~"', 'liActiveClass', '') }}" }}">
-	                            			<a href="{{ url }}">{{ node.title }}</a>
+	                            		<li class="{{ "{{ in_paths('"~childs_routesnames~"', 'liActiveClass', '') }}" }}">
+	                            			<a href="{{ url }}">
+	                            				{% if (node.media.image.id is defined) and (node.media.image.name != getParameter("pi_app_admin.page.media_pixel")) %}
+												<img src="{{ media_url(node.media.mediaId, 'reference', true, node.media.getUpdatedAt(), 'lamelee_tree_') }}" title="" alt="" />
+												{% else %}
+	                            				{{ node.title }}
+	                            				{% endif %}
+	                            			</a>
 	                            	{% endif %}
 	                            		
 											{% if (node.lvl == 2) and (node.lft == url_lft+1)  %}
@@ -25,8 +32,14 @@
 		                            			{% if node.page.getId() is defined %}
 		                            				{%  set url_2 = path_url(node.page.getRouteName(), {'locale':app.session.locale}) %}
 		                            			{% endif %}	         
-		                            			<li class="solution deviceSim {{ "{{ in_paths('"~childs_routesnames~"', 'liActiveClass', '') }}" }}">
-		                            				<a href="{{ url_2 }}">{{ node.title }}</a>
+		                            			<li class="{{ "{{ in_paths('"~childs_routesnames~"', 'liActiveClass', '') }}" }}">
+		                            				<a href="{{ url_2 }}">
+			                            				{% if (node.media.image.id is defined) and (node.media.image.name != getParameter("pi_app_admin.page.media_pixel")) %}
+														<img src="{{ media_url(node.media.mediaId, 'reference', true, node.media.getUpdatedAt(), 'lamelee_tree_') }}" title="" alt="" />
+														{% else %}
+			                            				{{ node.title }}
+			                            				{% endif %}
+			                            			</a>
 		                            		{% endif %}
 		                            		
 				                            		{% if (node.lvl == 3) and (node.lft == url_2_lft+1)  %}
@@ -40,8 +53,14 @@
 					                            			{% if node.page.getId() is defined %}
 					                            				{%  set url_3 = path_url(node.page.getRouteName(), {'locale':app.session.locale}) %}
 					                            			{% endif %}	         
-					                            			<li class="subMenuItem">
-					                            				<a href="{{ url_3 }}">{{ node.title }}</a>
+					                            			<li class="">
+																<a href="{{ url_3 }}">
+						                            				{% if (node.media.image.id is defined) and (node.media.image.name != getParameter("pi_app_admin.page.media_pixel")) %}
+																	<img src="{{ media_url(node.media.mediaId, 'reference', true, node.media.getUpdatedAt(), 'lamelee_tree_') }}" title="" alt="" />
+																	{% else %}
+						                            				{{ node.title }}
+						                            				{% endif %}
+						                            			</a>					                            				
 					                            		{% endif %}	
 					                            		
 					                            		{% if (node.lvl == 3) %}
@@ -67,3 +86,4 @@
 	                            	{% endif %}
 	                            	
                             {% endfor %}
+                            </ul>

@@ -47,8 +47,8 @@ fos_user:
         #email:
             template:   FOSUserBundle:Registration:registration.email.twig
         form:
-            type:               fos_user_registration
-            handler:            fos_user.registration.form.handler.default
+            type:               bootstrap_user_registration
+            handler:            bootstrap_user.form.handler.registration
             name:               fos_user_registration_form
             validation_groups:  [Registration]
     resetting:

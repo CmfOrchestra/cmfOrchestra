@@ -29,6 +29,8 @@ use BootStrap\UserBundle\Repository\PermissionRepository;
  */
 class User extends BaseUser
 {
+	const ROLE_DEFAULT = 'ROLE_ALLOWED_TO_SWITCH';
+	
     /**
      * @var bigint $id
      * 

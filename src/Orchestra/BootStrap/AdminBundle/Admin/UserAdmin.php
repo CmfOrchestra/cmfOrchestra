@@ -134,10 +134,12 @@ class UserAdmin extends Admin
     {
     	$errorElement
     	->with('username')
-    	->assertNotNull()
-    	->assertNotBlank()
-    	->assertMaxLength(array('limit' => 35))
+	    	->assertNotNull()
+	    	->assertNotBlank()
+	    	->assertMaxLength(array('limit' => 35))
     	->end()
+    	->with('plainPassword')
+    	->end()    	
     	;
     }    
 
