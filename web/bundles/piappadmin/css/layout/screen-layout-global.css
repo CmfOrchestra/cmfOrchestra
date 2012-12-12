@@ -94,3 +94,6 @@
  orchestra, searchlucene {
   display:block;
 }
+.column-filter-widgets{
+    width: 95%;float: left;
+}

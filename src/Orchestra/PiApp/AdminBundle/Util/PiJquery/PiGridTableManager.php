@@ -70,6 +70,10 @@ class PiGridTableManager extends PiJqueryExtension
 		$this->container->get('pi_app_admin.twig.extension.layouthead')->addCssFile("bundles/piappadmin/js/datatable/extras/TableTools/media/css/TableTools_JUI.css");
 		$this->container->get('pi_app_admin.twig.extension.layouthead')->addCssFile("bundles/piappadmin/js/datatable/extras/TableTools/media/css/TableTools.css");
 		
+		// plugin ColumnFilterWidgets
+		$this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/datatable/extras/ColumnFilterWidgets/media/js/ColumnFilterWidgets.js");
+		$this->container->get('pi_app_admin.twig.extension.layouthead')->addCssFile("bundles/piappadmin/js/datatable/extras/ColumnFilterWidgets/media/css/ColumnFilterWidgets.css");
+		
 		// plugin colreorder
 		$this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/datatable/extras/ColReorder/media/js/ColReorder.min.js");
 		
@@ -297,7 +301,7 @@ class PiGridTableManager extends PiJqueryExtension
 						// < and > - div elements
 						// <"class" and > - div with a class
 						// Examples: <"wrapper"flipt>, <lf<t>ip>						
-						"sDom": '<"block_filter"><"H"RTfr>tC<"F"lpi>',
+						"sDom": '<"block_filter"><?php if(isset($options["grid-filters-select"])){ echo "W"; } ?><"H"RTfr>tC<"F"lpi>',
 						"oTableTools": {
 							"sSwfPath": "<?php echo $Urlpath; ?>",
 							"sRowSelect": "multi",
@@ -422,7 +426,7 @@ class PiGridTableManager extends PiJqueryExtension
 								
 							<?php endforeach; ?>
 						<?php endif; ?>	
-												
+						<?php if(isset($options['grid-copy']) && !empty($options['grid-copy']) && is_array($options['grid-copy'])): ?>						
 											
 											{
 												"sExtends": "copy",
@@ -443,6 +447,7 @@ class PiGridTableManager extends PiJqueryExtension
 													}
 												 ]
 											}
+						<?php endif; ?>
 										]							
 						},
 
@@ -469,6 +474,17 @@ class PiGridTableManager extends PiJqueryExtension
 				<?php endif; ?>						
 					
 						],
+						"oColumnFilterWidgets": {
+							"aiExclude": [ 
+				<?php if(isset($options['grid-filters-select']) && !empty($options['grid-filters-select']) && is_array($options['grid-filters-select'])): ?>
+					<?php foreach($options['grid-filters-select'] as $idColumn => $boolean): ?>
+							<?php echo $boolean; ?>,				
+					<?php endforeach; ?>
+				<?php else: ?>
+							0,1			
+				<?php endif; ?>						
+							]
+						},
 
 					});
 
@@ -676,9 +692,10 @@ class PiGridTableManager extends PiJqueryExtension
 						// < and > - div elements
 						// <"class" and > - div with a class
 						// Examples: <"wrapper"flipt>, <lf<t>ip>						
-						"sDom": '<"block_filter"><"H"RTfr>tC<"F"lpi>',
+						"sDom": '<"block_filter"><?php if(isset($options["grid-filters-select"])){ echo "W"; } ?><"H"RTfr>tC<"F"lpi>',
 						"oTableTools": {
 							"sSwfPath": "<?php echo $Urlpath; ?>",
+							<?php if(isset($options['grid-copy']) && !empty($options['grid-copy']) && is_array($options['grid-copy'])): ?>	
 							"aButtons": [
 											{
 												"sExtends": "copy",
@@ -699,7 +716,8 @@ class PiGridTableManager extends PiJqueryExtension
 													}
 												 ]
 											}
-										]								
+										]	
+							<?php endif; ?>							
 						},
 
 						"oColVis": {
