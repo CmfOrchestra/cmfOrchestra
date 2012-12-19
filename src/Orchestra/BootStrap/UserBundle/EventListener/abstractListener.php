@@ -108,9 +108,9 @@ abstract class abstractListener
             $entity->setCreatedAt(new \DateTime());
         }
         
-        if($entity instanceof \BootStrap\UserBundle\Entity\User){
-        	return true;
-        }        
+        // we give the right of persist if the entity is in the CRUD_PREPERSIST container
+        if(isset($GLOBALS['ENTITIES']['CRUD_PREPERSIST']) && in_array(get_class($entity), $GLOBALS['ENTITIES']['CRUD_PREPERSIST']))
+        	return true;     
         
         // If AnonymousToken user,
         if ($isAnonymousToken && $this->isAnonymousToken()) {
@@ -185,82 +185,71 @@ abstract class abstractListener
             $entity->setUpdatedAt(new \DateTime());
         }
         
-        if($entity instanceof \BootStrap\UserBundle\Entity\User){
-        	$this->setFlash('pi.session.flash.right.update');
-        }else{        	
-        	// If AnonymousToken user,
-        	if ($isAnonymousToken && $this->isAnonymousToken()) {
-        		
-        		// just for register in data the change do in this class listener :
-        		$class = $entityManager->getClassMetadata(get_class($entity));
-        		$entityManager->getUnitOfWork()->computeChangeSet($class, $entity);
-        		
-        		// we throw the message.
-        		$this->setFlash('pi.session.flash.right.anonymous');
-        		return false;
-        	}
-        	
+        // we give the right of update if the entity is in the CRUD_PREPERSIST container
+	    if(isset($GLOBALS['ENTITIES']['CRUD_PREUPDATE']) && in_array(get_class($entity), $GLOBALS['ENTITIES']['CRUD_PREUPDATE']))
+        	return true;        
+     	
+       	// If AnonymousToken user,
+       	if ($isAnonymousToken && $this->isAnonymousToken()) {
+       		
+       		// just for register in data the change do in this class listener :
+       		$class = $entityManager->getClassMetadata(get_class($entity));
+       		$entityManager->getUnitOfWork()->computeChangeSet($class, $entity);
+       		
+       		// we throw the message.
+       		$this->setFlash('pi.session.flash.right.anonymous');
+       		return false;
+       	}
 
-//         	if(get_class($entity) != 'Proxies\PiAppGedmoBundleEntityMediaProxy'){
-//         		if(get_class($entity) != 'PiApp\GedmoBundle\Entity\Block' && get_class($entity) != 'PiApp\GedmoBundle\Entity\Translation\BlockTranslation'){
-//         			//if(get_class($entity) != 'Proxies\BootStrapMediaBundleEntityMediaProxy'){
-//         			print_r($entity->getHeritage());
-//         			exit;
-//         			//}
-//         		}
-//         	}        	
-        	
-        	// If  autentication user
-        	if ($isUsernamePasswordToken && $this->isUsernamePasswordToken()) {
-        		
-        		if(isset($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) && in_array(get_class($entity), $GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) ){
-        			// Gets all user roles.
-        			$user_roles 			= array_unique(array_merge($this->getAllHeritageByRoles($this->getBestRoles($this->getUserRoles())), $this->getUserRoles()));
-        			// Gets the best role authorized to access to the entity.
-        			$authorized_page_roles 	= $this->getBestRoles($entity->getHeritage());
-        			
-        			$right = false;
-        			if(is_null($authorized_page_roles))
-        				$right = true;
-        			else{
-        				foreach($authorized_page_roles as $key=>$role_page){
-        					if(in_array($role_page, $user_roles))
-        						$right = true;
-        				}        				
-        			}
-        			
-        			if(!$right){
-        				// just for register in data the change do in this class listener :
-        				$class = $entityManager->getClassMetadata(get_class($entity));
-        				$entityManager->getUnitOfWork()->computeChangeSet($class, $entity);
-        				
-        				// we throw the message.
-       					$this->setFlash('pi.session.flash.right.unupdate');
-       					return false;
-        			}
-        		}
-        		
-       			// if user have the edit right
-       			if( in_array('EDIT', $this->getUserPermissions()) || in_array('ROLE_SUPER_ADMIN', $this->getUserRoles()) || $isAllPermissions) {
-
-       				// we persist the values of the entity
-       				$class = $entityManager->getClassMetadata(get_class($entity));
-       				$entityManager->getUnitOfWork()->recomputeSingleEntityChangeSet($class, $entity);
-       				
-       				// we throw the message.
-       				$this->setFlash('pi.session.flash.right.update');
-       				return true;
-       			}else{
+       	// If  autentication user
+       	if ($isUsernamePasswordToken && $this->isUsernamePasswordToken()) {
+       		
+       		if(isset($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) && in_array(get_class($entity), $GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) ){
+       			// Gets all user roles.
+       			$user_roles 			= array_unique(array_merge($this->getAllHeritageByRoles($this->getBestRoles($this->getUserRoles())), $this->getUserRoles()));
+       			// Gets the best role authorized to access to the entity.
+       			$authorized_page_roles 	= $this->getBestRoles($entity->getHeritage());
+       			
+       			$right = false;
+       			if(is_null($authorized_page_roles))
+       				$right = true;
+       			else{
+       				foreach($authorized_page_roles as $key=>$role_page){
+       					if(in_array($role_page, $user_roles))
+       						$right = true;
+       				}        				
+       			}
+       			
+       			if(!$right){
        				// just for register in data the change do in this class listener :
        				$class = $entityManager->getClassMetadata(get_class($entity));
        				$entityManager->getUnitOfWork()->computeChangeSet($class, $entity);
        				
        				// we throw the message.
-       				$this->setFlash('pi.session.flash.right.unupdate');
-       				return false;
+      					$this->setFlash('pi.session.flash.right.unupdate');
+      					return false;
        			}
-        	}
-        }
+       		}
+       		
+   			// if user have the edit right
+   			if( in_array('EDIT', $this->getUserPermissions()) || in_array('ROLE_SUPER_ADMIN', $this->getUserRoles()) || $isAllPermissions) {
+   				// we persist the values of the entity
+   				$class = $entityManager->getClassMetadata(get_class($entity));
+   				$entityManager->getUnitOfWork()->recomputeSingleEntityChangeSet($class, $entity);
+     				
+   				// we throw the message.
+  				$this->setFlash('pi.session.flash.right.update');
+   				return true;
+   			}else{
+   				// just for register in data the change do in this class listener :
+   				$class = $entityManager->getClassMetadata(get_class($entity));
+   				$entityManager->getUnitOfWork()->computeChangeSet($class, $entity);
+   				
+   				// we throw the message.
+   				$this->setFlash('pi.session.flash.right.unupdate');
+   				return false;
+   			}
+     	}
 	}	
 	
 	/**
@@ -283,6 +272,10 @@ abstract class abstractListener
 		// get the order entity
 		$entity 		= $eventArgs->getEntity();
 		$entityManager 	= $eventArgs->getEntityManager();
+		
+		// we give the right of remove if the entity is in the CRUD_PREPERSIST container
+		if(isset($GLOBALS['ENTITIES']['CRUD_PREREMOVE']) && in_array(get_class($entity), $GLOBALS['ENTITIES']['CRUD_PREREMOVE']))
+			return true;		
 	
 		// If AnonymousToken user,
 		if ($isAnonymousToken && $this->isAnonymousToken()) {

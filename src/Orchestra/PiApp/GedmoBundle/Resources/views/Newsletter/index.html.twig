@@ -23,7 +23,6 @@
 	            <th><a href="javascript:void(0);" title="Category">Category</a></th>	            
 	            <th><a href="javascript:void(0);" title="Title">Title</a></th>	            
 	            <th><a href="javascript:void(0);" title="Url">Url</a></th>	            
-	            <th><a href="javascript:void(0);" title="Status">Status</a></th>	            
 	            <th><a href="javascript:void(0);" title="Published_at">Published_at</a></th>	            
 	            <th><a href="javascript:void(0);" title="Archive_at">Archive_at</a></th>	            
 	            <th><a href="javascript:void(0);" title="Enabled">Enabled</a></th>	        	
@@ -44,9 +43,6 @@
 	            </td>	
 	            <td>
 	            	{{ entity.url|limite("0", 55)|raw }}
-	            </td>	
-	            <td>
-	            	{{ entity.status|limite("0", 55)|raw }}
 	            </td>	
 	            <td>{% if entity.publishedat %}{{ entity.publishedat|date('Y-m-d') }}{% endif%}</td>	
 	            <td>{% if entity.archiveat %}{{ entity.archiveat|date('Y-m-d') }}{% endif%}</td>	

@@ -53,8 +53,11 @@
 	            <button type="submit">{{ 'pi.grid.action.delete'|trans }}</button>
 	        </form>
 	    </li>
-	    {% endif %}
-	    
-	
+	    {% endif %}	    
 	</ul>
+	
+	{% if entity.media.image is defined %}
+	{{ picture_form(entity.media.image, "piapp_gedmobundle_categorytype_media_image_binaryContent",  'reference', 'display: block; text-align:left;')|raw }}
+	{% endif %}
+		
 {% endblock %}		

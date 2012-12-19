@@ -246,7 +246,15 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
     		if($entity->getOrganigram() instanceof \PiApp\GedmoBundle\Entity\Organigram){
     			$entity_parent_table	= $this->getOwningTable($eventArgs, $entity->getOrganigram());
     			$parent_id				= $entity->getOrganigram()->getId();
-    		}    		    		
+    		}  
+    		if($entity->getEntitycategory() instanceof \PiApp\GedmoBundle\Entity\Category){
+    			$entity_parent_table	= $this->getOwningTable($eventArgs, $entity->getEntitycategory());
+    			$parent_id				= $entity->getEntitycategory()->getId();
+    		}  
+    		if($entity->getTeam() instanceof \PiApp\GedmoBundle\Entity\Team){
+    			$entity_parent_table	= $this->getOwningTable($eventArgs, $entity->getTeam());
+    			$parent_id				= $entity->getTeam()->getId();
+    		}    		  		  		    		
 
     		try {
     			$query = "UPDATE $entity_parent_table mytable SET mytable.{$MediaId} = null WHERE mytable.id = ?";
@@ -260,7 +268,7 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
     		}
     	}    
     
-    	for($i=0;$i<=4;$i++){
+    	for($i=0;$i<=6;$i++){
     		if($i==0) $i = "";
     		$getMedia = "getMedia{$i}";
     		$setMedia = "setMedia{$i}";
@@ -289,7 +297,7 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
     	$entity			= $eventArgs->getEntity();
     	$entityManager 	= $eventArgs->getEntityManager();
     
-    	for($i=0;$i<=4;$i++){
+    	for($i=0;$i<=6;$i++){
     		if($i==0) $i = "";
     		$getMedia = "getMedia{$i}";
     		$setMedia = "setMedia{$i}";
@@ -329,7 +337,7 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
     	$entity			= $eventArgs->getEntity();
     	$entityManager 	= $eventArgs->getEntityManager();
     	
-    	for($i=0;$i<=4;$i++){
+    	for($i=0;$i<=6;$i++){
     		if($i==0) $i = "";
     		$getImage = "getImage{$i}";
     		$setImage = "setImage{$i}";
@@ -348,7 +356,7 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
     		}
     	}
     
-    	for($i=0;$i<=4;$i++){
+    	for($i=0;$i<=6;$i++){
     		if($i==0) $i = "";
     		$getFile  = "getFile{$i}";
     		$setFile  = "setFile{$i}";

@@ -194,6 +194,16 @@ class Media extends AbstractDefault
      */
     protected $organigram; 
     
+    /**
+     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Category", mappedBy="media");
+     */
+    protected $entitycategory; 
+
+    /**
+     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Team", mappedBy="media");
+     */
+    protected $team;      
+    
     
     /**
      * Constructor
@@ -440,7 +450,35 @@ class Media extends AbstractDefault
     public function getOrganigram()
     {
     	return $this->organigram;
-    }        
+    }       
+    public function getEntitycategory()
+    {
+    	return $this->entitycategory;
+    }
+    public function getTeam()
+    {
+    	return $this->team;
+    }
+    
+    /**
+     * Set team
+     *
+     * @param \PiApp\GedmoBundle\Entity\Team $team
+     */
+    public function setTem(\PiApp\GedmoBundle\Entity\Team $team)
+    {
+    	$this->team = $team;
+    }    
+    
+    /**
+     * Set entitycategory
+     *
+     * @param \PiApp\GedmoBundle\Entity\Category $category
+     */
+    public function setEntitycategory(\PiApp\GedmoBundle\Entity\Category $category)
+    {
+    	$this->entitycategory = $category;
+    }   
   
     /**
      * Set individual

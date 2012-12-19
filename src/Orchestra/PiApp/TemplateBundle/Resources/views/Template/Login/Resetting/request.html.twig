@@ -1,0 +1,37 @@
+<div id="form-connexion-request-response">
+	<script type="text/javascript">
+	//<![CDATA[
+	    $(document).ready(function() {
+	        $('#form-connexion-request').on('submit', function() {
+	            var email = jQuery(this).find('#connexion-request input[name="email"]').val();
+	            $.ajax({
+	                url: $(this).attr('action'),
+	                type: $(this).attr('method'),
+	                success: function(html) {
+	                   $("#form-connexion-request-response").html(html);
+	                }
+	            });
+	            return false; // j'empêche le navigateur de soumettre lui-même le formulaire
+	        });
+	    });
+	//]]>
+	</script>  
+	
+	<section class="forgotten-password">
+		<header class="tt-grey resetM">
+			<h3 class="uppercase bold tt-10">Mot de passe oublié ?</h3>
+		</header>
+		
+	   {% if invalid_username is defined %}
+	        <p>{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}, 'FOSUserBundle') }}</p>
+	   {% endif %}
+	   
+		<p>Saisissez l’adresse e-mail que vous utilisez habituellement pour vous connecter à La Mêlée</p>
+		<form action="{{ path('fos_user_resetting_send_email') }}" method="POST" id="form-connexion-request" >
+		        <input type="text" id="username" name="username" class="resetBorder required email" />
+		        <input type="hidden" id="template" name="template" value="" />
+		        <input type="submit" value="ok" />
+		</form>
+	</section>
+
+</div>

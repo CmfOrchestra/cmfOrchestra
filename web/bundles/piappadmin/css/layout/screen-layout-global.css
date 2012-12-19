@@ -22,14 +22,13 @@
  
  /* BLOCK */
   #global-layout h5.block_action_menu {
-	position:relative;
+	position: absolute;
 	z-index:9999;
 	display: none;
-	float:left;
     text-align: left;
     margin0;padding:0;
     margin-top: -25px;
-    padding-left: 45px;
+    padding-left: 0px;
     font-size: 10px;
     line-height: 13px;
  }

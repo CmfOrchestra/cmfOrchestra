@@ -66,19 +66,19 @@ class BlockType extends AbstractType
  							"class"=>"block_collection",
  					),
             ))           
- 			->add('published_at', 'date', array(
-	        		'widget' => 'single_text', // choice, text, single_text
-	        		'input' => 'datetime',
-	        		'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
- 					'required'  => false,
-	        		"attr" => array(
-	        				"class"=>"pi_datepicker",
-	        		),
- 					'label'	=> 'pi.form.label.date.publication',
- 					"label_attr" => array(
- 							"class"=>"block_collection",
- 					),
-	        ))          
+//  			->add('published_at', 'date', array(
+// 	        		'widget' => 'single_text', // choice, text, single_text
+// 	        		'input' => 'datetime',
+// 	        		'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
+//  					'required'  => false,
+// 	        		"attr" => array(
+// 	        				"class"=>"pi_datepicker",
+// 	        		),
+//  					'label'	=> 'pi.form.label.date.publication',
+//  					"label_attr" => array(
+//  							"class"=>"block_collection",
+//  					),
+// 	        ))          
  			->add('category', 'entity', array(
 	        		'class' => 'PiAppGedmoBundle:Category',
  					'query_builder' => function(EntityRepository $er) {

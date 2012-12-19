@@ -67,6 +67,17 @@ class CategoryType extends AbstractType
  			->add('name', 'text', array(
  				'label' => "pi.form.label.field.name"
  			))
+ 			->add('descriptif', 'textarea', array(
+ 					'label'	=> "pi.form.label.field.description",
+ 					"label_attr" => array(
+ 							"class"=>"text_collection",
+ 					),
+ 					"attr" => array(
+ 							"class"	=>"pi_editor_simple",
+ 					),
+ 					'required'  => false,
+ 			))
+ 			->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture')) 			
         ;
     }
 

@@ -154,7 +154,7 @@ class PiToolExtension extends \Twig_Extension
 		if(isset($dates->{$locale}))
 			return $dates->{$locale};
 		else
-			return $dates->{'en_GB'};
+			return "MM/dd/yyyy";
 	}
 	
 	/**
@@ -205,11 +205,16 @@ class PiToolExtension extends \Twig_Extension
 	public function getPictureFormFunction($media, $nameForm, $format = 'reference', $style = "display: block; text-align:center;margin: 30px auto;") {
 		if($media instanceof \BootStrap\MediaBundle\Entity\Media){
 			$id 		= $media->getId();
-			$img_balise = $this->container->get('sonata.media.twig.extension')->media($media, $format, array(
-					'title'	=> $media->getAuthorname(),
-					'alt'	=> $media->getAuthorname(),
-					'style'	=> $style,
-			));
+			
+			try {
+				$img_balise = $this->container->get('sonata.media.twig.extension')->media($media, $format, array(
+						'title'	=> $media->getAuthorname(),
+						'alt'	=> $media->getAuthorname(),
+						'style'	=> $style,
+				));
+			} catch (\Exception $e) {
+				return "";
+			}			
 			
 			$content	 = "<div id='picture_$id'> \n";
 			$content	.= $img_balise;

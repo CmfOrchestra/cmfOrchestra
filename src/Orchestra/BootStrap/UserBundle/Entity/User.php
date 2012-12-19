@@ -41,6 +41,20 @@ class User extends BaseUser
 	protected $id;
 	
 	/**
+	 * @var string $name
+	 *
+	 * @ORM\Column(name="name", type="string", nullable = true)
+	 */
+	protected $name;
+		
+	/**
+	 * @var string $nickname
+	 *
+	 * @ORM\Column(name="nickname", type="string", nullable = true)
+	 */
+	protected $nickname;	
+	
+	/**
 	 * @var array of \Doctrine\Common\Collections\ArrayCollection newsletters
 	 *
 	 * @ORM\ManyToMany(targetEntity="PiApp\GedmoBundle\Entity\Newsletter", mappedBy="users")
@@ -210,5 +224,46 @@ class User extends BaseUser
     {
     	return $this->rssneeds;
     }    
+    
+    /**
+     * Set name
+     *
+     * @param text $name
+     */
+    public function setName($name)
+    {
+    	$this->name = $name;
+    }
+    
+    /**
+     * Get name
+     *
+     * @return text
+     */
+    public function getName()
+    {
+    	return $this->name;
+    }
+    
+    /**
+     * Set nickname
+     *
+     * @param text $nickname
+     */
+    public function setNickname($nickname)
+    {
+    	$this->nickname = $nickname;
+    }
+    
+    /**
+     * Get nickname
+     *
+     * @return text
+     */
+    public function getNickname()
+    {
+    	return $this->nickname;
+    }
+    
 
 }

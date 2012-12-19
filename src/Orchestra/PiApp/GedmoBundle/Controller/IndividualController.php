@@ -26,8 +26,10 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 
 use PiApp\GedmoBundle\Entity\Individual;
 use PiApp\GedmoBundle\Form\IndividualType;
+use PiApp\GedmoBundle\Form\InscriptionType;
 use PiApp\GedmoBundle\Entity\Translation\IndividualTranslation;
-
+use Symfony\Component\Form\FormError;
+use BootStrap\UserBundle\Entity\User;
 /**
  * Individual controller.
  *
@@ -174,15 +176,15 @@ class IndividualController extends abstractController
      */
     public function newAction()
     {
-    	$em 		= $this->getDoctrine()->getEntityManager();
-    	$entity 	= new Individual();
+    	  $em 		= $this->getDoctrine()->getEntityManager();
+    	  $entity 	= new Individual();
         $form   	= $this->createForm(new IndividualType($em, $this->container), $entity, array('show_legend' => false));
         
         $category   = $this->container->get('request')->query->get('category');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout)	$template = "new.html.twig";  else 	$template = "new.html.twig";   
         
-         if($category)
+        if($category)
         	$entity->setCategory($category);     
 
         return $this->render("PiAppGedmoBundle:Individual:$template", array(
@@ -404,11 +406,8 @@ class IndividualController extends abstractController
     	if(empty($lang))
     		$lang	= $this->container->get('session')->getLocale();
     		
-    	if(method_exists($entity, "getTemplate") && $entity->getTemplate() != "")
-    		$template = $entity->getTemplate();    		
-    		
     	$query		= $em->getRepository("PiAppGedmoBundle:Individual")->getAllByCategory($category, $MaxResults, $order)->getQuery();
-        $entities   = $em->getRepository("PiAppGedmoBundle:Individual")->findTranslationsByQuery($lang, $query, 'object', false);                   
+      	$entities   = $em->getRepository("PiAppGedmoBundle:Individual")->findTranslationsByQuery($lang, $query, 'object', false);                   
 
         return $this->render("PiAppGedmoBundle:Individual:$template", array(
             'entities' => $entities,
@@ -416,5 +415,158 @@ class IndividualController extends abstractController
         	'locale'   => $lang,
         ));
     }     
+    
+    /**
+     * Template : Finds and displays a Individual entity.
+     *
+     * @Cache(maxage="86400")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access	public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function _template_inscriptionAction($template = '_template_form_inscription.html.twig', $lang = "", $type = 'lamelee')
+    {
+        $em 		= $this->getDoctrine()->getEntityManager();
+        $new   = $this->container->get('request')->get('new');
+        
+        if(empty($lang))
+          $lang	= $this->container->get('session')->getLocale();
+        $params['type'] = $type;
+        $params['template'] = $template;
+    	  $category   = $this->container->get('request')->query->get('category');
+        $NoLayout   = $this->container->get('request')->query->get('NoLayout');
+        $entity 	= new Individual();
+        $render = '';
+        if (!empty($new)){
+            $render = $this->container->get('http_kernel')->render('PiAppGedmoBundle:Individual:_template_inscriptionValidation', array('attributes'=>$params));
+        }
+        
+        $entity->setInscrName('Nom*');  
+        $entity->setInscrNickname('Prénom*');
+        $entity->setInscrUserName('Identifiant');
+        $entity->setInscrEmail('Email pro*');
+        $entity->setInscrCp('Code postal');
+        $entity->setInscrPhone('Téléphone');
+        $entity->setEntrActivity('Activité*');
+        $entity->setInscrJob('Fonction*');
+        $entity->setEntrCompany('Société*');
+        $entity->setEntrStaff('Effectif*');
+        $entity->setUrl('Site web'); 
+
+        $form   	= $this->createForm(new InscriptionType($em, $this->container), $entity, array('show_legend' => false));
+
+        return $this->render("PiAppGedmoBundle:Individual:$template", array(
+            'entity' 	=> $entity,
+            'form'   	=> $form->createView(),
+            'NoLayout'  => $NoLayout,
+            'category'	=> $category,
+            'new'	=> 1,
+            'render'	=> $render,
+        ));  
+    }
+    
+    private function _template_inscriptionValidationAction($template = '_template_form_inscription.html.twig', $lang = "", $type = 'lamelee')
+    {
+	      $em               = $this->getDoctrine()->getEntityManager();
+	      $request   = $this->container->get('request');
+	
+	      if(empty($lang))
+	              $lang   = $this->container->get('session')->getLocale();
+	       
+	      $category   = $this->container->get('request')->query->get('category');
+	
+	      $NoLayout   = $this->container->get('request')->query->get('NoLayout');
+	      $entity   = new Individual();
+	
+	      $form     = $this->createForm(new InscriptionType($em, $this->container), $entity, array('show_legend' => false));
+	
+	      $data = $request->get($form->getName(), array());
+	      $form->bind($data);
+	
+	      $user_name  = $em->getRepository('BootStrapUserBundle:User')->findOneByName($form["InscrUserName"]->getData());
+	      if($user_name != null){
+	        $form->addError(new FormError('error message : username already exists!'));
+	      }
+	      $user_email = $em->getRepository('BootStrapUserBundle:User')->findOneByEmail($form["InscrEmail"]->getData());
+	
+	      if($user_email != null){
+	        $form->addError(new FormError('error message : email already exists!'));
+	      }
+	
+	      if ($form->isValid()) {
+	          $password = \PiApp\AdminBundle\Util\PiStringManager::random(8);
+	
+	          $user = new User();
+	          $user->setUsername($form["InscrUserName"]->getData());
+	          $user->getUsernameCanonical($password);
+	          $user->setPlainPassword($password);
+	          $user->setEmail($form["InscrEmail"]->getData());
+	          $user->setEmailCanonical($form["InscrEmail"]->getData());
+	          $user->setEnabled(false);
+	          $user->setRoles(array('ROLE_SUBSCRIBER'));
+	          $user->setPermissions(array('VIEW', 'EDIT', 'CREATE', 'DELETE'));
+	
+	          $user->addGroupUser($em->getRepository('BootStrapUserBundle:Group')->findOneByName('Groupe User'));
+	          $user->setLangCode($em->getRepository('PiAppAdminBundle:Langue')->findOneById('fr_FR'));
+	
+	          $em->persist($user);
+	          $em->flush();	          
+	
+	          $entity->setTranslatableLocale($lang);
+	          $entity->setUser($user);
+	
+	          $em->persist($entity);
+	          $em->flush();
+	          
+	          $flash = $this->get('translator')
+	                         ->trans('Abonnement.flash.user_created',
+	                                  array('%email%' => $form["InscrEmail"]->getData()));
+	                      
+	          $this->get('session')->setFlash('success', $flash);
+	          
+	          //send mail
+	          $templateFile = "PiAppGedmoBundle:Individual:email_subscribe_".$type.".html.twig";
+	          $templateContent = $this->get('twig')->loadTemplate($templateFile);
+	
+	          $subject = ($templateContent->hasBlock("subject")
+	              ? $templateContent->renderBlock("subject", array(
+	              'confirmationUrl' =>  $user->getConfirmationToken(),
+	              'password' => $password
+	              ))
+	              : "Default subject here");
+	          $body = ($templateContent->hasBlock("body")
+	              ? $templateContent->renderBlock("body", array(
+	              'confirmationUrl' =>  $user->getConfirmationToken(),
+	              'password' => $password
+	              ))
+	              : "Default body here");  
+	
+	          $this->_send_mail('inscription@lamelee.fr', $user->getEmail(), $subject, $body);
+	        
+	          return new Response('');
+	      }
+	      
+          return $this->render("PiAppGedmoBundle:Individual:$template", array(
+              'entity'      => $entity,
+              'form'        => $form->createView(),
+              'NoLayout'    => $NoLayout,
+              'category'    => $category,
+              'new'	=> 1,
+              'render'	=> '',
+          )); 
+    }
+   
+    private function _send_mail($from, $to, $subject, $body) {
+        $mail = \Swift_Message::newInstance();
+     
+        $mail
+            ->setTo($to)
+            ->setFrom($from)
+            ->setSubject($subject)           
+            ->setBody($body);
+
+        $this->get('mailer')->send($mail);
+    }
     
 }

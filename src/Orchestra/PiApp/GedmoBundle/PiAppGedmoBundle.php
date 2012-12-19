@@ -54,6 +54,20 @@ $GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']= array(
 		'PiApp\GedmoBundle\Entity\Translation\ContactTranslation',
 );
 
+$GLOBALS['ENTITIES']['CRUD_PREPERSIST']= array(
+		'BootStrap\UserBundle\Entity\User',
+		'PiApp\GedmoBundle\Entity\Individual',
+		'PiApp\GedmoBundle\Entity\Translation\IndividualTranslation',
+		'PiApp\GedmoBundle\Entity\Corporation',
+		'PiApp\GedmoBundle\Entity\Translation\CorporationTranslation',
+);
+$GLOBALS['ENTITIES']['CRUD_PREUPDATE']= array(
+		'BootStrap\UserBundle\Entity\User',
+);
+$GLOBALS['ENTITIES']['CRUD_PREREMOVE']= array(
+		'BootStrap\UserBundle\Entity\User',
+);
+
 /**************************  MATRIX LISTENER ***************************/
 $GLOBALS['GEDMO_WIDGET_LISTENER']['media'] = array(
 		'method' => array('_template_show', '_template_list'),
@@ -122,6 +136,24 @@ $GLOBALS['GEDMO_WIDGET_LISTENER']['contact'] = array(
 		),
 		'_template_list'	 => array(
 				'edit'		=> 'admin_gedmo_contact',
+		),
+);
+$GLOBALS['GEDMO_WIDGET_LISTENER']['individual'] = array(
+		'method' => array('_template_show', '_template_list', '_template_inscription'),
+		'_template_show'	 => array(
+				'edit'		=> 'admin_gedmo_individual_edit',
+		),
+		'_template_list'	 => array(
+				'edit'		=> 'admin_gedmo_individual',
+		),
+);
+$GLOBALS['GEDMO_WIDGET_LISTENER']['corporation'] = array(
+		'method' => array('_template_show', '_template_list'),
+		'_template_show'	 => array(
+				'edit'		=> 'admin_gedmo_individual_edit',
+		),
+		'_template_list'	 => array(
+				'edit'		=> 'admin_gedmo_individual',
 		),
 );
 /**************************  MATRIX NAVIGATION ***************************/

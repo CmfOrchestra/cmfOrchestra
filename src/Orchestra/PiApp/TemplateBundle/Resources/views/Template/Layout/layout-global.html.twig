@@ -1,6 +1,6 @@
 {% from getParameter('pi_app_admin.layout.template.flash') import session_flash %}
+{%  initJquery 'SESSION:flash' %}
 {% if is_granted('ROLE_USER') %}
-	{%  initJquery 'SESSION:flash' %}
 	{%  initJquery 'MENU:org-chart-page' %}
 	{%  initJquery 'MENU:context-menu' %}
 	{%  initJquery 'TOOL:widgetadmin' %}
@@ -17,11 +17,11 @@
 
 <!--[if gt IE 8]><!--> <html class="no-js" lang="{{ global_local_language }}" xml:lang='{{ global_local_language }}'> <!--<![endif]-->
     <head>
-        <title>{% block global_title %}{% endblock %}</title>
-        <link rel="shortcut icon" type="image/ico" href="{{ asset("favicon.ico") }}" />
-        
         <!--  Meta core -->
         {% block global_meta %}{% endblock %}          
+    
+        <title>{% block global_title %}{% endblock %}</title>
+        <link rel="shortcut icon" type="image/ico" href="{{ asset("favicon.ico") }}" />
         
         <!--  Css core -->
         {% stylesheet "bundles/piappadmin/css/layout/screen-layout-global.css:prepend" %}
@@ -100,18 +100,18 @@
 			//]]>
 			</script>    		
 	    </div>
+	    
+	    <div id="global-flash">
+			{% block global_flashes %}
+			    {{ session_flash() }}
+			    
+				{% set options_flash = {'type': ['notice', 'success', 'warning'], 'dialog-name': 'symfony-layout-flash' } %}
+				{{ renderJquery('SESSION', 'flash', options_flash )|raw }} 	    
+			{% endblock %}
+		</div>		    
 	     
 		{% if is_granted('ROLE_USER') %}
 		<searchlucene>			
-			    <div id="global-flash">
-					{% block global_flashes %}
-					    {{ session_flash() }}
-					    
-						{% set options_flash = {'type': ['notice', 'success', 'warning'], 'dialog-name': 'symfony-layout-flash' } %}
-						{{ renderJquery('SESSION', 'flash', options_flash )|raw }} 	    
-					{% endblock %}
-				</div>		
-			
 				<div id="pi_page_bar_toggler"  class="menu-xp" ></div>
 				<div id="pi_media_bar_toggler" class="menu-xp org-tree-page" ></div>	
 									

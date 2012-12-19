@@ -1,0 +1,12 @@
+{% block subject %}
+{% autoescape false %}
+{{ 'pi.individual.form.mid.email.subject'|trans }}
+{% endautoescape %}
+{% endblock %}
+
+{% block body %}
+{% autoescape false %}
+{{ 'pi.individual.form.mid.email.body'|trans({'%passworde%': password, '%confirmationUrl%': confirmationUrl}) }}
+{% endautoescape %}
+{% endblock %}
+{% block body_html %}{% endblock %}

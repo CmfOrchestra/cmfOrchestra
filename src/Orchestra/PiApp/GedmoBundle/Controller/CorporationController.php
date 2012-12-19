@@ -25,8 +25,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
 use PiApp\GedmoBundle\Entity\Corporation;
+use PiApp\GedmoBundle\Entity\Individual;
 use PiApp\GedmoBundle\Form\CorporationType;
+use PiApp\GedmoBundle\Form\AdhesionType;
 use PiApp\GedmoBundle\Entity\Translation\CorporationTranslation;
+use Symfony\Component\Form\FormError;
+use BootStrap\UserBundle\Entity\User;
 
 /**
  * Corporation controller.
@@ -417,4 +421,156 @@ class CorporationController extends abstractController
         ));
     }     
     
+    /**
+     * Template : adhesion of Corporation or Individual.
+     *
+     * @Cache(maxage="86400")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access	public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function _template_adhesionAction($template = '_template_form_adhesion.html.twig', $lang = "", $type = 'lamelee')
+    {
+
+        $em 		= $this->getDoctrine()->getEntityManager();
+        $new   = $this->container->get('request')->get('new');
+        
+        if(empty($lang))
+          $lang	= $this->container->get('session')->getLocale();
+        
+        $params['type'] = $type;
+        $params['template'] = $template;
+        
+    	  $category   = $this->container->get('request')->query->get('category');
+        $NoLayout   = $this->container->get('request')->query->get('NoLayout');
+        
+        $entity   = new Individual();
+        //$entity   = new Corporation();
+        $render = '';
+        
+        
+        if (!empty($new)){
+            $render = $this->container->get('http_kernel')->render('PiAppGedmoBundle:Corporation:_template_adhesionValidation', array('attributes'=>$params));
+        }
+      
+        $entity->setInscrName('Nom*');  
+        $entity->setInscrNickname('Prénom*');
+        $entity->setInscrUserName('Identifiant');
+        $entity->setInscrEmail('Email pro*');
+        $entity->setInscrPersoEmail('Email perso*');        
+        $entity->setInscrPhone('Téléphone');
+        $entity->setEntrActivity('Activité*');
+        $entity->setInscrJob('Fonction*');
+        $entity->setEntrStaff('Effectif*');
+
+        $form   	= $this->createForm(new AdhesionType($em, $this->container), $entity, array('show_legend' => false));
+
+        return $this->render("PiAppGedmoBundle:Corporation:$template", array(
+            'entity' 	=> $entity,
+            'form'   	=> $form->createView(),
+            'NoLayout'  => $NoLayout,
+            'category'	=> $category,
+            'new'	=> 1,
+            'render'	=> $render,
+        ));  
+    }
+
+    public function _template_adhesionValidationAction($template = '_template_form_adhesion.html.twig', $lang = "", $type = 'lamelee')
+    {
+      $em        = $this->getDoctrine()->getEntityManager();
+      $request   = $this->container->get('request');
+
+      if(empty($lang))
+              $lang   = $this->container->get('session')->getLocale();
+       
+      $category   = $this->container->get('request')->query->get('category');
+
+      $NoLayout   = $this->container->get('request')->query->get('NoLayout');
+      
+      $status   = $this->container->get('request')->get('status');
+      
+      if($status == 0)
+        $entity   = new Individual();
+      else
+        $entity   = new Corporation();
+
+      $form     = $this->createForm(new AdhesionType($em, $this->container), $entity, array('show_legend' => false));
+
+      $data = $request->get($form->getName(), array());
+      $form->bind($data);
+
+      $user_name  = $em->getRepository('BootStrapUserBundle:User')->findOneByName($form["InscrUserName"]->getData());
+      if($user_name != null){
+        $form->addError(new FormError('error message : username already exists!'));
+      }
+      
+      $user_email = $em->getRepository('BootStrapUserBundle:User')->findOneByEmail($form["InscrEmail"]->getData());
+
+      if($user_email != null){
+        $form->addError(new FormError('error message : email already exists!'));
+      }
+
+      if ($form->isValid()) {
+          $password = 'abonne';//\PiApp\AdminBundle\Util\PiStringManager::random(8);
+
+          $user = new User();
+          $user->setUsername($form["InscrUserName"]->getData());
+          $user->getUsernameCanonical($form["InscrUserName"]->getData());
+          $user->setPlainPassword($password);
+          $user->setEmail($form["InscrEmail"]->getData());
+          $user->setEmailCanonical($form["InscrEmail"]->getData());
+          $user->setEnabled(true);
+          $user->setRoles(array('ROLE_SUBSCRIBER'));
+          $user->setPermissions(array('VIEW', 'EDIT', 'CREATE', 'DELETE'));
+
+          $user->addGroupUser($em->getRepository('BootStrapUserBundle:Group')->findOneByName('Groupe User'));
+          $user->setLangCode($em->getRepository('PiAppAdminBundle:Langue')->findOneById('fr_FR'));
+
+          $em->persist($user);
+          $em->flush();
+          
+          $entity->setTranslatableLocale($lang);
+          $entity->setUser($user);
+
+          $em->persist($entity);
+          $em->flush();
+
+          $flash = $this->get('translator')
+	                         ->trans('Abonnement.flash.user_created',
+	                                  array('%email%' => $form["InscrEmail"]->getData()));
+	                      
+	          $this->get('session')->setFlash('success', $flash);
+          
+          //send mail
+//          $templateFile = "PiAppGedmoBundle:Corporation:email_adhesion_".$type.".html.twig";
+//          $templateContent = $this->get('twig')->loadTemplate($templateFile);
+//
+//          $subject = ($templateContent->hasBlock("subject")
+//              ? $templateContent->renderBlock("subject", array(
+//              'confirmationUrl' =>  $user->getConfirmationToken(),
+//              'password' => $password
+//              ))
+//              : "Default subject here");
+//          $body = ($templateContent->hasBlock("body")
+//              ? $templateContent->renderBlock("body", array(
+//              'confirmationUrl' =>  $user->getConfirmationToken(),
+//              'password' => $password
+//              ))
+//              : "Default body here");  
+//
+//          $this->_send_mail('adhesion@midenews.fr', $user->getEmail(), $subject, $body);
+        
+          return new Response('');
+          
+      }
+          return $this->render("PiAppGedmoBundle:Corporation:$template", array(
+              'entity'      => $entity,
+              'form'        => $form->createView(),
+              'NoLayout'    => $NoLayout,
+              'category'    => $category,
+              'new'	=> 1,
+              'render'	=> '',
+          )); 
+    }        
 }

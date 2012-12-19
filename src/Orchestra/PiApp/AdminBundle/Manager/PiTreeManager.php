@@ -119,6 +119,7 @@ class PiTreeManager extends PiCoreManager implements PiTreeManagerBuilderInterfa
 		}	
 		
 		if(!empty($template)){
+			$params['locale']		= $locale;
 			$params['nodes']		= $nodes;
 			$params['repository']	= $em->getRepository($entity);
 			$response 				= $this->container->get('templating')->renderResponse("PiAppTemplateBundle:Template\\Tree:$template", $params);

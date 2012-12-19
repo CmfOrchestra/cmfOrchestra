@@ -63,15 +63,15 @@ class SliderType extends AbstractType
 	        		'data'  => true,
         			'label'	=> 'pi.form.label.field.enabled',
 	        ))
-	        ->add('published_at', 'date', array(
-	        		'widget' 	=> 'single_text', // choice, text, single_text
-	        		'input' 	=> 'datetime',
-	        		'format' 	=> $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
-	        		"attr" 	=> array(
-	        				"class"=>"pi_datepicker",
-	        		),
-	        		'label'	=> 'pi.form.label.date.publication',
-	        ))
+// 	        ->add('published_at', 'date', array(
+// 	        		'widget' 	=> 'single_text', // choice, text, single_text
+// 	        		'input' 	=> 'datetime',
+// 	        		'format' 	=> $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
+// 	        		"attr" 	=> array(
+// 	        				"class"=>"pi_datepicker",
+// 	        		),
+// 	        		'label'	=> 'pi.form.label.date.publication',
+// 	        ))
 	        ->add('category', 'entity', array(
 	        		'class' => 'PiAppGedmoBundle:Category',
 	        		'query_builder' => function(EntityRepository $er) {

@@ -1,0 +1,211 @@
+{% if render == '' %}
+		<section class="breadcrumb">
+			<div class="wrap">
+				<a class="underline" href="#">Home</a> >
+				<a href="#" class="tt-clr"> M'inscrire</a>
+			</div>
+		</section>
+		<div class="wrap">
+			<header>
+				<h2 class="tt-1">M'inscrire</h2>
+				<p class="tt-10">Gérer simplement vos abonnements newsletter et vos événements 
+				en vous inscrivant gratuitement à La Mêlée Numérique.</p>
+			</header>
+		</div>
+		
+		<section class="bloc-inscription">
+			<div class="wrap">
+				<div class="content">
+					<form action="" method="POST" class="cf" novalidate>
+            <input type="hidden" id="new" name="new" value="{{new}}">
+            {{ form_errors(form) }}
+            {{ form_widget(form._token) }}
+						<div class="title-border-simple cf">
+							<h3 class="tt-9 tt-clr fleft">Mes données personnelles</h3>
+              
+						</div>
+						<fieldset>
+							<div class="row cf">
+								{{ form_widget(form.InscrName) }}
+								{{ form_widget(form.InscrNickname) }}
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend class="bold">Entreprise</legend>
+							<div class="row cf">
+								{{ form_widget(form.InscrJob) }}
+								{{ form_widget(form.EntrCompany) }}
+							</div>
+							<div class="row" id="activity">	
+                  {{ form_widget(form.EntrActivity) }}
+									{{ form_widget(form.EntrStaff) }}
+								</div>
+								<div class="row hidden" id="activityList">	
+									<select class="resetRight selectSize">
+										<option>Ingénierie de la connaissance</option>
+										<option>1</option>
+										<option>1</option>
+										<option>1</option>
+									</select>
+								</div>
+							<div class="row">
+								{{ form_widget(form.url) }}
+							</div>
+						
+						</fieldset>
+						<fieldset class="resetBorder">
+								<legend class="bold">Contact</legend>
+								<div class="row">	
+									{{ form_widget(form.InscrEmail) }}
+									{{ form_widget(form.InscrCp) }}
+								</div>
+								<div class="row">	
+									{{ form_widget(form.InscrPhone) }}
+								</div>
+						</fieldset>
+
+						<fieldset>
+							<legend class="bold">Vos identifiants réseaux sociaux </legend>
+								<div class="row cf">
+									<label class="social fb fleft">Facebook</label>
+									{{ form_widget(form.InscrFacebook) }}
+								</div>
+								<div class="row cf">
+									<label class="social gPlus fleft">Google +</label>
+									{{ form_widget(form.InscrGooglePlus) }}
+								</div>
+								<div class="row cf">
+									<label class="social twitter fleft">Twitter</label>
+									{{ form_widget(form.InscrTwitter) }}
+								</div>
+								<div class="row cf">
+									<label class="social linked fleft">LinedIn</label>
+									{{ form_widget(form.InscrLinkedIn) }}
+								</div>
+								<div class="row cf">
+									<label class="social viadeo fleft">Viadeo</label>
+									{{ form_widget(form.InscrViadeo) }}
+								</div>
+							<div class="id-choice">
+								
+								{{ form_row(form.InscrUserName) }}
+
+								<p class="light-clr"><small>Il vous sera demandé à chaque connexion et sera définitif</small></p>
+							</div>	
+							<p class="light-clr"><span class="tt-clr">*</span> champs obligatoire</p>
+
+						</fieldset>
+
+						<div class="title-border-simple cf">
+							<h3 class="tt-9 tt-clr fleft">Mes newsletter</h3>
+						</div>
+						
+						<p class="light-clr">
+							Veuillez sélectionner les newsletters que vous souhaitez recevoir :
+						</p>
+						<div class="row cf">
+							<div class="field fleft">
+								<input type="checkbox">
+								<label class="light-clr bold">Infomêlée</label>
+							</div>
+
+							<div class="field fleft">
+								<input type="checkbox">
+								<label class="light-clr bold">MID e-news</label>
+							</div>
+							<div class="field fleft">
+								<input type="checkbox">
+								<label class="light-clr bold">Infocantine</label>
+							</div>
+							<div class="field fleft">
+								<input type="checkbox" id="list-news">
+								<label class="light-clr bold">Thema'TIC</label>
+							</div>
+							<div class="bulle-info news-list cf fright">
+								<span class="arrow"></span>
+								<div class="half fleft">
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Systeme d'informations</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Sécurité informatique</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">International</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Logiciels libre</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Innovation</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Emplois et formation</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Intelligence Collective</label>
+									</div>
+									
+								</div>
+								<div class="half fleft">
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Systeme d'informations</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Sécurité informatique</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">International</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Logiciels libre</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Innovation</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Emplois et formation</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Intelligence Collective</label>
+									</div>		
+								</div>
+							</div>
+						</div>
+
+						<div class="button-ct clear">
+							<a href="#" class="button purple"><!--
+								--><span>Je m'inscris</span><!--
+							--></a>
+						</div>
+
+					</form>
+
+				</div>
+				<p class="light-clr"><small>
+					Les informations recueillies dans ce formulaire font l'objet d'un traitement
+					 informatique destiné à l'usage exclusif de La Mêlée. Conformément à la loi 
+					 "Informatique et Libertés" du 6 janvier 1978, vous bénéficiez d'un droit
+					  d'accès, de modification, de suppression et d'opposition aux données vous 
+					  concernant. Si vous souhaitez exercer ces droits, veuillez vous adresser à 
+					  La Mêlée - 22 route d'Espagne - 31100 Toulouse ou écrire à e.forzy@meleenumerique.com.</small>
+					</p>
+			</div>
+		</section>	
+{% else %}
+  {{ render|raw }}
+{% endif %}	

@@ -1,5 +1,4 @@
 <?php
-// src/Bootstrap/UserBundle/Controller/RegistrationController.php
 namespace Bootstrap\UserBundle\Controller;
 
 use FOS\UserBundle\Controller\RegistrationController as BaseController;
@@ -16,7 +15,7 @@ class RegistrationController extends BaseController
 {
     public function registerAction()
     {
-        $form = $this->container->get('fos_user.registration.form');
+        $form 		 = $this->container->get('fos_user.registration.form');
         $formHandler = $this->container->get('fos_user.registration.form.handler');
 
         $confirmationEnabled = $this->container->getParameter('fos_user.registration.confirmation.enabled');
@@ -46,7 +45,7 @@ class RegistrationController extends BaseController
             return $response;
         }
 
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:register.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('PiAppTemplateBundle:Template\\Login\\Registration:register.html.'.$this->getEngine(), array(
             'form' => $form->createView(),
             'theme' => $this->container->getParameter('fos_user.template.theme'),
         ));

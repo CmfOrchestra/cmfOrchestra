@@ -385,9 +385,6 @@ class PartnerController extends abstractController
     	if(empty($lang))
     		$lang	= $this->container->get('session')->getLocale();
     		
-    	if(method_exists($entity, "getTemplate") && $entity->getTemplate() != "")
-    		$template = $entity->getTemplate();    		
-    		
     	$query		= $em->getRepository("PiAppGedmoBundle:Partner")->getAllByCategory($category, $MaxResults, $order)->getQuery();
         $entities   = $em->getRepository("PiAppGedmoBundle:Partner")->findTranslationsByQuery($lang, $query, 'object', false);                   
 

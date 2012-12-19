@@ -75,9 +75,24 @@ class Category extends AbstractDefault
     /**
      * @Gedmo\Translatable
      * @ORM\Column(name="name", type="string", length=255, nullable = true)
-     * @Assert\NotBlank()
      */
     protected $name;
+    
+    /**
+     * @var text $descriptif
+     *
+     * @Gedmo\Translatable
+     * @ORM\Column(name="descriptif", type="text", nullable=true)
+     */
+    protected $descriptif;
+    
+    /**
+     * @var \PiApp\GedmoBundle\Entity\Media $media
+     *
+     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Media" , cascade={"all"}, inversedBy="entitycategory");
+     * @ORM\JoinColumn(name="media_id", referencedColumnName="id", nullable=true)
+     */
+    protected $media;    
 
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
@@ -228,6 +243,53 @@ class Category extends AbstractDefault
     public function getName()
     {
     	return $this->name;
+    }    
+    
+    /**
+     * Set descriptif
+     *
+     * @param text $descriptif
+     */
+    public function setDescriptif($descriptif)
+    {
+    	$this->descriptif = $descriptif;
+    	return $this;
+    }
+    
+    /**
+     * Get descriptif
+     *
+     * @return text
+     */
+    public function getDescriptif()
+    {
+    	return $this->descriptif;
+    }
+    
+    /**
+     * Set media
+     *
+     * @param \PiApp\GedmoBundle\Entity\Media $media
+     */
+    public function setMedia($media)
+    {
+    	//     	if(($media instanceof \PiApp\GedmoBundle\Entity\Media) && ($media->getImage()->getName() == ""))
+    	// 	    	$this->media = null;
+    	//     	else{
+    	//     		$this->media = $media;
+    	//     	}
+    	$this->media = $media;
+    	return $this;
+    }
+    
+    /**
+     * Get media
+     *
+     * @return \PiApp\GedmoBundle\Entity\Media
+     */
+    public function getMedia()
+    {
+    	return $this->media;
     }    
 
     /**

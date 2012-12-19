@@ -70,16 +70,16 @@ class CorporationType extends AbstractType
  					'data'  => true,
  					'label'	=> 'pi.form.label.field.enabled',
  			))
- 			->add('archive_at', 'date', array(
- 					'widget' => 'single_text', // choice, text, single_text
- 					'input' => 'datetime',
- 					'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
- 					'required'  => false,
- 					"attr" => array(
- 							"class"=>"pi_datepicker",
- 					),
- 					'label'	=> 'pi.form.label.date.archivage',
- 			))        	
+//  			->add('archive_at', 'date', array(
+//  					'widget' => 'single_text', // choice, text, single_text
+//  					'input' => 'datetime',
+//  					'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
+//  					'required'  => false,
+//  					"attr" => array(
+//  							"class"=>"pi_datepicker",
+//  					),
+//  					'label'	=> 'pi.form.label.date.archivage',
+//  			))        	
  			->add('user', new \BootStrap\UserBundle\Form\Type\RegistrationFormType('collection'))	
  			->add('pageurl', 'entity', array(
  					'class' => 'PiAppAdminBundle:Page',
@@ -99,7 +99,7 @@ class CorporationType extends AbstractType
  					'required'  => false,
  			)) 	
  			->add('url', 'text', array(
- 					"label" 	=> "pi.form.label.field.url",
+ 					"label" 	=> "pi.form.label.field.or",
  					"label_attr" => array(
  							"class"=>"page_collection",
  					),

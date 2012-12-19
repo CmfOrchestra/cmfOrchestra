@@ -1,0 +1,13 @@
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+	{% set layout_nav = app.session.get('wurfl-layout') %}
+{% else %}
+	{% set layout_nav = getParameter('pi_app_admin.layout.template.connexion') %}
+{% endif %}	
+
+{% extends layout_nav %}
+
+{% block title %}{% endblock %}
+ 
+{% block content %}
+    {% block fos_user_content %}{% endblock %}
+{% endblock %}

@@ -16,7 +16,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity as UniqueEntity;
 
 use BootStrap\TranslationBundle\Model\AbstractDefault;
 
@@ -27,7 +27,7 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  * @ORM\Entity(repositoryClass="PiApp\GedmoBundle\Repository\IndividualRepository")
  * @ORM\HasLifecycleCallbacks()
  * @Gedmo\TranslationEntity(class="PiApp\GedmoBundle\Entity\Translation\IndividualTranslation")
- *
+ * @UniqueEntity({"InscrUserName", "InscrEmail"})
  * @category   Gedmo_Entities
  * @package    Entity
  *
@@ -78,7 +78,8 @@ class Individual extends AbstractDefault
      * @var \BootStrap\UserBundle\Entity\User $user
      *
      * @ORM\OneToOne(targetEntity="BootStrap\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
+     * 
      */
     protected $user;    
 
@@ -106,18 +107,37 @@ class Individual extends AbstractDefault
     protected $media;
 
     /**
-     * @var string $Inscrname
+     * @var string $InscrName
      *
      * @ORM\Column(name="inscr_name", type="string", nullable = true)
+     * @Assert\NotBlank()
      */
     protected $InscrName;
+
+    /**
+     * @var string $InscrUserName
+     *
+     * @ORM\Column(name="inscr_user_name", type="string", nullable = true)
+     * @Assert\NotBlank()
+     */
+    protected $InscrUserName;
     
     /**
      * @var string $InscrNickname
      *
      * @ORM\Column(name="inscr_nickname", type="string", nullable = true)
+     * @Assert\NotBlank()
      */
     protected $InscrNickname;
+    
+    /**
+     * @var string $InscrEmail
+     *
+     * @ORM\Column(name="inscr_email", type="string", nullable = true)
+     * @Assert\NotBlank()
+     * @Assert\Email()
+     */
+    protected $InscrEmail;
     
     /**
      * @var string $InscrPhone
@@ -129,7 +149,8 @@ class Individual extends AbstractDefault
     /**
      * @var string $InscrJob
      *
-     * @ORM\Column(name="inscr_entr_job", type="string", nullable = true)
+     * @ORM\Column(name="inscr_job", type="string", nullable = true)
+     * @Assert\NotBlank()
      */
     protected $InscrJob;
     
@@ -137,6 +158,7 @@ class Individual extends AbstractDefault
      * @var string $EntrCompany
      *
      * @ORM\Column(name="entr_company", type="string", nullable = true)
+     * 
      */
     protected $EntrCompany;
     
@@ -160,6 +182,49 @@ class Individual extends AbstractDefault
      * @ORM\Column(name="entr_staff", type="string", nullable = true)
      */
     protected $EntrStaff;    
+    
+    /**
+     * @var string $InscrCp
+     *
+     * @ORM\Column(name="inscr_cp", type="text", length=255, nullable = true)
+     * @Assert\NotBlank()
+     */
+    protected $InscrCp;    
+    
+    /**
+     * @var string $InscrFacebook
+     *
+     * @ORM\Column(name="inscr_facebook", type="string", nullable = true)
+     */
+    protected $InscrFacebook;
+    
+    /**
+     * @var string $InscrGooglePlus
+     *
+     * @ORM\Column(name="inscr_google_plus", type="string", nullable = true)
+     */
+    protected $InscrGooglePlus;
+    
+    /**
+     * @var string $InscrTwitter
+     *
+     * @ORM\Column(name="inscr_twitter", type="string", nullable = true)
+     */
+    protected $InscrTwitter;
+    
+    /**
+     * @var string $InscrLinkedIn
+     *
+     * @ORM\Column(name="inscr_linkedin", type="string", nullable = true)
+     */
+    protected $InscrLinkedIn;
+    
+    /**
+     * @var string $InscrViadeo
+     *
+     * @ORM\Column(name="inscr_viadeo", type="string", nullable = true)
+     */
+    protected $InscrViadeo;
     
     /**
      * Constructor
@@ -204,7 +269,7 @@ class Individual extends AbstractDefault
      *
      * @param \BootStrap\UserBundle\Entity\User
      */
-    public function setUser(\BootStrap\UserBundle\Entity\User $user)
+    public function setUser($user)
     {
     	$this->user = $user;
     }
@@ -301,7 +366,27 @@ class Individual extends AbstractDefault
     {
         return $this->InscrName;
     }
+    
+    /**
+     * Set InscrUserName
+     *
+     * @param text $inscrUserName
+     */
+    public function setInscrUserName($inscrUserName)
+    {
+        $this->InscrUserName = $inscrUserName;
+    }
 
+    /**
+     * Get InscrUserName
+     *
+     * @return text 
+     */
+    public function getInscrUserName()
+    {
+        return $this->InscrUserName;
+    }
+    
     /**
      * Set InscrNickname
      *
@@ -321,7 +406,29 @@ class Individual extends AbstractDefault
     {
         return $this->InscrNickname;
     }
-
+    
+    /**
+     * Set InscrEmail
+     *
+     * @param string $InscrEmail
+     * @return this
+     */
+    public function setInscrEmail($InscrEmail)
+    {
+    	$this->InscrEmail = $InscrEmail;
+    	return $this;
+    }    
+    
+    /**
+     * Get InscrEmail
+     *
+     * @return string
+     */
+    public function getInscrEmail()
+    {
+    	return $this->InscrEmail;
+    }    
+    
     /**
      * Set InscrPhone
      *
@@ -441,5 +548,136 @@ class Individual extends AbstractDefault
     {
         return $this->EntrStaff;
     }
-
+    
+    /**
+     * Set InscrCp
+     *
+     * @param string $InscrCp
+     * @return this
+     */
+    public function setInscrCp($InscrCp)
+    {
+    	$this->InscrCp = $InscrCp;
+    	return $this;
+    }
+    
+    /**
+     * Get InscrCp
+     *
+     * @return string
+     */
+    public function getInscrCp()
+    {
+    	return $this->InscrCp;
+    }
+    
+    /**
+     * Set InscrFacebook
+     *
+     * @param string $InscrFacebook
+     * @return this
+     */
+    public function setInscrFacebook($InscrFacebook)
+    {
+    	$this->InscrFacebook = $InscrFacebook;
+    	return $this;
+    }
+    
+    /**
+     * Get InscrFacebook
+     *
+     * @return string
+     */
+    public function getInscrFacebook()
+    {
+    	return $this->InscrFacebook;
+    }   
+    
+    /**
+     * Set InscrGooglePlus
+     *
+     * @param string $InscrGooglePlus
+     * @return this
+     */
+    public function setInscrGooglePlus($InscrGooglePlus)
+    {
+    	$this->InscrGooglePlus = $InscrGooglePlus;
+    	return $this;
+    }
+    
+    /**
+     * Get InscrGooglePlus
+     *
+     * @return string
+     */
+    public function getInscrGooglePlus()
+    {
+    	return $this->InscrGooglePlus;
+    }   
+    
+    /**
+     * Set InscrTwitter
+     *
+     * @param string $InscrTwitter
+     * @return this
+     */
+    public function setInscrTwitter($InscrTwitter)
+    {
+    	$this->InscrTwitter = $InscrTwitter;
+    	return $this;
+    }
+    
+    /**
+     * Get InscrTwitter
+     *
+     * @return string
+     */
+    public function getInscrTwitter()
+    {
+    	return $this->InscrTwitter;
+    }   
+    
+    /**
+     * Set InscrLinkedIn
+     *
+     * @param string $InscrLinkedIn
+     * @return this
+     */
+    public function setInscrLinkedIn($InscrLinkedIn)
+    {
+    	$this->InscrLinkedIn = $InscrLinkedIn;
+    	return $this;
+    }
+    
+    /**
+     * Get InscrLinkedIn
+     *
+     * @return string
+     */
+    public function getInscrLinkedIn()
+    {
+    	return $this->InscrLinkedIn;
+    }   
+    
+    /**
+     * Set InscrViadeo
+     *
+     * @param string $InscrViadeo
+     * @return this
+     */
+    public function setInscrViadeo($InscrViadeo)
+    {
+    	$this->InscrViadeo = $InscrViadeo;
+    	return $this;
+    }
+    
+    /**
+     * Get InscrViadeo
+     *
+     * @return string
+     */
+    public function getInscrViadeo()
+    {
+    	return $this->InscrViadeo;
+    }   
 }

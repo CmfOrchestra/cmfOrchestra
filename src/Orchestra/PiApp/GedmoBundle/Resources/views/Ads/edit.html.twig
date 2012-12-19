@@ -38,7 +38,6 @@
 	{% set options = {'prototype-name': ['translations'], 'prototype-tab-title': 'Translate'} %}
 	{{ renderJquery('FORM', 'prototype-bytab', options )|raw }}
 		
-		
 	<ul class="record_actions">
 		<li>
 	        <form action="{{ path('admin_gedmo_ads', { 'NoLayout': NoLayout, 'category':category }) }}" method="post">
@@ -54,7 +53,5 @@
 	        </form>
 	    </li>
 	    {% endif %}
-	    
-	
 	</ul>
 {% endblock %}		

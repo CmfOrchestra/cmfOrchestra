@@ -66,22 +66,22 @@ class ContentType extends AbstractType
 	        				"class"=>"content_collection",
 	        		),
 	        ))
-	        ->add('published_at', 'date', array(
-	        		'widget' => 'single_text', // choice, text, single_text
-	        		'input' => 'datetime',
-	        		'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
-	        		'empty_value' => array('year' => 'Année', 'month' => 'Mois', 'day' => 'Jour'),
-	        		//'pattern' => "{{ day }}/{{ month }}/{{ year }}",
-	        		//'data_timezone' => "Europe/Paris",
-	        		//'user_timezone' => "Europe/Paris",
-	        		"attr" => array(
-	        				"class"=>"pi_datepicker",
-	        		),
-	        		'label'	=> 'pi.form.label.date.publication',
-	        		"label_attr" => array(
-	        				"class"=>"content_collection",
-	        		),
-	        ))
+// 	        ->add('published_at', 'date', array(
+// 	        		'widget' => 'single_text', // choice, text, single_text
+// 	        		'input' => 'datetime',
+// 	        		'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
+// 	        		'empty_value' => array('year' => 'Année', 'month' => 'Mois', 'day' => 'Jour'),
+// 	        		//'pattern' => "{{ day }}/{{ month }}/{{ year }}",
+// 	        		//'data_timezone' => "Europe/Paris",
+// 	        		//'user_timezone' => "Europe/Paris",
+// 	        		"attr" => array(
+// 	        				"class"=>"pi_datepicker",
+// 	        		),
+// 	        		'label'	=> 'pi.form.label.date.publication',
+// 	        		"label_attr" => array(
+// 	        				"class"=>"content_collection",
+// 	        		),
+// 	        ))
 // 	        ->add('archive_at', 'date', array(
 // 	        		'widget' => 'single_text', // choice, text, single_text
 // 	        		'input' => 'datetime',

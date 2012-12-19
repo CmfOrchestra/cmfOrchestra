@@ -29,6 +29,19 @@
 	            <th>Name</th>	
 	            <td>{{ entity.name }}</td>	
 	        </tr>	
+			</tr>	
+				<tr>
+	            <th>Sous- titre</th>	
+	            <td>{{ entity.subtitle }}</td>	
+	        </tr>	  	        
+			<tr>
+	        	<th>Media</th>
+	        	<td>
+	        		{% if entity.media.image is defined %}
+	        			{% media entity.media.image, 'reference' %}
+	        		{% endif %}
+	        	</td>
+	        </tr>    	        
 	    </tbody>
 	</table>
 

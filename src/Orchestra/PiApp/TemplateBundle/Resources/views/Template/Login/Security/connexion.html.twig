@@ -1,0 +1,57 @@
+<div id="div-connexion">
+	{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+	<div class="login connected">
+		<h3 class="tt-clr tt-9 bold">BONJOUR</h3>
+		<p class="tt-clr  bold">{{ app.user.username }}</p>
+		<a href="#" class="mySpace">Mon espace</a>
+		<div class="action cf">
+				<a href="{{ path('fos_user_security_logout') }}" class="fleft">{{ 'layout.logout'|trans([], 'FOSUserBundle') }}</a>
+		</div>	
+	</div>
+	{% else %}
+	<div class="login">
+	
+	{#
+		<script type="text/javascript">
+		//<![CDATA[
+		    $(document).ready(function() {
+		        $('#form-connexion').on('submit', function(e) {
+					e.preventDefault()
+			        
+		        	var _username 	= jQuery(this).find('input[name="_username"]').val();
+		        	var _password 	= jQuery(this).find('input[name="_password"]').val();
+		        	var _csrf_token = jQuery(this).find('input[name="_csrf_token"]').val();
+
+		        	var _return = true;
+		        	
+		            $.ajax({
+		                url: $(this).attr('action'),
+		                data: "_username="+_username+"&_password="+_password+"&_csrf_token="+_csrf_token,
+		                type: $(this).attr('method'),
+		                success: function(html) {
+			                $("html").html(html);
+		                }
+		            });
+		        });
+		    });
+		//]]>
+		</script>  
+	#}		
+		<h3 class="tt-clr tt-9 bold">MON COMPTE</h3>
+		<form method="POST" action="{{ path('fos_user_security_check') }}" id="form-connexion" >
+			<span class="input-text">
+				 <input type="text" id="_username" name="_username" value="{% if error %}{{ error }}{% elseif last_username is not empty  %}{{ last_username }}{% else %}pseudo{% endif %}">
+			</span>
+			 <span class="input-pass">
+				 <input type="password" id="_password" name="_password" value="mot de passe">
+			</span>
+			<input type="hidden" id="_csrf_token" name="_csrf_token" value="{{ csrf_token }}" />
+			<input type="submit" value="OK">
+		</form>
+		<div class="action cf">
+			<a href="{{ path('fos_user_registration_register') }}" class="fleft" title="">{{ 'layout.register'|trans([], 'FOSUserBundle') }}</a>
+			<a href="{{ path('fos_user_resetting_request') }}" class="fright popin-pass fancybox.ajax">Mot de passe oublié?</a>
+		</div>
+	</div>	
+	{% endif %}
+</div>	
