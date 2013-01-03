@@ -90,14 +90,13 @@ class PiVeneerManager extends PiJqueryExtension
 							// we set up the venner on all blocks
 							$(".block_action_menu").css("display", 'inline-block');
 							$("orchestra[id^='block__'] h6").css("display", 'block');
-							$("orchestra[id^='block__']").veneer( {disabled: true, title: "<span>coincoin</span>"} );
+							$("orchestra[id^='block__']").veneer( {disabled: true, title: "<span></span>"} );
 							$("orchestra[id^='block__'] h6").veneer( {collapsible: true, uiBorder: true, title: "WIDGET" } );
 
 							// we add the admin block Template to all widget
 							$("orchestra[id^='block__']").each(function(index) {
 								var id_block      = $(this).data('id');
 								var id_name_block = $(this).data("name");
-								alert(id_name_block);
 								/* Allow to draggable the block */
 								$("#ui-dialog-title-block__"+id_block+" span").html("BLOCK " + id_name_block);
 							});
@@ -141,7 +140,7 @@ class PiVeneerManager extends PiJqueryExtension
 								drop: function(event, ui){
 
 									if(id_start_block != 0) {
-										id_end_block = $(this).data("id");
+										id_end_block = $(this).data("id");	
 										//alert(id_start_block);
 										//alert(id_end_block);
 

@@ -29,7 +29,7 @@
 		                data: "_username="+_username+"&_password="+_password+"&_csrf_token="+_csrf_token,
 		                type: $(this).attr('method'),
 		                success: function(html) {
-			                $("html").html(html);
+			                window.location.reload();
 		                }
 		            });
 		        });

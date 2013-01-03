@@ -49,6 +49,7 @@ class UserAdmin extends Admin
     protected function configureShowField(ShowMapper $showMapper)
     {
     	$showMapper
+    		->add('groups')
             ->add('username')
             ->add('email')
             ->add('enabled')
@@ -64,6 +65,7 @@ class UserAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
+        	->add('groups')
             ->addIdentifier('username')
             ->add('email')
             ->add('langCode')
@@ -86,6 +88,7 @@ class UserAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $filterMapper)
     {
         $filterMapper
+        	->add('groups')
             ->add('username')
             ->add('locked')
             ->add('email')

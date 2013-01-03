@@ -83,5 +83,29 @@ class WidgetRepository extends TranslationRepository
 	
 		return $query->getQuery();
 	}	
+	
+	/**
+	 * Find all snippet
+	 *
+	 * @param int	$enabled
+	 * @return object
+	 * @access	public
+	 *
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+	 */
+	public function getAllSnippet($enabled = 1, $ord = "ASC")
+	{
+		$query = $this->createQueryBuilder('w')
+		->select('w')
+		->where('w.enabled = :enabled')
+		->Andwhere("w.block is NULL")
+		->orderBy('w.configCssClass', $ord)
+		->setParameters(array(
+				'enabled'	=> $enabled,
+		))
+		;
+		 
+		return $query->getQuery()->getResult();
+	}	
 		
 }

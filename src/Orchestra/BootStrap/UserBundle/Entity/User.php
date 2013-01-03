@@ -89,7 +89,17 @@ class User extends BaseUser
      * @var array
      * @ORM\Column(type="array")
      */
-    protected $permissions;    
+    protected $permissions;   
+
+    /**
+     * @var \DateTime
+     */
+    public $expiresAt;
+    
+    /**
+     * @var \DateTime
+     */
+    public $credentialsExpireAt;    
     
 
     public function __construct()
@@ -183,6 +193,44 @@ class User extends BaseUser
     	if (!in_array($permission, $this->permissions, true)) {
     		$this->permissions[] = $permission;
     	}
+    }    
+    
+    /**
+     * Adds a role to the user.
+     *
+     * @param string $role
+     */
+    public function addRole($role)
+    {
+    	$role = strtoupper($role);
+    	if ($role === static::ROLE_DEFAULT) {
+    		return;
+    	}
+    
+    	if (!in_array($role, $this->roles, true)) {
+    		$this->roles[] = $role;
+    	}
+    }
+    
+    /**
+     * Returns the user roles
+     *
+     * Implements SecurityUserInterface
+     *
+     * @return array The roles
+     */
+    public function getRoles()
+    {
+    	$roles = $this->roles;
+    
+    	foreach ($this->getGroups() as $group) {
+    		$roles = array_merge($roles, $group->getRoles());
+    	}
+    	 
+    	// we need to make sure to have at least one role
+    	$roles[] = static::ROLE_DEFAULT;
+    	 
+    	return array_unique($roles);
     }    
 
     /**

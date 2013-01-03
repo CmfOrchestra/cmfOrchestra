@@ -36,22 +36,30 @@ $GLOBALS['ROUTE']['SLUGGABLE'] = array(
 );
 
 /**************************  MATRIX ENTITIES of RESTRICTION ROLES ***************************/
+$GLOBALS['ENTITIES']['RESTRICTION_BY_MEDIA']= array(
+//		'getBlock',
+//		'getContent',
+//		'getNew',
+//		'getPartner',
+//		'getPressrelease',
+//		'getContact',
+);
 $GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']= array(
 		'Proxies\PiAppGedmoBundleEntityMediaProxy',
 		'Proxies\BootStrapMediaBundleEntityMediaProxy',
-		'PiApp\GedmoBundle\Entity\Media',
-		'PiApp\GedmoBundle\Entity\Block',
-		'PiApp\GedmoBundle\Entity\Translation\BlockTranslation',
-		'PiApp\GedmoBundle\Entity\Content',
-		'PiApp\GedmoBundle\Entity\Translation\ContentTranslation',
-		'PiApp\GedmoBundle\Entity\News',
-		'PiApp\GedmoBundle\Entity\Translation\NewsTranslation',
-		'PiApp\GedmoBundle\Entity\Partner',
-		'PiApp\GedmoBundle\Entity\Translation\PartnerTranslation',
-		'PiApp\GedmoBundle\Entity\Pressrelease',
-		'PiApp\GedmoBundle\Entity\Translation\PressreleaseTranslation',
-		'PiApp\GedmoBundle\Entity\Contact',
-		'PiApp\GedmoBundle\Entity\Translation\ContactTranslation',
+		
+// 		'PiApp\GedmoBundle\Entity\Block',
+// 		'PiApp\GedmoBundle\Entity\Translation\BlockTranslation',
+// 		'PiApp\GedmoBundle\Entity\Content',
+// 		'PiApp\GedmoBundle\Entity\Translation\ContentTranslation',
+// 		'PiApp\GedmoBundle\Entity\News',
+// 		'PiApp\GedmoBundle\Entity\Translation\NewsTranslation',
+// 		'PiApp\GedmoBundle\Entity\Partner',
+// 		'PiApp\GedmoBundle\Entity\Translation\PartnerTranslation',
+// 		'PiApp\GedmoBundle\Entity\Pressrelease',
+// 		'PiApp\GedmoBundle\Entity\Translation\PressreleaseTranslation',
+// 		'PiApp\GedmoBundle\Entity\Contact',
+// 		'PiApp\GedmoBundle\Entity\Translation\ContactTranslation',
 );
 
 $GLOBALS['ENTITIES']['CRUD_PREPERSIST']= array(

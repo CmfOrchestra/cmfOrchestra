@@ -6,7 +6,7 @@
 
 .ui-veneer .ui-veneer-header a { font-size: 1em; padding: 0 0 0 .7em; }
 .ui-veneer-icons .ui-veneer-header a { padding-left: 2.2em; }
-.ui-veneer .ui-veneer-header .ui-icon { position: absolute; left: .5em; top: 50%; margin-top: -8px; }
+.ui-veneer .ui-veneer-header .ui-icon { position: absolute; left: -2em; top: 50%; margin-top: -8px; }
 
 .ui-veneer .ui-veneer-content { position: relative; top: 1px; margin-bottom: 2px;  padding: 0 0 0 0;}
 

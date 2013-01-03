@@ -41,7 +41,7 @@ class Block extends AbstractDefault
 	 * @var array
 	 * @access  protected
 	 */
-	protected $_fields	= array('title', 'descriptif', 'content');
+	protected $_fields	= array('title', 'descriptif', 'content', 'url_title');
 
 	/**
 	 * Name of the Translation Entity
@@ -119,7 +119,14 @@ class Block extends AbstractDefault
      *
      * @ORM\Column(name="url", type="string", length=314, nullable=true)
      */
-    protected $url;    
+    protected $url;   
+
+    /**
+     * @var string $url_title
+     * @Gedmo\Translatable
+     * @ORM\Column(name="url_title", type="string", length=255, nullable = true)
+     */
+    protected $url_title;    
     
     /**
      * @var \PiApp\GedmoBundle\Entity\Media $media
@@ -313,6 +320,28 @@ class Block extends AbstractDefault
     {
     	return $this->url;
     }
+    
+    /**
+     * Set url_title
+     *
+     * @param string $urlTitle
+     * @return this
+     */
+    public function setUrlTitle($urlTitle)
+    {
+    	$this->url_title = $urlTitle;
+    	return $this;
+    }
+    
+    /**
+     * Get url_title
+     *
+     * @return string
+     */
+    public function getUrlTitle()
+    {
+    	return $this->url_title;
+    }    
 
     /**
      * Set media

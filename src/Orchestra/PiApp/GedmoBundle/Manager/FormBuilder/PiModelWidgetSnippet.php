@@ -85,7 +85,8 @@ class PiModelWidgetSnippet extends PiFormBuilderManager
 	 */	
     public function buildForm(FormBuilder $builder, array $options)
     {   
-    	$choiceList		= $this->_em->getRepository('PiAppAdminBundle:Widget')->findBy(array('block'=>null));
+    	//$choiceList		= $this->_em->getRepository('PiAppAdminBundle:Widget')->findBy(array('block'=>null));
+    	$choiceList = $this->_em->getRepository('PiAppAdminBundle:Widget')->getAllSnippet(1, "ASC");
     	
     	$result = array();
     	if(is_array($choiceList)) {

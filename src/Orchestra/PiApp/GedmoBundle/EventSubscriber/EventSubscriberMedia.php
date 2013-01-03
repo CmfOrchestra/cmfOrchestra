@@ -134,24 +134,7 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
     	$entity			= $eventArgs->getEntity();
     	$entityManager 	= $eventArgs->getEntityManager();    
 
-    	$right = true;
-    	if($this->isUsernamePasswordToken() && isset($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) && in_array(get_class($entity), $GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) ){
-    		// Gets all user roles.
-    		$user_roles 			= array_unique(array_merge($this->getAllHeritageByRoles($this->getBestRoles($this->getUserRoles())), $this->getUserRoles()));
-    		// Gets the best role authorized to access to the entity.
-    		$authorized_page_roles 	= $this->getBestRoles($entity->getHeritage());
-    		 
-    		$right = false;
-    		if(!is_null($authorized_page_roles))
-    		{
-    			foreach($authorized_page_roles as $key=>$role_page){
-    				if(in_array($role_page, $user_roles))
-    					$right = true;
-    			}
-    		}
-    	}
-    	
-    	if ($right && $this->isUsernamePasswordToken() && ($entity instanceof \BootStrap\MediaBundle\Entity\Media) ){
+    	if (!$this->isRestrictionByRole($entity) && $this->isUsernamePasswordToken() && ($entity instanceof \BootStrap\MediaBundle\Entity\Media) ){
 	    	if ($eventArgs->hasChangedField('name')) {
 	    		$old_entity = clone($entity);
 	    		$old_entity->setProviderReference($eventArgs->getOldValue('providerReference'));
@@ -182,7 +165,7 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
     	
     	$default_pixel_name = $this->_cleanName($this->_container()->getParameter("pi_app_admin.page.media_pixel"));
     	
-    	if ( $this->isUsernamePasswordToken() && ($entity instanceof \PiApp\GedmoBundle\Entity\Media) && (($entity->getMediadelete() == true) || ($entity->getImage()->getName() == $default_pixel_name)) )
+    	if ( $this->isUsernamePasswordToken() && ($entity instanceof \PiApp\GedmoBundle\Entity\Media) && !$this->isRestrictionByRole($entity) && (($entity->getMediadelete() == true) || ($entity->getImage()->getName() == $default_pixel_name)) )
     	{
     		$getMedia 				= "getMedia";
     		$setMedia 				= "setMedia";

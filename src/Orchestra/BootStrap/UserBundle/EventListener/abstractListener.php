@@ -110,7 +110,7 @@ abstract class abstractListener
         
         // we give the right of persist if the entity is in the CRUD_PREPERSIST container
         if(isset($GLOBALS['ENTITIES']['CRUD_PREPERSIST']) && in_array(get_class($entity), $GLOBALS['ENTITIES']['CRUD_PREPERSIST']))
-        	return true;     
+        	return true;        
         
         // If AnonymousToken user,
         if ($isAnonymousToken && $this->isAnonymousToken()) {
@@ -186,8 +186,9 @@ abstract class abstractListener
         }
         
         // we give the right of update if the entity is in the CRUD_PREPERSIST container
-	    if(isset($GLOBALS['ENTITIES']['CRUD_PREUPDATE']) && in_array(get_class($entity), $GLOBALS['ENTITIES']['CRUD_PREUPDATE']))
-        	return true;        
+        if(isset($GLOBALS['ENTITIES']['CRUD_PREUPDATE']) && in_array(get_class($entity), $GLOBALS['ENTITIES']['CRUD_PREUPDATE']))
+        	return true;
+        
      	
        	// If AnonymousToken user,
        	if ($isAnonymousToken && $this->isAnonymousToken()) {
@@ -200,36 +201,18 @@ abstract class abstractListener
        		$this->setFlash('pi.session.flash.right.anonymous');
        		return false;
        	}
-
+        	
        	// If  autentication user
        	if ($isUsernamePasswordToken && $this->isUsernamePasswordToken()) {
+       		if($this->isRestrictionByRole($entity)){
+       			// just for register in data the change do in this class listener :
+       			$class = $entityManager->getClassMetadata(get_class($entity));
+       			$entityManager->getUnitOfWork()->computeChangeSet($class, $entity);
        		
-       		if(isset($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) && in_array(get_class($entity), $GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) ){
-       			// Gets all user roles.
-       			$user_roles 			= array_unique(array_merge($this->getAllHeritageByRoles($this->getBestRoles($this->getUserRoles())), $this->getUserRoles()));
-       			// Gets the best role authorized to access to the entity.
-       			$authorized_page_roles 	= $this->getBestRoles($entity->getHeritage());
-       			
-       			$right = false;
-       			if(is_null($authorized_page_roles))
-       				$right = true;
-       			else{
-       				foreach($authorized_page_roles as $key=>$role_page){
-       					if(in_array($role_page, $user_roles))
-       						$right = true;
-       				}        				
-       			}
-       			
-       			if(!$right){
-       				// just for register in data the change do in this class listener :
-       				$class = $entityManager->getClassMetadata(get_class($entity));
-       				$entityManager->getUnitOfWork()->computeChangeSet($class, $entity);
-       				
-       				// we throw the message.
-      					$this->setFlash('pi.session.flash.right.unupdate');
-      					return false;
-       			}
-       		}
+       			// we throw the message.
+       			$this->setFlash('pi.session.flash.right.unupdate');
+       			return false;
+       		}       		
        		
    			// if user have the edit right
    			if( in_array('EDIT', $this->getUserPermissions()) || in_array('ROLE_SUPER_ADMIN', $this->getUserRoles()) || $isAllPermissions) {
@@ -288,32 +271,14 @@ abstract class abstractListener
 	
 		// If  autentication user
 		if ($isUsernamePasswordToken && $this->isUsernamePasswordToken()) {
-			
-			if(isset($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) && in_array(get_class($entity), $GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) ){
-				// Gets all user roles.
-				$user_roles 			= array_unique(array_merge($this->getAllHeritageByRoles($this->getBestRoles($this->getUserRoles())), $this->getUserRoles()));
-				// Gets the best role authorized to access to the entity.
-				$authorized_page_roles 	= $this->getBestRoles($entity->getHeritage());
-				 
-				$right = false;
-				if(is_null($authorized_page_roles))
-					$right = true;
-				else{
-					foreach($authorized_page_roles as $key=>$role_page){
-						if(in_array($role_page, $user_roles))
-							$right = true;
-					}
-				}
-				 
-				if(!$right){
-					//  we stop the remove method.
-					$entityManager->getUnitOfWork()->detach($entity);
+			if($this->isRestrictionByRole($entity)){
+				//  we stop the remove method.
+				$entityManager->getUnitOfWork()->detach($entity);
 					
-					// we throw the message.
-					$this->setFlash('pi.session.flash.right.undelete');
-					return false;
-				}
-			}
+				// we throw the message.
+				$this->setFlash('pi.session.flash.right.undelete');
+				return false;
+			}			
 						
 			// if user have the delete right
 			if( in_array('DELETE', $this->getUserPermissions()) || in_array('ROLE_SUPER_ADMIN', $this->getUserRoles()) || $isAllPermissions) {
@@ -587,6 +552,64 @@ abstract class abstractListener
     	else
     		return false;
     }    
+    
+    /**
+     * Return true if the restriction on the entity is activated.
+     *
+     * @return boolean
+     * @param	object	$entity
+     * @access protected
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    protected function isRestrictionByRole($entity)
+    {
+    	$right = true;
+       	if(isset($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) && in_array(get_class($entity), $GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) ){
+       		// Gets all user roles.
+       		$user_roles 			= array_unique(array_merge($this->getAllHeritageByRoles($this->getBestRoles($this->getUserRoles())), $this->getUserRoles()));
+       		// Gets the best role authorized to access to the entity.
+       		$authorized_page_roles 	= $this->getBestRoles($entity->getHeritage());
+       		
+       		$right = false;
+       		if(is_null($authorized_page_roles))
+       			$right = true;
+       		else{
+       			foreach($authorized_page_roles as $key=>$role_page){
+       				if(in_array($role_page, $user_roles))
+       					$right = true;
+       			}        				
+       		}
+       		
+       		if( 
+       			( (get_class($entity) == 'Proxies\BootStrapMediaBundleEntityMediaProxy') || get_class($entity) == 'Proxies\PiAppGedmoBundleEntityMediaProxy')
+       			&& isset($GLOBALS['ENTITIES']['RESTRICTION_BY_MEDIA']) 
+  				&& is_array($GLOBALS['ENTITIES']['RESTRICTION_BY_MEDIA'])
+   				){
+       			$methods_authorized = $GLOBALS['ENTITIES']['RESTRICTION_BY_MEDIA'];
+      			
+       			if(get_class($entity) == 'Proxies\BootStrapMediaBundleEntityMediaProxy')
+       				$media	= $this->_container()->get('pi_app_gedmo.repository')->getRepository('Media')->findOneByMediaId($entity->getId());
+       			else
+       				$media	= $entity;
+      				
+      			$right = true;
+      			foreach($methods_authorized as $method){
+    	   			if( method_exists($media, $method) && is_object($media->$method()) ){
+	       				$right = false;
+       				}    
+      			}
+       			//        				$qb = $this->_connexion($eventArgs)->createQueryBuilder()
+      			//        				         ->select('*')
+      			//        				         ->from('gedmo_media', 'u')
+      			//        				         ->where("u.media = '{$entity->getId()}'");
+      			//        				$row 	= $qb->execute();       				
+       		}
+   		}
+   		$restriction = !$right;
+   		
+   		return $restriction;
+    }
     
     /**
      * Sets the repository service.

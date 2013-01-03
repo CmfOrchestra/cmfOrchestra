@@ -146,16 +146,23 @@ class BlockType extends AbstractType
  							"class"=>"pi_simpleselect",
  					),
  					"label_attr" => array(
- 							"class"=>"block_collection",
+ 							"class"=>"url_collection",
  					),
  			)) 			           
  			->add('url', 'text', array(
  					'required'  => false,
  					"label" 	=> "pi.form.label.field.or",
  					"label_attr" => array(
- 							"class"=>"block_collection",
+ 							"class"=>"url_collection",
  					), 					
  			))  
+ 			->add('url_title', 'text', array(
+ 					"label" => 'pi.form.label.field.title',
+ 					"label_attr" => array(
+ 							"class"=>"url_collection",
+ 					),
+ 					'required'  => false,
+ 			))
  			->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture')) 			                     
         ;
     }

@@ -35,6 +35,15 @@ class GroupsFixtures extends AbstractFixture implements OrderedFixtureInterface
 	 */	
     public function load(ObjectManager $manager)
     {
+
+    	$field0 = new Group('Groupe Subscriber', array('ROLE_SUBSCRIBER'));
+    	$field0->setEnabled(true);
+    	$manager->persist($field0);
+    	
+    	$field0_bis = new Group('Groupe Subscriber', array('ROLE_MEMBER'));
+    	$field0_bis->setEnabled(true);
+    	$manager->persist($field0_bis);    	
+    	    	
         $field1 = new Group('Groupe User', array('ROLE_USER'));
         $field1->setEnabled(true);
         $manager->persist($field1);
@@ -61,6 +70,8 @@ class GroupsFixtures extends AbstractFixture implements OrderedFixtureInterface
 
         $manager->flush();
         
+        $this->addReference('group-subscriber', $field0);
+        $this->addReference('group-member', $field0_bis);
         $this->addReference('group-user', $field1);
         $this->addReference('group-admin', $field2);
         $this->addReference('group-superadmin', $field3);

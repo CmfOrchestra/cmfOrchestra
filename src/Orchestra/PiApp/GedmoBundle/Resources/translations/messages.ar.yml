@@ -85,6 +85,7 @@ pi.block.formbuilder.template.choice0: كتلة وصف
 pi.block.formbuilder.template.choice1: كتلة شهادة
 pi.block.formbuilder.template.choice2: كتلة فيديو
 pi.block.form.group.pictures: الصور
+pi.block.form.group.url: رابط
 
 # ENTITY :: CONTENT
 pi.content.translation.title: ترجمة المحتوى

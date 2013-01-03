@@ -126,7 +126,7 @@ class PiModelWidgetBlock extends PiFormBuilderManager
 	        		'choices'   => array(
 	        				'_tmp_show-block-descriptif.html.twig'		=> 'pi.block.formbuilder.template.choice0',
 	        				'_tmp_show-block-testimonial.html.twig'		=> 'pi.block.formbuilder.template.choice1',
-	        				'_tmp_show-block-video.html.twig.twig'		=> 'pi.block.formbuilder.template.choice2',
+	        				'_tmp_show-block-video.html.twig'			=> 'pi.block.formbuilder.template.choice2',
 	        		),
 	        		'multiple'	=> false,
 	        		'required'  => true,

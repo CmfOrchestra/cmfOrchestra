@@ -85,6 +85,7 @@ pi.block.formbuilder.template.choice0: Block descriptif
 pi.block.formbuilder.template.choice1: BLock testimonial
 pi.block.formbuilder.template.choice2: BLock Video
 pi.block.form.group.pictures: Images
+pi.block.form.group.url: Lien
 
 # ENTITY :: CONTENT
 pi.content.translation.title: Traductions de contenu
