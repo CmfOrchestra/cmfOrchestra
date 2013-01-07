@@ -694,10 +694,15 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
     	$query = $this->_em->createQueryBuilder()
     	->select('a')
     	->from($this->_entityName, 'a')
-    	->where('a.enabled = :enabled')
-    	->Andwhere('a.category = :category')
-    	->setParameter('enabled', 1)
-    	->setParameter('category', $category);
+    	->where("a.enabled = 1");
+    	
+    	if(!empty($category)){
+    		$query
+    		->Andwhere('a.category = :cat')
+    		->setParameters(array(
+    				'cat' => $category,
+    		));
+    	}
     
     	$query = $this->checkRoles($query)->getQuery();
     	
@@ -721,11 +726,16 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
     	$query = $this->_em->createQueryBuilder()
     	->select('a')
     	->from($this->_entityName, 'a')
-    	->where('a.enabled = :enabled')
-    	->Andwhere('a.category = :category')
     	->orderBy('a.position', 'ASC')
-    	->setParameter('enabled', 1)
-    	->setParameter('category', $category);
+    	->where("a.enabled = 1");
+    	
+    	if(!empty($category)){
+    		$query
+    		->Andwhere('a.category = :cat')
+    		->setParameters(array(
+    				'cat' => $category,
+    		));
+    	}
     	
     	$query = $this->checkRoles($query)->getQuery();
     

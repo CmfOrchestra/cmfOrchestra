@@ -162,7 +162,7 @@ class PiGedmoManager extends PiWidgetExtension
    		elseif( $entity && !in_array($method, $Lists[$entity]['method']) )
    			return false;
    		
-   		$this->entity = ucfirst(strtolower($entity));
+   		$this->entity = $values[1];
    		$this->setMethod($method);
    		   			
    		return true;
@@ -622,6 +622,8 @@ class PiGedmoManager extends PiWidgetExtension
  	 *                  	<action>renderDefault</action>
      *						<menu>entity</menu>
      *						<id>flexslider</id>
+	 *	                  	<orderby_date></orderby_date>
+     *	                  	<orderby_position>ASC</orderby_position>
      *		                <params>
      *		                  	<animation>slide</animation>
      *							<slideDirection>horizontal</slideDirection>
@@ -666,7 +668,6 @@ class PiGedmoManager extends PiWidgetExtension
 			$controller	= $xmlConfig->widgets->gedmo->controller;
 			
 			if($this->isAvailableAction($controller)){
-				//$render_navigation = $this->method . "Action";
 			
 				if($xmlConfig->widgets->gedmo->params->get('category'))
 					$category = $xmlConfig->widgets->gedmo->params->category;
@@ -676,8 +677,8 @@ class PiGedmoManager extends PiWidgetExtension
 				if($xmlConfig->widgets->gedmo->params->get('template'))
 					$template = $xmlConfig->widgets->gedmo->params->template;
 				else
-					$template = "";				
-			
+					$template = "";		
+
 				$params = array();
 				if($xmlConfig->widgets->gedmo->params->get('slider')){
 
@@ -702,9 +703,9 @@ class PiGedmoManager extends PiWidgetExtension
 						$params['menu']     = 'entity';
 					
 					if($params['cachable'] == 'true')
-						return $this->runByExtension('pi_app_admin.manager.slider', $this->action, "$this->entity~$this->method~$category", $lang, $params);
+						return $this->runByExtension('pi_app_admin.manager.slider', $this->action, $this->entity."~".$this->method."~".$category, $lang, $params);
 					else
-						return $this->runByService('pi_app_admin.manager.slider', "$this->entity~$this->method~$category", $lang, $params);
+						return $this->runByService('pi_app_admin.manager.slider', $this->entity."~".$this->method."~".$category, $lang, $params);
 										
 				}else
 					throw ExtensionException::optionValueNotSpecified("gedmo navigation", __CLASS__);

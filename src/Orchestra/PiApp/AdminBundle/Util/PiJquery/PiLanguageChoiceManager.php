@@ -83,9 +83,12 @@ class PiLanguageChoiceManager extends PiJqueryExtension
 	    // We open the buffer.
 	    ob_start ();		
 		?>		
-				<div class="<?php echo $options['class']; ?>" id="language_menu">
+				<div class="<?php echo $options['class']; ?>" id="language_menu" style="background:#238BDB url('<?php echo $Urlpath; ?>') no-repeat 95% 10px;">
+					<div id="selected_language">
+						<?php echo locale_get_display_name(strtolower($locale), strtolower($locale)); ?>
+					</div>
 					<ul>
-						<li id="selected_language"><?php echo locale_get_display_name(strtolower($locale), strtolower($locale)); ?></li>
+						<!-- <li id="selected_language"><?php echo locale_get_display_name(strtolower($locale), strtolower($locale)); ?></li> -->
 						<?php foreach($entities as $key=>$entity){ 
 				            $url = $this->container->get('router')->generate('pi_layout_choisir_langue', array('langue' => $entity->getId()));
 				            if($entity->getId() != $locale){
@@ -97,18 +100,13 @@ class PiLanguageChoiceManager extends PiJqueryExtension
 						</li>
 						<?php } } ?>
 					</ul>
-					<span id="language_menu_scroll" style="background:url('<?php echo $Urlpath; ?>') no-repeat left center;"><!-- --></span>
+					<!-- <span id="language_menu_scroll" style="background:url('<?php echo $Urlpath; ?>') no-repeat left center;"></span> -->
 				</div>						
 		
 				<script type="text/javascript">
 				//<![CDATA[			
-				$("#language_menu_scroll").bind("click", function(){
-                    if($("#language_menu li:hidden").length!=0){
-                    	$("#language_menu li:hidden").addClass("shown").slideToggle();
-                    }
-                    else{
-                        $("#language_menu .shown").slideToggle();
-                    }
+				$("#selected_language").bind("click", function(){
+                    $(this).next('ul').toggle();	//.slideToggle();
 			    });
 				//]]>
 				</script>

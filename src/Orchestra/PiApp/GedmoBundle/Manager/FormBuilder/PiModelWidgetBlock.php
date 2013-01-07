@@ -163,6 +163,7 @@ class PiModelWidgetBlock extends PiFormBuilderManager
 	        		),
 	        ))
 	        ->add('descriptif', 'textarea', array(
+	        		'required'  => false,
 	        		'label'	=> 'pi.form.label.field.description',
 	        		"label_attr" => array(
 	        				"class"=>"block_collection",
@@ -211,7 +212,6 @@ class PiModelWidgetBlock extends PiFormBuilderManager
 
 				$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_id_block").attr("required", "required");
 				$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_title").removeAttr("required");
-				$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_descriptif").removeAttr("required");
 
 				$("input[id='piappgedmobundlemanagerformbuilderpimodelwidgetblock_choice_insert']").change(function () {
 					if($(this).is(':checked')){
@@ -220,14 +220,12 @@ class PiModelWidgetBlock extends PiFormBuilderManager
 
 						$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_id_block").attr("required", "required");
 						$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_title").removeAttr("required");
-						$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_descriptif").removeAttr("required");
 					}else{
 						create_content_form.parents('.clearfix').show();
 						insert_content_form.parents('.clearfix').hide();
 
 						$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_id_block").removeAttr("required");
 						$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_title").attr("required", "required");
-						$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_descriptif").attr("required", "required");
 					}
 		       	});
 				$("input[id='piappgedmobundlemanagerformbuilderpimodelwidgetblock_choice_create']").change(function () {
@@ -237,14 +235,12 @@ class PiModelWidgetBlock extends PiFormBuilderManager
 
 						$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_id_block").removeAttr("required");
 						$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_title").attr("required", "required");
-						$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_descriptif").attr("required", "required");
 					}else{
 						create_content_form.parents('.clearfix').hide();
 						insert_content_form.parents('.clearfix').show();
 
 						$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_id_block").attr("required", "required");
 						$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_title").removeAttr("required");
-						$("#piappgedmobundlemanagerformbuilderpimodelwidgetblock_descriptif").removeAttr("required");
 					}
 		       	});
 		       			       	

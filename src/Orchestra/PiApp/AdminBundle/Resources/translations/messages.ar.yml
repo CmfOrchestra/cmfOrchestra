@@ -118,6 +118,7 @@ pi.form.label.select.choose.template: اختيار قالب
 pi.form.label.select.choose.block: اختيار كتلة
 pi.form.label.select.choose.content: اختيار المحتوى
 pi.form.label.select.choose.snippet: اختيار قصاصة
+pi.form.label.select.choose.typologie: اختيار التصني
 
 # Footer
 pi.footer.copyright: حق النشر

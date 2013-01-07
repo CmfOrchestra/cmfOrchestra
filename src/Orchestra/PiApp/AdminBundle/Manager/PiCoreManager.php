@@ -165,8 +165,10 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 			// we sort an array by key in reverse order
 			krsort($params);
 			$params		= $this->paramsEncode($params);
-			$id			= $this->_Encode($id);
+			$id			= $this->_Encode($id, false);
 			$this->setEtag("$tag:$id:$lang:$params");
+			
+			//print_r($this->Etag);
 		}else
 			$this->setEtag("$tag:$id:$lang");
 		
@@ -180,8 +182,10 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	}
 
 
-	protected function _Encode($string){
+	protected function _Encode($string, $complet = true){
 		$string = str_replace('\\\\', '\\', $string);
+		if($complet)
+			$string = str_replace('\\', "@@", $string);
 		return str_replace(':', '#', $string);
 	}
 		
@@ -196,6 +200,7 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 	}
 	
 	protected function _Decode($string){
+		$string = str_replace("@@", '\\', $string);
 		$string = str_replace('\\\\', '\\', $string);
 		$string = str_replace('#', ':', $string);
 		$string	= str_replace("$$$", "&", $string);
@@ -207,7 +212,11 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 			if (is_array($v)) {
 				$this->recursive_map($v, $curlevel+1);
 			} else {
-				$array[$k] =  mb_convert_encoding((str_replace("$$$", "&", $v)), "UTF-8", "HTML-ENTITIES");
+				$v = str_replace("@@@@", '\\', $v);
+				$v = str_replace("@@", '\\', $v);
+				$v = str_replace('\\\\', '\\', $v);
+				$v = str_replace("$$$", "&", $v);
+				$array[$k] =  mb_convert_encoding($v, "UTF-8", "HTML-ENTITIES");
 			}
 		}
 	}	

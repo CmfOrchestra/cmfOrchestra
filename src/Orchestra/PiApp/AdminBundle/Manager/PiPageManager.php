@@ -278,6 +278,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 						foreach ($all_widgets as $widget) {
 							if($widget->getEnabled()) {
 								if(isset($this->widgets[$id][$block->getId()][$widget->getId()]) && !empty($this->widgets[$id][$block->getId()][$widget->getId()])){
+									
 							    	// we get the widget manager
 							    	$widgetManager  	= $this->getWidgetManager();
 							    	
@@ -288,7 +289,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 							    	$widgetManager->setScript();
 							    	
 							    	// we initialize init of the widget
-							    	$widgetManager->setInit();							    	
+							    	$widgetManager->setInit();				
 
 							    	if($widget->getPosition() && ($widget->getPosition() != 0)){
 							    		$pos = $widget->getPosition();
@@ -966,7 +967,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 											$this->container->get('pi_app_admin.array_manager')->recursive_method($params, 'krsort');
 											// we create de Etag cache
 											$params 	= $this->container->get('pi_app_admin.string_manager')->json_encodeDecToUTF8($params);
-											$params		= str_replace(':', '#', $params);
+											$params		= $this->_Encode($params);
 											$Etag_jqext	= $widget->getAction() . ":$JQcontainer~$JQservice:$lang_page:$params";
 								
 											// we refresh the cache of the jqext
@@ -1025,12 +1026,12 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 											$this->container->get('pi_app_admin.array_manager')->recursive_method($params, 'krsort');
 											// we create de Etag cache
 											$params 	= $this->container->get('pi_app_admin.string_manager')->json_encodeDecToUTF8($params);
-											$params		= str_replace(':', '#', $params);
+											$params		= $this->_Encode($params);
 											$controller	= str_replace(':', '#', $controller);
 											$Etag_listener	= $widget->getAction() . ":$controller:$lang_page:$params";
 											
 											// we refresh the cache of the listener
-											$this->cacheRefreshByname($Etag_listener);										
+											$this->cacheRefreshByname($Etag_listener);	
 										}
 									} catch (\Exception $e) {
 									}						
@@ -1047,7 +1048,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 										if($xmlConfig->widgets->get('gedmo') && $xmlConfig->widgets->gedmo->get('controller') && $xmlConfig->widgets->gedmo->get('params'))
 										{
 											$values 	= explode(':', $xmlConfig->widgets->gedmo->controller);
-											$entity 	= ucfirst(strtolower($values[1]));
+											$entity 	= $values[1];
 											$method 	= strtolower($values[2]);
 											$params		= array();
 																					
@@ -1136,7 +1137,8 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 											$this->container->get('pi_app_admin.array_manager')->recursive_method($params, 'krsort');
 											// we create de Etag cache
 											$params 	= $this->container->get('pi_app_admin.string_manager')->json_encodeDecToUTF8($params);
-											$params		= str_replace(':', '#', $params);
+											$params		= $this->_Encode($params);
+											$entity		= $this->_Encode($entity, false);
 												
 											$Etag_tree	= $widget->getAction() . ":$entity~$method~$category:$lang_page:$params";
 											
@@ -1158,7 +1160,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 										if($xmlConfig->widgets->get('gedmo') && $xmlConfig->widgets->gedmo->get('controller') && $xmlConfig->widgets->gedmo->get('params'))
 										{
 											$values 	= explode(':', $xmlConfig->widgets->gedmo->controller);
-											$entity 	= ucfirst(strtolower($values[1]));
+											$entity 	= $values[1];
 											$method 	= strtolower($values[2]);
 											$params		= array();
 																					
@@ -1198,12 +1200,13 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 											// we sort an array by key in reverse order
 											$this->container->get('pi_app_admin.array_manager')->recursive_method($params, 'krsort');
 											// we create de Etag cache
-											$params 	 = $this->container->get('pi_app_admin.string_manager')->json_encodeDecToUTF8($params);	
-											$params		 = str_replace(':', '#', $params);
+											$params 	= $this->container->get('pi_app_admin.string_manager')->json_encodeDecToUTF8($params);	
+											$params		= $this->_Encode($params);
+											$entity		= $this->_Encode($entity, false);
 											$Etag_slider = $widget->getAction() . ":$entity~$method~$category:$lang_page:$params";
 											
 											// we refresh the cache of the listener
-											$this->cacheRefreshByname($Etag_slider);										
+											$this->cacheRefreshByname($Etag_slider);	
 										}
 									} catch (\Exception $e) {
 									}							

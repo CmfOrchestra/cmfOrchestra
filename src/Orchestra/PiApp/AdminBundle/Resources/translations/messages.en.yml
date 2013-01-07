@@ -118,6 +118,7 @@ pi.form.label.select.choose.template: Choose a template
 pi.form.label.select.choose.block: Choose a block
 pi.form.label.select.choose.content: Choose a content
 pi.form.label.select.choose.snippet: Choose a snippet
+pi.form.label.select.choose.typologie: Choose a typology
 
 # Footer
 pi.footer.copyright: Copyright

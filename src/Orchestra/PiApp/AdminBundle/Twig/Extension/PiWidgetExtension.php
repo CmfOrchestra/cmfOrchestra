@@ -284,6 +284,8 @@ class PiWidgetExtension extends \Twig_Extension
 		$source .=  "					<action>renderDefault</action>\n";
 		$source .=  "					<menu>entity</menu>\n";
 		$source .=  "					<id>flexslider</id>\n";
+		$source .=  "					<orderby_date></orderby_date>\n";
+		$source .=  "					<orderby_position>ASC</orderby_position>\n";
 		$source .=  "					<params>\n";
 		$source .=  "						<animation>slide</animation>\n";
 		$source .=  "						<direction>horizontal</slideDirection>\n";

@@ -662,6 +662,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
     	
     	//$json 	= str_replace("&ndash;", "ndash;", $json);
     	$json 	= str_replace("&", "$$$", $json);
+    	$json 	= str_replace('\\', "@@", $json);
 		$json	= mb_convert_encoding($json, "UTF-8", "HTML-ENTITIES");
 		//$json 	= str_replace("ndash;", "-", $json);
 		

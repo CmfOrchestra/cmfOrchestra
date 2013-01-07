@@ -91,8 +91,8 @@ class PiFlexSliderManager extends PiJqueryExtension
 		if(method_exists($this, $method))
 			$sliders = $this->$method($options);
 		else
-			throw ExtensionException::MethodUnDefined($method);		
-		
+			throw ExtensionException::MethodUnDefined($method);
+
 		return $this->$action($sliders, $options);
 	}
 	
@@ -115,13 +115,13 @@ class PiFlexSliderManager extends PiJqueryExtension
 		
 		if(isset($options['params']) && is_array($options['params']) && (count($options['params']) >= 1) ){
 			$results = array_map(function($key, $value) {
-						if(in_array($value, array("true", "false")))
-							return $key .":".$value;
-						elseif (preg_match_all("/[a-zA]+/",$value, $matches, PREG_SET_ORDER))
-			  				return $key .':"'.$value.'"';
-						elseif (preg_match_all("/[0-9]+/",$value, $matches, PREG_SET_ORDER))
-							return $key .":".$value;
-					  }, array_keys($options['params']),array_values($options['params']));
+				if(in_array($value, array("true", "false")))
+					return $key .":".$value;
+				elseif (preg_match_all("/[a-zA]+/",$value, $matches, PREG_SET_ORDER))
+	  				return $key .':"'.$value.'"';
+				elseif (preg_match_all("/[0-9]+/",$value, $matches, PREG_SET_ORDER))
+					return $key .":".$value;
+			}, array_keys($options['params']),array_values($options['params']));
 			$params = implode(", \n", $results);
 		}else
 			$params = '
@@ -159,35 +159,42 @@ class PiFlexSliderManager extends PiJqueryExtension
 				return ucwords($value);
 			}, array_values(explode('_', $sluggable_keywords)));
 		
-				$method_title	 	= "get".implode('', $sluggable_title_tab);
-				$method_resume 		= "get".implode('', $sluggable_resume_tab);
-				$method_keywords 	= "get".implode('', $sluggable_keywords_tab);
-					
-				if( ($sluggable_field_search == 'id') && isset($match['id']) && !empty($match['id']) ){
-					$entity 		= $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->findOneByEntity($this->locale, $match['id'], 'object');
-		
-					if(!is_null($entity)){
-						$position 	= $entity->getPosition() -1;
-						$startAt = ",startAt:$position";
-					}
-				}elseif(array_key_exists($sluggable_field_search, $match) && !empty($match[$sluggable_field_search]) ){
-					$id 	=  $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->getContentByField($this->locale, array('content_search' => array($sluggable_field_search =>$match[$sluggable_field_search]), 'field_result'=>$sluggable_title), false)->getObject()->getId();
-					$entity = $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->findOneByEntity($this->locale, $id, 'object');
-					if(!is_null($entity)){
-						$position = $entity->getPosition() -1;
-						$startAt = ",startAt:$position";
-					}
+			$method_title	 	= "get".implode('', $sluggable_title_tab);
+			$method_resume 		= "get".implode('', $sluggable_resume_tab);
+			$method_keywords 	= "get".implode('', $sluggable_keywords_tab);
+				
+			if( ($sluggable_field_search == 'id') && isset($match['id']) && !empty($match['id']) ){
+				$entity 		= $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->findOneByEntity($this->locale, $match['id'], 'object');
+	
+				if(!is_null($entity)){
+					$position 	= $entity->getPosition() -1;
+					$startAt = ",startAt:$position";
 				}
-		}		
+			}elseif(array_key_exists($sluggable_field_search, $match) && !empty($match[$sluggable_field_search]) ){
+				$id 	=  $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->getContentByField($this->locale, array('content_search' => array($sluggable_field_search =>$match[$sluggable_field_search]), 'field_result'=>$sluggable_title), false)->getObject()->getId();
+				$entity = $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->findOneByEntity($this->locale, $id, 'object');
+				if(!is_null($entity)){
+					$position = $entity->getPosition() -1;
+					$startAt = ",startAt:$position";
+				}
+			}
+		}	
+
+		$templateContent = $this->container->get('twig')->loadTemplate("PiAppTemplateBundle:Template\\Slider:{$options['template']}");
+		if($templateContent->hasBlock("boucle")){
+			$slider_result	= $templateContent->renderBlock("body", array_merge($options, array('boucle'=>$sliders['content']))) . " \n";
+		}else{
+			$slider_result  = "<div id='{$options['id']}' >";
+			$slider_result .= "	<ul class='slides'>";
+			$slider_result .= 			$sliders['content'];
+			$slider_result .= "	</ul>";
+			$slider_result .= "</div>";
+		}	
 		
 		// We open the buffer.
 		ob_start ();
 		?>
-			<div id="<?php echo $options['id']; ?>" >
-				<ul class="slides">
-					<?php echo $sliders['content']; ?>
-				</ul>
-			</div>
+			<?php echo $slider_result; ?>
 			
 			<script type="text/javascript">
 			//<![CDATA[
@@ -310,15 +317,22 @@ class PiFlexSliderManager extends PiJqueryExtension
 				}
 			}		
 		}
+		
+		$templateContent = $this->container->get('twig')->loadTemplate("PiAppTemplateBundle:Template\\Slider:{$options['template']}");
+		if($templateContent->hasBlock("boucle")){
+			$slider_result	= $templateContent->renderBlock("body", array_merge($options, array('boucle'=>$sliders['content']))) . " \n";
+		}else{
+			$slider_result  = "<div class='{$options['id']}' >";
+			$slider_result .= "	<ul class='slides'>";
+			$slider_result .= 			$sliders['content'];
+			$slider_result .= "	</ul>";
+			$slider_result .= "</div>";
+		}		
 	
 		// We open the buffer.
 		ob_start ();
 		?>
-				<div class="<?php echo $options['id']; ?>" >
-					<ul class="slides">
-						<?php echo $sliders['content']; ?>
-					</ul>
-				</div>
+				<?php echo $slider_result; ?>
 				
 				<script type="text/javascript">
 				//<![CDATA[
@@ -398,15 +412,22 @@ class PiFlexSliderManager extends PiJqueryExtension
 					minItems: 1,
 					maxItems: 1,		
 			';
+		
+		$templateContent = $this->container->get('twig')->loadTemplate("PiAppTemplateBundle:Template\\Slider:{$options['template']}");
+		if($templateContent->hasBlock("boucle")){
+			$slider_result	= $templateContent->renderBlock("body", array_merge($options, array('boucle'=>$sliders['content']))) . " \n";
+		}else{
+			$slider_result  = "<div id='{$options['id']}' >";
+			$slider_result .= "	<ul class='slides'>";
+			$slider_result .= 			$sliders['content'];
+			$slider_result .= "	</ul>";
+			$slider_result .= "</div>";
+		}		
 
 		// We open the buffer.
 		ob_start ();
 		?>
-			<div id="<?php echo $options['id']; ?>" >
-				<ul class="slides">
-					<?php echo $sliders; ?>
-				</ul>
-			</div>
+			<?php echo $slider_result; ?>
 			
 			<script type="text/javascript">
 			//<![CDATA[

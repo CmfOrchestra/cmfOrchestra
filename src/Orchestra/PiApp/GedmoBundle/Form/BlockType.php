@@ -107,9 +107,10 @@ class BlockType extends AbstractType
  					),
  			))            
  			->add('descriptif', 'textarea', array(
+ 					'required'  => false,
  					'label'	=> 'pi.form.label.field.description',
  					"attr" => array(
- 							"class"	=>"pi_editor_simple",
+ 							"class"	=>"pi_editor_easy",
  					),
  					"label_attr" => array(
  							"class"=>"block_collection",
@@ -118,7 +119,7 @@ class BlockType extends AbstractType
  			->add('content', 'textarea', array(
  					'required'  => false,
             		"attr" => array(
-            				"class"	=>"pi_editor",
+            				"class"	=>"pi_editor_simple",
             		),
  					'label'	=> "pi.form.label.field.content",
  					"label_attr" => array(

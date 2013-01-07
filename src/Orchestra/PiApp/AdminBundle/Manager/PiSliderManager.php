@@ -61,10 +61,13 @@ class PiSliderManager extends PiCoreManager implements PiSliderManagerBuilderInt
 		else
 			throw new \InvalidArgumentException("you have not configure correctly the attibute id");
 		
-		if(!is_array($params))
-			$params				= $this->paramsDecode($params);
-		else
+		if(is_array($params)){
 			$this->recursive_map($params);
+		}else{
+			$params	= $this->paramsDecode($params);
+		}
+		
+		//print_r($params);exit;
 		
 		$params['locale']	= $lang;
 		
@@ -89,10 +92,25 @@ class PiSliderManager extends PiCoreManager implements PiSliderManagerBuilderInt
 	 */
 	public function getSlider($locale, $entity, $category, $template, $parameters = null)
 	{
-		$entity  = ucfirst(strtolower($entity));
-		$em		 = $this->container->get('doctrine')->getEntityManager();
+		$em		   = $this->container->get('doctrine')->getEntityManager();
 		
-		$allslides = $em->getRepository("PiAppGedmoBundle:$entity")->getAllEnableByCatAndByPosition($locale, $category, 'object');
+		if(isset($parameters['orderby_date']) && !empty($parameters['orderby_date']))
+			$ORDER_PublishDate = $parameters['orderby_date'];
+		else
+			$ORDER_PublishDate = '';
+		
+		if(isset($parameters['orderby_position']) && !empty($parameters['orderby_position']))
+			$ORDER_Position = $parameters['orderby_position'];
+		else
+			$ORDER_Position = '';		
+		
+		if(empty($ORDER_PublishDate) && empty($ORDER_Position)){
+			$ORDER_Position = 'ASC';
+		}
+		
+		$query		= $em->getRepository("PiAppGedmoBundle:$entity")->getAllByCategory($category, null, $ORDER_PublishDate, $ORDER_Position, true)->getQuery();
+		$allslides  = $em->getRepository("PiAppGedmoBundle:$entity")->findTranslationsByQuery($locale, $query, 'object', false);
+		//$allslides = $em->getRepository("PiAppGedmoBundle:$entity")->getAllByCategory($locale, $category, 'object');
 		
 		$_content 	= "";
 		$RouteNames = null;
@@ -106,9 +124,13 @@ class PiSliderManager extends PiCoreManager implements PiSliderManagerBuilderInt
 			$parameters['slide']  = $slide;
 			$parameters['lang']	  = $locale;
 			
-			
-			$response = $this->container->get('templating')->renderResponse("PiAppTemplateBundle:Template\\Slider:$template", $parameters);
-			$_content .= $response->getContent() . " \n";
+			$templateContent = $this->container->get('twig')->loadTemplate("PiAppTemplateBundle:Template\\Slider:$template");
+			if($templateContent->hasBlock("boucle")){
+				$_content	.= $templateContent->renderBlock("boucle", $parameters) . " \n";
+			}else{
+				$response 	 = $this->container->get('templating')->renderResponse("PiAppTemplateBundle:Template\\Slider:$template", $parameters);
+				$_content 	.= $response->getContent() . " \n";
+			}			
 		}
 		
 		return array('content'=>$_content, 'routenames'=>$RouteNames);		
