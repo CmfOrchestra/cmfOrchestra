@@ -101,7 +101,8 @@ class PageByBlockController extends abstractController
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em 		= $this->getDoctrine()->getEntityManager();
+        $NoLayout   = $this->container->get('request')->query->get('NoLayout');
 
         $entity = $em->getRepository('PiAppAdminBundle:Page')->find($id);
 
@@ -114,7 +115,7 @@ class PageByBlockController extends abstractController
         return $this->render('PiAppAdminBundle:PageByBlock:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
-
+        	'NoLayout' 	  => $NoLayout,
         ));
     }
 

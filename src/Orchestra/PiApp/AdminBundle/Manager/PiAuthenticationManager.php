@@ -114,11 +114,10 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
             $error = $error->getMessage();
         }
         // last username entered by the user
-        $lastUsername = (null === $session) ? '' : $session->get(SecurityContext::LAST_USERNAME);
+        $lastUsername 	= (null === $session) ? '' : $session->get(SecurityContext::LAST_USERNAME);
+        $csrfToken 		= $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate');
 
-        $csrfToken = $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate');
-
-        $response =  $this->container->get('templating')->renderResponse($template, array(
+        $response 		=  $this->container->get('templating')->renderResponse($template, array(
             'last_username' => $lastUsername,
             'error'         => $error,
             'csrf_token' 	=> $csrfToken,

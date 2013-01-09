@@ -20,7 +20,8 @@ use BootStrap\UserBundle\Repository\PermissionRepository;
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
- * @ORM\HasLifecycleCallbacks()
+ * @ORM\Entity(repositoryClass="BootStrap\UserBundle\Repository\UserRepository")
+ * @ORM\HasLifecycleCallbacks() 
  * 
  * @category   BootStrap_Entities
  * @package    Entity
@@ -89,8 +90,8 @@ class User extends BaseUser
      * @var array
      * @ORM\Column(type="array")
      */
-    protected $permissions;   
-
+    protected $permissions;    
+    
     /**
      * @var \DateTime
      */
@@ -100,6 +101,13 @@ class User extends BaseUser
      * @var \DateTime
      */
     public $credentialsExpireAt;    
+    
+    /**
+     * @var datetime $created_at
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     */
+    protected $created_at;    
     
 
     public function __construct()
@@ -193,8 +201,8 @@ class User extends BaseUser
     	if (!in_array($permission, $this->permissions, true)) {
     		$this->permissions[] = $permission;
     	}
-    }    
-    
+    }  
+
     /**
      * Adds a role to the user.
      *
@@ -211,7 +219,7 @@ class User extends BaseUser
     		$this->roles[] = $role;
     	}
     }
-    
+
     /**
      * Returns the user roles
      *
@@ -226,10 +234,10 @@ class User extends BaseUser
     	foreach ($this->getGroups() as $group) {
     		$roles = array_merge($roles, $group->getRoles());
     	}
-    	 
+    	
     	// we need to make sure to have at least one role
     	$roles[] = static::ROLE_DEFAULT;
-    	 
+    	
     	return array_unique($roles);
     }    
 
@@ -312,6 +320,27 @@ class User extends BaseUser
     {
     	return $this->nickname;
     }
+    
+    /**
+     * Set created_at
+     *
+     * @param datetime $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+    	$this->created_at = $createdAt;
+    	return $this;
+    }
+    
+    /**
+     * Get created_at
+     *
+     * @return datetime
+     */
+    public function getCreatedAt()
+    {
+    	return $this->created_at;
+    }    
     
 
 }

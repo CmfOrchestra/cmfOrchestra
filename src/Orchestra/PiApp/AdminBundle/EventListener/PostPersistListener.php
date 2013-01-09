@@ -56,7 +56,8 @@ class PostPersistListener extends CoreListener
     	$this->_Create_Block_Page($eventArgs);
     	
     	// Method which will be called when we remove twig cached file of Page, Widget and translationWidget template.
-    	$this->_TwigCache($eventArgs);    	
+    	// it takes too many resource
+    	//$this->_TwigCache($eventArgs);    	
     	
     	// we set the PostPersist Cache Url Generator management
     	$this->_updateCacheUrlGenerator($eventArgs);

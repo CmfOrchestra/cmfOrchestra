@@ -67,8 +67,6 @@ class PiSliderManager extends PiCoreManager implements PiSliderManagerBuilderInt
 			$params	= $this->paramsDecode($params);
 		}
 		
-		//print_r($params);exit;
-		
 		$params['locale']	= $lang;
 		
 		if( isset($GLOBALS['JQUERY']['SLIDER'][$method]) && $this->container->has($GLOBALS['JQUERY']['SLIDER'][$method]) )
@@ -94,6 +92,12 @@ class PiSliderManager extends PiCoreManager implements PiSliderManagerBuilderInt
 	{
 		$em		   = $this->container->get('doctrine')->getEntityManager();
 		
+		if(isset($parameters['boucle_array']) && !empty($parameters['boucle_array']))
+			$boucle_array = $parameters['boucle_array'];
+		else
+			$boucle_array = false;
+		
+		// we construct the query.
 		if(isset($parameters['orderby_date']) && !empty($parameters['orderby_date']))
 			$ORDER_PublishDate = $parameters['orderby_date'];
 		else
@@ -104,35 +108,88 @@ class PiSliderManager extends PiCoreManager implements PiSliderManagerBuilderInt
 		else
 			$ORDER_Position = '';		
 		
+		if(isset($parameters['MaxResults']) && !empty($parameters['MaxResults']))
+			$MaxResults = (int)$parameters['MaxResults'];
+		else
+			$MaxResults = null;		
+		
 		if(empty($ORDER_PublishDate) && empty($ORDER_Position)){
 			$ORDER_Position = 'ASC';
 		}
 		
-		$query		= $em->getRepository("PiAppGedmoBundle:$entity")->getAllByCategory($category, null, $ORDER_PublishDate, $ORDER_Position, true)->getQuery();
-		$allslides  = $em->getRepository("PiAppGedmoBundle:$entity")->findTranslationsByQuery($locale, $query, 'object', false);
-		//$allslides = $em->getRepository("PiAppGedmoBundle:$entity")->getAllByCategory($locale, $category, 'object');
+		if(in_array($entity, array('User', 'Role')))
+			$controller  = "BootStrapUserBundle:$entity";
+		else
+			$controller  = "PiAppGedmoBundle:$entity";
 		
-		$_content 	= "";
-		$RouteNames = null;
+		$query		= $em->getRepository($controller)->getAllByCategory($category, $MaxResults, $ORDER_PublishDate, $ORDER_Position, true);
+		if(isset($parameters['searchFields']) && !empty($parameters['searchFields'])){
+			if(count($parameters['searchFields']) == 2 && isset($parameters['searchFields']['nameField'])){
+				$query->andWhere('a.'.$parameters['searchFields']['nameField'] .' LIKE :value')
+					  ->setParameters(array(
+					  		'value'   => $parameters['searchFields']['valueField']
+					  	));
+			}else {
+				foreach ($parameters['searchFields'] as $searchFields){
+					$query->andWhere('a.'.$searchFields['nameField'] .' LIKE :value')
+						  ->setParameters(array(
+								'value'   => $searchFields['valueField'],
+							));
+				}
+			}
+		}
+		if(in_array($entity, array('User', 'Role'))){
+			$allslides  = $query->getQuery()->getArrayResult();
+		}else
+			$allslides  = $em->getRepository($controller)->findTranslationsByQuery($locale, $query->getQuery(), 'object', false);
+		
+		// we construct all boucles.
+		$_boucle 	= array();
+		$_boucle1 	= array();
+		$_boucle2 	= array();
+		$_boucle3 	= array();
+		$RouteNames = array();
 		foreach($allslides as $key => $slide){
-			$position	   = $slide->getPosition() - 1;			
-			if(method_exists($slide, 'getPage') && ($slide->getPage() instanceof \PiApp\AdminBundle\Entity\Page) ){
-				$RouteNames[$position]  = $slide->getPage()->getRouteName();
-			}else
-				$RouteNames[$position] = "";
+			if(method_exists($slide, 'getPosition')){
+				$position	   = $slide->getPosition() - 1;			
+				if(method_exists($slide, 'getPage') && ($slide->getPage() instanceof \PiApp\AdminBundle\Entity\Page) ){
+					$RouteNames[$position]  = $slide->getPage()->getRouteName();
+				}else
+					$RouteNames[$position] = "";
+			}
 			
 			$parameters['slide']  = $slide;
 			$parameters['lang']	  = $locale;
 			
 			$templateContent = $this->container->get('twig')->loadTemplate("PiAppTemplateBundle:Template\\Slider:$template");
+			
 			if($templateContent->hasBlock("boucle")){
-				$_content	.= $templateContent->renderBlock("boucle", $parameters) . " \n";
-			}else{
-				$response 	 = $this->container->get('templating')->renderResponse("PiAppTemplateBundle:Template\\Slider:$template", $parameters);
-				$_content 	.= $response->getContent() . " \n";
+				$_boucle[]	= $templateContent->renderBlock("boucle", $parameters) . " \n";
+			}
+			if($templateContent->hasBlock("boucle1")){
+				$_boucle1[]	= $templateContent->renderBlock("boucle1", $parameters) . " \n";
+			}			
+			if($templateContent->hasBlock("boucle2")){
+				$_boucle2[]	= $templateContent->renderBlock("boucle2", $parameters) . " \n";
+			}	
+			if($templateContent->hasBlock("boucle3")){
+				$_boucle3[]	= $templateContent->renderBlock("boucle3", $parameters) . " \n";
+			}
+
+			if(!$templateContent->hasBlock("boucle") 
+				&& !$templateContent->hasBlock("boucle1")
+				&& !$templateContent->hasBlock("boucle2")
+				&& !$templateContent->hasBlock("boucle3")
+				){
+				$response 	= $this->container->get('templating')->renderResponse("PiAppTemplateBundle:Template\\Slider:$template", $parameters);
+				$_boucle[] 	= $response->getContent() . " \n";
 			}			
 		}
 		
-		return array('content'=>$_content, 'routenames'=>$RouteNames);		
+		if($boucle_array){
+			return array('boucle'=>$_boucle, 'boucle1'=>$_boucle1, 'boucle2'=>$_boucle2, 'boucle3'=>$_boucle3, 'routenames'=>$RouteNames);
+		}else{
+			return array('boucle'=>implode(" \n", $_boucle), 'boucle1'=>implode(" \n", $_boucle1), 'boucle2'=>implode(" \n", $_boucle2), 'boucle3'=>implode(" \n", $_boucle3), 'routenames'=>$RouteNames);
+		}
 	}	
 }

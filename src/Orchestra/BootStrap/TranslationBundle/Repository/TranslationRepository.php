@@ -52,10 +52,10 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      */
     private $_entityTranslationName = "";    
     
-	  /**
-	   * @var \Symfony\Component\DependencyInjection\ContainerInterface
-	   */
-	  protected $_container;    
+    /**
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */
+    protected $_container;    
 
     /**
      * {@inheritdoc}
@@ -130,12 +130,9 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
     public function checkRoles(\Doctrine\ORM\QueryBuilder $query){
       
        if($this->_container instanceof \Symfony\Component\DependencyInjection\ContainerInterface){
-
         if(isset($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) && in_array($this->_class->name, $GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) ){
           // Gets all user roles.
-          $user_best_roles = $this->getBestRoles($this->getUserRoles());
-          $user_roles 			= array_unique(array_merge($this->getAllHeritageByRoles($user_best_roles), $this->getUserRoles()));
-          
+          $user_roles	= $this->_container->get('bootstrap.Role.factory')->getAllUserRoles();          
           foreach($user_roles as $key => $role){
             $query->orWhere($query->expr()->like('a.heritage', $query->expr()->literal('%'.$role.'%')));
           }
@@ -831,114 +828,5 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
     	}else
     		return null;
     }   
-
-
-    /**
-     * Return the user roles.
-     *
-     * @return array	user roles
-     * @access protected
-     *
-     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-     */
-    protected function getUserRoles()
-    {
-    	return $this->getToken()->getUser()->getRoles();
-    }    
-
-    /**
-     * Return the token object.
-     *
-     * @return \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken
-     * @access protected
-     *
-     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-     */
-    protected function getToken()
-    {
-    	return  $this->_container->get('security.context')->getToken();
-    }
-    
-    /**
-     * Gets the best roles of many of roles.
-     * 
-     * @param array 	$ROLES
-     * @return array	the best roles of all roles.
-     * @access protected
-     *
-     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-     */
-    protected function getBestRoles($ROLES)
-    {
-    	if(is_null($ROLES))
-    		return null;
-    	
-    	// we get the map of all roles.
-    	$roleMap = $this->buildRoleMap();
-    
-    	foreach($roleMap as $role => $heritage){
-    		if(in_array($role, $ROLES)){
-    			$intersect	= array_intersect($heritage, $ROLES);
-    			$ROLES		= array_diff($ROLES, $intersect);  // =  $ROLES_USER -  $intersect
-    		}
-    	}
-    	return $ROLES;
-    }
-    
-    /**
-     * Gets all heritage roles of many of roles.
-     *
-     * @param array 	$ROLES
-     * @return array	the best roles of all user roles.
-     * @access protected
-     *
-     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-     */
-    protected function getAllHeritageByRoles($ROLES)
-    {
-    	if(is_null($ROLES))
-    		return null;
-    	
-    	$results = array();
-    
-    	// we get the map of all roles.
-    	$roleMap = $this->buildRoleMap();
-    
-    	foreach($ROLES as $key => $role){
-    		if(isset($roleMap[$role]))
-    			$results = array_unique(array_merge($results, $roleMap[$role]));
-    	}
-    
-    	return $results;
-    }
-    
-    /**
-     * Sets the map of all roles.
-     *
-     * @return array	role map
-     * @access protected
-     *
-     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-     */
-    protected function buildRoleMap()
-    {
-    	$hierarchy 	= $this->_container->getParameter('security.role_hierarchy.roles');
-    	$map		= array();
-    	foreach ($hierarchy as $main => $roles) {
-    		$map[$main] = $roles;
-    		$visited = array();
-    		$additionalRoles = $roles;
-    		while ($role = array_shift($additionalRoles)) {
-    			if (!isset($hierarchy[$role])) {
-    				continue;
-    			}
-    
-    			$visited[] = $role;
-    			$map[$main] = array_unique(array_merge($map[$main], $hierarchy[$role]));
-    			$additionalRoles = array_merge($additionalRoles, array_diff($hierarchy[$role], $visited));
-    		}
-    	}
-    	return $map;
-    }     
 
 }

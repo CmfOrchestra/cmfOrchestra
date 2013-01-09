@@ -137,7 +137,7 @@ services:
         
     pi_app_admin.jquery_manager.widgetimport:
         class: %piapp.manager.jquery.widgetimport.class%
-        arguments: ['@service_container']       
+        arguments: ['@service_container']     
 
     #
     # configuration of the WIDGET Util classes
@@ -184,4 +184,4 @@ services:
         
     pi_app_admin.widget_manager.user.connexion:
         class: %piapp.manager.widget.user.class%
-        arguments: ['@service_container', 'connexion']                                                                                                                                                        
+        arguments: ['@service_container', 'connexion']                                                                                                                                             

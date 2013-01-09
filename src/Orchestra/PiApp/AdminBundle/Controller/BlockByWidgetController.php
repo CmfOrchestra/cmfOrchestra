@@ -40,31 +40,6 @@ class BlockByWidgetController extends abstractController
 	protected $_entityName = "PiAppAdminBundle:Block";
 	
     /**
-     * Lists all Block entities.
-     * 
-     * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
-     * @return \Symfony\Component\HttpFoundation\Response
-     * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-     */
-    public function indexAction($page)
-    {
-        $em = $this->getDoctrine()->getEntityManager();
-        $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-
-        if(is_null($page))
-        	$entities = $em->getRepository('PiAppAdminBundle:Block')->findAll();
-       	else
-       		$entities = $em->getRepository('PiAppAdminBundle:Block')->findBy(array('page'=>$page));
-
-        return $this->render('PiAppAdminBundle:BlockByWidget:index.html.twig', array(
-            'entities' => $entities,
-        	'NoLayout' 	  => $NoLayout,
-        ));
-    }
-    
-    /**
      * Enabled Block entities.
      *
      * @Route("/admin/block/enabled", name="admin_page_block_enabledentity_ajax")
@@ -110,6 +85,31 @@ class BlockByWidgetController extends abstractController
     }    
     
     /**
+     * Lists all Block entities.
+     *
+     * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access	public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function indexAction($page)
+    {
+    	$em = $this->getDoctrine()->getEntityManager();
+    	$NoLayout   = $this->container->get('request')->query->get('NoLayout');
+    
+    	if(is_null($page))
+    		$entities = $em->getRepository('PiAppAdminBundle:Block')->findAll();
+    	else
+    		$entities = $em->getRepository('PiAppAdminBundle:Block')->findBy(array('page'=>$page));
+    
+    	return $this->render('PiAppAdminBundle:BlockByWidget:index.html.twig', array(
+    			'entities' => $entities,
+    			'NoLayout' 	  => $NoLayout,
+    	));
+    }    
+    
+    /**
      * Finds and displays a Block entity.
      * 
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
@@ -128,7 +128,7 @@ class BlockByWidgetController extends abstractController
         if (!$entity) {
             throw ControllerException::NotFoundException('Block');
         }
-
+        
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('PiAppAdminBundle:BlockByWidget:show.html.twig', array(
@@ -207,7 +207,6 @@ class BlockByWidgetController extends abstractController
      */
     public function editAction($id)
     {
-    	$NoLayout   = $this->container->get('request')->query->get('NoLayout');
         $em 	= $this->getDoctrine()->getEntityManager();
         $entity = $em->getRepository('PiAppAdminBundle:Block')->find($id);
         
@@ -221,7 +220,7 @@ class BlockByWidgetController extends abstractController
             throw ControllerException::NotFoundException('Block');
         }
 
-        $editForm = $this->createForm(new BlockByWidgetType(), $entity, array('show_legend' => false));
+        $editForm   = $this->createForm(new BlockByWidgetType(), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render("PiAppAdminBundle:BlockByWidget:$template", array(

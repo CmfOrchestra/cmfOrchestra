@@ -33,7 +33,20 @@ security:
                 path: /logout
                 target: /
             anonymous: true
-        # -> end custom configuration            
+        # -> end custom configuration  
+        
+        secured_area:
+            pattern: ^/front/secured/
+            form_login:
+                provider: fos_userbundle
+                login_path: /front/secured/login
+                check_path: /front/secured/login_check
+                #default_target_path: /home
+            logout:
+                path: /front/secured/logout
+                target: /
+            anonymous: true
+        # -> end custom configuration          
                 
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
@@ -43,14 +56,14 @@ security:
             pattern:  ^/demo/secured/login$
             security: false
 
-        secured_area:
-            pattern:    ^/demo/secured/
-            form_login:
-                check_path: /demo/secured/login_check
-                login_path: /demo/secured/login
-            logout:
-                path:   /demo/secured/logout
-                target: /demo/
+#        secured_area:
+#            pattern:    ^/demo/secured/
+#            form_login:
+#                check_path: /demo/secured/login_check
+#                login_path: /demo/secured/login
+#            logout:
+#                path:   /demo/secured/logout
+#                target: /demo/
             #anonymous: ~
             #http_basic:
             #    realm: "Secured Demo Area"

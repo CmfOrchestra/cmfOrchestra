@@ -9,10 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Bootstrap\UserBundle\Controller;
+namespace BootStrap\UserBundle\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\Security\Core\SecurityContext;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 class SecurityController extends ContainerAware
 {
@@ -39,16 +42,19 @@ class SecurityController extends ContainerAware
         }
         // last username entered by the user
         $lastUsername = (null === $session) ? '' : $session->get(SecurityContext::LAST_USERNAME);
-
+        
         $csrfToken = $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate');
 
-        return $this->container->get('templating')->renderResponse('PiAppTemplateBundle:Template\\Login\\Security:login.html.'.$this->container->getParameter('fos_user.template.engine'), array(
+        //$template = "connexion.html.twig";
+        $template = "login.html.twig";
+        
+        return $this->container->get('templating')->renderResponse("PiAppTemplateBundle:Template\\Login\\Security:$template", array(
             'last_username' => $lastUsername,
             'error'         => $error,
             'csrf_token' => $csrfToken,
         ));
     }
-
+    
     public function checkAction()
     {
         throw new \RuntimeException('You must configure the check path to be handled by the firewall using form_login in your security firewall configuration.');

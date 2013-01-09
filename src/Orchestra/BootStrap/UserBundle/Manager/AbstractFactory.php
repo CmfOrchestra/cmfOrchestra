@@ -276,5 +276,44 @@ abstract class AbstractFactory
     		return $this->_RouterTranslator;
     	else
     		throw UserException::serviceNotSupported();
+    }   
+
+    /**
+     * Return the token object.
+     *
+     * @return \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken
+     * @access protected
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    protected function getToken()
+    {
+    	return  $this->_container->get('security.context')->getToken();
+    } 
+
+    /**
+     * Return the user permissions.
+     *
+     * @return array	user permissions
+     * @access protected
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    protected function getUserPermissions()
+    {
+    	return $this->getToken()->getUser()->getPermissions();
+    }
+    
+    /**
+     * Return the user roles.
+     *
+     * @return array	user roles
+     * @access protected
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    protected function getUserRoles()
+    {
+    	return $this->getToken()->getUser()->getRoles();
     }    
 }

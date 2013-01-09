@@ -127,7 +127,7 @@ class HistoricalStatus
     /**
      * Set pageTranslation
      *
-     * @param \PiApp\AdminBundle\Entity\TranslationPage	$pageTranslation
+     * @param \PiApp\AdminBundle\Entity\TranslationPage
      */
     public function setPageTranslation(\PiApp\AdminBundle\Entity\TranslationPage $pageTranslation)
     {

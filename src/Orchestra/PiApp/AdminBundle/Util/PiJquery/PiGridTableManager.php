@@ -301,7 +301,7 @@ class PiGridTableManager extends PiJqueryExtension
 						// < and > - div elements
 						// <"class" and > - div with a class
 						// Examples: <"wrapper"flipt>, <lf<t>ip>						
-						"sDom": '<"block_filter"><?php if(isset($options["grid-filters-select"])){ echo "W"; } ?><"H"RTfr>tC<"F"lpi>',
+						"sDom": '<"block_filter"><"H"RTfr<"clear"><?php if(isset($options["grid-filters-select"])){ echo "W"; } ?>>tC<"F"lpi>',
 						"oTableTools": {
 							"sSwfPath": "<?php echo $Urlpath; ?>",
 							"sRowSelect": "multi",
@@ -475,6 +475,7 @@ class PiGridTableManager extends PiJqueryExtension
 					
 						],
 						"oColumnFilterWidgets": {
+							"sSeparator": "\\s*/+\\s*",
 							"aiExclude": [ 
 				<?php if(isset($options['grid-filters-select']) && !empty($options['grid-filters-select']) && is_array($options['grid-filters-select'])): ?>
 					<?php foreach($options['grid-filters-select'] as $idColumn => $boolean): ?>

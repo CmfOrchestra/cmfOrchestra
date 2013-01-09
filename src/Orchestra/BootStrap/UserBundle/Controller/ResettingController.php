@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Bootstrap\UserBundle\Controller;
+namespace BootStrap\UserBundle\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,11 +43,15 @@ class ResettingController extends ContainerAware
     public function sendEmailAction()
     {
         $username = $this->container->get('request')->request->get('username');
+        $template = $this->container->get('request')->request->get('template');
+        
+        if(empty($template))
+        	$template = 'PiAppTemplateBundle:Template\\Login\\Resetting:request.html.twig';
 
         $user = $this->container->get('fos_user.user_manager')->findUserByUsernameOrEmail($username);
 
         if (null === $user) {
-            return $this->container->get('templating')->renderResponse('PiAppTemplateBundle:Template\\Login\\Resetting:request.html.twig', array('invalid_username' => $username));
+            return $this->container->get('templating')->renderResponse($template, array('invalid_username' => $username));
         }
 
         if ($user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
@@ -60,7 +64,14 @@ class ResettingController extends ContainerAware
         $user->setPasswordRequestedAt(new \DateTime());
         $this->container->get('fos_user.user_manager')->updateUser($user);
 
-        return new RedirectResponse($this->container->get('router')->generate('fos_user_resetting_check_email'));
+        try {
+        	$route		= $this->container->get('request')->get('_route');
+        	$response 	= new RedirectResponse($this->container->get('router')->generate($route));
+        } catch (\Exception $e) {
+        	$response 	= new RedirectResponse($this->container->get('router')->generate('fos_user_resetting_check_email'));
+        }
+        
+        return $response;
     }
 
     /**

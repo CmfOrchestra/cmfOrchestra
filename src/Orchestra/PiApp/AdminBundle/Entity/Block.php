@@ -263,7 +263,7 @@ class Block
     /**
      * Set page
      *
-     * @param \PiApp\AdminBundle\Entity\Page	$page
+     * @param \PiApp\AdminBundle\Entity\Page
      */
     public function setPage(\PiApp\AdminBundle\Entity\Page $page)
     {
@@ -283,7 +283,7 @@ class Block
     /**
      * Add widgets
      *
-     * @param \PiApp\AdminBundle\Entity\Widget	$widgets
+     * @param \PiApp\AdminBundle\Entity\Widget
      * 
      */
     public function addWidget(\PiApp\AdminBundle\Entity\Widget $widgets)

@@ -683,7 +683,7 @@ class TranslationPage
     /**
      * Set page
      *
-     * @param \PiApp\AdminBundle\Entity\Page	$page
+     * @param \PiApp\AdminBundle\Entity\Page
      */
     public function setPage(\PiApp\AdminBundle\Entity\Page $page)
     {
@@ -703,7 +703,7 @@ class TranslationPage
     /**
      * Add tags
      *
-     * @param \PiApp\AdminBundle\Entity\Tag		$tags
+     * @param \PiApp\AdminBundle\Entity\Tag
      */
     public function addTag(\PiApp\AdminBundle\Entity\Tag $tags)
     {
@@ -728,7 +728,7 @@ class TranslationPage
     /**
      * Add comments
      *
-     * @param \PiApp\AdminBundle\Entity\Comment		$comments
+     * @param \PiApp\AdminBundle\Entity\Comment
      */
     public function addComment(\PiApp\AdminBundle\Entity\Comment $comments)
     {
@@ -748,7 +748,7 @@ class TranslationPage
     /**
      * Set langCode
      *
-     * @param \PiApp\AdminBundle\Entity\Langue		$langCode
+     * @param \PiApp\AdminBundle\Entity\Langue
      */
     public function setLangCode(\PiApp\AdminBundle\Entity\Langue $langCode)
     {
@@ -768,7 +768,7 @@ class TranslationPage
     /**
      * Add historical_status
      *
-     * @param \PiApp\AdminBundle\Entity\HistoricalStatus	$historicalStatus
+     * @param \PiApp\AdminBundle\Entity\HistoricalStatus
      */
     public function addHistoricalStatus(\PiApp\AdminBundle\Entity\HistoricalStatus $historicalStatus)
     {

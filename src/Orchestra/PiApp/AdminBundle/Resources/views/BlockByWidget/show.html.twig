@@ -2,7 +2,12 @@
 {% stylesheet getParameter('pi_app_admin.admin.grid_index_css') %}
 {% stylesheet getParameter('pi_app_admin.admin.grid_theme_css') %}
 
-{% extends app.session.get('wurfl-layout') %}
+{% if NoLayout %}
+	{% set layout_nav = 'PiAppTemplateBundle::Template\\Layout\\layout-ajax.html.twig' %}
+{% else %}
+	{% set layout_nav = app.session.get('wurfl-layout') %}
+{% endif %}	
+{% extends layout_nav %}
 
 {% block title %}
 {% endblock %}
@@ -53,7 +58,7 @@
 	{% if is_granted('ROLE_ALLOWED_TO_SWITCH') %}
 	<ul class="record_actions">
 	    <li>
-	        <form action="{{ path('admin_pagebyblock_show', { 'id': entity.getPage().getId() }) }}" method="post">
+	        <form action="{{ path('admin_pagebyblock_show', { 'id': entity.getPage().getId(), 'NoLayout': NoLayout }) }}" method="post">
 	            <button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
 	        </form>	        
 	    </li>
@@ -72,7 +77,7 @@
 	    {% endif %}
 	</ul>
 	
-	{% render "PiAppAdminBundle:Widget:index" with {'block': entity.id} %}
+	{% render "PiAppAdminBundle:Widget:index" with {'block': entity.id, 'NoLayout': NoLayout} %}
 	
 	<script type="text/javascript">
 	//<![CDATA[

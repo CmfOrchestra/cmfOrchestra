@@ -288,7 +288,7 @@ class Tag extends AbstractTranslation
     /**
      * Set langCode
      *
-     * @param \PiApp\AdminBundle\Entity\Langue	$langCode
+     * @param \PiApp\AdminBundle\Entity\Langue
      */
     public function setLangCode(\PiApp\AdminBundle\Entity\Langue $langCode)
     {

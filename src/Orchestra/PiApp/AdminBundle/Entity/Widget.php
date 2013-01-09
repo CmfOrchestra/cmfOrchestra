@@ -357,7 +357,7 @@ class Widget
     /**
      * Set the collection of related translations
      *
-     * @param \Doctrine\Common\Collections\ArrayCollection		$translations
+     * @param \Doctrine\Common\Collections\ArrayCollection
      */
     public function setTranslations(\Doctrine\Common\Collections\ArrayCollection $translations)
     {
@@ -367,7 +367,7 @@ class Widget
     /**
      * Add translations
      *
-     * @param \PiApp\AdminBundle\Entity\TranslationWidget		$translation
+     * @param \PiApp\AdminBundle\Entity\TranslationWidget
      */
     public function addTranslation(\PiApp\AdminBundle\Entity\TranslationWidget $translation)
     {

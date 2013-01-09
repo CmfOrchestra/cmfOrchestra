@@ -53,8 +53,6 @@ class TranslationPageType extends AbstractType
 		
     public function buildForm(FormBuilder $builder, array $options)
     {
-    	//print_r($this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale));exit;
-    	
         $builder
             ->add('enabled', 'checkbox', array(
         			'data'  => true,

@@ -422,6 +422,6 @@ class PiLayoutHeadExtension extends \Twig_Extension
     		default:
     			return "";
     	}    	
-    }
-    
+    }    
+
 }

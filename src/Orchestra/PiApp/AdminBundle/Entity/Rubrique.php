@@ -254,7 +254,7 @@ class Rubrique
     /**
      * Add childrens
      *
-     * @param \PiApp\AdminBundle\Entity\Rubrique	$childrens
+     * @param \PiApp\AdminBundle\Entity\Rubrique
      */
     public function addRubrique(\PiApp\AdminBundle\Entity\Rubrique $childrens)
     {

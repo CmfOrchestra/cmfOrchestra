@@ -48,7 +48,7 @@ class WidgetController extends abstractController
      * @access	public
 	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    public function indexAction($block)
+    public function indexAction($block, $NoLayout = '')
     {
         $em = $this->getDoctrine()->getEntityManager();
         
@@ -57,11 +57,12 @@ class WidgetController extends abstractController
         else
         	$entities = $em->getRepository('PiAppAdminBundle:Widget')->findBy(array('block'=>$block), array('position'=> "ASC"));
         
-        $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-
+        if(empty($NoLayout))
+        	$NoLayout   = $this->container->get('request')->query->get('NoLayout');
+        
         return $this->render('PiAppAdminBundle:Widget:index.html.twig', array(
             'entities' => $entities,
-        	'NoLayout' 	  => $NoLayout,
+        	'NoLayout' => $NoLayout,
         ));
     }
     
@@ -224,7 +225,7 @@ class WidgetController extends abstractController
         if (!$entity) {
             throw ControllerException::NotFoundException('Widget');
         }
-
+        
         $editForm 	= $this->createForm(new WidgetByTransType($this->container), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
 

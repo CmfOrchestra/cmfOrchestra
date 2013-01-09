@@ -128,7 +128,7 @@ abstract class abstractListener
         	//update heritage field when method setHeritage exists in entity object
         	if (method_exists($entity, 'setHeritage')) {
         		// we modify the heritage value
-        		$entity->setHeritage($this->getBestRoles($this->getUserRoles()));
+        		$entity->setHeritage($this->container->get('bootstrap.Role.factory')->getBestRoles($this->getUserRoles()));
         	}
         	        	
         	// if user have the create right
@@ -567,9 +567,9 @@ abstract class abstractListener
     	$right = true;
        	if(isset($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) && in_array(get_class($entity), $GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) ){
        		// Gets all user roles.
-       		$user_roles 			= array_unique(array_merge($this->getAllHeritageByRoles($this->getBestRoles($this->getUserRoles())), $this->getUserRoles()));
+       		$user_roles				= $this->container->get('bootstrap.Role.factory')->getAllUserRoles();
        		// Gets the best role authorized to access to the entity.
-       		$authorized_page_roles 	= $this->getBestRoles($entity->getHeritage());
+       		$authorized_page_roles 	= $this->container->get('bootstrap.Role.factory')->getBestRoles($entity->getHeritage());
        		
        		$right = false;
        		if(is_null($authorized_page_roles))
@@ -644,87 +644,5 @@ abstract class abstractListener
     	else
     		throw new \Doctrine\ORM\EntityNotFoundException();
     }   
-
-    /**
-     * Gets the best roles of many of roles.
-     * 
-     * @param array 	$ROLES
-     * @return array	the best roles of all roles.
-     * @access protected
-     *
-     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-     */
-    protected function getBestRoles($ROLES)
-    {
-    	if(is_null($ROLES))
-    		return null;
-    	
-    	// we get the map of all roles.
-    	$roleMap = $this->buildRoleMap();
-    
-    	foreach($roleMap as $role => $heritage){
-    		if(in_array($role, $ROLES)){
-    			$intersect	= array_intersect($heritage, $ROLES);
-    			$ROLES		= array_diff($ROLES, $intersect);  // =  $ROLES_USER -  $intersect
-    		}
-    	}
-    	return $ROLES;
-    }
-    
-    /**
-     * Gets all heritage roles of many of roles.
-     *
-     * @param array 	$ROLES
-     * @return array	the best roles of all user roles.
-     * @access protected
-     *
-     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-     */
-    protected function getAllHeritageByRoles($ROLES)
-    {
-    	if(is_null($ROLES))
-    		return null;
-    	
-    	$results = array();
-    
-    	// we get the map of all roles.
-    	$roleMap = $this->buildRoleMap();
-    
-    	foreach($ROLES as $key => $role){
-    		if(isset($roleMap[$role]))
-    			$results = array_unique(array_merge($results, $roleMap[$role]));
-    	}
-    
-    	return $results;
-    }
-    
-    /**
-     * Sets the map of all roles.
-     *
-     * @return array	role map
-     * @access protected
-     *
-     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-     */
-    protected function buildRoleMap()
-    {
-    	$hierarchy 	= $this->container->getParameter('security.role_hierarchy.roles');
-    	$map		= array();
-    	foreach ($hierarchy as $main => $roles) {
-    		$map[$main] = $roles;
-    		$visited = array();
-    		$additionalRoles = $roles;
-    		while ($role = array_shift($additionalRoles)) {
-    			if (!isset($hierarchy[$role])) {
-    				continue;
-    			}
-    
-    			$visited[] = $role;
-    			$map[$main] = array_unique(array_merge($map[$main], $hierarchy[$role]));
-    			$additionalRoles = array_merge($additionalRoles, array_diff($hierarchy[$role], $visited));
-    		}
-    	}
-    	return $map;
-    }    
     
 }

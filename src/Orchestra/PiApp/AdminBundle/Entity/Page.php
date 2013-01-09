@@ -42,7 +42,7 @@ class Page
     protected $id;   
 
     /**
-     * @var integer $user
+     * @var \BootStrap\UserBundle\Entity\User $user
      *
      * @ORM\ManyToOne(targetEntity="BootStrap\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
@@ -63,7 +63,14 @@ class Page
      * @ORM\OneToMany(targetEntity="PiApp\AdminBundle\Entity\Block", mappedBy="page", cascade={"all"})
      * @Assert\NotBlank()
      */
-    protected $blocks;  
+    protected $blocks; 
+
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Menu", mappedBy="page", cascade={"persist"})
+     */
+    protected $menus;    
 
     /**
      * @var \PiApp\AdminBundle\Entity\Rubrique $rubrique
@@ -190,6 +197,7 @@ class Page
     {
         $this->translations	= new \Doctrine\Common\Collections\ArrayCollection();
     	$this->blocks		= new \Doctrine\Common\Collections\ArrayCollection();
+    	$this->menus		= new \Doctrine\Common\Collections\ArrayCollection();
     	$this->keywords		= new \Doctrine\Common\Collections\ArrayCollection();
     	$this->page_css		= new \Doctrine\Common\Collections\ArrayCollection();
     	$this->page_js		= new \Doctrine\Common\Collections\ArrayCollection();
@@ -659,6 +667,16 @@ class Page
     public function getEnabled()
     {
     	return $this->enabled;
+    }    
+    
+    /**
+     * Get menus
+     *
+     * @return string
+     */
+    public function getMenus()
+    {
+    	return $this->menus;
     }    
 
 }

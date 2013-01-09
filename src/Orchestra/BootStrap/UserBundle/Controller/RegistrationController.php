@@ -1,5 +1,5 @@
 <?php
-namespace Bootstrap\UserBundle\Controller;
+namespace BootStrap\UserBundle\Controller;
 
 use FOS\UserBundle\Controller\RegistrationController as BaseController;
 use Symfony\Component\DependencyInjection\ContainerAware;

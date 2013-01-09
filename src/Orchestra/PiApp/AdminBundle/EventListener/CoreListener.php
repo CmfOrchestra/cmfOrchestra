@@ -70,7 +70,7 @@ abstract class CoreListener extends abstractListener
 			
 			if($result)
 				$this->setFlash('pi.session.flash.rolecache.created');
-
+			
 			$path_files[] = realpath($this->_container()->getParameter("kernel.root_dir") . "/cache/dev/appDevDebugProjectContainer.php");
 			$path_files[] = realpath($this->_container()->getParameter("kernel.root_dir") . "/cache/dev/appDevDebugProjectContainer.php.meta");
 			$path_files[] = realpath($this->_container()->getParameter("kernel.root_dir") . "/cache/dev/appDevDebugProjectContainer.xml");
@@ -81,10 +81,10 @@ abstract class CoreListener extends abstractListener
 			foreach($path_files as $key=>$file){
 				if(!empty($file))
 					unlink($file);
-			}
+			}			
 		}
-	}
-
+	}	
+	
 	/**
 	 * We remove twig cached file of Page, Widget and translationWidget template.
 	 *

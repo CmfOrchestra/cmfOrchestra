@@ -130,6 +130,7 @@ class PiToolExtension extends \Twig_Extension
 				'metas_page'				=> new \Twig_Function_Method($this, 'getMetaPageFunction'),
 				'title_page'				=> new \Twig_Function_Method($this, 'getTitlePageFunction'),
 				'picture_form'				=> new \Twig_Function_Method($this, 'getPictureFormFunction'),
+				'file_form'					=> new \Twig_Function_Method($this, 'getFileFormFunction'),
 				'get_pattern_by_local'		=> new \Twig_Function_Method($this, 'getDatePatternByLocalFunction'),				
 		);
 	}	
@@ -226,6 +227,35 @@ class PiToolExtension extends \Twig_Extension
 			$content	.= "//]]> \n";
 			$content	.= "</script> \n";
 			
+			return $content;
+		}
+	}
+
+	/**
+	 * moving a file.
+	 *
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+	 */
+	public function getFileFormFunction($media, $nameForm, $style = "display: block; text-align:center;margin: 30px auto;z-index:99999999999") {
+		if($media instanceof \BootStrap\MediaBundle\Entity\Media){
+			$id 		= $media->getId();
+				
+			try {
+				$file_url = $this->container->get('sonata.media.twig.extension')->path($id, "reference");
+			} catch (\Exception $e) {
+				return "";
+			}
+				
+			$content	 = "<div id='file_$id'> \n";
+			$content	.= "<a href='{$file_url}' target='_blanc' style='{$style}'><img src='/bundles/piappadmin/images/icons/form/download-32.png' /></a>";
+			$content	.= "</div> \n";
+				
+			$content	.= "<script type='text/javascript'> \n";
+			$content	.= "//<![CDATA[ \n";
+			$content	.= "$('#file_$id').detach().appendTo('#{$nameForm}'); \n";
+			$content	.= "//]]> \n";
+			$content	.= "</script> \n";
+				
 			return $content;
 		}
 	}	

@@ -39,7 +39,7 @@ class PiFlexSliderManager extends PiJqueryExtension
 	 * @var array
 	 * @static
 	 */
-	static $actions = array('renderdefault', 'rendermultislider', 'renderclass');
+	static $actions = array('renderdefault', 'rendermultislider');
 	
 		
 	/**
@@ -110,9 +110,6 @@ class PiFlexSliderManager extends PiJqueryExtension
 	{
 		$em = $this->container->get('doctrine')->getEntityManager();
 		
-		if( !isset($options['id']) || empty($options['id']) )
-			throw ExtensionException::optionValueNotSpecified('id', __CLASS__);
-		
 		if(isset($options['params']) && is_array($options['params']) && (count($options['params']) >= 1) ){
 			$results = array_map(function($key, $value) {
 				if(in_array($value, array("true", "false")))
@@ -179,27 +176,42 @@ class PiFlexSliderManager extends PiJqueryExtension
 				}
 			}
 		}	
+		
+		$insert_js = true;
+		if(isset($options['id']) && !empty($options['id'])){
+			$id_c = "id='{$options['id']}'";
+			$id   = "#{$options['id']}";
+		}elseif(isset($options['class']) && !empty($options['class'])){
+			$id_c = "class='{$options['class']}'";
+			$id   = ".{$options['class']}";
+		}else{
+			$insert_js = false;
+		}
 
 		$templateContent = $this->container->get('twig')->loadTemplate("PiAppTemplateBundle:Template\\Slider:{$options['template']}");
-		if($templateContent->hasBlock("boucle")){
-			$slider_result	= $templateContent->renderBlock("body", array_merge($options, array('boucle'=>$sliders['content']))) . " \n";
+		if($templateContent->hasBlock("body")){
+			$slider_result	= $templateContent->renderBlock("body", array_merge($options, array('content'=>$sliders))) . " \n";
 		}else{
-			$slider_result  = "<div id='{$options['id']}' >";
+			$slider_result  = "<div $id_c >";
 			$slider_result .= "	<ul class='slides'>";
-			$slider_result .= 			$sliders['content'];
+			if(is_array($sliders['boucle']))
+				$slider_result .= 		$sliders['boucle'];
+			else
+				$slider_result .= 		$sliders['boucle'];
 			$slider_result .= "	</ul>";
 			$slider_result .= "</div>";
-		}	
+		}
 		
 		// We open the buffer.
 		ob_start ();
 		?>
 			<?php echo $slider_result; ?>
 			
+			<?php if($insert_js): ?>
 			<script type="text/javascript">
 			//<![CDATA[
 			jQuery(document).ready(function() {
-				$("#<?php echo $options['id']; ?>").flexslider({
+				$("<?php echo $id; ?>").flexslider({
                     <?php echo $params; ?>
                     <?php echo $startAt; ?>
 
@@ -222,6 +234,7 @@ class PiFlexSliderManager extends PiJqueryExtension
 			});
 			//]]>
 			</script>
+			<?php endif; ?>
 		
 		<?php
 		// We retrieve the contents of the buffer.
@@ -233,144 +246,6 @@ class PiFlexSliderManager extends PiJqueryExtension
 		
 		return $_content;
 	}
-	
-	/**
-	 * render chart with a click event.
-	 *
-	 * @param string	$sliders
-	 * @param array		$options
-	 * @access private
-	 * @return string
-	 *
-	 * @author Etienne de Longeaux <etienne_delongeaux@hotmail.com>
-	 */
-	private function renderclassAction($sliders, $options = null)
-	{
-		$em = $this->container->get('doctrine')->getEntityManager();
-	
-		if( !isset($options['id']) || empty($options['id']) )
-			throw ExtensionException::optionValueNotSpecified('id', __CLASS__);
-	
-		if(isset($options['params']) && is_array($options['params']) && (count($options['params']) >= 1) ){
-			$results = array_map(function($key, $value) {
-				if(in_array($value, array("true", "false")))
-					return $key .":".$value;
-				elseif (preg_match_all("/[a-zA]+/",$value, $matches, PREG_SET_ORDER))
-					return $key .':"'.$value.'"';
-				elseif (preg_match_all("/[0-9]+/",$value, $matches, PREG_SET_ORDER))
-					return $key .":".$value;
-			}, array_keys($options['params']),array_values($options['params']));
-			$params = implode(", \n", $results);
-		}else
-			$params = '
-                    animation: "slide",
-                    direction: "horizontal",
-                    redirection: false,
-					startAt: 0,
-                    slideshow: true,
-					slideshowSpeed: 6000,
-                    animationSpeed: 800,
-                    directionNav: true,
-                    controlNav: true,
-                    pausePlay: true,
-					minItems: 1,
-					maxItems: 1,
-			';
-		
-		$startAt = "";
-		$match	= $this->container->get('bootstrap.RouteTranslator.factory')->getLocaleRoute($this->locale, array('result' => 'match'));
-		$route	= $match['_route'];
-		if(isset($GLOBALS['ROUTE']['SLUGGABLE'][ $route ]) && !empty($GLOBALS['ROUTE']['SLUGGABLE'][ $route ])){
-			$sluggable_entity 		= $GLOBALS['ROUTE']['SLUGGABLE'][ $route ]['entity'];
-			$sluggable_field_search = $GLOBALS['ROUTE']['SLUGGABLE'][ $route ]['field_search'];
-			$sluggable_title 		= $GLOBALS['ROUTE']['SLUGGABLE'][ $route ]['field_title'];
-			$sluggable_resume 		= $GLOBALS['ROUTE']['SLUGGABLE'][ $route ]['field_resume'];
-			$sluggable_keywords		= $GLOBALS['ROUTE']['SLUGGABLE'][ $route ]['field_keywords'];
-		
-			$sluggable_title_tab = array_map(function($value) {
-				return ucwords($value);
-			}, array_values(explode('_', $sluggable_title)));
-			$sluggable_resume_tab = array_map(function($value) {
-				return ucwords($value);
-			}, array_values(explode('_', $sluggable_resume)));
-			$sluggable_keywords_tab = array_map(function($value) {
-				return ucwords($value);
-			}, array_values(explode('_', $sluggable_keywords)));
-	
-			$method_title	 	= "get".implode('', $sluggable_title_tab);
-			$method_resume 		= "get".implode('', $sluggable_resume_tab);
-			$method_keywords 	= "get".implode('', $sluggable_keywords_tab);
-			
-			if( ($sluggable_field_search == 'id') && isset($match['id']) && !empty($match['id']) ){
-				$entity 		= $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->findOneByEntity($this->locale, $match['id'], 'object');
-				
-				if(!is_null($entity)){
-					$position 	= $entity->getPosition() -1;
-					$startAt = ",startAt:$position";
-				}
-			}elseif(array_key_exists($sluggable_field_search, $match) && !empty($match[$sluggable_field_search]) ){
-				$id 	=  $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->getContentByField($this->locale, array('content_search' => array($sluggable_field_search =>$match[$sluggable_field_search]), 'field_result'=>$sluggable_title), false)->getObject()->getId();
-				$entity = $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->findOneByEntity($this->locale, $id, 'object');
-				if(!is_null($entity)){
-					$position = $entity->getPosition() -1;
-					$startAt = ",startAt:$position";
-				}
-			}		
-		}
-		
-		$templateContent = $this->container->get('twig')->loadTemplate("PiAppTemplateBundle:Template\\Slider:{$options['template']}");
-		if($templateContent->hasBlock("boucle")){
-			$slider_result	= $templateContent->renderBlock("body", array_merge($options, array('boucle'=>$sliders['content']))) . " \n";
-		}else{
-			$slider_result  = "<div class='{$options['id']}' >";
-			$slider_result .= "	<ul class='slides'>";
-			$slider_result .= 			$sliders['content'];
-			$slider_result .= "	</ul>";
-			$slider_result .= "</div>";
-		}		
-	
-		// We open the buffer.
-		ob_start ();
-		?>
-				<?php echo $slider_result; ?>
-				
-				<script type="text/javascript">
-				//<![CDATA[
-				jQuery(document).ready(function() {
-					$(".<?php echo $options['id']; ?>").flexslider({
-	                    <?php echo $params; ?>
-	                    <?php echo $startAt; ?>
-	
-	                   <?php if(isset($options['params']['redirection']) && ($options['params']['redirection'] == "true")){ ?>
-	                    , after: function(){
-	                        var id = $('#<?php echo $options['id']; ?> .flex-control-nav li a.flex-active').text()-1;
-	
-	                        <?php foreach($sliders['routenames'] as $pos => $routename){ 
-	                        if(!empty($routename) && isset($options['params']['startAt']) && ($pos != $options['params']['startAt'])){
-	                        ?>
-	                        	if(id==<?php echo $pos; ?>){document.location.href = "<?php echo $this->container->get('router')->generate($routename) ?>";}
-	                        <?php 
-								} 
-							}
-							?>
-	                    }
-	                    <?php } ?>
-					});
-	
-				});
-				//]]>
-				</script>
-			
-			<?php
-			// We retrieve the contents of the buffer.
-			$_content = ob_get_contents ();
-			// We clean the buffer.
-			ob_clean ();
-			// We close the buffer.
-			ob_end_flush ();
-			
-			return $_content;
-	}	
 	
 	/**
 	 * render multi entities by slide
@@ -414,12 +289,15 @@ class PiFlexSliderManager extends PiJqueryExtension
 			';
 		
 		$templateContent = $this->container->get('twig')->loadTemplate("PiAppTemplateBundle:Template\\Slider:{$options['template']}");
-		if($templateContent->hasBlock("boucle")){
-			$slider_result	= $templateContent->renderBlock("body", array_merge($options, array('boucle'=>$sliders['content']))) . " \n";
+		if($templateContent->hasBlock("body")){
+			$slider_result	= $templateContent->renderBlock("body", array_merge($options, array('content'=>$sliders))) . " \n";
 		}else{
 			$slider_result  = "<div id='{$options['id']}' >";
 			$slider_result .= "	<ul class='slides'>";
-			$slider_result .= 			$sliders['content'];
+			if(is_array($sliders['boucle']))
+				$slider_result .= 		$sliders['boucle'];
+			else
+				$slider_result .= 		$sliders['boucle'];
 			$slider_result .= "	</ul>";
 			$slider_result .= "</div>";
 		}		

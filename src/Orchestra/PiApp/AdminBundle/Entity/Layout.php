@@ -146,7 +146,7 @@ class Layout
     /**
      * Set the collection of related pages
      *
-     * @param \Doctrine\Common\Collections\ArrayCollection
+     * @param \Doctrine\Common\Collections\ArrayCollection $pages
      */
     public function setPages(\Doctrine\Common\Collections\ArrayCollection $pages)
     {
@@ -156,7 +156,7 @@ class Layout
     /**
      * Add a translation to the collection of related Page
      *
-     * @param \PiApp\AdminBundle\Entity\TranslationPage
+     * @param \PiApp\AdminBundle\Entity\TranslationPage	$page
      */
     public function addPage(\PiApp\AdminBundle\Entity\Page $page)
     {
@@ -167,7 +167,7 @@ class Layout
     /**
      * Remove a translation from the collection of related Page
      *
-     * @param  \PiApp\AdminBundle\Entity\TranslationPage
+     * @param  \PiApp\AdminBundle\Entity\TranslationPage	$page
      */
     public function removePage(\PiApp\AdminBundle\Entity\Page $page)
     {
@@ -179,7 +179,7 @@ class Layout
     /**
      *  Get the collection of related pages
      *
-     * @return \Doctrine\Common\Collections\ArrayCollection
+     * @return \Doctrine\Common\Collections\ArrayCollection 
      */
     public function getPages()
     {

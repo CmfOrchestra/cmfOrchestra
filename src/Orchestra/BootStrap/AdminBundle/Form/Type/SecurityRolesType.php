@@ -64,6 +64,8 @@ class SecurityRolesType extends ChoiceType
                 }                
             }
 
+            //print_r($this->pool->getContainer()->getParameter('security.role_hierarchy.roles'));exit;
+            
             $options['choices'] = $roles;
         }
         return $options;

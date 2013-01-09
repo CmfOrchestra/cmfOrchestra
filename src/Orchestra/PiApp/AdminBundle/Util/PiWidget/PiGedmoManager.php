@@ -622,8 +622,18 @@ class PiGedmoManager extends PiWidgetExtension
  	 *                  	<action>renderDefault</action>
      *						<menu>entity</menu>
      *						<id>flexslider</id>
+     *                      <boucle_array>false</boucle_array>
 	 *	                  	<orderby_date></orderby_date>
      *	                  	<orderby_position>ASC</orderby_position>
+     *						<MaxResults>4</MaxResults>
+     *						<searchFields>
+ 	 *                      	<nameField>field1</nameField>
+ 	 *                      	<valueField>value1</valueField>
+ 	 *                      </searchFields>
+     *						<searchFields>
+ 	 *                      	<nameField>field2</nameField>
+ 	 *                      	<valueField>value2</valueField>
+ 	 *                      </searchFields>
      *		                <params>
      *		                  	<animation>slide</animation>
      *							<slideDirection>horizontal</slideDirection>

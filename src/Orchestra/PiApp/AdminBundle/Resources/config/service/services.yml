@@ -60,11 +60,11 @@ services:
         
     pi_app_admin.manager.formbuilder:
         class: %piapp.admin.manager.formbuilder.class%
-        arguments: ['@service_container']      
+        arguments: ['@service_container']        
         
     pi_app_admin.manager.authentication: 
         class: %piapp.admin.manager.authentication.class%
-        arguments: ['@service_container']           
+        arguments: ['@service_container'] 
         
     #
     # configuration of the Twig and Template

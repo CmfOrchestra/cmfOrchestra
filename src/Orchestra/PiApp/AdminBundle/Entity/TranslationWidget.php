@@ -260,7 +260,7 @@ class TranslationWidget
     /**
      * Set widget
      *
-     * @param \PiApp\AdminBundle\Entity\Widget	$widget
+     * @param \PiApp\AdminBundle\Entity\Widget
      */
     public function setWidget(\PiApp\AdminBundle\Entity\Widget $widget)
     {
@@ -280,7 +280,7 @@ class TranslationWidget
     /**
      * Set langCode
      *
-     * @param \PiApp\AdminBundle\Entity\Langue		$langCode
+     * @param \PiApp\AdminBundle\Entity\Langue
      */
     public function setLangCode(\PiApp\AdminBundle\Entity\Langue $langCode)
     {

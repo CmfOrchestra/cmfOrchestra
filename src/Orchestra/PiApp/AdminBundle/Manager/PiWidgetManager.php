@@ -58,7 +58,7 @@ class PiWidgetManager extends PiCoreManager implements PiWidgetManagerBuilderInt
 		
 		// we get the current Widget.
 		$widget	 = $this->getRepository('Widget')->findOneById($id);
-	
+		
 		// we set the current result
 		$this->setCurrentWidget($widget);
 	

@@ -116,7 +116,7 @@ class PiTreeManager extends PiCoreManager implements PiTreeManagerBuilderInterfa
 				$nodes 		= $em->getRepository($entity)->getAllTree($locale, $category, 'object', false, true, $node);
 			}else
 				$nodes 		= $em->getRepository($entity)->getAllTree($locale, $category, 'array', false, true, $node);
-		}	
+		}		
 		
 		if(!empty($template)){
 			$params['locale']		= $locale;
