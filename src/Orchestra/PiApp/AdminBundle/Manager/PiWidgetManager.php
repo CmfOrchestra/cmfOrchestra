@@ -197,6 +197,33 @@ class PiWidgetManager extends PiCoreManager implements PiWidgetManagerBuilderInt
 	{
 		$container  = strtoupper($this->getCurrentWidget()->getPlugin());
 		$NameAction	= strtolower($this->getCurrentWidget()->getAction());
+		
+		// If the widget is a "gedmo snippet"
+		if( ($container == 'CONTENT') && ($NameAction == 'snippet') )	{
+			// if the configXml field of the widget is configured correctly.
+			try {
+				$xmlConfig	= new \Zend_Config_Xml($this->getCurrentWidget()->getConfigXml());
+				if($xmlConfig->widgets->get('content')){
+					$snippet_widget = $this->getWidgetById($xmlConfig->widgets->content->id);
+					$container  	= strtoupper($snippet_widget->getPlugin());
+					$NameAction		= strtolower($snippet_widget->getAction());
+				}
+			} catch (\Exception $e) {
+			}			 
+		}
+		// If the widget is a "gedmo snippet"
+		elseif( ($container == 'GEDMO') && ($NameAction == 'snippet') )	{
+			// if the configXml field of the widget is configured correctly.
+			try {
+				$xmlConfig	= new \Zend_Config_Xml($this->getCurrentWidget()->getConfigXml());
+				if($xmlConfig->widgets->get('gedmo')){
+					$snippet_widget = $this->getWidgetById($xmlConfig->widgets->gedmo->id);
+					$container  	= strtoupper($snippet_widget->getPlugin());
+					$NameAction		= strtolower($snippet_widget->getAction());
+				}
+			} catch (\Exception $e) {
+			}
+		}		
 	
 		$this->script['js'][$container.$NameAction]		= $this->extensionWidget->ScriptJsFunction($container, $NameAction);
 		$this->script['css'][$container.$NameAction]	= $this->extensionWidget->ScriptCssFunction($container, $NameAction);

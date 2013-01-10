@@ -95,7 +95,7 @@ class PiSliderManager extends PiCoreManager implements PiSliderManagerBuilderInt
 		if(isset($parameters['boucle_array']) && !empty($parameters['boucle_array']))
 			$boucle_array = $parameters['boucle_array'];
 		else
-			$boucle_array = false;
+			$boucle_array = "false";
 		
 		// we construct the query.
 		if(isset($parameters['orderby_date']) && !empty($parameters['orderby_date']))
@@ -186,7 +186,7 @@ class PiSliderManager extends PiCoreManager implements PiSliderManagerBuilderInt
 			}			
 		}
 		
-		if($boucle_array){
+		if($boucle_array == "true"){
 			return array('boucle'=>$_boucle, 'boucle1'=>$_boucle1, 'boucle2'=>$_boucle2, 'boucle3'=>$_boucle3, 'routenames'=>$RouteNames);
 		}else{
 			return array('boucle'=>implode(" \n", $_boucle), 'boucle1'=>implode(" \n", $_boucle1), 'boucle2'=>implode(" \n", $_boucle2), 'boucle3'=>implode(" \n", $_boucle3), 'routenames'=>$RouteNames);

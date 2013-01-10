@@ -66,7 +66,7 @@
 	        {%- else %}
 	
 	            <td>
-	            	{{ '{{ entity.'~ field|replace({'_': ''}) ~'|limite("0", 55)|raw }}' }}
+	            	{{ '{{ entity.'~ field|replace({'_': ''}) ~'|truncateText(55)|raw }}' }}
 	            </td>
 	
 	        {%- endif %}

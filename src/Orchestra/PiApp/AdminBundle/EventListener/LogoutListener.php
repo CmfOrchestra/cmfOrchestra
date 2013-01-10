@@ -124,7 +124,14 @@ class LogoutListener
 		
 		// the controller can be changed to any PHP callable
 		$event->setController($controller); */	
-
+		
+		$request 	= $event->getRequest($event);
+		$session 	= $request->getSession();
+		
+		// It records the input screen of the customer's site.
+		if(!$session->has('wurfl-screen')) {
+			$session->set('wurfl-screen', 'layout');
+		}
 	}
 		
 	/**

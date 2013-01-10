@@ -77,29 +77,33 @@ class MobileListener
 		$session 	= $request->getSession();
 		
 		// It records the input screen of the customer's site.
-		if($session->has('wurfl-screen')) {
-	        $width = \Zend_Registry::get('wurflDevice')->getPhysicalScreenWidth();
-	        switch (true) {
-	        	case ($width <= 0):
-	        		$session->set('wurfl-screen', 'layout');
-	        		break;
-	        	case ($width <= 128):
-	        		$session->set('wurfl-screen', 'layout-poor');
-	        		break;
-	        	case ($width <= 176):
-	        		$session->set('wurfl-screen', 'layout-medium');
-	        		break;
-	        	case ($width <= 240):
-	        		$session->set('wurfl-screen', 'layout-high');
-	        		break;
-	        	case ($width <= 320):
-	        		$session->set('wurfl-screen', 'layout-ultra');
-	        		break;
-	        	default:
-	        		// use default
-	        		break;
-	        }  
-	        //print_r($width);
+		if(!$session->has('wurfl-screen')) {
+			
+			$session->set('wurfl-screen', 'layout');			
+			
+// 	        $width = \Zend_Registry::get('wurflDevice')->getPhysicalScreenWidth();
+// 	        switch (true) {
+// 	        	case ($width <= 0):
+// 	        		$session->set('wurfl-screen', 'layout');
+// 	        		break;
+// 	        	case ($width <= 128):
+// 	        		$session->set('wurfl-screen', 'layout-poor');
+// 	        		break;
+// 	        	case ($width <= 176):
+// 	        		$session->set('wurfl-screen', 'layout-medium');
+// 	        		break;
+// 	        	case ($width <= 240):
+// 	        		$session->set('wurfl-screen', 'layout-high');
+// 	        		break;
+// 	        	case ($width <= 320):
+// 	        		$session->set('wurfl-screen', 'layout-ultra');
+// 	        		break;
+// 	        	default:
+// 	        		// use default
+// 	        		break;
+// 	        }  
+	        
+	        //print_r("cocicn");
 	        //print_r($session->get('wurfl-screen'));exit;
 		} 
     }
