@@ -269,7 +269,7 @@ class PiGridTableManager extends PiJqueryExtension
 						<?php endif; ?>
 							
 						"aLengthMenu": [[1, 5, 10, 25, 50, 100, 500, 1000, 5000 -1], [1, 5, 10, 25, 50, 100, 500, 1000, 5000, "All"]],
-						<?php if( isset($params['grid-LengthMenu']) && !empty($params['grid-LengthMenu']) ): ?>
+						<?php if( isset($options['grid-LengthMenu']) && !empty($options['grid-LengthMenu']) ): ?>
 						"iDisplayLength": <?php echo $options['grid-LengthMenu']; ?>,
 						<?php else: ?>
 						"iDisplayLength": 25,

@@ -109,6 +109,8 @@
 
 	{{ "{% set options_gridtabale = {'grid-name': 'grid_"~ entity|lower|replace({"\\": '_'}) ~"', 'grid-type':'simple', 
 			'grid-paginate':'true',
+			'grid-LengthMenu':25,
+			'grid-filters-select': ['0','1'],
 			'grid-filters': { 
 					"~ is_position ~"
 					'"~ value_id_position ~"':'Identifiant',

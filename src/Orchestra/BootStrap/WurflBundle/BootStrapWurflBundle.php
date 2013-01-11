@@ -53,40 +53,40 @@ class BootStrapWurflBundle extends Bundle
 	 */
 	public function boot()
 	{
-// 		// Wurfl config
-// 		$resourcesLib  = realpath(dirname(__FILE__) . '/../../../../vendor/wurfl');
-// 		$resourcesConf = realpath(dirname(__FILE__) . '/Resources/config');
+		// Wurfl config
+		$resourcesLib  = realpath(dirname(__FILE__) . '/../../../../vendor/wurfl');
+		$resourcesConf = realpath(dirname(__FILE__) . '/Resources/config');
 		
-// 		if(!empty($resourcesConf)) {
-// 			$config = array(
-// 					'wurflapi' => array(
-// 							'wurfl_config_array' => array(
-// 									'wurfl' => array(
-// 											'main-file' => realpath($resourcesConf . '/wurfl.xml'),
-// 											'patches'	=> realpath($resourcesConf . '/web_browsers_patch.xml'),
-// 									),
+		if(!empty($resourcesConf)) {
+			$config = array(
+					'wurflapi' => array(
+							'wurfl_config_array' => array(
+									'wurfl' => array(
+											'main-file' => realpath($resourcesConf . '/wurfl.xml'),
+											'patches'	=> realpath($resourcesConf . '/web_browsers_patch.xml'),
+									),
 		
-// 									'persistence' => array(
-// 											'provider'	=> 'file',
-// 											'dir'		=> $resourcesLib . '/cache/',
-// 									),
+									'persistence' => array(
+											'provider'	=> 'file',
+											'dir'		=> $resourcesLib . '/cache/',
+									),
 		
-// 									'cache' => null,
-// 							),
+									'cache' => null,
+							),
 		
-// 							'wurfl_lib_dir'		=> $resourcesLib  . '/library/WURFL/',
-// 							'wurfl_api_version' => '1.1',
-// 					),
-// 			);
+							'wurfl_lib_dir'		=> $resourcesLib  . '/library/WURFL/',
+							'wurfl_api_version' => '1.1',
+					),
+			);
 		
-// 			// instance of userAgent
-// 			$userAgent		 =  new \Zend_Http_UserAgent($config);
-// 			$userAgentDevice = $userAgent->getDevice();
+			// instance of userAgent
+			$userAgent		 =  new \Zend_Http_UserAgent($config);
+			$userAgentDevice = $userAgent->getDevice();
 		
-// 			// save the device object in the registry
-// 			\Zend_Registry::set('wurflDevice', $userAgentDevice);
-// 			\Zend_Registry::set('wurflAgent', $userAgent);
-// 		}
+			// save the device object in the registry
+			\Zend_Registry::set('wurflDevice', $userAgentDevice);
+			\Zend_Registry::set('wurflAgent', $userAgent);
+		}
 	}
 	
 	/**
