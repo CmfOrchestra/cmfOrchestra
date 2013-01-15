@@ -43,11 +43,80 @@
 	<script type="text/javascript">
 	//<![CDATA[
 	$(document).ready(function(){
-	$(document).pngFix( );
+		$(document).pngFix( );
 	});
 	//]]>
 	</script>
 
+{#	
+	<script type="text/javascript">
+	//<![CDATA[
+	$(document).ready(function(){
+ 		$(document).on('click', 'div.select_sub a', function(e) { 	 			
+ 			var pthis  = this;
+ 			var ptitle = $(this).html();
+ 			$.ajax({
+ 				type: "GET",
+			  	url: $(pthis).attr('href'),
+			  	data: {
+			  		NoLayout: 1,
+			  		AdminAjaxTable: 1,
+			  		AdminAjaxForm: 0
+			  	}
+			}).done(function(e) {
+				$('a').parent().removeClass();
+				$(pthis).parent().addClass("sub_show");
+				$("div#content-table-inner").html(e);
+				$("div#page-heading").html(ptitle);
+				return false;
+			});
+			e.preventDefault();
+			e.stopPropagation();
+ 		});
+ 		$(document).on('click', 'table.DTTT_selectable a.icon-1', function(e) { 	 			
+ 			var pthis  = this;
+ 			$.ajax({
+ 				type: "GET",
+			  	url: $(pthis).attr('href'),
+			  	data: {
+			  		NoLayout: 1,
+			  		AdminAjaxTable: 0,
+			  		AdminAjaxForm: 1,
+			  		AdminAjaxShow: 0
+			  	}
+			}).done(function(e) {
+				$('a').parent().removeClass();
+				$(pthis).parent().addClass("sub_show");
+				$("div#content-table-inner").html(e);
+				return false;
+			});
+			e.preventDefault();
+			e.stopPropagation();
+ 		});
+ 		$(document).on('click', 'table.DTTT_selectable a.icon-3', function(e) { 	 			
+ 			var pthis  = this;
+ 			$.ajax({
+ 				type: "GET",
+			  	url: $(pthis).attr('href'),
+			  	data: {
+			  		NoLayout: 1,
+			  		AdminAjaxTable: 0,
+			  		AdminAjaxForm: 0,
+			  		AdminAjaxShow: 1
+			  	}
+			}).done(function(e) {
+				$('a').parent().removeClass();
+				$(pthis).parent().addClass("sub_show");
+				$("div#content-table-inner").html(e);
+				return false;
+			});
+			e.preventDefault();
+			e.stopPropagation();
+ 		}); 		
+ 	});	
+	//]]>
+	</script>
+#}	
 {% endblock %}
 
 

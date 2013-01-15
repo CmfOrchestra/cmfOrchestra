@@ -45,6 +45,18 @@
 	            <button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
 	        </form>	        
 		</li>
-		
 	</ul>
+	
+	<script type="text/javascript">
+	//<![CDATA[
+			j_prototype_bytabs.ftc_accordion_form("job_collection", "{{ 'pi.corporation.form.group.job'|trans }}", ".myform");
+			j_prototype_bytabs.ftc_accordion_form("info1_collection", "{{ 'pi.corporation.form.group.info1'|trans }}", ".myform");
+	        j_prototype_bytabs.ftc_accordion_form("info2_collection", "{{ 'pi.corporation.form.group.info2'|trans }}", ".myform");
+	        j_prototype_bytabs.ftc_accordion_form("contact_entre_collection", "{{ 'pi.corporation.form.group.contact.entre'|trans }}", ".myform");
+	        j_prototype_bytabs.ftc_accordion_form("contact_mother_collection", "{{ 'pi.corporation.form.group.contact.entre.mother'|trans }}", ".myform");
+	        j_prototype_bytabs.ftc_accordion_form("contact_facuration_collection", "{{ 'pi.corporation.form.group.contact.entre.facturation'|trans }}", ".myform");
+	        j_prototype_bytabs.ftc_accordion_form("social_collection", "{{ 'pi.corporation.form.group.social'|trans }}", ".myform");	        
+			j_prototype_bytabs.ftc_accordion_form("image_collection", "{{ 'pi.corporation.form.group.picture'|trans }}", ".myform");			        
+	//]]>
+	</script>	
 {% endblock %}

@@ -53,8 +53,20 @@
 	            <button type="submit">{{ 'pi.grid.action.delete'|trans }}</button>
 	        </form>
 	    </li>
-	    {% endif %}
-	    
-	
+	    {% endif %}    
 	</ul>
+	
+	{% if entity.media.image is defined %}
+	{{ picture_form(entity.media.image, 'piapp_gedmobundle_individualtype_media_image_binaryContent', 'reference')|raw }}
+	{% endif %}
+		
+	<script type="text/javascript">
+	//<![CDATA[
+	        j_prototype_bytabs.ftc_accordion_form("contact_collection", "{{ 'pi.individual.form.group.contact'|trans }}", ".myform");
+	        j_prototype_bytabs.ftc_accordion_form("job_collection", "{{ 'pi.individual.form.group.job'|trans }}", ".myform");
+	        j_prototype_bytabs.ftc_accordion_form("social_collection", "{{ 'pi.individual.form.group.social'|trans }}", ".myform");
+			j_prototype_bytabs.ftc_accordion_form("page_collection", "{{ 'pi.individual.form.group.page'|trans }}", ".myform");
+			j_prototype_bytabs.ftc_accordion_form("image_collection", "{{ 'pi.individual.form.group.picture'|trans }}", ".myform");			        
+	//]]>
+	</script>	
 {% endblock %}		

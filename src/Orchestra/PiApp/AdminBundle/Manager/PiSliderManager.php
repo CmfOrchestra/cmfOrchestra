@@ -98,6 +98,12 @@ class PiSliderManager extends PiCoreManager implements PiSliderManagerBuilderInt
 			$boucle_array = "false";
 		
 		// we construct the query.
+		if(isset($parameters['query_function']) && !empty($parameters['query_function']))
+			$query_function = $parameters['query_function'];
+		else
+			$query_function = null;		
+		
+		// we construct the query.
 		if(isset($parameters['orderby_date']) && !empty($parameters['orderby_date']))
 			$ORDER_PublishDate = $parameters['orderby_date'];
 		else
@@ -113,6 +119,11 @@ class PiSliderManager extends PiCoreManager implements PiSliderManagerBuilderInt
 		else
 			$MaxResults = null;		
 		
+		if(isset($parameters['enabled']) && !empty($parameters['enabled']))
+			$enabled = (int)$parameters['enabled'];
+		else
+			$enabled = true;		
+		
 		if(empty($ORDER_PublishDate) && empty($ORDER_Position)){
 			$ORDER_Position = 'ASC';
 		}
@@ -122,26 +133,35 @@ class PiSliderManager extends PiCoreManager implements PiSliderManagerBuilderInt
 		else
 			$controller  = "PiAppGedmoBundle:$entity";
 		
-		$query		= $em->getRepository($controller)->getAllByCategory($category, $MaxResults, $ORDER_PublishDate, $ORDER_Position, true);
-		if(isset($parameters['searchFields']) && !empty($parameters['searchFields'])){
-			if(count($parameters['searchFields']) == 2 && isset($parameters['searchFields']['nameField'])){
-				$query->andWhere('a.'.$parameters['searchFields']['nameField'] .' LIKE :value')
-					  ->setParameters(array(
-					  		'value'   => $parameters['searchFields']['valueField']
-					  	));
-			}else {
-				foreach ($parameters['searchFields'] as $searchFields){
-					$query->andWhere('a.'.$searchFields['nameField'] .' LIKE :value')
+			if(is_null($query_function)){
+				$query	= $em->getRepository($controller)->getAllByCategory($category, $MaxResults, $ORDER_PublishDate, $ORDER_Position, $enabled);
+			}elseif(method_exists($em->getRepository($controller), $query_function)){
+				$query  = $em->getRepository($controller)->$query_function($category, $MaxResults, $ORDER_PublishDate, $ORDER_Position, $enabled);
+			}else
+				throw new \InvalidArgumentException("The metohd 'query_function' does not exist in the entity's repository {$controller}");
+			
+			if(isset($parameters['searchFields']) && !empty($parameters['searchFields'])){
+				if(count($parameters['searchFields']) == 2 && isset($parameters['searchFields']['nameField'])){
+					$query->andWhere('a.'.$parameters['searchFields']['nameField'] .' LIKE :value')
 						  ->setParameters(array(
-								'value'   => $searchFields['valueField'],
-							));
+						  		'value'   => $parameters['searchFields']['valueField']
+						  	));
+				}else {
+					foreach ($parameters['searchFields'] as $searchFields){
+						$query->andWhere('a.'.$searchFields['nameField'] .' LIKE :value')
+							  ->setParameters(array(
+									'value'   => $searchFields['valueField'],
+								));
+					}
 				}
 			}
-		}
-		if(in_array($entity, array('User', 'Role'))){
-			$allslides  = $query->getQuery()->getArrayResult();
-		}else
-			$allslides  = $em->getRepository($controller)->findTranslationsByQuery($locale, $query->getQuery(), 'object', false);
+			
+			if(in_array($entity, array('User', 'Role'))){
+				//print_r($query->getQuery()->getSQL());
+				$allslides  = $query->getQuery()->getArrayResult();
+			}else
+				$allslides  = $em->getRepository($controller)->findTranslationsByQuery($locale, $query->getQuery(), 'object', false);
+		
 		
 		// we construct all boucles.
 		$_boucle 	= array();

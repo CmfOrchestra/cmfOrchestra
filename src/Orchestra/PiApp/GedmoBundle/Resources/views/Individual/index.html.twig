@@ -18,16 +18,16 @@
 	<table id="grid_individual" class="grid" >
 	    <thead>
 	        <tr>	            
-	            <th class="position" ><a href="javascript:void(0);" title="Position">Position</a></th>	        
-	            <th><a href="javascript:void(0);" title="Id">Id</a></th>	            
-	            <th><a href="javascript:void(0);" title="Inscrname">Inscrname</a></th>	            
-	            <th><a href="javascript:void(0);" title="Inscrnickname">Inscrnickname</a></th>	            
-	            <th><a href="javascript:void(0);" title="Inscrjob">Inscrjob</a></th>	            
-	            <th><a href="javascript:void(0);" title="Entrcompany">Entrcompany</a></th>	            
-	            <th><a href="javascript:void(0);" title="Entractivity">Entractivity</a></th>	            
-	            <th><a href="javascript:void(0);" title="Entrbusiness">Entrbusiness</a></th>	            
-	            <th><a href="javascript:void(0);" title="Enabled">Enabled</a></th>	        	
-	            <th><a href="javascript:void(0);" title="Actions">Actions</a></th>
+	            <th class="position" >Position</th>	        
+	            <th>Id</th>
+                <th>Mise en avant</th>
+	            <th>name</th>	            
+	            <th>nickname</th>	            
+	            <th>job</th>	            
+	            <th>company</th>	            
+	            <th>activity</th>	            	            
+	            <th>Enabled</th>	        	
+	            <th>Actions</th>
 	        </tr>
 	    </thead>
 	    <tbody>
@@ -37,22 +37,22 @@
 	        	<td class="position" >{{ entity.position}}</td>	
 	            <td><a href="{{ path('admin_gedmo_individual_show', { 'id': entity.id, 'NoLayout': NoLayout, 'category':category }) }}" title="">{{ entity.id }}</a></td>	
 	            <td>
-	            	{{ entity.InscrName|limite("0", 55)|raw }}
+                  {% if entity.highlighted == 1 %}Home Page{% else %}Autres{% endif %}
+	            </td>	
+                <td>
+	            	{{ entity.Name|limite("0", 55)|raw }}
 	            </td>	
 	            <td>
-	            	{{ entity.InscrNickname|limite("0", 55)|raw }}
+	            	{{ entity.Nickname|limite("0", 55)|raw }}
 	            </td>	
 	            <td>
-	            	{{ entity.InscrJob|limite("0", 55)|raw }}
+	            	{{ entity.Job|limite("0", 55)|raw }}
 	            </td>	
 	            <td>
-	            	{{ entity.EntrCompany|limite("0", 55)|raw }}
+	            	{{ entity.Company|limite("0", 55)|raw }}
 	            </td>	
 	            <td>
-	            	{{ entity.EntrActivity|limite("0", 55)|raw }}
-	            </td>	
-	            <td>
-	            	{{ entity.EntrBusiness|limite("0", 55)|raw }}
+	            	{{ entity.Activity|limite("0", 55)|raw }}
 	            </td>	
 	            <td class="enabled" >{{ entity.enabled}}</td>	
 				<td>
@@ -84,6 +84,7 @@
 	
 	{% set options_gridtabale = {'grid-name': 'grid_individual', 'grid-type':'simple', 
 			'grid-paginate':'true',
+			'grid-filters-select': ['0','1','8', '9'],
 			'grid-filters': { 
 					'1':'Position',
 					'2':'Identifiant',
@@ -96,6 +97,7 @@
 				'1':'false',
 				},						
 			'grid-actions': { 
+					'rows_grouping': {'columnIndex':2, 'Collapsible':'false', 'HideColumn':'true', 'SortDirection':'desc'},
 					'rows_enabled': {'sButtonText':'pi.grid.action.row_enabled', 'route':'admin_gedmo_individual_enabledentity_ajax',},
 					'rows_disable': {'sButtonText':'pi.grid.action.row_disable', 'route':'admin_gedmo_individual_disablentity_ajax'},
 					'rows_delete': {'sButtonText':'pi.grid.action.row_delete', 'route':'admin_gedmo_individual_deletentity_ajax'},

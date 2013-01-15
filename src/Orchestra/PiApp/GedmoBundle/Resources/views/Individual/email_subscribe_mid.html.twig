@@ -1,12 +1,12 @@
 {% block subject %}
 {% autoescape false %}
-{{ 'pi.individual.form.mid.email.subject'|trans }}
+{{ 'pi.individual.form.mid.email.subject'|replace({'<p>': '', '</p>': ''})|trans|raw }}
 {% endautoescape %}
 {% endblock %}
 
 {% block body %}
 {% autoescape false %}
-{{ 'pi.individual.form.mid.email.body'|trans({'%passworde%': password, '%confirmationUrl%': confirmationUrl}) }}
+{{ 'pi.individual.form.mid.email.body'|trans({'%login%': form.UserName, '%passworde%': password, '%confirmationUrl%': confirmationUrl, '%name%': form.Name, '%nickname%': form.Nickname}) }}
 {% endautoescape %}
 {% endblock %}
 {% block body_html %}{% endblock %}

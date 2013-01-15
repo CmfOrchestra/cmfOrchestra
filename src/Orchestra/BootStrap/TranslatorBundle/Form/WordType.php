@@ -87,7 +87,16 @@ class WordType extends AbstractType
             					"class"=>"category_collection",
             			)
             	))            	
- 				->add('label') 			
+ 				->add('label', 'textarea', array(
+ 						'required'  => false,
+ 						"attr" => array(
+ 								"class"	=>"pi_editor_simple",
+ 						),
+ 						'label'	=> "pi.form.label.field.content",
+ 						"label_attr" => array(
+ 								"class"=>"block_collection",
+ 						),
+ 				))
  				->add('keyword', 'text', array(
  						'required'  => true,
  				)) 			

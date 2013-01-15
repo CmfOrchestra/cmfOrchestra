@@ -1,11 +1,13 @@
 {% block subject %}
 {% autoescape false %}
-{{ 'pi.individual.form.lamelee.email.subject'|trans }}
+{{ 'pi.individual.form.lamelee.email.subject'|replace({'<p>': '', '</p>': ''})|trans|raw }}
 {% endautoescape %}
 {% endblock %}
 {% block body %}
 {% autoescape false %}
-{{ 'pi.individual.form.lamelee.email.body'|trans({'%passworde%': password, '%confirmationUrl%': confirmationUrl}) }}
+{{ 'pi.individual.form.lamelee.email.body'|trans({'%login%': form.UserName, '%passworde%': password, '%confirmationUrl%': confirmationUrl, '%name%': form.Name, '%nickname%': form.Nickname}) }}
 {% endautoescape %}
 {% endblock %}
 {% block body_html %}{% endblock %}
+
+

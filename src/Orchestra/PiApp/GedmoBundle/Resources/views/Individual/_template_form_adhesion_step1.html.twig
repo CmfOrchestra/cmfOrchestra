@@ -1,0 +1,98 @@
+{% if render == '' %}
+		<section class="breadcrumb">
+			<div class="wrap">
+				<a class="underline" href="#">Home</a> >
+				<a href="#" class="tt-clr"> M'inscrire</a>
+			</div>
+		</section>
+		<div class="wrap">
+			<header>
+				<h2 class="tt-1">Adhérer</h2>
+				<p class="tt-10">Gérer simplement vos abonnements newsletter et vos événements 
+				en vous inscrivant gratuitement à La Mêlée Numérique.</p>
+			</header>
+		</div>
+		
+		<section class="bloc-adhesion">
+			<div class="wrap">
+				<div class='content'>
+					<header class="resetM cf">
+						<h3 class="tt-3 tt-clr bold">Vous souhaitez adhérer en tant que :</h3>
+						<div class="button-ct">
+							<a href="#" class="button Bsociety on" data-button="toggle"><!--
+								--><span>Personne physique</span><!--
+							--></a>
+							<a href="#" class="button Bperson" data-button="toggle"><!--
+								--><span>Personne morale</span><!--
+							--></a>
+							</div>
+					</header>
+					<figure class="timeline three-step">
+						<a href="#" class="dots first active">1</a>
+						<a href="#" class="dots second">2</a>
+						<a href="#" class="dots third">3</a>
+					</figure>
+
+            <form action="#" method="post" class="cf" novalidate>
+            <input type="hidden" id="new" name="new" value="{{new}}">
+            <input type="hidden" id="step" name="step" value="1">
+            {{ form_errors(form) }}
+            {{ form_widget(form._token) }}            
+						<div class="title-border-simple cf">
+							<h3 class="tt-3 tt-clr bold fleft">Qui êtes-vous ?</h3>
+						</div>
+						<fieldset>
+							<div class="row cf">
+								{{ form_widget(form.Civility) }}
+                {{ form_widget(form.Name) }}
+								{{ form_widget(form.Nickname) }}
+							</div>
+					
+						</fieldset>
+						<fieldset>
+							<legend class="bold">Entreprise</legend>
+							<div class="row cf">
+								{{ form_widget(form.Job) }}
+								<a href="#" class="tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
+
+							</div>
+							<div class="row">	
+								{{ form_widget(form.Email) }}
+                {{ form_widget(form.EmailPerso) }}
+							</div>
+							<div class="row">	
+								{{ form_widget(form.Phone) }}
+							</div>
+						
+						
+						</fieldset>
+						<fieldset class="resetBorder">
+							<legend class="bold">Profil adhérent</legend>
+
+							<div class="row cf">
+								{{ form_widget(form.Profile) }}
+
+								<a href="#" class="tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
+
+								{{ form_widget(form.ProfileOther) }}
+							</div>
+								
+							<div class="id-choice">
+								{{ form_row(form.UserName) }}
+
+								<p class="light-clr"><small>Il vous sera demandé à chaque connexion et sera définitif</small></p>
+							</div>	
+							<p class="light-clr"><span class="tt-clr">*</span> champs obligatoire</p>
+						</fieldset>
+
+						<input type="submit" value="ETAPE SUIvaNTE" class="fright nextStep">
+								
+					</form>
+
+				</div>	
+			</div>
+		</section>	
+
+{% else %}
+  {{ render|raw }}
+{% endif %}	

@@ -24,8 +24,8 @@ use Symfony\Component\Console\Input\InputOption;
  * we have to be connected for restore the databse otherwhise the database server has gone away.
  *
  * <code>
- * 		php app/console orchestra:database:restore C:\xampp\htdocs\symf_lamelee\app\cache\Backup doctrine_backup_database-symflamelee_2013-01-11-18-19-16.sql
- * 		php app/console orchestra:database:restore /home/www/lamelee/app/cache/Backup doctrine_backup_database-symflamelee_2013-01-11-18-19-16.sql
+ * 		php app/console orchestra:database:restore C:\xampp\htdocs\symf_lamelee\app\cache\Backup doctrine_backup_database-symflamelee_2013-01-15-19-51-21.sql
+ * 		php app/console orchestra:database:restore /home/www/lamelee/app/cache/Backup doctrine_backup_database-symflamelee_2013-01-15-19-51-21.sql
  * </code>
  * 
  * @category   Bootstrap_Command

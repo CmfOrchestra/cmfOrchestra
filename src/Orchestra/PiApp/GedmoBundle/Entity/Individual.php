@@ -27,7 +27,7 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  * @ORM\Entity(repositoryClass="PiApp\GedmoBundle\Repository\IndividualRepository")
  * @ORM\HasLifecycleCallbacks()
  * @Gedmo\TranslationEntity(class="PiApp\GedmoBundle\Entity\Translation\IndividualTranslation")
- * @UniqueEntity({"InscrUserName", "InscrEmail"})
+ * @UniqueEntity({"UserName", "Email"})
  * @category   Gedmo_Entities
  * @package    Entity
  *
@@ -70,14 +70,14 @@ class Individual extends AbstractDefault
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection corporations
      *
-     * @ORM\ManyToMany(targetEntity="PiApp\GedmoBundle\Entity\Corporation", mappedBy="partners")
+     * @ORM\ManyToMany(targetEntity="PiApp\GedmoBundle\Entity\Corporation", mappedBy="individuals")
      */
     protected $corporations;    
     
     /**
      * @var \BootStrap\UserBundle\Entity\User $user
      *
-     * @ORM\OneToOne(targetEntity="BootStrap\UserBundle\Entity\User")
+     * @ORM\OneToOne(targetEntity="BootStrap\UserBundle\Entity\User", cascade={"all"}, inversedBy="individual")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
      * 
      */
@@ -105,126 +105,200 @@ class Individual extends AbstractDefault
      * @ORM\JoinColumn(name="media_id", referencedColumnName="id", nullable=true)
      */
     protected $media;
-
-    /**
-     * @var string $InscrName
-     *
-     * @ORM\Column(name="inscr_name", type="string", nullable = true)
-     * @Assert\NotBlank()
-     */
-    protected $InscrName;
-
-    /**
-     * @var string $InscrUserName
-     *
-     * @ORM\Column(name="inscr_user_name", type="string", nullable = true)
-     * @Assert\NotBlank()
-     */
-    protected $InscrUserName;
     
     /**
-     * @var string $InscrNickname
+     * @var boolean $highlighted
      *
-     * @ORM\Column(name="inscr_nickname", type="string", nullable = true)
-     * @Assert\NotBlank()
+     * @ORM\Column(name="highlighted", type="boolean", nullable=true)
      */
-    protected $InscrNickname;
+    protected $highlighted;  
     
     /**
-     * @var string $InscrEmail
+     * @var string $Name
      *
-     * @ORM\Column(name="inscr_email", type="string", nullable = true)
+     * @ORM\Column(name="name", type="string", nullable = true)
+     * @Assert\NotBlank()
+     */
+    protected $Name;
+
+    /**
+     * @var string $UserName
+     *
+     * @ORM\Column(name="user_name", type="string", nullable = true)
+     * @Assert\NotBlank()
+     */
+    protected $UserName;
+    
+    /**
+     * @var string $Nickname
+     *
+     * @ORM\Column(name="nickname", type="string", nullable = true)
+     * @Assert\NotBlank()
+     */
+    protected $Nickname;
+    
+    /**
+     * @var string $Civility
+     *
+     * @ORM\Column(name="civility", type="string", nullable = true)
+     */
+    protected $Civility;
+    
+    /**
+     * @var string $Email
+     *
+     * @ORM\Column(name="email", type="string", nullable = true)
      * @Assert\NotBlank()
      * @Assert\Email()
      */
-    protected $InscrEmail;
+    protected $Email;
     
     /**
-     * @var string $InscrPhone
+     * @var string $EmailPerso
      *
-     * @ORM\Column(name="inscr_phone", type="string", nullable = true)
-     */
-    protected $InscrPhone;
-    
-    /**
-     * @var string $InscrJob
-     *
-     * @ORM\Column(name="inscr_job", type="string", nullable = true)
-     * @Assert\NotBlank()
-     */
-    protected $InscrJob;
-    
-    /**
-     * @var string $EntrCompany
-     *
-     * @ORM\Column(name="entr_company", type="string", nullable = true)
+     * @ORM\Column(name="email_perso", type="string", nullable = true)
      * 
      */
-    protected $EntrCompany;
+    protected $EmailPerso;
     
     /**
-     * @var string $EntrActivity
+     * @var string $Phone
      *
-     * @ORM\Column(name="entr_activity", type="string", nullable = true)
+     * @ORM\Column(name="phone", type="string", nullable = true)
      */
-    protected $EntrActivity;
+    protected $Phone;
     
     /**
-     * @var string $EntrBusiness
+     * @var string $Job
      *
-     * @ORM\Column(name="entr_business", type="string", nullable = true)
+     * @ORM\Column(name="job", type="string", nullable = true)
+     * 
      */
-    protected $EntrBusiness;
+    protected $Job;
     
     /**
-     * @var string $EntrStaff
+     * @var string $Profile
      *
-     * @ORM\Column(name="entr_staff", type="string", nullable = true)
+     * @ORM\Column(name="profile", type="string", nullable = true)
      */
-    protected $EntrStaff;    
+    protected $Profile;
     
     /**
-     * @var string $InscrCp
+     * @var string $ProfileOther
      *
-     * @ORM\Column(name="inscr_cp", type="text", length=255, nullable = true)
-     * @Assert\NotBlank()
+     * @ORM\Column(name="profile_other", type="string", nullable = true)
+     * 
      */
-    protected $InscrCp;    
+    protected $ProfileOther;
     
     /**
-     * @var string $InscrFacebook
+     * @var string $Company
      *
-     * @ORM\Column(name="inscr_facebook", type="string", nullable = true)
+     * @ORM\Column(name="company", type="string", nullable = true)
+     * 
      */
-    protected $InscrFacebook;
+    protected $Company;
     
     /**
-     * @var string $InscrGooglePlus
+     * @var string $Activity
      *
-     * @ORM\Column(name="inscr_google_plus", type="string", nullable = true)
+     * @ORM\Column(name="activity", type="string", nullable = true)
      */
-    protected $InscrGooglePlus;
+    protected $Activity;
     
     /**
-     * @var string $InscrTwitter
+     * @var string $Engineering
      *
-     * @ORM\Column(name="inscr_twitter", type="string", nullable = true)
+     * @ORM\Column(name="engineering", type="string", nullable = true)
      */
-    protected $InscrTwitter;
+    protected $Engineering;
     
     /**
-     * @var string $InscrLinkedIn
+     * @var string $DetailActivity
      *
-     * @ORM\Column(name="inscr_linkedin", type="string", nullable = true)
+     * @ORM\Column(name="detail_activity", type="string", nullable = true)
      */
-    protected $InscrLinkedIn;
+    protected $DetailActivity;
     
     /**
-     * @var string $InscrViadeo
+     * @var string $ArgumentActivity
      *
-     * @ORM\Column(name="inscr_viadeo", type="string", nullable = true)
+     * @ORM\Column(name="argument_activity", type="string", nullable = true)
      */
-    protected $InscrViadeo;
+    protected $ArgumentActivity;
+    
+    /**
+     * @var string $Expertise
+     *
+     * @ORM\Column(name="expertise", type="string", nullable = true)
+     */
+    protected $Expertise;
+    
+    /**
+     * @var string $Speaker
+     *
+     * @ORM\Column(name="speaker", type="string", nullable = true)
+     */
+    protected $Speaker;    
+    
+    /**
+     * @var string $OriginContact
+     *
+     * @ORM\Column(name="origin_contact", type="string", length=255, nullable = true)
+     * 
+     */
+    protected $OriginContact;    
+    
+    /**
+     * @var string $OriginContactOther
+     *
+     * @ORM\Column(name="origin_contact_other", type="string", nullable = true)
+     * 
+     */
+    protected $OriginContactOther;
+    
+    /**
+     * @var string $OriginContactSponsor
+     *
+     * @ORM\Column(name="origin_contact_sponsor", type="string", nullable = true)
+     * 
+     */
+    protected $OriginContactSponsor;
+    
+    /**
+     * @var string $Facebook
+     *
+     * @ORM\Column(name="facebook", type="string", nullable = true)
+     */
+    protected $Facebook;
+    
+    /**
+     * @var string $GooglePlus
+     *
+     * @ORM\Column(name="google_plus", type="string", nullable = true)
+     */
+    protected $GooglePlus;
+    
+    /**
+     * @var string $Twitter
+     *
+     * @ORM\Column(name="twitter", type="string", nullable = true)
+     */
+    protected $Twitter;
+    
+    /**
+     * @var string $LinkedIn
+     *
+     * @ORM\Column(name="linkedin", type="string", nullable = true)
+     */
+    protected $LinkedIn;
+    
+    /**
+     * @var string $Viadeo
+     *
+     * @ORM\Column(name="viadeo", type="string", nullable = true)
+     */
+    protected $Viadeo;
     
     /**
      * Constructor
@@ -346,338 +420,544 @@ class Individual extends AbstractDefault
     {
     	return $this->media;
     }    
+
+    /**
+     * Set highlighted
+     *
+     * @param string $highlighted
+     */
+    public function setHighlighted($highlighted)
+    {
+    	$this->highlighted = $highlighted;
+    }
     
     /**
-     * Set InscrName
+     * Get highlighted
      *
-     * @param text $inscrName
+     * @return string
      */
-    public function setInscrName($inscrName)
+    public function getHighlighted()
     {
-        $this->InscrName = $inscrName;
+    	return $this->highlighted;
+    }   
+    
+    /**
+     * Set Name
+     *
+     * @param text $Name
+     */
+    public function setName($Name)
+    {
+        $this->Name = $Name;
     }
 
     /**
-     * Get InscrName
+     * Get Name
      *
      * @return text 
      */
-    public function getInscrName()
+    public function getName()
     {
-        return $this->InscrName;
+        return $this->Name;
     }
     
     /**
-     * Set InscrUserName
+     * Set UserName
      *
-     * @param text $inscrUserName
+     * @param text $UserName
      */
-    public function setInscrUserName($inscrUserName)
+    public function setUserName($UserName)
     {
-        $this->InscrUserName = $inscrUserName;
+        $this->UserName = $UserName;
     }
 
     /**
-     * Get InscrUserName
+     * Get UserName
      *
      * @return text 
      */
-    public function getInscrUserName()
+    public function getUserName()
     {
-        return $this->InscrUserName;
+        return $this->UserName;
     }
     
     /**
-     * Set InscrNickname
+     * Set Nickname
      *
-     * @param text $inscrNickname
+     * @param text $Nickname
      */
-    public function setInscrNickname($inscrNickname)
+    public function setNickname($Nickname)
     {
-        $this->InscrNickname = $inscrNickname;
+        $this->Nickname = $Nickname;
     }
 
     /**
-     * Get InscrNickname
+     * Get Nickname
      *
      * @return text 
      */
-    public function getInscrNickname()
+    public function getNickname()
     {
-        return $this->InscrNickname;
+        return $this->Nickname;
     }
     
     /**
-     * Set InscrEmail
+     * Set Civility
      *
-     * @param string $InscrEmail
+     * @param text $Civility
+     */
+    public function setCivility($Civility)
+    {
+        $this->Civility = $Civility;
+    }
+
+    /**
+     * Get Civility
+     *
+     * @return string 
+     */
+    public function getCivility()
+    {
+        return $this->Civility;
+    }
+    
+    /**
+     * Set Email
+     *
+     * @param string $Email
      * @return this
      */
-    public function setInscrEmail($InscrEmail)
+    public function setEmail($Email)
     {
-    	$this->InscrEmail = $InscrEmail;
+    	$this->Email = $Email;
     	return $this;
     }    
     
     /**
-     * Get InscrEmail
+     * Get Email
      *
      * @return string
      */
-    public function getInscrEmail()
+    public function getEmail()
     {
-    	return $this->InscrEmail;
+    	return $this->Email;
     }    
     
     /**
-     * Set InscrPhone
+     * Set EmailPerso
      *
-     * @param text $inscrPhone
+     * @param string $EmailPerso
+     * @return this
      */
-    public function setInscrPhone($inscrPhone)
+    public function setEmailPerso($EmailPerso)
     {
-        $this->InscrPhone = $inscrPhone;
+    	$this->EmailPerso = $EmailPerso;
+    	return $this;
+    }    
+    
+    /**
+     * Get EmailPerso
+     *
+     * @return string
+     */
+    public function getEmailPerso()
+    {
+    	return $this->EmailPerso;
+    }    
+    
+    /**
+     * Set Phone
+     *
+     * @param text $Phone
+     */
+    public function setPhone($Phone)
+    {
+        $this->Phone = $Phone;
     }
 
     /**
-     * Get InscrPhone
+     * Get Phone
      *
      * @return text 
      */
-    public function getInscrPhone()
+    public function getPhone()
     {
-        return $this->InscrPhone;
+        return $this->Phone;
     }
 
     /**
-     * Set InscrJob
+     * Set Job
      *
-     * @param text $inscrJob
+     * @param string $Job
      */
-    public function setInscrJob($inscrJob)
+    public function setJob($Job)
     {
-        $this->InscrJob = $inscrJob;
+        $this->Job = $Job;
     }
 
     /**
-     * Get InscrJob
+     * Get Job
      *
-     * @return text 
+     * @return string 
      */
-    public function getInscrJob()
+    public function getJob()
     {
-        return $this->InscrJob;
+        return $this->Job;
     }
 
     /**
-     * Set EntrCompany
+     * Set Profile
      *
-     * @param text $entrCompany
+     * @param string $Profile
      */
-    public function setEntrCompany($entrCompany)
+    public function setProfile($Profile)
     {
-        $this->EntrCompany = $entrCompany;
+        $this->Profile = $Profile;
     }
 
     /**
-     * Get EntrCompany
+     * Get Profile
      *
-     * @return text 
+     * @return string 
      */
-    public function getEntrCompany()
+    public function getProfile()
     {
-        return $this->EntrCompany;
+        return $this->Profile;
     }
 
     /**
-     * Set EntrActivity
+     * Set ProfileOther
      *
-     * @param text $entrActivity
+     * @param string $ProfileOther
      */
-    public function setEntrActivity($entrActivity)
+    public function setProfileOther($ProfileOther)
     {
-        $this->EntrActivity = $entrActivity;
+        $this->ProfileOther = $ProfileOther;
     }
 
     /**
-     * Get EntrActivity
+     * Get ProfileOther
      *
-     * @return text 
+     * @return string 
      */
-    public function getEntrActivity()
+    public function getProfileOther()
     {
-        return $this->EntrActivity;
-    }
-
-    /**
-     * Set EntrBusiness
-     *
-     * @param text $entrBusiness
-     */
-    public function setEntrBusiness($entrBusiness)
-    {
-        $this->EntrBusiness = $entrBusiness;
-    }
-
-    /**
-     * Get EntrBusiness
-     *
-     * @return text 
-     */
-    public function getEntrBusiness()
-    {
-        return $this->EntrBusiness;
-    }
-
-    /**
-     * Set EntrStaff
-     *
-     * @param text $entrStaff
-     */
-    public function setEntrStaff($entrStaff)
-    {
-        $this->EntrStaff = $entrStaff;
-    }
-
-    /**
-     * Get EntrStaff
-     *
-     * @return text 
-     */
-    public function getEntrStaff()
-    {
-        return $this->EntrStaff;
+        return $this->ProfileOther;
     }
     
     /**
-     * Set InscrCp
+     * Set Company
      *
-     * @param string $InscrCp
+     * @param text $Company
+     */
+    public function setCompany($Company)
+    {
+        $this->Company = $Company;
+    }
+
+    /**
+     * Get Company
+     *
+     * @return text 
+     */
+    public function getCompany()
+    {
+        return $this->Company;
+    }
+
+    /**
+     * Set Activity
+     *
+     * @param text $Activity
+     */
+    public function setActivity($Activity)
+    {
+        $this->Activity = $Activity;
+    }
+
+    /**
+     * Get Activity
+     *
+     * @return string 
+     */
+    public function getActivity()
+    {
+        return $this->Activity;
+    }
+
+    /**
+     * Set Engineering
+     *
+     * @param text $Engineering
+     */
+    public function setEngineering($Engineering)
+    {
+        $this->Engineering = $Engineering;
+    }
+
+    /**
+     * Get Engineering
+     *
+     * @return string 
+     */
+    public function getEngineering()
+    {
+        return $this->Engineering;
+    }
+    
+    /**
+     * Set DetailActivity
+     *
+     * @param text $DetailActivity
+     */
+    public function setDetailActivity($DetailActivity)
+    {
+        $this->DetailActivity = $DetailActivity;
+    }
+
+    /**
+     * Get DetailActivity
+     *
+     * @return string 
+     */
+    public function getDetailActivity()
+    {
+        return $this->DetailActivity;
+    }
+
+    /**
+     * Get ArgumentActivity
+     *
+     * @return string 
+     */
+    public function getArgumentActivity()
+    {
+        return $this->ArgumentActivity;
+    }
+
+    /**
+     * Set ArgumentActivity
+     *
+     * @param text $ArgumentActivity
+     */
+    public function setArgumentActivity($ArgumentActivity)
+    {
+        $this->ArgumentActivity = $ArgumentActivity;
+    }
+    
+    /**
+     * Set Expertise
+     *
+     * @param text $Expertise
+     */
+    public function setExpertise($Expertise)
+    {
+        $this->Expertise = $Expertise;
+    }
+
+    /**
+     * Get Expertise
+     *
+     * @return text 
+     */
+    public function getExpertise()
+    {
+        return $this->Expertise;
+    }
+
+    /**
+     * Set Speaker
+     *
+     * @param text $Speaker
+     */
+    public function setSpeaker($Speaker)
+    {
+        $this->Speaker = $Speaker;
+    }
+
+    /**
+     * Get Speaker
+     *
+     * @return text 
+     */
+    public function getSpeaker()
+    {
+        return $this->Speaker;
+    }
+    
+    /**
+     * Set OriginContact
+     *
+     * @param string $OriginContact
      * @return this
      */
-    public function setInscrCp($InscrCp)
+    public function setOriginContact($OriginContact)
     {
-    	$this->InscrCp = $InscrCp;
+    	$this->OriginContact = $OriginContact;
     	return $this;
     }
     
     /**
-     * Get InscrCp
+     * Get OriginContact
      *
      * @return string
      */
-    public function getInscrCp()
+    public function getOriginContact()
     {
-    	return $this->InscrCp;
+    	return $this->OriginContact;
     }
     
     /**
-     * Set InscrFacebook
+     * Set OriginContactOther
      *
-     * @param string $InscrFacebook
+     * @param string $OriginContactOther
      * @return this
      */
-    public function setInscrFacebook($InscrFacebook)
+    public function setOriginContactOther($OriginContactOther)
     {
-    	$this->InscrFacebook = $InscrFacebook;
+    	$this->OriginContactOther = $OriginContactOther;
     	return $this;
     }
     
     /**
-     * Get InscrFacebook
+     * Get OriginContactOther
      *
      * @return string
      */
-    public function getInscrFacebook()
+    public function getOriginContactOther()
     {
-    	return $this->InscrFacebook;
+    	return $this->OriginContactOther;
+    }
+    
+    /**
+     * Set OriginContactSponsor
+     *
+     * @param string $OriginContactSponsor
+     * @return this
+     */
+    public function setOriginContactSponsor($OriginContactSponsor)
+    {
+    	$this->OriginContactSponsor = $OriginContactSponsor;
+    	return $this;
+    }
+    
+    /**
+     * Get OriginContactSponsor
+     *
+     * @return string
+     */
+    public function getOriginContactSponsor()
+    {
+    	return $this->OriginContactSponsor;
+    }
+    
+    /**
+     * Set Facebook
+     *
+     * @param string $Facebook
+     * @return this
+     */
+    public function setFacebook($Facebook)
+    {
+    	$this->Facebook = $Facebook;
+    	return $this;
+    }
+    
+    /**
+     * Get Facebook
+     *
+     * @return string
+     */
+    public function getFacebook()
+    {
+    	return $this->Facebook;
     }   
     
     /**
-     * Set InscrGooglePlus
+     * Set GooglePlus
      *
-     * @param string $InscrGooglePlus
+     * @param string $GooglePlus
      * @return this
      */
-    public function setInscrGooglePlus($InscrGooglePlus)
+    public function setGooglePlus($GooglePlus)
     {
-    	$this->InscrGooglePlus = $InscrGooglePlus;
+    	$this->GooglePlus = $GooglePlus;
     	return $this;
     }
     
     /**
-     * Get InscrGooglePlus
+     * Get GooglePlus
      *
      * @return string
      */
-    public function getInscrGooglePlus()
+    public function getGooglePlus()
     {
-    	return $this->InscrGooglePlus;
+    	return $this->GooglePlus;
     }   
     
     /**
-     * Set InscrTwitter
+     * Set Twitter
      *
-     * @param string $InscrTwitter
+     * @param string $Twitter
      * @return this
      */
-    public function setInscrTwitter($InscrTwitter)
+    public function setTwitter($Twitter)
     {
-    	$this->InscrTwitter = $InscrTwitter;
+    	$this->Twitter = $Twitter;
     	return $this;
     }
     
     /**
-     * Get InscrTwitter
+     * Get Twitter
      *
      * @return string
      */
-    public function getInscrTwitter()
+    public function getTwitter()
     {
-    	return $this->InscrTwitter;
+    	return $this->Twitter;
     }   
     
     /**
-     * Set InscrLinkedIn
+     * Set LinkedIn
      *
-     * @param string $InscrLinkedIn
+     * @param string $LinkedIn
      * @return this
      */
-    public function setInscrLinkedIn($InscrLinkedIn)
+    public function setLinkedIn($LinkedIn)
     {
-    	$this->InscrLinkedIn = $InscrLinkedIn;
+    	$this->LinkedIn = $LinkedIn;
     	return $this;
     }
     
     /**
-     * Get InscrLinkedIn
+     * Get LinkedIn
      *
      * @return string
      */
-    public function getInscrLinkedIn()
+    public function getLinkedIn()
     {
-    	return $this->InscrLinkedIn;
+    	return $this->LinkedIn;
     }   
     
     /**
-     * Set InscrViadeo
+     * Set Viadeo
      *
-     * @param string $InscrViadeo
+     * @param string $Viadeo
      * @return this
      */
-    public function setInscrViadeo($InscrViadeo)
+    public function setViadeo($Viadeo)
     {
-    	$this->InscrViadeo = $InscrViadeo;
+    	$this->Viadeo = $Viadeo;
     	return $this;
     }
     
     /**
-     * Get InscrViadeo
+     * Get Viadeo
      *
      * @return string
      */
-    public function getInscrViadeo()
+    public function getViadeo()
     {
-    	return $this->InscrViadeo;
+    	return $this->Viadeo;
     }   
 }

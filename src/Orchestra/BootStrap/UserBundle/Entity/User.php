@@ -87,6 +87,20 @@ class User extends BaseUser
     protected $langCode; 
     
     /**
+     * @var \PiApp\GedmoBundle\Entity\Individual $individual
+     *
+     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Individual", mappedBy="user")
+     */
+    protected $individual;    
+    
+    /**
+     * @var \PiApp\GedmoBundle\Entity\Corporation $corporation
+     *
+     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Corporation", mappedBy="user")
+     */
+    protected $corporation;    
+    
+    /**
      * @var array
      * @ORM\Column(type="array")
      */

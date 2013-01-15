@@ -78,9 +78,9 @@ class PiLayoutHeadExtension extends \Twig_Extension
      *
      * <code>
      * 	{% stylesheet "/path/to/css/file" %} to add a css file
-     *  {% stylesheets %} to render all css files
+     *  {% CMFstylesheets 'file' %} to render all css files
      * 	{% javascript "/path/to/css/file" %} to add a js file
-     *  {% javascripts %} to render all js files
+     *  {% CMFjavascripts 'file' %} to render all js files
      * </code>
      *
      * @return string The extension name
@@ -102,7 +102,6 @@ class PiLayoutHeadExtension extends \Twig_Extension
      * Returns a list of functions to add to the existing list.
      *
      * <code>
-     *  {{ link(label, path, array('style' = >'width:11px')) }}
      * </code>
      *
      * @return array An array of functions
@@ -195,7 +194,7 @@ class PiLayoutHeadExtension extends \Twig_Extension
     /**
      * Return all CSS files in the container in links.
      *
-     * @param string $compressor		['php', 'yui', 'file', 'array']
+     * @param string $compressor		['php', 'yui', 'file', 'array', 'empty']
      *
      * @return string
      * @access public
@@ -205,7 +204,11 @@ class PiLayoutHeadExtension extends \Twig_Extension
     public function renderLink($compressor = "yui")
     {
         if(!$this->container->has('css_files'))
-            return ;
+        	return ;
+        elseif($compressor == "empty"){
+        	$this->container->set('css_files', array());
+        	return '';
+        }
         
         $links 			 = array();
         $linksPath 		 = array();
@@ -252,7 +255,7 @@ class PiLayoutHeadExtension extends \Twig_Extension
     /**
      * Return all JS files in the container in links.
      *
-     * @param string $compressor		['php', 'yui', 'file', 'array']
+     * @param string $compressor		['php', 'yui', 'file', 'array', 'empty']
      *
      * @return string
      * @access public
@@ -263,6 +266,10 @@ class PiLayoutHeadExtension extends \Twig_Extension
     {
     	if(!$this->container->has('js_files'))
     		return ;
+    	elseif($compressor == "empty"){
+    		$this->container->set('js_files', array());
+    		return '';
+    	}    		
     
     	$scripts 		 = array();
     	$linksPath 		 = array();

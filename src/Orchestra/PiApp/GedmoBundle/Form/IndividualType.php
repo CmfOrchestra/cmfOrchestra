@@ -60,103 +60,194 @@ class IndividualType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder 			   				
- 			->add('enabled', 'checkbox', array(
- 					'data'  => true,
- 					'label'	=> 'pi.form.label.field.enabled',
- 			))
- 			
- 			->add('pageurl', 'entity', array(
- 					'class' => 'PiAppAdminBundle:Page',
- 					'query_builder' => function(EntityRepository $er) {
- 						return $er->getAllPageHtml();
- 					},
- 					'property' => 'route_name',
- 					'empty_value' => 'pi.form.label.select.choose.option',
- 					"label" 	=> "pi.form.label.field.url",
- 					"label_attr" => array(
- 							"class"=>"page_collection",
- 					),
- 					"attr" => array(
- 							"class"=>"pi_simpleselect",
- 					),
- 					'multiple'	=> false,
- 					'required'  => false,
- 			)) 	
- 			->add('url', 'text', array(
- 					"label" 	=> "pi.form.label.field.or",
- 					"label_attr" => array(
- 							"class"=>"page_collection",
- 					),
- 					'required'  => false,
- 			)) 					
- 			->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
+	 		  ->add('enabled', 'checkbox', array(
+	 				'data'  => true,
+	 				'label'	=> 'pi.form.label.field.enabled',
+	 		  ))
+	 		  ->add('highlighted', 'checkbox', array(
+	 		  		'required'  => false,
+	 		  		'data'  => true,
+	 		  		'label'	=> 'pi.partner.form.field.highlighted1',
+	 		  ))
+			  ->add('Name','text', array(
+		      		'required'  	=> true,
+		 			))
+		      ->add('UserName','text', array(
+		      		'label'  => 'Identifiant',
+		      		'required'  	=> true,        
+		 	  ))
+		 	  ->add('Nickname','text', array(
+		      		'required'  	=> true,        
+		 			))
 
- 			->add('InscrName','text', array(
-          'required'  	=> true,
- 			))
-      ->add('InscrUserName','text', array(
- 					'label'  => 'Identifiant',
-          'required'  	=> true,        
- 			))
- 			->add('InscrNickname','text', array(
-          'required'  	=> true,        
- 			))
- 			->add('InscrPhone')
- 			->add('InscrJob','text', array(
- 			))
-      ->add('InscrEmail','text', array(
- 					'required'  => true,        
- 			))
- 			->add('EntrCompany','text', array(
- 					'required'  => true,        
- 			))
- 			->add('EntrActivity', 'choice', array(
- 					'required'  => true,        
-          'choices'   => array('0' => 'Activité*', '1' => 'TIC', '2' => '2', '3' => '3', '4' => '4', '5' => '5'),
- 					"attr" => array(
- 							"class"=>"pi_simpleselect",
- 					),
- 			))            
- 			->add('EntrStaff', 'choice', array(
- 					'required'  => true,        
-          'choices'   => array('0' => 'Effectif*', '1' => '0-10', '2' => '11-50', '3' => '51-500', '4' => '501-2000', '5' => '>2000'),
-         	"attr" => array(
- 							"class"=>"pi_simpleselect",
- 					),
- 			))
-      ->add('InscrCp','text', array(
- 					'required'  => true,        
- 			))
-      ->add('InscrFacebook','text', array(   
-          'required'  => false,     
- 					"attr" => array(
- 							"class"=>"social_collection",
- 					),
- 			))
-      ->add('InscrGooglePlus','text', array( 
-          'required'  => false,        
- 					"attr" => array(
- 							"class"=>"social_collection",
- 					),
- 			))
-      ->add('InscrTwitter','text', array(    
-          'required'  => false,        
- 					"attr" => array(
- 							"class"=>"social_collection",
- 					),
- 			))
-      ->add('InscrLinkedIn','text', array(     
-          'required'  => false,        
- 					"attr" => array(
- 							"class"=>"social_collection",
- 					),
- 			))
-      ->add('InscrViadeo','text', array(       
-          'required'  => false,        
- 					"attr" => array(
- 							"class"=>"social_collection",
- 					),
- 			))        
+		 	  
+		 	  
+		 	  ->add('Phone','text', array(
+		 			'required'  => true,   
+		 	  		"label_attr" => array(
+		 	  				"class"=>"contact_collection",
+		 	  		),
+		 	  ))
+		      ->add('Email','text', array(
+		 			'required'  => true,
+		      		"label_attr" => array(
+		      				"class"=>"contact_collection",
+		      		),
+		 	  ))
+		      ->add('EmailPerso','text', array(
+		 			'required'  => true,
+		      		"label_attr" => array(
+		      				"class"=>"contact_collection",
+		      		),
+		 	  ))    
+
+		 	  
+		 	  
+		 	  ->add('Company','text', array(
+		 			'required'  => true,
+		 	  		"label_attr" => array(
+		 	  				"class"=>"job_collection",
+		 	  		),
+		 	  )) 		
+		 	  ->add('Job','text', array(
+		 			'required'  => true,
+		 			"label_attr" => array(
+		 				"class"=>"job_collection",
+		 			),
+		 	  ))
+		 	  ->add('Activity', 'choice', array(
+		 			'required'  => true,        
+				    'choices'   => array(
+				            '0' => 'Activité*', 
+				            'tic' => 'TIC', 
+				            'admin' => 'Administration/Audit/Conseil',
+				            'aero' => 'Aéronautique',
+				            'agro' => 'Agro-alimentaire',
+				            'banque' => 'Banque/Finance',
+				            'biens' => 'Biens de consommation',
+				            'chimie' => 'Chimie/Pharma/Biotechnologies',
+				            'com' => 'Communication/Médias',
+				            'divert' => 'Divertissement',
+				            'env' => 'Environnement',
+				            'fab' => 'Fabrication produits',
+				            'elect' => 'Electronique',
+				            'indus-def' => 'Industrie Défense/Spatial',
+				            'auto' => 'Automobile',
+				            'distrib' => 'Distribution',
+				            'loisir' => 'Loisirs/Tourisme',
+				            'assur' => 'Assurances',
+				            'sante' => 'Santé/Hôpitaux',
+				            'educ' => 'Education',
+				            'ing' => 'Ingénierie',
+				            'asso' => 'Associatif',
+				            'indus' => 'Industrie',
+				            'energie' => 'Energie',
+				            'public' => 'Secteur public',
+				            'r&d' => 'R & D',
+				            'btp' => 'BTP',
+				            'service' => 'Service à la personne',
+				            'rh' => 'RH',
+				            'service-pro' => 'Services aux entreprises',
+				            'techno' => 'Technologie',
+				            'trans' => 'Transport et logistique',
+				            'autre' => 'Autre',
+				            ),
+		 			"attr" => array(
+		 				"class"=>"pi_simpleselect",
+		 			),
+		 			"label_attr" => array(
+		 				"class"=>"job_collection",
+		 			),
+		 	  )) 
+		 	  ->add('Engineering', 'choice', array(
+		 			'required'  => false,        
+				    'choices'   => array(
+				            'telecom'=>'Télécom',
+				            'service-info'=>'Services en informatique',
+				            'ressources-h'=>'Ressources humaines',
+				            'ingenierie-savoirs'=>'Ingénierie des savoirs et de la connaissance',
+				            'infra'=>'Infrastructures et reseaux',
+				            'info-tech'=>'Informatique technique et métiers',
+				            'info-gestion'=>'Informatique de gestion',
+				            'form'=>'Formation recherche et développement',
+				            'finance'=>'Financement',
+				            'entreprise-tic'=>'Entreprise TIC et information sur les TIC',
+				            'editeur'=>'Editeur de logiciel',
+				            'dev-web'=>'Développement web',
+				            'multimedia'=>'Contenu multimédia',
+				            'materiel'=>'Constructeur et distributeur de matériel',
+				            'conseil'=>'Conseil',
+				            'autre'=>'Autre',
+				            ),
+		 			"attr" => array(
+		 				"class"=>"pi_simpleselect",
+		 			),
+		 			"label_attr" => array(
+		 				"class"=>"job_collection",
+		 			),
+		 	  ))        
+		
+		 			
+		 			
+		      ->add('Facebook','text', array(   
+		          	'required'  => false,     
+		 			"label_attr" => array(
+		 				"class"=>"social_collection",
+		 			),
+		 		))
+		      ->add('GooglePlus','text', array( 
+		          	'required'  => false,        
+		 			"label_attr" => array(
+		 				"class"=>"social_collection",
+		 			),
+		 		))
+		      ->add('Twitter','text', array(    
+		          	'required'  => false,        
+		 			"label_attr" => array(
+		 				"class"=>"social_collection",
+		 			),
+		 		))
+		      ->add('LinkedIn','text', array(     
+		          	'required'  => false,        
+			      	"label_attr" => array(
+			      		"class"=>"social_collection",
+			      	),      		
+		 		))
+		      ->add('Viadeo','text', array(       
+		          	'required'  => false,        
+				    "label_attr" => array(
+				    	"class"=>"social_collection",
+				    ),      		
+		 		))
+		 		
+		 		
+		 	  ->add('pageurl', 'entity', array(
+		 				'class' => 'PiAppAdminBundle:Page',
+		 				'query_builder' => function(EntityRepository $er) {
+		 					return $er->getAllPageHtml();
+		 				},
+		 				'property' => 'route_name',
+		 				'empty_value' => 'pi.form.label.select.choose.option',
+		 				"label" 	=> "pi.form.label.field.url",
+		 				"label_attr" => array(
+		 						"class"=>"page_collection",
+		 				),
+		 				"attr" => array(
+		 						"class"=>"pi_simpleselect",
+		 				),
+		 				'multiple'	=> false,
+		 				'required'  => false,
+		 	  ))
+		 	  ->add('url', 'text', array(
+		 				"label" 	=> "pi.form.label.field.or",
+		 				"label_attr" => array(
+		 						"class"=>"page_collection",
+		 				),
+		 				'required'  => false,
+		 	  )) 		
+		
+		 	  //->add('user', new \BootStrap\UserBundle\Form\Type\RegistrationFormType('collection'))
+		 	  ->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
         ;
     }
 

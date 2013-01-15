@@ -7,7 +7,7 @@
 			{% if (type != 'success') %}
 			<span class="ui-icon ui-icon-circle-check"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			{% endif %}
-			{{ message | trans }}
+			{{ message | trans | raw }}
 		</p>
 	</div>
 {% endmacro %}
@@ -20,11 +20,11 @@
             {% else %}
             
             	{% if app.session.hasFlash('only') %}
-            		{{ _self.flash(type, app.session.flash('only')) }}
+            		{{ _self.flash(type, app.session.flash('only')) | raw }}
             	{% else %}
 	                {% for type in types %}
 	                    {% if app.session.hasFlash(type) %}
-	                        {{ _self.flash(type, app.session.flash(type)) }}
+	                        {{ _self.flash(type, app.session.flash(type)) | raw }}
 	                    {% endif %}
 	                {% endfor %}            	
             	{% endif %}

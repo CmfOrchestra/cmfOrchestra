@@ -1,0 +1,169 @@
+{% if render == '' %}
+<section class="breadcrumb">
+			<div class="wrap">
+				<a class="underline" href="#">Home</a> >
+				<a href="#" class="tt-clr"> M'inscrire</a>
+			</div>
+		</section>
+		<div class="wrap">
+			<header>
+				<h2 class="tt-1">Adhérer</h2>
+				<p class="tt-10">Gérer simplement vos abonnements newsletter et vos événements 
+				en vous inscrivant gratuitement à La Mêlée Numérique.</p>
+			</header>
+		</div>
+		
+		<section class="bloc-adhesion">
+			<div class="wrap">
+				<div class='content'>
+					<header class="resetM cf">
+						<h3 class="tt-3 tt-clr bold">Vous souhaitez adhérer en tant que :</h3>
+						<div class="button-ct">
+							<a href="#" class="button Bsociety" data-button="toggle"><!--
+								--><span>Personne physique</span><!--
+							--></a>
+							<a href="#" class="button Bperson" data-button="toggle"><!--
+								--><span>Personne morale</span><!--
+							--></a>
+							</div>
+					</header>
+					<figure class="timeline">
+						<a href="#" class="dots first ">1</a>
+						<a href="#" class="dots second active">2</a>
+						<a href="#" class="dots third">3</a>
+						<a href="#" class="dots fourth">4</a>
+
+					</figure>
+
+					<form action="#" method="post" class="cf">
+            <input type="hidden" id="new" name="new" value="{{new}}">
+            <input type="hidden" id="step" name="step" value="2">
+            {% for key,value in data %}
+                <input type="hidden" id="{{key}}" name="{{key}}" value="{{value}}">
+            {% endfor %}
+                
+            {{ form_errors(form) }}
+            {{ form_widget(form._token) }}             
+						<div class="title-border-simple cf">
+							<h3 class="tt-3 tt-clr bold fleft">Votre entreprise</h3>
+						</div>
+						<fieldset>
+							{{ form_widget(form.CorporationName) }}
+							<a href="#" class="tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
+              {{ form_widget(form.CommercialName) }}
+							<a href="#" class="tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
+						</fieldset>
+
+						<fieldset>
+							<legend class="bold">Adresse établissement</legend>
+
+							{{ form_widget(form.Address) }}
+							<div class="row third">
+								{{ form_widget(form.CP) }}
+								{{ form_widget(form.City) }}
+								{{ form_widget(form.Country) }}
+							</div>
+						
+							<div class="row">
+								{{ form_widget(form.Phone) }}
+								{{ form_widget(form.Fax) }}
+							</div>
+						</fieldset>
+
+							<div class="add-info cf">
+								<a href="#mother" class="tt-clr underline fleft">Ajouter une adresse de maison mère</a>
+								<a href="#invoice" class="tt-clr underline fleft">Ajouter une adresse de Facturation</a>
+							</div>
+
+
+						<fieldset id="invoice" class="hidden">
+							<legend class="bold">Adresse de Facturation (si différente)</legend>
+
+							{{ form_widget(form.InvoiceAddress) }}
+							<div class="row third">
+                {{ form_widget(form.InvoiceCP) }}
+                {{ form_widget(form.InvoiceCity) }}
+                {{ form_widget(form.InvoiceCountry) }}
+							</div>
+						
+							<div class="row">
+								{{ form_widget(form.InvoicePhone) }}
+								{{ form_widget(form.InvoiceFax) }}
+							</div>
+
+						</fieldset>
+
+						<fieldset id="mother" class="hidden">
+							<legend class="bold">Adresse de maison mère</legend>
+
+							{{ form_widget(form.MotherAddress) }}
+							<div class="row third">
+                {{ form_widget(form.MotherCP) }}
+                {{ form_widget(form.MotherCity) }}
+                {{ form_widget(form.MotherCountry) }}
+							</div>
+						
+							<div class="row">
+								{{ form_widget(form.MotherPhone) }}
+								{{ form_widget(form.MotherFax) }}
+							</div>
+
+						</fieldset>
+
+						<fieldset class="resetBorder">
+							<legend class="bold">Effectif</legend>
+							<div class="row">
+                {{ form_widget(form.EffectifNational) }}
+								<a href="#" class="tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
+                {{ form_widget(form.EffectifRegional) }}
+								<a href="#" class="tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
+							</div>
+			
+						</fieldset>
+
+						<fieldset class="resetBorder">
+							<legend class="bold">Activités</legend>
+							
+							<div class="row" id="activity">	
+								{{ form_widget(form.Activity) }}
+								<a href="#" class="tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
+
+							</div>
+
+							<div class="row hidden" id="activityList">	
+								{{ form_widget(form.Engineering) }}
+							</div>
+							<div class="row">
+								{{ form_widget(form.DetailActivity) }}
+								<a href="#" class="tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
+							</div>
+
+							<div class="row">
+								{{ form_widget(form.LegalForm) }}
+								<a href="#" class="tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
+							</div>
+							<div class="row">
+                {{ form_widget(form.CodeNAF) }}
+                {{ form_widget(form.Siret) }}
+							</div>
+							<div class="row">
+                {{ form_widget(form.CaNational) }}
+							</div>
+						
+						</fieldset>
+
+						<div class="button-ct cf">
+							<a href="#" class="button purple fleft"><!--
+								--><span>ETAPE PRECEDENTE</span><!--
+							--></a>
+
+							<input type="submit" value="ETAPE SUIVANTE" class="fright nextStep">
+	
+						</div>
+					</form>
+				</div>	
+			</div>
+		</section>
+{% else %}
+  {{ render|raw }}
+{% endif %}	

@@ -1,0 +1,12 @@
+parameters:
+    piapp.twig.extension.gedmo.tool.class: PiApp\GedmoBundle\Twig\Extension\PiToolExtension
+
+services:
+    #
+    # configuration of the orchestra extensions
+    #         
+    pi_app_admin.twig.extension.gedmo.tool:
+        class: %piapp.twig.extension.gedmo.tool.class%
+        arguments: ['@service_container']
+        tags:
+            - { name: twig.extension }

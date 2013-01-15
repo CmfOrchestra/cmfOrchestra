@@ -53,8 +53,27 @@
 	            <button type="submit">{{ 'pi.grid.action.delete'|trans }}</button>
 	        </form>
 	    </li>
-	    {% endif %}
-	    
-	
+	    {% endif %}    
 	</ul>
+	
+	{% if entity.media2.image is defined %}
+	{{ picture_form(entity.media.image, 'piapp_gedmobundle_corporationtype_media_image_binaryContent', 'reference')|raw }}
+	{% endif %}
+	
+	{% if entity.media2.image is defined %}
+	{{ picture_form(entity.media2.image, 'piapp_gedmobundle_corporationtype_media2_image_binaryContent', 'reference')|raw }}
+	{% endif %}
+		
+	<script type="text/javascript">
+	//<![CDATA[
+	        j_prototype_bytabs.ftc_accordion_form("job_collection", "{{ 'pi.corporation.form.group.job'|trans }}", ".myform");
+	        j_prototype_bytabs.ftc_accordion_form("info1_collection", "{{ 'pi.corporation.form.group.info1'|trans }}", ".myform");
+	        j_prototype_bytabs.ftc_accordion_form("info2_collection", "{{ 'pi.corporation.form.group.info2'|trans }}", ".myform");
+	        j_prototype_bytabs.ftc_accordion_form("contact_entre_collection", "{{ 'pi.corporation.form.group.contact.entre'|trans }}", ".myform");
+	        j_prototype_bytabs.ftc_accordion_form("contact_mother_collection", "{{ 'pi.corporation.form.group.contact.entre.mother'|trans }}", ".myform");
+	        j_prototype_bytabs.ftc_accordion_form("contact_facuration_collection", "{{ 'pi.corporation.form.group.contact.entre.facturation'|trans }}", ".myform");
+	        j_prototype_bytabs.ftc_accordion_form("social_collection", "{{ 'pi.corporation.form.group.social'|trans }}", ".myform");
+			j_prototype_bytabs.ftc_accordion_form("image_collection", "{{ 'pi.corporation.form.group.picture'|trans }}", ".myform");			        
+	//]]>
+	</script>	
 {% endblock %}		

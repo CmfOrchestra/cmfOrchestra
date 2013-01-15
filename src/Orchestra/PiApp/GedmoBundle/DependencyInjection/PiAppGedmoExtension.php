@@ -32,6 +32,7 @@ class PiAppGedmoExtension extends Extension{
         $loaderYaml = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config/service'));
         $loaderYaml->load('services.yml');
         $loaderYaml->load("services_form_builder.yml");
+        $loaderYaml->load('services_twig_extension.yml');
     }
 
 }

@@ -22,31 +22,25 @@
             {{ form_widget(form._token) }}
 						<div class="title-border-simple cf">
 							<h3 class="tt-9 tt-clr fleft">Mes données personnelles</h3>
-              
 						</div>
 						<fieldset>
 							<div class="row cf">
-								{{ form_widget(form.InscrName) }}
-								{{ form_widget(form.InscrNickname) }}
+								{{ form_widget(form.Name) }}
+								{{ form_widget(form.Nickname) }}
 							</div>
 						</fieldset>
 						<fieldset>
 							<legend class="bold">Entreprise</legend>
 							<div class="row cf">
-								{{ form_widget(form.InscrJob) }}
-								{{ form_widget(form.EntrCompany) }}
+								{{ form_widget(form.Company) }}
+                {{ form_widget(form.Job) }}
 							</div>
 							<div class="row" id="activity">	
-                  {{ form_widget(form.EntrActivity) }}
-									{{ form_widget(form.EntrStaff) }}
-								</div>
+                  {{ form_widget(form.Activity) }}
+									<a href="#" class="tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
+							</div>
 								<div class="row hidden" id="activityList">	
-									<select class="resetRight selectSize">
-										<option>Ingénierie de la connaissance</option>
-										<option>1</option>
-										<option>1</option>
-										<option>1</option>
-									</select>
+                    {{ form_widget(form.Engineering) }}
 								</div>
 							<div class="row">
 								{{ form_widget(form.url) }}
@@ -56,39 +50,41 @@
 						<fieldset class="resetBorder">
 								<legend class="bold">Contact</legend>
 								<div class="row">	
-									{{ form_widget(form.InscrEmail) }}
-									{{ form_widget(form.InscrCp) }}
-								</div>
-								<div class="row">	
-									{{ form_widget(form.InscrPhone) }}
+									{{ form_widget(form.Email) }}	
+									{{ form_widget(form.Phone) }}
 								</div>
 						</fieldset>
 
-						<fieldset>
+						<fieldset class="resetBorder cf">
 							<legend class="bold">Vos identifiants réseaux sociaux </legend>
 								<div class="row cf">
 									<label class="social fb fleft">Facebook</label>
-									{{ form_widget(form.InscrFacebook) }}
+									{{ form_widget(form.Facebook) }}
+                  <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
 								</div>
 								<div class="row cf">
 									<label class="social gPlus fleft">Google +</label>
-									{{ form_widget(form.InscrGooglePlus) }}
+									{{ form_widget(form.GooglePlus) }}
+                  <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
 								</div>
 								<div class="row cf">
 									<label class="social twitter fleft">Twitter</label>
-									{{ form_widget(form.InscrTwitter) }}
+									{{ form_widget(form.Twitter) }}
+                  <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
 								</div>
 								<div class="row cf">
 									<label class="social linked fleft">LinedIn</label>
-									{{ form_widget(form.InscrLinkedIn) }}
+									{{ form_widget(form.LinkedIn) }}
+                  <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
 								</div>
 								<div class="row cf">
 									<label class="social viadeo fleft">Viadeo</label>
-									{{ form_widget(form.InscrViadeo) }}
+									{{ form_widget(form.Viadeo) }}
+                  <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
 								</div>
 							<div class="id-choice">
 								
-								{{ form_row(form.InscrUserName) }}
+								{{ form_row(form.UserName) }}
 
 								<p class="light-clr"><small>Il vous sera demandé à chaque connexion et sera définitif</small></p>
 							</div>	
@@ -108,7 +104,6 @@
 								<input type="checkbox">
 								<label class="light-clr bold">Infomêlée</label>
 							</div>
-
 							<div class="field fleft">
 								<input type="checkbox">
 								<label class="light-clr bold">MID e-news</label>
@@ -188,11 +183,8 @@
 						</div>
 
 						<div class="button-ct clear">
-							<a href="#" class="button purple"><!--
-								--><span>Je m'inscris</span><!--
-							--></a>
+							<input type="submit" value="JE M'inscris" class="nextStep">
 						</div>
-
 					</form>
 
 				</div>

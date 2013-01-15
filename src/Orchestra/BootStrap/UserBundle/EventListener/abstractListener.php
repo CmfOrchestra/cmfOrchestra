@@ -108,9 +108,28 @@ abstract class abstractListener
             $entity->setCreatedAt(new \DateTime());
         }
         
+        $entity_name = get_class($entity);
+//         if(!in_array($entity_name, array('BootStrap\UserBundle\Entity\User','PiApp\GedmoBundle\Entity\Individual'))){
+//         	print_r("CRUD_PREPERSIST");
+//         	print_r($entity_name);exit;
+//         }
         // we give the right of persist if the entity is in the CRUD_PREPERSIST container
-        if(isset($GLOBALS['ENTITIES']['CRUD_PREPERSIST']) && in_array(get_class($entity), $GLOBALS['ENTITIES']['CRUD_PREPERSIST']))
-        	return true;        
+        if(isset($GLOBALS['ENTITIES']['CRUD_PREPERSIST']) && isset($GLOBALS['ENTITIES']['CRUD_PREPERSIST'][$entity_name])){
+        	if(is_array($GLOBALS['ENTITIES']['CRUD_PREPERSIST'][$entity_name])){
+        		$route = $this->container->get('request')->get('_route');
+        		if($this->container->get('session')->has('route') && (empty($route) || ($route == "_internal")))
+        			$route = $this->container->get('session')->get('route');
+        		if(in_array($route, $GLOBALS['ENTITIES']['CRUD_PREPERSIST'][$entity_name])){
+        			// IMPORTANT !!! sinon ne fonctionne pas avec les collection links :
+        			$entityManager->initializeObject($entity);
+        			return true;
+        		}
+        	}else{
+        		// IMPORTANT !!! sinon ne fonctionne pas avec les collection links :
+        		$entityManager->initializeObject($entity);
+        		return true;
+        	}        
+        }
         
         // If AnonymousToken user,
         if ($isAnonymousToken && $this->isAnonymousToken()) {
@@ -156,8 +175,7 @@ abstract class abstractListener
         		$this->setFlash('pi.session.flash.right.uncreate');
         		return false;
         	}
-        }
-                
+        }                
 	}
 
 	/**
@@ -184,15 +202,28 @@ abstract class abstractListener
         	// we modify the Update_at value
             $entity->setUpdatedAt(new \DateTime());
         }
-        
-        // we give the right of update if the entity is in the CRUD_PREPERSIST container
-        if(isset($GLOBALS['ENTITIES']['CRUD_PREUPDATE']) && in_array(get_class($entity), $GLOBALS['ENTITIES']['CRUD_PREUPDATE']))
-        	return true;
-        
+
+        $entity_name = get_class($entity);
+        // we give the right of persist if the entity is in the CRUD_PREPERSIST container
+        if(isset($GLOBALS['ENTITIES']['CRUD_PREUPDATE']) && isset($GLOBALS['ENTITIES']['CRUD_PREUPDATE'][$entity_name])){
+        	if(is_array($GLOBALS['ENTITIES']['CRUD_PREUPDATE'][$entity_name])){
+        		$route = $this->container->get('request')->get('_route');
+        		if($this->container->get('session')->has('route') && (empty($route) || ($route == "_internal")))
+        			$route = $this->container->get('session')->get('route');
+        		if(in_array($route, $GLOBALS['ENTITIES']['CRUD_PREUPDATE'][$entity_name])){
+        			$class = $entityManager->getClassMetadata(get_class($entity));
+   					$entityManager->getUnitOfWork()->recomputeSingleEntityChangeSet($class, $entity);
+        			return true;
+        		}
+        	}else{
+        		$class = $entityManager->getClassMetadata(get_class($entity));
+   				$entityManager->getUnitOfWork()->recomputeSingleEntityChangeSet($class, $entity);
+        		return true;
+        	}
+        }        
      	
        	// If AnonymousToken user,
        	if ($isAnonymousToken && $this->isAnonymousToken()) {
-       		
        		// just for register in data the change do in this class listener :
        		$class = $entityManager->getClassMetadata(get_class($entity));
        		$entityManager->getUnitOfWork()->computeChangeSet($class, $entity);
@@ -256,10 +287,25 @@ abstract class abstractListener
 		$entity 		= $eventArgs->getEntity();
 		$entityManager 	= $eventArgs->getEntityManager();
 		
-		// we give the right of remove if the entity is in the CRUD_PREPERSIST container
-		if(isset($GLOBALS['ENTITIES']['CRUD_PREREMOVE']) && in_array(get_class($entity), $GLOBALS['ENTITIES']['CRUD_PREREMOVE']))
-			return true;		
-	
+		$entity_name = get_class($entity);
+// 		if(!in_array($entity_name, array('BootStrap\UserBundle\Entity\User'))){
+// 			print_r("CRUD_PREREMOVE");
+// 			print_r($entity_name);exit;
+// 		}		
+		// we give the right of persist if the entity is in the CRUD_PREREMOVE container
+		if(isset($GLOBALS['ENTITIES']['CRUD_PREREMOVE']) && isset($GLOBALS['ENTITIES']['CRUD_PREREMOVE'][$entity_name])){
+			if(is_array($GLOBALS['ENTITIES']['CRUD_PREREMOVE'][$entity_name])){
+				$route = $this->container->get('request')->get('_route');
+				if($this->container->get('session')->has('route') && (empty($route) || ($route == "_internal")))
+					$route = $this->container->get('session')->get('route');
+				if(in_array($route, $GLOBALS['ENTITIES']['CRUD_PREREMOVE'][$entity_name])){
+					return true;
+				}
+			}else{
+				return true;
+			}
+		}	
+
 		// If AnonymousToken user,
 		if ($isAnonymousToken && $this->isAnonymousToken()) {
 			//  we stop the remove method.

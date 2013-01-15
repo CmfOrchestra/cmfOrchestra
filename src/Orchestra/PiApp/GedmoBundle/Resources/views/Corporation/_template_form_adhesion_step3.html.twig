@@ -1,0 +1,123 @@
+{% if render == '' %}
+<section class="breadcrumb">
+			<div class="wrap">
+				<a class="underline" href="#">Home</a> >
+				<a href="#" class="tt-clr"> M'inscrire</a>
+			</div>
+		</section>
+		<div class="wrap">
+			<header>
+				<h2 class="tt-1">Adhérer</h2>
+				<p class="tt-10">Gérer simplement vos abonnements newsletter et vos événements 
+				en vous inscrivant gratuitement à La Mêlée Numérique.</p>
+			</header>
+		</div>
+		
+		<section class="bloc-adhesion">
+			<div class="wrap">
+				<div class='content'>
+					<header class="resetM cf">
+						<h3 class="tt-3 tt-clr bold">Vous souhaitez adhérer en tant que :</h3>
+						<div class="button-ct">
+							<a href="#" class="button Bsociety" data-button="toggle"><!--
+								--><span>Personne physique</span><!--
+							--></a>
+							<a href="#" class="button Bperson on" data-button="toggle"><!--
+								--><span>Personne morale</span><!--
+							--></a>
+							</div>
+					</header>
+					<figure class="timeline">
+						<a href="#" class="dots first ">1</a>
+						<a href="#" class="dots second">2</a>
+						<a href="#" class="dots third active">3</a>
+						<a href="#" class="dots fourth ">4</a>
+					</figure>
+					<div class="title-border-simple cf">
+						<h3 class="tt-3 tt-clr bold fleft">Votre visibilité</h3>
+					</div>
+					<form action="#" method="post" class="cf">
+            <input type="hidden" id="new" name="new" value="{{new}}">
+            <input type="hidden" id="step" name="step" value="3">
+            {% for key,value in data %}
+                <input type="hidden" id="{{key}}" name="{{key}}" value="{{value}}">
+            {% endfor %}
+                
+            {{ form_errors(form) }}
+            {{ form_widget(form._token) }}              
+						<fieldset>
+							<legend class="bold">Votre logo</legend>
+							<figure class="fleft">
+								<img alt="LA MELEE" src="./media/img/body/annuAdh/03.jpg">
+							</figure>
+							<div class="row fleft">
+								<label>Télécharger un logo * </label>
+								<a href="#" class="tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
+								<input type="file" class=" text">
+							</div>
+							<!-- <div class="button-ct fleft cf">
+								<input type="submit" value="TELECHARGER" class="fright nextStep" title="Valider ma demande d'adhésion">
+							</div> -->
+						</fieldset>
+
+			
+							<fieldset>
+								<legend class="bold">Argumentaire commercial </legend>
+								<div class="row">
+									{{ form_widget(form.ArgumentCommercial) }}
+									<a href="#" class="tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
+								</div>
+							</fieldset>
+
+							<fieldset>
+							<legend class="bold">Vos identifiants réseaux sociaux </legend>
+							
+              <div class="row cf">
+                <label class="social fb fleft">Facebook</label>
+                {{ form_widget(form.Facebook) }}
+                <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
+              </div>
+              <div class="row cf">
+                <label class="social gPlus fleft">Google +</label>
+                {{ form_widget(form.GooglePlus) }}
+                <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
+              </div>
+              <div class="row cf">
+                <label class="social twitter fleft">Twitter</label>
+                {{ form_widget(form.Twitter) }}
+                <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
+              </div>
+              <div class="row cf">
+                <label class="social linked fleft">LinedIn</label>
+                {{ form_widget(form.LinkedIn) }}
+                <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
+              </div>
+              <div class="row cf">
+                <label class="social viadeo fleft">Viadeo</label>
+                {{ form_widget(form.Viadeo) }}
+                <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
+              </div>
+
+							<div class="row">
+								{{ form_widget(form.url) }}
+							</div>
+
+						</fieldset>
+
+
+
+							<div class="button-ct cf">
+							<a href="#" class="button purple fleft"><!--
+								--><span>ETAPE PRECEDENTE</span><!--
+							--></a>
+							<input type="submit" value="VALIDER" class="fright nextStep" title="Valider ma demande d'adhésion">
+
+						</div>
+					</form>
+				
+				</div>
+			</div>
+		</section>	
+{% else %}
+  {{ render|raw }}
+{% endif %}	

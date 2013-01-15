@@ -1,0 +1,133 @@
+{% if render == '' %}
+		<section class="breadcrumb">
+			<div class="wrap">
+				<a class="underline" href="#">Home</a> >
+				<a href="#" class="tt-clr"> M'inscrire</a>
+			</div>
+		</section>
+		<div class="wrap">
+			<header>
+				<h2 class="tt-1">Adhérer</h2>
+				<p class="tt-10">Gérer simplement vos abonnements newsletter et vos événements 
+				en vous inscrivant gratuitement à La Mêlée Numérique.</p>
+			</header>
+		</div>
+		
+		<section class="bloc-adhesion">
+			<div class="wrap">
+				<div class='content'>
+					<header class="resetM cf">
+						<h3 class="tt-3 tt-clr bold">Vous souhaitez adhérer en tant que :</h3>
+						<div class="button-ct">
+							<a href="#" class="button Bsociety on" data-button="toggle"><!--
+								--><span>Personne physique</span><!--
+							--></a>
+							<a href="#" class="button Bperson" data-button="toggle"><!--
+								--><span>Personne morale</span><!--
+							--></a>
+							</div>
+					</header>
+					<figure class="timeline three-step">
+						<a href="#" class="dots first ">1</a>
+						<a href="#" class="dots second active">2</a>
+						<a href="#" class="dots third">3</a>
+					</figure>
+
+					<div class="title-border-simple cf">
+						<h3 class="tt-3 tt-clr bold fleft">Votre visibilité</h3>
+					</div>
+					<form action="#" method="post" class="cf">          
+						<fieldset>
+							<figure class="fleft">
+								<img alt="LA MELEE" src="./media/img/body/annuAdh/03.jpg">
+							</figure>
+							<div class="row fleft">
+								<label>Votre photo </label>
+							
+								<input type="file">
+							</div>
+							<div class="button-ct fleft">
+								<input type="submit" value="TELECHARGER" class="fright nextStep">
+							</div>
+						</fieldset>				
+					</form>
+
+					<form action="#" method="post" class="cf">
+            <input type="hidden" id="new" name="new" value="{{new}}">
+            <input type="hidden" id="step" name="step" value="2">
+            {% for key,value in data %}
+                <input type="hidden" id="{{key}}" name="{{key}}" value="{{value}}">
+            {% endfor %}
+                
+            {{ form_errors(form) }}
+            {{ form_widget(form._token) }}  
+						<fieldset class="resetBorder">
+							<legend class="bold">Votre activité</legend>
+							<div class="row" id="activity">	
+								{{ form_widget(form.Activity) }}
+								<a href="#" class="tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
+							</div>
+
+							<div class="row hidden" id="activityList">	
+								{{ form_widget(form.Engineering) }}
+							</div>
+							<div class="row">
+								{{ form_widget(form.DetailActivity) }}
+							</div>
+
+							<div class="row">
+								{{ form_widget(form.ArgumentActivity) }}
+							</div>
+					
+							<p class="light-clr"><span class="tt-clr">*</span>champs obligatoire</p>
+						</fieldset>
+						
+						<fieldset>
+							<legend class="bold">Vous sur le web</legend>
+
+              <div class="row cf">
+                <label class="social fb fleft">Facebook</label>
+                {{ form_widget(form.Facebook) }}
+                <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
+              </div>
+              <div class="row cf">
+                <label class="social gPlus fleft">Google +</label>
+                {{ form_widget(form.GooglePlus) }}
+                <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
+              </div>
+              <div class="row cf">
+                <label class="social twitter fleft">Twitter</label>
+                {{ form_widget(form.Twitter) }}
+                <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
+              </div>
+              <div class="row cf">
+                <label class="social linked fleft">LinedIn</label>
+                {{ form_widget(form.LinkedIn) }}
+                <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
+              </div>
+              <div class="row cf">
+                <label class="social viadeo fleft">Viadeo</label>
+                {{ form_widget(form.Viadeo) }}
+                <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
+              </div>
+
+							<div class="row">
+								{{ form_widget(form.url) }}
+							</div>
+						</fieldset>
+
+						<div class="button-ct cf">
+							<a href="#" class="button purple fleft"><!--
+								--><span>ETAPE PRECEDENTE</span><!--
+							--></a>
+
+							<input type="submit" value="ETAPE SUIVANTE" class="fright nextStep">
+	
+						</div>
+					</form>
+				</div>	
+			</div>
+		</section>
+{% else %}
+  {{ render|raw }}
+{% endif %}	

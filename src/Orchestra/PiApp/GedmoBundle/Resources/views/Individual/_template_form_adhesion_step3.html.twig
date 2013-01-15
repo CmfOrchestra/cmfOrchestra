@@ -1,0 +1,245 @@
+{% if render == '' %}
+		<section class="breadcrumb">
+			<div class="wrap">
+				<a class="underline" href="#">Home</a> >
+				<a href="#" class="tt-clr"> M'inscrire</a>
+			</div>
+		</section>
+		<div class="wrap">
+			<header>
+				<h2 class="tt-1">Adhérer</h2>
+				<p class="tt-10">Gérer simplement vos abonnements newsletter et vos événements 
+				en vous inscrivant gratuitement à La Mêlée Numérique.</p>
+			</header>
+		</div>
+		
+		<section class="bloc-adhesion">
+			<div class="wrap">
+				<div class='content'>
+					<header class="resetM cf">
+						<h3 class="tt-3 tt-clr bold">Vous souhaitez adhérer en tant que :</h3>
+						<div class="button-ct">
+							<a href="#" class="button Bsociety on" data-button="toggle"><!--
+								--><span>Personne physique</span><!--
+							--></a>
+							<a href="#" class="button Bperson" data-button="toggle"><!--
+								--><span>Personne morale</span><!--
+							--></a>
+							</div>
+					</header>
+					<figure class="timeline three-step">
+						<a href="#" class="dots first ">1</a>
+						<a href="#" class="dots second">2</a>
+						<a href="#" class="dots third active">3</a>
+					</figure>
+
+					<div class="title-border-simple cf">
+						<h3 class="tt-3 tt-clr bold fleft">La mêlée et vous</h3>
+					</div>
+				
+					<form action="#" method="post" class="cf">
+            <input type="hidden" id="new" name="new" value="{{new}}">
+            <input type="hidden" id="step" name="step" value="3">
+            {% for key,value in data %}
+                <input type="hidden" id="{{key}}" name="{{key}}" value="{{value}}">
+            {% endfor %}            
+            {{ form_errors(form) }}
+            {{ form_widget(form._token) }}            
+						<fieldset>
+							<legend class="bold">Mes commissions</legend>
+						
+							<p class="light-clr">
+								Veuillez sélectionner les commisions auxquels vous souhaitez participer :
+							</p>
+							<div class="row radio-list cf">
+								<div class="half fleft">
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Systeme d'informations</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Sécurité informatique</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">International</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Logiciels libre</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Innovation</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Emplois et formation</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Intelligence Collective</label>
+									</div>
+									
+								</div>
+								<div class="half fleft">
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Systeme d'informations</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Sécurité informatique</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">International</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Logiciels libre</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Innovation</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Emplois et formation</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Intelligence Collective</label>
+									</div>		
+								</div>	
+							</div>
+						</fieldset>
+
+						<fieldset>
+							<legend class="bold">Mes Newsletter</legend>
+						
+							<p class="light-clr">
+								Veuillez sélectionner les newsletters que vous souhaitez recevoir :
+							</p>
+							<div class="row cf">
+							<div class="field fleft">
+								<input type="checkbox">
+								<label class="light-clr bold">Infomêlée</label>
+							</div>
+
+							<div class="field fleft">
+								<input type="checkbox">
+								<label class="light-clr bold">MID e-news</label>
+							</div>
+							<div class="field fleft">
+								<input type="checkbox">
+								<label class="light-clr bold">Infocantine</label>
+							</div>
+							<div class="field fleft">
+								<input type="checkbox" id="list-news">
+								<label class="light-clr bold">Thema'TIC</label>
+							</div>
+							<div class="bulle-info news-list cf fright">
+								<span class="arrow"></span>
+								<div class="half fleft">
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Systeme d'informations</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Sécurité informatique</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">International</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Logiciels libre</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Innovation</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Emplois et formation</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Intelligence Collective</label>
+									</div>
+									
+								</div>
+								<div class="half fleft">
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Systeme d'informations</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Sécurité informatique</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">International</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Logiciels libre</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Innovation</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Emplois et formation</label>
+									</div>
+									<div class="field">
+										<input type="checkbox">
+										<label class="light-clr">Intelligence Collective</label>
+									</div>		
+								</div>
+							</div>
+						</div>
+
+						</fieldset>
+
+						<fieldset class="cf">
+							<legend class="bold fleft">Quelles sont vos expertises ?</legend>
+							<a href="#" class="fleft tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
+							{{ form_widget(form.Expertise) }}
+						</fieldset>
+
+						<fieldset>
+							<div class="row cf"> 
+								<p class="radioLabel tt-10  bold fleft">Souhaitez vous être conférencier ? *</p>
+								<a href="#" class="fleft tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
+							</div>
+							<div class="row"> 
+								{{ form_widget(form.Speaker) }}
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend class="bold">Origine de contact et motivations </legend>
+							{{ form_widget(form.OriginContact) }}
+              {{ form_widget(form.OriginContactOther) }}
+              {{ form_widget(form.OriginContactSponsor) }}
+						</fieldset>
+
+						<div class="button-ct cf">
+						<a href="#" class="button purple fleft"><!--
+							--><span>ETAPE PRECEDENTE</span><!--
+						--></a>					
+						<input type="submit" value="VALIDER" class="fright nextStep" title="Valider ma demande d'adhésion">
+						</div>
+					</form>
+				</div>	
+			</div>
+		</section>	
+{% else %}
+  {{ render|raw }}
+{% endif %}	

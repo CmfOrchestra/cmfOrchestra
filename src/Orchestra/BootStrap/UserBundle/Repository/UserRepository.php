@@ -36,47 +36,33 @@ class UserRepository extends EntityRepository
 	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-03-15
 	 */
-	public function getAllByCategory($category = '', $MaxResults = null, $ORDER_PublishDate = '', $ORDER_Position = '', $enabled = true)
+	public function getAllAdherents($category = '', $MaxResults = null, $ORDER_PublishDate = '', $ORDER_Position = '', $enabled = true)
 	{
-		$query = $this->createQueryBuilder('a')->select('a');
-		 
+		$em = $this->createQueryBuilder('a')
+			->select('a')
+			->leftJoin('a.individual', 'i')
+			->leftJoin('a.corporation', 'c');
+	
+		$em
+			->andWhere('a.enabled = 1')
+			->andWhere('i.highlighted = 1')
+			->orWhere('c.highlighted = 1');
+
 		if(!empty($ORDER_PublishDate) && !empty($ORDER_Position)){
-			$query
+			$em
 			->orderBy('a.created_at', $ORDER_PublishDate)
 			->addOrderBy('a.position', $ORDER_Position);
 		}elseif(!empty($ORDER_PublishDate) && empty($ORDER_Position)){
-			$query
+			$em
 			->orderBy('a.created_at', $ORDER_PublishDate);
 		}elseif(empty($ORDER_PublishDate) && !empty($ORDER_Position)){
-			$query
+			$em
 			->orderBy('a.position', $ORDER_Position);
 		}
 	
-		if($enabled && !empty($category)){
-			$query
-			->where('a.enabled = :enabled')
-			->Andwhere('a.category = :cat')
-			->setParameters(array(
-					'cat'		=> $category,
-					'enabled'	=> 1,
-			));
-		}elseif($enabled && empty($category)){
-			$query
-			->where('a.enabled = :enabled')
-			->setParameters(array(
-					'enabled'	=> 1,
-			));
-		}elseif(!$enabled && !empty($category)){
-			$query
-			->where('a.category = :cat')
-			->setParameters(array(
-					'cat'		=> $category,
-			));
-		}
-	
 		if(!is_null($MaxResults))
-			$query->setMaxResults($MaxResults);
+			$em->setMaxResults($MaxResults);
 	
-		return $query;
+		return $em;
 	}	
 }

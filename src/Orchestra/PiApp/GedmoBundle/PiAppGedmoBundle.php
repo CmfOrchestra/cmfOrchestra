@@ -63,17 +63,43 @@ $GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']= array(
 );
 
 $GLOBALS['ENTITIES']['CRUD_PREPERSIST']= array(
-		'BootStrap\UserBundle\Entity\User',
-		'PiApp\GedmoBundle\Entity\Individual',
-		'PiApp\GedmoBundle\Entity\Translation\IndividualTranslation',
-		'PiApp\GedmoBundle\Entity\Corporation',
-		'PiApp\GedmoBundle\Entity\Translation\CorporationTranslation',
+		'BootStrap\MediaBundle\Entity\Media'	=> null,
+		'PiApp\GedmoBundle\Entity\Media'	=> null,
+		'Proxies\PiAppGedmoBundleEntityMediaProxy'	=> null,
+		'Proxies\BootStrapMediaBundleEntityMediaProxy'	=> null,	
+		
+		'BootStrap\UserBundle\Entity\User' => null,
+		'Proxies\BootStrapUserBundleEntityUserProxy'=> null,
+		'PiApp\GedmoBundle\Entity\Individual'=> null,
+		'PiApp\GedmoBundle\Entity\Translation\IndividualTranslation'=> null,
+		'PiApp\GedmoBundle\Entity\Corporation'=> null,
+		'PiApp\GedmoBundle\Entity\Translation\CorporationTranslation'=> null,
 );
 $GLOBALS['ENTITIES']['CRUD_PREUPDATE']= array(
-		'BootStrap\UserBundle\Entity\User',
+		'BootStrap\MediaBundle\Entity\Media'	=> null,
+		'PiApp\GedmoBundle\Entity\Media'	=> null,
+		'Proxies\PiAppGedmoBundleEntityMediaProxy'	=> null,
+		'Proxies\BootStrapMediaBundleEntityMediaProxy'	=> null,	
+		
+		'BootStrap\UserBundle\Entity\User' => null,
+		'Proxies\BootStrapUserBundleEntityUserProxy'=> null,
+		'PiApp\GedmoBundle\Entity\Individual'=> null,
+		'PiApp\GedmoBundle\Entity\Translation\IndividualTranslation'=> null,
+		'PiApp\GedmoBundle\Entity\Corporation'=> null,
+		'PiApp\GedmoBundle\Entity\Translation\CorporationTranslation'=> null,
 );
 $GLOBALS['ENTITIES']['CRUD_PREREMOVE']= array(
-		'BootStrap\UserBundle\Entity\User',
+		'BootStrap\MediaBundle\Entity\Media'	=> null,
+		'PiApp\GedmoBundle\Entity\Media'	=> null,
+		'Proxies\PiAppGedmoBundleEntityMediaProxy'	=> null,
+		'Proxies\BootStrapMediaBundleEntityMediaProxy'	=> null,	
+		
+		'BootStrap\UserBundle\Entity\User' => null,
+		'Proxies\BootStrapUserBundleEntityUserProxy'=> null,
+		'PiApp\GedmoBundle\Entity\Individual'=> null,
+		'PiApp\GedmoBundle\Entity\Translation\IndividualTranslation'=> null,
+		'PiApp\GedmoBundle\Entity\Corporation'=> null,
+		'PiApp\GedmoBundle\Entity\Translation\CorporationTranslation'=> null,
 );
 
 /**************************  MATRIX LISTENER ***************************/

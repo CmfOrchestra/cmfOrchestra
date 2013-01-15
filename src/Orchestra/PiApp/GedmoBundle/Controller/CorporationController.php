@@ -28,6 +28,7 @@ use PiApp\GedmoBundle\Entity\Corporation;
 use PiApp\GedmoBundle\Entity\Individual;
 use PiApp\GedmoBundle\Form\CorporationType;
 use PiApp\GedmoBundle\Form\AdhesionType;
+use PiApp\GedmoBundle\Form\Adhesion\AdhesionCorporationType;
 use PiApp\GedmoBundle\Entity\Translation\CorporationTranslation;
 use Symfony\Component\Form\FormError;
 use BootStrap\UserBundle\Entity\User;
@@ -408,9 +409,6 @@ class CorporationController extends abstractController
     	if(empty($lang))
     		$lang	= $this->container->get('session')->getLocale();
     		
-    	if(method_exists($entity, "getTemplate") && $entity->getTemplate() != "")
-    		$template = $entity->getTemplate();    		
-    		
     	$query		= $em->getRepository("PiAppGedmoBundle:Corporation")->getAllByCategory($category, $MaxResults, $order)->getQuery();
         $entities   = $em->getRepository("PiAppGedmoBundle:Corporation")->findTranslationsByQuery($lang, $query, 'object', false);                   
 
@@ -430,41 +428,174 @@ class CorporationController extends abstractController
      * @access	public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    public function _template_adhesionAction($template = '_template_form_adhesion.html.twig', $lang = "", $type = 'lamelee')
+    public function _template_adhesionAction($template = '_template_form_adhesion_step1.html.twig', $lang = "", $type = 'lamelee')
     {
 
         $em 		= $this->getDoctrine()->getEntityManager();
-        $new   = $this->container->get('request')->get('new');
+        $request = $this->container->get('request')->get('GET');
+        if(isset($request['new']))
+            $new   = $request['new'];
+        else
+            $new   = $this->container->get('request')->query->get('new');
         
+        if(isset($request['step']))
+            $step   = $request['step'];
+        else
+            $step   = $this->container->get('request')->query->get('step');        
+        //print_r($this->container->get('request'));
         if(empty($lang))
           $lang	= $this->container->get('session')->getLocale();
         
+        if(empty($step))
+          $step	= 1;
+        
+        $params['step'] = $step;
         $params['type'] = $type;
         $params['template'] = $template;
         
     	  $category   = $this->container->get('request')->query->get('category');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         
-        $entity   = new Individual();
-        //$entity   = new Corporation();
-        $render = '';
-        
-        
-        if (!empty($new)){
-            $render = $this->container->get('http_kernel')->render('PiAppGedmoBundle:Corporation:_template_adhesionValidation', array('attributes'=>$params));
-        }
-      
-        $entity->setInscrName('Nom*');  
-        $entity->setInscrNickname('Prénom*');
-        $entity->setInscrUserName('Identifiant');
-        $entity->setInscrEmail('Email pro*');
-        $entity->setInscrPersoEmail('Email perso*');        
-        $entity->setInscrPhone('Téléphone');
-        $entity->setEntrActivity('Activité*');
-        $entity->setInscrJob('Fonction*');
-        $entity->setEntrStaff('Effectif*');
+        $entity   = new Corporation();
 
-        $form   	= $this->createForm(new AdhesionType($em, $this->container), $entity, array('show_legend' => false));
+        $render = '';
+        //print_r($new);print_r($step);exit;
+        //
+        if (!empty($new)){
+              if($step == 1){
+                $render = $this->container->get('http_kernel')->render('PiAppGedmoBundle:Corporation:_template_adhesionValidation', array('attributes'=>$params));
+              
+              }
+              elseif($step==2){
+                  
+                  $data = array();
+                  $data['Civility'] = $request['Civility'];
+                  $data['Name'] = $request['Name'];
+                  $data['Nickname'] = $request['Nickname'];
+                  $data['Job'] = $request['Job'];
+                  $data['Email'] = $request['Email'];
+                  $data['EmailPerso'] = $request['EmailPerso'];
+                  $data['UserPhone'] = $request['UserPhone'];
+                  $data['Profile'] = $request['Profile'];
+                  $data['UserName'] = $request['UserName'];  
+                  //array_merge($data, $request['piapp_gedmobundle_adhesion_corporationtype']);
+
+                  $data['CorporationName'] = $request['piapp_gedmobundle_adhesion_corporationtype']['CorporationName'];
+                  $data['CommercialName'] = $request['piapp_gedmobundle_adhesion_corporationtype']['CommercialName'];
+                  $data['Address'] = $request['piapp_gedmobundle_adhesion_corporationtype']['Address'];
+                  $data['CP'] = $request['piapp_gedmobundle_adhesion_corporationtype']['CP'];
+                  $data['City'] = $request['piapp_gedmobundle_adhesion_corporationtype']['City'];
+                  $data['Country'] = $request['piapp_gedmobundle_adhesion_corporationtype']['Country'];
+                  $data['Phone'] = $request['piapp_gedmobundle_adhesion_corporationtype']['Phone'];
+                  $data['Fax'] = $request['piapp_gedmobundle_adhesion_corporationtype']['Fax'];
+                  $data['InvoiceAddress'] = $request['piapp_gedmobundle_adhesion_corporationtype']['InvoiceAddress'];
+                  $data['InvoiceCP'] = $request['piapp_gedmobundle_adhesion_corporationtype']['InvoiceCP'];
+                  $data['InvoiceCity'] = $request['piapp_gedmobundle_adhesion_corporationtype']['InvoiceCity'];
+                  $data['InvoiceCountry'] = $request['piapp_gedmobundle_adhesion_corporationtype']['InvoiceCountry'];
+                  $data['InvoicePhone'] = $request['piapp_gedmobundle_adhesion_corporationtype']['InvoicePhone'];
+                  $data['InvoiceFax'] = $request['piapp_gedmobundle_adhesion_corporationtype']['InvoiceFax'];
+                  $data['MotherAddress'] = $request['piapp_gedmobundle_adhesion_corporationtype']['MotherAddress'];
+                  $data['MotherCP'] = $request['piapp_gedmobundle_adhesion_corporationtype']['MotherCP'];
+                  $data['MotherCity'] = $request['piapp_gedmobundle_adhesion_corporationtype']['MotherCity'];
+                  $data['MotherCountry'] = $request['piapp_gedmobundle_adhesion_corporationtype']['MotherCountry'];
+                  $data['MotherPhone'] = $request['piapp_gedmobundle_adhesion_corporationtype']['MotherPhone'];
+                  $data['MotherFax'] = $request['piapp_gedmobundle_adhesion_corporationtype']['MotherFax'];                
+                  $data['EffectifNational'] = $request['piapp_gedmobundle_adhesion_corporationtype']['EffectifNational'];
+                  $data['EffectifRegional'] = $request['piapp_gedmobundle_adhesion_corporationtype']['EffectifRegional'];
+                  $data['LegalForm'] = $request['piapp_gedmobundle_adhesion_corporationtype']['LegalForm'];
+                  $data['CodeNAF'] = $request['piapp_gedmobundle_adhesion_corporationtype']['CodeNAF'];
+                  $data['CaNational'] = $request['piapp_gedmobundle_adhesion_corporationtype']['CaNational'];
+                  $data['Siret'] = $request['piapp_gedmobundle_adhesion_corporationtype']['Siret'];                
+
+                  $entity->setUrl('Site Internet');                
+                  
+                  $form   	= $this->createForm(new AdhesionCorporationType($em, $this->container), $entity, array('show_legend' => false));
+
+                  $template = '_template_form_adhesion_step3.html.twig';
+                  
+                  return $this->render("PiAppGedmoBundle:Corporation:$template", array(
+                      'entity'      => $entity,
+                      'data'      => $data,
+                      'form'        => $form->createView(),
+                      'NoLayout'    => $NoLayout,
+                      'category'    => $category,
+                      'new'	=> '1',
+                      'render'	=> '',
+                  ));
+              }
+              elseif($step==3){
+
+                $data = array();
+                $data['Civility'] = $request['Civility'];
+                $data['Name'] = $request['Name'];
+                $data['Nickname'] = $request['Nickname'];
+                $data['Job'] = $request['Job'];
+                $data['Email'] = $request['Email'];
+                $data['EmailPerso'] = $request['EmailPerso'];
+                $data['UserPhone'] = $request['UserPhone'];
+                $data['Profile'] = $request['Profile'];
+                $data['UserName'] = $request['UserName'];  
+
+                $data['CorporationName'] = $request['CorporationName'];
+                $data['CommercialName'] = $request['CommercialName'];
+                $data['Address'] = $request['Address'];
+                $data['CP'] = $request['CP'];
+                $data['City'] = $request['City'];
+                $data['Country'] = $request['Country'];
+                $data['Phone'] = $request['Phone'];
+                $data['Fax'] = $request['Fax'];
+                $data['InvoiceAddress'] = $request['InvoiceAddress'];
+                $data['InvoiceCP'] = $request['InvoiceCP'];
+                $data['InvoiceCity'] = $request['InvoiceCity'];
+                $data['InvoiceCountry'] = $request['InvoiceCountry'];
+                $data['InvoicePhone'] = $request['InvoicePhone'];
+                $data['InvoiceFax'] = $request['InvoiceFax'];
+                $data['MotherAddress'] = $request['MotherAddress'];
+                $data['MotherCP'] = $request['MotherCP'];
+                $data['MotherCity'] = $request['MotherCity'];
+                $data['MotherCountry'] = $request['MotherCountry'];
+                $data['MotherPhone'] = $request['MotherPhone'];
+                $data['MotherFax'] = $request['MotherFax'];                
+                $data['EffectifNational'] = $request['EffectifNational'];
+                $data['EffectifRegional'] = $request['EffectifRegional'];
+                $data['LegalForm'] = $request['LegalForm'];
+                 
+                $data['Facebook'] = $request['piapp_gedmobundle_adhesion_corporationtype']['Facebook'];
+                $data['GooglePlus'] = $request['piapp_gedmobundle_adhesion_corporationtype']['GooglePlus'];
+                $data['Twitter'] = $request['piapp_gedmobundle_adhesion_corporationtype']['Twitter'];
+                $data['LinkedIn'] = $request['piapp_gedmobundle_adhesion_corporationtype']['LinkedIn'];
+                $data['Viadeo'] = $request['piapp_gedmobundle_adhesion_corporationtype']['Viadeo'];
+                $data['ArgumentCommercial'] = $request['piapp_gedmobundle_adhesion_corporationtype']['ArgumentCommercial'];
+                $data['url'] = $request['piapp_gedmobundle_adhesion_corporationtype']['url'];
+
+                  $form   	= $this->createForm(new AdhesionCorporationType($em, $this->container), $entity, array('show_legend' => false));
+
+                  $template = '_template_form_adhesion_step4.html.twig';
+                  
+                  return $this->render("PiAppGedmoBundle:Corporation:$template", array(
+                      'entity'      => $entity,
+                      'data'      => $data,
+                      'form'        => $form->createView(),
+                      'NoLayout'    => $NoLayout,
+                      'category'    => $category,
+                      'new'	=> '1',
+                      'render'	=> '',
+                  ));
+              }              
+              else {
+                  $render = $this->container->get('http_kernel')->render('PiAppGedmoBundle:Corporation:_template_adhesionSave', array('attributes'=>$params));
+              }
+        }
+
+        $entity->setName('Nom*');  
+        $entity->setNickname('Prénom*');
+        $entity->setUserName('Identifiant');
+        $entity->setEmail('Email pro*');
+        $entity->setEmailPerso('Email perso');       
+        $entity->setUserPhone('Téléphone*');
+        $entity->setJob('Fonction*');
+
+        $form   	= $this->createForm(new AdhesionCorporationType($em, $this->container), $entity, array('show_legend' => false));
 
         return $this->render("PiAppGedmoBundle:Corporation:$template", array(
             'entity' 	=> $entity,
@@ -476,7 +607,103 @@ class CorporationController extends abstractController
         ));  
     }
 
-    public function _template_adhesionValidationAction($template = '_template_form_adhesion.html.twig', $lang = "", $type = 'lamelee')
+    public function _template_adhesionValidationAction($template = '_template_form_adhesion_step1.html.twig', $lang = "", $type = 'lamelee', $step = 1)
+    {
+
+      $em        = $this->getDoctrine()->getEntityManager();
+      $request   = $this->container->get('request');
+
+      if(empty($lang))
+              $lang   = $this->container->get('session')->getLocale();
+       
+      $category   = $this->container->get('request')->query->get('category');
+
+      $NoLayout   = $this->container->get('request')->query->get('NoLayout');
+
+      $entity   = new Corporation();
+
+      $form     = $this->createForm(new AdhesionCorporationType($em, $this->container), $entity, array('show_legend' => false));
+
+      $data = $request->get($form->getName(), array());
+      $form->bind($data);
+
+      $user_name  = $em->getRepository('BootStrapUserBundle:User')->findOneByName($form["UserName"]->getData());
+      if($user_name != null){
+        $form->addError(new FormError('error message : username already exists!'));
+      }
+      
+      $user_email = $em->getRepository('BootStrapUserBundle:User')->findOneByEmail($form["Email"]->getData());
+
+      if($user_email != null){
+        $form->addError(new FormError('error message : email already exists!'));
+      }
+
+      if (!$form->hasErrors()) {
+
+        $data = array();
+        $data['Civility'] = $form['Civility']->getData();
+        $data['Name'] = $form['Name']->getData();
+        $data['Nickname'] = $form['Nickname']->getData();
+        $data['Job'] = $form['Job']->getData();
+        $data['Email'] = $form['Email']->getData();
+        $data['EmailPerso'] = $form['EmailPerso']->getData();
+        $data['UserPhone'] = $form['UserPhone']->getData();
+        $data['Profile'] = $form['Profile']->getData();
+        $data['UserName'] = $form['UserName']->getData();        
+
+        $entity->setDetailActivity('Détails activité*');  
+    
+        $entity->setCorporationName('Raison sociale *');
+        $entity->setCommercialName('Nom commercial *');
+        $entity->setAddress('Adresse*');
+        $entity->setCP('Code postal*');
+        $entity->setCity('Ville*');
+        $entity->setPhone('Téléphone*');
+        $entity->setFax('Fax*');
+        $entity->setInvoiceAddress('Adresse*');
+        $entity->setInvoiceCP('Code postal*');
+        $entity->setInvoiceCity('Ville*');
+        $entity->setInvoicePhone('Téléphone*');
+        $entity->setInvoiceFax('Fax*');
+        $entity->setMotherAddress('Adresse*');
+        $entity->setMotherCP('Code postal*');
+        $entity->setMotherCity('Ville*');
+        $entity->setMotherPhone('Téléphone*');
+        $entity->setMotherFax('Fax*');
+        $entity->setEffectifNational('Effectif national en cours *');
+        $entity->setEffectifRegional('Effectif regional en cours *');
+        $entity->setCodeNAF('Code NAF*');  
+        $entity->setSiret('Siret*');  
+        $entity->setCaNational('Ca National *');  
+
+        $form   	= $this->createForm(new AdhesionCorporationType($em, $this->container), $entity, array('show_legend' => false));
+
+        $template = '_template_form_adhesion_step2.html.twig';
+
+        return $this->render("PiAppGedmoBundle:Corporation:$template", array(
+            'entity'      => $entity,
+            'data'      => $data,
+            'form'        => $form->createView(),
+            'NoLayout'    => $NoLayout,
+            'category'    => $category,
+            'new'	=> '1',
+            'render'	=> '',
+        ));
+      }
+
+      return $this->render("PiAppGedmoBundle:Corporation:$template", array(
+              'entity'      => $entity,
+              'form'        => $form->createView(),
+              'NoLayout'    => $NoLayout,
+              'category'    => $category,
+              'new'	=> 1,
+              'render'	=> '',
+          )); 
+
+    }   
+    
+
+    public function _template_adhesionSaveAction($template = '_template_form_adhesion_step4.html.twig', $lang = "", $type = 'lamelee', $step = 3)
     {
       $em        = $this->getDoctrine()->getEntityManager();
       $request   = $this->container->get('request');
@@ -487,80 +714,93 @@ class CorporationController extends abstractController
       $category   = $this->container->get('request')->query->get('category');
 
       $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-      
-      $status   = $this->container->get('request')->get('status');
-      
-      if($status == 0)
-        $entity   = new Individual();
-      else
-        $entity   = new Corporation();
 
-      $form     = $this->createForm(new AdhesionType($em, $this->container), $entity, array('show_legend' => false));
+      $entity   = new Corporation();
+
+      $form     = $this->createForm(new AdhesionCorporationType($em, $this->container), $entity, array('show_legend' => false));
 
       $data = $request->get($form->getName(), array());
       $form->bind($data);
 
-      $user_name  = $em->getRepository('BootStrapUserBundle:User')->findOneByName($form["InscrUserName"]->getData());
-      if($user_name != null){
-        $form->addError(new FormError('error message : username already exists!'));
-      }
-      
-      $user_email = $em->getRepository('BootStrapUserBundle:User')->findOneByEmail($form["InscrEmail"]->getData());
-
-      if($user_email != null){
-        $form->addError(new FormError('error message : email already exists!'));
-      }
-
-      if ($form->isValid()) {
-          $password = 'abonne';//\PiApp\AdminBundle\Util\PiStringManager::random(8);
+      if (!$form->hasErrors()) {
+          $password = \PiApp\AdminBundle\Util\PiStringManager::random(8);
 
           $user = new User();
-          $user->setUsername($form["InscrUserName"]->getData());
-          $user->getUsernameCanonical($form["InscrUserName"]->getData());
+          $user->setUsername($request->get('UserName'));
+          $user->getUsernameCanonical($password);
           $user->setPlainPassword($password);
-          $user->setEmail($form["InscrEmail"]->getData());
-          $user->setEmailCanonical($form["InscrEmail"]->getData());
+          $user->setEmail($request->get('Email'));
+          $user->setEmailCanonical($request->get('Email'));
           $user->setEnabled(true);
-          $user->setRoles(array('ROLE_SUBSCRIBER'));
+          $user->setRoles(array('ROLE_MEMBER'));
           $user->setPermissions(array('VIEW', 'EDIT', 'CREATE', 'DELETE'));
 
-          $user->addGroupUser($em->getRepository('BootStrapUserBundle:Group')->findOneByName('Groupe User'));
           $user->setLangCode($em->getRepository('PiAppAdminBundle:Langue')->findOneById('fr_FR'));
 
           $em->persist($user);
-          $em->flush();
-          
+          $em->flush();	          
+
           $entity->setTranslatableLocale($lang);
           $entity->setUser($user);
-
+          $entity->setCivility($request->get('Civility'));
+          $entity->setName($request->get('Name'));
+          $entity->setNickname($request->get('Nickname'));
+          $entity->setJob($request->get('Job'));
+          $entity->setEmail($request->get('Email'));
+          $entity->setEmailPerso($request->get('EmailPerso'));
+          $entity->setUserPhone($request->get('UserPhone'));
+          $entity->setProfile($request->get('Profile'));
+          $entity->setUserName($request->get('UserName'));
+          $entity->setDetailActivity($request->get('Engineering'));
+          $entity->setDetailActivity($request->get('Activity'));
+          $entity->setDetailActivity($request->get('DetailActivity'));
+          $entity->setCorporationName($request->get('CorporationName'));
+          $entity->setCommercialName($request->get('CommercialName'));
+          $entity->setAddress($request->get('Address'));
+          $entity->setCP($request->get('CP'));
+          $entity->setCity($request->get('City'));
+          $entity->setInvoiceCountry($request->get('InvoiceCountry'));              
+          $entity->setPhone($request->get('Phone'));
+          $entity->setFax($request->get('Fax'));
+          $entity->setInvoiceAddress($request->get('InvoiceAddress'));
+          $entity->setInvoiceCP($request->get('InvoiceCP'));
+          $entity->setInvoiceCity($request->get('InvoiceCity'));
+          $entity->setInvoiceCountry($request->get('InvoiceCountry'));            
+          $entity->setInvoicePhone($request->get('InvoicePhone'));
+          $entity->setInvoiceFax($request->get('InvoiceFax'));
+          $entity->setMotherAddress($request->get('MotherAddress'));
+          $entity->setMotherCP($request->get('MotherCP'));
+          $entity->setMotherCity($request->get('MotherCity'));
+          $entity->setMotherCountry($request->get('MotherCountry'));              
+          $entity->setMotherPhone($request->get('MotherPhone'));
+          $entity->setMotherFax($request->get('MotherFax'));
+          $entity->setEffectifNational($request->get('EffectifNational'));
+          $entity->setEffectifRegional($request->get('EffectifRegional'));                   
+          $entity->setLegalForm($request->get('LegalForm'));
+          $entity->setCodeNAF($request->get('CodeNAF'));  
+          $entity->setSiret($request->get('Siret'));  
+          $entity->setCaNational($request->get('CaNational')); 
+          $entity->setArgumentCommercial($request->get('ArgumentCommercial'));          
+          $entity->setFacebook($request->get('Facebook'));
+          $entity->setGooglePlus($request->get('GooglePlus'));
+          $entity->setTwitter($request->get('Twitter'));
+          $entity->setLinkedIn($request->get('LinkedIn'));
+          $entity->setViadeo($request->get('Viadeo')); 
+          $entity->setUrl($request->get('url'));    
+          $entity->setExpertise($form['Expertise']->getData());
+          $entity->setSpeaker($form['Speaker']->getData());
+          $entity->setOriginContact($form['OriginContact']->getData());            
+          $entity->setOriginContactOther($form['OriginContactOther']->getData());
+          $entity->setOriginContactSponsor($form['OriginContactSponsor']->getData());           
           $em->persist($entity);
           $em->flush();
 
           $flash = $this->get('translator')
-	                         ->trans('Abonnement.flash.user_created',
-	                                  array('%email%' => $form["InscrEmail"]->getData()));
-	                      
-	          $this->get('session')->setFlash('success', $flash);
-          
-          //send mail
-//          $templateFile = "PiAppGedmoBundle:Corporation:email_adhesion_".$type.".html.twig";
-//          $templateContent = $this->get('twig')->loadTemplate($templateFile);
-//
-//          $subject = ($templateContent->hasBlock("subject")
-//              ? $templateContent->renderBlock("subject", array(
-//              'confirmationUrl' =>  $user->getConfirmationToken(),
-//              'password' => $password
-//              ))
-//              : "Default subject here");
-//          $body = ($templateContent->hasBlock("body")
-//              ? $templateContent->renderBlock("body", array(
-//              'confirmationUrl' =>  $user->getConfirmationToken(),
-//              'password' => $password
-//              ))
-//              : "Default body here");  
-//
-//          $this->_send_mail('adhesion@midenews.fr', $user->getEmail(), $subject, $body);
-        
+                         ->trans('adhesion.flash.user_created',
+                                  array('%email%' => $request->get('Email')));
+
+          $this->get('session')->setFlash('success', $flash);
+            
           return new Response('');
           
       }
@@ -572,5 +812,18 @@ class CorporationController extends abstractController
               'new'	=> 1,
               'render'	=> '',
           )); 
-    }        
+    }   
+    
+    private function _send_mail($from, $to, $subject, $body) {
+        $mail = \Swift_Message::newInstance();
+     
+        $mail
+            ->setTo($to)
+            ->setFrom($from)
+            ->setSubject($subject)           
+            ->setBody($body);
+
+        $this->get('mailer')->send($mail);
+    }
+      
 }
