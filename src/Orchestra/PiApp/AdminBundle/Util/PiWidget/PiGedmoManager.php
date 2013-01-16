@@ -626,6 +626,7 @@ class PiGedmoManager extends PiWidgetExtension
 	 *	                  	<orderby_date></orderby_date>
      *	                  	<orderby_position>ASC</orderby_position>
      *						<MaxResults>4</MaxResults>
+     *						<query_function>getAllAdherents</query_function>
      *						<searchFields>
  	 *                      	<nameField>field1</nameField>
  	 *                      	<valueField>value1</valueField>

@@ -240,10 +240,12 @@ class RouteTranslatorFactory extends AbstractFactory implements RouteTranslatorF
 	public function parseRoutePages()
 	{
 		$all_routes = array();
-		$results	= $this->getDoctrineRoute()->getConnection()->fetchAll("SELECT id,route,locales FROM pi_routing");
+		$results	= $this->getDoctrineRoute()->getConnection()->fetchAll("SELECT id,route,locales,defaults,requirements FROM pi_routing");
 		foreach($results as $key => $values){
-			$all_routes[ $values['route'] ]['id'] 	   = $values['id'];
-			$all_routes[ $values['route'] ]['locales'] = $values['locales'];
+			$all_routes[ $values['route'] ]['id'] 	   		= $values['id'];
+			$all_routes[ $values['route'] ]['locales'] 		= $values['locales'];
+			$all_routes[ $values['route'] ]['defaults']		= $values['defaults'];
+			$all_routes[ $values['route'] ]['requirements']	= $values['requirements'];
 		}
 		
 		$all_pages 	= $this->getEntityManager()->getRepository('PiAppAdminBundle:Page')->getAllPageHtml()->getQuery()->getResult();
@@ -254,8 +256,12 @@ class RouteTranslatorFactory extends AbstractFactory implements RouteTranslatorF
 					$locales  		= $this->getContainer()->get('pi_app_admin.manager.page')->getUrlByPage($page);
 					$route			= $page->getRouteName();
 					
-					$defaults		= array('_controller'=>'PiAppAdminBundle:Frontend:page');
-					$requirements 	= array('_method'=>'get|post');
+					if(!isset($all_routes[ $route ]) || empty($all_routes[ $route ]['defaults']))
+						$defaults		= array('_controller'=>'PiAppAdminBundle:Frontend:page');
+					else
+						$defaults		= json_decode($all_routes[ $route ]['defaults'], true);
+					
+					$requirements 		= array('_method'=>'get|post');
 					
 					if(isset($GLOBALS['ROUTE']['SLUGGABLE'][ $route ]) && !empty($GLOBALS['ROUTE']['SLUGGABLE'][ $route ])){
 						$sluggable_field_search = $GLOBALS['ROUTE']['SLUGGABLE'][ $route ]['field_search'];						
@@ -267,11 +273,14 @@ class RouteTranslatorFactory extends AbstractFactory implements RouteTranslatorF
 // 							$requirements	= array_merge(array($var=>"(.*)"), $requirements);
 // 						}
 // 					}
-					
-					if(isset($all_routes[ $route ]))
+
+					if(isset($all_routes[ $route ])){
 						$this->getDoctrineRoute()->addRoute($route, $all_routes[ $route ], $locales, $defaults, $requirements);
-					else
+//						print_r($all_routes[ $route ]);print_r(' - ');print_r($requirements);
+//						print_r("<br />");
+					}else{
 						$this->getDoctrineRoute()->addRoute($route, null, $locales, $defaults, $requirements);
+					}
 					
 				}
 			}

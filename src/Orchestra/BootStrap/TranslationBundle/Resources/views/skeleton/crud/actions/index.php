@@ -17,9 +17,11 @@
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout) 	$template = "index.html.twig"; else $template = "index.html.twig";
         
-        if($NoLayout && $category && !empty($category))
-    		$entities 	= $em->getRepository("{{ bundle }}:{{ entity }}")->getAllEnableByCatAndByPosition($locale, $category, 'object');
-    	else
+        if($NoLayout && $category && !empty($category)){
+    		//$entities 	= $em->getRepository("{{ bundle }}:{{ entity }}")->getAllEnableByCatAndByPosition($locale, $category, 'object');
+    		$query		= $em->getRepository("{{ bundle }}:{{ entity }}")->getAllByCategory($category, null, '', 'ASC', false)->getQuery();
+        	$entities   = $em->getRepository("{{ bundle }}:{{ entity }}")->findTranslationsByQuery($locale, $query, 'object', false);  
+    	}else
     		$entities	= $em->getRepository("{{ bundle }}:{{ entity }}")->findAllByEntity($locale, 'object');
 
 {% if 'annotation' == format %}

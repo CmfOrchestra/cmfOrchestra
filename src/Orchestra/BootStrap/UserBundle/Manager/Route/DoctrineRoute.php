@@ -161,12 +161,12 @@ class DoctrineRoute implements DoctrineRouteInterface
     public function addRoute($route, $fieldEntity, array $locales, array $defaults = array(), array $requirements = array())
     {
         if (is_array($fieldEntity)) {
-            if( $fieldEntity['locales'] != json_encode($locales) ) {
+            if( ( $fieldEntity['locales'] != json_encode($locales) ) || ( $fieldEntity['requirements'] != json_encode($requirements) ) ) {
             	
-            	//print_r($fieldEntity['id']);print_r(' - ');
-            	//print_r($route);print_r(' - ');           	
-            	//print_r($fieldEntity['locales']);print_r(' - ');
-            	//print_r(json_encode($locales));print_r(' - ');
+//             	print_r($fieldEntity['id']);print_r(' - ');
+//             	print_r($route);print_r(' - ');           	
+//             	print_r($fieldEntity['locales']);print_r(' - ');
+//             	print_r(json_encode($locales));print_r(' - ');
             	
 	            $this->connection->update('pi_routing', array(
 	                'locales' 		=> json_encode($locales),

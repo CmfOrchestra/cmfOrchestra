@@ -614,6 +614,7 @@ abstract class CoreListener extends abstractListener
 		    			&& !(in_array('ROLE_ADMIN', $this->getUserRoles()) || in_array('ROLE_SUPER_ADMIN', $this->getUserRoles()) || in_array('ROLE_CONTENT_MANAGER', $this->getUserRoles()))
 		    			&& $is_permission_management_page_by_user_only
 		    			&& (method_exists($this->getToken(), 'getUser'))
+		    			&& ($entity->getBlock() instanceof \PiApp\AdminBundle\Entity\Block)
 		    			&& ($entity->getBlock()->getPage()->getUser() instanceof \BootStrap\UserBundle\Entity\User)
 		    			&& ($entity->getBlock()->getPage()->getUser()->getId() != $this->getToken()->getUser()->getId() )) :
 		    		
@@ -623,6 +624,7 @@ abstract class CoreListener extends abstractListener
 		    	case ( ($entity instanceof \PiApp\AdminBundle\Entity\TranslationWidget)
 		    			&& !(in_array('ROLE_ADMIN', $this->getUserRoles()) || in_array('ROLE_SUPER_ADMIN', $this->getUserRoles()) || in_array('ROLE_CONTENT_MANAGER', $this->getUserRoles()))
 		    			&& $is_permission_management_page_by_user_only
+		    			&& ($entity->getWidget()->getBlock() instanceof \PiApp\AdminBundle\Entity\Block)
 		    			&& ($entity->getWidget()->getBlock()->getPage()->getUser() instanceof \BootStrap\UserBundle\Entity\User)
 		    			&& ($entity->getWidget()->getBlock()->getPage()->getUser()->getId() != $this->getToken()->getUser()->getId() )) :
 		    	

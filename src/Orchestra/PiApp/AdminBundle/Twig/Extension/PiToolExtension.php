@@ -681,7 +681,7 @@ class PiToolExtension extends \Twig_Extension
 		return $this->container->get('pi_app_admin.string_manager')->splitHtml($string);
 	}
 	
-	public function truncateFilter($string, $length = 100, $ending = "...", $exact = false, $html = false) {
+	public function truncateFilter($string, $length = 100, $ending = "...", $exact = false, $html = true) {
 		return $this->container->get('pi_app_admin.string_manager')->truncate($string, $length, $ending, $exact, $html);
 	}	
 	

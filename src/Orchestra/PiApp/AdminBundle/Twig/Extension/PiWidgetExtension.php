@@ -288,6 +288,7 @@ class PiWidgetExtension extends \Twig_Extension
 		$source .=  "					<orderby_date></orderby_date>\n";
 		$source .=  "					<orderby_position>ASC</orderby_position>\n";
 		$source .=  "					<MaxResults>4</MaxResults>\n";
+		$source .=  "					<query_function>getAllAdherents</query_function>\n";
 		$source .=  "					<searchFields>\n";
 		$source .=  "                      	<nameField>field1</nameField>\n";
 		$source .=  "                      	<valueField>value1</valueField>\n";
