@@ -65,6 +65,8 @@ class PiListenerManager extends PiCoreManager implements PiListenerManagerBuilde
 		$params['POST']		= $_GET;
 		$params['GET']		= $_POST;
 		$this->container->get('session')->set('route', $params['_route']);
-		return $this->container->get('http_kernel')->render($id, array('attributes'=>$params));
+		
+		$result = $this->container->get('http_kernel')->render($id, array('attributes'=>$params));
+		return utf8_decode(mb_convert_encoding($result, "UTF-8", "HTML-ENTITIES"));
 	}	
 }

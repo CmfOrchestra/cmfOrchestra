@@ -133,6 +133,7 @@ class PiSliderManager extends PiCoreManager implements PiSliderManagerBuilderInt
 		else
 			$controller  = "PiAppGedmoBundle:$entity";
 		
+			$em->getRepository($controller)->setContainer($this->container);
 			if(is_null($query_function)){
 				$query	= $em->getRepository($controller)->getAllByCategory($category, $MaxResults, $ORDER_PublishDate, $ORDER_Position, $enabled);
 			}elseif(method_exists($em->getRepository($controller), $query_function)){

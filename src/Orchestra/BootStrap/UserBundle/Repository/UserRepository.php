@@ -13,6 +13,7 @@
 namespace BootStrap\UserBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use BootStrap\TranslationBundle\Repository\TranslationRepository;
 
 /**
  * User Repository
@@ -25,7 +26,7 @@ use Doctrine\ORM\EntityRepository;
  *
  * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
-class UserRepository extends EntityRepository
+class UserRepository extends TranslationRepository
 {
 	/**
 	 * Gets all entities by one category.

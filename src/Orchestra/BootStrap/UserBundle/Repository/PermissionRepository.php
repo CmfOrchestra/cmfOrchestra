@@ -13,6 +13,7 @@
 namespace BootStrap\UserBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use BootStrap\TranslationBundle\Repository\TranslationRepository;
 
 /**
  * Permission Repository
@@ -25,7 +26,7 @@ use Doctrine\ORM\EntityRepository;
  *
  * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
-class PermissionRepository extends EntityRepository
+class PermissionRepository extends TranslationRepository
 {
 	const PERMISSION_DEFAULT 		= 'VIEW';
 

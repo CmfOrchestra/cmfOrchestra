@@ -13,6 +13,7 @@
 namespace BootStrap\UserBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use BootStrap\TranslationBundle\Repository\TranslationRepository;
 
 /**
  * Ressource Repository
@@ -25,6 +26,6 @@ use Doctrine\ORM\EntityRepository;
  *
  * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
-class RessourceRepository extends EntityRepository
+class RessourceRepository extends TranslationRepository
 {
 }

@@ -426,16 +426,20 @@ class PiGridTableManager extends PiJqueryExtension
 								
 							<?php endforeach; ?>
 						<?php endif; ?>	
-						<?php if(isset($options['grid-copy']) && !empty($options['grid-copy']) && is_array($options['grid-copy'])): ?>						
+						<?php if(isset($options['grid-copy'])): ?>						
 											
 											{
 												"sExtends": "copy",
 												"sButtonText": "<?php echo $this->translator->trans('pi.grid.action.copy'); ?>"
 											},
+						<?php endif; ?>
+						<?php if(isset($options['grid-print'])): ?>											
 											{
 												"sExtends": "print",
 												"sButtonText": "<?php echo $this->translator->trans('pi.grid.action.print'); ?>"
-											},	
+											},
+						<?php endif; ?>											
+						<?php if(isset($options['grid-export'])): ?>												
 											{
 												"sExtends":    "collection",
 												"sButtonText": "<?php echo $this->translator->trans('pi.grid.action.export'); ?>",

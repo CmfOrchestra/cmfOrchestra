@@ -194,11 +194,6 @@ class RouteTranslatorFactory extends AbstractFactory implements RouteTranslatorF
 				$match 	= $this->getLocaleRoute($langue, array('result' => 'match'));
 				$value	= $match[$param];
 			} catch (\Exception $e) {
-				try {
-					$match 	= $this->getRefererRoute($langue, array('result' => 'match'), false);
-					$value	= $match[$param];
-				} catch (\Exception $e) {
-				}
 			}
 		}		
 		return $value;		

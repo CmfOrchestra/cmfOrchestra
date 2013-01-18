@@ -9,7 +9,7 @@ framework:
     # in the user's locale
     translator:      { fallback: en }
     secret:          %secret%
-    charset:         utf-8
+    charset:         UTF-8
     router:          { resource: "%kernel.root_dir%/config/routing.yml" }
     form:            true
     csrf_protection: true
@@ -17,7 +17,8 @@ framework:
     templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
     session:
         default_locale: %locale%
-        auto_start:     true        
+        auto_start:     true
+        lifetime:       3600    
         
 # Twig Configuration
 twig:
@@ -25,8 +26,7 @@ twig:
     debug:                %kernel.debug%
     strict_variables:     %kernel.debug%
     auto_reload:          ~
-    exception_controller:  Symfony\Bundle\TwigBundle\Controller\ExceptionController::showAction    
-
+    exception_controller:  Symfony\Bundle\TwigBundle\Controller\ExceptionController::showAction 
 
 # Assetic Configuration
 assetic:

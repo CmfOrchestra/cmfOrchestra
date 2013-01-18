@@ -81,7 +81,7 @@ class PiRouteExtension extends \Twig_Extension
      * Return the url of a media (and put the result in cache).
      *
      * @param string $id
-     * @param string $format
+     * @param string $format		["default_small", "default_big", "reference"]
      * @param string $cachable
      *
      * @return string

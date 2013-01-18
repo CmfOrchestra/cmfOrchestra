@@ -92,6 +92,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
 	public function setContainer($container)
 	{
 		$this->_container = $container;
+		return $this;
 	}	  
 
     /**

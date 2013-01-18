@@ -13,6 +13,7 @@
 namespace BootStrap\UserBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use BootStrap\TranslationBundle\Repository\TranslationRepository;
 
 /**
  * Role Repository
@@ -25,7 +26,7 @@ use Doctrine\ORM\EntityRepository;
  *
  * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
-class RoleRepository extends EntityRepository
+class RoleRepository extends TranslationRepository
 {
 	const ROLE_DEFAULT 		= 'ROLE_VISITOR';
 	const ROLE_SUPER_ADMIN 	= 'ROLE_SUPER_ADMIN';

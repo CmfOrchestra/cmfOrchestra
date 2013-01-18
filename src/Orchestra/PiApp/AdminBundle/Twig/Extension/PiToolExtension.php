@@ -68,6 +68,10 @@ class PiToolExtension extends \Twig_Extension
 	 */	
 	public function getFilters() {
 		return array(
+				
+				// default
+				'php_funct'		=> new \Twig_Filter_Method($this, 'phpFilter'),
+				
 				// debug
 				'dump' 			=> new \Twig_Filter_Method($this, 'dumpFilter'),
 				'print_r' 		=> new \Twig_Filter_Method($this, 'print_rFilter'),
@@ -139,65 +143,6 @@ class PiToolExtension extends \Twig_Extension
 	 * Functions
 	 */
 	
-	/**
-	 * translation of date.
-	 *
-	 * @author riad hellal <r.hellal@novediagroup.com>
-	 */
-	public function getDatePatternByLocalFunction($locale, $dir='/web/bundles/piappadmin/js/wijmo/external/cultures/', $fileName = 'cultures_date.json')
-	{
-		// $isGood = $this->updateCulturesJsFilesFunction($dir, $fileName);
-		
-		$dates 		= array();
-		$root_file  = $this->container->get("kernel")->getRootDir() .'/../'. $dir . $fileName;
-		$dates		= json_decode(file_get_contents($root_file));
-	
-		if(isset($dates->{$locale}))
-			return $dates->{$locale};
-		else
-			return "MM/dd/yyyy";
-	}
-	
-	/**
-	 * parsing translaion js files.
-	 *
-	 * @author riad hellal <r.hellal@novediagroup.com>
-	 */
-	private function updateCulturesJsFilesFunction($dir='/web/bundles/piappadmin/js/wijmo/external/cultures/', $fileName = 'cultures_date.json')
-	{
-		$root_dir = $this->container->get("kernel")->getRootDir() .'/../'. $dir;
-	
-		$MyDirectory = opendir($root_dir) or die('Erreur');
-		$fp = fopen($root_dir.$fileName, 'w');
-		while($Entry = @readdir($MyDirectory)) {
-			if($Entry != '.' && $Entry != '..') {
-				$ch = file_get_contents($root_dir.$Entry, FILE_USE_INCLUDE_PATH);
-					
-				preg_match('/Globalize.addCultureInfo\(((.+)\})\);/is', $ch, $match);
-	
-				$strm = $match[1];
-				preg_match('/(.+), (\{(.+)\})/is', $strm, $tabres);
-				$str = $tabres[2];
-				preg_match('/d: \"(.+)\"/', $str, $es);
-	
-				$tabln =  explode( ',', $tabres[1] ) ;
-				if($es){
-					$ln =  trim(str_replace('"', '', $tabln[0])) ;
-					$ln =  str_replace('-', '_', $ln) ;
-					$posts[$ln] =  $es[1];
-	
-				}
-					
-			}
-		}
-	
-		fwrite($fp, json_encode($posts));
-		fclose($fp);
-		closedir($MyDirectory);
-			
-		return true;
-	}	
-		
 	/**
 	 * moving an image.
 	 *
@@ -524,11 +469,74 @@ class PiToolExtension extends \Twig_Extension
 				
 		return implode(" \n", $metas);
 	}
+	
+	/**
+	 * translation of date.
+	 *
+	 * @author riad hellal <r.hellal@novediagroup.com>
+	 */
+	public function getDatePatternByLocalFunction($locale, $dir='/web/bundles/piappadmin/js/wijmo/external/cultures/', $fileName = 'cultures_date.json')
+	{
+		// $isGood = $this->updateCulturesJsFilesFunction($dir, $fileName);
+	
+		$dates 		= array();
+		$root_file  = $this->container->get("kernel")->getRootDir() .'/../'. $dir . $fileName;
+		$dates		= json_decode(file_get_contents($root_file));
+	
+		if(isset($dates->{$locale}))
+			return $dates->{$locale};
+		else
+			return "MM/dd/yyyy";
+	}
+	
+	/**
+	 * parsing translaion js files.
+	 *
+	 * @author riad hellal <r.hellal@novediagroup.com>
+	 */
+	private function updateCulturesJsFilesFunction($dir='/web/bundles/piappadmin/js/wijmo/external/cultures/', $fileName = 'cultures_date.json')
+	{
+		$root_dir = $this->container->get("kernel")->getRootDir() .'/../'. $dir;
+	
+		$MyDirectory = opendir($root_dir) or die('Erreur');
+		$fp = fopen($root_dir.$fileName, 'w');
+		while($Entry = @readdir($MyDirectory)) {
+			if($Entry != '.' && $Entry != '..') {
+				$ch = file_get_contents($root_dir.$Entry, FILE_USE_INCLUDE_PATH);
+					
+				preg_match('/Globalize.addCultureInfo\(((.+)\})\);/is', $ch, $match);
+	
+				$strm = $match[1];
+				preg_match('/(.+), (\{(.+)\})/is', $strm, $tabres);
+				$str = $tabres[2];
+				preg_match('/d: \"(.+)\"/', $str, $es);
+	
+				$tabln =  explode( ',', $tabres[1] ) ;
+				if($es){
+					$ln =  trim(str_replace('"', '', $tabln[0])) ;
+					$ln =  str_replace('-', '_', $ln) ;
+					$posts[$ln] =  $es[1];
+	
+				}
+					
+			}
+		}
+	
+		fwrite($fp, json_encode($posts));
+		fclose($fp);
+		closedir($MyDirectory);
+			
+		return true;
+	}	
 		
 	
 	/**
 	 * divers Filters
 	 */
+		
+	public function phpFilter($var, $function) {
+		return $function($var);
+	}
 		
 	public function joinFilter( $objects, $glue = ', ', $lastGlue = null ) {
 		null === $lastGlue && $lastGlue = $glue;

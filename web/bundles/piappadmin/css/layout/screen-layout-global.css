@@ -14,12 +14,6 @@
 	z-index:99999999999; 
 }
 
-.clear{
-	clear: both;
-    float: none;
-    font: 1px/1px arial;
-} 
- 
  /* BLOCK */
   #global-layout h5.block_action_menu {
 	position: absolute;
@@ -92,7 +86,4 @@
 /* BALISES IDOINE FOR IE */
  orchestra, searchlucene {
   display:block;
-}
-.column-filter-widgets{
-    width: 95%;float: left;
 }
