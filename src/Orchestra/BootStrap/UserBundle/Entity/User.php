@@ -276,7 +276,7 @@ class User extends BaseUser
     }
     
     /**
-     * Get events
+     * Get newsletters
      *
      * @return \Doctrine\Common\Collections\ArrayCollection
      */
@@ -286,13 +286,33 @@ class User extends BaseUser
     }
     
     /**
-     * Get events
+     * Get rssneeds
      *
      * @return \Doctrine\Common\Collections\ArrayCollection
      */
     public function getRssneeds()
     {
     	return $this->rssneeds;
+    }    
+    
+    /**
+     * Get corporation
+     *
+     * @return \PiApp\GedmoBundle\Entity\Corporation
+     */
+    public function getCorporation()
+    {
+    	return $this->corporation;
+    }   
+
+    /**
+     * Get individual
+     *
+     * @return \PiApp\GedmoBundle\Entity\Individual
+     */
+    public function getIndividual()
+    {
+    	return $this->individual;
     }    
     
     /**

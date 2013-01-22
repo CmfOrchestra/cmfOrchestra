@@ -159,7 +159,7 @@ class PiSliderManager extends PiCoreManager implements PiSliderManagerBuilderInt
 			
 			if(in_array($entity, array('User', 'Role'))){
 				//print_r($query->getQuery()->getSQL());
-				$allslides  = $query->getQuery()->getArrayResult();
+				$allslides  = $query->getQuery()->getResult();
 			}else
 				$allslides  = $em->getRepository($controller)->findTranslationsByQuery($locale, $query->getQuery(), 'object', false);
 		

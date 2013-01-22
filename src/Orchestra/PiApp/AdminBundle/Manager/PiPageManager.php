@@ -153,6 +153,8 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 
 			// Create a Response with a Last-Modified header.
 			$response = $this->configureCache($page, $response);
+			$result = new \DateTime();
+			$response->setLastModified($result);
 			
 			// Check that the Response is not modified for the given Request.
 			if ($response->isNotModified($this->container->get('request'))){
@@ -163,6 +165,12 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 			} else {
 				// or render a template with the $response you've already started
 				$response->headers->set('Content-Type', $page->getMetaContentType());
+				$response->headers->set('Pragma', "no-cache");
+				
+				if($this->isUsernamePasswordToken()){
+					$response->headers->set('Cache-control', "private");
+				}
+				
 				$response = $this->container->get('pi_app_admin.caching')->renderResponse($this->Etag, array('page' => $page), $response);
 				// We set the reponse
 				$this->setResponse($page, $response);

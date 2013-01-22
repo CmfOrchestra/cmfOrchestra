@@ -12,8 +12,15 @@ parameters:
     piapp.admin.listener.preupdate.class: PiApp\AdminBundle\EventListener\PreUpdateListener
     piapp.admin.listener.postupdate.class: PiApp\AdminBundle\EventListener\PostUpdateListener
     piapp.admin.listener.schema.class: PiApp\AdminBundle\EventListener\SchemaListener
+    piapp.admin.listener.layout.class: PiApp\AdminBundle\EventListener\LayoutListener
 
 services:
+    pi_app_admin.layout_listener:
+        class: %piapp.admin.listener.layout.class%
+        arguments: [@router, @security.context, @event_dispatcher, @doctrine, @service_container]
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController, priority: 65 }
+            
     pi_app_admin.user.login_listener:
         class: %piapp.admin.listener.login.class%
         arguments: [@router, @security.context, @event_dispatcher, @doctrine, @service_container]

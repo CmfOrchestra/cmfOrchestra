@@ -79,8 +79,6 @@ class MobileListener
 		// It records the input screen of the customer's site.
 		if(!$session->has('wurfl-screen')) {
 			
-			$session->set('wurfl-screen', 'layout');			
-			
 	        $width = \Zend_Registry::get('wurflDevice')->getPhysicalScreenWidth();
 	        switch (true) {
 	        	case ($width <= 0):
@@ -102,9 +100,6 @@ class MobileListener
 	        		// use default
 	        		break;
 	        }  
-	        
-	        //print_r("cocicn");
-	        //print_r($session->get('wurfl-screen'));exit;
 		} 
     }
      

@@ -47,7 +47,7 @@ class AppKernel extends Kernel
         	# boostrap
         	new BootStrap\DatabaseBundle\BootStrapDatabaseBundle(), 
         	new BootStrap\CacheBundle\BootStrapCacheBundle(),
-        	new BootStrap\WurflBundle\BootStrapWurflBundle(),
+        	//new BootStrap\WurflBundle\BootStrapWurflBundle(),
         	new BootStrap\AclManagerBundle\BootStrapAclManagerBundle(),
         	new BootStrap\AdminBundle\BootStrapAdminBundle(),
         	new BootStrap\UserBundle\BootStrapUserBundle(),
