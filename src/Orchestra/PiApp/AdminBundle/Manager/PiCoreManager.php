@@ -320,6 +320,8 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 		// Returns a 304 "not modified" status, when the template has not changed since last visit.
 		if (method_exists($object, 'getCacheable') &&  $object->getCacheable()) {
 			$response->setLastModified($object->getUpdatedAt());
+		}else{
+			$response->setLastModified(new \DateTime());
 		}
 	
 		//$response->setETag(md5($response->getContent()));

@@ -33,7 +33,7 @@
 						<a href="#" class="dots third">3</a>
 					</figure>
 
-            <form action="#" method="post" class="cf" novalidate>
+            <form action="#" method="post" class="cf"  {{ form_enctype(form) }} novalidate>
             <input type="hidden" id="new" name="new" value="{{new}}">
             <input type="hidden" id="step" name="step" value="1">
             {{ form_errors(form) }}

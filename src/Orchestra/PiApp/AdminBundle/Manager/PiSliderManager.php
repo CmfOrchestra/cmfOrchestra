@@ -55,9 +55,9 @@ class PiSliderManager extends PiCoreManager implements PiSliderManagerBuilderInt
 	{
 		str_replace('~', '~', $id, $count);
 		if($count == 2)
-			list($entity, $method, $category) = explode('~', $id);
+			list($entity, $method, $category) = explode('~', $this->_Decode($id));
 		elseif($count == 1)
-			list($entity, $method) = explode('~', $id);
+			list($entity, $method) = explode('~', $this->_Decode($id));
 		else
 			throw new \InvalidArgumentException("you have not configure correctly the attibute id");
 		
@@ -128,10 +128,12 @@ class PiSliderManager extends PiCoreManager implements PiSliderManagerBuilderInt
 			$ORDER_Position = 'ASC';
 		}
 		
-		if(in_array($entity, array('User', 'Role')))
-			$controller  = "BootStrapUserBundle:$entity";
-		else
-			$controller  = "PiAppGedmoBundle:$entity";
+// 		if(in_array($entity, array('User', 'Role')))
+// 			$controller  = "BootStrapUserBundle:$entity";
+// 		else
+// 			$controller  = "PiAppGedmoBundle:$entity";
+		
+		$controller = $entity;
 		
 			$em->getRepository($controller)->setContainer($this->container);
 			if(is_null($query_function)){
@@ -170,6 +172,10 @@ class PiSliderManager extends PiCoreManager implements PiSliderManagerBuilderInt
 		$_boucle2 	= array();
 		$_boucle3 	= array();
 		$RouteNames = array();
+		
+		end($allslides);
+		$last_key_value = key($allslides);
+		reset($allslides);
 		foreach($allslides as $key => $slide){
 			if(method_exists($slide, 'getPosition')){
 				$position	   = $slide->getPosition() - 1;			
@@ -181,6 +187,8 @@ class PiSliderManager extends PiCoreManager implements PiSliderManagerBuilderInt
 			
 			$parameters['slide']  = $slide;
 			$parameters['lang']	  = $locale;
+			$parameters['key']	  = $key;
+			$parameters['last']	  = $last_key_value;
 			
 			$templateContent = $this->container->get('twig')->loadTemplate("PiAppTemplateBundle:Template\\Slider:$template");
 			

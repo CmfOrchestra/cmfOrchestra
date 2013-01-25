@@ -109,7 +109,7 @@ pi.form.label.field.email: Email
 pi.form.label.field.email.subject: Objet
 pi.form.label.field.email.body: Corps
 pi.form.label.field.email.cc: Cc
-pi.form.label.field.email.bcc: Bcc
+pi.form.label.field.email.bcc: Cci
 pi.form.label.select.choose.option: Choisissez une option
 pi.form.label.select.choose.options: Sélectionnez les options
 pi.form.label.select.choose.type: Choisissez un type
@@ -175,7 +175,7 @@ pi.page.form.page_css: Page Css
 pi.page.form.page_js: Page Js
 pi.page.form.keywords:  Mots-clés
 pi.page.form.meta_content_type: Meta content type
-pi.page.form.cacheable: Article statique ?
+pi.page.form.cacheable: Page statique ?
 pi.page.form.public: Visiteurs-independant de contenu ?
 pi.page.form.lifetime: Durée de vie du cache
 pi.page.form.route_name: Identifiant de page (ex: page_my_test)

@@ -510,8 +510,7 @@ abstract class CoreListener extends abstractListener
 	    				}
 	    			}
    				}
-   			}
-   
+   			}   
    		}
     }        
     
@@ -526,7 +525,7 @@ abstract class CoreListener extends abstractListener
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    final protected function _Update_Permission_Page_ByUser($eventArgs)
+    final protected function _Update_Permission_Page_ByUser(PreUpdateEventArgs $eventArgs)
     {
     	$entity			= $eventArgs->getEntity();
     	$entityManager 	= $eventArgs->getEntityManager();    	
@@ -537,6 +536,16 @@ abstract class CoreListener extends abstractListener
     		$entityManager->getUnitOfWork()->computeChangeSet($class, $entity);
     	
     		$this->setFlash('pi.session.flash.right.page.management_by_user_only', 'only');
+    	}else{
+    		if($entity instanceof \PiApp\AdminBundle\Entity\Page){
+    			// if we try to delete a page other than the home page.
+    			if(($entity->getRouteName() != 'home_page' ) && ($eventArgs->hasChangedField('route_name'))){
+    				// we delete the row in relation with the pi_routing table
+    				$query 	= "SELECT id FROM pi_routing WHERE route = ?";
+    				$id 	= $this->_connexion($eventArgs)->fetchColumn($query, array($entity->getRouteName()));
+    				$this->_connexion($eventArgs)->delete('pi_routing', array('id'=>$id));
+    			}
+    		}    		
     	}
     }
     

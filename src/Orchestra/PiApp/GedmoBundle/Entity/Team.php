@@ -77,14 +77,14 @@ class Team extends AbstractDefault
     /**
      * @var string $name
      *
-     * @ORM\Column(name="name", type="text", nullable = true)
+     * @ORM\Column(name="name", type="string", nullable = true)
      */
     protected $name;
     
     /**
      * @var string $nickname
      *
-     * @ORM\Column(name="nickname", type="text", nullable = true)
+     * @ORM\Column(name="nickname", type="string", nullable = true)
      */
     protected $nickname;    
     

@@ -57,7 +57,10 @@ class RoleFactory extends AbstractFactory implements RoleFactoryInterface
 	 */
 	public function getAllUserRoles()
 	{
-		return array_unique(array_merge($this->getAllHeritageByRoles($this->getBestRoles($this->getUserRoles())), $this->getUserRoles()));;
+		if($this->isUsernamePasswordToken()){
+			return array_unique(array_merge($this->getAllHeritageByRoles($this->getBestRoles($this->getUserRoles())), $this->getUserRoles()));
+		}else
+			return null;
 	}	
 	
 	/**
@@ -71,19 +74,22 @@ class RoleFactory extends AbstractFactory implements RoleFactoryInterface
 	 */
 	public function getBestRoles($ROLES)
 	{
-		if(is_null($ROLES))
-			return null;
-		 
-		// we get the map of all roles.
-		$roleMap = $this->buildRoleMap();
-	
-		foreach($roleMap as $role => $heritage){
-			if(in_array($role, $ROLES)){
-				$intersect	= array_intersect($heritage, $ROLES);
-				$ROLES		= array_diff($ROLES, $intersect);  // =  $ROLES_USER -  $intersect
+		if($this->isUsernamePasswordToken()){
+			if(is_null($ROLES))
+				return null;
+			 
+			// we get the map of all roles.
+			$roleMap = $this->buildRoleMap();
+		
+			foreach($roleMap as $role => $heritage){
+				if(in_array($role, $ROLES)){
+					$intersect	= array_intersect($heritage, $ROLES);
+					$ROLES		= array_diff($ROLES, $intersect);  // =  $ROLES_USER -  $intersect
+				}
 			}
-		}
-		return $ROLES;
+			return $ROLES;
+		}else
+			return null;
 	}
 	
 	/**
@@ -97,20 +103,23 @@ class RoleFactory extends AbstractFactory implements RoleFactoryInterface
 	 */
 	public function getAllHeritageByRoles($ROLES)
 	{
-		if(is_null($ROLES))
+		if($this->isUsernamePasswordToken()){
+			if(is_null($ROLES))
+				return null;
+			 
+			$results = array();
+		
+			// we get the map of all roles.
+			$roleMap = $this->buildRoleMap();
+		
+			foreach($ROLES as $key => $role){
+				if(isset($roleMap[$role]))
+					$results = array_unique(array_merge($results, $roleMap[$role]));
+			}
+		
+			return $results;
+		}else
 			return null;
-		 
-		$results = array();
-	
-		// we get the map of all roles.
-		$roleMap = $this->buildRoleMap();
-	
-		foreach($ROLES as $key => $role){
-			if(isset($roleMap[$role]))
-				$results = array_unique(array_merge($results, $roleMap[$role]));
-		}
-	
-		return $results;
 	}
 	
 	/**

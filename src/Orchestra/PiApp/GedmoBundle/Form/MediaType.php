@@ -148,7 +148,7 @@ class MediaType extends AbstractType
 		 					),
 			    ))
     		;    
-    	}elseif($this->_simpleLink == "simpleLink"){
+    	}elseif( ($this->_simpleLink == "simpleLink") || ($this->_simpleLink == "hidden") ){
     		$builder
     		->add('enabled', 'hidden', array(
 	            		'data'  => true,
@@ -159,6 +159,11 @@ class MediaType extends AbstractType
     		;
     	}
     	
+    	if($this->_simpleLink == "hidden"){
+    		$style = "display:none";
+    	}else 
+    		$style = "";
+  		
   		if($this->_status == "file"){
  			if($this->_labelLink == "") $this->_labelLink = 'pi.form.label.media.file';
  			$builder->add('image', 'sonata_media_type', array(
@@ -167,7 +172,9 @@ class MediaType extends AbstractType
  					'label'		=> $this->_labelLink,
  					"label_attr" => array(
  							"class"=> $this->_class,
+ 							"style"=> $style,
  					),
+ 					"attr"	=> array("style"=> $style),
  					'required'  => false,
  			));		
  		}elseif($this->_status == "image"){
@@ -178,7 +185,9 @@ class MediaType extends AbstractType
  					'label'		=> $this->_labelLink,
  					"label_attr" => array(
  							"class"=> $this->_class,
+ 							"style"=> $style,
  					),
+ 					"attr"	=> array("style"=> $style),
  					'required'  => false,
  			));			
  		}elseif($this->_status == "youtube"){
@@ -189,7 +198,9 @@ class MediaType extends AbstractType
  					'label'		=> $this->_labelLink,
  					"label_attr" => array(
  							"class"=> $this->_class,
+ 							"style"=> $style,
  					),
+ 					"attr"	=> array("style"=> $style),
  					'required'  => false,
  			));
  		}elseif($this->_status == "dailymotion"){
@@ -200,21 +211,26 @@ class MediaType extends AbstractType
  					'label'		=> $this->_labelLink,
  					"label_attr" => array(
  							"class"=> $this->_class,
+ 							"style"=> $style,
  					),
+ 					"attr"	=> array("style"=> $style),
  					'required'  => false,
  			));
  		} 	
 
 
- 		$builder->add('mediadelete', 'checkbox', array(
- 				'data'  => false,
- 				'required'  => false,
- 				'help_block' => "Action to delete the {$this->_status} media",
- 				'label'		=> "pi.delete",
- 				"label_attr" => array(
- 						"class"=> $this->_class,
- 				),
- 		)); 		
+ 		if($this->_simpleLink != "hidden")
+	 		$builder
+		 		->add('mediadelete', 'checkbox', array(
+	 				'data'  => false,
+	 				'required'  => false,
+	 				'help_block' => "Action to delete the {$this->_status} media",
+	 				'label'		=> "pi.delete",
+	 				"label_attr" => array(
+	 						"class"=> $this->_class,
+	 				),
+	 				"attr"	=> array("style"=> $style),
+	 			)); 		
  		
     }
 

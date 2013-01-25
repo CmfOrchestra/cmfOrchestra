@@ -9,7 +9,33 @@
 		</div>	
 	</div>
 	{% else %}
-	<div class="login">
+	<div class="login">	
+	
+		<script type="text/javascript">
+		//<![CDATA[
+		    $(document).ready(function() {
+		        $('#form-connexion').on('submit', function(e) {
+					e.preventDefault()
+			        
+		        	var _username 	= jQuery(this).find('input[name="_username"]').val();
+		        	var _password 	= jQuery(this).find('input[name="_password"]').val();
+		        	var _csrf_token = jQuery(this).find('input[name="_csrf_token"]').val();
+
+		        	var _return = true;
+		        	
+		            $.ajax({
+		                url: $(this).attr('action'),
+		                data: "_username="+_username+"&_password="+_password+"&_csrf_token="+_csrf_token,
+		                type: $(this).attr('method'),
+		                success: function(html) {
+		                	window.location.reload();
+		                }
+		            });
+		        });
+		    });
+		//]]>
+		</script>  
+		
 		<h3 class="tt-clr tt-9 bold">MON COMPTE</h3>
 		<form method="POST" action="{{ path('fos_user_security_check') }}" id="form-connexion" >
 			<span class="input-text">
@@ -22,9 +48,9 @@
 			<input type="submit" value="OK">
 		</form>
 		<div class="action cf">
-			<a href="{{ path('fos_user_registration_register') }}" class="fleft" title="">{{ 'layout.register'|trans([], 'FOSUserBundle') }}</a>
+			<a href="{{ path('page_lamelee_header_inscription') }}" class="fleft" title="">{{ 'layout.register'|trans([], 'FOSUserBundle') }}</a>
 			<a href="{{ path('fos_user_resetting_request') }}" class="fright popin-pass fancybox.ajax">Mot de passe oublié?</a>
 		</div>
 	</div>	
 	{% endif %}
-</div>	
+</div>

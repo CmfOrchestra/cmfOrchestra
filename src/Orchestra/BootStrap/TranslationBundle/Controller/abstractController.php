@@ -14,7 +14,7 @@ namespace BootStrap\TranslationBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use PiApp\AdminBundle\Exception\ControllerException;
-
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -298,5 +298,24 @@ abstract class abstractController extends Controller
     public function getContainer(){
     	return $this->container;
     }    
-    
+
+    /**
+     * Authenticate a user with Symfony Security
+     *
+     * @param $user
+     */
+    protected function authenticateUser(\BootStrap\UserBundle\Entity\User $user)
+    {
+        try {
+            $this->container->get('fos_user.user_checker')->checkPostAuth($user);
+        } catch (AccountStatusException $e) {
+            // Don't authenticate locked, disabled or expired users
+            return;
+        }
+
+        $providerKey = $this->container->getParameter('fos_user.firewall_name');
+        $token = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
+
+        $this->container->get('security.context')->setToken($token);
+    }    
 }

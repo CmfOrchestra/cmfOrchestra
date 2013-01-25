@@ -121,10 +121,12 @@ class IndividualController extends abstractController
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout) 	$template = "index.html.twig"; else $template = "index.html.twig";
         
-        if($NoLayout && $category && !empty($category))
-    		$entities 	= $em->getRepository("PiAppGedmoBundle:Individual")->getAllEnableByCatAndByPosition($locale, $category, 'object');
-    	else
-    		$entities	= $em->getRepository("PiAppGedmoBundle:Individual")->findAllByEntity($locale, 'object');
+    	if($NoLayout && $category && !empty($category)){
+    		//$entities 	= $em->getRepository("PiAppGedmoBundle:Individual")->getAllEnableByCatAndByPosition($locale, $category, 'object');
+    		$query		= $em->getRepository("PiAppGedmoBundle:Individual")->getAllByCategory($category, null, '', 'ASC', false)->getQuery();
+    		$entities   = $em->getRepository("PiAppGedmoBundle:Individual")->findTranslationsByQuery($locale, $query, 'object', false);
+    	}else
+    		$entities	= $em->getRepository("PiAppGedmoBundle:Individual")->findAllByEntity($locale, 'object');    	
 
         return $this->render("PiAppGedmoBundle:Individual:$template", array(
             'entities'	=> $entities,
@@ -585,7 +587,7 @@ class IndividualController extends abstractController
         
         if(empty($step))
           $step	= 1;
-        
+       
         $params['step'] = $step;
         $params['type'] = $type;
         $params['template'] = $template;
@@ -615,18 +617,20 @@ class IndividualController extends abstractController
                 $data['Profile'] = $request['Profile'];
                 $data['ProfileOther'] = $request['ProfileOther'];
                 $data['UserName'] = $request['UserName'];  
-                $data['Facebook'] = $request['piapp_gedmobundle_adhesiontype']['Facebook'];
-                $data['GooglePlus'] = $request['piapp_gedmobundle_adhesiontype']['GooglePlus'];
-                $data['Twitter'] = $request['piapp_gedmobundle_adhesiontype']['Twitter'];
-                $data['LinkedIn'] = $request['piapp_gedmobundle_adhesiontype']['LinkedIn'];
-                $data['Viadeo'] = $request['piapp_gedmobundle_adhesiontype']['Viadeo'];
-                $data['DetailActivity'] = $request['piapp_gedmobundle_adhesiontype']['DetailActivity'];
-                $data['ArgumentActivity'] = $request['piapp_gedmobundle_adhesiontype']['ArgumentActivity'];
-                $data['url'] = $request['piapp_gedmobundle_adhesiontype']['url'];
+                $data['Facebook'] = $request['piapp_gedmobundle_adhesion_individualtype']['Facebook'];
+                $data['GooglePlus'] = $request['piapp_gedmobundle_adhesion_individualtype']['GooglePlus'];
+                $data['Twitter'] = $request['piapp_gedmobundle_adhesion_individualtype']['Twitter'];
+                $data['LinkedIn'] = $request['piapp_gedmobundle_adhesion_individualtype']['LinkedIn'];
+                $data['Viadeo'] = $request['piapp_gedmobundle_adhesion_individualtype']['Viadeo'];
+                $data['DetailActivity'] = $request['piapp_gedmobundle_adhesion_individualtype']['DetailActivity'];
+                $data['ArgumentActivity'] = $request['piapp_gedmobundle_adhesion_individualtype']['ArgumentActivity'];
+                $data['url'] = $request['piapp_gedmobundle_adhesion_individualtype']['url'];
+                $media_tmp = $_FILES['piapp_gedmobundle_adhesion_individualtype']['tmp_name']['media'];
+                $media_name = $_FILES['piapp_gedmobundle_adhesion_individualtype']['name']['media'];
+                $dir = $this->container->get('kernel')->getRootDir(). '/../web/uploads/media/tmp/';
+                move_uploaded_file($media_tmp,$dir.$media_name);
+                $data['media'] = $dir.$media_name;
 
-                $this->container->get('session')->set('individual',$data);
-                  $entity->setOriginContactOther('Précisez *');
-                  $entity->setOriginContactSponsor('Nom du parrain *');
                   $form   	= $this->createForm(new AdhesionIndividualType($em, $this->container), $entity, array('show_legend' => false));
 
                   $template = '_template_form_adhesion_step3.html.twig';
@@ -645,15 +649,6 @@ class IndividualController extends abstractController
                   $render = $this->container->get('http_kernel')->render('PiAppGedmoBundle:Individual:_template_adhesionSave', array('attributes'=>$params));
               }
         }
-        
-        $entity->setName('Nom*');  
-        $entity->setNickname('Prénom*');
-        $entity->setUserName('Identifiant');
-        $entity->setEmail('Email pro*');
-        $entity->setEmailPerso('Email perso');
-        $entity->setProfileOther('Précisez *');        
-        $entity->setPhone('Téléphone*');
-        $entity->setJob('Fonction*');
 
         $form   	= $this->createForm(new AdhesionIndividualType($em, $this->container), $entity, array('show_legend' => false));
 
@@ -669,7 +664,6 @@ class IndividualController extends abstractController
 
     public function _template_adhesionValidationAction($template = '_template_form_adhesion_step1.html.twig', $lang = "", $type = 'lamelee', $step = 1)
     {
-      //print_r($step);exit;
       $em        = $this->getDoctrine()->getEntityManager();
       $request   = $this->container->get('request');
 
@@ -710,11 +704,7 @@ class IndividualController extends abstractController
         $data['Phone'] = $form['Phone']->getData();
         $data['Profile'] = $form['Profile']->getData();
         $data['ProfileOther'] = $form['ProfileOther']->getData();
-        $data['UserName'] = $form['UserName']->getData();        
-
-        $entity->setDetailActivity('Détails activité*');  
-        $entity->setArgumentActivity('Argumentaire commercial*');
-        $entity->setUrl('Site Internet');
+        $data['UserName'] = $form['UserName']->getData();  
 
         $form   	= $this->createForm(new AdhesionIndividualType($em, $this->container), $entity, array('show_legend' => false));
 
@@ -767,6 +757,8 @@ class IndividualController extends abstractController
 
 	          $user = new User();
 	          $user->setUsername($request->get('UserName'));
+            $user->setName($request->get('Name'));
+            $user->setNickname($request->get('Nickname'));            
 	          $user->getUsernameCanonical($password);
 	          $user->setPlainPassword($password);
 	          $user->setEmail($request->get('Email'));
@@ -774,14 +766,26 @@ class IndividualController extends abstractController
 	          $user->setEnabled(true);
 	          $user->setRoles(array('ROLE_MEMBER'));
 	          $user->setPermissions(array('VIEW', 'EDIT', 'CREATE', 'DELETE'));
-
 	          $user->setLangCode($em->getRepository('PiAppAdminBundle:Langue')->findOneById('fr_FR'));
-	
 	          $em->persist($user);
 	          $em->flush();	          
-	
+            $entity->setUser($user);
+        
+            $media_pixel = new \BootStrap\MediaBundle\Entity\Media();
+            $media_pixel->setProviderName('sonata.media.provider.image');
+            $media_pixel->setContext("default");  
+            $media_pixel->setBinaryContent($request->get('media'));
+            $em->persist($media_pixel);
+            $em->flush();
+
+            $media_gedmo = new \PiApp\GedmoBundle\Entity\Media();
+            $media_gedmo->setImage($media_pixel);
+            $media_gedmo->setStatus('image');
+            $em->persist($media_gedmo);
+            $em->flush();
+            $entity->setMedia($media_gedmo);
+        
 	          $entity->setTranslatableLocale($lang);
-	          $entity->setUser($user);
             $entity->setCivility($request->get('Civility'));
             $entity->setName($request->get('Name'));
             $entity->setNickname($request->get('Nickname'));
@@ -810,6 +814,9 @@ class IndividualController extends abstractController
 	          $em->persist($entity);
 	          $em->flush();
 	          
+            //clear tmp media files 
+            $this->_clear_media_tmp();
+            
 	          $flash = $this->get('translator')
 	                         ->trans('adhesion.flash.user_created',
 	                                  array('%email%' => $request->get('Email')));
@@ -843,5 +850,19 @@ class IndividualController extends abstractController
     	}
         
     }
+    
+    private function _clear_media_tmp() {
+    	try {
+        $path = $this->container->get('kernel')->getRootDir(). '/../web/uploads/media/tmp';
+        $all_files = \PiApp\AdminBundle\Util\PiFileManager::ListFiles($path);
+        foreach ($all_files as $filename ) {
+                if(filemtime($filename) < time() - 60 * 60 * 24)
+                  unlink ($filename);
+        }        
 
+    	} catch (\Exception $e) {
+    		return false;
+    	}
+        
+    }
 }

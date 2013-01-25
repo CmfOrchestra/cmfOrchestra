@@ -63,47 +63,47 @@ $GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']= array(
 );
 
 $GLOBALS['ENTITIES']['CRUD_PREPERSIST']= array(
-		'BootStrap\MediaBundle\Entity\Media'	=> null,
-		'PiApp\GedmoBundle\Entity\Media'	=> null,
-		'Proxies\PiAppGedmoBundleEntityMediaProxy'	=> null,
-		'Proxies\BootStrapMediaBundleEntityMediaProxy'	=> null,	
+		'BootStrap\MediaBundle\Entity\Media'	=> true,
+		'PiApp\GedmoBundle\Entity\Media'	=> true,
+		'Proxies\PiAppGedmoBundleEntityMediaProxy'	=> true,
+		'Proxies\BootStrapMediaBundleEntityMediaProxy'	=> true,	
 		
-		'BootStrap\UserBundle\Entity\User' => null,
-		'Proxies\BootStrapUserBundleEntityUserProxy'=> null,
-		'PiApp\GedmoBundle\Entity\Individual'=> null,
-		'PiApp\GedmoBundle\Entity\Translation\IndividualTranslation'=> null,
-		'PiApp\GedmoBundle\Entity\Corporation'=> null,
-		'PiApp\GedmoBundle\Entity\Translation\CorporationTranslation'=> null,
+		'BootStrap\UserBundle\Entity\User' => true,
+		'Proxies\BootStrapUserBundleEntityUserProxy'=> true,
+		'PiApp\GedmoBundle\Entity\Individual'=> true,
+		'PiApp\GedmoBundle\Entity\Translation\IndividualTranslation'=> true,
+		'PiApp\GedmoBundle\Entity\Corporation'=> true,
+		'PiApp\GedmoBundle\Entity\Translation\CorporationTranslation'=> true,
 );
 $GLOBALS['ENTITIES']['CRUD_PREUPDATE']= array(
-		'BootStrap\MediaBundle\Entity\Media'	=> null,
-		'PiApp\GedmoBundle\Entity\Media'	=> null,
-		'Proxies\PiAppGedmoBundleEntityMediaProxy'	=> null,
-		'Proxies\BootStrapMediaBundleEntityMediaProxy'	=> null,	
+		'BootStrap\MediaBundle\Entity\Media'	=> true,
+		'PiApp\GedmoBundle\Entity\Media'	=> true,
+		'Proxies\PiAppGedmoBundleEntityMediaProxy'	=> true,
+		'Proxies\BootStrapMediaBundleEntityMediaProxy'	=> true,	
 		
-		'BootStrap\UserBundle\Entity\User' => null,
-		'Proxies\BootStrapUserBundleEntityUserProxy'=> null,
-		'PiApp\GedmoBundle\Entity\Individual'=> null,
-		'PiApp\GedmoBundle\Entity\Translation\IndividualTranslation'=> null,
-		'PiApp\GedmoBundle\Entity\Corporation'=> null,
-		'PiApp\GedmoBundle\Entity\Translation\CorporationTranslation'=> null,
+		'BootStrap\UserBundle\Entity\User' => true,
+		'Proxies\BootStrapUserBundleEntityUserProxy'=> true,
+		'PiApp\GedmoBundle\Entity\Individual'=> true,
+		'PiApp\GedmoBundle\Entity\Translation\IndividualTranslation'=> true,
+		'PiApp\GedmoBundle\Entity\Corporation'=> true,
+		'PiApp\GedmoBundle\Entity\Translation\CorporationTranslation'=> true,
 );
 $GLOBALS['ENTITIES']['CRUD_PREREMOVE']= array(
-		'BootStrap\MediaBundle\Entity\Media'	=> null,
-		'PiApp\GedmoBundle\Entity\Media'	=> null,
-		'Proxies\PiAppGedmoBundleEntityMediaProxy'	=> null,
-		'Proxies\BootStrapMediaBundleEntityMediaProxy'	=> null,	
+		'BootStrap\MediaBundle\Entity\Media'	=> true,
+		'PiApp\GedmoBundle\Entity\Media'	=> true,
+		'Proxies\PiAppGedmoBundleEntityMediaProxy'	=> true,
+		'Proxies\BootStrapMediaBundleEntityMediaProxy'	=> true,	
 		
-		'BootStrap\UserBundle\Entity\User' => null,
-		'Proxies\BootStrapUserBundleEntityUserProxy'=> null,
-		'PiApp\GedmoBundle\Entity\Individual'=> null,
-		'PiApp\GedmoBundle\Entity\Translation\IndividualTranslation'=> null,
-		'PiApp\GedmoBundle\Entity\Corporation'=> null,
-		'PiApp\GedmoBundle\Entity\Translation\CorporationTranslation'=> null,
+		'BootStrap\UserBundle\Entity\User' => true,
+		'Proxies\BootStrapUserBundleEntityUserProxy'=> true,
+		'PiApp\GedmoBundle\Entity\Individual'=> true,
+		'PiApp\GedmoBundle\Entity\Translation\IndividualTranslation'=> true,
+		'PiApp\GedmoBundle\Entity\Corporation'=> true,
+		'PiApp\GedmoBundle\Entity\Translation\CorporationTranslation'=> true,
 );
 
 /**************************  MATRIX LISTENER ***************************/
-$GLOBALS['GEDMO_WIDGET_LISTENER']['media'] = array(
+$GLOBALS['GEDMO_WIDGET_LISTENER']['PiAppGedmoBundle:Media'] = array(
 		'method' => array('_template_show', '_template_list'),
 		'_template_show'	 => array(
 				'edit'		=> 'admin_gedmo_media_edit',
@@ -112,7 +112,7 @@ $GLOBALS['GEDMO_WIDGET_LISTENER']['media'] = array(
 				'edit'		=> 'admin_gedmo_media',
 		),
 );
-$GLOBALS['GEDMO_WIDGET_LISTENER']['block'] = array(
+$GLOBALS['GEDMO_WIDGET_LISTENER']['PiAppGedmoBundle:Block'] = array(
 		'method' => array('_template_show', '_template_list'),
 		'_template_show'	 => array(
 				'edit'		=> 'admin_gedmo_block_edit',
@@ -121,7 +121,7 @@ $GLOBALS['GEDMO_WIDGET_LISTENER']['block'] = array(
 				'edit'		=> 'admin_gedmo_block',
 		),
 );
-$GLOBALS['GEDMO_WIDGET_LISTENER']['content'] = array(
+$GLOBALS['GEDMO_WIDGET_LISTENER']['PiAppGedmoBundle:Content'] = array(
 		'method' => array('_template_show', '_template_list'),
 		'_template_show'	 => array(
 				'edit'		=> 'admin_gedmo_content_edit',
@@ -130,7 +130,7 @@ $GLOBALS['GEDMO_WIDGET_LISTENER']['content'] = array(
 				'edit'		=> 'admin_gedmo_content',
 		),
 );
-$GLOBALS['GEDMO_WIDGET_LISTENER']['news'] = array(
+$GLOBALS['GEDMO_WIDGET_LISTENER']['PiAppGedmoBundle:News'] = array(
 		'method' => array('_template_show', '_template_list', '_template_archive'),
 		'_template_show'	 => array(
 				'edit'		=> 'admin_gedmo_news_edit',
@@ -142,16 +142,19 @@ $GLOBALS['GEDMO_WIDGET_LISTENER']['news'] = array(
 				'edit'		=> 'admin_gedmo_news',
 		),
 );
-$GLOBALS['GEDMO_WIDGET_LISTENER']['partner'] = array(
-		'method' => array('_template_show', '_template_list'),
+$GLOBALS['GEDMO_WIDGET_LISTENER']['PiAppGedmoBundle:Partner'] = array(
+		'method' => array('_template_show', '_template_list', '_template_annuaire'),
 		'_template_show'	 => array(
 				'edit'		=> 'admin_gedmo_partner_edit',
 		),
 		'_template_archive'	 => array(
 				'edit'		=> 'admin_gedmo_partner',
 		),
+		'_template_annuaire'	 => array(
+				'edit'		=> 'admin_gedmo_partner',
+		),
 );
-$GLOBALS['GEDMO_WIDGET_LISTENER']['pressrelease'] = array(
+$GLOBALS['GEDMO_WIDGET_LISTENER']['PiAppGedmoBundle:Pressrelease'] = array(
 		'method' => array('_template_show', '_template_list', '_template_archive'),
 		'_template_show'	 => array(
 				'edit'		=> 'admin_gedmo_pressrelease_edit',
@@ -163,7 +166,7 @@ $GLOBALS['GEDMO_WIDGET_LISTENER']['pressrelease'] = array(
 				'edit'		=> 'admin_gedmo_pressrelease',
 		),
 );
-$GLOBALS['GEDMO_WIDGET_LISTENER']['contact'] = array(
+$GLOBALS['GEDMO_WIDGET_LISTENER']['PiAppGedmoBundle:Contact'] = array(
 		'method' => array('_template_show', '_template_list'),
 		'_template_show'	 => array(
 				'edit'		=> 'admin_gedmo_contact_edit',
@@ -172,8 +175,8 @@ $GLOBALS['GEDMO_WIDGET_LISTENER']['contact'] = array(
 				'edit'		=> 'admin_gedmo_contact',
 		),
 );
-$GLOBALS['GEDMO_WIDGET_LISTENER']['individual'] = array(
-		'method' => array('_template_show', '_template_list', '_template_inscription'),
+$GLOBALS['GEDMO_WIDGET_LISTENER']['PiAppGedmoBundle:Individual'] = array(
+		'method' => array('_template_show', '_template_list', '_template_inscription','_template_adhesion'),
 		'_template_show'	 => array(
 				'edit'		=> 'admin_gedmo_individual_edit',
 		),
@@ -181,39 +184,67 @@ $GLOBALS['GEDMO_WIDGET_LISTENER']['individual'] = array(
 				'edit'		=> 'admin_gedmo_individual',
 		),
 );
-$GLOBALS['GEDMO_WIDGET_LISTENER']['corporation'] = array(
-		'method' => array('_template_show', '_template_list'),
+$GLOBALS['GEDMO_WIDGET_LISTENER']['PiAppGedmoBundle:Corporation'] = array(
+		'method' => array('_template_show', '_template_list', '_template_adhesion'),
 		'_template_show'	 => array(
-				'edit'		=> 'admin_gedmo_individual_edit',
+				'edit'		=> 'admin_gedmo_corporation_edit',
 		),
 		'_template_list'	 => array(
-				'edit'		=> 'admin_gedmo_individual',
+				'edit'		=> 'admin_gedmo_corporation',
+		),
+);
+
+$GLOBALS['GEDMO_WIDGET_LISTENER']['PiAppGedmoBundle:Monespace'] = array(
+		'method' => array('_template_monespace'),
+);
+$GLOBALS['GEDMO_WIDGET_LISTENER']['PiAppGedmoBundle:Ads'] = array(
+		'method' => array('_template_show', '_template_list'),
+		'_template_show'	 => array(
+				'edit'		=> 'admin_gedmo_ads_edit',
+		),
+		'_template_list'	 => array(
+				'edit'		=> 'admin_gedmo_ads',
+		),
+);
+$GLOBALS['GEDMO_WIDGET_LISTENER']['PiAppGedmoBundle:Adherant'] = array(
+		'method' => array('_template_annuaire'),
+		'_template_annuaire'	 => array(
+				'edit'		=> 'admin_gedmo_individual_edit',
+		),
+);
+$GLOBALS['GEDMO_WIDGET_LISTENER']['PiAppGedmoBundle:Team'] = array(
+		'method' => array('_template_show', '_template_list'),
+		'_template_show'	 => array(
+				'edit'		=> 'admin_gedmo_team_edit',
+		),
+		'_template_list'	 => array(
+				'edit'		=> 'admin_gedmo_team',
 		),
 );
 /**************************  MATRIX NAVIGATION ***************************/
-$GLOBALS['GEDMO_WIDGET_NAVIGATION']['menu'] = array(
+$GLOBALS['GEDMO_WIDGET_NAVIGATION']['PiAppGedmoBundle:Menu'] = array(
 		'method' => array('_navigation_default'),
 		'_navigation_default' => array(
 				'edit'		=> 'admin_gedmo_menu_tree',
 		)
 );
-$GLOBALS['GEDMO_WIDGET_NAVIGATION']['organigram'] = array(
+$GLOBALS['GEDMO_WIDGET_NAVIGATION']['PiAppGedmoBundle:Organigram'] = array(
 		'method' => array('_navigation_default'),
 		'_navigation_default' => array(
 				'edit'		=> 'admin_gedmo_organigram_tree',
 		)
 );
 /**************************  MATRIX ORGANIGRAM ***************************/
-$GLOBALS['GEDMO_WIDGET_ORGANIGRAM']['rubrique'] = array(
+$GLOBALS['GEDMO_WIDGET_ORGANIGRAM']['PiAppAdminBundle:Rubrique'] = array(
 		'method' => array('org-chart-page')
 );
-$GLOBALS['GEDMO_WIDGET_ORGANIGRAM']['menu'] = array(
+$GLOBALS['GEDMO_WIDGET_ORGANIGRAM']['PiAppGedmoBundle:Menu'] = array(
 		'method' => array('org-chart-page'),
 		'org-chart-page' => array(
 				'edit'		=> 'admin_gedmo_menu_tree',
 		)
 );
-$GLOBALS['GEDMO_WIDGET_ORGANIGRAM']['organigram'] = array(
+$GLOBALS['GEDMO_WIDGET_ORGANIGRAM']['PiAppGedmoBundle:Organigram'] = array(
 		'method' => array('org-chart-page', 'org-tree-semantique'),
 		'org-chart-page' => array(
 				'edit'		=> 'admin_gedmo_organigram_tree',
@@ -223,7 +254,13 @@ $GLOBALS['GEDMO_WIDGET_ORGANIGRAM']['organigram'] = array(
 		)
 );
 /**************************  MATRIX SLIDER ***************************/
-$GLOBALS['GEDMO_WIDGET_SLIDER']['slider'] = array(
+$GLOBALS['GEDMO_WIDGET_SLIDER']['BootStrapUserBundle:User'] = array(
+		'method' => array('slide-default'),
+		'slide-default'	 => array(
+				'edit'		=> 'admin_gedmo_individual',
+		)
+);
+$GLOBALS['GEDMO_WIDGET_SLIDER']['PiAppGedmoBundle:Slider'] = array(
 		'method' => array('slide-default'),
 		'slide-default'	 => array(
 				'edit'		=> 'admin_gedmo_slider',

@@ -305,7 +305,10 @@ class {{ form_class }} extends AbstractType
  					"label_attr" => array(
  							"class"=>"category_collection",
  					),
- 			)) 			
+ 			)) 		
+
+ 			{%- elseif field in ['heritage'] %}
+ 			
  				 			
  			{%- else %}
  			

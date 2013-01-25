@@ -119,8 +119,8 @@ class Block extends AbstractDefault
      *
      * @ORM\Column(name="url", type="string", length=314, nullable=true)
      */
-    protected $url;   
-
+    protected $url;    
+    
     /**
      * @var string $url_title
      * @Gedmo\Translatable
@@ -129,12 +129,20 @@ class Block extends AbstractDefault
     protected $url_title;    
     
     /**
-     * @var \PiApp\GedmoBundle\Entity\Media $media
+     * @var integer $media
      *
      * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Media" , cascade={"all"}, inversedBy="block");
      * @ORM\JoinColumn(name="media_id", referencedColumnName="id", nullable=true)
      */
     protected $media;    
+    
+    /**
+     * @var integer $media1
+     *
+     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Media" , cascade={"all"}, inversedBy="block2");
+     * @ORM\JoinColumn(name="media1_id", referencedColumnName="id", nullable=true)
+     */
+    protected $media1;    
     
     /**
      * Constructor
@@ -362,6 +370,27 @@ class Block extends AbstractDefault
     public function getMedia()
     {
     	return $this->media;
+    }    
+    
+    /**
+     * Set media1
+     *
+     * @param \PiApp\GedmoBundle\Entity\Media $media
+     */
+    public function setMedia1($media)
+    {
+    	$this->media1 = $media;
+    	return $this;
+    }
+    
+    /**
+     * Get media1
+     *
+     * @return \PiApp\GedmoBundle\Entity\Media
+     */
+    public function getMedia1()
+    {
+    	return $this->media1;
     }    
 
 }

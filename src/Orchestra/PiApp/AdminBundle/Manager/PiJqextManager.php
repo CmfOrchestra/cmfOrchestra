@@ -55,7 +55,7 @@ class PiJqextManager extends PiCoreManager implements PiJqextManagerBuilderInter
 		str_replace('~', '~', $id, $count);
 		
 		if($count == 1)
-			list($JQcontainer, $JQservice) = explode('~', $id);
+			list($JQcontainer, $JQservice) = explode('~', $this->_Decode($id));
 		else
 			throw new \InvalidArgumentException("you have not configure correctly the attibute id");
 		

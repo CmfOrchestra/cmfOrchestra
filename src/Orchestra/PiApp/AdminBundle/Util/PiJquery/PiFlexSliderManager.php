@@ -164,14 +164,22 @@ class PiFlexSliderManager extends PiJqueryExtension
 				$entity 		= $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->findOneByEntity($this->locale, $match['id'], 'object');
 	
 				if(!is_null($entity)){
-					$position 	= $entity->getPosition() -1;
+					$position 	= $entity->getPosition() - 1;
+					if(isset($options['params']['maxItems']) && !empty($options['params']['maxItems']) && ($options['params']['maxItems'] != 0)){
+						$mod		= $options['params']['maxItems'];
+						$position	= ($position - ($position % $mod)) / $mod;
+					}
 					$startAt = ",startAt:$position";
 				}
 			}elseif(array_key_exists($sluggable_field_search, $match) && !empty($match[$sluggable_field_search]) ){
 				$id 	=  $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->getContentByField($this->locale, array('content_search' => array($sluggable_field_search =>$match[$sluggable_field_search]), 'field_result'=>$sluggable_title), false)->getObject()->getId();
 				$entity = $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->findOneByEntity($this->locale, $id, 'object');
 				if(!is_null($entity)){
-					$position = $entity->getPosition() -1;
+					$position = $entity->getPosition() - 1;
+					if(isset($options['params']['maxItems']) && !empty($options['params']['maxItems']) && ($options['params']['maxItems'] != 0)){
+						$mod		= $options['params']['maxItems'];
+						$position	= ($position - ($position % $mod)) / $mod;
+					}
 					$startAt = ",startAt:$position";
 				}
 			}
@@ -424,13 +432,13 @@ class PiFlexSliderManager extends PiJqueryExtension
 		if( !isset($options['listenerentity']) || empty($options['listenerentity']) )
 			throw ExtensionException::optionValueNotSpecified('listenerentity', __CLASS__);
 		else
-			$myentity = ucfirst(strtolower($options['listenerentity']));
+			$myentity = $options['listenerentity'];
 		
 		$container		= $this->container;
 		$em 			= $container->get('doctrine');
 		$lang			= $container->get('session')->getLocale();
 		$langParameter  = $lang;
-		$entities   	= $em->getRepository("PiAppGedmoBundle:$myentity")->getAllEnabled($langParameter, 'object');
+		$entities   	= $em->getRepository($myentity)->getAllEnabled($langParameter, 'object');
 	
 		$count			= count($entities);
 		$content		= "";

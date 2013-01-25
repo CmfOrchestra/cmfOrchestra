@@ -55,9 +55,9 @@ class PiTreeManager extends PiCoreManager implements PiTreeManagerBuilderInterfa
 	{
 		str_replace('~', '~', $id, $count);
 		if($count == 2)
-			list($entity, $method, $category) = explode('~', $id);
+			list($entity, $method, $category) = explode('~', $this->_Decode($id));
 		elseif($count == 1)
-			list($entity, $method) = explode('~', $id);
+			list($entity, $method) = explode('~', $this->_Decode($id));
 		else
 			throw new \InvalidArgumentException("you have not configure correctly the attibute id");
 		
@@ -95,10 +95,10 @@ class PiTreeManager extends PiCoreManager implements PiTreeManagerBuilderInterfa
 	{
 		$em	  = $this->container->get('doctrine')->getEntityManager();		
 		
-		if(count(explode(':', $entity)) < 2){
-			$entity 			= ucfirst(strtolower($entity));
-			$entity 			= "PiAppGedmoBundle:$entity";
-		}
+// 		if(count(explode(':', $entity)) < 2){
+// 			$entity 			= ucfirst(strtolower($entity));
+// 			$entity 			= "PiAppGedmoBundle:$entity";
+// 		}
 		
 		if(isset($params['node']) && !empty($params['node']) ){
 			$node  = $em->getRepository($entity)->findNodeOr404($params['node'], $locale,'object');
@@ -321,10 +321,10 @@ class PiTreeManager extends PiCoreManager implements PiTreeManagerBuilderInterfa
 		$em		 	  = $this->container->get('doctrine')->getEntityManager();
 		$self 	 	  = &$this;		
 		
-		if(count(explode(':', $entity)) < 2){
-			$entity = ucfirst(strtolower($entity));
-			$entity = "PiAppGedmoBundle:$entity";
-		}
+// 		if(count(explode(':', $entity)) < 2){
+// 			$entity = ucfirst(strtolower($entity));
+// 			$entity = "PiAppGedmoBundle:$entity";
+// 		}
 		
 		$self->entity = $entity;
 		$self->locale = $locale;

@@ -123,10 +123,12 @@ class CorporationController extends abstractController
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout) 	$template = "index.html.twig"; else $template = "index.html.twig";
         
-        if($NoLayout && $category && !empty($category))
-    		$entities 	= $em->getRepository("PiAppGedmoBundle:Corporation")->getAllEnableByCatAndByPosition($locale, $category, 'object');
-    	else
-    		$entities	= $em->getRepository("PiAppGedmoBundle:Corporation")->findAllByEntity($locale, 'object');
+    	if($NoLayout && $category && !empty($category)){
+    		//$entities 	= $em->getRepository("PiAppGedmoBundle:Corporation")->getAllEnableByCatAndByPosition($locale, $category, 'object');
+    		$query		= $em->getRepository("PiAppGedmoBundle:Corporation")->getAllByCategory($category, null, '', 'ASC', false)->getQuery();
+    		$entities   = $em->getRepository("PiAppGedmoBundle:Corporation")->findTranslationsByQuery($locale, $query, 'object', false);
+    	}else
+    		$entities	= $em->getRepository("PiAppGedmoBundle:Corporation")->findAllByEntity($locale, 'object');    	
 
         return $this->render("PiAppGedmoBundle:Corporation:$template", array(
             'entities'	=> $entities,
@@ -433,6 +435,7 @@ class CorporationController extends abstractController
 
         $em 		= $this->getDoctrine()->getEntityManager();
         $request = $this->container->get('request')->get('GET');
+
         if(isset($request['new']))
             $new   = $request['new'];
         else
@@ -442,7 +445,7 @@ class CorporationController extends abstractController
             $step   = $request['step'];
         else
             $step   = $this->container->get('request')->query->get('step');        
-        //print_r($this->container->get('request'));
+
         if(empty($lang))
           $lang	= $this->container->get('session')->getLocale();
         
@@ -459,8 +462,7 @@ class CorporationController extends abstractController
         $entity   = new Corporation();
 
         $render = '';
-        //print_r($new);print_r($step);exit;
-        //
+
         if (!empty($new)){
               if($step == 1){
                 $render = $this->container->get('http_kernel')->render('PiAppGedmoBundle:Corporation:_template_adhesionValidation', array('attributes'=>$params));
@@ -478,7 +480,7 @@ class CorporationController extends abstractController
                   $data['UserPhone'] = $request['UserPhone'];
                   $data['Profile'] = $request['Profile'];
                   $data['UserName'] = $request['UserName'];  
-                  //array_merge($data, $request['piapp_gedmobundle_adhesion_corporationtype']);
+                  $data['media'] = $request['media'];
 
                   $data['CorporationName'] = $request['piapp_gedmobundle_adhesion_corporationtype']['CorporationName'];
                   $data['CommercialName'] = $request['piapp_gedmobundle_adhesion_corporationtype']['CommercialName'];
@@ -535,7 +537,8 @@ class CorporationController extends abstractController
                 $data['UserPhone'] = $request['UserPhone'];
                 $data['Profile'] = $request['Profile'];
                 $data['UserName'] = $request['UserName'];  
-
+                $data['media'] = $request['media'];
+                
                 $data['CorporationName'] = $request['CorporationName'];
                 $data['CommercialName'] = $request['CommercialName'];
                 $data['Address'] = $request['Address'];
@@ -568,6 +571,13 @@ class CorporationController extends abstractController
                 $data['ArgumentCommercial'] = $request['piapp_gedmobundle_adhesion_corporationtype']['ArgumentCommercial'];
                 $data['url'] = $request['piapp_gedmobundle_adhesion_corporationtype']['url'];
 
+                $media2_tmp = $_FILES['piapp_gedmobundle_adhesion_corporationtype']['tmp_name']['media2'];
+                $media2_name = $_FILES['piapp_gedmobundle_adhesion_corporationtype']['name']['media2'];
+
+                $dir = $this->container->get('kernel')->getRootDir(). '/../web/uploads/media/tmp/';
+                move_uploaded_file($media2_tmp,$dir.$media2_name);
+                $data['media2'] = $dir.$media2_name;  
+                
                   $form   	= $this->createForm(new AdhesionCorporationType($em, $this->container), $entity, array('show_legend' => false));
 
                   $template = '_template_form_adhesion_step4.html.twig';
@@ -650,9 +660,13 @@ class CorporationController extends abstractController
         $data['UserPhone'] = $form['UserPhone']->getData();
         $data['Profile'] = $form['Profile']->getData();
         $data['UserName'] = $form['UserName']->getData();        
-
+        $media_tmp = $_FILES['piapp_gedmobundle_adhesion_corporationtype']['tmp_name']['media'];
+        $media_name = $_FILES['piapp_gedmobundle_adhesion_corporationtype']['name']['media'];
+        $dir = $this->container->get('kernel')->getRootDir(). '/../web/uploads/media/tmp/';
+        move_uploaded_file($media_tmp,$dir.$media_name);
+        $data['media'] = $dir.$media_name;
         $entity->setDetailActivity('Détails activité*');  
-    
+
         $entity->setCorporationName('Raison sociale *');
         $entity->setCommercialName('Nom commercial *');
         $entity->setAddress('Adresse*');
@@ -736,12 +750,42 @@ class CorporationController extends abstractController
           $user->setPermissions(array('VIEW', 'EDIT', 'CREATE', 'DELETE'));
 
           $user->setLangCode($em->getRepository('PiAppAdminBundle:Langue')->findOneById('fr_FR'));
-
+          
           $em->persist($user);
-          $em->flush();	          
-
-          $entity->setTranslatableLocale($lang);
+          $em->flush();	   
           $entity->setUser($user);
+
+          $media_pixel = new \BootStrap\MediaBundle\Entity\Media();
+          $media_pixel->setProviderName('sonata.media.provider.image');
+          $media_pixel->setContext("default");  
+          $media_pixel->setBinaryContent($request->get('media'));
+          $em->persist($media_pixel);
+          $em->flush();
+          
+          
+          $media_gedmo = new \PiApp\GedmoBundle\Entity\Media();
+          $media_gedmo->setImage($media_pixel);
+          $media_gedmo->setStatus('image');
+          $em->persist($media_gedmo);
+          $em->flush();
+          $entity->setMedia($media_gedmo);
+
+          $media_pixel = new \BootStrap\MediaBundle\Entity\Media();
+          $media_pixel->setProviderName('sonata.media.provider.image');
+          $media_pixel->setContext("default");  
+          $media_pixel->setBinaryContent($request->get('media2'));
+          $em->persist($media_pixel);
+          $em->flush();
+
+          $media_gedmo = new \PiApp\GedmoBundle\Entity\Media();
+          $media_gedmo->setImage($media_pixel);
+          $media_gedmo->setStatus('image');
+          $em->persist($media_gedmo);
+          $em->flush();        
+          $entity->setMedia2($media_gedmo);
+        
+          $entity->setTranslatableLocale($lang);
+          
           $entity->setCivility($request->get('Civility'));
           $entity->setName($request->get('Name'));
           $entity->setNickname($request->get('Nickname'));
@@ -794,7 +838,7 @@ class CorporationController extends abstractController
           $entity->setOriginContactSponsor($form['OriginContactSponsor']->getData());           
           $em->persist($entity);
           $em->flush();
-
+            
           $flash = $this->get('translator')
                          ->trans('adhesion.flash.user_created',
                                   array('%email%' => $request->get('Email')));

@@ -290,6 +290,22 @@ abstract class AbstractFactory
     {
     	return  $this->_container->get('security.context')->getToken();
     } 
+    
+    /**
+     * Return if yes or no the user is UsernamePassword token.
+     *
+     * @return boolean
+     * @access protected
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    protected function isUsernamePasswordToken()
+    {
+    	if ($this->getToken() instanceof \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken)
+    		return true;
+    	else
+    		return false;
+    }    
 
     /**
      * Return the user permissions.

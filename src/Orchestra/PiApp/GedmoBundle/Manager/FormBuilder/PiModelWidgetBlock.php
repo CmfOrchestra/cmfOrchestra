@@ -124,9 +124,14 @@ class PiModelWidgetBlock extends PiFormBuilderManager
 	        ))
         	->add('template', 'choice', array(
 	        		'choices'   => array(
-	        				'_tmp_show-block-descriptif.html.twig'		=> 'pi.block.formbuilder.template.choice0',
-	        				'_tmp_show-block-testimonial.html.twig'		=> 'pi.block.formbuilder.template.choice1',
-	        				'_tmp_show-block-video.html.twig'			=> 'pi.block.formbuilder.template.choice2',
+	        				'_tmp_show-block-descriptif-left-picture.html.twig'	=> 'pi.block.formbuilder.template.choice1',
+	        				'_tmp_show-block-descriptif-right-picture.html.twig'=> 'pi.block.formbuilder.template.choice2',
+	        				'_tmp_show-block-tpl1.html.twig'		   			=> 'pi.block.formbuilder.template.choice3',
+	        				'_tmp_show-block-tpl2.html.twig'		   			=> 'pi.block.formbuilder.template.choice4',
+	        				'_tmp_show-block-tpl3.html.twig'		   			=> 'pi.block.formbuilder.template.choice5',
+	        				'_tmp_show-block-tpl4.html.twig'		   			=> 'pi.block.formbuilder.template.choice6',
+	        				'_tmp_show-block-video-left.html.twig'				=> 'pi.block.formbuilder.template.choice7',
+	        				'_tmp_show-block-video-right.html.twig'				=> 'pi.block.formbuilder.template.choice8',
 	        		),
 	        		'multiple'	=> false,
 	        		'required'  => true,
@@ -158,30 +163,6 @@ class PiModelWidgetBlock extends PiFormBuilderManager
 	        ))
 	        ->add('title', 'text', array(
 	        		'label'	=> "pi.form.label.field.title",
-	        		"label_attr" => array(
-	        				"class"=>"block_collection",
-	        		),
-	        ))
-	        ->add('descriptif', 'textarea', array(
-	        		'required'  => false,
-	        		'label'	=> 'pi.form.label.field.description',
-	        		"label_attr" => array(
-	        				"class"=>"block_collection",
-	        		),
-	        ))
-	        ->add('content', 'textarea', array(
-	        		'required'  => false,
-	        		"attr" => array(
-	        				"class"	=>"pi_editor",
-	        		),
-	        		'label'	=> "pi.form.label.field.content",
-	        		"label_attr" => array(
-	        				"class"=>"block_collection",
-	        		),
-	        ))
-	        ->add('author', 'text', array(
-	        		'required'  => false,
-	        		"label" 	=> "pi.form.label.field.author",
 	        		"label_attr" => array(
 	        				"class"=>"block_collection",
 	        		),
@@ -283,8 +264,7 @@ class PiModelWidgetBlock extends PiFormBuilderManager
 	 */
 	public function preEventActionForm(array $data){
 		if($data["choice"] == "create"){
-			$this->_createentity->setEnabled(true);
-			
+			$this->_createentity->setEnabled(true);			
 			
 			if(!empty($this->_data['category']) || !is_null($this->_data['category'])){
 				$category = $this->_em->getRepository("PiAppGedmoBundle:Category")->findOneByEntity($this->_locale, $this->_data['category'], 'object');
@@ -294,16 +274,13 @@ class PiModelWidgetBlock extends PiFormBuilderManager
 			}
 			
 			$this->_createentity->setTitle($this->_data['title']);
-			$this->_createentity->setDescriptif($this->_data['descriptif']);
-			$this->_createentity->setContent($this->_data['content']);
-			$this->_createentity->setAuthor($this->_data['author']);
 			$this->_createentity->setPublishedAt(new \DateTime());
 			$this->_createentity->setCreatedAt(new \DateTime());
 				
 			$this->_createentity->setTranslatableLocale($this->_locale);
 			$this->_em->persist($this->_createentity);
 			$this->_em->flush();
-				
+			
 			$this->_data['id_block'] = $this->_createentity->getId();
 		}
 	}

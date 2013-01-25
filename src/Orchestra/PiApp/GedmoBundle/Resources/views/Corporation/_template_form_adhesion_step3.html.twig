@@ -36,7 +36,7 @@
 					<div class="title-border-simple cf">
 						<h3 class="tt-3 tt-clr bold fleft">Votre visibilité</h3>
 					</div>
-					<form action="#" method="post" class="cf">
+					<form action="#" method="post" class="cf" {{ form_enctype(form) }}>
             <input type="hidden" id="new" name="new" value="{{new}}">
             <input type="hidden" id="step" name="step" value="3">
             {% for key,value in data %}
@@ -53,7 +53,8 @@
 							<div class="row fleft">
 								<label>Télécharger un logo * </label>
 								<a href="#" class="tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
-								<input type="file" class=" text">
+
+								{{ form_widget(form.media2) }}
 							</div>
 							<!-- <div class="button-ct fleft cf">
 								<input type="submit" value="TELECHARGER" class="fright nextStep" title="Valider ma demande d'adhésion">

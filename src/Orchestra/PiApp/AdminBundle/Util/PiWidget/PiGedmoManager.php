@@ -151,18 +151,19 @@ class PiGedmoManager extends PiWidgetExtension
 	protected function isAvailableAction($controller)
 	{
    		$values 	= explode(':', $controller);
-   		$entity 	= str_replace('\\\\', '\\', strtolower($values[1]));
+   		$entity 	= $values[0] . ':' . str_replace('\\\\', '\\', $values[1]);
    		$method 	= strtolower($values[2]);
    		
    		$getAvailable 	= "getAvailable" . ucfirst($this->action);
    		$Lists 		= self::$getAvailable();
    		
-   		if( $entity && !isset($Lists[$entity]) )
+   		if( $entity && !isset($Lists[$entity]) ){
    			return false;
-   		elseif( $entity && !in_array($method, $Lists[$entity]['method']) )
+   		}elseif( $entity && !in_array($method, $Lists[$entity]['method']) ){
    			return false;
+   		}
    		
-   		$this->entity = $values[1];
+   		$this->entity = $entity;
    		$this->setMethod($method);
    		   			
    		return true;
@@ -621,6 +622,7 @@ class PiGedmoManager extends PiWidgetExtension
      *                  <slider>
  	 *                  	<action>renderDefault</action>
      *						<menu>entity</menu>
+     *						<class>slide-class</class>
      *						<id>flexslider</id>
      *                      <boucle_array>false</boucle_array>
 	 *	                  	<orderby_date></orderby_date>
@@ -719,9 +721,9 @@ class PiGedmoManager extends PiWidgetExtension
 						return $this->runByService('pi_app_admin.manager.slider', $this->entity."~".$this->method."~".$category, $lang, $params);
 										
 				}else
-					throw ExtensionException::optionValueNotSpecified("gedmo navigation", __CLASS__);
+					throw ExtensionException::optionValueNotSpecified("params xmlConfig", __CLASS__);
 			}else
-				throw ExtensionException::optionValueNotSpecified("gedmo template", __CLASS__);			
+				throw ExtensionException::optionValueNotSpecified("controller configuration", __CLASS__);			
 		}else
 			throw ExtensionException::optionValueNotSpecified("gedmo", __CLASS__);
 	}	

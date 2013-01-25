@@ -133,10 +133,16 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
        if($this->_container instanceof \Symfony\Component\DependencyInjection\ContainerInterface){
         if(isset($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) && in_array($this->_class->name, $GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) ){
           // Gets all user roles.
-          $user_roles	= $this->_container->get('bootstrap.Role.factory')->getAllUserRoles();          
-          foreach($user_roles as $key => $role){
-            $query->orWhere($query->expr()->like('a.heritage', $query->expr()->literal('%'.$role.'%')));
-          }
+        if (true === $this->_container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+              $user_roles	= $this->_container->get('bootstrap.Role.factory')->getAllUserRoles();          
+              foreach($user_roles as $key => $role){
+                $query->orWhere($query->expr()->like('a.heritage', $query->expr()->literal('%'.$role.'%')));
+              } 
+        }
+           
+
+
+
         }
       }
       

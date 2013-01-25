@@ -175,7 +175,7 @@ pi.page.form.page_css: Css page
 pi.page.form.page_js: Js page
 pi.page.form.keywords:  Keywords
 pi.page.form.meta_content_type: Meta content type
-pi.page.form.cacheable: Static Content ?
+pi.page.form.cacheable: Static page ?
 pi.page.form.public: Visitor-independant content ?
 pi.page.form.lifetime: Cache Lifetime
 pi.page.form.route_name: Page ID (ex: page_my_test)

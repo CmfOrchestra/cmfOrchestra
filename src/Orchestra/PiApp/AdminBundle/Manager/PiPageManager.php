@@ -153,8 +153,6 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 
 			// Create a Response with a Last-Modified header.
 			$response = $this->configureCache($page, $response);
-			$result = new \DateTime();
-			$response->setLastModified($result);
 			
 			// Check that the Response is not modified for the given Request.
 			if ($response->isNotModified($this->container->get('request'))){
@@ -1056,7 +1054,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 										if($xmlConfig->widgets->get('gedmo') && $xmlConfig->widgets->gedmo->get('controller') && $xmlConfig->widgets->gedmo->get('params'))
 										{
 											$values 	= explode(':', $xmlConfig->widgets->gedmo->controller);
-											$entity 	= $values[1];
+											$entity 	= $values[0] . ':' . $values[1];
 											$method 	= strtolower($values[2]);
 											$params		= array();
 																					
@@ -1168,7 +1166,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 										if($xmlConfig->widgets->get('gedmo') && $xmlConfig->widgets->gedmo->get('controller') && $xmlConfig->widgets->gedmo->get('params'))
 										{
 											$values 	= explode(':', $xmlConfig->widgets->gedmo->controller);
-											$entity 	= $values[1];
+											$entity 	= $values[0] . ':' . $values[1];
 											$method 	= strtolower($values[2]);
 											$params		= array();
 																					
@@ -1306,7 +1304,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 						if( ($entity->getPlugin() == "gedmo") && $xmlConfig->widgets->get('gedmo') && $xmlConfig->widgets->gedmo->get('controller'))
 						{
 							$infos	 		= explode(':', $xmlConfig->widgets->gedmo->controller);
-							$infos_entity	= strtolower(str_replace('\\\\', '\\', $infos[1]));
+							$infos_entity 	= $infos[0] . ':' . str_replace('\\\\', '\\', $infos[1]);
 							$infos_method	= strtolower($infos[2]);
 							$getAvailable 	= "getAvailable" . ucfirst(strtolower($entity->getAction()));
 							

@@ -49,6 +49,10 @@ piapp_gedmo_pressrelease:
 piapp_gedmo_partner:
     resource: "@PiAppGedmoBundle/Resources/config/routing/partner.xml"
     prefix: /admin/gedmo/partner
+#PiAppGedmoBundle:Team
+piapp_gedmo_team:
+    resource: "@PiAppGedmoBundle/Resources/config/routing/team.xml"
+    prefix: /admin/gedmo/team
     
     
 #PiAppGedmoBundle:Individual

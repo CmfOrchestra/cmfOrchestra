@@ -81,9 +81,14 @@ pi.category.type.8: الشريكة
 pi.category.type.9: النشرة الإخبارية
 
 # ENTITY :: BLOCK
-pi.block.formbuilder.template.choice0: كتلة وصف 
-pi.block.formbuilder.template.choice1: كتلة شهادة
-pi.block.formbuilder.template.choice2: كتلة فيديو
+pi.block.formbuilder.template.choice1: وصف بلوك مع الصورة على اليسار
+pi.block.formbuilder.template.choice2: وصف بلوك مع الصورة على اليمين
+pi.block.formbuilder.template.choice3: بلوك مع الصورة على اليسار
+pi.block.formbuilder.template.choice4: كتلة مع جنبا إلى جنب الصور والنص أدناه
+pi.block.formbuilder.template.choice5: كتلة مع مركز الصورة
+pi.block.formbuilder.template.choice6: صورة بلوك مع الحق
+pi.block.formbuilder.template.choice7: بلوك الفيديو إلى اليمين من الوصف 
+pi.block.formbuilder.template.choice8: بلوك الفيديو إلى اليسار من الوصف
 pi.block.form.group.pictures: الصور
 pi.block.form.group.url: رابط
 

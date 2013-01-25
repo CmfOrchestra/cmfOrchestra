@@ -180,17 +180,22 @@ class Media extends AbstractDefault
     protected $menu;    
         
     /**
-     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Menu", mappedBy="media");
+     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Slider", mappedBy="media");
      */
     protected $slider;    
     
     /**
-     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Menu", mappedBy="media");
+     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Block", mappedBy="media");
      */
     protected $block; 
+    
+    /**
+     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Block", mappedBy="media");
+     */
+    protected $block2;    
 
     /**
-     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Menu", mappedBy="media");
+     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Organigram", mappedBy="media");
      */
     protected $organigram; 
     
@@ -447,6 +452,10 @@ class Media extends AbstractDefault
     {
     	return $this->block;
     }
+    public function getBlock2()
+    {
+    	return $this->block2;
+    }    
     public function getOrganigram()
     {
     	return $this->organigram;
@@ -593,9 +602,9 @@ class Media extends AbstractDefault
     /**
      * Set slider
      *
-     * @param \PiApp\GedmoBundle\Entity\Menu $slider
+     * @param \PiApp\GedmoBundle\Entity\Slider $slider
      */
-    public function setSlider(\PiApp\GedmoBundle\Entity\Menu $slider)
+    public function setSlider(\PiApp\GedmoBundle\Entity\Slider $slider)
     {
         $this->slider = $slider;
     }
@@ -603,19 +612,29 @@ class Media extends AbstractDefault
     /**
      * Set block
      *
-     * @param \PiApp\GedmoBundle\Entity\Menu $block
+     * @param \PiApp\GedmoBundle\Entity\Block $block
      */
-    public function setBlock(\PiApp\GedmoBundle\Entity\Menu $block)
+    public function setBlock(\PiApp\GedmoBundle\Entity\Block $block)
     {
         $this->block = $block;
     }
+    
+    /**
+     * Set block2
+     *
+     * @param \PiApp\GedmoBundle\Entity\Block $block
+     */
+    public function setBlock2(\PiApp\GedmoBundle\Entity\Block $block)
+    {
+    	$this->block2 = $block;
+    }    
 
     /**
      * Set organigram
      *
-     * @param \PiApp\GedmoBundle\Entity\Menu $organigram
+     * @param \PiApp\GedmoBundle\Entity\Organigram $organigram
      */
-    public function setOrganigram(\PiApp\GedmoBundle\Entity\Menu $organigram)
+    public function setOrganigram(\PiApp\GedmoBundle\Entity\Organigram $organigram)
     {
         $this->organigram = $organigram;
     }

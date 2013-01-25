@@ -81,9 +81,14 @@ pi.category.type.8: Partenaire
 pi.category.type.9: Newsletter
 
 # ENTITY :: BLOCK
-pi.block.formbuilder.template.choice0: Block descriptif 
-pi.block.formbuilder.template.choice1: BLock testimonial
-pi.block.formbuilder.template.choice2: BLock Video
+pi.block.formbuilder.template.choice1: Bloc descriptif avec image à gauche
+pi.block.formbuilder.template.choice2: Bloc descriptif avec image à droite
+pi.block.formbuilder.template.choice3: Bloc contenu avec image à gauche
+pi.block.formbuilder.template.choice4: Bloc contenu avec image côte à côte et text en dessous
+pi.block.formbuilder.template.choice5: Bloc contenu avec image au centre
+pi.block.formbuilder.template.choice6: Bloc contenu avec image à droite
+pi.block.formbuilder.template.choice7: Bloc video à droite du descriptif
+pi.block.formbuilder.template.choice8: Bloc video à gauche du descriptif
 pi.block.form.group.pictures: Images
 pi.block.form.group.url: Lien
 

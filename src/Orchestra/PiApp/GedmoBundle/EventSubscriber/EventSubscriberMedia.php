@@ -233,6 +233,13 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
     			$entity_parent_table	= $this->getOwningTable($eventArgs, $entity->getBlock());
     			$parent_id				= $entity->getBlock()->getId();
     		}
+    		if($entity->getBlock2() instanceof \PiApp\GedmoBundle\Entity\Block){
+    			$entity_parent_table	= $this->getOwningTable($eventArgs, $entity->getBlock2());
+    			$parent_id				= $entity->getBlock2()->getId();
+    			$getMedia 				= "getMedia1";
+    			$setMedia 				= "setMedia1";
+    			$MediaId 				= "media1_id";
+    		}    		
     		if($entity->getOrganigram() instanceof \PiApp\GedmoBundle\Entity\Organigram){
     			$entity_parent_table	= $this->getOwningTable($eventArgs, $entity->getOrganigram());
     			$parent_id				= $entity->getOrganigram()->getId();

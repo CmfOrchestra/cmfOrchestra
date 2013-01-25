@@ -56,9 +56,9 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
 	{
 		str_replace('~', '~', $id, $count);
 		if($count == 2)
-			list($entity, $method, $template) = explode('~', $id);
+			list($entity, $method, $template) = explode('~', $this->_Decode($id));
 		elseif($count == 1)
-			list($entity, $method) = explode('~', $id);
+			list($entity, $method) = explode('~', $this->_Decode($id));
 		else
 			throw new \InvalidArgumentException("you have not configure correctly the attibute id");
 		
@@ -70,7 +70,7 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
 		$params['locale']	= $lang;
 		
 		if(isset($template) && ($method == "_connexion_default"))
-			return $this->defaultConnexion($lang, $entity, $template, $params);
+			return $this->defaultConnexion($template);
 		else
 			throw new \InvalidArgumentException("you have not configure correctly the attibute id");
 	}
@@ -78,19 +78,13 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
 	/**
 	 * Return the build tree result of a gedmo tree entity, with class options.
 	 *
-	 * @param string	$locale
-	 * @param string	$entity
-	 * @param string	$category
-	 * @param string	$separatorClass
-	 * @param string	$ulClass
-	 * @param string	$liClass
-	 * @param array		$options
+	 * @param string	$template
 	 * @access	public
 	 * @return string
 	 *
 	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
-	public function defaultConnexion($locale, $entity, $template = null, $params = null)
+	public function defaultConnexion($template = null)
 	{
 		$em	  	 = $this->container->get('doctrine')->getEntityManager();		
 		$request = $this->container->get('request');

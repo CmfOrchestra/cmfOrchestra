@@ -598,11 +598,13 @@ class PiToolExtension extends \Twig_Extension
 	}
 	
 	public function resetFilter($array) {
-		return reset($array);
+		reset($array);
+		return $array;
 	}
 
 	public function endFilter($array) {
-		return end($array);
+		end($array);
+		return $array;
 	}	
 
 	public function stepsFilter($array, $step) {

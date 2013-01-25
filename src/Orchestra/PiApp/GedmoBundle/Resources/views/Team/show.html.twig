@@ -13,35 +13,47 @@
 {% block content %}
 
 	<table class="grid">
-		<caption>Block</caption>
+		<caption>Team</caption>
 	    <tbody>	
 	        <tr>
 	            <th>Id</th>	
 	            <td>{{ entity.id }}</td>	
 	        </tr>	
 	        <tr>
-	            <th>Title</th>	
-	            <td>{{ entity.title }}</td>	
+	            <th>Category</th>	
+	            <td>{{ entity.category }}</td>	
 	        </tr>	
 	        <tr>
-	            <th>Descriptif</th>	
-	            <td>{{ entity.descriptif }}</td>	
+	            <th>Name</th>	
+	            <td>{{ entity.name }}</td>	
 	        </tr>	
 	        <tr>
-	            <th>Content</th>	
-	            <td>{{ entity.content|raw }}</td>	
+	            <th>Nickname</th>	
+	            <td>{{ entity.nickname }}</td>	
 	        </tr>	
 	        <tr>
-	            <th>Author</th>	
-	            <td>{{ entity.author }}</td>	
+	            <th>Inscrjob</th>	
+	            <td>{{ entity.InscrJob }}</td>	
 	        </tr>	
 	        <tr>
-	            <th>Url</th>	
-	            <td>{{ entity.url }}</td>	
+	            <th>Email</th>	
+	            <td>{{ entity.email }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>Created_at</th>	
+	            <td>{{ entity.createdat|date('Y-m-d H:i:s') }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>Updated_at</th>	
+	            <td>{{ entity.updatedat|date('Y-m-d H:i:s') }}</td>	
 	        </tr>	
 	        <tr>
 	            <th>Published_at</th>	
 	            <td>{{ entity.publishedat|date('Y-m-d H:i:s') }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>Archive_at</th>	
+	            <td>{{ entity.archiveat|date('Y-m-d H:i:s') }}</td>	
 	        </tr>	
 	        <tr>
 	            <th>Enabled</th>	
@@ -52,17 +64,9 @@
 	            <td>{{ entity.position }}</td>	
 	        </tr>	
 	        <tr>
-	        	<th>Media</th>
-	        	<td>
-	        		{% if entity.media.image is defined %}
-	        			{% media entity.media.image, 'reference' %}
-	        		{% endif %}
-	        		
-	        		{% if entity.media1.image is defined %}
-	        			{% media entity.media1.image, 'reference' %}
-	        		{% endif %}
-	        	</td>
-	        </tr>	        
+	            <th>Heritage</th>	
+	            <td>{{ entity.heritage }}</td>	
+	        </tr>	
 	    </tbody>
 	</table>
 
@@ -71,19 +75,19 @@
 				
 	<ul class="record_actions">
 		<li>
-	        <form action="{{ path('admin_gedmo_block', { 'NoLayout': NoLayout }) }}" method="post">
+	        <form action="{{ path('admin_gedmo_team', { 'NoLayout': NoLayout, 'category':category }) }}" method="post">
 	            <button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
 	        </form>	        
 		</li>
 			<li>
-	        <form action="{{ path('admin_gedmo_block_edit', { 'id': entity.id, 'NoLayout':NoLayout }) }}" method="post">
+	        <form action="{{ path('admin_gedmo_team_edit', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category }) }}" method="post">
 	            <button type="submit">{{ 'pi.grid.action.update'|trans }}</button>
 	        </form>	        
 		</li>
 			
 		{% if NoLayout == false %}
 	    <li>
-	        <form action="{{ path('admin_gedmo_block_delete', { 'id': entity.id, 'NoLayout':NoLayout }) }}" method="post">
+	        <form action="{{ path('admin_gedmo_team_delete', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category }) }}" method="post">
 	            {{ form_widget(delete_form) }}
 	            <button type="submit">{{ 'pi.grid.action.delete'|trans }}</button>
 	        </form>
