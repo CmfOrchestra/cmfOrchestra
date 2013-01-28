@@ -236,7 +236,7 @@ class NewsController extends abstractController
     	if(!empty($id)){
     		$entity	= $em->getRepository("PiAppGedmoBundle:News")->findOneByEntity($locale, $id, 'object', false);
     	}else{   		
-    		$slug	= $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('slug', $locale);
+    		$slug	= $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('slug', $locale, true);
     		$entity	= $this->container->get('doctrine')->getEntityManager()->getRepository("PiAppGedmoBundle:News")->getEntityByField($locale, array('content_search' => array('slug' =>$slug)), 'object');
     	}
         

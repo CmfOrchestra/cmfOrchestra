@@ -26,6 +26,7 @@
 {% if 'edit' in actions %}
     <route id="{{ route_name_prefix }}_edit" pattern="/{id}/edit">
         <default key="_controller">{{ bundle }}:{{ entity }}:edit</default>
+        <requirement key="id">\d*</requirement>
     </route>
 
     <route id="{{ route_name_prefix }}_update" pattern="/{id}/update">

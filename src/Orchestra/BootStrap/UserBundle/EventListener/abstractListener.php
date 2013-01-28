@@ -110,16 +110,16 @@ abstract class abstractListener
         
         $entity_name = get_class($entity);
 //         if(!in_array($entity_name, array('BootStrap\UserBundle\Entity\User','PiApp\GedmoBundle\Entity\Individual'))){
-//         	print_r("CRUD_PREPERSIST");
+//         	print_r("AUTHORIZATION_PREPERSIST");
 //         	print_r($entity_name);exit;
 //         }
-        // we give the right of persist if the entity is in the CRUD_PREPERSIST container
-        if(isset($GLOBALS['ENTITIES']['CRUD_PREPERSIST']) && isset($GLOBALS['ENTITIES']['CRUD_PREPERSIST'][$entity_name])){
-        	if(is_array($GLOBALS['ENTITIES']['CRUD_PREPERSIST'][$entity_name])){
+        // we give the right of persist if the entity is in the AUTHORIZATION_PREPERSIST container
+        if(isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST']) && isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST'][$entity_name])){
+        	if(is_array($GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST'][$entity_name])){
         		$route = $this->container->get('request')->get('_route');
         		if($this->container->get('session')->has('route') && (empty($route) || ($route == "_internal")))
         			$route = $this->container->get('session')->get('route');
-        		if(in_array($route, $GLOBALS['ENTITIES']['CRUD_PREPERSIST'][$entity_name])){
+        		if(in_array($route, $GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST'][$entity_name])){
         			// IMPORTANT !!! sinon ne fonctionne pas avec les collection links :
         			$entityManager->initializeObject($entity);
         			return true;
@@ -204,13 +204,13 @@ abstract class abstractListener
         }
 
         $entity_name = get_class($entity);
-        // we give the right of persist if the entity is in the CRUD_PREPERSIST container
-        if(isset($GLOBALS['ENTITIES']['CRUD_PREUPDATE']) && isset($GLOBALS['ENTITIES']['CRUD_PREUPDATE'][$entity_name])){
-        	if(is_array($GLOBALS['ENTITIES']['CRUD_PREUPDATE'][$entity_name])){
+        // we give the right of persist if the entity is in the AUTHORIZATION_PREPERSIST container
+        if(isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE']) && isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE'][$entity_name])){
+        	if(is_array($GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE'][$entity_name])){
         		$route = $this->container->get('request')->get('_route');
         		if($this->container->get('session')->has('route') && (empty($route) || ($route == "_internal")))
         			$route = $this->container->get('session')->get('route');
-        		if(in_array($route, $GLOBALS['ENTITIES']['CRUD_PREUPDATE'][$entity_name])){
+        		if(in_array($route, $GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE'][$entity_name])){
         			$class = $entityManager->getClassMetadata(get_class($entity));
    					$entityManager->getUnitOfWork()->recomputeSingleEntityChangeSet($class, $entity);
         			return true;
@@ -289,16 +289,16 @@ abstract class abstractListener
 		
 		$entity_name = get_class($entity);
 // 		if(!in_array($entity_name, array('BootStrap\UserBundle\Entity\User'))){
-// 			print_r("CRUD_PREREMOVE");
+// 			print_r("AUTHORIZATION_PREREMOVE");
 // 			print_r($entity_name);exit;
 // 		}		
-		// we give the right of persist if the entity is in the CRUD_PREREMOVE container
-		if(isset($GLOBALS['ENTITIES']['CRUD_PREREMOVE']) && isset($GLOBALS['ENTITIES']['CRUD_PREREMOVE'][$entity_name])){
-			if(is_array($GLOBALS['ENTITIES']['CRUD_PREREMOVE'][$entity_name])){
+		// we give the right of persist if the entity is in the AUTHORIZATION_PREREMOVE container
+		if(isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE']) && isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE'][$entity_name])){
+			if(is_array($GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE'][$entity_name])){
 				$route = $this->container->get('request')->get('_route');
 				if($this->container->get('session')->has('route') && (empty($route) || ($route == "_internal")))
 					$route = $this->container->get('session')->get('route');
-				if(in_array($route, $GLOBALS['ENTITIES']['CRUD_PREREMOVE'][$entity_name])){
+				if(in_array($route, $GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE'][$entity_name])){
 					return true;
 				}
 			}else{
@@ -610,8 +610,18 @@ abstract class abstractListener
      */
     protected function isRestrictionByRole($entity)
     {
-    	$right = true;
-       	if(isset($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) && in_array(get_class($entity), $GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) ){
+    	$right 		 = true;
+    	$entity_name = get_class($entity);
+       	if(isset($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) && isset($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES'][$entity_name]) ){
+       		if(is_array($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES'][$entity_name])){
+       			$route = $this->container->get('request')->get('_route');
+       			if($this->container->get('session')->has('route') && (empty($route) || ($route == "_internal")))
+       				$route = $this->container->get('session')->get('route');
+       			if(!in_array($route, $GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES'][$entity_name])){
+       				return false;
+       			}
+       		}
+       		
        		// Gets all user roles.
        		$user_roles				= $this->container->get('bootstrap.Role.factory')->getAllUserRoles();
        		// Gets the best role authorized to access to the entity.

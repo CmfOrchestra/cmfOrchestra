@@ -53,7 +53,7 @@ class CategorySearchForm extends AbstractType
     {       
     	
     	if($this->_entity == 'Organigram'){
-    		$choiceList = $this->_em->getRepository("PiAppGedmoBundle:$this->_entity")->getArrayAllCategory();
+    		$choiceList = $this->_em->getRepository("PiAppGedmoBundle:$this->_entity")->getArrayAllByField('category');
     		if(!isset($choiceList) || !count($choiceList))
     			$choiceList = array();
     		 

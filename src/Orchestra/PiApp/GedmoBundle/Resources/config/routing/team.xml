@@ -23,6 +23,7 @@
 
     <route id="admin_gedmo_team_edit" pattern="/{id}/edit">
         <default key="_controller">PiAppGedmoBundle:Team:edit</default>
+        <requirement key="id">\d*</requirement>
     </route>
 
     <route id="admin_gedmo_team_update" pattern="/{id}/update">

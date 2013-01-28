@@ -19,10 +19,10 @@
         
         if($NoLayout && $category && !empty($category)){
     		//$entities 	= $em->getRepository("{{ bundle }}:{{ entity }}")->getAllEnableByCatAndByPosition($locale, $category, 'object');
-    		$query		= $em->getRepository("{{ bundle }}:{{ entity }}")->getAllByCategory($category, null, '', 'ASC', false)->getQuery();
+    		$query		= $em->getRepository("{{ bundle }}:{{ entity }}")->setContainer($this->container)->getAllByCategory($category, null, '', 'ASC', false)->getQuery();
         	$entities   = $em->getRepository("{{ bundle }}:{{ entity }}")->findTranslationsByQuery($locale, $query, 'object', false);  
     	}else
-    		$entities	= $em->getRepository("{{ bundle }}:{{ entity }}")->findAllByEntity($locale, 'object');
+    		$entities	= $em->getRepository("{{ bundle }}:{{ entity }}")->setContainer($this->container)->findAllByEntity($locale, 'object');
 
 {% if 'annotation' == format %}
         return array(

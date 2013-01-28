@@ -45,24 +45,24 @@ $GLOBALS['ENTITIES']['RESTRICTION_BY_MEDIA']= array(
 //		'getContact',
 );
 $GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']= array(
-		'Proxies\PiAppGedmoBundleEntityMediaProxy',
-		'Proxies\BootStrapMediaBundleEntityMediaProxy',
+		'Proxies\PiAppGedmoBundleEntityMediaProxy' => true,
+		'Proxies\BootStrapMediaBundleEntityMediaProxy' => true,
 		
-// 		'PiApp\GedmoBundle\Entity\Block',
-// 		'PiApp\GedmoBundle\Entity\Translation\BlockTranslation',
-// 		'PiApp\GedmoBundle\Entity\Content',
-// 		'PiApp\GedmoBundle\Entity\Translation\ContentTranslation',
-// 		'PiApp\GedmoBundle\Entity\News',
-// 		'PiApp\GedmoBundle\Entity\Translation\NewsTranslation',
-// 		'PiApp\GedmoBundle\Entity\Partner',
-// 		'PiApp\GedmoBundle\Entity\Translation\PartnerTranslation',
-// 		'PiApp\GedmoBundle\Entity\Pressrelease',
-// 		'PiApp\GedmoBundle\Entity\Translation\PressreleaseTranslation',
-// 		'PiApp\GedmoBundle\Entity\Contact',
-// 		'PiApp\GedmoBundle\Entity\Translation\ContactTranslation',
+// 		'PiApp\GedmoBundle\Entity\Block' => true,
+// 		'PiApp\GedmoBundle\Entity\Translation\BlockTranslation' => true,
+// 		'PiApp\GedmoBundle\Entity\Content' => true,
+// 		'PiApp\GedmoBundle\Entity\Translation\ContentTranslation' => true,
+// 		'PiApp\GedmoBundle\Entity\News' => true,
+// 		'PiApp\GedmoBundle\Entity\Translation\NewsTranslation' => true,
+// 		'PiApp\GedmoBundle\Entity\Partner' => true,
+// 		'PiApp\GedmoBundle\Entity\Translation\PartnerTranslation' => true,
+// 		'PiApp\GedmoBundle\Entity\Pressrelease' => true,
+// 		'PiApp\GedmoBundle\Entity\Translation\PressreleaseTranslation' => true,
+// 		'PiApp\GedmoBundle\Entity\Contact' => true,
+// 		'PiApp\GedmoBundle\Entity\Translation\ContactTranslation' => true,
 );
 
-$GLOBALS['ENTITIES']['CRUD_PREPERSIST']= array(
+$GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST']= array(
 		'BootStrap\MediaBundle\Entity\Media'	=> true,
 		'PiApp\GedmoBundle\Entity\Media'	=> true,
 		'Proxies\PiAppGedmoBundleEntityMediaProxy'	=> true,
@@ -75,7 +75,7 @@ $GLOBALS['ENTITIES']['CRUD_PREPERSIST']= array(
 		'PiApp\GedmoBundle\Entity\Corporation'=> true,
 		'PiApp\GedmoBundle\Entity\Translation\CorporationTranslation'=> true,
 );
-$GLOBALS['ENTITIES']['CRUD_PREUPDATE']= array(
+$GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE']= array(
 		'BootStrap\MediaBundle\Entity\Media'	=> true,
 		'PiApp\GedmoBundle\Entity\Media'	=> true,
 		'Proxies\PiAppGedmoBundleEntityMediaProxy'	=> true,
@@ -88,7 +88,7 @@ $GLOBALS['ENTITIES']['CRUD_PREUPDATE']= array(
 		'PiApp\GedmoBundle\Entity\Corporation'=> true,
 		'PiApp\GedmoBundle\Entity\Translation\CorporationTranslation'=> true,
 );
-$GLOBALS['ENTITIES']['CRUD_PREREMOVE']= array(
+$GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE']= array(
 		'BootStrap\MediaBundle\Entity\Media'	=> true,
 		'PiApp\GedmoBundle\Entity\Media'	=> true,
 		'Proxies\PiAppGedmoBundleEntityMediaProxy'	=> true,

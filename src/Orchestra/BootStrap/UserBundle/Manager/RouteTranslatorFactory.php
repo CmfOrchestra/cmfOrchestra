@@ -177,7 +177,7 @@ class RouteTranslatorFactory extends AbstractFactory implements RouteTranslatorF
 	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-04-11
 	 */
-	public function getMatchParamOfRoute($param = null, $langue = '')
+	public function getMatchParamOfRoute($param = null, $langue = '', $isGetReferer = false)
 	{
 		if($langue == '')	{
 			$langue = $this->getContainer()->get('session')->getLocale();
@@ -194,6 +194,13 @@ class RouteTranslatorFactory extends AbstractFactory implements RouteTranslatorF
 				$match 	= $this->getLocaleRoute($langue, array('result' => 'match'));
 				$value	= $match[$param];
 			} catch (\Exception $e) {
+				try {
+					if($isGetReferer){
+						$match 	= $this->getRefererRoute($langue, array('result' => 'match'), false);
+						$value	= $match[$param];
+					}
+				} catch (\Exception $e) {
+				}
 			}
 		}		
 		return $value;		

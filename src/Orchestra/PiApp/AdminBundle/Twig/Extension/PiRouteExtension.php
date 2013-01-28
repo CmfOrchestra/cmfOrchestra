@@ -105,11 +105,11 @@ class PiRouteExtension extends \Twig_Extension
     				mkdir($dossier);
     			}
     			$this->container->get("pi_filecache")->getClient()->setPath($dossier);
-    			if(!$this->container->get("pi_filecache")->get($pattern.$id.'_'.$timestamp)){
+    			if(!$this->container->get("pi_filecache")->get($format.$pattern.$id.'_'.$timestamp)){
     				$url_public_media = $this->container->get('sonata.media.twig.extension')->path($id, $format);
-    				$this->container->get("pi_filecache")->set($pattern.$id.'_'.$timestamp,$url_public_media);
+    				$this->container->get("pi_filecache")->set($format.$pattern.$id.'_'.$timestamp,$url_public_media);
     			}else{
-    				$url_public_media = $this->container->get("pi_filecache")->get($pattern.$id.'_'.$timestamp);
+    				$url_public_media = $this->container->get("pi_filecache")->get($format.$pattern.$id.'_'.$timestamp);
     			}    			 
     		}    		
     	} catch (\Exception $e) {

@@ -12,7 +12,13 @@
     {
         $em 		= $this->getDoctrine()->getEntityManager();
     	$locale		= $this->container->get('session')->getLocale();
-        $entity 	= $em->getRepository("{{ bundle }}:{{ entity }}")->findOneByEntity($locale, $id, 'object');
+        
+        if(!empty($id)){
+        	$entity	= $em->getRepository("{{ bundle }}:{{ entity }}")->findOneByEntity($locale, $id, 'object');
+        }else{
+        	$slug	= $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('slug', $locale, true);
+        	$entity	= $this->container->get('doctrine')->getEntityManager()->getRepository("{{ bundle }}:{{ entity }}")->getEntityByField($locale, array('content_search' => array('slug' =>$slug)), 'object');
+        }        
         
         $category   = $this->container->get('request')->query->get('category');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');

@@ -31,7 +31,7 @@ interface RepositoryBuilderInterface
     public function findTranslationsByObjectId($id);
     public function translate($entity, $field, $locale, $value);
     public function findObjectByTranslatedField($field, $value, $class);
-    public function getArrayAllCategory();
+    public function getArrayAllByField($field);
     public function getAllByCategory($category = '', $MaxResults = null, $ORDER = 'DESC');
     public function getAllOrderByField($field = 'createat', $ORDER = "DESC", $enabled = null);
     public function getAllBetweenPosition($FirstPosition = null, $LastPosition = null, $enabled = null);

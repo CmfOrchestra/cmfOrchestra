@@ -45,7 +45,7 @@ class OrganigramType extends AbstractType
 		
     public function buildForm(FormBuilder $builder, array $options)
     {
-    	$choiceList = $this->_em->getRepository("PiAppGedmoBundle:Organigram")->getArrayAllCategory();
+    	$choiceList = $this->_em->getRepository("PiAppGedmoBundle:Organigram")->getArrayAllByField('category');
     	if(!isset($choiceList) || !count($choiceList))
     		$choiceList = array();
     	

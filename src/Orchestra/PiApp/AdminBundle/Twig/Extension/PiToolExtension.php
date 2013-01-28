@@ -148,7 +148,7 @@ class PiToolExtension extends \Twig_Extension
 	 *
 	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
-	public function getPictureFormFunction($media, $nameForm, $format = 'reference', $style = "display: block; text-align:center;margin: 30px auto;") {
+	public function getPictureFormFunction($media, $nameForm, $format = 'reference', $style = "display: block; text-align:center;margin: 30px auto;", $idImg = "") {
 		if($media instanceof \BootStrap\MediaBundle\Entity\Media){
 			$id 		= $media->getId();
 			
@@ -157,18 +157,19 @@ class PiToolExtension extends \Twig_Extension
 						'title'	=> $media->getAuthorname(),
 						'alt'	=> $media->getAuthorname(),
 						'style'	=> $style,
+						'id'	=> $idImg,
 				));
 			} catch (\Exception $e) {
 				return "";
 			}			
 			
-			$content	 = "<div id='picture_$id'> \n";
+			$content	 = "<div id='picture_{$id}_{$format}'> \n";
 			$content	.= $img_balise;
 			$content	.= "</div> \n";
 			
 			$content	.= "<script type='text/javascript'> \n";
 			$content	.= "//<![CDATA[ \n";
-			$content	.= "$('#picture_$id').detach().appendTo('#{$nameForm}'); \n";
+			$content	.= "$('#picture_{$id}_{$format}').detach().appendTo('#{$nameForm}'); \n";
 			$content	.= "//]]> \n";
 			$content	.= "</script> \n";
 			

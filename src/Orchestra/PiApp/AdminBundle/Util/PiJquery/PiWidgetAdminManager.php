@@ -426,7 +426,6 @@ class PiWidgetAdminManager extends PiJqueryExtension
             	            error: function(msg){ alert( "Error !: " + msg );},            
             	            success: function(response){
             	            	var url = response[0].url;
-
             	            	$("#hProBar").wijprogressbar("destroy");
 
             	            	if( (_class == "widget_action_delete") || (_class== "widget_action_move_up") || (_class== "widget_action_move_down") ){

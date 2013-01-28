@@ -23,6 +23,7 @@
 
     <route id="admin_gedmo_block_edit" pattern="/{id}/edit">
         <default key="_controller">PiAppGedmoBundle:Block:edit</default>
+        <requirement key="id">\d*</requirement>
     </route>
 
     <route id="admin_gedmo_block_update" pattern="/{id}/update">

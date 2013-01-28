@@ -23,6 +23,7 @@
 
     <route id="admin_gedmo_category_edit" pattern="/{id}/edit">
         <default key="_controller">PiAppGedmoBundle:Category:edit</default>
+        <requirement key="id">\d*</requirement>
     </route>
 
     <route id="admin_gedmo_category_update" pattern="/{id}/update">

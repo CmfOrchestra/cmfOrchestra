@@ -8,7 +8,7 @@
 }
 .myform fieldset{
 	margin: 0;
-	padding: 30px;
+	padding: 0px;
 	background: #f0f0f0;
 	border: 2px solid #d0d0d0;
 	-moz-border-radius: 10px;
@@ -21,18 +21,18 @@
 /* deb SBLA */
 .myform fieldset.no-accordion{
 	float:left;
-	width:42%;
+	width:46%;
 	margin-bottom:10px;
+	padding:2%;
 }
 .myform .accordion-form{
 	float:right;
 	margin-bottom:10px;
-	width:50%;
+	width:47%;
 }
 .myform fieldset.accordion{
 	height:16px;
-	width:90%;
-	padding:10px 30px;
+	padding:4%;
 	overflow:hidden;
 	margin-bottom:20px;
 }
@@ -52,6 +52,7 @@
 /* fin SBLA */
 .myform .clearfix label {
 	width: 320px;
+	clear: both;
 }
 .myform .clearfix > label {
 	display: block;

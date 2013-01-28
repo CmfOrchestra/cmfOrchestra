@@ -132,17 +132,16 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
       
        if($this->_container instanceof \Symfony\Component\DependencyInjection\ContainerInterface){
         if(isset($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) && in_array($this->_class->name, $GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) ){
-          // Gets all user roles.
-        if (true === $this->_container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
-              $user_roles	= $this->_container->get('bootstrap.Role.factory')->getAllUserRoles();          
-              foreach($user_roles as $key => $role){
-                $query->orWhere($query->expr()->like('a.heritage', $query->expr()->literal('%'.$role.'%')));
-              } 
-        }
-           
-
-
-
+	          // Gets all user roles.
+	        if (true === $this->_container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+	              $user_roles	= $this->_container->get('bootstrap.Role.factory')->getAllUserRoles();
+	              $orModule = $query->expr()->orx();
+	              foreach($user_roles as $key => $role){
+	                $orModule->add($query->expr()->like('a.heritage', $query->expr()->literal('%"'.$role.'"%')));
+	              } 
+	              $query->andWhere($orModule);
+	              //print_r($query->getQuery()->getSQL());exit;
+	        }
         }
       }
       
@@ -474,30 +473,30 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
     }
     
     /**
-     * Gets all categories of entity.
+     * Gets all field values of an entity.
      *
+     * @param	$field		value of the field table
      * @return array
      * @access public
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-03-15
      */
-    public function getArrayAllCategory()
+    public function getArrayAllByField($field)
     {
     	$query = $this->createQueryBuilder('a')
-    	->select('a.category')
+    	->select("a.{$field}")
     	->where('a.enabled = :enabled')
     	->setParameters(array(
     			'enabled'	=> 1,
     	));
-    	//return $query->getQuery()->setMaxResults(1)->getArrayResult();
     
     	$result = array();
     	$data	= $query->getQuery()->getArrayResult();
     	if ($data && is_array($data) && count($data)) {
     		foreach ($data as $row) {
-    			if(!empty($row['category']))
-    				$result[ $row['category'] ] = $row['category'];
+    			if(isset($row[$field]) && !empty($row[$field]))
+    				$result[ $row[$field] ] = $row[$field];
     		}
     	}
     	return $result;

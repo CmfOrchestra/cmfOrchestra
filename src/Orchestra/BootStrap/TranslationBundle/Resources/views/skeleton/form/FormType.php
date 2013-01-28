@@ -59,7 +59,7 @@ class {{ form_class }} extends AbstractType
 		
     public function buildForm(FormBuilder $builder, array $options)
     {
-    	//$choiceList = $this->_em->getRepository("bundle:entity")->getArrayAllCategory();
+    	//$choiceList = $this->_em->getRepository("bundle:entity")->getArrayAllByField('category');
     	//if(!isset($choiceList) || !count($choiceList))
     	//	$choiceList = array();
     	

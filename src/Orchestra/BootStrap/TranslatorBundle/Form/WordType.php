@@ -59,7 +59,7 @@ class WordType extends AbstractType
 		
     public function buildForm(FormBuilder $builder, array $options)
     {
-    	$choiceList = $this->_em->getRepository("BootStrapTranslatorBundle:Word")->getArrayAllCategory();
+    	$choiceList = $this->_em->getRepository("BootStrapTranslatorBundle:Word")->getArrayAllByField('category');
     	if(!isset($choiceList) || !count($choiceList))
     		$choiceList = array();
     	
