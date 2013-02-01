@@ -910,8 +910,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 // 								print_r(' - id : ' . $widget->getId());
 // 								print_r(' - plugin : ' . $widget->getPlugin());
 // 								print_r(' - action : ' . $widget->getAction());
-// 								print_r('<br />');
-								
+// 								print_r('<br />');								
 								
 								// we create the cache name of the widget
 								$Etag_widget	= 'widget:'.$widget->getId().':'.$lang_page;					
@@ -925,6 +924,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 										$Etag_transwidget	= 'transwidget:'.$translationWidget->getId().':'.$translang;
 										// we refresh the cache of the transwidget
 										$this->cacheRefreshByname($Etag_transwidget);
+										//print_r($Etag_transwidget);
 									}
 								}
 								
@@ -942,6 +942,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 											$Etag_snippet	= 'transwidget:'.$id_snippet.':'.$lang_page;
 											// we refresh the cache of the snippet
 											$this->cacheRefreshByname($Etag_snippet);
+											//print_r($Etag_snippet);
 										}
 									} catch (\Exception $e) {
 									}
@@ -978,6 +979,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 								
 											// we refresh the cache of the jqext
 											$this->cacheRefreshByname($Etag_jqext);
+											//print_r($Etag_jqext);
 										}
 									} catch (\Exception $e) {
 									}
@@ -1008,7 +1010,15 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 									
 									if(!is_null($new_widget) && ($new_widget instanceof Widget) )
 										$widget = $new_widget;
-								}													
+									
+								
+								}		
+
+// 								print_r($this->container->get('session')->getLocale());
+// 								print_r(' - id : ' . $widget->getId());
+// 								print_r(' - plugin : ' . $widget->getPlugin());
+// 								print_r(' - action : ' . $widget->getAction());
+// 								print_r('<br />');								
 								
 								// If the widget is a tree a "listener"
 								if( ($widget->getPlugin() == 'gedmo') && ($widget->getAction() == 'listener') )	{
@@ -1033,11 +1043,12 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 											// we create de Etag cache
 											$params 	= $this->container->get('pi_app_admin.string_manager')->json_encodeDecToUTF8($params);
 											$params		= $this->_Encode($params);
-											$controller	= str_replace(':', '#', $controller);
+											$controller		= str_replace(':', '#', $controller);
 											$Etag_listener	= $widget->getAction() . ":$controller:$lang_page:$params";
 											
 											// we refresh the cache of the listener
 											$this->cacheRefreshByname($Etag_listener);	
+											//print_r($Etag_listener);
 										}
 									} catch (\Exception $e) {
 									}						
@@ -1144,12 +1155,12 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 											// we create de Etag cache
 											$params 	= $this->container->get('pi_app_admin.string_manager')->json_encodeDecToUTF8($params);
 											$params		= $this->_Encode($params);
-											$entity		= $this->_Encode($entity, false);
-												
+											$entity		= stripslashes($this->_Encode($entity, false));
 											$Etag_tree	= $widget->getAction() . ":$entity~$method~$category:$lang_page:$params";
 											
 											// we refresh the cache of the tree
 											$this->cacheRefreshByname($Etag_tree);
+											//print_r($Etag_tree);
 										}
 									} catch (\Exception $e) {
 									}
@@ -1206,13 +1217,14 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 											// we sort an array by key in reverse order
 											$this->container->get('pi_app_admin.array_manager')->recursive_method($params, 'krsort');
 											// we create de Etag cache
-											$params 	= $this->container->get('pi_app_admin.string_manager')->json_encodeDecToUTF8($params);	
+											$params 	= $this->container->get('pi_app_admin.string_manager')->json_encodeDecToUTF8($params);
 											$params		= $this->_Encode($params);
-											$entity		= $this->_Encode($entity, false);
+											$entity		= stripslashes($this->_Encode($entity, false));
 											$Etag_slider = $widget->getAction() . ":$entity~$method~$category:$lang_page:$params";
 											
 											// we refresh the cache of the listener
 											$this->cacheRefreshByname($Etag_slider);	
+											//print_r($Etag_slider);
 										}
 									} catch (\Exception $e) {
 									}							
@@ -1220,19 +1232,19 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 								
 								// we refresh the cache of the widget
 								$this->cacheRefreshByname($Etag_widget);
+								//print_r('<br />');print_r('<br />');
 							}
 						}
 					}
 				}
 				// we refresh the cache
 				$this->cacheRefreshByname($name_page);
-				
 				//print_r('<br />');print_r('<br />');
 			}
 		}
 		//exit;
 	}
-	
+
 	/**
 	 * Refresh the cache of all elements of a page (TranslationPages, widgets, translationWidgets)
 	 *

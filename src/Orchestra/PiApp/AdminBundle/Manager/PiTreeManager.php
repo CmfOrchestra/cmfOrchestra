@@ -62,7 +62,7 @@ class PiTreeManager extends PiCoreManager implements PiTreeManagerBuilderInterfa
 			throw new \InvalidArgumentException("you have not configure correctly the attibute id");
 		
 		if(!is_array($params))
-			$params				= $this->paramsDecode($params);
+			$params		= $this->paramsDecode($params);
 		else
 			$this->recursive_map($params);
 		
@@ -108,14 +108,14 @@ class PiTreeManager extends PiCoreManager implements PiTreeManagerBuilderInterfa
 			
 		if(isset($params['enabledonly']) && ($params['enabledonly'] == "false")){
 			if(!empty($template))
-				$nodes 		= $em->getRepository($entity)->getAllTree($locale, $category, 'object', false, false, $node);
+				$nodes 		= $em->getRepository($entity)->setContainer($this->container)->getAllTree($locale, $category, 'object', false, false, $node);
 			else
-				$nodes 		= $em->getRepository($entity)->getAllTree($locale, $category, 'array', false, false, $node);
+				$nodes 		= $em->getRepository($entity)->setContainer($this->container)->getAllTree($locale, $category, 'array', false, false, $node);
 		}else{
 			if(!empty($template)){
-				$nodes 		= $em->getRepository($entity)->getAllTree($locale, $category, 'object', false, true, $node);
+				$nodes 		= $em->getRepository($entity)->setContainer($this->container)->getAllTree($locale, $category, 'object', false, true, $node);
 			}else
-				$nodes 		= $em->getRepository($entity)->getAllTree($locale, $category, 'array', false, true, $node);
+				$nodes 		= $em->getRepository($entity)->setContainer($this->container)->getAllTree($locale, $category, 'array', false, true, $node);
 		}		
 		
 		if(!empty($template)){
@@ -400,14 +400,14 @@ class PiTreeManager extends PiCoreManager implements PiTreeManagerBuilderInterfa
 		
 		if(isset($params['enabledonly']) && ($params['enabledonly'] == "false")){
 			if(!empty($category))
-				$nodes 		= $em->getRepository($entity)->getAllTree($locale, $category, 'array', false, false, $node);
+				$nodes 		= $em->getRepository($entity)->setContainer($this->container)->getAllTree($locale, $category, 'array', false, false, $node);
 			else
-				$nodes 		= $em->getRepository($entity)->getAllTree($locale, '', 'array', false, false, $node);
+				$nodes 		= $em->getRepository($entity)->setContainer($this->container)->getAllTree($locale, '', 'array', false, false, $node);
 		}else{
 			if(!empty($category))
-				$nodes 		= $em->getRepository($entity)->getAllTree($locale, $category, 'array', false, true, $node);
+				$nodes 		= $em->getRepository($entity)->setContainer($this->container)->getAllTree($locale, $category, 'array', false, true, $node);
 			else
-				$nodes 		= $em->getRepository($entity)->getAllTree($locale, '', 'array', false, true, $node);
+				$nodes 		= $em->getRepository($entity)->setContainer($this->container)->getAllTree($locale, '', 'array', false, true, $node);
 		}
 		$tree		= $em->getRepository($entity)->buildTree($nodes, $options);
 		

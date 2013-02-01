@@ -139,6 +139,13 @@ class Tag extends AbstractTranslation
     protected $enabled;    
     
     /**
+     * @var boolean $archived
+     *
+     * @ORM\Column(name="archived", type="boolean", nullable=false)
+     */
+    protected $archived = false;
+    
+    /**
      * Constructor
      */    
     public function __construct()
@@ -384,5 +391,26 @@ class Tag extends AbstractTranslation
     public function getEnabled()
     {
     	return $this->enabled;
+    }   
+
+    /**
+     * Set archived
+     *
+     * @param boolean $enabled
+     */
+    public function setArchived($archived)
+    {
+    	$this->archived = $archived;
+    	return $this;
+    }
+    
+    /**
+     * Get archived
+     *
+     * @return boolean
+     */
+    public function getArchived()
+    {
+    	return $this->archived;
     }    
 }

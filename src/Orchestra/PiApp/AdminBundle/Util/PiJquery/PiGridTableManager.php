@@ -194,6 +194,7 @@ class PiGridTableManager extends PiJqueryExtension
 				var enabled;
 				var disablerow;
 				var deleterow;
+				var archiverow;
 				$(document).ready(function() {
 
 					$("td.enabled").each(function(index) {
@@ -217,8 +218,6 @@ class PiGridTableManager extends PiJqueryExtension
 
 					<?php if(isset($options['grid-actions']) && !empty($options['grid-actions']) && is_array($options['grid-actions'])): ?>
 						<?php foreach($options['grid-actions'] as $actionName => $params): ?>
-						
-
 							<?php if( ($actionName == "rows_enabled") && isset($params['route']) && !empty($params['route']) ) : ?>
 							// Set up enabled row
 						    enabled = new $.fn.dataTable.Editor( {
@@ -226,9 +225,7 @@ class PiGridTableManager extends PiJqueryExtension
 						        "display": "envelope",
 						        "ajaxUrl": "<?php echo $this->container->get('router')->generate($params['route']) ?>"			        
 						    } );
-
 						    <?php endif; ?>		
-
 						    <?php if( ($actionName == "rows_disable") && isset($params['route']) && !empty($params['route']) ): ?>
 							// Set up disable row
 						    disablerow = new $.fn.dataTable.Editor( {
@@ -236,9 +233,7 @@ class PiGridTableManager extends PiJqueryExtension
 						        "display": "envelope",
 						        "ajaxUrl": "<?php echo $this->container->get('router')->generate($params['route']) ?>"
 						    } );
-
 						    <?php endif; ?>	
-
 						    <?php if( ($actionName == "rows_delete") && isset($params['route']) && !empty($params['route']) ): ?>
 							// Set up delete row
 						    deleterow = new $.fn.dataTable.Editor( {
@@ -246,9 +241,15 @@ class PiGridTableManager extends PiJqueryExtension
 						        "display": "envelope",
 						        "ajaxUrl": "<?php echo $this->container->get('router')->generate($params['route']) ?>"
 						    } );
-
+						    <?php endif; ?>	
+						    <?php if( ($actionName == "rows_archive") && isset($params['route']) && !empty($params['route']) ): ?>
+							// Set up archive row
+						    archiverow = new $.fn.dataTable.Editor( {
+						        "domTable": "#<?php echo $options['grid-name']; ?>",
+						        "display": "envelope",
+						        "ajaxUrl": "<?php echo $this->container->get('router')->generate($params['route']) ?>"
+						    } );						    
 						    <?php endif; ?>		
-
 						<?php endforeach; ?>
 					<?php endif; ?>	
 									    
@@ -310,12 +311,8 @@ class PiGridTableManager extends PiJqueryExtension
 
 						<?php if(isset($options['grid-actions']) && !empty($options['grid-actions']) && is_array($options['grid-actions'])): ?>
 							<?php foreach($options['grid-actions'] as $actionName => $params): ?>
-										
-
 									<?php if($actionName == "rows_enabled"): ?>
-
 											<?php if(!isset($params['grid-sButtonText']) || empty($params['sButtonText']) ) $params['sButtonText'] = 'pi.grid.action.row_enabled'; ?>
-									
 											{
 												"sExtends": "editor_remove",
 												"sButtonText": "<?php echo $this->translator->trans($params['sButtonText']); ?>",
@@ -343,13 +340,9 @@ class PiGridTableManager extends PiJqueryExtension
 											      return "Voulez-vous activer " + b.length + " ligne" + (b.length === 1 ? " ?" : "s ?")
 											    }
 											},
-											
 									<?php endif; ?>	
-				
 									<?php if($actionName == "rows_disable"): ?>
-
 											<?php if(!isset($params['grid-sButtonText']) || empty($params['sButtonText']) ) $params['sButtonText'] = 'pi.grid.action.row_disable'; ?>
-									
 											{
 												"sExtends": "editor_remove",
 												"sButtonText": "<?php echo $this->translator->trans($params['sButtonText']); ?>",
@@ -371,13 +364,9 @@ class PiGridTableManager extends PiJqueryExtension
 											      return "Voulez-vous désactiver " + b.length + " ligne" + (b.length === 1 ? " ?" : "s ?")
 											    }
 											},
-											
 									<?php endif; ?>	
-				
 									<?php if($actionName == "rows_delete"): ?>
-
 											<?php if(!isset($params['grid-sButtonText']) || empty($params['sButtonText']) ) $params['sButtonText'] = 'pi.grid.action.row_delete'; ?>
-									
 											{
 												"sExtends": "editor_remove",
 												"sButtonText": "<?php echo $this->translator->trans($params['sButtonText']); ?>",
@@ -398,48 +387,61 @@ class PiGridTableManager extends PiJqueryExtension
 											      return "Voulez-vous supprimer " + b.length + " ligne" + (b.length === 1 ? " ?" : "s ?")
 											    }
 											},
-											
 									<?php endif; ?>	
-				
+									<?php if($actionName == "rows_archive"): ?>
+											<?php if(!isset($params['grid-sButtonText']) || empty($params['sButtonText']) ) $params['sButtonText'] = 'pi.grid.action.row_archive'; ?>
+											{
+												"sExtends": "editor_remove",
+												"sButtonText": "<?php echo $this->translator->trans($params['sButtonText']); ?>",
+												"editor": archiverow,
+												"formButtons": [
+				        							{
+				        								"label": "Valider",
+							                            "className": "save",
+							                            "fn": function (e) {
+							                            	this.submit(function(){
+							                                	window.location.reload();
+							                                });
+							                            }
+							                        }
+							                    ],
+							                    "formTitle": "Désactiver donnée",
+							                    "question": function(b) {
+											      return "Voulez-vous désactiver " + b.length + " ligne" + (b.length === 1 ? " ?" : "s ?")
+											    }
+											},
+									<?php endif; ?>	
 									<?php if($actionName == "select_all"): ?>		
-
 											<?php if(!isset($params['grid-sButtonText']) || empty($params['sButtonText']) ) $params['sButtonText'] = 'pi.grid.action.select_all'; ?>										
-											
 											{
 												"sExtends": "select_all",
 												"sButtonText": "<?php echo $this->translator->trans($params['sButtonText']); ?>"
 											},
-											
 									<?php endif; ?>	
-											
 									<?php if($actionName == "select_none"): ?>
-
 											<?php if(!isset($params['grid-sButtonText']) || empty($params['sButtonText']) ) $params['sButtonText'] = 'pi.grid.action.select_none'; ?>	
-									
 											{
 												"sExtends": "select_none",
 												"sButtonText": "<?php echo $this->translator->trans($params['sButtonText']); ?>"
 											},	
 
-									<?php endif; ?>	
-											
-								
-							<?php endforeach; ?>
-						<?php endif; ?>	
-						<?php if(isset($options['grid-copy'])): ?>						
-											
+									<?php endif; ?>
+									<?php if($actionName == "copy"): ?>
+											<?php if(!isset($params['grid-sButtonText']) || empty($params['sButtonText']) ) $params['sButtonText'] = 'pi.grid.action.copy'; ?>						
 											{
 												"sExtends": "copy",
 												"sButtonText": "<?php echo $this->translator->trans('pi.grid.action.copy'); ?>"
 											},
-						<?php endif; ?>
-						<?php if(isset($options['grid-print'])): ?>											
+									<?php endif; ?>
+									<?php if($actionName == "print"): ?>
+											<?php if(!isset($params['grid-sButtonText']) || empty($params['sButtonText']) ) $params['sButtonText'] = 'pi.grid.action.print'; ?>											
 											{
 												"sExtends": "print",
 												"sButtonText": "<?php echo $this->translator->trans('pi.grid.action.print'); ?>"
 											},
-						<?php endif; ?>											
-						<?php if(isset($options['grid-export'])): ?>												
+									<?php endif; ?>
+									<?php if($actionName == "export"): ?>
+											<?php if(!isset($params['grid-sButtonText']) || empty($params['sButtonText']) ) $params['sButtonText'] = 'pi.grid.action.export'; ?>
 											{
 												"sExtends":    "collection",
 												"sButtonText": "<?php echo $this->translator->trans('pi.grid.action.export'); ?>",
@@ -451,7 +453,9 @@ class PiGridTableManager extends PiJqueryExtension
 													}
 												 ]
 											}
-						<?php endif; ?>
+									<?php endif; ?>										
+							<?php endforeach; ?>
+						<?php endif; ?>	
 										]							
 						},
 

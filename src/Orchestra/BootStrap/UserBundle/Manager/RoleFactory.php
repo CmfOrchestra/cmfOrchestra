@@ -80,7 +80,6 @@ class RoleFactory extends AbstractFactory implements RoleFactoryInterface
 			 
 			// we get the map of all roles.
 			$roleMap = $this->buildRoleMap();
-		
 			foreach($roleMap as $role => $heritage){
 				if(in_array($role, $ROLES)){
 					$intersect	= array_intersect($heritage, $ROLES);
@@ -142,10 +141,13 @@ class RoleFactory extends AbstractFactory implements RoleFactoryInterface
 				if (!isset($hierarchy[$role])) {
 					continue;
 				}
-	
-				$visited[] = $role;
-				$map[$main] = array_unique(array_merge($map[$main], $hierarchy[$role]));
+
+				$visited[] 		 = $role;
+				$map[$main] 	 = array_unique(array_merge($map[$main], $hierarchy[$role]));
 				$additionalRoles = array_merge($additionalRoles, array_diff($hierarchy[$role], $visited));
+			}
+			if(($key = array_search($main, $map[$main])) !== false) {
+				unset($map[$main][$key]);
 			}
 		}
 		return $map;

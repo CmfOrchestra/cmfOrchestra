@@ -188,6 +188,62 @@ abstract class abstractController extends Controller
     	}else
     		throw ControllerException::callAjaxOnlySupported('deleteajax');
     }    
+    
+    /**
+     * Archive entities.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access  public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function archiveajaxAction()
+    {
+    	$request = $this->container->get('request');
+    	$em		 = $this->getDoctrine()->getEntityManager();
+    	 
+    	if($request->isXmlHttpRequest()){
+    		$data		= $request->get('data', null);
+    		$new_data	= null;
+    
+    		foreach ($data as $key => $value) {
+    			$values 	= explode('_', $value);
+    			$id	    	= $values[2];
+    			$position	= $values[0];
+    
+    			$new_data[$key] = array('position'=>$position, 'id'=>$id);
+    			$new_pos[$key]  = $position;
+    		}
+    		array_multisort($new_pos, SORT_ASC, $new_data);
+    
+    		foreach ($new_data as $key => $value) {
+    			$entity = $em->getRepository($this->_entityName)->find($value['id']);
+    			$entity->setArchived(true);
+    			$entity->setEnabled(false);
+    			 
+    			if(method_exists($entity, 'setPosition'))
+    				$entity->setPosition(null);
+    			    			
+    			$em->persist($entity);
+    			$em->flush();
+    		}
+    		$em->clear();
+    
+    		// we disable all flash message
+    		$this->container->get('session')->setFlashes(array());
+    
+    		$tab= array();
+    		$tab['id'] = '-1';
+    		$tab['error'] = '';
+    		$tab['fieldErrors'] = '';
+    		$tab['data'] = '';
+    		 
+    		$response = new Response(json_encode($tab));
+    		$response->headers->set('Content-Type', 'application/json');
+    		return $response;
+    	}else
+    		throw ControllerException::callAjaxOnlySupported('disableajax');
+    }    
 
 	/**
      * Change the posistion of a entity .
@@ -306,15 +362,8 @@ abstract class abstractController extends Controller
      */
     protected function authenticateUser(\BootStrap\UserBundle\Entity\User $user)
     {
-        try {
-            $this->container->get('fos_user.user_checker')->checkPostAuth($user);
-        } catch (AccountStatusException $e) {
-            // Don't authenticate locked, disabled or expired users
-            return;
-        }
-
         $providerKey = $this->container->getParameter('fos_user.firewall_name');
-        $token = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
+        $token 		 = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
 
         $this->container->get('security.context')->setToken($token);
     }    

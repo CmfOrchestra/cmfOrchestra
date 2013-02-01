@@ -106,6 +106,13 @@ class Block
     protected $enabled;
     
     /**
+     * @var boolean $archived
+     *
+     * @ORM\Column(name="archived", type="boolean", nullable=false)
+     */
+    protected $archived = false;
+    
+    /**
      * @var integer $position
      *
      * @ORM\Column(name="position", type="integer", nullable=true)
@@ -360,8 +367,7 @@ class Block
     public function getArchiveAt()
     {
     	return $this->archive_at;
-    }
-    
+    }    
     
     /**
      * Set enabled
@@ -381,6 +387,27 @@ class Block
     public function getEnabled()
     {
     	return $this->enabled;
+    }   
+
+    /**
+     * Set archived
+     *
+     * @param boolean $enabled
+     */
+    public function setArchived($archived)
+    {
+    	$this->archived = $archived;
+    	return $this;
+    }
+    
+    /**
+     * Get archived
+     *
+     * @return boolean
+     */
+    public function getArchived()
+    {
+    	return $this->archived;
     }    
     
 }

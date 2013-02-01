@@ -167,10 +167,10 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 			$params		= $this->paramsEncode($params);
 			$id			= $this->_Encode($id, false);
 			$this->setEtag("$tag:$id:$lang:$params");
-			
-			//print_r($this->Etag);
 		}else
 			$this->setEtag("$tag:$id:$lang");
+		
+		//print_r($this->Etag);
 		
 		// we return the render (cache or not)
 		return $this->render($lang);
@@ -184,18 +184,27 @@ abstract class PiCoreManager implements PiCoreManagerBuilderInterface
 
 	protected function _Encode($string, $complet = true){
 		$string = str_replace('\\\\', '\\', $string);
-		if($complet)
+		if($complet){
 			$string = str_replace('\\', "@@", $string);
+			$string = str_replace('@@@@@@@@', "@@", $string);
+			$string = str_replace('@@@@', "@@", $string);
+		}
 		return str_replace(':', '#', $string);
 	}
 		
 	protected function paramsDecode($params){
-		$params	= $this->_Decode($params);	
+		$params	= $this->_Decode($params);
+		$params = str_replace('\\', '\\\\', $params);
 		$params = json_decode($params, true);
 		
-		if(is_array($params))
+		if(is_array($params)){
 			$this->container->get('pi_app_admin.array_manager')->recursive_method($params, 'krsort');
 		
+			$name_key = array_map(function($key, $value) {
+				return str_replace('\\\\', '\\', $value);
+			}, array_keys($params),array_values($params));		
+			$params = array_combine(array_keys($params), $name_key);	
+		}
 		return $params;
 	}
 	

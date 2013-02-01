@@ -37,7 +37,7 @@ class UserRepository extends TranslationRepository
 	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-03-15
 	 */
-	public function getAllAdherents($category = '', $MaxResults = null, $ORDER_PublishDate = '', $ORDER_Position = '', $enabled = true)
+	public function getAllByParams($category = '', $MaxResults = null, $ORDER_PublishDate = '', $ORDER_Position = '', $enabled = true, $is_home_page = true)
 	{
 		$em = $this->createQueryBuilder('a')
 			->select('a')
@@ -45,9 +45,14 @@ class UserRepository extends TranslationRepository
 			->leftJoin('a.corporation', 'c');
 	
 		$em
-			->andWhere('a.enabled = 1')
-			->andWhere('i.highlighted = 1')
-			->orWhere('c.highlighted = 1');
+			->andWhere('a.enabled = 1');
+		
+		if($is_home_page){
+			$orModule = $em->expr()->orx();
+			$orModule->add($em->expr()->eq('i.highlighted', 1));
+			$orModule->add($em->expr()->eq('c.highlighted', 1));
+			$em->andWhere($orModule);
+		}
 
 		if(!empty($ORDER_PublishDate) && !empty($ORDER_Position)){
 			$em

@@ -98,14 +98,21 @@ class Comment
      *
      * @ORM\Column(name="archive_at", type="datetime", nullable=true)
      */
-    protected $archive_at;  
-
+    protected $archive_at;    
+    
     /**
      * @var boolean $enabled
      *
      * @ORM\Column(name="enabled", type="boolean", nullable=true)
      */
     protected $enabled;
+    
+    /**
+     * @var boolean $archived
+     *
+     * @ORM\Column(name="archived", type="boolean", nullable=false)
+     */
+    protected $archived = false;
 
     /**
      * @var integer $position
@@ -335,6 +342,27 @@ class Comment
     {
     	return $this->enabled;
     } 
+    
+    /**
+     * Set archived
+     *
+     * @param boolean $enabled
+     */
+    public function setArchived($archived)
+    {
+    	$this->archived = $archived;
+    	return $this;
+    }
+    
+    /**
+     * Get archived
+     *
+     * @return boolean
+     */
+    public function getArchived()
+    {
+    	return $this->archived;
+    }    
 
     /**
      * Set position

@@ -310,6 +310,9 @@ class {{ form_class }} extends AbstractType
  			{%- elseif field in ['heritage'] %}
  			
  				 			
+ 			{%- elseif field in ['archived'] %}
+ 			
+ 			
  			{%- else %}
  			
  			->add('{{ field }}')

@@ -126,26 +126,34 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @return \Doctrine\ORM\QueryBuilder
      * @access	public
      *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @author Riad Hellal <r.hellal@novediagroup.com>
      */    
-    public function checkRoles(\Doctrine\ORM\QueryBuilder $query){
-      
-       if($this->_container instanceof \Symfony\Component\DependencyInjection\ContainerInterface){
-        if(isset($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) && in_array($this->_class->name, $GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) ){
-	          // Gets all user roles.
-	        if (true === $this->_container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
-	              $user_roles	= $this->_container->get('bootstrap.Role.factory')->getAllUserRoles();
-	              $orModule = $query->expr()->orx();
-	              foreach($user_roles as $key => $role){
-	                $orModule->add($query->expr()->like('a.heritage', $query->expr()->literal('%"'.$role.'"%')));
-	              } 
-	              $query->andWhere($orModule);
-	              //print_r($query->getQuery()->getSQL());exit;
-	        }
-        }
-      }
-      
-      return $query;
+    public function checkRoles(\Doctrine\ORM\QueryBuilder $query)
+    {
+    	if( ($this->_container instanceof \Symfony\Component\DependencyInjection\ContainerInterface)
+    		&& (true === $this->_container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY'))
+    		&& !($this->_container->get('security.context')->isGranted('ROLE_ADMIN'))	
+    	){
+    		$entity_name = $this->_entityName;
+    		if(isset($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) && isset($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES'][$entity_name]) ){
+    			if(is_array($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES'][$entity_name])){
+    				$route = $this->_container->get('request')->get('_route');
+    				if($this->_container->get('session')->has('route') && (empty($route) || ($route == "_internal")))
+    					$route = $this->_container->get('session')->get('route');
+    				if(!in_array($route, $GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES'][$entity_name])){
+						return $query;
+    				}
+    			}
+    			$user_roles	= $this->_container->get('bootstrap.Role.factory')->getAllUserRoles();
+    			$orModule = $query->expr()->orx();
+    			foreach($user_roles as $key => $role){
+    				$orModule->add($query->expr()->like('a.heritage', $query->expr()->literal('%"'.$role.'"%')));
+    			}
+    			$query->andWhere($orModule);    			    		
+    		}
+    	}    
+    	return $query;
     }
     
     /**
@@ -228,7 +236,8 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
     {
     	$qb = $this->_em->createQueryBuilder()
     	->select('a')
-    	->from($this->_entityName, 'a');
+    	->from($this->_entityName, 'a')
+    	->where('a.archived = 0');
       
       	$query = $this->checkRoles($qb)->getQuery();
       
@@ -251,8 +260,6 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      */    
     public function findOneByEntity($locale, $id, $result = "array", $INNER_JOIN = false)
     {
-        //$query	= $this->_em->createQuery("SELECT p FROM {$this->_entityName} p  WHERE p.id = :id");
-        
     	$qb = $this->_em->createQueryBuilder()
     	->select('a')
     	->from($this->_entityName, 'a')
@@ -286,7 +293,6 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
    		->setParameters(array(
     			'ID'	=> $id,
     	));
-    	//return $query->getQuery()->setMaxResults(1)->getArrayResult();
     	
     	return $query;
     }    
@@ -487,8 +493,10 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
     	$query = $this->createQueryBuilder('a')
     	->select("a.{$field}")
     	->where('a.enabled = :enabled')
+    	->andWhere('a.archived = :archived')
     	->setParameters(array(
     			'enabled'	=> 1,
+    			'archived'	=> 0,
     	));
     
     	$result = array();
@@ -511,7 +519,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-03-15
      */
-    public function getAllByCategory($category = '', $MaxResults = null, $ORDER_PublishDate = '', $ORDER_Position = '', $enabled = true)
+    public function getAllByCategory($category = '', $MaxResults = null, $ORDER_PublishDate = '', $ORDER_Position = '', $enabled = true, $is_checkRoles = true)
     {
     	$query = $this->createQueryBuilder('a')->select('a');    	
     	
@@ -525,25 +533,26 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
     	}elseif(empty($ORDER_PublishDate) && !empty($ORDER_Position)){
     		$query
     			->orderBy('a.position', $ORDER_Position);
-    	}    	
+    	}   
+    	$query->where('a.archived = 0'); 	
     
     	if($enabled && !empty($category)){
     		$query
-    		->where('a.enabled = :enabled')
-    		->Andwhere('a.category = :cat')
+    		->andWhere('a.enabled = :enabled')
+    		->andWhere('a.category = :cat')
     		->setParameters(array(
     				'cat'		=> $category,
     				'enabled'	=> 1,
     		));
     	}elseif($enabled && empty($category)){
     		$query
-    		->where('a.enabled = :enabled')
+    		->andWhere('a.enabled = :enabled')
     		->setParameters(array(
     				'enabled'	=> 1,
     		));
     	}elseif(!$enabled && !empty($category)){
 	    	$query
-	    	->where('a.category = :cat')
+	    	->andWhere('a.category = :cat')
 	    	->setParameters(array(
 	    			'cat'		=> $category,
 	    	));   	
@@ -551,8 +560,9 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
     
     	if(!is_null($MaxResults))
     		$query->setMaxResults($MaxResults);
-    
-    	$query = $this->checkRoles($query);    	
+    	if($is_checkRoles)
+    		$query = $this->checkRoles($query);
+    	    	
     	return $query;
     }
     
@@ -566,21 +576,24 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-10-05
      */
-    public function getAllOrderByField($field = 'createat', $ORDER = "DESC", $enabled = null)
+    public function getAllOrderByField($field = 'createat', $ORDER = "DESC", $enabled = null, $is_checkRoles = true)
     {
     	$query = $this->createQueryBuilder('a')
-    	->select("a");
+    	->select("a")
+    	->where('a.archived = 0');
     	
     	if( !is_null($enabled) ) {
     		$query
-    		->where('a.enabled = :enabled')
+    		->andWhere('a.enabled = :enabled')
     		->setParameters(array(
     				'enabled'	=> $enabled,
     		));
    		}
     	$query->orderBy("a.{$field}", $ORDER);
     	
-    	$query = $this->checkRoles($query);    	
+    	if($is_checkRoles)
+    		$query = $this->checkRoles($query);
+    	    	
     	return $query;
     }
         
@@ -593,24 +606,25 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-10-04
      */
-    public function getAllBetweenPosition($FirstPosition = null, $LastPosition = null, $enabled = null)
+    public function getAllBetweenPosition($FirstPosition = null, $LastPosition = null, $enabled = null, $is_checkRoles = true)
     {
     	$query = $this->createQueryBuilder('a')
-    	->select("a");    	
+    	->select("a")
+    	->where('a.archived = 0');
     	
     	if(!is_null($FirstPosition) && !is_null($LastPosition))
     		$query
-    		->where("a.position BETWEEN '{$FirstPosition}' AND '{$LastPosition}'");
+    		->andWhere("a.position BETWEEN '{$FirstPosition}' AND '{$LastPosition}'");
     	elseif(!is_null($FirstPosition) && is_null($LastPosition))
     		$query
-    		->where("a.position >= {$FirstPosition} ");
+    		->andWhere("a.position >= {$FirstPosition} ");
     	elseif(is_null($FirstPosition) && !is_null($LastPosition))
     		$query
-    		->where("a.position <= {$LastPosition} ");
+    		->andWhere("a.position <= {$LastPosition} ");
     	
     	if( !is_null($enabled) ) {
     		$query
-    		->Andwhere('a.enabled = :enabled')
+    		->andWhere('a.enabled = :enabled')
     		->setParameters(array(
     				'enabled'	=> $enabled,
     		));
@@ -618,7 +632,9 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
 
     	$query->orderBy("a.position", 'ASC');
     	
-    	$query = $this->checkRoles($query);    
+    	if($is_checkRoles)
+    		$query = $this->checkRoles($query);
+    	    
     	return $query;
     }
     
@@ -631,9 +647,9 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-10-04
      */
-    public function getMaxOrMinValueOfColumn($field, $type = 'MAX', $enabled = null)
+    public function getMaxOrMinValueOfColumn($field, $type = 'MAX', $enabled = null, $is_checkRoles = true)
     {
-    	$query = $this->createQueryBuilder('a')->select("a.{$field}");
+    	$query = $this->createQueryBuilder('a')->select("a.{$field}")->where('a.archived = 0');
     
     	if($type == "MAX")
     		$query->orderBy("a.{$field}", 'DESC');
@@ -642,7 +658,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
     
     	if( !is_null($enabled) ) {
     		$query
-    		->where('a.enabled = :enabled')
+    		->andWhere('a.enabled = :enabled')
     		->setParameters(array(
     				'enabled'	=> $enabled,
     		));
@@ -650,7 +666,9 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
     
     	$query->setMaxResults(1);
     	
-    	$query = $this->checkRoles($query);    
+    	if($is_checkRoles)
+    		$query = $this->checkRoles($query);
+    	    
     	return $query;
     }  
 
@@ -666,18 +684,19 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    public function getAllEnabled($locale, $result = "object", $INNER_JOIN = false, $MaxResults = null)
+    public function getAllEnabled($locale, $result = "object", $INNER_JOIN = false, $MaxResults = null, $is_checkRoles = true)
     {
     	$query = $this->_em->createQueryBuilder()
     	->select('a')
     	->from($this->_entityName, 'a')
-    	->where('a.enabled = :enabled')
-    	->setParameter('enabled', 1)
+    	->where('a.archived = 0')
+    	->andWhere('a.enabled = 1')
         ->setMaxResults($MaxResults);
     
-    	$query = $this->checkRoles($query)->getQuery();
+    	if($is_checkRoles)
+    		$query = $this->checkRoles($query);
     	
-    	return $this->findTranslationsByQuery($locale, $query, $result, $INNER_JOIN);
+    	return $this->findTranslationsByQuery($locale, $query->getQuery(), $result, $INNER_JOIN);
     }    
 
     /**
@@ -692,24 +711,26 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    public function getAllEnableByCat($locale, $category, $result = "object", $INNER_JOIN = false)
+    public function getAllEnableByCat($locale, $category, $result = "object", $INNER_JOIN = false, $is_checkRoles = true)
     {
     	$query = $this->_em->createQueryBuilder()
     	->select('a')
     	->from($this->_entityName, 'a')
-    	->where("a.enabled = 1");
+    	->where('a.archived = 0')
+    	->andWhere("a.enabled = 1");
     	
     	if(!empty($category)){
     		$query
-    		->Andwhere('a.category = :cat')
+    		->andWhere('a.category = :cat')
     		->setParameters(array(
     				'cat' => $category,
     		));
     	}
     
-    	$query = $this->checkRoles($query)->getQuery();
+    	if($is_checkRoles)
+    		$query = $this->checkRoles($query);
     	
-    	return $this->findTranslationsByQuery($locale, $query, $result, $INNER_JOIN);
+    	return $this->findTranslationsByQuery($locale, $query->getQuery(), $result, $INNER_JOIN);
     }    
 
     /**
@@ -724,25 +745,27 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    public function getAllEnableByCatAndByPosition($locale, $category, $result = "object", $INNER_JOIN = false)
+    public function getAllEnableByCatAndByPosition($locale, $category, $result = "object", $INNER_JOIN = false, $is_checkRoles = true)
     {
     	$query = $this->_em->createQueryBuilder()
     	->select('a')
     	->from($this->_entityName, 'a')
     	->orderBy('a.position', 'ASC')
-    	->where("a.enabled = 1");
+    	->where('a.archived = 0')
+    	->andWhere("a.enabled = 1");
     	
     	if(!empty($category)){
     		$query
-    		->Andwhere('a.category = :cat')
+    		->andWhere('a.category = :cat')
     		->setParameters(array(
     				'cat' => $category,
     		));
     	}
     	
-    	$query = $this->checkRoles($query)->getQuery();
+    	if($is_checkRoles)
+    		$query = $this->checkRoles($query);
     
-    	return $this->findTranslationsByQuery($locale, $query, $result, $INNER_JOIN);
+    	return $this->findTranslationsByQuery($locale, $query->getQuery(), $result, $INNER_JOIN);
     } 
 
     /**

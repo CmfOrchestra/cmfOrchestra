@@ -642,7 +642,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	}	
 	
 	/**
-	 * This function transforms an array into json encoding with utf8.
+	 * This function encoding json with utf8.
 	 *
 	 * @param array $array
 	 * @access public
@@ -660,11 +660,9 @@ class PiStringManager implements PiStringManagerBuilderInterface
 			    }
 			    , json_encode($array));
     	
-    	//$json 	= str_replace("&ndash;", "ndash;", $json);
     	$json 	= str_replace("&", "$$$", $json);
     	$json 	= str_replace('\\', "@@", $json);
 		$json	= mb_convert_encoding($json, "UTF-8", "HTML-ENTITIES");
-		//$json 	= str_replace("ndash;", "-", $json);
 		
 		return $json;
 	}

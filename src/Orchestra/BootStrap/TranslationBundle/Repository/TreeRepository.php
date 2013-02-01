@@ -103,25 +103,33 @@ class TreeRepository extends NestedTreeRepository
      * @return \Doctrine\ORM\QueryBuilder
      * @access	public
      *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @author Riad Hellal <r.hellal@novediagroup.com>
      */
-    public function checkRoles(\Doctrine\ORM\QueryBuilder $query){
-    
-    	if($this->_container instanceof \Symfony\Component\DependencyInjection\ContainerInterface){
-    		if(isset($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) && in_array($this->_class->name, $GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) ){
-    			// Gets all user roles.
-    			if (true === $this->_container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
-    				$user_roles	= $this->_container->get('bootstrap.Role.factory')->getAllUserRoles();
-    				$orModule = $query->expr()->orx();
-    				foreach($user_roles as $key => $role){
-    					$orModule->add($query->expr()->like('a.heritage', $query->expr()->literal('%"'.$role.'"%')));
+    public function checkRoles(\Doctrine\ORM\QueryBuilder $query)
+    {
+    	if( ($this->_container instanceof \Symfony\Component\DependencyInjection\ContainerInterface)
+    		&& (true === $this->_container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY'))
+    		&& !($this->_container->get('security.context')->isGranted('ROLE_ADMIN'))	
+    	){
+    		$entity_name = $this->_entityName;
+    		if(isset($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) && isset($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES'][$entity_name]) ){
+    			if(is_array($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES'][$entity_name])){
+    				$route = $this->_container->get('request')->get('_route');
+    				if($this->_container->get('session')->has('route') && (empty($route) || ($route == "_internal")))
+    					$route = $this->_container->get('session')->get('route');
+    				if(!in_array($route, $GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES'][$entity_name])){
+						return $query;
     				}
-    				$query->andWhere($orModule);
-    				//print_r($query->getQuery()->getSQL());exit;
     			}
+    			$user_roles	= $this->_container->get('bootstrap.Role.factory')->getAllUserRoles();
+    			$orModule = $query->expr()->orx();
+    			foreach($user_roles as $key => $role){
+    				$orModule->add($query->expr()->like('node.heritage', $query->expr()->literal('%"'.$role.'"%')));
+    			}
+    			$query->andWhere($orModule);    			    		
     		}
-    	}
-    
+    	}    
     	return $query;
     }    
     
@@ -201,7 +209,7 @@ class TreeRepository extends NestedTreeRepository
      */  
     public function findNodeOr404($id, $locale, $result = "object", $INNER_JOIN = false)
     {
-    	$query = $this->_em->createQuery("SELECT c FROM {$this->_entityName} c WHERE c.id = :id");
+    	$query = $this->_em->createQuery("SELECT node FROM {$this->_entityName} node WHERE node.id = :id");
     	$query->setParameter('id', $id);
     	$query->setMaxResults(1);
     
@@ -220,19 +228,19 @@ class TreeRepository extends NestedTreeRepository
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    public function getAllTree($locale, $category = '', $result = "object", $INNER_JOIN = false, $enable = true, $node = null)
+    public function getAllTree($locale, $category = '', $result = "object", $INNER_JOIN = false, $enable = true, $node = null, $is_checkRoles = true)
     {
     	if(!is_null($node)){
     		$query  = $this->childrenQueryBuilder($node);
     		if(!empty($category)){
     			$query
-    			->Andwhere('node.category = :category')
+    			->andWhere('node.category = :category')
     			->setParameter('category', $category);
     		}
     		
     		if($enable){
     			$query
-    			->Andwhere('node.enabled = :enabled')
+    			->andWhere('node.enabled = :enabled')
     			->setParameter('enabled', 1);
     		}    		
     	}else{
@@ -251,7 +259,7 @@ class TreeRepository extends NestedTreeRepository
 	    		
 		    	if($enable){
 	    			$query
-	    			->Andwhere('node.enabled = :enabled')
+	    			->andWhere('node.enabled = :enabled')
 	    			->setParameter('enabled', 1);
 	    		}  
     		}elseif(empty($category) && $enable){
@@ -261,6 +269,10 @@ class TreeRepository extends NestedTreeRepository
 	    	}
 	    	  	
     	}
+    	
+    	if($is_checkRoles)
+    		$query = $this->checkRoles($query);
+    	
     	return $this->findTranslationsByQuery($locale, $query->getQuery(), $result, $INNER_JOIN);
     }   
     
@@ -300,11 +312,13 @@ class TreeRepository extends NestedTreeRepository
      */
     public function getArrayAllByField($field)
     {
-    	$query = $this->createQueryBuilder('a')
-    	->select("a.{$field}")
-    	->where('a.enabled = :enabled')
+    	$query = $this->createQueryBuilder('node')
+    	->select("node.{$field}")
+    	->where('node.enabled = :enabled')
+    	->andWhere('node.archived = :archived')
     	->setParameters(array(
     			'enabled'	=> 1,
+    			'archived'	=> 0,
     	));
     
     	$result = array();
@@ -331,28 +345,30 @@ class TreeRepository extends NestedTreeRepository
     {
     	$query = $this->createQueryBuilder('node')
     	->select('node')
-    	->where('node.enabled = :enabled');
+    	->where('node.enabled = :enabled')
+    	->andWhere('a.archived = :archived');
     	
     	if($rootOnly && in_array($rootOnly, array('ASC', 'DESC'))){
     		$config = $this->getConfiguration();
-    		$query->Andwhere('node.' . $config['parent'] . " IS NULL")
+    		$query->andWhere('node.' . $config['parent'] . " IS NULL")
             ->orderBy('node.' . $config['root'], $rootOnly);
     	}
     	
     	if(!empty($category))
-    		$query->Andwhere('node.category = :cat')
+    		$query->andWhere('node.category = :cat')
     		->setParameters(array(
     				'cat'		=> $category,
     				'enabled'	=> 1,
+    				'archived'	=> 0,
     		));
     	else
     		$query->setParameters(array(
     				'enabled'	=> 1,
+    				'archived'	=> 0,
     		));
     
     	if(!is_null($MaxResults))
     		$query->setMaxResults($MaxResults);
-    	//return $query->getQuery()->setMaxResults(1)->getArrayResult();
     
     	return $query;
     }        

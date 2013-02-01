@@ -268,7 +268,7 @@ class FrontendController extends BaseController
     	
 //     	//print_r(get_class($this->get('mailer')));exit;    	
 //     	$this->get('mailer')->send($message);
-    	
+
     	return $this->render('PiAppAdminBundle:Frontend:index.html.twig', array(
     	));
     }  

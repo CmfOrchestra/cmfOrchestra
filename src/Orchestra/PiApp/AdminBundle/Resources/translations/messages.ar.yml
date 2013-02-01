@@ -65,6 +65,7 @@ pi.grid.action.waiting: انتظر
 pi.grid.action.row_enabled: مُفَعَّل
 pi.grid.action.row_disable: عَطِّل
 pi.grid.action.row_delete: احذف
+pi.grid.action.row_archive: الأرشيف
 pi.grid.action.select_all: اختر كل
 pi.grid.action.select_none: ألغ  كل
 

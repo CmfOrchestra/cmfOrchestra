@@ -73,7 +73,7 @@ class HistoricalStatus
      * @ORM\Column(name="enabled", type="boolean", nullable=true)
      */
     protected $enabled; 
- 
+    
     /**
      * Get id
      *

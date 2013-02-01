@@ -52,7 +52,9 @@ class {{ entity_class }}Controller extends abstractController
 	 
 	{%- include 'actions/positionajax.php' %}
 	
-	{%- include 'actions/deletajax.php' %}
+	{%- include 'actions/deleteajax.php' %}
+	
+	{%- include 'actions/archiveajax.php' %}
 	
 
     {%- if 'index' in actions %}
@@ -80,5 +82,7 @@ class {{ entity_class }}Controller extends abstractController
    	{%- include 'actions/_template_show.php' %}
     
    	{%- include 'actions/_template_list.php' %}    
+   	
+   	{%- include 'actions/_template_archive.php' %}   	
     
 }

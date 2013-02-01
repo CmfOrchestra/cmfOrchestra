@@ -210,6 +210,8 @@ class PiFlexSliderManager extends PiJqueryExtension
 			$slider_result .= "</div>";
 		}
 		
+		$slider_result	= utf8_decode(mb_convert_encoding($slider_result, "UTF-8", "HTML-ENTITIES"));
+		
 		// We open the buffer.
 		ob_start ();
 		?>
@@ -407,8 +409,8 @@ class PiFlexSliderManager extends PiJqueryExtension
 			$locale = $options['locale'];
 		
 		if( !isset($options['template']) || empty($options['template']) )
-			$options['template']	= 'slide.html.twig';					
-		
+			$options['template']	= 'slide.html.twig';		
+
 		// we take slides ​​depending on options
 		$SliderManager 	= $this->container->get('pi_app_admin.manager.slider');
 		if($SliderManager instanceof PiSliderManager){

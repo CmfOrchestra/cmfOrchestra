@@ -89,6 +89,13 @@ class KeyWord
      * @ORM\Column(name="enabled", type="boolean", nullable=true)
      */
     protected $enabled;   
+    
+    /**
+     * @var boolean $archived
+     *
+     * @ORM\Column(name="archived", type="boolean", nullable=false)
+     */
+    protected $archived = false;
 
     /**
      * Constructor
@@ -272,4 +279,25 @@ class KeyWord
     {
     	return $this->enabled;
     } 
+    
+    /**
+     * Set archived
+     *
+     * @param boolean $enabled
+     */
+    public function setArchived($archived)
+    {
+    	$this->archived = $archived;
+    	return $this;
+    }
+    
+    /**
+     * Get archived
+     *
+     * @return boolean
+     */
+    public function getArchived()
+    {
+    	return $this->archived;
+    }
 }

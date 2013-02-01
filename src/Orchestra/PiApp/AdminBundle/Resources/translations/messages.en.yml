@@ -65,6 +65,7 @@ pi.grid.action.waiting: Wait
 pi.grid.action.row_enabled: Enabled
 pi.grid.action.row_disable: Disable
 pi.grid.action.row_delete: Delete
+pi.grid.action.row_archive: Archive
 pi.grid.action.select_all: Select all
 pi.grid.action.select_none: Deselect all
 

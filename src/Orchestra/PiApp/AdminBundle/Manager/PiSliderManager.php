@@ -61,11 +61,10 @@ class PiSliderManager extends PiCoreManager implements PiSliderManagerBuilderInt
 		else
 			throw new \InvalidArgumentException("you have not configure correctly the attibute id");
 		
-		if(is_array($params)){
+		if(!is_array($params))
+			$params		= $this->paramsDecode($params);
+		else
 			$this->recursive_map($params);
-		}else{
-			$params	= $this->paramsDecode($params);
-		}
 		
 		$params['locale']	= $lang;
 		
@@ -88,7 +87,7 @@ class PiSliderManager extends PiCoreManager implements PiSliderManagerBuilderInt
 	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 * @since 2012-05-03
 	 */
-	public function getSlider($locale, $entity, $category, $template, $parameters = null)
+	public function getSlider($locale, $controller, $category, $template, $parameters = null)
 	{
 		$em		   = $this->container->get('doctrine')->getEntityManager();
 		
@@ -128,43 +127,30 @@ class PiSliderManager extends PiCoreManager implements PiSliderManagerBuilderInt
 			$ORDER_Position = 'ASC';
 		}
 		
-// 		if(in_array($entity, array('User', 'Role')))
-// 			$controller  = "BootStrapUserBundle:$entity";
-// 		else
-// 			$controller  = "PiAppGedmoBundle:$entity";
+		$em->getRepository($controller)->setContainer($this->container);
+		if(is_null($query_function)){
+			$query	= $em->getRepository($controller)->getAllByCategory($category, $MaxResults, $ORDER_PublishDate, $ORDER_Position, $enabled, false);
+		}elseif(method_exists($em->getRepository($controller), $query_function)){
+			$query  = $em->getRepository($controller)->$query_function($category, $MaxResults, $ORDER_PublishDate, $ORDER_Position, $enabled);
+		}else
+			throw new \InvalidArgumentException("The metohd 'query_function' does not exist in the entity's repository {$controller}");
 		
-		$controller = $entity;
-		
-			$em->getRepository($controller)->setContainer($this->container);
-			if(is_null($query_function)){
-				$query	= $em->getRepository($controller)->getAllByCategory($category, $MaxResults, $ORDER_PublishDate, $ORDER_Position, $enabled);
-			}elseif(method_exists($em->getRepository($controller), $query_function)){
-				$query  = $em->getRepository($controller)->$query_function($category, $MaxResults, $ORDER_PublishDate, $ORDER_Position, $enabled);
-			}else
-				throw new \InvalidArgumentException("The metohd 'query_function' does not exist in the entity's repository {$controller}");
-			
-			if(isset($parameters['searchFields']) && !empty($parameters['searchFields'])){
-				if(count($parameters['searchFields']) == 2 && isset($parameters['searchFields']['nameField'])){
-					$query->andWhere('a.'.$parameters['searchFields']['nameField'] .' LIKE :value')
+		if(isset($parameters['searchFields']) && !empty($parameters['searchFields'])){
+			if(count($parameters['searchFields']) == 2 && isset($parameters['searchFields']['nameField'])){
+				$query->andWhere('a.'.$parameters['searchFields']['nameField'] .' LIKE :value')
+					  ->setParameters(array(
+					  		'value'   => $parameters['searchFields']['valueField']
+					  	));
+			}else {
+				foreach ($parameters['searchFields'] as $searchFields){
+					$query->andWhere('a.'.$searchFields['nameField'] .' LIKE :'.$searchFields['nameField'])
 						  ->setParameters(array(
-						  		'value'   => $parameters['searchFields']['valueField']
-						  	));
-				}else {
-					foreach ($parameters['searchFields'] as $searchFields){
-						$query->andWhere('a.'.$searchFields['nameField'] .' LIKE :value')
-							  ->setParameters(array(
-									'value'   => $searchFields['valueField'],
-								));
-					}
+								$searchFields['nameField']   => $searchFields['valueField'],
+							));
 				}
 			}
-			
-			if(in_array($entity, array('User', 'Role'))){
-				//print_r($query->getQuery()->getSQL());
-				$allslides  = $query->getQuery()->getResult();
-			}else
-				$allslides  = $em->getRepository($controller)->findTranslationsByQuery($locale, $query->getQuery(), 'object', false);
-		
+		}
+		$allslides  = $em->getRepository($controller)->findTranslationsByQuery($locale, $query->getQuery(), 'object', false);		
 		
 		// we construct all boucles.
 		$_boucle 	= array();

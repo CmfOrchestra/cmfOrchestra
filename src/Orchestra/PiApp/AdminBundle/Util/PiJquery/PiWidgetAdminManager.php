@@ -548,21 +548,64 @@ class PiWidgetAdminManager extends PiJqueryExtension
 			//]]>
 			</script>
 			
+			
+			<div id="page-action-dialog" >&nbsp;</div>
+			<div id="block-action-dialog" >&nbsp;</div>
+			<div id="widget-action-dialog" >&nbsp;</div>
+			
+			
 			<script type="text/javascript">
 			//<![CDATA[
 			$(function() {	
 				$(".texte_desc2:first").anythingZoomer({
 					clone : true
 				});
+
+				//SBLA - AJOUT EQUIVALENT POSITION:FIXED SUR DIALOGBOX. 
+				dialogs = [];
+				var ids = ["#page-action-dialog","#block-action-dialog","#widget-action-dialog"];
+				//CLASSE
+				function Diag(id){ this.id = $(id); }
+				Diag.prototype.isVisible = function(){ return this.id.parent('.ui-dialog.wijmo-wijdialog').is(':visible')==true; };
+				Diag.prototype.isFixed = function(){ return this.id.parent('.ui-dialog.wijmo-wijdialog').css('position')=='fixed'; };
+				Diag.prototype.top = function(){ return this.isVisible() ? this.id.parent('.ui-dialog.wijmo-wijdialog').offset().top : null; };
+				Diag.prototype.left = function(){ return this.isVisible() ? this.id.parent('.ui-dialog.wijmo-wijdialog').offset().left : null; };
+				Diag.prototype.fixed = function(offset){
+					if (!this.isFixed()){
+						this.id.parent('.ui-dialog.wijmo-wijdialog').css( {position:'fixed', left: this.left(), top: this.top()-offset });
+					}
+				};
+				//INSTANCES
+				$.each(ids,function(i,id){ dialogs[i] = new Diag(id); });
+				//SCROLL HANDLER
+				var scrollOffset;
+				$(window).bind('scroll',function(){
+					scrollOffset = $(window).scrollTop();
+					$.each(dialogs,function(i){ dialogs[i].fixed(scrollOffset) });
+				});
+				//BUTTONS HANDLER
+				$.each(dialogs,function(i,diag){	
+					//RESTORE & MAXIMISE HANDLER
+					diag.id.bind('wijdialogstatechanged',function(e,data){
+						// console.log('wijdialog.stateChanged',data);
+						// console.log( 'fixed?',diag.isFixed(), 'pos:', diag.top()+'/'+diag.left() );
+						if (data.state=='normal') {
+							//IF POS. STILL ABSOLUTE
+							if (diag.top()>400){
+								scrollOffset = $(window).scrollTop();
+								diag.id.parent('.ui-dialog.wijmo-wijdialog').css({ position:'fixed', left: diag.left(), top: diag.top()-scrollOffset });
+							} else {
+								diag.id.parent('.ui-dialog.wijmo-wijdialog').css({ position:'fixed', left: diag.left(), top: diag.top() });
+							}
+						} else if (data.state=='maximized') {
+							diag.id.parent('.ui-dialog.wijmo-wijdialog').css({ position:'absolute' });
+						}
+					});
+				});
 			});
 			//]]>
-			</script>  
-			
-			
-			<div id="page-action-dialog" >&nbsp;</div>
-			<div id="block-action-dialog" >&nbsp;</div>
-			<div id="widget-action-dialog" >&nbsp;</div>
-			
+			</script>
+
 		<?php 
 		// We retrieve the contents of the buffer.
 		$_content = ob_get_contents ();

@@ -165,6 +165,31 @@ class User extends BaseUser
     }
 
     /**
+     * Add newsletters
+     *
+     * @param \PiApp\GedmoBundle\Entity\Newsletter $newsletters
+     */
+    public function addNewsletter(\PiApp\GedmoBundle\Entity\Newsletter $newsletters)
+    {
+        $this->newsletters[] = $newsletters;
+    }
+    
+    /**
+     * Remove newsletter
+     *
+     * @param \PiApp\GedmoBundle\Entity\Newsletter $newsletter
+     */
+    public function removeNewsletter(\PiApp\GedmoBundle\Entity\Newsletter $newsletter)
+    {
+        $key = $this->newsletters->indexOf($newsletter);
+
+        if($key!==FALSE) 
+        {
+            $this->newsletters->remove($key);
+        }
+    }
+
+    /**
      * Get groups
      *
      * @return \Doctrine\Common\Collections\ArrayCollection

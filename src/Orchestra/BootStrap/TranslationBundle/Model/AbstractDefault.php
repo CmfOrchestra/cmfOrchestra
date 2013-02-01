@@ -60,6 +60,13 @@ abstract class AbstractDefault extends AbstractTranslation
     protected $archive_at;
     
     /**
+     * @var boolean $archived
+     *
+     * @ORM\Column(name="archived", type="boolean", nullable=false)
+     */
+    protected $archived = false;
+    
+    /**
      * @var boolean $enabled
      *
      * @ORM\Column(name="enabled", type="boolean", nullable=true)
@@ -75,8 +82,8 @@ abstract class AbstractDefault extends AbstractTranslation
      * @var array
      * @ORM\Column(name="secure_roles", type="array", nullable=true)
      */
-    protected $heritage;    
-    
+    protected $heritage;
+
     /**
      * Constructor
      */    
@@ -191,6 +198,27 @@ abstract class AbstractDefault extends AbstractTranslation
     {
     	return $this->enabled;
     }   
+    
+    /**
+     * Set archived
+     *
+     * @param boolean $enabled
+     */
+    public function setArchived($archived)
+    {
+    	$this->archived = $archived;
+    	return $this;
+    }
+    
+    /**
+     * Get archived
+     *
+     * @return boolean
+     */
+    public function getArchived()
+    {
+    	return $this->archived;
+    }    
 
     /**
      * Set $position

@@ -108,11 +108,14 @@ abstract class abstractListener
             $entity->setCreatedAt(new \DateTime());
         }
         
+        //update heritage field when method setHeritage exists in entity object
+        if (method_exists($entity, 'setHeritage')) {
+        	// we modify the heritage value
+        	if ($isUsernamePasswordToken && $this->isUsernamePasswordToken())
+        		$entity->setHeritage($this->container->get('bootstrap.Role.factory')->getBestRoles($this->getUserRoles()));
+        }        
+        
         $entity_name = get_class($entity);
-//         if(!in_array($entity_name, array('BootStrap\UserBundle\Entity\User','PiApp\GedmoBundle\Entity\Individual'))){
-//         	print_r("AUTHORIZATION_PREPERSIST");
-//         	print_r($entity_name);exit;
-//         }
         // we give the right of persist if the entity is in the AUTHORIZATION_PREPERSIST container
         if(isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST']) && isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST'][$entity_name])){
         	if(is_array($GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST'][$entity_name])){
@@ -121,11 +124,13 @@ abstract class abstractListener
         			$route = $this->container->get('session')->get('route');
         		if(in_array($route, $GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST'][$entity_name])){
         			// IMPORTANT !!! sinon ne fonctionne pas avec les collection links :
+        			$entity->setHeritage(array('ROLE_SUPER_ADMIN'));
         			$entityManager->initializeObject($entity);
         			return true;
         		}
         	}else{
         		// IMPORTANT !!! sinon ne fonctionne pas avec les collection links :
+        		$entity->setHeritage(array('ROLE_SUPER_ADMIN'));
         		$entityManager->initializeObject($entity);
         		return true;
         	}        
@@ -143,13 +148,6 @@ abstract class abstractListener
         
         // If  autentication user
         if ($isUsernamePasswordToken && $this->isUsernamePasswordToken()) {
-        	
-        	//update heritage field when method setHeritage exists in entity object
-        	if (method_exists($entity, 'setHeritage')) {
-        		// we modify the heritage value
-        		$entity->setHeritage($this->container->get('bootstrap.Role.factory')->getBestRoles($this->getUserRoles()));
-        	}
-        	        	
         	// if user have the create right
         	if( in_array('CREATE', $this->getUserPermissions()) || in_array('ROLE_SUPER_ADMIN', $this->getUserRoles()) || $isAllPermissions) {
         		//ini_set('memory_limit', '-1');
@@ -612,7 +610,13 @@ abstract class abstractListener
     {
     	$right 		 = true;
     	$entity_name = get_class($entity);
-       	if(isset($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) && isset($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES'][$entity_name]) ){
+    	
+    	if( 
+    		$this->isAnonymousToken()
+    		&& !($this->_container->get('security.context')->isGranted('ROLE_ADMIN'))
+    		&& isset($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) 
+    		&& isset($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES'][$entity_name])
+    	){
        		if(is_array($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES'][$entity_name])){
        			$route = $this->container->get('request')->get('_route');
        			if($this->container->get('session')->has('route') && (empty($route) || ($route == "_internal")))
@@ -628,7 +632,7 @@ abstract class abstractListener
        		$authorized_page_roles 	= $this->container->get('bootstrap.Role.factory')->getBestRoles($entity->getHeritage());
        		
        		$right = false;
-       		if(is_null($authorized_page_roles))
+       		if(is_null($authorized_page_roles) || empty($authorized_page_roles))
        			$right = true;
        		else{
        			foreach($authorized_page_roles as $key=>$role_page){
@@ -655,16 +659,9 @@ abstract class abstractListener
 	       				$right = false;
        				}    
       			}
-       			//        				$qb = $this->_connexion($eventArgs)->createQueryBuilder()
-      			//        				         ->select('*')
-      			//        				         ->from('gedmo_media', 'u')
-      			//        				         ->where("u.media = '{$entity->getId()}'");
-      			//        				$row 	= $qb->execute();       				
        		}
-   		}
-   		$restriction = !$right;
-   		
-   		return $restriction;
+    	}
+   		return !$right;
     }
     
     /**

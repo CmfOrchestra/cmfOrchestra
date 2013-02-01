@@ -158,6 +158,8 @@ class PiToolExtension extends \Twig_Extension
 						'alt'	=> $media->getAuthorname(),
 						'style'	=> $style,
 						'id'	=> $idImg,
+						'width' => '71%',
+						'height'=> 'auto',
 				));
 			} catch (\Exception $e) {
 				return "";
@@ -182,18 +184,30 @@ class PiToolExtension extends \Twig_Extension
 	 *
 	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
-	public function getFileFormFunction($media, $nameForm, $style = "display: block; text-align:center;margin: 30px auto;z-index:99999999999") {
+	public function getFileFormFunction($media, $nameForm, $style = "display: block; text-align:center;margin: 30px auto;z-index:99999999999", $is_by_mimetype = true) {
 		if($media instanceof \BootStrap\MediaBundle\Entity\Media){
 			$id 		= $media->getId();
 				
 			try {
 				$file_url = $this->container->get('sonata.media.twig.extension')->path($id, "reference");
+        if($is_by_mimetype){
+           $mime = str_replace('/','-',$media->getContentType());
+           $picto = '/bundles/piappadmin/images/icons/mimetypes/'.$mime.'.png';
+        }
+        else{
+            $ext = substr(strtolower(strrchr(basename($file_url), ".")), 1);  
+            $picto = '/bundles/piappadmin/images/icons/form/download-'.$ext.'.png';
+        }
+
+        if (!file_exists('.'.$picto)) {
+            $picto = '/bundles/piappadmin/images/icons/form/download-32.png';
+        }
 			} catch (\Exception $e) {
 				return "";
 			}
 				
 			$content	 = "<div id='file_$id'> \n";
-			$content	.= "<a href='{$file_url}' target='_blanc' style='{$style}'><img src='/bundles/piappadmin/images/icons/form/download-32.png' /></a>";
+			$content	.= "<a href='{$file_url}' target='_blanc' style='{$style}'> <img src='$picto' /> ".$media->getName()."</a>";
 			$content	.= "</div> \n";
 				
 			$content	.= "<script type='text/javascript'> \n";
