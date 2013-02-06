@@ -87,6 +87,7 @@ pi.block.formbuilder.template.choice3: Bloc contenu avec image à gauche
 pi.block.formbuilder.template.choice4: Bloc contenu avec image côte à côte et text en dessous
 pi.block.formbuilder.template.choice5: Bloc contenu avec image au centre
 pi.block.formbuilder.template.choice6: Bloc contenu avec image à droite
+pi.block.formbuilder.template.choice9: Bloc contenu par defaut
 pi.block.formbuilder.template.choice7: Bloc video à droite du descriptif
 pi.block.formbuilder.template.choice8: Bloc video à gauche du descriptif
 pi.block.form.group.pictures: Images

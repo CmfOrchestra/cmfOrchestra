@@ -100,6 +100,21 @@ class MediaController extends abstractController
     {
     	return parent::deletajaxAction();
     }
+    
+    /**
+     * Archive a Media entity.
+     *
+     * @Route("/admin/gedmo/media/archive", name="admin_gedmo_media_archiveentity_ajax")
+     * @Secure(roles="ROLE_USER")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access  public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function archiveajaxAction()
+    {
+    	return parent::archiveajaxAction();
+    }    
         
     /**
      * Lists all Media entities.
@@ -122,10 +137,12 @@ class MediaController extends abstractController
     	if(is_array($category) && isset($category['__isInitialized__']))
     		$category = $category['__isInitialized__'];
     
-    	if($NoLayout && $category && !empty($category))
-    		$entities 	= $em->getRepository("PiAppGedmoBundle:Media")->getAllEnableByCatAndByPosition($locale, $category, 'object');
-    	else
-    		$entities 	= $em->getRepository("PiAppGedmoBundle:Media")->findAllByEntity($locale, 'object');
+    	if($NoLayout){
+    		//$entities 	= $em->getRepository("PiAppGedmoBundle:Media")->getAllEnableByCatAndByPosition($locale, $category, 'object');
+    		$query		= $em->getRepository("PiAppGedmoBundle:Media")->getAllByCategory($category, null, '', 'ASC', false)->getQuery();
+    		$entities   = $em->getRepository("PiAppGedmoBundle:Media")->findTranslationsByQuery($locale, $query, 'object', false);
+    	}else
+    		$entities	= $em->getRepository("PiAppGedmoBundle:Media")->findAllByEntity($locale, 'object');    	
     
     	return $this->render("PiAppGedmoBundle:Media:$template", array(
     			'entities' => $entities,

@@ -101,8 +101,8 @@ class AdhesionCorporationType extends AbstractType
               'data-validate' => 'Site Internet',
  					),
  			)) 
- 			->add('media','text')// new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
- 			->add('media2','text')// new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
+ 			->add('media','file')// new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
+ 			->add('media2','file')// new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
             
  			->add('UserPhone','text', array(
  					"attr" => array(
@@ -385,7 +385,7 @@ class AdhesionCorporationType extends AbstractType
  					),
  			)) 
       ->add('InvoiceCountry','choice', array(
- 					'required'  => true,    
+ 					'required'  => false,    
           'empty_value'  => 'Pays*',    
           'choices'   => array(
             '1' => 'Campagne adhésion', 
@@ -437,7 +437,7 @@ class AdhesionCorporationType extends AbstractType
  					),
  			)) 
       ->add('MotherCountry','choice', array(
- 					'required'  => true,    
+ 					'required'  => false,    
           'empty_value'  => 'Pays*',    
           'choices'   => array(
             '1' => 'Campagne adhésion', 

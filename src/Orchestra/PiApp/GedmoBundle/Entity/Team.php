@@ -78,6 +78,7 @@ class Team extends AbstractDefault
      * @var string $name
      *
      * @ORM\Column(name="name", type="string", nullable = true)
+     * @Assert\NotBlank()
      */
     protected $name;
     
@@ -85,6 +86,7 @@ class Team extends AbstractDefault
      * @var string $nickname
      *
      * @ORM\Column(name="nickname", type="string", nullable = true)
+     * @Assert\NotBlank()
      */
     protected $nickname;    
     
@@ -92,7 +94,6 @@ class Team extends AbstractDefault
      * @var string $InscrJob
      *
      * @ORM\Column(name="inscr_job", type="string", nullable = true)
-     * @Assert\NotBlank()
      */
     protected $InscrJob;
     

@@ -99,7 +99,23 @@ class TeamController extends abstractController
     public function deleteajaxAction()
     {
     	return parent::deletajaxAction();
-    }   
+    }  
+
+    /**
+     * Archive a Team entity.
+     *
+     * @Route("/admin/gedmo/team/archive", name="admin_gedmo_team_archiveentity_ajax")
+     * @Secure(roles="ROLE_USER")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access  public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function archiveajaxAction()
+    {
+    	return parent::archiveajaxAction();
+    }
+        
     /**
      * Lists all Team entities.
      * 
@@ -118,7 +134,7 @@ class TeamController extends abstractController
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout) 	$template = "index.html.twig"; else $template = "index.html.twig";
         
-    	if($NoLayout && $category && !empty($category)){
+    	if($NoLayout){
     		//$entities 	= $em->getRepository("PiAppGedmoBundle:Team")->getAllEnableByCatAndByPosition($locale, $category, 'object');
     		$query		= $em->getRepository("PiAppGedmoBundle:Team")->getAllByCategory($category, null, '', 'ASC', false)->getQuery();
     		$entities   = $em->getRepository("PiAppGedmoBundle:Team")->findTranslationsByQuery($locale, $query, 'object', false);
@@ -399,15 +415,27 @@ class TeamController extends abstractController
      * @access	public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com> 
      */
-    public function _template_listAction($category = '', $MaxResults = null, $template = '_tmp_list.html.twig', $order = 'DESC', $lang = "")
+    public function _template_listAction($category = '', $MaxResults = null, $template = '_tmp_list.html.twig', $order = 'DESC', $lang = "", $type='')
     {
     	$em 		= $this->getDoctrine()->getEntityManager();
 
     	if(empty($lang))
     		$lang	= $this->container->get('session')->getLocale();
     		
-    	$query		= $em->getRepository("PiAppGedmoBundle:Team")->getAllByCategory($category, $MaxResults, $order)->getQuery();
-        $entities   = $em->getRepository("PiAppGedmoBundle:Team")->findTranslationsByQuery($lang, $query, 'object', false);                   
+        if(empty($type)){
+    		$query		= $em->getRepository("PiAppGedmoBundle:Team")->getAllByCategory($category, $MaxResults, '', $order)->getQuery();
+        	$entities   = $em->getRepository("PiAppGedmoBundle:Team")->findTranslationsByQuery($lang, $query, 'object', false);
+        }elseif($type == 'archive'){
+        	$query			= $em->getRepository("PiAppGedmoBundle:Team")->getAllByCategory($category, $MaxResults, '', $order)->getQuery();
+        	$entities_all   = $em->getRepository("PiAppGedmoBundle:Team")->findTranslationsByQuery($lang, $query, 'object', false);
+        	 
+        	$entities = array();
+        	foreach($entities_all as $key => $entity){
+        		$cat = $entity->getCategory();
+       			$entities[ $cat ][] = $entity;
+        	}
+        	 
+        }
 
         return $this->render("PiAppGedmoBundle:Team:$template", array(
             'entities' => $entities,

@@ -1,0 +1,76 @@
+{% if not is_granted("IS_AUTHENTICATED_FULLY") %}
+<section class="adh-popin unlogged">
+	<header class="cf resetM">
+		<figure>
+     	   	{% if (entity.media.image.id is defined) and (entity.Company is defined) %}
+			<img class="fleft" src="{{ media_url(entity.media.mediaId, 'reference', true, entity.media.getUpdatedAt(), 'lamelee_individual_') }}" alt="LA MELEE"/>
+			{% elseif (entity.media.image.id is defined) and (entity.CorporationName is defined)  %}
+			<img class="fleft" src="{{ media_url(entity.media.mediaId, 'reference', true, entity.media.getUpdatedAt(), 'lamelee_coorporation_') }}" alt="LA MELEE"/>
+     	   	{% endif %}
+			<figcaption class="fleft">
+				<h3 class="tt-5 tt-clr bold">{% if entity.Name is defined %}{{ entity.Name }}{% endif %} {% if entity.Nickname is defined %}{{ entity.Nickname }}{% endif %}</h3>
+				<p class="light-clr">
+				{% if entity.Company is defined %}
+	   			{{ entity.Company }}
+	   			{% elseif entity.CorporationName is defined %}
+	   			{{ entity.CorporationName }}
+	   			{% endif %}	
+	   			<br/>
+	   			{{ entity.Activity|trans }}			
+				</p>
+			</figcaption>
+		</figure>
+	</header>
+	<div class="content">
+		<div class="excerpt cf">
+			<p class="txtcenter full">Vous devez Ãªtre connectÃ© <br/> pour accÃ©der aux informations de cet adhÃ©rent.</p>		
+				<div class="button-ct">
+				<a href="{{ path_url('page_lamelee_connexion', {'locale':locale}) }}" class="button purple"><!--
+					--><span>{{ 'pi.lamelee.bouton.link.page.connexion'|trans|replace({'<p>': '', '</p>': ''})|raw }}</span><!--
+				--></a>
+			</div>
+		</div>
+	</div>
+</section>
+{% else %}
+<section class="adh-popin">
+	<header class="cf resetM">
+		<figure>
+     	   	{% if (entity.media.image.id is defined) and (entity.Company is defined) %}
+			<img class="fleft" src="{{ media_url(entity.media.mediaId, 'reference', true, entity.media.getUpdatedAt(), 'lamelee_individual_') }}" alt="LA MELEE"/>
+			{% elseif (entity.media.image.id is defined) and (entity.CorporationName is defined)  %}
+			<img class="fleft" src="{{ media_url(entity.media.mediaId, 'reference', true, entity.media.getUpdatedAt(), 'lamelee_coorporation_') }}" alt="LA MELEE"/>
+     	   	{% endif %}
+			<figcaption class="fleft">
+				<h3 class="tt-5 tt-clr bold">{% if entity.Name is defined %}{{ entity.Name }}{% endif %} {% if entity.Nickname is defined %}{{ entity.Nickname }}{% endif %}</h3>
+				<p class="light-clr">
+				{% if entity.Company is defined %}
+	   			{{ entity.Company }}
+	   			{% elseif entity.CorporationName is defined %}
+	   			{{ entity.CorporationName }}
+	   			{% endif %}	
+	   			<br/>
+	   			{{ entity.Activity|trans }}			
+				</p>
+			</figcaption>
+		</figure>
+		<div class="social">
+			<ul>
+				<li><a class="mail" 	href="mailto:{{ entity.Email }}">mailto</a></li>
+				<li><a class="twitter" 	target="_blank" href="{{ entity.Twitter }}">Twitter</a></li>
+				<li><a class="fb" 		target="_blank" href="{{ entity.Facebook }}">FB</a></li>
+			</ul>
+		</div>
+	</header>
+	<div class="content">
+		<div class="excerpt cf">
+			<p class="fleft"><span class="tt-like">Poste: </span> {{ entity.Job }}</p>
+			<p class="fleft"><span class="tt-like">Adresse : </span> {% if entity.Address is defined %}{{ entity.Address }}<br/> {{ entity.CP }} {{ entity.City }}</p>{% endif %}	
+			<p class="fleft"><span class="tt-like">Email : </span>{{ entity.EmailPerso }}</p>	
+			<p class="fleft"><span class="tt-like">Tel : </span>{{ entity.Phone }}</p>		
+		</div>
+		<h4 class="uppercase tt-9">DESCRIPTION ACTIVITE</h4>
+		<p>{{ entity.translate(locale).getDetailActivity()|raw }}</p>
+	</div>
+</section>
+{% endif %}

@@ -19,10 +19,10 @@
 					<header class="resetM cf">
 						<h3 class="tt-3 tt-clr bold">Vous souhaitez adhérer en tant que :</h3>
 						<div class="button-ct">
-							<a href="#" class="button Bsociety on" data-button="toggle"><!--
+							<a href="#" class="button Bperson on" data-button="toggle"><!--
 								--><span>Personne physique</span><!--
 							--></a>
-							<a href="#" class="button Bperson" data-button="toggle"><!--
+							<a href="{{ path_url("page_lamelee_adhesion_morale")}}" class="button Bsociety" data-button="toggle"><!--
 								--><span>Personne morale</span><!--
 							--></a>
 							</div>
@@ -44,24 +44,51 @@
 						<fieldset>
 							<div class="row cf">
 								{{ form_widget(form.Civility) }}
-                {{ form_widget(form.Name) }}
-								{{ form_widget(form.Nickname) }}
+                {% if form.vars.value.Name %} 
+                      {{ form_widget(form.Name) }}
+                {% else %}
+                      {{ form_widget(form.Name, { 'attr': {'data-validate': 'Nom*'} }) }}
+                {% endif %}
+                {% if form.vars.value.Nickname %} 
+                      {{ form_widget(form.Nickname) }}
+                {% else %}
+                      {{ form_widget(form.Nickname, { 'attr': {'data-validate': 'Prénom*'} }) }}
+                {% endif %}
+
 							</div>
 					
 						</fieldset>
 						<fieldset>
 							<legend class="bold">Entreprise</legend>
 							<div class="row cf">
-								{{ form_widget(form.Job) }}
+                {% if form.vars.value.Job %} 
+                      {{ form_widget(form.Job) }}
+                {% else %}
+                      {{ form_widget(form.Job) }}
+                {% endif %}                  
 								<a href="#" class="tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
 
 							</div>
 							<div class="row">	
-								{{ form_widget(form.Email) }}
-                {{ form_widget(form.EmailPerso) }}
+
+                {% if form.vars.value.Email %} 
+                      {{ form_widget(form.Email, { 'read_only': true }) }}
+                {% else %}
+                      {{ form_widget(form.Email, { 'attr': {'data-validate': 'Email pro*'} }) }}
+                {% endif %}                    
+
+                {% if form.vars.value.EmailPerso %} 
+                      {{ form_widget(form.EmailPerso) }}
+                {% else %}
+                      {{ form_widget(form.EmailPerso, { 'attr': {'data-validate': 'Email perso'} }) }}
+                {% endif %}                    
 							</div>
 							<div class="row">	
-								{{ form_widget(form.Phone) }}
+                {% if form.vars.value.Phone %} 
+                      {{ form_widget(form.Phone) }}
+                {% else %}
+                      {{ form_widget(form.Phone, { 'attr': {'data-validate': 'Téléphone*'} }) }}
+                {% endif %}                    
 							</div>
 						
 						
@@ -78,8 +105,11 @@
 							</div>
 								
 							<div class="id-choice">
-								{{ form_row(form.UserName) }}
-
+                {% if form.vars.value.UserName %} 
+                      {{ form_widget(form.UserName, { 'read_only': true }) }}
+                {% else %}
+                      {{ form_widget(form.UserName, { 'attr': {'data-validate': 'Identifiant'} }) }}
+                {% endif %}   
 								<p class="light-clr"><small>Il vous sera demandé à chaque connexion et sera définitif</small></p>
 							</div>	
 							<p class="light-clr"><span class="tt-clr">*</span> champs obligatoire</p>

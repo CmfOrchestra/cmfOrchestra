@@ -105,6 +105,22 @@ class CorporationController extends abstractController
     {
     	return parent::deletajaxAction();
     }   
+    
+    /**
+     * Archive a Corporation entity.
+     *
+     * @Route("/admin/gedmo/corporation/archive", name="admin_gedmo_corporation_archiveentity_ajax")
+     * @Secure(roles="ROLE_USER")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access  public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function archiveajaxAction()
+    {
+    	return parent::archiveajaxAction();
+    }
+        
     /**
      * Lists all Corporation entities.
      *
@@ -125,7 +141,7 @@ class CorporationController extends abstractController
         
     	if($NoLayout && $category && !empty($category)){
     		//$entities 	= $em->getRepository("PiAppGedmoBundle:Corporation")->getAllEnableByCatAndByPosition($locale, $category, 'object');
-    		$query		= $em->getRepository("PiAppGedmoBundle:Corporation")->getAllByCategory($category, null, '', 'ASC', false)->getQuery();
+    		$query		= $em->getRepository("PiAppGedmoBundle:Corporation")->getAllByCategory($category, null, "DESC", "", false)->getQuery();
     		$entities   = $em->getRepository("PiAppGedmoBundle:Corporation")->findTranslationsByQuery($locale, $query, 'object', false);
     	}else
     		$entities	= $em->getRepository("PiAppGedmoBundle:Corporation")->findAllByEntity($locale, 'object');    	
@@ -434,17 +450,17 @@ class CorporationController extends abstractController
     {
 
         $em 		= $this->getDoctrine()->getEntityManager();
-        $request = $this->container->get('request')->get('GET');
+        $request = $_POST;
 
         if(isset($request['new']))
             $new   = $request['new'];
         else
-            $new   = $this->container->get('request')->query->get('new');
+            $new   = $this->container->get('request')->request->get('new');
         
         if(isset($request['step']))
             $step   = $request['step'];
         else
-            $step   = $this->container->get('request')->query->get('step');        
+            $step   = $this->container->get('request')->request->get('step');        
 
         if(empty($lang))
           $lang	= $this->container->get('session')->getLocale();
@@ -464,13 +480,14 @@ class CorporationController extends abstractController
         $render = '';
 
         if (!empty($new)){
+          
               if($step == 1){
                 $render = $this->container->get('http_kernel')->render('PiAppGedmoBundle:Corporation:_template_adhesionValidation', array('attributes'=>$params));
               
               }
               elseif($step==2){
                   
-                  $data = array();
+                  $data = array();//print_r($request);exit;
                   $data['Civility'] = $request['Civility'];
                   $data['Name'] = $request['Name'];
                   $data['Nickname'] = $request['Nickname'];
@@ -741,10 +758,12 @@ class CorporationController extends abstractController
 
           $user = new User();
           $user->setUsername($request->get('UserName'));
-          $user->getUsernameCanonical($password);
-          $user->setPlainPassword($password);
+          $user->getUsernameCanonical($request->get('UserName'));
+          $user->setPlainPassword($request->get('UserName'));
           $user->setEmail($request->get('Email'));
           $user->setEmailCanonical($request->get('Email'));
+          $user->setName($request->get('Name'));
+          $user->setNickname($request->get('Nickname'));          
           $user->setEnabled(true);
           $user->setRoles(array('ROLE_MEMBER'));
           $user->setPermissions(array('VIEW', 'EDIT', 'CREATE', 'DELETE'));
@@ -795,8 +814,8 @@ class CorporationController extends abstractController
           $entity->setUserPhone($request->get('UserPhone'));
           $entity->setProfile($request->get('Profile'));
           $entity->setUserName($request->get('UserName'));
-          $entity->setDetailActivity($request->get('Engineering'));
-          $entity->setDetailActivity($request->get('Activity'));
+          $entity->setEngineering($request->get('Engineering'));
+          $entity->setActivity($request->get('Activity'));
           $entity->setDetailActivity($request->get('DetailActivity'));
           $entity->setCorporationName($request->get('CorporationName'));
           $entity->setCommercialName($request->get('CommercialName'));

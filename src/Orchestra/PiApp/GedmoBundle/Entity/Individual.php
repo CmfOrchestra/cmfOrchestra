@@ -23,7 +23,10 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
 /**
  * PiApp\GedmoBundle\Entity\Individual
  *
- * @ORM\Table(name="gedmo_individual")
+ * @ORM\Table(
+ * 			name="gedmo_individual",
+ *          indexes={@ORM\Index(name="name_idx", columns={"name"})}
+ * )
  * @ORM\Entity(repositoryClass="PiApp\GedmoBundle\Repository\IndividualRepository")
  * @ORM\HasLifecycleCallbacks()
  * @Gedmo\TranslationEntity(class="PiApp\GedmoBundle\Entity\Translation\IndividualTranslation")
@@ -41,7 +44,7 @@ class Individual extends AbstractDefault
 	 * @var array
 	 * @access  protected
 	 */
-	protected $_fields	= array();
+	protected $_fields	= array('DetailActivity', 'ArgumentCommercial');
 
 	/**
 	 * Name of the Translation Entity
@@ -169,6 +172,14 @@ class Individual extends AbstractDefault
     protected $Phone;
     
     /**
+     * @var integer $CP
+     *
+     * @ORM\Column(name="cp", type="integer", length=255, nullable = true)
+     * 
+     */
+    protected $CP ;
+    
+    /**
      * @var string $Job
      *
      * @ORM\Column(name="job", type="string", nullable = true)
@@ -200,6 +211,14 @@ class Individual extends AbstractDefault
     protected $Company;
     
     /**
+     * @var integer $Effectif
+     *
+     * @ORM\Column(name="effectif", type="integer", length=255, nullable = true)
+     * 
+     */
+    protected $Effectif ;   
+    
+    /**
      * @var string $Activity
      *
      * @ORM\Column(name="activity", type="string", nullable = true)
@@ -215,14 +234,16 @@ class Individual extends AbstractDefault
     
     /**
      * @var string $DetailActivity
-     *
+     * 
+     * @Gedmo\Translatable
      * @ORM\Column(name="detail_activity", type="string", nullable = true)
      */
     protected $DetailActivity;
     
     /**
      * @var string $ArgumentActivity
-     *
+     * 
+     * @Gedmo\Translatable
      * @ORM\Column(name="argument_activity", type="string", nullable = true)
      */
     protected $ArgumentActivity;
@@ -584,7 +605,27 @@ class Individual extends AbstractDefault
     {
         return $this->Phone;
     }
-
+        
+    /**
+     * Set CP
+     *
+     * @param integer $CP
+     */
+    public function setCP($CP)
+    {
+    	$this->CP = $CP;
+    }
+    
+    /**
+     * Get CP
+     *
+     * @return integer
+     */
+    public function getCP()
+    {
+    	return $this->CP;
+    }   
+    
     /**
      * Set Job
      *
@@ -664,7 +705,27 @@ class Individual extends AbstractDefault
     {
         return $this->Company;
     }
-
+        
+    /**
+     * Set Effectif
+     *
+     * @param integer $Effectif
+     */
+    public function setEffectif($Effectif)
+    {
+    	$this->Effectif = $Effectif;
+    }
+    
+    /**
+     * Get Effectif
+     *
+     * @return integer
+     */
+    public function getEffectif()
+    {
+    	return $this->Effectif;
+    }   
+        
     /**
      * Set Activity
      *

@@ -25,6 +25,7 @@
 	            <th><a href="javascript:void(0);" title="Published_at">Published_at</a></th>	            
 	            <th><a href="javascript:void(0);" title="Enabled">Enabled</a></th>	        	
 	            <th><a href="javascript:void(0);" title="Actions">Actions</a></th>
+	            <th>Date</th>
 	        </tr>
 	    </thead>
 	    <tbody>
@@ -58,6 +59,7 @@
 					<a href="{{ path('admin_gedmo_news_show', { 'id': entity.id, 'NoLayout':NoLayout }) }}" title="{{ 'pi.grid.action.show'|trans }}" class="icon-3 info-tooltip" >&nbsp;</a>
 					<a href="{{ path('admin_gedmo_news_edit', { 'id': entity.id, 'NoLayout':NoLayout }) }}" title="{{ 'pi.grid.action.edit'|trans }}" class="icon-1 info-tooltip" >&nbsp;</a>
 				</td>	
+				<td>{% if entity.publishedat %}{{ entity.publishedat|localedate('long','medium', app.session.locale, 'y MM (LLLL)')|ucfirst }}{% endif%}</td>
 	        </tr>
 	        {% if num_line == 0 %} 
 	        	{% set num_line = 1 %}
@@ -97,7 +99,7 @@
 				'0':'false',
 				},						
 			'grid-actions': { 
-					'rows_grouping': {'DateFormat': "dd/MM/yyyy",'columnIndex':3, 'Collapsible':'true', 'GroupBy':'month', 'HideColumn':'false', 'SortDirection':'asc'},
+					'rows_grouping': {'columnIndex':6, 'Collapsible':'true', 'HideColumn':'true', 'SortDirection':'desc'},
 					'rows_enabled': {'sButtonText':'pi.grid.action.row_enabled', 'route':'admin_gedmo_news_enabledentity_ajax',},
 					'rows_disable': {'sButtonText':'pi.grid.action.row_disable', 'route':'admin_gedmo_news_disablentity_ajax'},
 					'rows_delete': {'sButtonText':'pi.grid.action.row_delete', 'route':'admin_gedmo_news_deletentity_ajax'},

@@ -102,6 +102,21 @@ class BlockController extends abstractController
     }    
     
     /**
+     * Archive a Block entity.
+     *
+     * @Route("/admin/gedmo/block/archive", name="admin_gedmo_block_archiveentity_ajax")
+     * @Secure(roles="ROLE_USER")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access  public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function archiveajaxAction()
+    {
+    	return parent::archiveajaxAction();
+    }    
+    
+    /**
      * Lists all Block entities.
      *
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
@@ -114,10 +129,16 @@ class BlockController extends abstractController
     {
     	$em 		= $this->getDoctrine()->getEntityManager();
     	$locale		= $this->container->get('session')->getLocale();
-    	$entities 	= $em->getRepository("PiAppGedmoBundle:Block")->findAllByEntity($locale, 'object');
-    
+    	
     	$NoLayout   = $this->container->get('request')->query->get('NoLayout');
     	if(!$NoLayout) 	$template = "index.html.twig"; else $template = "index.html.twig";
+    	
+    	if($NoLayout){
+    		//$entities 	= $em->getRepository("PiAppGedmoBundle:Block")->getAllEnableByCatAndByPosition($locale, ", 'object');
+    		$query		= $em->getRepository("PiAppGedmoBundle:Block")->getAllByCategory("", null, '', 'ASC', false)->getQuery();
+    		$entities   = $em->getRepository("PiAppGedmoBundle:Block")->findTranslationsByQuery($locale, $query, 'object', false);
+    	}else
+    		$entities	= $em->getRepository("PiAppGedmoBundle:Block")->findAllByEntity($locale, 'object');
     
     	return $this->render("PiAppGedmoBundle:Block:$template", array(
     			'entities' => $entities,

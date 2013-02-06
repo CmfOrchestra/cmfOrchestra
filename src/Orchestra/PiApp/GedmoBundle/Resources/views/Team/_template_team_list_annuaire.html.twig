@@ -1,0 +1,29 @@
+<section class="bloc-team cf">
+	<div class="wrap">
+		<header>
+			<h2 class="tt-1">La Mêlée</h2>		
+		</header>
+		{% for title,cat in entities %}
+		<h3 class="tt-6">{{ title }}</h3>
+		<ul class="cf">
+			{% for entities_by_cat in cat %}
+			<li>
+				<figure>
+					<a href="mailto:{{ entities_by_cat.email }}">
+						{% if entities_by_cat.media.image.id is defined %}
+						<img src="{{ media_url(entities_by_cat.media.mediaId, 'reference', true, entities_by_cat.media.getUpdatedAt(), 'lamelee_team_') }}" width="120"  alt="LA MELEE"/>
+						{% endif %}
+					</a>
+					<figcaption>
+						<a href="mailto:{{ entities_by_cat.email }}" class="mail"></a>
+						<p class="light-clr"><span class="tt-clr"><strong>{{ entities_by_cat.name }} <br>{{ entities_by_cat.nickname }}</strong></span><br>
+							{{ entities_by_cat.InscrJob }}
+						</p>
+					</figcaption>
+				</figure>
+			</li>
+			{% endfor %}
+		</ul>
+		{% endfor %}
+	</div>
+</section>

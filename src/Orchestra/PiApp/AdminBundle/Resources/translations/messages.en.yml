@@ -62,10 +62,12 @@ pi.grid.action.info: Showing _START_ to _END_ of _TOTAL_ records
 pi.grid.action.info.empty: Showing 0 to 0 of 0 records
 pi.grid.action.info.filtered: (filtered from _MAX_ total records)
 pi.grid.action.waiting: Wait
+pi.grid.action.activation: Activation
 pi.grid.action.row_enabled: Enabled
 pi.grid.action.row_disable: Disable
 pi.grid.action.row_delete: Delete
 pi.grid.action.row_archive: Archive
+pi.grid.action.select: Selection
 pi.grid.action.select_all: Select all
 pi.grid.action.select_none: Deselect all
 

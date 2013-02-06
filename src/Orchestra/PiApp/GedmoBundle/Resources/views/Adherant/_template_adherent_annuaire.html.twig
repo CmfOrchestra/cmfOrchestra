@@ -1,0 +1,171 @@
+<section class="bloc-annu-adh cf">
+	<div class="wrap">
+		<article class="zoom-art">
+			<div class="zoom"></div>
+			<ul class="cf">
+				{% for entity_last in entities_last %}
+				<li>
+					<figure>
+						<a href="#">
+			     	 	{% if entity_last.individual.media.image.id is defined %}
+						<img src="{{ media_url(entity_last.individual.media.mediaId, 'reference', true, entity_last.individual.media.getUpdatedAt(), 'lamelee_event_') }}" alt="LA MELEE"/>
+						{% elseif entity_last.corporation.media.image.id is defined %}
+						<img src="{{ media_url(entity_last.corporation.media.mediaId, 'reference', true, entity_last.corporation.media.getUpdatedAt(), 'lamelee_event_') }}" alt="LA MELEE"/>
+			     	   	{% endif %}
+						</a>
+						<figcaption>
+							<p><a href="#"> <span class="bold">
+								{% if entity_last.individual.Name is defined %}
+			   					{{ entity_last.individual.Name }}
+			   					{% elseif entity_last.corporation.Name is defined %}
+			   					{{ entity_last.corporation.Name }}
+			   					{% endif %}		   					
+			   					
+			   					{% if entity_last.individual.Nickname is defined %}
+			   					{{ entity_last.individual.Nickname }}
+			   					{% elseif entity_last.corporation.Nickname is defined %}
+			   					{{ entity_last.corporation.Nickname }}
+			   					{% endif %}		
+											</span><br>
+				   				{% if entity_last.individual.Company is defined %}
+					   			{{ entity_last.individual.Company }}
+					   			{% elseif entity_last.corporation.CorporationName is defined %}
+					   			{{ entity_last.corporation.CorporationName }}
+					   			{% endif %}
+								</a>
+							</p>
+						</figcaption>
+					</figure>
+				</li>
+				{% endfor %}
+			</ul>
+		</article>
+	</div>
+</section>
+
+<section class="bloc-adh-search">
+	<div class="wrap">
+		<article class="search">
+			<header class="cf">
+				<h3 class="fleft tt-4 tt-clr">{{ 'pi.lamelee.bloc.form.search.annuaire.adherant'|trans|replace({'<p>': '', '</p>': ''})|raw }}</h3>
+				<div class="fleft">
+				 <a href="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale, "type":"company", "lettre":lettre, "filtre1":filtre1, "filtre2":filtre2}) }}" class="button society {% if type == "company"%}on{% endif %}" data-button="toggle"><!--
+					--><span>Une société</span><!--
+				--></a>
+	
+				<a href="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale, "type":"person", "lettre":lettre, "filtre1":filtre1, "filtre2":filtre2}) }}" class="button person {% if type == "person"%}on{% endif %}" data-button="toggle"><!--
+					--><span>Un adhérent</span><!--
+				--></a>
+				</div>
+				
+			</header>
+
+			<div class="alphaOrder"></div>
+				
+			<ul class="cf alphaLink">
+				<li><a {% if lettre == "A"%}class="active"{% endif %} href="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale, "type":type, "lettre":"A", "filtre1":filtre1, "filtre2":filtre2}) }}">a</a></li>
+				<li><a {% if lettre == "B"%}class="active"{% endif %} href="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale, "type":type, "lettre":"B", "filtre1":filtre1, "filtre2":filtre2}) }}">b</a></li>
+				<li><a {% if lettre == "C"%}class="active"{% endif %} href="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale, "type":type, "lettre":"C", "filtre1":filtre1, "filtre2":filtre2}) }}">c</a></li>
+				<li><a {% if lettre == "D"%}class="active"{% endif %} href="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale, "type":type, "lettre":"D", "filtre1":filtre1, "filtre2":filtre2}) }}">d</a></li>
+				<li><a {% if lettre == "E"%}class="active"{% endif %} href="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale, "type":type, "lettre":"E", "filtre1":filtre1, "filtre2":filtre2}) }}">e</a></li>
+				<li><a {% if lettre == "F"%}class="active"{% endif %} href="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale, "type":type, "lettre":"F", "filtre1":filtre1, "filtre2":filtre2}) }}">f</a></li>
+				<li><a {% if lettre == "G"%}class="active"{% endif %} href="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale, "type":type, "lettre":"G", "filtre1":filtre1, "filtre2":filtre2}) }}">g</a></li>
+				<li><a {% if lettre == "H"%}class="active"{% endif %} href="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale, "type":type, "lettre":"H", "filtre1":filtre1, "filtre2":filtre2}) }}">h</a></li>
+				<li><a {% if lettre == "I"%}class="active"{% endif %} href="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale, "type":type, "lettre":"I", "filtre1":filtre1, "filtre2":filtre2}) }}">i</a></li>
+				<li><a {% if lettre == "J"%}class="active"{% endif %} href="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale, "type":type, "lettre":"J", "filtre1":filtre1, "filtre2":filtre2}) }}">j</a></li>
+				<li><a {% if lettre == "K"%}class="active"{% endif %} href="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale, "type":type, "lettre":"K", "filtre1":filtre1, "filtre2":filtre2}) }}">k</a></li>
+				<li><a {% if lettre == "L"%}class="active"{% endif %} href="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale, "type":type, "lettre":"L", "filtre1":filtre1, "filtre2":filtre2}) }}">l</a></li>
+				<li><a {% if lettre == "M"%}class="active"{% endif %} href="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale, "type":type, "lettre":"M", "filtre1":filtre1, "filtre2":filtre2}) }}">m</a></li>
+				<li><a {% if lettre == "N"%}class="active"{% endif %} href="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale, "type":type, "lettre":"N", "filtre1":filtre1, "filtre2":filtre2}) }}">n</a></li>
+				<li><a {% if lettre == "O"%}class="active"{% endif %} href="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale, "type":type, "lettre":"O", "filtre1":filtre1, "filtre2":filtre2}) }}">o</a></li>
+				<li><a {% if lettre == "P"%}class="active"{% endif %} href="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale, "type":type, "lettre":"P", "filtre1":filtre1, "filtre2":filtre2}) }}">p</a></li>
+				<li><a {% if lettre == "Q"%}class="active"{% endif %} href="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale, "type":type, "lettre":"Q", "filtre1":filtre1, "filtre2":filtre2}) }}">q</a></li>
+				<li><a {% if lettre == "R"%}class="active"{% endif %} href="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale, "type":type, "lettre":"R", "filtre1":filtre1, "filtre2":filtre2}) }}">r</a></li>
+				<li><a {% if lettre == "S"%}class="active"{% endif %} href="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale, "type":type, "lettre":"S", "filtre1":filtre1, "filtre2":filtre2}) }}">s</a></li>
+				<li><a {% if lettre == "T"%}class="active"{% endif %} href="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale, "type":type, "lettre":"T", "filtre1":filtre1, "filtre2":filtre2}) }}">t</a></li>
+				<li><a {% if lettre == "U"%}class="active"{% endif %} href="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale, "type":type, "lettre":"U", "filtre1":filtre1, "filtre2":filtre2}) }}">u</a></li>
+				<li><a {% if lettre == "V"%}class="active"{% endif %} href="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale, "type":type, "lettre":"V", "filtre1":filtre1, "filtre2":filtre2}) }}">v</a></li>
+				<li><a {% if lettre == "W"%}class="active"{% endif %} href="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale, "type":type, "lettre":"W", "filtre1":filtre1, "filtre2":filtre2}) }}">w</a></li>
+				<li><a {% if lettre == "X"%}class="active"{% endif %} href="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale, "type":type, "lettre":"X", "filtre1":filtre1, "filtre2":filtre2}) }}">x</a></li>
+				<li><a {% if lettre == "Y"%}class="active"{% endif %} href="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale, "type":type, "lettre":"Y", "filtre1":filtre1, "filtre2":filtre2}) }}">y</a></li>
+				<li><a {% if lettre == "Z"%}class="active"{% endif %} href="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale, "type":type, "lettre":"Z", "filtre1":filtre1, "filtre2":filtre2}) }}">z</a></li>
+			</ul>
+			
+			<div class="row txtright">
+					<label class="tt-clr">Filtrer par :</label>
+					<form class="iline" method="GET" action="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale}) }}" >
+						<input name="type" type="hidden" value="{{ type }}"/>
+						<input name="lettre" type="hidden" value="{{ lettre }}"/>
+						<input name="filtre2" type="hidden" value="{{ filtre2 }}"/>
+						<select class="type" name="filtre1" id="secteur" onchange="this.form.submit()">
+							<option value="" >Activité</option>
+							{% for Activity in Activities %}
+								<option value="{{ Activity }}"	{% if filtre1 == Activity %}selected="selected"{% endif %}>{{ Activity }}</option>
+							{% endfor %}
+						</select>
+					</form>
+					<form class="iline" method="GET" action="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale}) }}" >
+						<input name="type" type="hidden" value="{{ type }}"/>
+						<input name="lettre" type="hidden" value="{{ lettre }}"/>
+						<input name="filtre1" type="hidden" value="{{ filtre1 }}"/>					
+						<select class="type" name="filtre2" id="structure" onchange="this.form.submit()">
+							<option value="">Structure</option>
+							{% for eng in Engineering %}
+								<option value="{{ eng }}"		{% if filtre2 == eng %}selected="selected"{% endif %}>{{ eng }}</option>
+							{% endfor %}
+						</select>
+					</form>
+			</div>
+		</article>
+	</div>
+</section>
+
+<section class="bloc-adh-results">
+	<div class="wrap">
+		<header>
+			<div class="title-border-simple cf">
+				<h3 class="tt-5 tt-clr fleft">
+				<span>{{ entities|count }}</span> adhérents</h3>
+			</div>
+		</header>
+			<ul class="results cf">
+			{% for entity in entities %}
+				{% if entity.CorporationName is defined %}
+					{% set id_corporation = entity.id %}
+					{% set id_individual = '' %}
+				{% elseif entity.Company is defined %}
+					{% set id_corporation = '' %}
+					{% set id_individual = entity.id %}
+				{% endif %}
+				<li>
+					<span class="innovation"></span>
+					<a href="{{ path_url('admin_gedmo_adherent_detail_ajax', {'lang':locale, 'id_individual':id_individual, 'id_corporation':id_corporation}) }}" class="popin fancybox.ajax">
+						<figure>
+							{% if entity.media.image.id is defined %}
+							<img src="{{ media_url(entity.media.mediaId, 'reference', true, entity.media.getUpdatedAt(), 'lamelee_event_') }}" alt="LA MELEE"/>
+				     	   	{% endif %}
+							<figcaption>
+								<p class="light-clr"><span class="tt-clr">
+									<strong>
+									{% if entity.Name is defined %}
+				   					{{ entity.Name }}
+				   					{% endif %}		 
+									<br>
+									{% if entity.Nickname is defined %}
+				   					{{ entity.Nickname }}
+				   					{% endif %}		
+									</strong></span><br>
+									{% if entity.Company is defined %}
+						   			{{ entity.Company }}
+						   			{% elseif entity.CorporationName is defined %}
+						   			{{ entity.CorporationName }}
+						   			{% endif %}
+								</p>
+							</figcaption>
+						</figure>
+					</a>
+				</li>
+			{% endfor %}
+			</ul>	
+	</div>
+</section>

@@ -96,6 +96,7 @@ class PiModelWidgetContact extends PiFormBuilderManager
     				$result[ $field->getId() ] = $field->getTitle() . ' ('.$field->getId().')';
     		}
     	}
+    	sort($result);
 
         $builder
         	->add('id_contact', 'choice', array(

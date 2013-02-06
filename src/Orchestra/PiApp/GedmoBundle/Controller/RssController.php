@@ -100,6 +100,22 @@ class RssController extends abstractController
     {
     	return parent::deletajaxAction();
     }   
+    
+    /**
+     * Archive a Rss entity.
+     *
+     * @Route("/admin/gedmo/rss/archive", name="admin_gedmo_rss_archiveentity_ajax")
+     * @Secure(roles="ROLE_USER")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access  public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function archiveajaxAction()
+    {
+    	return parent::archiveajaxAction();
+    }
+        
     /**
      * Lists all Rss entities.
      *
@@ -118,7 +134,7 @@ class RssController extends abstractController
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout) 	$template = "index.html.twig"; else $template = "index.html.twig";
         
-        if($NoLayout && $category && !empty($category))
+        if($NoLayout)
     		$entities 	= $em->getRepository("PiAppGedmoBundle:Rss")->getAllEnableByCatAndByPosition($locale, $category, 'object');
     	else
     		$entities	= $em->getRepository("PiAppGedmoBundle:Rss")->findAllByEntity($locale, 'object');

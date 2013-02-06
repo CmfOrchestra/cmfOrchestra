@@ -124,7 +124,9 @@ abstract class abstractListener
         			$route = $this->container->get('session')->get('route');
         		if(in_array($route, $GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST'][$entity_name])){
         			// IMPORTANT !!! sinon ne fonctionne pas avec les collection links :
-        			$entity->setHeritage(array('ROLE_SUPER_ADMIN'));
+        			if(method_exists($entity, 'setHeritage'))
+        				$entity->setHeritage(array('ROLE_SUPER_ADMIN'));
+        			
         			$entityManager->initializeObject($entity);
         			return true;
         		}

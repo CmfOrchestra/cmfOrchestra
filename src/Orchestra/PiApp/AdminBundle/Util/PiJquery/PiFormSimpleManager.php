@@ -99,6 +99,9 @@ class PiFormSimpleManager extends PiJqueryExtension
 		// Option management
 		if(!isset($options['form-name']) || empty($options['form-name']))
 			throw ExtensionException::optionValueNotSpecified('form-name', __CLASS__);
+		
+		$url_css  = 'http://'. $this->container->get('Request')->getHttpHost() . $this->container->get('Request')->getBasePath() . '/css/layout.css';
+		$url_base = 'http://'. $this->container->get('Request')->getHttpHost() . $this->container->get('Request')->getBasePath() . "/bundles/piappadmin/js/tiny_mce";		
 
 	    // We open the buffer.
 	    ob_start ();		
@@ -109,60 +112,70 @@ class PiFormSimpleManager extends PiJqueryExtension
 				// we create the animations.
 				var j_prototype = new function()
 				{
-					this.ftc_tinymce_editor = function(idObj){
+			        this.ftc_tinymce_editor = function(idObj){
 			        	idObj.tinymce({
 							// Location of TinyMCE script
-							script_url : '//<?php echo $this->container->get('Request')->getHttpHost(); ?><?php echo $this->container->get('Request')->getBasePath(); ?>/bundles/piappadmin/js/tiny_mce/tiny_mce.js',
+							script_url : '<?php echo $url_base ?>/tiny_mce.js',
 							// General options
 							theme : "advanced",
 							language : "<?php echo strtolower(current(explode("_", $this->locale))); ?>",
 							plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist",
+
+							forced_root_block : false,
+							convert_fonts_to_spans : true,							
+							font_size_classes : "xx-small,x-small,small,mid,big,x-big,xx-big",
+							theme_advanced_font_sizes :"xx-small=.xx-small,x-small=.x-small,small=.small,mid=.mid,big=.big,x-big=.x-big,xx-big=.xx-big",							
+							
 							// don't replace encoding character like : Ã© to &eacutes;
-							entity_encoding : "raw",		
+							entity_encoding : "raw",
 							// Theme options
 							theme_advanced_buttons1 : "fullscreen,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
-							theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
-							theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,advhr,|,print,|,ltr,rtl",
+							theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,image,anchor,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+							theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl",
 							theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak",
 							theme_advanced_toolbar_location : "top",
 							theme_advanced_toolbar_align : "left",
 							theme_advanced_statusbar_location : "bottom",
 							theme_advanced_resizing : true,
-		
+
 							// Exemple content CSS (should be your site CSS)
-							content_css : "css/layout.css",
+							content_css : "<?php echo $url_css ?>",
+
 							// Style formats
 							style_formats : [
-								{title : 'Bold text', inline : 'b'},
-								{title : 'Red text', inline : 'span', styles : {color : '#ff0000'}},
-								{title : 'Red header', block : 'h1', styles : {color : '#ff0000'}},
-								{title : 'Example 1', inline : 'span', classes : 'example1'},
-								{title : 'Example 2', inline : 'span', classes : 'example2'},
-								{title : 'Table styles'},
-								{title : 'Table row 1', selector : 'tr', classes : 'tablerow1'}
+								{title : 'Bold text', inline : 'span', classes:'bold'},
+								{title : 'italic text', inline : 'span', classes:'italic'},
+								{title : 'underline text', inline : 'span', classes:'underline'},
+								{title : 'Titre 1', block : 'h3', classes : 'tt-1'},
+								{title : 'Titre 2', block : 'h3', classes : 'tt-2'},
+								{title : 'Titre 3', block : 'h3', classes : 'tt-3'},
+								{title : 'Titre 4', block : 'h4', classes : 'tt-4'},
+								{title : 'Titre 5', block : 'h4', classes : 'tt-red'},
+								{title : 'Titre 6', block : 'h4', classes : 'tt-purple'},
+							
 							],
-
+						
 							formats : {
-								alignleft : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'left'},
-								aligncenter : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'center'},
-								alignright : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'right'},
-								alignfull : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'full'},
+								alignleft : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtleft'},
+								aligncenter : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtcenter'},
+								alignright : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtright'},
+								alignfull : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtjustify'},
 								bold : {inline : 'span', 'classes' : 'bold'},
 								italic : {inline : 'span', 'classes' : 'italic'},
 								underline : {inline : 'span', 'classes' : 'underline', exact : true},
 								strikethrough : {inline : 'del'}
-							},
-		
+							},									
+							
 							// Drop lists for link/image/media/template dialogs
-							template_external_list_url : "lists/template_list.js",
-							external_link_list_url : "lists/link_list.js",
-							external_image_list_url : "lists/image_list.js",
-							media_external_list_url : "lists/media_list.js",
+							template_external_list_url : "<?php echo $url_base ?>/plugins/lists/template_list.js",
+							external_link_list_url : "<?php echo $url_base ?>/plugins/lists/link_list.js",
+							external_image_list_url : "<?php echo $url_base ?>/plugins/lists/image_list.js",
+							media_external_list_url : "<?php echo $url_base ?>/plugins/lists/media_list.js",
 							// count without the lenght of html balise
 							setup : function(ed) {
                                 ed.onKeyUp.add(function(ed, e) {
                                     var strip = (tinymce.activeEditor.getContent()).replace(/(<([^>]+)>)/ig,"").replace(/&[a-z]+;/ig, "");
-                                    var text = strip.split(' ').length + " Mots, " +  (("<?php if($this->container->get('Request')->get('_route')== 'gedmo_admin_social_edit'){ ?>"+245+"<?php }else{ ?>"+475+"<?php } ?>") - strip.length) + " Caractères "
+                                    var text = strip.split(' ').length + " Mots, " +  (10000 - strip.length) + " Caractères "
                                     tinymce.DOM.setHTML(tinymce.DOM.get(tinymce.activeEditor.id + '_path_row'), text);
 
                                     // limit the lenght of written
@@ -171,59 +184,69 @@ class PiFormSimpleManager extends PiJqueryExtension
                                     //      tinymce.execCommand('mceSetContent',false,strip);
                                     //}
                                 });
-                            }							
+                            }
 						});
 				    };	
-		
+
 				    this.ftc_tinymce_editor_simple = function(idObj){
 			        	idObj.tinymce({
 							// Location of TinyMCE script
-							script_url : '//<?php echo $this->container->get('Request')->getHttpHost(); ?><?php echo $this->container->get('Request')->getBasePath(); ?>/bundles/piappadmin/js/tiny_mce/tiny_mce.js',
+							script_url : '<?php echo $url_base ?>/tiny_mce.js',
 							// General options
 							theme : "advanced",
 							language : "<?php echo strtolower(current(explode("_", $this->locale))); ?>",
 							plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist",
+
+							forced_root_block : false,
+							convert_fonts_to_spans : true,							
+							font_size_classes : "xx-small,x-small,small,mid,big,x-big,xx-big",
+							theme_advanced_font_sizes :"xx-small=.xx-small,x-small=.x-small,small=.small,mid=.mid,big=.big,x-big=.x-big,xx-big=.xx-big",
+														
 							// don't replace encoding character like : Ã© to &eacutes;
 							entity_encoding : "raw",							
 							// Theme options
 							theme_advanced_buttons1 : "fullscreen,bold,italic,underline,strikethrough,justifyleft,justifycenter,justifyright,justifyfull,bullist,numlist,hr,sub,sup,forecolor,backcolor",
-							theme_advanced_buttons2 : "print,formatselect,fontselect,fontsizeselect,visualchars,outdent,indent,undo,redo",
+							theme_advanced_buttons2 : "print,formatselect,styleselect,fontsizeselect,visualchars,outdent,indent,undo,redo",
 							theme_advanced_buttons3 : "code,link,unlink,search,replace,tablecontrols",
-							theme_advanced_buttons4 : "visualaid,insertdate,inserttime,anchor,blockquote,charmap,iespell,advhr,nonbreaking,|,insertlayer,moveforward,movebackward,absolute,|,styleprops,|acronym,del,ins,attribs",
+							theme_advanced_buttons4 : "visualaid,insertdate,inserttime,anchor,blockquote,charmap,iespell,advhr,nonbreaking,|,insertlayer,moveforward,movebackward,absolute,|,styleprops,|acronym,del,ins,attribs,image,media",
 							theme_advanced_toolbar_location : "top",
 							theme_advanced_toolbar_align : "left",
 							theme_advanced_statusbar_location : "bottom",
 							theme_advanced_resizing : true,
 
 							// Exemple content CSS (should be your site CSS)
-							content_css : "css/layout.css",
+							content_css : "<?php echo $url_css ?>",
+
 							// Style formats
 							style_formats : [
-								{title : 'Bold text', inline : 'b'},
-								{title : 'Red text', inline : 'span', styles : {color : '#ff0000'}},
-								{title : 'Red header', block : 'h1', styles : {color : '#ff0000'}},
-								{title : 'Example 1', inline : 'span', classes : 'example1'},
-								{title : 'Example 2', inline : 'span', classes : 'example2'},
-								{title : 'Table styles'},
-								{title : 'Table row 1', selector : 'tr', classes : 'tablerow1'}
+								{title : 'Bold text', inline : 'span', classes:'bold'},
+								{title : 'italic text', inline : 'span', classes:'italic'},
+								{title : 'underline text', inline : 'span', classes:'underline'},
+								{title : 'Titre 1', block : 'h3', classes : 'tt-1'},
+								{title : 'Titre 2', block : 'h3', classes : 'tt-2'},
+								{title : 'Titre 3', block : 'h3', classes : 'tt-3'},
+								{title : 'Titre 4', block : 'h4', classes : 'tt-4'},
+								{title : 'Titre 5', block : 'h4', classes : 'tt-red'},
+								{title : 'Titre 6', block : 'h4', classes : 'tt-purple'},
+							
 							],
-
+						
 							formats : {
-								alignleft : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'left'},
-								aligncenter : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'center'},
-								alignright : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'right'},
-								alignfull : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'full'},
+								alignleft : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtleft'},
+								aligncenter : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtcenter'},
+								alignright : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtright'},
+								alignfull : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtjustify'},
 								bold : {inline : 'span', 'classes' : 'bold'},
 								italic : {inline : 'span', 'classes' : 'italic'},
 								underline : {inline : 'span', 'classes' : 'underline', exact : true},
 								strikethrough : {inline : 'del'}
 							},
-
+							
 							// Drop lists for link/image/media/template dialogs
-							template_external_list_url : "lists/template_list.js",
-							external_link_list_url : "lists/link_list.js",
-							external_image_list_url : "lists/image_list.js",
-							media_external_list_url : "lists/media_list.js",
+							template_external_list_url : "<?php echo $url_base ?>/plugins/template_list.js",
+							external_link_list_url : "<?php echo $url_base ?>/plugins/lists/link_list.js",
+							external_image_list_url : "<?php echo $url_base ?>/plugins/lists/image_list.js",
+							media_external_list_url : "<?php echo $url_base ?>/plugins/lists/media_list.js",
 							// count without the lenght of html balise
 							setup : function(ed) {
                                 ed.onKeyUp.add(function(ed, e) {
@@ -244,51 +267,61 @@ class PiFormSimpleManager extends PiJqueryExtension
 				    this.ftc_tinymce_editor_easy = function(idObj){
 			        	idObj.tinymce({
 							// Location of TinyMCE script
-							script_url : '//<?php echo $this->container->get('Request')->getHttpHost(); ?><?php echo $this->container->get('Request')->getBasePath(); ?>/bundles/piappadmin/js/tiny_mce/tiny_mce.js',
+							script_url : '<?php echo $url_base ?>/tiny_mce.js',
 							// General options
 							theme : "advanced",
 							language : "<?php echo strtolower(current(explode("_", $this->locale))); ?>",
 							plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist",
+
+							forced_root_block : false,
+							convert_fonts_to_spans : true,							
+							font_size_classes : "xx-small,x-small,small,mid,big,x-big,xx-big",
+							theme_advanced_font_sizes :"xx-small=.xx-small,x-small=.x-small,small=.small,mid=.mid,big=.big,x-big=.x-big,xx-big=.xx-big",
+														
 							// don't replace encoding character like : Ã© to &eacutes;
 							entity_encoding : "raw",							
 							// Theme options
 							theme_advanced_buttons1 : "fullscreen,bold,italic,underline,strikethrough,justifyleft,justifycenter,justifyright,justifyfull,bullist,numlist,hr,sub,sup,forecolor,backcolor",
-							theme_advanced_buttons2 : "code,formatselect,fontselect,fontsizeselect,visualchars,outdent,indent,undo,redo",
-							theme_advanced_buttons3 : "",
+							theme_advanced_buttons2 : "code,formatselect,styleselect,fontsizeselect,visualchars,outdent,indent,undo,redo",
+							theme_advanced_buttons3 : "", 
 							theme_advanced_toolbar_location : "top",
 							theme_advanced_toolbar_align : "left",
 							theme_advanced_statusbar_location : "bottom",
 							theme_advanced_resizing : true,
 
 							// Exemple content CSS (should be your site CSS)
-							content_css : "css/layout.css",
+							content_css : "<?php echo $url_css ?>",
+
 							// Style formats
 							style_formats : [
-								{title : 'Bold text', inline : 'b'},
-								{title : 'Red text', inline : 'span', styles : {color : '#ff0000'}},
-								{title : 'Red header', block : 'h1', styles : {color : '#ff0000'}},
-								{title : 'Example 1', inline : 'span', classes : 'example1'},
-								{title : 'Example 2', inline : 'span', classes : 'example2'},
-								{title : 'Table styles'},
-								{title : 'Table row 1', selector : 'tr', classes : 'tablerow1'}
+								{title : 'Bold text', inline : 'span', classes:'bold'},
+								{title : 'italic text', inline : 'span', classes:'italic'},
+								{title : 'underline text', inline : 'span', classes:'underline'},
+								{title : 'Titre 1', block : 'h3', classes : 'tt-1'},
+								{title : 'Titre 2', block : 'h3', classes : 'tt-2'},
+								{title : 'Titre 3', block : 'h3', classes : 'tt-3'},
+								{title : 'Titre 4', block : 'h4', classes : 'tt-4'},
+								{title : 'Titre 5', block : 'h4', classes : 'tt-red'},
+								{title : 'Titre 6', block : 'h4', classes : 'tt-purple'},
+							
 							],
-
+						
 							formats : {
-								alignleft : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'left'},
-								aligncenter : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'center'},
-								alignright : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'right'},
-								alignfull : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'full'},
+								alignleft : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtleft'},
+								aligncenter : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtcenter'},
+								alignright : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtright'},
+								alignfull : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtjustify'},
 								bold : {inline : 'span', 'classes' : 'bold'},
 								italic : {inline : 'span', 'classes' : 'italic'},
 								underline : {inline : 'span', 'classes' : 'underline', exact : true},
 								strikethrough : {inline : 'del'}
-							},
-
+							},									
+							
 							// Drop lists for link/image/media/template dialogs
-							template_external_list_url : "lists/template_list.js",
-							external_link_list_url : "lists/link_list.js",
-							external_image_list_url : "lists/image_list.js",
-							media_external_list_url : "lists/media_list.js",
+							template_external_list_url : "<?php echo $url_base ?>/plugins/lists/template_list.js",
+							external_link_list_url : "<?php echo $url_base ?>/plugins/lists/link_list.js",
+							external_image_list_url : "<?php echo $url_base ?>/plugins/lists/image_list.js",
+							media_external_list_url : "<?php echo $url_base ?>/plugins/lists/media_list.js",
 							// count without the lenght of html balise
 							setup : function(ed) {
                                 ed.onKeyUp.add(function(ed, e) {
@@ -304,7 +337,7 @@ class PiFormSimpleManager extends PiJqueryExtension
                                 });
                             }
 						});
-				    };
+				    };	
 					
 					// THIS FUNCTION ALLOW TO INJECT SEVERAL FIELDS IN A ACCORDION MENU.
 			        this.ftc_accordion_form = function(className, title, idForm){

@@ -102,6 +102,21 @@ class ContactController extends abstractController
     } 
       
     /**
+     * Archive a Contact entity.
+     *
+     * @Route("/admin/gedmo/contact/archive", name="admin_gedmo_contact_archiveentity_ajax")
+     * @Secure(roles="ROLE_USER")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access  public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function archiveajaxAction()
+    {
+    	return parent::archiveajaxAction();
+    }
+        
+    /**
      * Lists all Contact entities.
      *
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")

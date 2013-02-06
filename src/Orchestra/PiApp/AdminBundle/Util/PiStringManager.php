@@ -1057,7 +1057,6 @@ class PiStringManager implements PiStringManagerBuilderInterface
 	/**
 	 * List of all locales.
 	 *
-	 * @link https://github.com/umpirsky/country-list/blob/master/country/cldr/en/country.php
 	 * @param string $locale
 	 * @access public
 	 * @return array

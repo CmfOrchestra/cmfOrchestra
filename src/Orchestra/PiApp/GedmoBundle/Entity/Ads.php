@@ -104,7 +104,7 @@ class Ads extends AbstractDefault
     /**
      * @var string $typology
      *
-     * @ORM\Column(name="typology", type="string", nullable=false)
+     * @ORM\Column(name="typology", type="string", nullable=true)
      * @Assert\NotBlank(message = "erreur.status.notblank")
      */
     protected $typology;    
@@ -242,7 +242,7 @@ class Ads extends AbstractDefault
     {
     	return $this->typology;
     }    
-    
+        
     /**
      * Set title
      *
@@ -252,7 +252,7 @@ class Ads extends AbstractDefault
     {
     	$this->title = $title;
     	return $this;
-    }    
+    }
         
     /**
      * Get title

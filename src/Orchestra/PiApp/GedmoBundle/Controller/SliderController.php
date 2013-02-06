@@ -100,6 +100,21 @@ class SliderController extends abstractController
     {
     	return parent::deletajaxAction();
     }    
+    
+    /**
+     * Archive a Slider entity.
+     *
+     * @Route("/admin/gedmo/slider/archive", name="admin_gedmo_slider_archiveentity_ajax")
+     * @Secure(roles="ROLE_USER")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access  public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function archiveajaxAction()
+    {
+    	return parent::archiveajaxAction();
+    }    
 
     /**
      * Lists all Slider entities.
@@ -117,10 +132,12 @@ class SliderController extends abstractController
     	$NoLayout   = $this->container->get('request')->query->get('NoLayout');
     	if(!$NoLayout) 	$template = "index.html.twig"; else $template = "index_ajax.html.twig";
     
-    	if($NoLayout && $category && !empty($category))
-    		$entities 	= $em->getRepository("PiAppGedmoBundle:Slider")->getAllEnableByCatAndByPosition($locale, $category, 'object');
-    	else
-    		$entities 	= $em->getRepository("PiAppGedmoBundle:Slider")->findAllByEntity($locale, 'object');
+    	if($NoLayout){
+    		//$entities 	= $em->getRepository("PiAppGedmoBundle:Slider")->getAllEnableByCatAndByPosition($locale, $category, 'object');
+    		$query		= $em->getRepository("PiAppGedmoBundle:Slider")->getAllByCategory($category, null, '', 'ASC', false)->getQuery();
+    		$entities   = $em->getRepository("PiAppGedmoBundle:Slider")->findTranslationsByQuery($locale, $query, 'object', false);
+    	}else
+    		$entities	= $em->getRepository("PiAppGedmoBundle:Slider")->findAllByEntity($locale, 'object'); 
     
     	return $this->render("PiAppGedmoBundle:Slider:$template", array(
     			'entities' => $entities,

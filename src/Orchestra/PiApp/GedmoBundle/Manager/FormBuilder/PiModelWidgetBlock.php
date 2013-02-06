@@ -97,6 +97,7 @@ class PiModelWidgetBlock extends PiFormBuilderManager
     				$result[ $field->getId() ] = $field->getTitle() . ' ('.$field->getId().')';
     		}
     	}
+    	sort($result);
 
         $builder
 	        ->add('choice', 'choice', array(
@@ -130,6 +131,7 @@ class PiModelWidgetBlock extends PiFormBuilderManager
 	        				'_tmp_show-block-tpl2.html.twig'		   			=> 'pi.block.formbuilder.template.choice4',
 	        				'_tmp_show-block-tpl3.html.twig'		   			=> 'pi.block.formbuilder.template.choice5',
 	        				'_tmp_show-block-tpl4.html.twig'		   			=> 'pi.block.formbuilder.template.choice6',
+	        				'_tmp_show-block-tpl5.html.twig'		   			=> 'pi.block.formbuilder.template.choice9',
 	        				'_tmp_show-block-video-left.html.twig'				=> 'pi.block.formbuilder.template.choice7',
 	        				'_tmp_show-block-video-right.html.twig'				=> 'pi.block.formbuilder.template.choice8',
 	        		),

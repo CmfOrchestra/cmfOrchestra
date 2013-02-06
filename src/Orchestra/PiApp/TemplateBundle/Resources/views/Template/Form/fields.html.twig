@@ -244,7 +244,7 @@
 {% block file_widget %}
 {% spaceless %}
     <div class="{% if errors|length > 0 %}error{% endif %}">
-    	<picture id="{{ id }}" class="media" ></picture>
+    	<div id="{{ id }}" class="media" ></div>
 		{{ form_widget(form) }}
     </div>
 {% endspaceless %}

@@ -62,10 +62,12 @@ pi.grid.action.info: عرض _START_ ل_END_ من السجلات _TOTAL_
 pi.grid.action.info.empty: إظهار 0 إلى 0 من 0 السجلات
 pi.grid.action.info.filtered: (تصفية من السجلات _MAX_ مجموع)
 pi.grid.action.waiting: انتظر
+pi.grid.action.activation: تفعيل
 pi.grid.action.row_enabled: مُفَعَّل
 pi.grid.action.row_disable: عَطِّل
 pi.grid.action.row_delete: احذف
 pi.grid.action.row_archive: الأرشيف
+pi.grid.action.select:  مجموعه
 pi.grid.action.select_all: اختر كل
 pi.grid.action.select_none: ألغ  كل
 

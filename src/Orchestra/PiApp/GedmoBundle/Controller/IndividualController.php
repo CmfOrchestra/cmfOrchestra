@@ -103,6 +103,22 @@ class IndividualController extends abstractController
     {
     	return parent::deletajaxAction();
     }   
+
+    /**
+     * Archive a Individual entity.
+     *
+     * @Route("/admin/gedmo/individual/archive", name="admin_gedmo_individual_archiveentity_ajax")
+     * @Secure(roles="ROLE_USER")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access  public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function archiveajaxAction()
+    {
+    	return parent::archiveajaxAction();
+    }
+        
     /**
      * Lists all Individual entities.
      *
@@ -123,7 +139,7 @@ class IndividualController extends abstractController
         
     	if($NoLayout && $category && !empty($category)){
     		//$entities 	= $em->getRepository("PiAppGedmoBundle:Individual")->getAllEnableByCatAndByPosition($locale, $category, 'object');
-    		$query		= $em->getRepository("PiAppGedmoBundle:Individual")->getAllByCategory($category, null, '', 'ASC', false)->getQuery();
+    		$query		= $em->getRepository("PiAppGedmoBundle:Individual")->getAllByCategory($category, null, "DESC", "", false)->getQuery();
     		$entities   = $em->getRepository("PiAppGedmoBundle:Individual")->findTranslationsByQuery($locale, $query, 'object', false);
     	}else
     		$entities	= $em->getRepository("PiAppGedmoBundle:Individual")->findAllByEntity($locale, 'object');    	
@@ -498,15 +514,16 @@ class IndividualController extends abstractController
 	
 	          $user = new User();
 	          $user->setUsername($form["UserName"]->getData());
-	          $user->getUsernameCanonical($password);
-	          $user->setPlainPassword($password);
+	          $user->getUsernameCanonical($form["UserName"]->getData());
+	          $user->setPlainPassword($form["UserName"]->getData());
 	          $user->setEmail($form["Email"]->getData());
 	          $user->setEmailCanonical($form["Email"]->getData());
+            $user->setName($form["Name"]->getData());
+            $user->setNickname($form["Nickname"]->getData());             
 	          $user->setEnabled(true);
 	          $user->setRoles(array('ROLE_SUBSCRIBER'));
 	          $user->setPermissions(array('VIEW', 'EDIT', 'CREATE', 'DELETE'));
-	
-	          $user->addGroupUser($em->getRepository('BootStrapUserBundle:Group')->findOneByName('Groupe User'));
+
 	          $user->setLangCode($em->getRepository('PiAppAdminBundle:Langue')->findOneById('fr_FR'));
 	
 	          $em->persist($user);
@@ -571,7 +588,21 @@ class IndividualController extends abstractController
     {
 
         $em 		= $this->getDoctrine()->getEntityManager();
-        $request = $this->container->get('request')->get('GET');
+        
+        $entity   = new Individual();
+        if (true === $this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {        
+            $connexion = $this->get('security.context')->getToken()->getUser();
+            $user = $em->getRepository("BootStrapUserBundle:User")->findOneById($connexion->getId());
+
+
+            if($user->getIndividual()){
+              $entity = $user->getIndividual();
+            }
+        }
+        
+        $form   	= $this->createForm(new AdhesionIndividualType($em, $this->container), $entity, array('show_legend' => false));
+          
+        $request = $_POST;
         if(isset($request['new']))
             $new   = $request['new'];
         else
@@ -595,8 +626,6 @@ class IndividualController extends abstractController
     	  $category   = $this->container->get('request')->query->get('category');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         
-        $entity   = new Individual();
-
         $render = '';
         
         //
@@ -650,7 +679,7 @@ class IndividualController extends abstractController
               }
         }
 
-        $form   	= $this->createForm(new AdhesionIndividualType($em, $this->container), $entity, array('show_legend' => false));
+        //$form   	= $this->createForm(new AdhesionIndividualType($em, $this->container), $entity, array('show_legend' => false));
 
         return $this->render("PiAppGedmoBundle:Individual:$template", array(
             'entity' 	=> $entity,
@@ -680,18 +709,20 @@ class IndividualController extends abstractController
 
       $data = $request->get($form->getName(), array());
       $form->bind($data);
-
-      $user_name  = $em->getRepository('BootStrapUserBundle:User')->findOneByName($form["UserName"]->getData());
-      if($user_name != null){
-        $form->addError(new FormError('error message : username already exists!'));
-      }
       
-      $user_email = $em->getRepository('BootStrapUserBundle:User')->findOneByEmail($form["Email"]->getData());
+      if (false === $this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {        
+          $user_name  = $em->getRepository('BootStrapUserBundle:User')->findOneByName($form["UserName"]->getData());
+          if($user_name != null){
+            $form->addError(new FormError('error message : username already exists!'));
+          }
 
-      if($user_email != null){
-        $form->addError(new FormError('error message : email already exists!'));
+          $user_email = $em->getRepository('BootStrapUserBundle:User')->findOneByEmail($form["Email"]->getData());
+
+          if($user_email != null){
+            $form->addError(new FormError('error message : email already exists!'));
+          }
       }
-
+        
       if (!$form->hasErrors()) {
 
         $data = array();
@@ -754,23 +785,39 @@ class IndividualController extends abstractController
 
       if (!$form->hasErrors()) {
 	          $password = \PiApp\AdminBundle\Util\PiStringManager::random(8);
+            if (true === $this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {  
+                $connexion = $this->get('security.context')->getToken()->getUser();
+                $user = $em->getRepository("BootStrapUserBundle:User")->findOneById($connexion->getId());
+                $entity = $user->getIndividual();
+       
+                $user->setName($request->get('Name'));
+                $user->setNickname($request->get('Nickname'));            
+                $user->setRoles(array('ROLE_MEMBER'));
+                $em->persist($user);
+                $em->flush();	          
+            }
+            else{
+                $user = new User();
+                $user->setUsername($request->get('UserName'));
+                $user->setName($request->get('Name'));
+                $user->setNickname($request->get('Nickname'));            
+                $user->getUsernameCanonical($request->get('UserName'));
+                $user->setPlainPassword($password);
+                $user->setEmail($request->get('Email'));
+                $user->setEmailCanonical($request->get('Email'));
+                $user->setEnabled(true);
+                $user->setRoles(array('ROLE_MEMBER'));
+                $user->setPermissions(array('VIEW', 'EDIT', 'CREATE', 'DELETE'));
+                $user->setLangCode($em->getRepository('PiAppAdminBundle:Langue')->findOneById('fr_FR'));
+                $em->persist($user);
+                $em->flush();	          
+                $entity->setUser($user);   
+                
+                $entity->setTranslatableLocale($lang);
+                $entity->setEmail($request->get('Email'));      
+                $entity->setUserName($request->get('UserName'));
+            }
 
-	          $user = new User();
-	          $user->setUsername($request->get('UserName'));
-            $user->setName($request->get('Name'));
-            $user->setNickname($request->get('Nickname'));            
-	          $user->getUsernameCanonical($password);
-	          $user->setPlainPassword($password);
-	          $user->setEmail($request->get('Email'));
-	          $user->setEmailCanonical($request->get('Email'));
-	          $user->setEnabled(true);
-	          $user->setRoles(array('ROLE_MEMBER'));
-	          $user->setPermissions(array('VIEW', 'EDIT', 'CREATE', 'DELETE'));
-	          $user->setLangCode($em->getRepository('PiAppAdminBundle:Langue')->findOneById('fr_FR'));
-	          $em->persist($user);
-	          $em->flush();	          
-            $entity->setUser($user);
-        
             $media_pixel = new \BootStrap\MediaBundle\Entity\Media();
             $media_pixel->setProviderName('sonata.media.provider.image');
             $media_pixel->setContext("default");  
@@ -785,24 +832,21 @@ class IndividualController extends abstractController
             $em->flush();
             $entity->setMedia($media_gedmo);
         
-	          $entity->setTranslatableLocale($lang);
             $entity->setCivility($request->get('Civility'));
             $entity->setName($request->get('Name'));
             $entity->setNickname($request->get('Nickname'));
             $entity->setJob($request->get('Job'));
-            $entity->setEmail($request->get('Email'));
             $entity->setEmailPerso($request->get('EmailPerso'));
             $entity->setPhone($request->get('Phone'));
             $entity->setProfile($request->get('Profile'));
             $entity->setProfileOther($request->get('ProfileOther'));
-            $entity->setUserName($request->get('UserName'));
             $entity->setFacebook($request->get('Facebook'));
             $entity->setGooglePlus($request->get('GooglePlus'));
             $entity->setTwitter($request->get('Twitter'));
             $entity->setLinkedIn($request->get('LinkedIn'));
             $entity->setViadeo($request->get('Viadeo'));
-            $entity->setDetailActivity($request->get('Engineering'));
-            $entity->setDetailActivity($request->get('Activity'));
+            $entity->setEngineering($request->get('Engineering'));
+            $entity->setActivity($request->get('Activity'));
             $entity->setDetailActivity($request->get('DetailActivity'));
             $entity->setArgumentActivity($request->get('ArgumentActivity'));
             $entity->setUrl($request->get('url'));            

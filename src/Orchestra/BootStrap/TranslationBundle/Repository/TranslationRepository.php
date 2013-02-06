@@ -179,14 +179,14 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
     	}
 
     	$query = $this->setTranslatableHints($query, $locale, $INNER_JOIN);
-    
+    	
     	if($result == 'array')
     		$entities = $query->getArrayResult();
     	elseif($result == 'object')
     		$entities = $query->getResult();
     	else
     		throw new \InvalidArgumentException("We haven't set the good option value : array or object !");
-    
+    	
     	$query->free();
     
     	return $entities;
@@ -562,10 +562,62 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
     		$query->setMaxResults($MaxResults);
     	if($is_checkRoles)
     		$query = $this->checkRoles($query);
-    	    	
+    	
     	return $query;
     }
     
+    /**
+     * Gets all entities by multiple fields.
+     *
+     * @return array\entity
+     * @access public
+     *
+     * @author Riad HELLAL <r.hellal@novediagroup.com>
+     * @since 2012-03-15
+     */
+    public function getAllByFields($fields = array(), $MaxResults = null, $ORDER_PublishDate = '', $ORDER_Position = '', $enabled = true, $is_checkRoles = true)
+    {
+    	$query = $this->createQueryBuilder('a')->select('a');
+    	 
+    	if(!empty($ORDER_PublishDate) && !empty($ORDER_Position)){
+    		$query
+    		->orderBy('a.published_at', $ORDER_PublishDate)
+    		->addOrderBy('a.position', $ORDER_Position);
+    	}elseif(!empty($ORDER_PublishDate) && empty($ORDER_Position)){
+    		$query
+    		->orderBy('a.published_at', $ORDER_PublishDate);
+    	}elseif(empty($ORDER_PublishDate) && !empty($ORDER_Position)){
+    		$query
+    		->orderBy('a.position', $ORDER_Position);
+    	}
+    	$query->where('a.archived = 0');
+
+    	if($enabled && !empty($fields)){
+    		$fields['enabled'] = 1;
+    		foreach ($fields as $key => $value) {
+    			$query
+    			->andWhere("a.{$key} LIKE '{$value}'");
+    		}
+    	}elseif($enabled && empty($fields)){
+    		$query
+    		->andWhere('a.enabled = :enabled')
+    		->setParameters(array(
+    				'enabled'	=> 1,
+    		));
+    	}elseif(!$enabled && !empty($fields)){
+    		foreach ($fields as $key => $value) {
+    			$query
+    			->andWhere("a.{$key} LIKE '{$value}'");
+    		}
+    	}
+    
+    	if(!is_null($MaxResults))
+    		$query->setMaxResults($MaxResults);
+    	if($is_checkRoles)
+    		$query = $this->checkRoles($query);
+    
+    	return $query;
+    }
 
     /**
      * Gets all order by param.

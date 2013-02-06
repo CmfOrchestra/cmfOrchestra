@@ -99,7 +99,23 @@ class PartnerController extends abstractController
     public function deleteajaxAction()
     {
     	return parent::deletajaxAction();
-    }   
+    }  
+
+    /**
+     * Archive a Partner entity.
+     *
+     * @Route("/admin/gedmo/partenaires/archive", name="admin_gedmo_partenaires_archiveentity_ajax")
+     * @Secure(roles="ROLE_USER")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access  public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function archiveajaxAction()
+    {
+    	return parent::archiveajaxAction();
+    }    
+    
     /**
      * Lists all Partner entities.
      *
@@ -111,16 +127,24 @@ class PartnerController extends abstractController
      */
     public function indexAction()
     {
-    	$em			= $this->getDoctrine()->getEntityManager();
-    	$locale		= $this->container->get('session')->getLocale();
-        $entities	= $em->getRepository("PiAppGedmoBundle:Partner")->findAllByEntity($locale, 'object');        
+        $em			= $this->getDoctrine()->getEntityManager();
+        $locale		= $this->container->get('session')->getLocale();
         
+        $category   = $this->container->get('request')->query->get('category');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout) 	$template = "index.html.twig"; else $template = "index.html.twig";
+        
+        if($NoLayout){
+        	//$entities 	= $em->getRepository("PiAppGedmoBundle:Partner")->getAllEnableByCatAndByPosition($locale, $category, 'object');
+        	$query		= $em->getRepository("PiAppGedmoBundle:Partner")->getAllByCategory($category, null, '', 'ASC', false)->getQuery();
+        	$entities   = $em->getRepository("PiAppGedmoBundle:Partner")->findTranslationsByQuery($locale, $query, 'object', false);
+        }else
+        	$entities	= $em->getRepository("PiAppGedmoBundle:Partner")->findAllByEntity($locale, 'object');        
 
         return $this->render("PiAppGedmoBundle:Partner:$template", array(
             'entities' => $entities,
             'NoLayout'	=> $NoLayout,
+            'category'	=> $category,          
         ));
     }
 
@@ -140,6 +164,7 @@ class PartnerController extends abstractController
         $entity = $em->getRepository("PiAppGedmoBundle:Partner")->findOneByEntity($locale, $id, 'object');
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
+        $category   = $this->container->get('request')->query->get('category');
         if(!$NoLayout) 	$template = "show.html.twig"; else $template = "show.html.twig";        
 
         if (!$entity) {
@@ -152,7 +177,7 @@ class PartnerController extends abstractController
             'entity'      => $entity,
             'NoLayout'	  => $NoLayout,
             'delete_form' => $deleteForm->createView(),
-
+            'category'	=> $category,   
         ));
     }
 
@@ -172,12 +197,14 @@ class PartnerController extends abstractController
         $form   = $this->createForm(new PartnerType($em, $this->container), $entity, array('show_legend' => false));
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
+        $category   = $this->container->get('request')->query->get('category');
         if(!$NoLayout)	$template = "new.html.twig";  else 	$template = "new.html.twig";        
 
         return $this->render("PiAppGedmoBundle:Partner:$template", array(
             'entity' => $entity,
             'form'   => $form->createView(),
             'NoLayout'  => $NoLayout,
+            'category'	=> $category,             
         ));
     }
 
@@ -196,6 +223,7 @@ class PartnerController extends abstractController
         $locale	= $this->container->get('session')->getLocale();
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
+        $category   = $this->container->get('request')->query->get('category');
         if(!$NoLayout)	$template = "new.html.twig";  else 	$template = "new.html.twig";        
     
         $entity  = new Partner();
@@ -208,7 +236,7 @@ class PartnerController extends abstractController
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_gedmo_partner_show', array('id' => $entity->getId(), 'NoLayout' => $NoLayout)));
+            return $this->redirect($this->generateUrl('admin_gedmo_partner_show', array('id' => $entity->getId(), 'NoLayout' => $NoLayout, 'category' => $category)));
                         
         }
 
@@ -216,6 +244,7 @@ class PartnerController extends abstractController
             'entity' => $entity,
             'form'   => $form->createView(),
             'NoLayout'  => $NoLayout,
+            'category'	=> $category,             
         ));
     }
 
@@ -235,6 +264,7 @@ class PartnerController extends abstractController
         $entity = $em->getRepository("PiAppGedmoBundle:Partner")->findOneByEntity($locale, $id, 'object');
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
+        $category   = $this->container->get('request')->query->get('category');
         if(!$NoLayout)	$template = "edit.html.twig";  else	$template = "edit.html.twig";        
 
         if (!$entity) {
@@ -250,6 +280,7 @@ class PartnerController extends abstractController
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'NoLayout' 	  => $NoLayout,
+            'category'	=> $category,             
         ));
     }
 
@@ -269,6 +300,7 @@ class PartnerController extends abstractController
         $entity = $em->getRepository("PiAppGedmoBundle:Partner")->findOneByEntity($locale, $id, "object"); 
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
+        $category   = $this->container->get('request')->query->get('category');
         if(!$NoLayout)	$template = "edit.html.twig";  else	$template = "edit.html.twig";        
 
         if (!$entity) {
@@ -284,7 +316,7 @@ class PartnerController extends abstractController
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_gedmo_partner_edit', array('id' => $id, 'NoLayout' => $NoLayout)));
+            return $this->redirect($this->generateUrl('admin_gedmo_partner_edit', array('id' => $id, 'NoLayout' => $NoLayout, 'category' => $category)));
         }
 
         return $this->render("PiAppGedmoBundle:Partner:$template", array(
@@ -292,6 +324,7 @@ class PartnerController extends abstractController
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'NoLayout' 	  => $NoLayout,
+            'category'	=> $category,             
         ));
     }
 
@@ -309,7 +342,8 @@ class PartnerController extends abstractController
         $em 	 = $this->getDoctrine()->getEntityManager();
 	    $locale	 = $this->container->get('session')->getLocale();
 	    
-	    $NoLayout   = $this->container->get('request')->query->get('NoLayout');	    
+	    $NoLayout   = $this->container->get('request')->query->get('NoLayout');	
+      	$category   = $this->container->get('request')->query->get('category');
     
         $form 	 = $this->createDeleteForm($id);
         $request = $this->getRequest();
@@ -327,7 +361,7 @@ class PartnerController extends abstractController
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('admin_gedmo_partenaires', array('NoLayout' => $NoLayout)));
+        return $this->redirect($this->generateUrl('admin_gedmo_partenaires', array('NoLayout' => $NoLayout, 'category' => $category)));
     }
 
     private function createDeleteForm($id)

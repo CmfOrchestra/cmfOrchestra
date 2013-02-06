@@ -172,15 +172,18 @@ class PiFlexSliderManager extends PiJqueryExtension
 					$startAt = ",startAt:$position";
 				}
 			}elseif(array_key_exists($sluggable_field_search, $match) && !empty($match[$sluggable_field_search]) ){
-				$id 	=  $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->getContentByField($this->locale, array('content_search' => array($sluggable_field_search =>$match[$sluggable_field_search]), 'field_result'=>$sluggable_title), false)->getObject()->getId();
-				$entity = $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->findOneByEntity($this->locale, $id, 'object');
-				if(!is_null($entity)){
-					$position = $entity->getPosition() - 1;
-					if(isset($options['params']['maxItems']) && !empty($options['params']['maxItems']) && ($options['params']['maxItems'] != 0)){
-						$mod		= $options['params']['maxItems'];
-						$position	= ($position - ($position % $mod)) / $mod;
+				$object =  $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->getContentByField($this->locale, array('content_search' => array($sluggable_field_search =>$match[$sluggable_field_search]), 'field_result'=>$sluggable_title), false);
+				if(is_object($object)){
+					$id		= $object->getObject()->getId();
+					$entity = $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->findOneByEntity($this->locale, $id, 'object');
+					if(!is_null($entity)){
+						$position = $entity->getPosition() - 1;
+						if(isset($options['params']['maxItems']) && !empty($options['params']['maxItems']) && ($options['params']['maxItems'] != 0)){
+							$mod		= $options['params']['maxItems'];
+							$position	= ($position - ($position % $mod)) / $mod;
+						}
+						$startAt = ",startAt:$position";
 					}
-					$startAt = ",startAt:$position";
 				}
 			}
 		}	

@@ -100,6 +100,22 @@ class NewsController extends abstractController
     {
     	return parent::deletajaxAction();
     }   
+    
+    /**
+     * Archive a News entity.
+     *
+     * @Route("/admin/gedmo/news/archive", name="admin_gedmo_news_archiveentity_ajax")
+     * @Secure(roles="ROLE_USER")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access  public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function archiveajaxAction()
+    {
+    	return parent::archiveajaxAction();
+    }
+        
     /**
      * Lists all News entities.
      *
@@ -232,21 +248,21 @@ class NewsController extends abstractController
     {
         $em 	= $this->getDoctrine()->getEntityManager();
     	$locale	= $this->container->get('session')->getLocale();
-    	
+        
     	if(!empty($id)){
     		$entity	= $em->getRepository("PiAppGedmoBundle:News")->findOneByEntity($locale, $id, 'object', false);
-    	}else{   		
+    	}else{
     		$slug	= $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('slug', $locale, true);
     		$entity	= $this->container->get('doctrine')->getEntityManager()->getRepository("PiAppGedmoBundle:News")->getEntityByField($locale, array('content_search' => array('slug' =>$slug)), 'object');
     	}
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-        if(!$NoLayout)	$template = "edit.html.twig";  else	$template = "edit.html.twig";        
+        if(!$NoLayout)	$template = "edit.html.twig";  else	$template = "edit.html.twig";  
 
         if (!$entity) {
         	$entity = $em->getRepository("PiAppGedmoBundle:News")->find($id);
-        	$entity->addTranslation(new NewsTranslation($locale));            
-        }
+        	$entity->addTranslation(new MenuTranslation($locale));
+        }        
 
         $editForm   = $this->createForm(new NewsType($em, $this->container), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
@@ -364,11 +380,11 @@ class NewsController extends abstractController
     		$entity	= $em->getRepository("PiAppGedmoBundle:News")->findOneByEntity($lang, $id, 'object', false);
     	}else{   		
     		$slug	= $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('slug', $lang);
-    		$result	= $this->container->get('doctrine')->getEntityManager()->getRepository("PiAppGedmoBundle:News")->getEntityByField($lang, array('content_search' => array('slug' =>$slug)), 'object');
+    		$entity	= $this->container->get('doctrine')->getEntityManager()->getRepository("PiAppGedmoBundle:News")->getEntityByField($lang, array('content_search' => array('slug' =>$slug)), 'object');
     	}
     	
     	return $this->render("PiAppGedmoBundle:Sicap\News:$template", array(
-    			'entity'   => $result,
+    			'entity'   => $entity,
     			'locale'   => $lang,
     			'slug'	   => $slug,
     	));
@@ -401,7 +417,7 @@ class NewsController extends abstractController
     }
 
    /**
-    * Template : Finds and displays a list of Sicap\News entity.
+    * Template : Finds and displays an archive of news entity.
     *
     * @Cache(maxage="86400")
     * @return \Symfony\Component\HttpFoundation\Response
@@ -422,9 +438,9 @@ class NewsController extends abstractController
     		$page 	= 1;
     	 
     	$paginator 			= $this->container->get('knp_paginator');
-    
-    	$count 				= $em->getRepository("PiAppGedmoBundle:News")->count(1);
     	$query_pagination	= $em->getRepository("PiAppGedmoBundle:News")->getAllByCategory('', null, $order)->getQuery();
+    	
+    	$count = count($query_pagination->getArrayResult());
     	$query_pagination->setHint('knp_paginator.count', $count);
     	 
     	$pagination = $paginator->paginate(
@@ -433,11 +449,8 @@ class NewsController extends abstractController
     			$MaxResults		/*limit per page*/
     	);
     	 
-    	//print_r($pagination);exit;
-    	 
     	$query_pagination->setFirstResult(($page-1)*$MaxResults);
-    	$query_pagination->setMaxResults(($page-1)*$MaxResults + $MaxResults);
-    	$query_pagination	= $em->getRepository("PiAppGedmoBundle:News")->setTranslatableHints($query_pagination, $lang, false);
+    	$query_pagination->setMaxResults($MaxResults);
     	$entities			= $em->getRepository("PiAppGedmoBundle:News")->findTranslationsByQuery($lang, $query_pagination, 'object', false);
     	 
     	return $this->render("PiAppGedmoBundle:News:$template", array(

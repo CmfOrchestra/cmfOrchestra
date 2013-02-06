@@ -102,6 +102,7 @@ class PiModelWidgetContent extends PiFormBuilderManager
     				$result[ $field->getId() ] = $field->getDescriptif() . ' ('.$field->getId().')';
     		}
     	}
+    	sort($result);
 
         $builder
         	->add('choice', 'choice', array(

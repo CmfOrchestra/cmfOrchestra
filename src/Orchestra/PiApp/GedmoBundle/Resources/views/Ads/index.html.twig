@@ -22,7 +22,7 @@
 	        	<th><a href="javascript:void(0);" title="Id">Id</a></th>
    	            <th><a href="javascript:void(0);" title="User">User</a></th>
    	            <th><a href="javascript:void(0);" title="Title">Title</a></th>	            
-	            <th><a href="javascript:void(0);" title="Status">Status</a></th>	            
+	            <th><a href="javascript:void(0);" title="Status">Type</a></th>	            
 	            <th><a href="javascript:void(0);" title="Typology">Typology</a></th>	            
 	            <th><a href="javascript:void(0);" title="Published_at">Published_at</a></th>	            
 	            <th><a href="javascript:void(0);" title="Archive_at">Expire at</a></th>	            
@@ -40,13 +40,13 @@
 	            	{{ entity.user }}
 	            </td>	
 	            <td>
-	            	{{ entity.status|limite("0", 55)|raw }}
-	            </td>	
-	            <td>
-	            	{{ entity.typology|limite("0", 55)|raw }}
-	            </td>	
-	            <td>
 	            	{{ entity.title|limite("0", 55)|raw }}
+	            </td>	              
+	            <td>
+	            	{{ entity.status|limite("0", 55)|trans|raw }}
+	            </td>	
+	            <td>
+	            	{{ entity.typology|limite("0", 55)|trans|raw }}
 	            </td>	
 	            <td>{% if entity.publishedat %}{{ entity.publishedat|date('Y-m-d') }}{% endif%}</td>	
 	            <td>{% if entity.archiveat %}{{ entity.archiveat|date('Y-m-d') }}{% endif%}</td>	

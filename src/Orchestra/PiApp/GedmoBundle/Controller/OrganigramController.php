@@ -123,6 +123,21 @@ class OrganigramController extends abstractController
     {
     	return parent::deletajaxAction();
     }
+    
+    /**
+     * Archive a Organigram entity.
+     *
+     * @Route("/admin/gedmo/organigram/archive", name="admin_gedmo_organigram_archiveentity_ajax")
+     * @Secure(roles="ROLE_USER")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access  public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function archiveajaxAction()
+    {
+    	return parent::archiveajaxAction();
+    }    
         
     /**
      * Finds and displays a Organigram entity.

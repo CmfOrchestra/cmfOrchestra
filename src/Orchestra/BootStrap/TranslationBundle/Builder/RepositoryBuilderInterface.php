@@ -32,7 +32,8 @@ interface RepositoryBuilderInterface
     public function translate($entity, $field, $locale, $value);
     public function findObjectByTranslatedField($field, $value, $class);
     public function getArrayAllByField($field);
-    public function getAllByCategory($category = '', $MaxResults = null, $ORDER = 'DESC');
+    public function getAllByCategory($category = '', $MaxResults = null, $ORDER_PublishDate = '', $ORDER_Position = '', $enabled = true, $is_checkRoles = true);
+    public function getAllByFields($fields = array(), $MaxResults = null, $ORDER_PublishDate = '', $ORDER_Position = '', $enabled = true, $is_checkRoles = true);
     public function getAllOrderByField($field = 'createat', $ORDER = "DESC", $enabled = null);
     public function getAllBetweenPosition($FirstPosition = null, $LastPosition = null, $enabled = null);
     public function getMaxOrMinValueOfColumn($field, $type = 'MAX', $enabled = null);

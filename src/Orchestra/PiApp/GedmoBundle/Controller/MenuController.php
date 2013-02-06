@@ -100,6 +100,21 @@ class MenuController extends abstractController
     public function deleteajaxAction()
     {
     	return parent::deletajaxAction();
+    }   
+
+    /**
+     * Archive a Menu entity.
+     *
+     * @Route("/admin/gedmo/menu/archive", name="admin_gedmo_menu_archiveentity_ajax")
+     * @Secure(roles="ROLE_USER")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access  public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function archiveajaxAction()
+    {
+    	return parent::archiveajaxAction();
     }    
 
     /**

@@ -64,7 +64,6 @@ class AdhesionIndividualType extends AbstractType
           'required'  	=> false,
  					"attr" => array(
  							"class"=>"required text",
-              'data-validate' => 'Nom*',
  					),
  			))
       ->add('UserName','text', array(
@@ -72,14 +71,12 @@ class AdhesionIndividualType extends AbstractType
           'required'  	=> false,        
          	"attr" => array(
  							"class"=>"required text",
-              'data-validate' => 'Identifiant',
  					),
  			))
  			->add('Nickname','text', array(
           'required'  	=> false,        
  					"attr" => array(
  							"class"=>"resetRight required text",
-              'data-validate' => 'Prénom*',
  					),
  			))  
  			->add('Civility', 'choice', array(
@@ -98,43 +95,59 @@ class AdhesionIndividualType extends AbstractType
           'required'  	=> true,        
  					"attr" => array(
  							"class"=>"resetRight required text",
-              'data-validate' => 'Site Internet',
  					),
  			)) 
- 			->add('media','text')//, new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
+ 			->add('media','file')//, new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
             
  			->add('Phone','text', array(
  					"attr" => array(
  							"class"=>"required text",
-              'data-validate' => 'Téléphone*',
  					),
  			))
  			->add('Job','text', array(
  					"attr" => array(
  							"class"=>"required text",
-              'data-validate' => 'Fonction*',
  					),
  			))
       ->add('Email','text', array(
  					'required'  => true,        
  					"attr" => array(
  							"class"=>"required email",
-              'data-validate' => 'Email pro*',
  					),
  			))
       ->add('EmailPerso','text', array(
  					'required'  => true,        
  					"attr" => array(
  							"class"=>"email",
-              'data-validate' => 'Email perso',
  					),
- 			))            
+ 			))      
+      ->add('CP','text', array(       
+          'required'  => false,        
+ 					"attr" => array(
+ 							"class"=>"required postCode",
+              "data-validate"=>"Code postal*",
+ 					),
+ 			))           
  			->add('Company','text', array(
  					'required'  => true,        
  					"attr" => array(
  							"class"=>"resetRight required text",
+              "data-validate"=>"Société *",
  					),
  			))
+ 			->add('Effectif', 'choice', array(
+ 					'required'  => true,        
+          'choices'   => array(
+            '0' => 'Effectif *', 
+            '1' => '< 10', 
+            '2' => '11-50',
+            '3' => '51-500',
+            '4' => '> 500',            
+            ),
+ 					"attr" => array(
+ 							"class"=>"required",
+ 					),
+ 			))           
  			->add('Activity', 'choice', array(
  					'required'  => true,        
           'choices'   => array(

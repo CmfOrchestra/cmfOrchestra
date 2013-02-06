@@ -100,6 +100,22 @@ class PressreleaseController extends abstractController
     {
     	return parent::deletajaxAction();
     }   
+    
+    /**
+     * Archive a Pressrelease entity.
+     *
+     * @Route("/admin/gedmo/pressrelease/archive", name="admin_gedmo_pressrelease_archiveentity_ajax")
+     * @Secure(roles="ROLE_USER")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access  public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function archiveajaxAction()
+    {
+    	return parent::archiveajaxAction();
+    }
+        
     /**
      * Lists all Pressrelease entities.
      *

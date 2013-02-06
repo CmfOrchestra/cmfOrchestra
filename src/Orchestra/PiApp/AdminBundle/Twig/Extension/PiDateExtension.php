@@ -84,8 +84,51 @@ class PiDateExtension extends \Twig_Extension
     }
     
     /**
-     * Callbacks
-     */   
+     * Returns a list of functions to add to the existing list.
+     *
+     * <code>
+     *  {% set months = months(locale) %}
+     * </code>
+     *
+     * @return array An array of functions
+     * @access public
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function getFunctions() {
+    	return array(
+    			'months' 		=> new \Twig_Function_Method($this, 'allMonthsFunction'),
+    	);
+    }    
+    
+    /**
+     * Functions
+     */    
+
+    /**
+     * List of all months.
+     *
+     * @param string $locale
+     * @access public
+     * @return array
+     * @static
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function allMonthsFunction($locale)
+    {
+    	$month_name = array();
+    	for($i=1;$i<=12;$i++){
+    		if($i<=9) $key = '0'.$i; else $key = $i;
+    		$month_name[$key] = $this->localeDateFilter(new \DateTime(date( 'Y-m-d', mktime(0, 0, 0, $i))), 'long','medium', $locale, 'MMMM');
+    	}
+    	return	$month_name;
+    }  
+    
+    
+    /**
+     * Filters
+     */    
     
     public function convertToDattimeFilter($string)
     {

@@ -312,58 +312,65 @@ class PiGridTableManager extends PiJqueryExtension
 						<?php if(isset($options['grid-actions']) && !empty($options['grid-actions']) && is_array($options['grid-actions'])): ?>
 							<?php foreach($options['grid-actions'] as $actionName => $params): ?>
 									<?php if($actionName == "rows_enabled"): ?>
-											<?php if(!isset($params['grid-sButtonText']) || empty($params['sButtonText']) ) $params['sButtonText'] = 'pi.grid.action.row_enabled'; ?>
 											{
-												"sExtends": "editor_remove",
-												"sButtonText": "<?php echo $this->translator->trans($params['sButtonText']); ?>",
-												"editor": enabled,
-												"formButtons": [
-				        							{
-				        								"label": "Valider",
-							                            "className": "save",
-							                            "fn": function (e) {
-							                            	this.submit(function(){
-							                                	window.location.reload();
-							                                });
-							                                $("tr.DTTT_selected td.enabled").html('<img width="17px" src="<?php echo $Urlenabled ?>">');
-				
-						                                    // dinf all selected rows
-						                                    //var tt = window.TableTools.fnGetInstance('<?php echo $options['grid-name']; ?>');
-						                                    //var row = tt.fnGetSelected()[0];
-						                                    //var index = <?php echo $options['grid-name']; ?>oTable.$('tr').index(row);
-						                                    //console.log(index);
-							                            }
-							                        }
-							                    ],
-							                    "formTitle": "Activer donnée",
-							                    "question": function(b) {
-											      return "Voulez-vous activer " + b.length + " ligne" + (b.length === 1 ? " ?" : "s ?")
-											    }
-											},
-									<?php endif; ?>	
-									<?php if($actionName == "rows_disable"): ?>
-											<?php if(!isset($params['grid-sButtonText']) || empty($params['sButtonText']) ) $params['sButtonText'] = 'pi.grid.action.row_disable'; ?>
-											{
-												"sExtends": "editor_remove",
-												"sButtonText": "<?php echo $this->translator->trans($params['sButtonText']); ?>",
-												"editor": disablerow,
-												"formButtons": [
-				        							{
-				        								"label": "Valider",
-							                            "className": "save",
-							                            "fn": function (e) {
-							                            	this.submit(function(){
-							                                	window.location.reload();
-							                                });
-							                                $("tr.DTTT_selected td.enabled").html('<img width="17px" src="<?php echo $Urldisabled ?>">');
-							                            }
-							                        }
-							                    ],
-							                    "formTitle": "Désactiver donnée",
-							                    "question": function(b) {
-											      return "Voulez-vous désactiver " + b.length + " ligne" + (b.length === 1 ? " ?" : "s ?")
-											    }
-											},
+												"sExtends":    "collection",
+												"sButtonText": "<?php echo $this->translator->trans('pi.grid.action.activation'); ?>",
+												"aButtons":    
+												[
+													<?php if(!isset($options['grid-actions']['rows_enabled']['grid-sButtonText']) || empty($options['grid-actions']['rows_enabled']['sButtonText']) ) $options['grid-actions']['rows_enabled']['sButtonText'] = 'pi.grid.action.row_enabled'; ?>
+													{
+														"sExtends": "editor_remove",
+														"sButtonText": "<?php echo $this->translator->trans($options['grid-actions']['rows_enabled']['sButtonText']); ?>",
+														"editor": enabled,
+														"formButtons": [
+						        							{
+						        								"label": "Valider",
+									                            "className": "save",
+									                            "fn": function (e) {
+									                            	this.submit(function(){
+									                                	window.location.reload();
+									                                });
+									                                $("tr.DTTT_selected td.enabled").html('<img width="17px" src="<?php echo $Urlenabled ?>">');
+						
+								                                    // dinf all selected rows
+								                                    //var tt = window.TableTools.fnGetInstance('<?php echo $options['grid-name']; ?>');
+								                                    //var row = tt.fnGetSelected()[0];
+								                                    //var index = <?php echo $options['grid-name']; ?>oTable.$('tr').index(row);
+								                                    //console.log(index);
+									                            }
+									                        }
+									                    ],
+									                    "formTitle": "Activer donnée",
+									                    "question": function(b) {
+													      return "Voulez-vous activer " + b.length + " ligne" + (b.length === 1 ? " ?" : "s ?")
+													    }
+													}
+													<?php if(isset($options['grid-actions']['rows_disable'])) : ?>
+													<?php if(!isset($options['grid-actions']['row_disable']['grid-sButtonText']) || empty($options['grid-actions']['row_disable']['sButtonText']) ) $options['grid-actions']['row_disable']['sButtonText'] = 'pi.grid.action.row_disable'; ?>
+													,{
+														"sExtends": "editor_remove",
+														"sButtonText": "<?php echo $this->translator->trans($options['grid-actions']['row_disable']['sButtonText']); ?>",
+														"editor": disablerow,
+														"formButtons": [
+						        							{
+						        								"label": "Valider",
+									                            "className": "save",
+									                            "fn": function (e) {
+									                            	this.submit(function(){
+									                                	window.location.reload();
+									                                });
+									                                $("tr.DTTT_selected td.enabled").html('<img width="17px" src="<?php echo $Urldisabled ?>">');
+									                            }
+									                        }
+									                    ],
+									                    "formTitle": "Désactiver donnée",
+									                    "question": function(b) {
+													      return "Voulez-vous désactiver " + b.length + " ligne" + (b.length === 1 ? " ?" : "s ?")
+													    }
+													}
+													<?php endif; ?>
+												]
+											},											
 									<?php endif; ?>	
 									<?php if($actionName == "rows_delete"): ?>
 											<?php if(!isset($params['grid-sButtonText']) || empty($params['sButtonText']) ) $params['sButtonText'] = 'pi.grid.action.row_delete'; ?>
@@ -411,20 +418,26 @@ class PiGridTableManager extends PiJqueryExtension
 											    }
 											},
 									<?php endif; ?>	
-									<?php if($actionName == "select_all"): ?>		
-											<?php if(!isset($params['grid-sButtonText']) || empty($params['sButtonText']) ) $params['sButtonText'] = 'pi.grid.action.select_all'; ?>										
+									<?php if( $actionName == "select_all" ): ?>		
 											{
-												"sExtends": "select_all",
-												"sButtonText": "<?php echo $this->translator->trans($params['sButtonText']); ?>"
-											},
-									<?php endif; ?>	
-									<?php if($actionName == "select_none"): ?>
-											<?php if(!isset($params['grid-sButtonText']) || empty($params['sButtonText']) ) $params['sButtonText'] = 'pi.grid.action.select_none'; ?>	
-											{
-												"sExtends": "select_none",
-												"sButtonText": "<?php echo $this->translator->trans($params['sButtonText']); ?>"
-											},	
-
+												"sExtends":    "collection",
+												"sButtonText": "<?php echo $this->translator->trans('pi.grid.action.select'); ?>",
+												"aButtons":    
+												[
+													<?php if(!isset($options['grid-actions']['select_all']['grid-sButtonText']) || empty($options['grid-actions']['select_all']['sButtonText']) ) $options['grid-actions']['select_all']['sButtonText'] = 'pi.grid.action.select_all'; ?>										
+												    {
+														"sExtends": "select_all",
+														"sButtonText": "<?php echo $this->translator->trans($options['grid-actions']['select_all']['sButtonText']); ?>"
+													}
+													<?php if(isset($options['grid-actions']['select_none'])) : ?>
+													<?php if(!isset($options['grid-actions']['select_none']['grid-sButtonText']) || empty($options['grid-actions']['select_none']['sButtonText']) ) $options['grid-actions']['select_none']['sButtonText'] = 'pi.grid.action.select_none'; ?>			
+												    ,{
+														"sExtends": "select_none",
+														"sButtonText": "<?php echo $this->translator->trans($options['grid-actions']['select_none']['sButtonText']); ?>"
+													}
+												    <?php endif; ?>
+												 ]
+											},											
 									<?php endif; ?>
 									<?php if($actionName == "copy"): ?>
 											<?php if(!isset($params['grid-sButtonText']) || empty($params['sButtonText']) ) $params['sButtonText'] = 'pi.grid.action.copy'; ?>						

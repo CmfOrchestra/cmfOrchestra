@@ -99,7 +99,23 @@ class AdsController extends abstractController
     public function deleteajaxAction()
     {
     	return parent::deletajaxAction();
-    }   
+    }  
+
+    /**
+     * Archive an Ads entity.
+     *
+     * @Route("/admin/gedmo/ads/archive", name="admin_gedmo_ads_archiveentity_ajax")
+     * @Secure(roles="ROLE_USER")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access  public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function archiveajaxAction()
+    {
+    	return parent::archiveajaxAction();
+    }
+        
     /**
      * Lists all Ads entities.
      *
@@ -118,10 +134,12 @@ class AdsController extends abstractController
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout) 	$template = "index.html.twig"; else $template = "index.html.twig";
         
-        if($NoLayout && $category && !empty($category))
-    		$entities 	= $em->getRepository("PiAppGedmoBundle:Ads")->getAllEnableByCatAndByPosition($locale, $category, 'object');
-    	else
-    		$entities	= $em->getRepository("PiAppGedmoBundle:Ads")->findAllByEntity($locale, 'object');
+    	if($NoLayout && $category && !empty($category)){
+    		//$entities 	= $em->getRepository("PiAppGedmoBundle:Ads")->getAllEnableByCatAndByPosition($locale, $category, 'object');
+    		$query		= $em->getRepository("PiAppGedmoBundle:Ads")->getAllByCategory($category, null, '', 'ASC', false)->getQuery();
+    		$entities   = $em->getRepository("PiAppGedmoBundle:Ads")->findTranslationsByQuery($locale, $query, 'object', false);
+    	}else
+    		$entities	= $em->getRepository("PiAppGedmoBundle:Ads")->findAllByEntity($locale, 'object');    	
 
         return $this->render("PiAppGedmoBundle:Ads:$template", array(
             'entities'	=> $entities,
@@ -400,7 +418,6 @@ class AdsController extends abstractController
     public function _template_listAction($category = '', $MaxResults = null, $template = '_tmp_list.html.twig', $order = 'DESC', $lang = "")
     {
     	$em 		= $this->getDoctrine()->getEntityManager();
-
     	if(empty($lang))
     		$lang	= $this->container->get('session')->getLocale();
     		
@@ -408,10 +425,99 @@ class AdsController extends abstractController
         $entities   = $em->getRepository("PiAppGedmoBundle:Ads")->findTranslationsByQuery($lang, $query, 'object', false);                   
 
         return $this->render("PiAppGedmoBundle:Ads:$template", array(
-            'entities' => $entities,
+            'ads' 	   => $entities,
             'cat'	   => ucfirst($category),
-        	'locale'   => $lang,
+            'locale'   => $lang,
         ));
-    }     
+    }  
+
+   /**
+    * Template : Finds and displays an archive of Ads entity.
+    *
+    * @Cache(maxage="86400")
+    * @return \Symfony\Component\HttpFoundation\Response
+    *
+    * @access	public
+    * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+    */
+    public function _template_archiveAction($MaxResults = null, $template = '_tmp_archive.html.twig', $order = 'DESC', $lang = "")
+    {
+    	$em 		= $this->getDoctrine()->getEntityManager();
+    
+    	if(empty($lang))
+    		$lang	= $this->container->get('session')->getLocale();
+    	 
+    	if(isset($_GET['page']) && !empty($_GET['page']))
+    		$page 	= $_GET['page'];
+    	else
+    		$page 	= 1;
+    	
+    	if(empty($lang))
+    		$lang	= $this->container->get('session')->getLocale();
+    	 
+    	if(isset($_GET['search']) && !empty($_GET['search']))
+    		$search	=	trim($_GET['search']);
+    	else
+    		$search = "";
+    	 
+    	if(isset($_GET['filtre1']) && !empty($_GET['filtre1']))
+    		$filtre1 =	$_GET['filtre1'];
+    	else
+    		$filtre1 = "";
+    	 
+    	if(isset($_GET['filtre2']) && !empty($_GET['filtre2']))
+    		$filtre2 =	$_GET['filtre2'];
+    	else
+    		$filtre2 = ""; 
+
+    	$paginator 			= $this->container->get('knp_paginator');
+    
+    	$query_pagination	= $em->getRepository("PiAppGedmoBundle:Ads")->getAllByCategory('', null, $order);
+    	if(!empty($search)){
+    		$query_pagination
+    		->leftJoin('a.tags', 'tag')
+    		->leftJoin('a.translations', 'trans');
+    		$orModule  = $query_pagination->expr()->orx();
+    		$andModule = $query_pagination->expr()->andx();
+    		
+    		$andModule->add($query_pagination->expr()->eq('LOWER(trans.locale)', "'{$lang}'"));
+    		//$andModule->add($query_pagination->expr()->eq('LOWER(trans.field)', "'title'"));
+    		$andModule->add($query_pagination->expr()->like('LOWER(trans.content)', $query_pagination->expr()->literal('%'.strtolower($search).'%')));
+    		
+    		$orModule->add($andModule);
+    		$orModule->add($query_pagination->expr()->like('LOWER(tag.name)', $query_pagination->expr()->literal('%'.strtolower($search).'%')));
+    		$query_pagination->andWhere($orModule);
+    	}
+    	if(!empty($filtre1))
+    		$query_pagination->andWhere($query_pagination->expr()->like('LOWER(a.typology)', $query_pagination->expr()->literal(strtolower($filtre1).'%')));
+    	if(!empty($filtre2))
+    		$query_pagination->andWhere($query_pagination->expr()->like('LOWER(a.status)', $query_pagination->expr()->literal(strtolower($filtre2).'%')));
+    	
+    	$query_pagination = $query_pagination->getQuery();
+    	//print_r(get_class($query_pagination));exit;
+
+    	//$count 	= $em->getRepository("PiAppGedmoBundle:Ads")->count(1);
+    	//$query_pagination->setHint('knp_paginator.count', $count);
+    	$pagination = $paginator->paginate(
+    			$query_pagination,
+    			$page,	/*page number*/
+    			$MaxResults		/*limit per page*/
+    	);
+    	 
+    	$query_pagination->setFirstResult(($page-1)*$MaxResults);
+    	$query_pagination->setMaxResults($MaxResults);
+    	$query_pagination	= $em->getRepository("PiAppGedmoBundle:Ads")->setTranslatableHints($query_pagination, $lang, false);
+    	$entities			= $em->getRepository("PiAppGedmoBundle:Ads")->findTranslationsByQuery($lang, $query_pagination, 'object', false);
+    	 
+    	return $this->render("PiAppGedmoBundle:Ads:$template", array(
+    			'entities'		=> $entities,
+    			'pagination'	=> $pagination,
+    			'locale'		=> $lang,
+    			'lang'			=> $lang,
+    			'search'   		=> $search,
+    			'filtre1'   	=> $filtre1,
+    			'filtre2'   	=> $filtre2,    			
+    	));
+    }      
     
 }

@@ -113,7 +113,7 @@ class WordController extends abstractController
     {
     	$em 		= $this->getDoctrine()->getEntityManager();
     	$locale		= $this->container->get('session')->getLocale();
-        $entities 	= $em->getRepository("BootStrapTranslatorBundle:Word")->findAllByEntity($locale, 'object');        
+        $entities 	= $em->getRepository("BootStrapTranslatorBundle:Word")->setContainer($this->container)->findAllByEntity($locale, 'object');        
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout) 	$template = "index.html.twig"; else $template = "index.html.twig";

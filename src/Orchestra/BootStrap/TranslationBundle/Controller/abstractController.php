@@ -220,6 +220,7 @@ abstract class abstractController extends Controller
     			$entity = $em->getRepository($this->_entityName)->find($value['id']);
     			$entity->setArchived(true);
     			$entity->setEnabled(false);
+    			$entity->setArchiveAt(new \DateTime());
     			 
     			if(method_exists($entity, 'setPosition'))
     				$entity->setPosition(null);

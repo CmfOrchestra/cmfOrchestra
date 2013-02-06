@@ -87,6 +87,7 @@ pi.block.formbuilder.template.choice3: Block content with image on the left
 pi.block.formbuilder.template.choice4: Block content with side by side pictures and text  below
 pi.block.formbuilder.template.choice5: block content with center image
 pi.block.formbuilder.template.choice6: Block content image with right
+pi.block.formbuilder.template.choice9: Block content by default
 pi.block.formbuilder.template.choice7: Block video to the right of the description 
 pi.block.formbuilder.template.choice8: Block video to the left of the description
 pi.block.form.group.pictures: Pictures

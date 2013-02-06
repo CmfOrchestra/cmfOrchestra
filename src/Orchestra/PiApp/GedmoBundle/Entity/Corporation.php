@@ -23,7 +23,10 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
 /**
  * PiApp\GedmoBundle\Entity\Corporation
  *
- * @ORM\Table(name="gedmo_corporation")
+ * @ORM\Table(
+ * 			name="gedmo_corporation",
+ *          indexes={@ORM\Index(name="name_idx", columns={"name"})}
+ * )
  * @ORM\Entity(repositoryClass="PiApp\GedmoBundle\Repository\CorporationRepository")
  * @ORM\HasLifecycleCallbacks()
  * @Gedmo\TranslationEntity(class="PiApp\GedmoBundle\Entity\Translation\CorporationTranslation")
@@ -41,7 +44,7 @@ class Corporation extends AbstractDefault
 	 * @var array
 	 * @access  protected
 	 */
-	protected $_fields	= array();
+	protected $_fields	= array('DetailActivity', 'ArgumentCommercial');
 
 	/**
 	 * Name of the Translation Entity
@@ -210,14 +213,16 @@ class Corporation extends AbstractDefault
     
     /**
      * @var string $DetailActivity
-     *
+     * 
+     * @Gedmo\Translatable
      * @ORM\Column(name="detail_activity", type="string", nullable = true)
      */
-    protected $DetailActivity;
+    protected $DetailActivity;  
     
     /**
      * @var string $ArgumentCommercial
-     *
+     * 
+     * @Gedmo\Translatable
      * @ORM\Column(name="argument_commercial", type="string", nullable = true)
      */
     protected $ArgumentCommercial;
