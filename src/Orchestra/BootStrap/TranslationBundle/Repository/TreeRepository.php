@@ -117,7 +117,7 @@ class TreeRepository extends NestedTreeRepository
     			if(is_array($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES'][$entity_name])){
     				$route = $this->_container->get('request')->get('_route');
     				if($this->_container->get('session')->has('route') && (empty($route) || ($route == "_internal")))
-    					$route = $this->_container->get('session')->get('route');
+    					$route = $this->_container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('_route', $this->_container->get('session')->getLocale());
     				if(!in_array($route, $GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES'][$entity_name])){
 						return $query;
     				}

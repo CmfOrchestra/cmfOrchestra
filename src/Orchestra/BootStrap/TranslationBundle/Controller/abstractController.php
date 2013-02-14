@@ -368,4 +368,88 @@ abstract class abstractController extends Controller
 
         $this->container->get('security.context')->setToken($token);
     }    
+    
+    /**
+     * Return the token object.
+     *
+     * @return \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken
+     * @access protected
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    protected function getToken()
+    {
+    	return  $this->container->get('security.context')->getToken();
+    }  
+
+    /**
+     * Return the connected user name.
+     *
+     * @return string	user name
+     * @access protected
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    protected function getUserName()
+    {
+    	return $this->getToken()->getUser()->getUsername();
+    }
+    
+    /**
+     * Return the user permissions.
+     *
+     * @return array	user permissions
+     * @access protected
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    protected function getUserPermissions()
+    {
+    	return $this->getToken()->getUser()->getPermissions();
+    }
+    
+    /**
+     * Return the user roles.
+     *
+     * @return array	user roles
+     * @access protected
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    protected function getUserRoles()
+    {
+    	return $this->getToken()->getUser()->getRoles();
+    }
+
+    /**
+     * Return if yes or no the user is anonymous token.
+     *
+     * @return boolean
+     * @access protected
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    protected function isAnonymousToken()
+    {
+    	if ($this->getToken() instanceof \Symfony\Component\Security\Core\Authentication\Token\AnonymousToken)
+    		return true;
+    	else
+    		return false;
+    }
+    
+    /**
+     * Return if yes or no the user is UsernamePassword token.
+     *
+     * @return boolean
+     * @access protected
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    protected function isUsernamePasswordToken()
+    {
+    	if ($this->getToken() instanceof \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken)
+    		return true;
+    	else
+    		return false;
+    }    
 }

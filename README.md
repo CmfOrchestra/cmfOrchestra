@@ -211,6 +211,7 @@ rm -rf app/cache/Backup*
 rm -rf app/cache/Indexation*
 rm -rf app/cache/media*
 rm -rf app/logs/*
+rm -rf BootStrap/TranslatorBundle/Resources/translations*
 
 sudo chmod +a "www-data allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
 sudo chmod +a "`whoami` allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs

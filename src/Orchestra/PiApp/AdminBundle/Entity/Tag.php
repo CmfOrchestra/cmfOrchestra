@@ -146,6 +146,12 @@ class Tag extends AbstractTranslation
     protected $archived = false;
     
     /**
+     * @var array
+     * @ORM\Column(name="weight", type="array", nullable=true)
+     */
+    protected $weight;    
+    
+    /**
      * Constructor
      */    
     public function __construct()
@@ -412,5 +418,52 @@ class Tag extends AbstractTranslation
     public function getArchived()
     {
     	return $this->archived;
+    }    
+    
+    /**
+     * Set weight
+     *
+     * @param array $weights
+     */
+    public function setWeight( array $weights)
+    {
+    	$this->weight = array();
+    
+    	foreach ($weights as $key => $value) {
+    		$this->addWeight($key, $value);
+    	}
+    }
+    
+    /**
+     * Get weight
+     *
+     * @return array
+     */
+    public function getWeight()
+    {
+    	return $this->weight;
+    }
+    
+    /**
+     * Adds a weight.
+     *
+     * @param string $weight
+     */
+    public function addWeight($key, $value)
+    {
+   		$this->weight[ $key ] = $value;
+    } 
+
+    /**
+     * Adds a weight.
+     *
+     * @param string $weight
+     */
+    public function incrementWeight($key)
+    {
+    	if (array_key_exists($key, $this->weight)) {
+    		$this->addWeight($key, $this->weight[$key] + 1);
+    	}else 
+    		$this->addWeight($key, 1);
     }    
 }

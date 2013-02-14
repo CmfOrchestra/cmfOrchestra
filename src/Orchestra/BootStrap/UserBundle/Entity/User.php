@@ -63,6 +63,20 @@ class User extends BaseUser
 	protected $newsletters;
 	
 	/**
+	 * @var array of \Doctrine\Common\Collections\ArrayCollection typocommissions
+	 *
+	 * @ORM\ManyToMany(targetEntity="PiApp\GedmoBundle\Entity\Lamelee\TypoCommission", mappedBy="users")
+	 */
+	protected $typocommissions;
+	
+	/**
+	 * @var array of \Doctrine\Common\Collections\ArrayCollection events
+	 *
+	 * @ORM\ManyToMany(targetEntity="PiApp\GedmoBundle\Entity\Lamelee\Event", mappedBy="users")
+	 */
+	protected $events;
+  
+	/**
 	 * @var array of \Doctrine\Common\Collections\ArrayCollection $rssneeds
 	 *
 	 * @ORM\ManyToMany(targetEntity="PiApp\GedmoBundle\Entity\Rss", mappedBy="users")
@@ -130,6 +144,8 @@ class User extends BaseUser
     	
     	$this->groups		= new \Doctrine\Common\Collections\ArrayCollection();
     	$this->newsletters	= new \Doctrine\Common\Collections\ArrayCollection();
+    	$this->typocommissions	= new \Doctrine\Common\Collections\ArrayCollection();
+    	$this->events	= new \Doctrine\Common\Collections\ArrayCollection();      
     	$this->rssneeds		= new \Doctrine\Common\Collections\ArrayCollection();
     }    
     
@@ -171,6 +187,7 @@ class User extends BaseUser
      */
     public function addNewsletter(\PiApp\GedmoBundle\Entity\Newsletter $newsletters)
     {
+        $newsletters->addUser($this);
         $this->newsletters[] = $newsletters;
     }
     
@@ -181,14 +198,51 @@ class User extends BaseUser
      */
     public function removeNewsletter(\PiApp\GedmoBundle\Entity\Newsletter $newsletter)
     {
-        $key = $this->newsletters->indexOf($newsletter);
-
-        if($key!==FALSE) 
-        {
-            $this->newsletters->remove($key);
-        }
+       return $newsletter->removeUser($this);
     }
 
+    /**
+     * Add typocommission
+     *
+     * @param \PiApp\GedmoBundle\Entity\Lamelee\TypoCommission $typocommission
+     */
+    public function addTypoCommission(\PiApp\GedmoBundle\Entity\Lamelee\TypoCommission $typocommission)
+    {
+        $typocommission->addUser($this);
+        $this->typocommissions[] = $typocommission;
+    }
+    
+    /**
+     * Remove typocommission
+     *
+     * @param \PiApp\GedmoBundle\Entity\Lamelee\TypoCommission $typocommission
+     */
+    public function removeTypoCommission(\PiApp\GedmoBundle\Entity\Lamelee\TypoCommission $typocommission)
+    {
+        return $typocommission->removeUser($this);
+    }
+
+    /**
+     * Add event
+     *
+     * @param \PiApp\GedmoBundle\Entity\Lamelee\Event $event
+     */
+    public function addEvent(\PiApp\GedmoBundle\Entity\Lamelee\Event $event)
+    {
+        $event->addUser($this);
+        $this->events[] = $event;
+    }
+    
+    /**
+     * Remove event
+     *
+     * @param \PiApp\GedmoBundle\Entity\Lamelee\Event $event
+     */
+    public function removeEvent(\PiApp\GedmoBundle\Entity\Lamelee\Event $event)
+    {
+       return $event->removeUser($this);
+    }
+    
     /**
      * Get groups
      *
@@ -308,6 +362,26 @@ class User extends BaseUser
     public function getNewsletters()
     {
     	return $this->newsletters;
+    }
+    
+    /**
+     * Get typocommissions
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getTypoCommissions()
+    {
+    	return $this->typocommissions;
+    }
+    
+    /**
+     * Get events
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getEvents()
+    {
+    	return $this->events;
     }
     
     /**

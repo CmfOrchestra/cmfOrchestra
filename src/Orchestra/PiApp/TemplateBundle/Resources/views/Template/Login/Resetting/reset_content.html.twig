@@ -1,7 +1,22 @@
-{% form_theme form theme %}
-<form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST" class="fos_user_resetting_reset">
-    {{ form_widget(form) }}
-    <div>
-        <input type="submit" value="{{ 'resetting.reset.submit'|trans({}, 'FOSUserBundle') }}" />
-    </div>
-</form>
+<div class="third-col-tpl fleft">
+	<section class="bloc-connexion">
+		<div class="wrap">
+			<div class="content">
+				{% form_theme form theme %}
+				<form action="{{ path('page_lamelee_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST" id="form-connexion-reset">
+					<div class="title-border-simple cf">
+						<h3 class="tt-3 tt-clr bold fleft">Changement de mot-de-passe</h3>
+					</div>			
+					<fieldset class="resetBorder">	
+						<div class="row">
+				    	{{ form_widget(form) }}
+				    	</div>
+				    	<div class="button-ct">
+				        	<input type="submit"  class=" nextStep" value="{{ 'resetting.reset.submit'|trans({}, 'FOSUserBundle') }}" />
+				    	</div>
+				    </fieldset>
+				</form>
+			</div>
+		</div>
+	</section>		
+</div>		

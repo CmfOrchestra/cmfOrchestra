@@ -28,8 +28,12 @@
                 throw ControllerException::NotFoundException('{{ entity }}');
             }
 
-            $em->remove($entity);
-            $em->flush();
+            try {
+            	$em->remove($entity);
+            	$em->flush();
+            } catch (\Exception $e) {
+            	$this->container->get('session')->setFlash('notice', 'pi.session.flash.right.undelete');
+            }
         }
 
         return $this->redirect($this->generateUrl('{{ route_name_prefix }}', array('NoLayout' => $NoLayout, 'category' => $category)));

@@ -25,15 +25,15 @@
 						</div>
 						<fieldset>
 							<div class="row cf">
-								{{ form_widget(form.Name) }}
-								{{ form_widget(form.Nickname) }}
+								{{ form_widget(form.Name, { 'attr': {'data-validate': 'Nom*'} }) }}
+								{{ form_widget(form.Nickname, { 'attr': {'data-validate': 'Prénom*'} }) }}
 							</div>
 						</fieldset>
 						<fieldset>
 							<legend class="bold">Entreprise</legend>
 							<div class="row cf">
-								{{ form_widget(form.Company) }}
-                {{ form_widget(form.Job) }}
+								{{ form_widget(form.Company, { 'attr': {'data-validate': 'Société*'}}) }}
+                {{ form_widget(form.Job, { 'attr': {'data-validate': 'Fonction*'}}) }}
 							</div>
 							<div class="row" id="activity">	
                   {{ form_widget(form.Activity) }}
@@ -43,15 +43,15 @@
                     {{ form_widget(form.Engineering) }}
 								</div>
 							<div class="row">
-								{{ form_widget(form.url) }}
+								{{ form_widget(form.url, { 'attr': {'data-validate': 'Site Web'}}) }}
 							</div>
 						
 						</fieldset>
 						<fieldset class="resetBorder">
 								<legend class="bold">Contact</legend>
 								<div class="row">	
-									{{ form_widget(form.Email) }}	
-									{{ form_widget(form.Phone) }}
+									{{ form_widget(form.Email, { 'attr': {'data-validate': 'Email pro*'} }) }}
+									{{ form_widget(form.Phone, { 'attr': {'class':'phone', 'data-validate': 'Téléphone'} }) }}
 								</div>
 						</fieldset>
 
@@ -84,7 +84,8 @@
 								</div>
 							<div class="id-choice">
 								
-								{{ form_row(form.UserName) }}
+                {{ form_label(form.UserName) }}
+                {{ form_widget(form.UserName, {'attr': {'data-validate': 'Identifiant'} }) }}
 
 								<p class="light-clr"><small>Il vous sera demandé à chaque connexion et sera définitif</small></p>
 							</div>	
@@ -100,86 +101,40 @@
 							Veuillez sélectionner les newsletters que vous souhaitez recevoir :
 						</p>
 						<div class="row cf">
-							<div class="field fleft">
-								<input type="checkbox">
-								<label class="light-clr bold">Infomêlée</label>
-							</div>
-							<div class="field fleft">
-								<input type="checkbox">
-								<label class="light-clr bold">MID e-news</label>
-							</div>
-							<div class="field fleft">
-								<input type="checkbox">
-								<label class="light-clr bold">Infocantine</label>
-							</div>
-							<div class="field fleft">
-								<input type="checkbox" id="list-news">
-								<label class="light-clr bold">Thema'TIC</label>
-							</div>
-							<div class="bulle-info news-list cf fright">
-								<span class="arrow"></span>
-								<div class="half fleft">
-									<div class="field">
-										<input type="checkbox">
-										<label class="light-clr">Systeme d'informations</label>
-									</div>
-									<div class="field">
-										<input type="checkbox">
-										<label class="light-clr">Sécurité informatique</label>
-									</div>
-									<div class="field">
-										<input type="checkbox">
-										<label class="light-clr">International</label>
-									</div>
-									<div class="field">
-										<input type="checkbox">
-										<label class="light-clr">Logiciels libre</label>
-									</div>
-									<div class="field">
-										<input type="checkbox">
-										<label class="light-clr">Innovation</label>
-									</div>
-									<div class="field">
-										<input type="checkbox">
-										<label class="light-clr">Emplois et formation</label>
-									</div>
-									<div class="field">
-										<input type="checkbox">
-										<label class="light-clr">Intelligence Collective</label>
-									</div>
-									
-								</div>
-								<div class="half fleft">
-									<div class="field">
-										<input type="checkbox">
-										<label class="light-clr">Systeme d'informations</label>
-									</div>
-									<div class="field">
-										<input type="checkbox">
-										<label class="light-clr">Sécurité informatique</label>
-									</div>
-									<div class="field">
-										<input type="checkbox">
-										<label class="light-clr">International</label>
-									</div>
-									<div class="field">
-										<input type="checkbox">
-										<label class="light-clr">Logiciels libre</label>
-									</div>
-									<div class="field">
-										<input type="checkbox">
-										<label class="light-clr">Innovation</label>
-									</div>
-									<div class="field">
-										<input type="checkbox">
-										<label class="light-clr">Emplois et formation</label>
-									</div>
-									<div class="field">
-										<input type="checkbox">
-										<label class="light-clr">Intelligence Collective</label>
-									</div>		
-								</div>
-							</div>
+              {% for key,cat in newsletters %}
+                {% set catlength = cat|length %}
+                {% if catlength == 1 %}
+                    <div class="field fleft">
+                      <input type="checkbox" name="newsletters[{{ attribute(attribute(cat, 0), 1)}}]">
+                      <label class="light-clr bold">{{ attribute(attribute(cat, 0), 0)}}</label>
+                    </div>
+                {% else %}
+                    <div class="field fleft">
+                      <input type="checkbox" id="list-news">
+                      <label class="light-clr bold">{{ attribute(attribute(cat, 0), 0)}}</label>
+                    </div>   
+                    <div class="bulle-info news-list cf fright">
+                      <span class="arrow"></span>
+                      {% for i in 1..2 %}
+                      <div class="half fleft">
+                        {% if i == 1 %}
+                            {% set deb = 0 %}
+                            {% set fin = (((catlength)+(catlength%2))/2 -1)  %}
+                        {% else  %}
+                            {% set deb = (((catlength)+(catlength%2))/2 ) %}
+                            {% set fin = catlength -1 %}
+                        {% endif %}
+                        {% for nl in deb..fin  %}
+                            <div class="field">
+                              <input type="checkbox" name="newsletters[{{attribute(attribute(cat, nl), 1)}}]">
+                              <label class="light-clr">{{attribute(attribute(cat, nl), 2)}}</label>
+                            </div>
+                        {% endfor %}
+                      </div>
+                      {% endfor %}
+                    </div>                
+                {% endif %}
+              {% endfor %}
 						</div>
 
 						<div class="button-ct clear">

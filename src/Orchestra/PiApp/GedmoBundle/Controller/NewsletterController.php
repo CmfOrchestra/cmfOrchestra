@@ -200,8 +200,11 @@ class NewsletterController extends abstractController
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout)	$template = "new.html.twig";  else 	$template = "new.html.twig";   
         
-         if($category)
-        	$entity->setCategory($category);     
+        $entity_cat = $em->getRepository("PiAppGedmoBundle:Category")->find($category);
+        if( !empty($category) && ($entity_cat instanceof \PiApp\GedmoBundle\Entity\Category) && method_exists($entity, 'setCategory'))
+        	$entity->setCategory($entity_cat);     
+        elseif(!empty($category) && method_exists($entity, 'setCategory'))
+        	$entity->setCategory($category);   
 
         return $this->render("PiAppGedmoBundle:Newsletter:$template", array(
             'entity' 	=> $entity,
@@ -360,8 +363,12 @@ class NewsletterController extends abstractController
                 throw ControllerException::NotFoundException('Newsletter');
             }
 
-            $em->remove($entity);
-            $em->flush();
+        	try {
+            	$em->remove($entity);
+            	$em->flush();
+            } catch (\Exception $e) {
+            	$this->container->get('session')->setFlash('notice', 'pi.session.flash.right.undelete');
+            }
         }
 
         return $this->redirect($this->generateUrl('admin_gedmo_newsletter', array('NoLayout' => $NoLayout, 'category' => $category)));

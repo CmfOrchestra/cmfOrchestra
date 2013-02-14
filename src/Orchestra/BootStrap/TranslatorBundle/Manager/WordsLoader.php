@@ -59,8 +59,9 @@ class WordsLoader implements LoaderInterface
 		$catalogue  = new MessageCatalogue($userLocale);
 		
 		// set the cache file path of all translations words of the locale.
-		$basePath	= $this->container->getParameter("kernel.cache_dir"). '/../translation/';
-		$filepath 	= $basePath."messages.".$userLocale.".yml";
+		$foundBundle	= $this->container->get('kernel')->getBundle('BootStrapTranslatorBundle');
+		$basePath		= $foundBundle->getPath() . "/Resources/translations/";
+		$filepath 		= $basePath."messages.".$userLocale.".yml";
 	    
 	    if(!file_exists($filepath)){
 	      $this->wordsTranslation();
@@ -84,7 +85,7 @@ class WordsLoader implements LoaderInterface
 							list($format, $file) = $data;
 							
               				// merge catalogues
-							$loader = $this->loadFile($file, $format, $locale, $domain);
+              				$loader = $this->loadFile($file, $format, $locale, $domain);
 							$catalogue->addCatalogue($loader);
 						}
 					}
@@ -152,12 +153,13 @@ class WordsLoader implements LoaderInterface
      *
      * @author Riad HELLAL <r.hellal@novediagroup.com>
      */
-    private function wordsTranslation()
+    public function wordsTranslation()
     {
     	$entityManager 	= $this->container->get('doctrine')->getEntityManager();
     	$locale	= $this->container->get('session')->getLocale();
 
-    	$basePath 		= $this->container->getParameter("kernel.cache_dir"). '/../translation/';
+    	$foundBundle	= $this->container->get('kernel')->getBundle('BootStrapTranslatorBundle');
+    	$basePath		= $foundBundle->getPath() . "/Resources/translations/";
     	$dir 			= \PiApp\AdminBundle\Util\PiFileManager::mkdirr($basePath);
 
     	$languages 		= $entityManager->getRepository("PiAppAdminBundle:Langue")->findAllByEntity($locale, 'object', false);

@@ -20,7 +20,7 @@
 					<input name="search"  type="hidden" value="{{ search }}"/>
 					<input name="filtre2" type="hidden" value="{{ filtre2 }}"/>
 					<select name="filtre1" onchange="this.form.submit()">
-						<option value="" >Séléctionnez une typologie</option>
+						<option value="" >Toutes les sections</option>
 						<option value="{{ 'pi.ads.form.type.market' }}"	{% if filtre1 == ('pi.ads.form.type.market') %}selected="selected"{% endif %}>{{ 'pi.ads.form.type.market'|trans }}</option>
 						<option value="{{ 'pi.ads.form.type.job' }}"		{% if filtre1 == ('pi.ads.form.type.job') %}selected="selected"{% endif %}>{{ 'pi.ads.form.type.job'|trans }}</option>
 					</select>
@@ -29,7 +29,7 @@
 					<input name="search"  type="hidden" value="{{ search }}"/>
 					<input name="filtre1" type="hidden" value="{{ filtre1 }}"/>				
 					<select name="filtre2" onchange="this.form.submit()">
-						<option value="" >Séléctionnez un status</option>
+						<option value="" >Tous les statuts </option>
 						<option value="{{ 'pi.ads.form.type.search' }}"	{% if filtre2 == ('pi.ads.form.type.search') %}selected="selected"{% endif %}>{{ 'pi.ads.form.type.search'|trans }}</option>
 						<option value="{{ 'pi.ads.form.type.propose' }}"	{% if filtre2 == ('pi.ads.form.type.propose') %}selected="selected"{% endif %}>{{ 'pi.ads.form.type.propose'|trans }}</option>
 					</select>
@@ -37,42 +37,40 @@
 			</div>
 		</section>
 	</section>
-	
 	<section class="opportunites-results">
 		<header>
 			<div class="title-border-simple cf">
-				<h3 class="tt-5 tt-clr fleft"><span>88</span> annonces</h3>
+				<h3 class="tt-5 tt-clr fleft"><span>{{ total }}</span> {{ 'annonce'|translate_plural("annonces", total) }}</h3>
 			</div>
 		</header>
+		{% if entities|count >= 1 %}
 		<div id="page-container" class="wrap">
 			<ul class="page-content cf">
-				{% for entity in entities %}
-				
+			{% for entity in entities %}
 				{% if is_granted("ROLE_MEMBER") or (is_granted("ROLE_SUBSCRIBER") and (entity.typology|trans == 'pi.ads.form.type.job'|trans)) %}
-					{% set url = path_url('page_lamelee_menuwrapper_opportunites_detail', {'locale':locale}) %}
+					{% set url = path_url('page_lamelee_menuwrapper_opportunites_detail', {'locale':locale, 'slug':entity.translate(locale).getSlug()}) %}
 				{% else  %}
 					{% set url = "#" %}
 				{% endif %}
 				<li style="display: list-item;">
 					<article class="job-post-it">
 						<header class="resetM">
-							<h3 class="tt-{% if entity.typology|trans == 'pi.ads.form.type.market'|trans %}orange{% else %}purple{% endif %} bold uppercase"><a href="#">{{ entity.typology|trans }}</a></h3>
+							<h3 class="tt-{% if entity.typology|trans == 'pi.ads.form.type.market'|trans %}orange{% else %}purple{% endif %} bold uppercase"><a href="{{ path_url("page_lamelee_menuwrapper_opportunites", {"locale":locale, "filtre1":entity.typology}) }}">{{ entity.typology|trans }}</a></h3>
 							<div class="locked"></div>
 						</header>
 						<section class="post-it">
-							<p><a class="tt-clr" href="{{ url }}">{{ entity.status|trans }}</a></p>
+							<p><a class="tt-clr" href="{{ path_url("page_lamelee_menuwrapper_opportunites", {"locale":locale, "filtre2":entity.status}) }}">{{ entity.status|trans }}</a></p>
 							<h4 class="tt-8 bold"><a class="tt-clr" href="{{ url }}">{{ entity.translate(locale).getTitle()|replace({'<p>': '', '</p>': ''}) }}</a></h4>
 						</section>
 						<footer>
-							<p><a href="{{ url }}">Posté par <strong>{{ entity.user }}</strong> le {{ entity.publishedat|localedate('long','medium', locale, 'd LLLL y') }}</a></p>
+							<p><a href="{{ path_url("page_lamelee_menuwrapper_opportunites", {"locale":locale, "userID":entity.user.id}) }}">Posté par <strong>{{ entity.user }}</strong> le {{ entity.publishedat|localedate('long','medium', locale, 'd LLLL y') }}</a></p>
 							<ul class="cf resetM tag">
 	                      		{% for tag in entity.tags %}
-								<li><a href="#" class="light-clr" >{{ tag.name }}</a></li>
+								<li><a href="{{ path_url("page_lamelee_menuwrapper_opportunites", {"locale":locale, "search":tag.name}) }}" class="light-clr" >{{ tag.name }}</a></li>
 	                      		{% endfor %}							
 							</ul>
 						</footer>	
 					</article>
-					
 	                {% if not is_granted("IS_AUTHENTICATED_FULLY") %}
 					<article class="hover-post purple cf">
 						<header class="resetM">
@@ -94,7 +92,7 @@
 							</div>
 						</section>
 					</article>
-					{% elseif is_granted("ROLE_SUBSCRIBER") and (entity.typology|trans == 'pi.ads.form.type.market'|trans) %}
+					{% elseif (not is_granted("ROLE_MEMBER")) and (entity.typology|trans == 'pi.ads.form.type.market'|trans) %}
 					<article class="hover-post purple cf">
 						<header class="resetM">
 							<h3 class="tt-{% if entity.typology|trans == 'pi.ads.form.type.market'|trans %}orange{% else %}purple{% endif %} bold resetM uppercase">{{ entity.typology|trans }}</h3>
@@ -116,13 +114,13 @@
 						</section>
 					</article>					
 					{% endif %}
-					
 				</li>
-				{% endfor %}
+			{% endfor %}
 			</ul>	
 			{% if pagination is defined %}
-	        	{{ pagination.render('PiAppTemplateBundle:Template\\pagination:paginator.article.html.twig')|raw }}
+	        {{ pagination.render('PiAppTemplateBundle:Template\\pagination:paginator.article.html.twig')|raw }}
 	        {% endif %}		
 		</div>
+		{% endif %}
 	</section>
 </section>

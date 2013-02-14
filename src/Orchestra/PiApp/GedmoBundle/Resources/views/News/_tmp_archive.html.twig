@@ -23,7 +23,7 @@
 	                                </div>
 		                            {%  set url = "#" %}
 		                            {% if step0.pagedetail.getId() is defined %}
-		                            	{%  set url = path_url(step0.pagedetail.getRouteName(), {'locale':app.session.locale, 'slug':step0.slug}) %}
+		                            	{%  set url = path_url(step0.pagedetail.getRouteName(), {'locale':app.session.locale, 'slug':step0.translate(app.session.locale).getSlug()}) %}
 		                            {% endif %}                                
 	                                <div class="clearfix row">
 	                                    <a href="{{ url }}" title="MoreInfo" class="btnVertWhatsHot fright"><span class="btnVertFlecheWhatsHot">Read More</span></a> 
@@ -47,7 +47,7 @@
 	                            </div>
 		                            {%  set url = "#" %}
 		                            {% if step1.pagedetail.getId() is defined %}
-		                            	{%  set url = path_url(step1.pagedetail.getRouteName(), {'locale':app.session.locale, 'slug':step1.slug}) %}
+		                            	{%  set url = path_url(step1.pagedetail.getRouteName(), {'locale':app.session.locale, 'slug':step1.translate(app.session.locale).getSlug()}) %}
 		                            {% endif %}                            
 	                            <div class="clearfix row">
 	                                <a href="{{ url }}" title="MoreInfo" class="btnVertNews fright"><span class="btnVertFlecheNews">Read More</span></a> 
@@ -70,7 +70,7 @@
 	                            </div>
 	                            {%  set url = "#" %}
 	                            {% if entity.pagedetail.getId() is defined %}
-	                            	{%  set url = path_url(entity.pagedetail.getRouteName(), {'locale':app.session.locale, 'slug':entity.slug}) %}
+	                            	{%  set url = path_url(entity.pagedetail.getRouteName(), {'locale':app.session.locale, 'slug':entity.translate(app.session.locale).getSlug()}) %}
 	                            {% endif %}
 	                            <div class="clearfix row">
 	                                <a href="{{ url }}" title="MoreInfo" class="btnVertNews fright"><span class="btnVertFlecheNews">Read More</span></a> 

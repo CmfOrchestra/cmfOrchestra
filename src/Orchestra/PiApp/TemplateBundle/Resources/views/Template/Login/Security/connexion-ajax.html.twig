@@ -2,8 +2,8 @@
 	{% if is_granted("IS_AUTHENTICATED_FULLY") %}
 	<div class="login connected">
 		<h3 class="tt-clr tt-9 bold">BONJOUR</h3>
-		<p class="tt-clr  bold">{{ app.user.username }}</p>
-		<a href="#" class="mySpace">Mon espace</a>
+		<p class="tt-clr  bold">{% if (app.user.nickname is not empty) %}{{ app.user.nickname }} {{ app.user.name }}{% else %}{{ app.user.username }}{% endif %}</p>
+		<a href="{{ path('page_lamelee_menuwrapper_monespace') }}" class="mySpace">Mon espace</a>
 		<div class="action cf">
 				<a href="{{ path('fos_user_security_logout') }}" class="fleft">{{ 'layout.logout'|trans([], 'FOSUserBundle') }}</a>
 		</div>	

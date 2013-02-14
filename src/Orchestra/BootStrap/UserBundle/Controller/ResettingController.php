@@ -42,8 +42,9 @@ class ResettingController extends ContainerAware
      */
     public function sendEmailAction()
     {
-        $username = $this->container->get('request')->request->get('username');
-        $template = $this->container->get('request')->request->get('template');
+        $username   = $this->container->get('request')->get('username');
+        $template   = $this->container->get('request')->get('template');
+        $routereset = $this->container->get('request')->get('pagename');
         
         if(empty($template))
         	$template = 'PiAppTemplateBundle:Template\\Login\\Resetting:request.html.twig';
@@ -55,24 +56,37 @@ class ResettingController extends ContainerAware
         }
 
         if ($user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
-            return $this->container->get('templating')->renderResponse('PiAppTemplateBundle:Template\\Login\\Resetting:passwordAlreadyRequested.html.'.$this->getEngine());
+            return $this->container->get('templating')->renderResponse('PiAppTemplateBundle:Template\\Login\\Resetting:passwordAlreadyRequested.html.twig');
         }
 
         $user->generateConfirmationToken();
         $this->container->get('session')->set(static::SESSION_EMAIL, $this->getObfuscatedEmail($user));
-        $this->container->get('fos_user.mailer')->sendResettingEmailMessage($user);
+        //$this->container->get('fos_user.mailer')->sendResettingEmailMessage($user);
+        $this->sendResettingEmailMessage($user, $routereset);
         $user->setPasswordRequestedAt(new \DateTime());
         $this->container->get('fos_user.user_manager')->updateUser($user);
 
         try {
-        	$route		= $this->container->get('request')->get('_route');
-        	$response 	= new RedirectResponse($this->container->get('router')->generate($route));
+        	//$route		= $this->container->get('request')->get('_route');
+        	//$response 	= new RedirectResponse($this->container->get('router')->generate($route));
+        	return $this->container->get('templating')->renderResponse('PiAppTemplateBundle:Template\\Login\\Resetting:request.html.twig', array('success' => true));
         } catch (\Exception $e) {
         	$response 	= new RedirectResponse($this->container->get('router')->generate('fos_user_resetting_check_email'));
         }
         
-        return $response;
+        return $response->getContent();
     }
+    
+
+    public function sendResettingEmailMessage(UserInterface $user, $route_reset_connexion)
+    {
+    	$url = $this->container->get('bootstrap.RouteTranslator.factory')->getRoute($route_reset_connexion, array('token' => $user->getConfirmationToken()));
+    	$rendered = $this->container->get('templating')->render('PiAppTemplateBundle:Template\\Login\\Resetting:email.txt.twig', array(
+    			'user' 				=> $user,
+    			'confirmationUrl' 	=> 'http://'.$this->container->get('Request')->getHttpHost() . $this->container->get('Request')->getBasePath().$url
+    	));
+    	$this->container->get("pi_app_admin.mailer_manager")->send("administrator@gmail.com", $user->getEmail(), "Changement de mot de passe", $rendered);
+    }    
 
     /**
      * Tell the user to check his email provider
@@ -88,7 +102,7 @@ class ResettingController extends ContainerAware
             return new RedirectResponse($this->container->get('router')->generate('fos_user_resetting_request'));
         }
 
-        return $this->container->get('templating')->renderResponse('PiAppTemplateBundle:Template\\Login\\Resetting:checkEmail.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('PiAppTemplateBundle:Template\\Login\\Resetting:checkEmail.html.twig', array(
             'email' => $email,
         ));
     }
@@ -120,7 +134,7 @@ class ResettingController extends ContainerAware
             return $response;
         }
 
-        return $this->container->get('templating')->renderResponse('PiAppTemplateBundle:Template\\Login\\Resetting:reset.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('PiAppTemplateBundle:Template\\Login\\Resetting:reset.html.twig', array(
             'token' => $token,
             'form' => $form->createView(),
             'theme' => $this->container->getParameter('fos_user.template.theme'),

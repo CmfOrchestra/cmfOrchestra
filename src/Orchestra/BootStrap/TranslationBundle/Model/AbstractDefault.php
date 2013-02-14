@@ -242,7 +242,7 @@ abstract class AbstractDefault extends AbstractTranslation
     }    
     
     /**
-     * Set Role
+     * Set Role heritage
      *
      * @param array $heritage
      */

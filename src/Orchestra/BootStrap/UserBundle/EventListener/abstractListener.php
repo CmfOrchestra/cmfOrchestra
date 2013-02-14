@@ -120,8 +120,8 @@ abstract class abstractListener
         if(isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST']) && isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST'][$entity_name])){
         	if(is_array($GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST'][$entity_name])){
         		$route = $this->container->get('request')->get('_route');
-        		if($this->container->get('session')->has('route') && (empty($route) || ($route == "_internal")))
-        			$route = $this->container->get('session')->get('route');
+        		if((empty($route) || ($route == "_internal")))
+        			$route = $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('_route', $this->container->get('session')->getLocale());
         		if(in_array($route, $GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST'][$entity_name])){
         			// IMPORTANT !!! sinon ne fonctionne pas avec les collection links :
         			if(method_exists($entity, 'setHeritage'))
@@ -132,7 +132,8 @@ abstract class abstractListener
         		}
         	}else{
         		// IMPORTANT !!! sinon ne fonctionne pas avec les collection links :
-        		$entity->setHeritage(array('ROLE_SUPER_ADMIN'));
+        		if (method_exists($entity, 'setHeritage'))
+        			$entity->setHeritage(array('ROLE_SUPER_ADMIN'));
         		$entityManager->initializeObject($entity);
         		return true;
         	}        
@@ -208,8 +209,8 @@ abstract class abstractListener
         if(isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE']) && isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE'][$entity_name])){
         	if(is_array($GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE'][$entity_name])){
         		$route = $this->container->get('request')->get('_route');
-        		if($this->container->get('session')->has('route') && (empty($route) || ($route == "_internal")))
-        			$route = $this->container->get('session')->get('route');
+        		if((empty($route) || ($route == "_internal")))
+        			$route = $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('_route', $this->container->get('session')->getLocale());
         		if(in_array($route, $GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE'][$entity_name])){
         			$class = $entityManager->getClassMetadata(get_class($entity));
    					$entityManager->getUnitOfWork()->recomputeSingleEntityChangeSet($class, $entity);
@@ -296,8 +297,8 @@ abstract class abstractListener
 		if(isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE']) && isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE'][$entity_name])){
 			if(is_array($GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE'][$entity_name])){
 				$route = $this->container->get('request')->get('_route');
-				if($this->container->get('session')->has('route') && (empty($route) || ($route == "_internal")))
-					$route = $this->container->get('session')->get('route');
+				if((empty($route) || ($route == "_internal")))
+					$route = $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('_route', $this->container->get('session')->getLocale());
 				if(in_array($route, $GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE'][$entity_name])){
 					return true;
 				}
@@ -615,14 +616,14 @@ abstract class abstractListener
     	
     	if( 
     		$this->isAnonymousToken()
-    		&& !($this->_container->get('security.context')->isGranted('ROLE_ADMIN'))
+    		&& !($this->container->get('security.context')->isGranted('ROLE_ADMIN'))
     		&& isset($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']) 
     		&& isset($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES'][$entity_name])
     	){
        		if(is_array($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES'][$entity_name])){
        			$route = $this->container->get('request')->get('_route');
-       			if($this->container->get('session')->has('route') && (empty($route) || ($route == "_internal")))
-       				$route = $this->container->get('session')->get('route');
+       			if((empty($route) || ($route == "_internal")))
+       				$route = $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('_route', $this->container->get('session')->getLocale());
        			if(!in_array($route, $GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES'][$entity_name])){
        				return false;
        			}

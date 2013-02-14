@@ -47,12 +47,25 @@
 								{{ form_widget(form.Civility) }}
 							</div>
 							<div class="row cf">
-                {{ form_widget(form.Name) }}
-								{{ form_widget(form.Nickname) }}
+                {% if form.vars.value.Name %} 
+                      {{ form_widget(form.Name) }}
+                {% else %}
+                      {{ form_widget(form.Name, { 'attr': {'data-validate': 'Nom*'} }) }}
+                {% endif %}
+                {% if form.vars.value.Nickname %} 
+                      {{ form_widget(form.Nickname) }}
+                {% else %}
+                      {{ form_widget(form.Nickname, { 'attr': {'data-validate': 'Prénom*'} }) }}
+                {% endif %}	
 							</div>
-					
+
+				
 							<div class="row cf">
-								{{ form_widget(form.Job) }}	
+                {% if form.vars.value.Job %} 
+                      {{ form_widget(form.Job) }}
+                {% else %}
+                      {{ form_widget(form.Job, { 'attr': {'data-validate': 'Fonction*'}}) }}
+                {% endif %}  	
 							</div>
 		
 							<div class="row wrap cf">	
@@ -67,12 +80,23 @@
 							</div>
 
 							<div class="row">	
-								{{ form_widget(form.Email) }}
-                {{ form_widget(form.EmailPerso) }}
+                {% if form.vars.value.Email and not(form.vars.errors|length) %} 
+                      {{ form_widget(form.Email, { 'read_only': true }) }}
+                {% elseif form.vars.errors|length %} 
+                      {{ form_widget(form.Email, { 'attr': {'class': 'error'} }) }}                
+                {% else %}
+                      {{ form_widget(form.Email, { 'attr': {'data-validate': 'Email pro*'} }) }}
+                {% endif %}                     
+
+                {{ form_widget(form.EmailPerso, { 'attr': {'data-validate': 'Email perso'} }) }}
 							</div>
 
 							<div class="row">
-								{{ form_widget(form.UserPhone) }}
+                {% if form.vars.value.UserPhone %} 
+                      {{ form_widget(form.UserPhone) }}
+                {% else %}
+                      {{ form_widget(form.UserPhone, { 'attr': {'data-validate': 'Téléphone*'} }) }}
+                {% endif %} 
 							</div>
 	
 						</fieldset>
@@ -87,9 +111,16 @@
 							</div>
 						
 							<div class="id-choice">
-								{{ form_row(form.UserName) }}
-
-								<p class="light-clr"><small>Il vous sera demandé à chaque connexion et sera définitif</small></p>
+                
+                {% if form.vars.value.UserName and not(form.vars.errors|length) %} 
+                      {{ form_row(form.UserName, { 'read_only': true , 'label': 'Votre Identifiant'}) }}
+                {% elseif form.vars.errors|length %} 
+                      {{ form_row(form.UserName, {'label': 'Votre Identifiant'}) }}
+                {% else %}
+                      {{ form_label(form.UserName) }}
+                      {{ form_widget(form.UserName, {'attr': {'data-validate': 'Identifiant'} }) }}
+                      <p class="light-clr"><small>Il vous sera demandé à chaque connexion et sera définitif</small></p>
+                {% endif %} 
 							</div>	
 							<p class="light-clr"><span class="tt-clr">*</span> champs obligatoire</p>
 						</fieldset>

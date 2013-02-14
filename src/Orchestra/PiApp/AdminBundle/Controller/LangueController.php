@@ -250,7 +250,7 @@ class LangueController extends abstractController
     /**
      * Deletes a Langue entity.
      * 
-     * @Secure(roles="ROLE_SUPER_ADMIN")
+     * @Secure(roles="ROLE_ADMIN")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * 
      * @access	public
@@ -271,8 +271,12 @@ class LangueController extends abstractController
                 throw ControllerException::NotFoundException('Langue');
             }
 
-            $em->remove($entity);
-            $em->flush();
+            try {
+            	$em->remove($entity);
+            	$em->flush();
+            } catch (\Exception $e) {
+            	$this->container->get('session')->setFlash('notice', 'pi.session.flash.right.undelete');
+            }
         }
 
         return $this->redirect($this->generateUrl('admin_langue'));

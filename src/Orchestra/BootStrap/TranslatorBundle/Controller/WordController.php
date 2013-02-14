@@ -209,10 +209,9 @@ class WordController extends abstractController
             $em->persist($entity);
             $em->flush();
 
-            $this->_wordsTranslation();
+            $this->container->get("bootstrap_translator.translation_cache")->wordsTranslation();
             
             return $this->redirect($this->generateUrl('admin_word_show', array('id' => $entity->getId(), 'NoLayout' => $NoLayout)));
-                        
         }
 
         return $this->render("BootStrapTranslatorBundle:Word:$template", array(
@@ -287,7 +286,7 @@ class WordController extends abstractController
             $em->persist($entity);
             $em->flush();
 						
-            $this->_wordsTranslation();
+            $this->container->get("bootstrap_translator.translation_cache")->wordsTranslation();
             
             return $this->redirect($this->generateUrl('admin_word_edit', array('id' => $id, 'NoLayout' => $NoLayout)));
         }
@@ -312,9 +311,9 @@ class WordController extends abstractController
     public function deleteAction($id)
     {
         $em 	 = $this->getDoctrine()->getEntityManager();
-	    	$locale	 = $this->container->get('session')->getLocale();
+	    $locale	 = $this->container->get('session')->getLocale();
 	    
-	    	$NoLayout   = $this->container->get('request')->query->get('NoLayout');	    
+	    $NoLayout   = $this->container->get('request')->query->get('NoLayout');	    
     
         $form 	 = $this->createDeleteForm($id);
         $request = $this->getRequest();
@@ -342,36 +341,5 @@ class WordController extends abstractController
             ->getForm()
         ;
     }
-    
-    /**
-     * Sets the specific sortOrders.
-     *
-     * @param EventArgs		$eventArgs
-     * @access private
-     * @return array
-     *
-     * @author (c) <riad hellal> <r.helal@novediagroup.com>
-     */
-    private function _wordsTranslation()
-    {
-
-    	$entityManager 	= $this->getDoctrine()->getEntityManager();
-    	$locale	= $this->container->get('session')->getLocale();
-
-    	$basePath 		= $this->container->getParameter("kernel.cache_dir"). '/../translation/';
-    	$dir 			= \PiApp\AdminBundle\Util\PiFileManager::mkdirr($basePath);
-    	$all_files 		= \PiApp\AdminBundle\Util\PiFileManager::getFilesByType($basePath, "yml");
-    	$languages 		= $entityManager->getRepository("PiAppAdminBundle:Langue")->findAllByEntity($locale, 'object', false);
-    	 
-    	$array = array();
-    	foreach($languages as $language){
-    		$filename 	= $basePath."messages.".$language->getId().".yml";
-    		$Words 		= $entityManager->getRepository("BootStrapTranslatorBundle:Word")->findAllByEntity($language->getId(), 'object', false);
-    		foreach ($Words as $word){
-    			$array["{$word->getKeyword()}"] = $word->translate($language->getId())->getLabel()? $word->translate($language->getId())->getLabel():' ';
-    		}
-    		$yaml = \Symfony\Component\Yaml\Yaml::dump($array, 2);
-    		file_put_contents($filename, $yaml);
-    	}
-    }    
+  
 }

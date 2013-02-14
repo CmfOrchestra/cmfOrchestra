@@ -64,30 +64,28 @@
                 {% if form.vars.value.Job %} 
                       {{ form_widget(form.Job) }}
                 {% else %}
-                      {{ form_widget(form.Job) }}
+                      {{ form_widget(form.Job, { 'attr': {'data-validate': 'Fonction*'}}) }}
                 {% endif %}                  
 								<a href="#" class="tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
 
 							</div>
 							<div class="row">	
 
-                {% if form.vars.value.Email %} 
+                {% if form.vars.value.Email and not(form.vars.errors|length) %} 
                       {{ form_widget(form.Email, { 'read_only': true }) }}
+                {% elseif form.vars.errors|length %} 
+                      {{ form_widget(form.Email, { 'attr': {'class': 'error'} }) }}                
                 {% else %}
                       {{ form_widget(form.Email, { 'attr': {'data-validate': 'Email pro*'} }) }}
                 {% endif %}                    
 
-                {% if form.vars.value.EmailPerso %} 
-                      {{ form_widget(form.EmailPerso) }}
-                {% else %}
-                      {{ form_widget(form.EmailPerso, { 'attr': {'data-validate': 'Email perso'} }) }}
-                {% endif %}                    
+                {{ form_widget(form.EmailPerso, { 'attr': {'data-validate': 'Email perso'} }) }}
 							</div>
 							<div class="row">	
                 {% if form.vars.value.Phone %} 
                       {{ form_widget(form.Phone) }}
                 {% else %}
-                      {{ form_widget(form.Phone, { 'attr': {'data-validate': 'Téléphone*'} }) }}
+                      {{ form_widget(form.Phone, { 'attr': {'class':'required phone', 'data-validate': 'Téléphone*'} }) }}
                 {% endif %}                    
 							</div>
 						
@@ -105,11 +103,14 @@
 							</div>
 								
 							<div class="id-choice">
-                {% if form.vars.value.UserName %} 
-                      {{ form_widget(form.UserName, { 'read_only': true }) }}
+                {% if form.vars.value.UserName and not(form.vars.errors|length) %} 
+                      {{ form_row(form.UserName, { 'read_only': true , 'label': 'Votre Identifiant'}) }}
+                {% elseif form.vars.errors|length %} 
+                      {{ form_row(form.UserName, {'label': 'Votre Identifiant'}) }}
                 {% else %}
-                      {{ form_widget(form.UserName, { 'attr': {'data-validate': 'Identifiant'} }) }}
-                {% endif %}   
+                      {{ form_label(form.UserName) }}
+                      {{ form_widget(form.UserName, {'attr': {'data-validate': 'Identifiant'} }) }}
+                {% endif %} 
 								<p class="light-clr"><small>Il vous sera demandé à chaque connexion et sera définitif</small></p>
 							</div>	
 							<p class="light-clr"><span class="tt-clr">*</span> champs obligatoire</p>

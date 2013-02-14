@@ -1,0 +1,12 @@
+{% block subject %}
+{% autoescape false %}
+{{ 'pi.ads.form.email.subject'|replace({'<p>': '', '</p>': ''})|trans({'%annonce%':ads.title, '%name%': form.name, '%nickname%': form.nickname}) }}
+{% endautoescape %}
+{% endblock %}
+
+{% block body %}
+{% autoescape false %}
+{{ 'pi.ads.form.email.body'|trans({'%annonce%':ads.title, '%name%': form.name, '%nickname%': form.nickname, '%email%':form.email, '%message%':form.descriptif}) }}
+{% endautoescape %}
+{% endblock %}
+{% block body_html %}{% endblock %}

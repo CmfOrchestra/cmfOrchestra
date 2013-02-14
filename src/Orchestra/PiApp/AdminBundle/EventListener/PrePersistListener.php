@@ -58,7 +58,7 @@ class PrePersistListener extends CoreListener
     	$this->_single_SlugByPage($eventArgs);    	
     	
     	// Method which will be called when we detach the permission of Persist a page.
-    	$this->_Persist_Permission_Page_ByUser($eventArgs);    	
+    	$this->_Persist_Permission_Page_ByUser($eventArgs);
     	
     	// we set the PrePersist management
     	// BE CAREFUL !!! this method has to be used in the last of your LifecycleEvent management.

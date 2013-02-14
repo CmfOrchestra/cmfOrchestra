@@ -194,8 +194,11 @@ class SliderController extends abstractController
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout)	$template = "new.html.twig";  else 	$template = "new_ajax.html.twig";
         
-        if($category)
-        	$entity->setCategory($category);
+        $entity_cat = $em->getRepository("PiAppGedmoBundle:Category")->find($category);
+        if( !empty($category) && ($entity_cat instanceof \PiApp\GedmoBundle\Entity\Category) && method_exists($entity, 'setCategory'))
+        	$entity->setCategory($entity_cat);     
+        elseif(!empty($category) && method_exists($entity, 'setCategory'))
+        	$entity->setCategory($category); 
         
         $form   = $this->createForm(new SliderType($em, $locale, $this->container), $entity, array('show_legend' => false));
         return $this->render("PiAppGedmoBundle:Slider:$template", array(
@@ -346,8 +349,12 @@ class SliderController extends abstractController
                 throw ControllerException::NotFoundException('Slider');
             }
 
-            $em->remove($entity);
-            $em->flush();
+        	try {
+            	$em->remove($entity);
+            	$em->flush();
+            } catch (\Exception $e) {
+            	$this->container->get('session')->setFlash('notice', 'pi.session.flash.right.undelete');
+            }
         }
 
         return $this->redirect($this->generateUrl('admin_gedmo_slider', array('NoLayout' => $NoLayout, 'category' => $category)));

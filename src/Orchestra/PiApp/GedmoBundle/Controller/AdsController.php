@@ -200,8 +200,11 @@ class AdsController extends abstractController
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout)	$template = "new.html.twig";  else 	$template = "new.html.twig";   
         
-         if($category)
-        	$entity->setCategory($category);     
+        $entity_cat = $em->getRepository("PiAppGedmoBundle:Category")->find($category);
+        if(($entity_cat instanceof \PiApp\GedmoBundle\Entity\Category) && method_exists($entity, 'setCategory'))
+        	$entity->setCategory($entity_cat);     
+        elseif(!empty($category) && method_exists($entity, 'setCategory'))
+        	$entity->setCategory($category); 
 
         return $this->render("PiAppGedmoBundle:Ads:$template", array(
             'entity' 	=> $entity,
@@ -360,8 +363,12 @@ class AdsController extends abstractController
                 throw ControllerException::NotFoundException('Ads');
             }
 
-            $em->remove($entity);
-            $em->flush();
+        	try {
+            	$em->remove($entity);
+            	$em->flush();
+            } catch (\Exception $e) {
+            	$this->container->get('session')->setFlash('notice', 'pi.session.flash.right.undelete');
+            }
         }
 
         return $this->redirect($this->generateUrl('admin_gedmo_ads', array('NoLayout' => $NoLayout, 'category' => $category)));
@@ -391,11 +398,13 @@ class AdsController extends abstractController
     	if(empty($lang))
     		$lang	= $this->container->get('session')->getLocale();
     		
-    	$entity = $em->getRepository("PiAppGedmoBundle:Ads")->findOneByEntity($lang, $id, 'object', false);
-    	
-    	if (!$entity) {
-    		throw ControllerException::NotFoundException('Ads');
-    	}
+    	if(!empty($id)){
+    		$entity	= $em->getRepository("PiAppGedmoBundle:Ads")->findOneByEntity($lang, $id, 'object', false);
+    		$slug	= $entity->getSlug();
+    	}else{
+    		$slug	= $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('slug', $lang);
+    		$entity	= $this->container->get('doctrine')->getEntityManager()->getRepository("PiAppGedmoBundle:Ads")->getEntityByField($lang, array('content_search' => array('slug' =>$slug)), 'object');
+    	}    	
     	
     	if(method_exists($entity, "getTemplate") && $entity->getTemplate() != "")
     		$template = $entity->getTemplate();     	
@@ -469,6 +478,11 @@ class AdsController extends abstractController
     		$filtre2 =	$_GET['filtre2'];
     	else
     		$filtre2 = ""; 
+    	
+    	if(isset($_GET['userID']) && !empty($_GET['userID']))
+    		$userID =	$_GET['userID'];
+    	else
+    		$userID = "";    	
 
     	$paginator 			= $this->container->get('knp_paginator');
     
@@ -477,13 +491,12 @@ class AdsController extends abstractController
     		$query_pagination
     		->leftJoin('a.tags', 'tag')
     		->leftJoin('a.translations', 'trans');
-    		$orModule  = $query_pagination->expr()->orx();
+
     		$andModule = $query_pagination->expr()->andx();
-    		
     		$andModule->add($query_pagination->expr()->eq('LOWER(trans.locale)', "'{$lang}'"));
-    		//$andModule->add($query_pagination->expr()->eq('LOWER(trans.field)', "'title'"));
     		$andModule->add($query_pagination->expr()->like('LOWER(trans.content)', $query_pagination->expr()->literal('%'.strtolower($search).'%')));
-    		
+
+    		$orModule  = $query_pagination->expr()->orx();
     		$orModule->add($andModule);
     		$orModule->add($query_pagination->expr()->like('LOWER(tag.name)', $query_pagination->expr()->literal('%'.strtolower($search).'%')));
     		$query_pagination->andWhere($orModule);
@@ -492,12 +505,16 @@ class AdsController extends abstractController
     		$query_pagination->andWhere($query_pagination->expr()->like('LOWER(a.typology)', $query_pagination->expr()->literal(strtolower($filtre1).'%')));
     	if(!empty($filtre2))
     		$query_pagination->andWhere($query_pagination->expr()->like('LOWER(a.status)', $query_pagination->expr()->literal(strtolower($filtre2).'%')));
+    	if(!empty($userID)){
+    		$query_pagination
+    		->leftJoin('a.user', 'user')
+    		->andWhere("user.id = :userID")
+    		->setParameter('userID', $userID);
+    	}
     	
+    	$count			  = count($query_pagination->getQuery()->getResult());
     	$query_pagination = $query_pagination->getQuery();
-    	//print_r(get_class($query_pagination));exit;
-
-    	//$count 	= $em->getRepository("PiAppGedmoBundle:Ads")->count(1);
-    	//$query_pagination->setHint('knp_paginator.count', $count);
+    	
     	$pagination = $paginator->paginate(
     			$query_pagination,
     			$page,	/*page number*/
@@ -516,8 +533,116 @@ class AdsController extends abstractController
     			'lang'			=> $lang,
     			'search'   		=> $search,
     			'filtre1'   	=> $filtre1,
-    			'filtre2'   	=> $filtre2,    			
+    			'filtre2'   	=> $filtre2,   
+    			'total'			=> $count 			
     	));
     }      
     
+    /**
+     * Template : Form comment.
+     *
+     * @Cache(maxage="86400")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access	public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function _template_formAction($ads_id, $template = '_template_form_ads.html.twig', $lang = "")
+    {
+    	$em 		= $this->getDoctrine()->getEntityManager();
+    
+    	if(empty($lang))
+    		$lang	= $this->container->get('session')->getLocale();
+    
+    	if ($this->isUsernamePasswordToken()) {
+    		$user 		= $this->get('security.context')->getToken()->getUser();
+    		$entity		= new \PiApp\GedmoBundle\Entity\Contact();
+    		
+    		$entity->setName($user->getUsername());
+    		$entity->setNickname($user->getUsername());
+    		$entity->setEmail($user->getEmail());
+    		$entity->setDescriptif("Message *");
+    		$entity->setAds($this->getAds($ads_id, $lang));
+    		    		
+    		$form   	= $this->createForm(new \PiApp\GedmoBundle\Form\AdsResponseType($em, $this->container), $entity, array('show_legend' => false));
+    		 
+    		return $this->render("PiAppGedmoBundle:Ads:$template", array(
+    				'entity' 	=> $entity,
+    				'form'   	=> $form->createView(),
+    		));    		
+    	}else{
+   			$url		= $this->container->get('bootstrap.RouteTranslator.factory')->getRoute("page_lamelee_connexion", array('locale'=>$lang));
+   			return new RedirectResponse($url);
+    	}    	
+    }
+    
+    /**
+     * Template : Finds and displays a list of the last Lamelee\Article entity.
+     *
+     * @Route("/opportunite/{ads_id}", name="piapp_gedmo_ads_create", requirements={"_method"="POST", "ads_id" = "\d+"})
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access	public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function _template_formValidationAction($ads_id, $lang = "")
+    {
+    	$em			= $this->getDoctrine()->getEntityManager();
+
+    	if(empty($lang))
+    		$lang   = $this->container->get('session')->getLocale();
+    	
+    	$entity		= new \PiApp\GedmoBundle\Entity\Contact();
+    	$form		= $this->createForm(new \PiApp\GedmoBundle\Form\AdsResponseType($em, $this->container), $entity, array('show_legend' => false));
+    	$request 	= $this->getRequest();
+    	$form->bindRequest($request);
+
+    	if ($form->isValid()) {
+    		$entity->setTranslatableLocale($lang);
+    		$ads = $this->getAds($ads_id, $lang);
+    		$entity->setAds($ads);
+
+    		//$query		= $em->getRepository("PiAppGedmoBundle:Category")->getAllByFields(array('type'=>'0', 'enabled'=>true), 1, '', 'ASC');
+    		//$entity_cat =  current($em->getRepository("PiAppGedmoBundle:Category")->findTranslationsByQuery($lang, $query->getQuery(), "object", false));
+    		$entity_cat		= $em->getRepository("PiAppGedmoBundle:Category")->find(19);
+    		$entity->setCategory($entity_cat);
+    		
+    		$em->persist($entity);
+    		$em->flush();
+    		
+    		$this->get('session')->setFlash('notice', 'comment.flash.posted');
+    
+    		//send mail
+    		$templateFile = "PiAppGedmoBundle:Ads:email_ads.html.twig";
+    		$templateContent = $this->get('twig')->loadTemplate($templateFile);
+    		$subject = ($templateContent->hasBlock("subject")
+    				           ? $templateContent->renderBlock("subject", array('ads'=>$ads, 'form'=> $request->get($form->getName(), array())))
+    				           : "Default subject here");
+    		$body = ($templateContent->hasBlock("body")
+    				           ? $templateContent->renderBlock("body", array('ads'=>$ads, 'form'=> $request->get($form->getName(), array())))
+    				           : "Default body here");
+    		
+			$list_files = $this->get("pi_app_admin.mailer_manager")->uploadAttached($_FILES);
+    		$this->get("pi_app_admin.mailer_manager")->send('ads@lamelee.fr', $ads->getUser()->getEmail(), null, null, $form["Email"]->getData(), $subject, $body , $list_files);
+			$this->get("pi_app_admin.mailer_manager")->deleteAttached($list_files);
+    	}else{
+    		$this->get('session')->setFlash('notice', 'comment.flash.noposted');
+    	}
+    	  
+    	$new_url 	= $this->container->get('bootstrap.RouteTranslator.factory')->getRefererRoute($lang);
+	    return new RedirectResponse($new_url);
+    }
+    
+    protected function getAds($id, $lang)
+    {
+	    $em		= $this->getDoctrine()->getEntityManager();
+	    $ads	= $em->getRepository("PiAppGedmoBundle:Ads")->findOneByEntity($lang, $id, 'object', false);
+	    
+		if(!$ads) {
+	    	throw $this->createNotFoundException('Unable to find ads.');
+	    }
+	    
+	    return $ads;
+    }
+   
 }

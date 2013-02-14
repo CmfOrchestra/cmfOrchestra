@@ -80,7 +80,7 @@ class RouteTranslatorFactory extends AbstractFactory implements RouteTranslatorF
 		}
 		
 		if(empty($new_url) || ($new_url == "/")) {
-			$new_url = $this->getContainer()->get('router')->generate('admin_homepage');
+			$new_url = $this->getContainer()->get('router')->generate('home_page');
 		}
 		
 		if(is_null($options)){
@@ -116,7 +116,7 @@ class RouteTranslatorFactory extends AbstractFactory implements RouteTranslatorF
 		}
 	
 		if(empty($new_url) || ($new_url == "/")) {
-			$new_url	= $this->getContainer()->get('router')->generate('admin_homepage');
+			$new_url	= $this->getContainer()->get('router')->generate('home_page');
 		}
 	
 		if(is_null($options)){

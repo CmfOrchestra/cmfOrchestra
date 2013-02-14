@@ -55,7 +55,7 @@ class PiUserManager extends PiWidgetExtension
 	{
 		return array(
 				'BootStrapUserBundle:User'	=> array(
-							'method' => array('_connexion_default'),
+							'method' => array('_connexion_default','_reset_default'),
 				),	
 		);
 	}	
@@ -140,16 +140,16 @@ class PiUserManager extends PiWidgetExtension
     	if( ($this->action == "connexion") && $xmlConfig->widgets->get('user') )
     	{
     		$controller	= $xmlConfig->widgets->user->controller;
-    		
-    		if($this->isAvailableAction($controller)){	    		
-	    		if($xmlConfig->widgets->user->get('template'))
-	    			$template = $xmlConfig->widgets->user->template;
-	    		else
-	    			$template = "FOSUserBundle:Security:login.html.twig";   
-	
-	    		return $this->runByService('pi_app_admin.manager.authentication', "$this->entity~$this->method~$template", $lang);
+    	
+    		if($this->isAvailableAction($controller)){
+    			if($xmlConfig->widgets->user->get('params'))
+    				$params = $xmlConfig->widgets->user->params->toArray();
+    			else
+    				$params = aarray();
+    	
+    			return $this->runByService('pi_app_admin.manager.authentication', "$this->entity~$this->method", $lang, $params);
     		}else
-	    		throw ExtensionException::optionValueNotSpecified("gedmo controller", __CLASS__);    		    		
+    			throw ExtensionException::optionValueNotSpecified("gedmo controller", __CLASS__);
     	}else
     		throw ExtensionException::optionValueNotSpecified("content", __CLASS__);    	
 	}

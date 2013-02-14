@@ -339,8 +339,12 @@ class ContactController extends abstractController
                 throw ControllerException::NotFoundException('Contact');
             }
 
-            $em->remove($entity);
-            $em->flush();
+        	try {
+            	$em->remove($entity);
+            	$em->flush();
+            } catch (\Exception $e) {
+            	$this->container->get('session')->setFlash('notice', 'pi.session.flash.right.undelete');
+            }
         }
 
         return $this->redirect($this->generateUrl('admin_gedmo_contact', array('NoLayout' => $NoLayout)));

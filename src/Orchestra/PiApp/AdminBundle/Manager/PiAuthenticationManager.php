@@ -55,9 +55,7 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
 	public function renderSource($id, $lang = '', $params = null)
 	{
 		str_replace('~', '~', $id, $count);
-		if($count == 2)
-			list($entity, $method, $template) = explode('~', $this->_Decode($id));
-		elseif($count == 1)
+		if($count == 1)
 			list($entity, $method) = explode('~', $this->_Decode($id));
 		else
 			throw new \InvalidArgumentException("you have not configure correctly the attibute id");
@@ -69,8 +67,10 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
 		
 		$params['locale']	= $lang;
 		
-		if(isset($template) && ($method == "_connexion_default"))
-			return $this->defaultConnexion($template);
+		if($method == "_connexion_default")
+			return $this->defaultConnexion($params);
+		elseif($method == "_reset_default")
+			return $this->resetConnexion($params);		
 		else
 			throw new \InvalidArgumentException("you have not configure correctly the attibute id");
 	}
@@ -84,15 +84,17 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
 	 *
 	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */
-	public function defaultConnexion($template = null)
+	public function defaultConnexion($params = null)
 	{
+		if(isset($params['template']) && !empty($params['template']))
+			$template = $params['template'];
+		else 
+			$template = "PiAppTemplateBundle:Template\\Login\\Security:login.html.twig";
+		
 		$em	  	 = $this->container->get('doctrine')->getEntityManager();		
 		$request = $this->container->get('request');
         $session = $request->getSession();
         
-        if(is_null($template))
-        	$template = "FOSUserBundle:Security:login.html.twig";        
-
         // get the error if any (works with forward and redirect -- see below)
         if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
             $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
@@ -117,7 +119,68 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
             'csrf_token' 	=> $csrfToken,
         ));
         
+        $this->container->get('session')->setFlashes(array());
         return $response->getContent();
 	}
+	
+	/**
+	 * Reset user password
+	 */
+	public function resetConnexion($params = null)
+	{
+		if(isset($params['template']) && !empty($params['template']))
+			$template = $params['template'];
+		else
+			$template = "PiAppTemplateBundle:Template\\Login\\Resetting:reset_content.html.twig";
+				
+		$token  = $this->container->get('request')->query->get('token');
+		
+		$user 	= $this->container->get('fos_user.user_manager')->findUserByConfirmationToken($token);
+		if (null === $user) {
+			throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException(sprintf('The user with "confirmation token" does not exist for value "%s"', $token));
+		}
+	
+		if (!$user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
+			return new \Symfony\Component\HttpFoundation\RedirectResponse($this->container->get('router')->generate('fos_user_resetting_request'));
+		}
+	
+		$form 			= $this->container->get('fos_user.resetting.form');
+		$formHandler 	= $this->container->get('fos_user.resetting.form.handler');
+		$process 		= $formHandler->process($user);
+	
+		if ($process) {
+            $response = new \Symfony\Component\HttpFoundation\RedirectResponse($this->container->get('router')->generate('home_page'));
+            $this->authenticateUser($user, $response);
+
+            $this->container->get('session')->setFlashes(array());
+			return $response;
+		}
+		
+		$this->container->get('session')->setFlashes(array());
+		return $this->container->get('templating')->renderResponse($template, array(
+				'token' => $token,
+				'form' => $form->createView(),
+				'theme' => $this->container->getParameter('fos_user.template.theme'),
+		))->getContent();
+	}	
+	
+	/**
+	 * Authenticate a user with Symfony Security
+	 *
+	 * @param \FOS\UserBundle\Model\UserInterface        $user
+	 * @param \Symfony\Component\HttpFoundation\Response $response
+	 */
+	protected function authenticateUser($user, Response $response)
+	{
+		try {
+			$this->container->get('fos_user.security.login_manager')->loginUser(
+					$this->container->getParameter('fos_user.firewall_name'),
+					$user,
+					$response);
+		} catch (\Symfony\Component\Security\Core\Exception\AccountStatusException $ex) {
+			// We simply do not authenticate users which do not pass the user
+			// checker (not enabled, expired, etc.).
+		}
+	}	
 	
 }

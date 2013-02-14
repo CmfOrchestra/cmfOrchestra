@@ -190,7 +190,7 @@ class Media extends AbstractDefault
     protected $block; 
     
     /**
-     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Block", mappedBy="media");
+     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Block", mappedBy="media1");
      */
     protected $block2;    
 

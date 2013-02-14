@@ -6,6 +6,7 @@ parameters:
     piapp.manager.file.class: PiApp\AdminBundle\Util\PiFileManager
     piapp.manager.locale.class: PiApp\AdminBundle\Util\PiLocaleManager
     piapp.manager.regex.class: PiApp\AdminBundle\Util\PiRegexManager
+    piapp.manager.mailer.class: PiApp\AdminBundle\Util\PiMailerManager
     
     piapp.manager.jquery.languagechoice.class: PiApp\AdminBundle\Util\PiJquery\PiLanguageChoiceManager
     piapp.manager.jquery.gridsimple.class: PiApp\AdminBundle\Util\PiJquery\PiGridSimpleManager
@@ -58,7 +59,11 @@ services:
         
     pi_app_admin.regex_manager:
         class: %piapp.manager.regex.class%  
-        arguments: ['@service_container']         
+        arguments: ['@service_container']  
+        
+    pi_app_admin.mailer_manager:
+        class: %piapp.manager.mailer.class%  
+        arguments: ['@service_container']               
         
     #
     # configuration of the JQUERY Util classes

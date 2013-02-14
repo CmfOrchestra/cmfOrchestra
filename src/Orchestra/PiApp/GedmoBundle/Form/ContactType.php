@@ -86,14 +86,26 @@ class ContactType extends AbstractType
  					'label'		=> "pi.form.label.field.title",
  					'required'  => false,
  			))
- 			->add('descriptif', 'text', array(
- 					'label'	=> 'pi.form.label.field.description',
+ 			->add('descriptif', 'textarea', array(
+ 					'label'	=> "pi.form.label.field.description",
+ 					"label_attr" => array(
+ 							"class"=>"block_collection",
+ 					),
+ 					"attr" => array(
+ 							"class"	=>"pi_editor_simple",
+ 					),
  					'required'  => false,
- 			))
+ 			))	
  			->add('coordinates', 'text', array(
  					"label" => 'pi.form.label.field.adress.coordinates',
  					'required'  => false,
  			))
+ 			->add('name','text', array(
+ 					'required'  	=> false,
+ 			))
+ 			->add('nickname','text', array(
+ 					'required'  	=> false,
+ 			)) 			
  			
  			
  			->add('address', 'textarea', array(

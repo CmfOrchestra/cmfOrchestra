@@ -33,3 +33,29 @@
 	</div>
 	{% endif %}
 {% endmacro %}
+
+{% macro session_flash_frontoffice(type) %}
+	{% set types = ['success', 'notice', 'error', 'warning'] %}
+	{% if app.session.getFlashes()|length > 0 %}
+	<div class="fancybox-flash" style="display:none">
+		<div id="confirm-popup">
+			<section class="forgotten-password">
+				{% if type|default(false) %}
+		        {% else %}
+		            
+		            	{% if app.session.hasFlash('only') %}
+		            		{{ _self.flash(type, app.session.flash('only')) | raw }}
+		            	{% else %}
+			                {% for type in types %}
+			                    {% if app.session.hasFlash(type) %}
+			                        {{ _self.flash(type, app.session.flash(type)) | raw }}
+			                    {% endif %}
+			                {% endfor %}            	
+		            	{% endif %}
+		
+		        {% endif %}
+			</section>
+		</div>
+	</div>
+	{% endif %}
+{% endmacro %}

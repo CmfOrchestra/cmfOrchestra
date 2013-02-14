@@ -64,9 +64,13 @@ class PiListenerManager extends PiCoreManager implements PiListenerManagerBuilde
 		$params['_route']	= $this->container->get('request')->get('_route');
 		$params['GET']		= $_GET;
 		$params['POST']		= $_POST;
-		$this->container->get('session')->set('route', $params['_route']);
 		
-		$result = $this->container->get('http_kernel')->render($id, array('attributes'=>$params));
-		return utf8_decode(mb_convert_encoding($result, "UTF-8", "HTML-ENTITIES"));
+		//$response = $this->container->get('http_kernel')->render($id, array('attributes'=>$params)); // // this not allow redirection in controller action
+		$response = $this->container->get('http_kernel')->forward($id, $params); // this allow redirection in controller action
+		
+		if($response instanceof \Symfony\Component\HttpFoundation\RedirectResponse)
+			return $response;
+		else
+			return utf8_decode(mb_convert_encoding($response->getContent(), "UTF-8", "HTML-ENTITIES"));
 	}	
 }

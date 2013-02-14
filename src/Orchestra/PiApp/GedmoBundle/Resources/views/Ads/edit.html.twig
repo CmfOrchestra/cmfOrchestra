@@ -54,7 +54,9 @@
 	        </form>
 	    </li>
 	    {% endif %}
-	    
-	
 	</ul>
+	
+	{% if entity.media.image is defined %}
+		{{ file_form(entity.media.image, 'piapp_gedmobundle_adstype_media_image_binaryContent')|raw }}
+	{% endif %}	
 {% endblock %}		

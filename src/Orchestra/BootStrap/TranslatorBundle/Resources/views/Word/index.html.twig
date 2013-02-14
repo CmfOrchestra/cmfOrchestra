@@ -73,7 +73,7 @@
 	{% endif %}
 	
 	{% set options_gridtabale = {'grid-name': 'grid_word', 'grid-type':'simple', 
-			'grid-paginate':'true',
+			'grid-paginate':'false',
 			'grid-filters': { 
 					'1':'Position',
 					'2':'Identifiant',
@@ -86,7 +86,7 @@
 				'1':'false',
 				},						
 			'grid-actions': { 
-					'rows_grouping': {'columnIndex':2, 'Collapsible':'true'},
+					'rows_grouping': {'columnIndex':2, 'Collapsible':'false'},
 					'rows_position': {'route':'bootstrap_translator_position_ajax',},
 					'rows_enabled': {'sButtonText':'pi.grid.action.row_enabled', 'route':'bootstrap_translator_enabledentity_ajax',},
 					'rows_disable': {'sButtonText':'pi.grid.action.row_disable', 'route':'bootstrap_translator_disablentity_ajax'},

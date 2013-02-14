@@ -3,6 +3,7 @@ erreur.slug.minlength: The slug should have {{ limit }} characters minimum
 
 erreur.langstatus.notblank: You must enter a language status
 erreur.status.notblank: You must enter a status
+erreur.typology.notblank: You must enter a typology
 erreur.slug.notblank: You must enter a slug
 erreur.title.notblank: You must enter a title
 erreur.metacontenttype.notblank: You must enter a content-type

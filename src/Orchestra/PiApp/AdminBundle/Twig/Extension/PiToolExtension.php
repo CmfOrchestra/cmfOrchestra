@@ -189,19 +189,19 @@ class PiToolExtension extends \Twig_Extension
 			$id 		= $media->getId();
 				
 			try {
-				$file_url = $this->container->get('sonata.media.twig.extension')->path($id, "reference");
-        if($is_by_mimetype){
-           $mime = str_replace('/','-',$media->getContentType());
-           $picto = '/bundles/piappadmin/images/icons/mimetypes/'.$mime.'.png';
-        }
-        else{
-            $ext = substr(strtolower(strrchr(basename($file_url), ".")), 1);  
-            $picto = '/bundles/piappadmin/images/icons/form/download-'.$ext.'.png';
-        }
-
-        if (!file_exists('.'.$picto)) {
-            $picto = '/bundles/piappadmin/images/icons/form/download-32.png';
-        }
+					$file_url = $this->container->get('sonata.media.twig.extension')->path($id, "reference");
+					
+			        if($is_by_mimetype){
+			           $mime = str_replace('/','-',$media->getContentType());
+			           $picto = '/bundles/piappadmin/images/icons/mimetypes/'.$mime.'.png';
+			        }else{
+			            $ext = substr(strtolower(strrchr(basename($file_url), ".")), 1);  
+			            $picto = '/bundles/piappadmin/images/icons/form/download-'.$ext.'.png';
+			        }
+			
+			        if (!file_exists('.'.$picto)) {
+			            $picto = '/bundles/piappadmin/images/icons/form/download-32.png';
+			        }
 			} catch (\Exception $e) {
 				return "";
 			}

@@ -79,7 +79,7 @@ class BlockType extends AbstractType
 	    	$is_page		= false;
 	    	$is_media1		= false;
     	}
-    	if(in_array($template, array('_tmp_show-block-tpl2.html.twig'))){
+    	if(in_array($template, array('_tmp_show-block-tpl2.html.twig','_tmp_show-block-tpl5.html.twig'))){
     		$is_enabled		= false;
     		$is_category	= false;
     		$is_title		= false;
@@ -87,14 +87,14 @@ class BlockType extends AbstractType
     		$is_author		= false;
     		$is_page		= false;
     	}   
-    	if(in_array($template, array('_tmp_show-block-descriptif-left-picture.html.twig','_tmp_show-block-descriptif-right-picture.html.twig','_tmp_lamelee_block_share.html.twig'))){
+    	if(in_array($template, array('_tmp_show-block-descriptif-left-picture.html.twig','_tmp_show-block-descriptif-right-picture.html.twig'))){
 	    	$is_enabled		= false;
 	    	$is_category	= false;
 	    	$is_content		= false;
 	    	$is_author		= false;
 	    	$is_media1		= false;
     	}    	 	
-    	if(in_array($template, array('_tmp_show-block-video-left.html.twig','_tmp_show-block-video-right.html.twig','_tmp_mid_block_abo.html.twig','_tmp_mid_block_annonce.html.twig','_tmp_lamelee_block_register_auth.html.twig','_tmp_lamelee_block_register.html.twig'))){
+    	if(in_array($template, array('_tmp_show-block-video-left.html.twig','_tmp_show-block-video-right.html.twig'))){
 	    	$is_enabled		= false;
 	    	$is_category	= false;
 	    	$is_content		= false;
@@ -102,33 +102,6 @@ class BlockType extends AbstractType
 	    	$is_media		= false;
 	    	$is_media1		= false;
     	}
-    	if(in_array($template, array('_tmp_lamelee_block_pub_cubic.html.twig','_tmp_lamelee_block_pub_horiz.html.twig'))){
-	    	$is_enabled		= false;
-	    	$is_category	= false;
-	    	$is_descriptif	= false;
-	    	$is_content		= false;
-	    	$is_author		= false;
-	    	$is_media1		= false;
-    	} 
-    	if(in_array($template, array('_tmp_lamelee_block_header_thematic.html.twig','_tmp_lamelee_block_header_partner.html.twig'))){
-    		$is_enabled		= false;
-    		$is_category	= false;
-    		$is_content		= false;
-    		$is_author		= false;
-    		$is_page		= false;
-    		$is_media		= false;
-    		$is_media1		= false;
-    	}
-    	if(in_array($template, array('_tmp_mid_block_header_archive.html.twig'))){
-	    	$is_enabled		= false;
-	    	$is_category	= false;
-	    	$is_title		= false;
-	    	$is_descriptif	= false;
-	    	$is_content		= false;
-	    	$is_author		= false;
-	    	$is_media		= false;
-	    	$is_media1		= false;
-    	}    	
     	
     	if($is_enabled)
         	$builder            

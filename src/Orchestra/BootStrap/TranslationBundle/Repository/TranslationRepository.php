@@ -140,7 +140,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
     			if(is_array($GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES'][$entity_name])){
     				$route = $this->_container->get('request')->get('_route');
     				if($this->_container->get('session')->has('route') && (empty($route) || ($route == "_internal")))
-    					$route = $this->_container->get('session')->get('route');
+    					$route = $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('_route', $this->container->get('session')->getLocale());
     				if(!in_array($route, $GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES'][$entity_name])){
 						return $query;
     				}
@@ -575,7 +575,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @author Riad HELLAL <r.hellal@novediagroup.com>
      * @since 2012-03-15
      */
-    public function getAllByFields($fields = array(), $MaxResults = null, $ORDER_PublishDate = '', $ORDER_Position = '', $enabled = true, $is_checkRoles = true)
+    public function getAllByFields($fields = array(), $MaxResults = null, $ORDER_PublishDate = '', $ORDER_Position = '', $is_checkRoles = true)
     {
     	$query = $this->createQueryBuilder('a')->select('a');
     	 
@@ -590,27 +590,12 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
     		$query
     		->orderBy('a.position', $ORDER_Position);
     	}
-    	$query->where('a.archived = 0');
 
-    	if($enabled && !empty($fields)){
-    		$fields['enabled'] = 1;
-    		foreach ($fields as $key => $value) {
-    			$query
-    			->andWhere("a.{$key} LIKE '{$value}'");
-    		}
-    	}elseif($enabled && empty($fields)){
+    	foreach ($fields as $key => $value) {
     		$query
-    		->andWhere('a.enabled = :enabled')
-    		->setParameters(array(
-    				'enabled'	=> 1,
-    		));
-    	}elseif(!$enabled && !empty($fields)){
-    		foreach ($fields as $key => $value) {
-    			$query
-    			->andWhere("a.{$key} LIKE '{$value}'");
-    		}
+    		->andWhere("a.{$key} LIKE '{$value}'");
     	}
-    
+    	 
     	if(!is_null($MaxResults))
     		$query->setMaxResults($MaxResults);
     	if($is_checkRoles)

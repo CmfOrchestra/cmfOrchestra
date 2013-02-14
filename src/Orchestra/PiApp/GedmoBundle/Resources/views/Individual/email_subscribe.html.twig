@@ -5,7 +5,7 @@
 {% endblock %}
 {% block body %}
 {% autoescape false %}
-{{ 'pi.individual.form.lamelee.email.body'|trans({'%login%': form.UserName, '%passworde%': password, '%confirmationUrl%': confirmationUrl, '%name%': form.Name, '%nickname%': form.Nickname}) }}
+{{ 'pi.individual.form.lamelee.email.body'|trans({'%login%': form.UserName, '%password%': password, '%name%': form.Name, '%nickname%': form.Nickname}) }}
 {% endautoescape %}
 {% endblock %}
 {% block body_html %}{% endblock %}

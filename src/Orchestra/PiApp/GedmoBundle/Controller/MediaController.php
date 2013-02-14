@@ -383,8 +383,12 @@ class MediaController extends abstractController
                 throw ControllerException::NotFoundException('Media');
             }
 
-            $em->remove($entity);
-            $em->flush();
+        	try {
+            	$em->remove($entity);
+            	$em->flush();
+            } catch (\Exception $e) {
+            	$this->container->get('session')->setFlash('notice', 'pi.session.flash.right.undelete');
+            }
         }
 
         return $this->redirect($this->generateUrl('admin_gedmo_media', array('NoLayout' => $NoLayout, 'category' => $category)));

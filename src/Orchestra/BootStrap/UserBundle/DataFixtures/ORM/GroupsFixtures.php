@@ -40,7 +40,7 @@ class GroupsFixtures extends AbstractFixture implements OrderedFixtureInterface
     	$field0->setEnabled(true);
     	$manager->persist($field0);
     	
-    	$field0_bis = new Group('Groupe Subscriber', array('ROLE_MEMBER'));
+    	$field0_bis = new Group('Groupe Member', array('ROLE_MEMBER'));
     	$field0_bis->setEnabled(true);
     	$manager->persist($field0_bis);    	
     	    	

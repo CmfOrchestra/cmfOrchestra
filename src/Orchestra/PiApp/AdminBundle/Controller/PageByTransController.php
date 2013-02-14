@@ -355,8 +355,12 @@ class PageByTransController extends abstractController
                 throw ControllerException::NotFoundException('Page');
             }
            
-            $em->remove($entity);
-            $em->flush();
+            try {
+            	$em->remove($entity);
+            	$em->flush();
+            } catch (\Exception $e) {
+            	$this->container->get('session')->setFlash('notice', 'pi.session.flash.right.undelete');
+            }            
         }
 
         return $this->redirect($this->generateUrl('admin_pagebytrans'));

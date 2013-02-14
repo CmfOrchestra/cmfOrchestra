@@ -50,7 +50,7 @@
 	            {{ entity.fax|limite("0", 55)|raw }}
 	            </td>	
 	            <td>
-	            	<a href="mailto:{{ entity.email }}?subject={{ entity.translate(locale).getEmailSubject()|replace({'&':'and'}) }}{% if entity.translate(locale).getEmailBody() is not empty %}&body={{ entity.translate(locale).getEmailBody()|replace({'&':'and'}) }}{% endif %}{% if entity.emailCc is not empty %}&cc={{ entity.emailCc }}{% endif %}{% if entity.emailBcc is not empty %}&bcc={{ entity.emailBcc }}{% endif %}" title="Contact" id="btnContact" class="btnVert">
+	            	<a href="mailto:{{ entity.email }}?subject={{ entity.translate(app.session.locale).getEmailSubject()|replace({'&':'and'}) }}{% if entity.translate(app.session.locale).getEmailBody() is not empty %}&body={{ entity.translate(app.session.locale).getEmailBody()|replace({'&':'and'}) }}{% endif %}{% if entity.emailCc is not empty %}&cc={{ entity.emailCc }}{% endif %}{% if entity.emailBcc is not empty %}&bcc={{ entity.emailBcc }}{% endif %}" title="Contact" id="btnContact" class="btnVert">
 						{{ entity.email|limite("0", 55)|raw }}
 					</a>
 	            </td>	

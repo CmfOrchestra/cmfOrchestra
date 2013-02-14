@@ -1,0 +1,19 @@
+<form method="post" action="{{ path('piapp_gedmo_ads_create', { 'ads_id' : entity.ads.id } ) }}" id="ads-response" class="annonceForm cf" enctype="multipart/form-data">
+    {{ form_errors(form) }}
+    {{ form_widget(form._token) }} 
+	<h3 class="tt-9">{{ 'pi.lamelee.opportunite.reponse.annonce'|trans|replace({'<p>': '', '</p>': ''})|raw }}</h3>
+		<div class="half fleft">
+			{{ form_widget(form.name) }}
+			{{ form_widget(form.nickname) }}
+			{{ form_widget(form.email) }}
+		</div>
+		<div class="half fleft">
+			{{ form_widget(form.descriptif) }}
+		</div>
+	<div class="button-content cf">
+		<input type="file" name="attach" value=""/>
+		<a href="#" class="button purple" onClick="document.getElementById('ads-response').submit();"><!--
+		--><span>Envoyer</span><!--
+	--></a>
+	</div>
+</form>

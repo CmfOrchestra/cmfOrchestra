@@ -18,7 +18,7 @@
                                 <div class="clearfix row">
                                 	{%  set url = "#" %}
                                 	{% if resume.pagedetail.getId() is defined %}
-	                            		{%  set url = path_url(resume.pagedetail.getRouteName(), {'locale':app.session.locale, 'slug':resume.slug}) %}
+	                            		{%  set url = path_url(resume.pagedetail.getRouteName(), {'locale':app.session.locale, 'slug':resume.translate(app.session.locale).getSlug()}) %}
 	                            	{% endif %}
                                     <a href="{{ url }}" title="MoreInfo" class="btnVertWhatsHot fright"><span class="btnVertFlecheWhatsHot">Read More</span></a> 
                                 </div>
