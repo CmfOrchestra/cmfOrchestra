@@ -169,7 +169,7 @@ class PiWidgetManager extends PiCoreManager implements PiWidgetManagerBuilderInt
 // 		$source = $this->extensionWidget->FactoryFunction(strtoupper($container), strtolower($NameAction), $options);
 
 		if(!empty($cssClass))
-			$source  = " <orchestra class='".$cssClass."' > \n";
+			$source  = " <orchestra class=\"{$cssClass}\"> \n";
 		else
 			$source  = " <orchestra> \n";
 		

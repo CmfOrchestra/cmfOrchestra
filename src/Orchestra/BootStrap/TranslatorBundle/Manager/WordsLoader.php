@@ -174,5 +174,13 @@ class WordsLoader implements LoaderInterface
     		$yaml = \Symfony\Component\Yaml\Yaml::dump($array, 2);
     		file_put_contents($filename, $yaml);
     	}
+    	
+    	$basePath_cache_translations 		= realpath($this->container->getParameter("kernel.cache_dir"). '/translations/');
+    	if($basePath_cache_translations){
+	    	$all_files = \PiApp\AdminBundle\Util\PiFileManager::ListFiles($basePath_cache_translations);
+	        foreach ($all_files as $filename ) {
+                 unlink ($filename);
+	        }  
+    	}
     }  
 }

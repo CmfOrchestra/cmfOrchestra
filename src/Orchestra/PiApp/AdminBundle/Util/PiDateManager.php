@@ -103,35 +103,39 @@ class PiDateManager implements PiDateManagerBuilderInterface
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function parseTimestamp($date, $locale = null) {
-        // try time default formats
-        foreach ($this->formats as $timeFormat) {
-            // try date default formats
-            foreach($this->formats as $dateFormat) {
-                $dateFormater = \IntlDateFormatter::create($locale ?: \Locale::getDefault(), $dateFormat, $timeFormat, date_default_timezone_get());
-                $timestamp = $dateFormater->parse($date);
-                
-                if ($dateFormater->getErrorCode() == 0) {
-                    return $timestamp;
-                }
-            }
-        }
-        
-        // try other custom formats
-        $formats = array(
-            'MMMM yyyy', // november 2011 - nov. 2011
-        );
-        foreach($formats as $format) {
-            $dateFormater = \IntlDateFormatter::create($locale ?: \Locale::getDefault(), $this->formats['none'], $this->formats['none'],  date_default_timezone_get(), \IntlDateFormatter::GREGORIAN, $format);
-            $timestamp = $dateFormater->parse($date);
-            
-            if ($dateFormater->getErrorCode() == 0) {
-                return $timestamp;
-            }
-        }
-        
-        throw new \Exception('"'.$date.'" could not be converted to \DateTime');
+    	if($date == 'now'){
+    		$result = new \DateTime();
+    		return $result->getTimestamp();
+    	}else{
+	        // try time default formats
+	        foreach ($this->formats as $timeFormat) {
+	            // try date default formats
+	            foreach($this->formats as $dateFormat) {
+	                $dateFormater = \IntlDateFormatter::create($locale ?: \Locale::getDefault(), $dateFormat, $timeFormat, date_default_timezone_get());
+	                $timestamp = $dateFormater->parse($date);
+	                
+	                if ($dateFormater->getErrorCode() == 0) {
+	                    return $timestamp;
+	                }
+	            }
+	        }
+	        
+	        // try other custom formats
+	        $formats = array(
+	            'MMMM yyyy', // november 2011 - nov. 2011
+	        );
+	        foreach($formats as $format) {
+	            $dateFormater = \IntlDateFormatter::create($locale ?: \Locale::getDefault(), $this->formats['none'], $this->formats['none'],  date_default_timezone_get(), \IntlDateFormatter::GREGORIAN, $format);
+	            $timestamp = $dateFormater->parse($date);
+	            
+	            if ($dateFormater->getErrorCode() == 0) {
+	                return $timestamp;
+	            }
+	        }
+	        
+	        throw new \Exception('"'.$date.'" could not be converted to \DateTime');
+    	}
     }
-    
     
     /**
      * Function: relative_time
@@ -181,5 +185,108 @@ class PiDateManager implements PiDateManagerBuilderInterface
     	$amount = round($difference / $units[$unit], $precision);
     
     	return $amount." ".pluralize($unit, $amount)." ".$word;
+    } 
+    
+    /**
+     * List of all months.
+     *
+     * @param string $locale
+     * @access public
+     * @return array
+     * @static
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function allMonths($locale)
+    {
+    	$month_name = array();
+    	for($i=1;$i<=12;$i++){
+    		if($i<=9) $key = '0'.$i; else $key = $i;
+    		$month_name[$key] = $this->localeDateFilter(new \DateTime(date( 'Y-m-d', mktime(0, 0, 0, $i))), 'long','medium', $locale, 'MMMM');
+    	}
+    	return	$month_name;
+    } 
+    
+    /**
+     * List of the x next/last year/months/day of a date.
+     *
+     * @param string $year
+     * @param string $month
+     * @param string $day
+     * @param string $order		['last','next']
+     * @param string $number	
+     * @param string $type		['year','month','day']
+     * @param string $format
+     * @access public
+     * @return array
+     * @static
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function nextOrLastList($year, $month, $day, $order, $number, $type = 'month', $format = 'Y-m-d')
+    {
+    	$month 		= str_replace('0','',$month);
+    	$day 		= str_replace('0','',$day);
+    	$date 		= "{$year}-{$month}-{$day}";
+    	
+        $first  	= strtotime($date);
+    	$results 	= array();
+    	
+    	if($order == 'next'){
+    		for ($i = 0; $i < $number; $i++) {
+    			array_push($results, date($format, strtotime("+$i $type", $first)));
+    		}
+    	}else{
+    		for ($i = $number-1; $i >= 0; $i--) {
+    			array_push($results, date($format, strtotime("-$i $type", $first)));
+    		}
+    	}
+    	return $results;
+    }    
+
+    /**
+     * Retourne litteralement une date.
+     *
+     * @param  \DateTime $dateTime
+     *
+     * @return string
+     * @access public
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function createdAgoFilter(\DateTime $dateTime)
+    {
+    	$delta = time() - $dateTime->getTimestamp();
+    	if ($delta < 0)
+    		//throw new \Exception("createdAgo is unable to handle dates in the future");
+    		return '';
+    
+    	$duration = "";
+    	if ($delta < 60)
+    	{
+    		// Seconds
+    		$time = $delta;
+    		$duration = $time . " second" . (($time === 0 || $time > 1) ? "s" : "") . " ago";
+    	}
+    	else if ($delta < 3600)
+    	{
+    		// Mins
+    		$time = floor($delta / 60);
+    		$duration = $time . " minute" . (($time > 1) ? "s" : "") . " ago";
+    	}
+    	else if ($delta < 86400)
+    	{
+    		// Hours
+    		$time = floor($delta / 3600);
+    		$duration = $time . " hour" . (($time > 1) ? "s" : "") . " ago";
+    	}
+    	else
+    	{
+    		// Days
+    		$time = floor($delta / 86400);
+    		$duration = $time . " day" . (($time > 1) ? "s" : "") . " ago";
+    	}
+    
+    	return $duration;
     }    
 }

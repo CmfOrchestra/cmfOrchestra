@@ -96,6 +96,7 @@ pi.form.label.field.description: الوصف
 pi.form.label.field.content: محتوى
 pi.form.label.field.content.detail: المحتوى التفصيل
 pi.form.label.field.url: رابط
+pi.form.label.field.blank: رابط HTML فارغة
 pi.form.label.field.or: أو
 pi.form.label.field.choice: الاختيار
 pi.form.label.field.author: كاتب

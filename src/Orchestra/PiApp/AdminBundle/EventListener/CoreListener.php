@@ -62,22 +62,22 @@ abstract class CoreListener extends abstractListener
 			$roles_json	= json_encode(array('HERITAGE_ROLES'=>$roles));
 			
 			// we set the heritage.jon file
-			$path_heritages_file = realpath($this->_container()->getParameter("kernel.root_dir") . "/cache/heritage.json");
+			$path_heritages_file = realpath($this->_container()->getParameter("kernel.cache_dir") . "/../heritage.json");
 			if($path_heritages_file)
 				$result	 = file_put_contents($path_heritages_file, $roles_json);
 			else 
-				$result	 = file_put_contents($this->_container()->getParameter("kernel.root_dir") . "/cache/heritage.json", $roles_json);
+				$result	 = file_put_contents($this->_container()->getParameter("kernel.cache_dir") . "/../heritage.json", $roles_json);
 			
 			if($result)
 				$this->setFlash('pi.session.flash.rolecache.created');
 			
-			$path_files[] = realpath($this->_container()->getParameter("kernel.root_dir") . "/cache/dev/appDevDebugProjectContainer.php");
-			$path_files[] = realpath($this->_container()->getParameter("kernel.root_dir") . "/cache/dev/appDevDebugProjectContainer.php.meta");
-			$path_files[] = realpath($this->_container()->getParameter("kernel.root_dir") . "/cache/dev/appDevDebugProjectContainer.xml");
-			$path_files[] = realpath($this->_container()->getParameter("kernel.root_dir") . "/cache/dev/appDevDebugProjectContainerCompiler.log");
-			$path_files[] = realpath($this->_container()->getParameter("kernel.root_dir") . "/cache/prod/appProdProjectContainer.php");
-			$path_files = array_unique($path_files);
+			$path_files[] = realpath($this->_container()->getParameter("kernel.cache_dir") . "/appDevDebugProjectContainer.php");
+			$path_files[] = realpath($this->_container()->getParameter("kernel.cache_dir") . "/appDevDebugProjectContainer.php.meta");
+			$path_files[] = realpath($this->_container()->getParameter("kernel.cache_dir") . "/appDevDebugProjectContainer.xml");
+			$path_files[] = realpath($this->_container()->getParameter("kernel.cache_dir") . "/appDevDebugProjectContainerCompiler.log");
+			$path_files[] = realpath($this->_container()->getParameter("kernel.cache_dir") . "/appProdProjectContainer.php");
 			
+			$path_files = array_unique($path_files);
 			foreach($path_files as $key=>$file){
 				if(!empty($file))
 					unlink($file);

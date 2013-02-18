@@ -364,11 +364,13 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
 							language : "<?php echo strtolower(current(explode("_", $this->locale))); ?>",
 							plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist",
 							/*SBLA 20130211*/
-							extended_valid_elements : "-p",
 							// forced_root_block : false, 		// Needed for 3.x
 							// forced_root_block : '',
-							// force_br_newlines : true,
-							// force_p_newlines : false,
+							extended_valid_elements : "-p",   // suprime les <p></p>
+							force_br_newlines : true,
+							//force_p_newlines : false,
+							convert_newlines_to_brs : true,
+							//remove_linebreaks : true,
 							convert_fonts_to_spans : true,
 							font_size_classes : "tt-10,tt-9,tt-8,tt-7,tt-6,tt-4,tt-2",
 							// don't replace encoding character like : Ã© to &eacutes;
@@ -435,7 +437,13 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
 							language : "<?php echo strtolower(current(explode("_", $this->locale))); ?>",
 							plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist",
 							/*SBLA 20130211*/
-							extended_valid_elements : "-p",
+							// forced_root_block : false, 		// Needed for 3.x
+							// forced_root_block : '',
+							extended_valid_elements : "-p",   // suprime les <p></p>
+							force_br_newlines : true,
+							//force_p_newlines : false,
+							convert_newlines_to_brs : true,
+							//remove_linebreaks : true,
 							convert_fonts_to_spans : true,
 							font_size_classes : "tt-10,tt-9,tt-8,tt-7,tt-6,tt-4,tt-2",
 							// don't replace encoding character like : Ã© to &eacutes;
@@ -454,10 +462,10 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
 							// Style formats for 'styleselect'
 							style_formats : [
 								{title : 'Liste point rose', selector : 'ul', classes : 'roseDisc'},
-								{title : 'Titre 1', block : 'h3', classes : 'tt-1'},
-								{title : 'Titre 2', block : 'h3', classes : 'tt-2'},
-								{title : 'Titre 3', block : 'h3', classes : 'tt-3'},
-								{title : 'Titre 4', block : 'h4', classes : 'tt-4'},
+								{title : 'tt-6', block : 'h3', classes : 'tt-6'},
+								{title : 'tt-7', block : 'h3', classes : 'tt-7'},
+								{title : 'Tt-11', block : 'h3', classes : 'tt-11'},
+								{title : 'Tt-12', block : 'h4', classes : 'tt-12'},
 								{title : 'Titre 5', block : 'h4', classes : 'tt-red'},
 								{title : 'Titre 6', block : 'h4', classes : 'tt-purple'}
 							],
@@ -502,14 +510,20 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
 							language : "<?php echo strtolower(current(explode("_", $this->locale))); ?>",
 							plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist",
 							/*SBLA 20130211*/
-							extended_valid_elements : "-p",
+							// forced_root_block : false, 		// Needed for 3.x
+							// forced_root_block : '',
+							extended_valid_elements : "-p",   // suprime les <p></p>
+							force_br_newlines : true,
+							//force_p_newlines : false,
+							convert_newlines_to_brs : true,
+							//remove_linebreaks : true,
 							convert_fonts_to_spans : true,
 							font_size_classes : "tt-10,tt-9,tt-8,tt-7,tt-6,tt-4,tt-2",
 							// don't replace encoding character like : Ã© to &eacutes;
 							entity_encoding : "raw",							
 							// Theme options
 							theme_advanced_buttons1 : "fullscreen,bold,italic,underline,strikethrough,justifyleft,justifycenter,justifyright,justifyfull,bullist,numlist,forecolor,backcolor",
-							theme_advanced_buttons2 : "removeformat,formatselect,styleselect,fontsizeselect,outdent,indent,undo,redo",
+							theme_advanced_buttons2 : "removeformat,styleselect,fontsizeselect,outdent,indent,undo,redo",
 							theme_advanced_buttons3 : "code,link,unlink,search,replace,insertdate,inserttime,blockquote,charmap,image,media",
 							theme_advanced_toolbar_location : "top",
 							theme_advanced_toolbar_align : "left",
@@ -519,13 +533,13 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
 							content_css : "<?php echo $url_css ?>",
 							// Style formats for 'styleselect'
 							style_formats : [
-								{title : 'Liste point rose', selector : 'ul', classes : 'roseDisc'},
-								{title : 'Titre 1', block : 'h3', classes : 'tt-1'},
-								{title : 'Titre 2', block : 'h3', classes : 'tt-2'},
-								{title : 'Titre 3', block : 'h3', classes : 'tt-3'},
-								{title : 'Titre 4', block : 'h4', classes : 'tt-4'},
-								{title : 'Titre 5', block : 'h4', classes : 'tt-red'},
-								{title : 'Titre 6', block : 'h4', classes : 'tt-purple'}
+								{title : 'Liste La Melee', selector : 'ul', classes : 'roseDisc'},
+								{title : 'Liste MideNews', selector : 'ul', classes : 'orangeDisc'},
+								{title : 'Titre 1', block : 'h3', classes : 'tt-6'},
+								{title : 'Titre 2', block : 'h3', classes : 'tt-7'},
+								{title : 'Titre 3 La Melee', block : 'h3', classes : 'tt-11'},
+								{title : 'Titre 3 MideNews', block : 'h4', classes : 'tt-12'},
+						
 							],
 							formats : {
 								alignleft : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtleft'},
@@ -568,7 +582,13 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
 							language : "<?php echo strtolower(current(explode("_", $this->locale))); ?>",
 							plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist",
 							/*SBLA 20130211*/
-							extended_valid_elements : "-p",
+							// forced_root_block : false, 		// Needed for 3.x
+							// forced_root_block : '',
+							extended_valid_elements : "-p",   // suprime les <p></p>
+							force_br_newlines : true,
+							//force_p_newlines : false,
+							convert_newlines_to_brs : true,
+							//remove_linebreaks : true,
 							convert_fonts_to_spans : true,
 							font_size_classes : "tt-10,tt-9,tt-8,tt-7,tt-6,tt-4,tt-2",
 							// don't replace encoding character like : Ã© to &eacutes;

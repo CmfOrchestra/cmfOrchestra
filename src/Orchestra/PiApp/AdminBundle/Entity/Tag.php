@@ -18,6 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 use BootStrap\TranslationBundle\Model\AbstractTranslation;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * PiApp\AdminBundle\Entity\Tag
@@ -26,6 +27,7 @@ use BootStrap\TranslationBundle\Model\AbstractTranslation;
  * @ORM\Entity(repositoryClass="PiApp\AdminBundle\Repository\TagRepository")
  * @ORM\HasLifecycleCallbacks()
  * @Gedmo\TranslationEntity(class="PiApp\AdminBundle\Entity\Translation\TagTranslation")
+ * @UniqueEntity("name")
  * 
  * @category   Admin_Entities
  * @package    Entity
@@ -40,7 +42,7 @@ class Tag extends AbstractTranslation
 	 * @var array
 	 * @access  protected
 	 */
-	protected $_fields	= array('groupname', '');
+	protected $_fields	= array('groupname', 'name');
 	
 	/**
 	 * Name of the Translation Entity
@@ -86,7 +88,7 @@ class Tag extends AbstractTranslation
      * @var string $name
      *
      * @Gedmo\Translatable
-     * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     * @ORM\Column(name="name", type="string", length=255, nullable=false, unique=true)
      * @Assert\NotBlank()
      * @Assert\MinLength(limit = 2, message = "Le nom doit avoir au moins {{ limit }} caractères")
      */

@@ -117,14 +117,8 @@ class PiDateExtension extends \Twig_Extension
      */
     public function allMonthsFunction($locale)
     {
-    	$month_name = array();
-    	for($i=1;$i<=12;$i++){
-    		if($i<=9) $key = '0'.$i; else $key = $i;
-    		$month_name[$key] = $this->localeDateFilter(new \DateTime(date( 'Y-m-d', mktime(0, 0, 0, $i))), 'long','medium', $locale, 'MMMM');
-    	}
-    	return	$month_name;
+    	return $this->container->get('pi_app_admin.date_manager')->allMonths($locale);
     }  
-    
     
     /**
      * Filters
@@ -152,38 +146,7 @@ class PiDateExtension extends \Twig_Extension
      */    
     public function createdAgoFilter(\DateTime $dateTime)
     {
-        $delta = time() - $dateTime->getTimestamp();
-        if ($delta < 0)
-            //throw new \Exception("createdAgo is unable to handle dates in the future");
-        	return '';
-
-        $duration = "";
-        if ($delta < 60)
-        {
-            // Seconds
-            $time = $delta;
-            $duration = $time . " second" . (($time === 0 || $time > 1) ? "s" : "") . " ago";
-        }
-        else if ($delta < 3600)
-        {
-            // Mins
-            $time = floor($delta / 60);
-            $duration = $time . " minute" . (($time > 1) ? "s" : "") . " ago";
-        }
-        else if ($delta < 86400)
-        {
-            // Hours
-            $time = floor($delta / 3600);
-            $duration = $time . " hour" . (($time > 1) ? "s" : "") . " ago";
-        }
-        else
-        {
-            // Days
-            $time = floor($delta / 86400);
-            $duration = $time . " day" . (($time > 1) ? "s" : "") . " ago";
-        }
-
-        return $duration;
+        return $this->container->get('pi_app_admin.date_manager')->createdAgoFilter($dateTime);
     }
     
     /**
@@ -229,16 +192,7 @@ class PiDateExtension extends \Twig_Extension
      */
     public function localeDateFilter($date, $dateType = 'medium', $timeType = 'none', $locale = null, $pattern = null)
     {
-    	if(is_string($date))
-    		$date = intval($date);
-    	
-    	if (version_compare(\PHP_VERSION, '5.3.4', '<') && !is_int($date)) {
-    		$date = $date->getTimestamp();
-    	}    	
-    	
-    	$DateFormatter	= $this->container->get('pi_app_admin.date_manager');
-    	
-    	return $DateFormatter->format($date, $dateType, $timeType, $locale, $pattern);
+    	return $this->container->get('pi_app_admin.date_manager')->format($date, $dateType, $timeType, $locale, $pattern);
     }  
 
     /**
@@ -271,11 +225,8 @@ class PiDateExtension extends \Twig_Extension
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    public function convertToTimestampFilter($date, $locale = null){
-    	if($date == 'now'){
-    		$result = new \DateTime();
-    		return $result->getTimestamp();
-    	}else
+    public function convertToTimestampFilter($date, $locale = null)
+    {
     		return $this->container->get('pi_app_admin.date_manager')->parseTimestamp($date, $locale);
     }    
 }

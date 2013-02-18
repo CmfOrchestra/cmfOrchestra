@@ -96,6 +96,7 @@ pi.form.label.field.description: Description
 pi.form.label.field.content: Contenu
 pi.form.label.field.content.detail: Détail du contenu
 pi.form.label.field.url: Lien
+pi.form.label.field.blank: Lien HTML vierge
 pi.form.label.field.or: Ou
 pi.form.label.field.choice: Choix
 pi.form.label.field.author: Auteur

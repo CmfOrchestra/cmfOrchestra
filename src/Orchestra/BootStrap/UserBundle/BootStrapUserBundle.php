@@ -56,7 +56,7 @@ class BootStrapUserBundle extends Bundle
 		$container->addCompilerPass(new AddDependencyRoute());
 		
 		// we get the heritage.jon file if it's created
-		$path_heritages_file = realpath($container->getParameter("kernel.root_dir") . "/cache/heritage.json");
+		$path_heritages_file 		= realpath($container->getParameter("kernel.cache_dir"). '/../heritage.json');
 		if($path_heritages_file){
 			$roles_json = file_get_contents($path_heritages_file);
 		}else
