@@ -48,7 +48,7 @@ abstract class AbstractDefault extends AbstractTranslation
     /**
      * @var date $published_at
      *
-     * @ORM\Column(name="published_at", type="date", nullable=true)
+     * @ORM\Column(name="published_at", type="datetime", nullable=true)
      */
     protected $published_at;
     

@@ -55,7 +55,7 @@ class PreUpdateListener extends CoreListener
     	$this->_TranslationPage($eventArgs); 
     	
     	// Method which will be called when we link the entity widget type to the page.
-    	$this->_widgetListener($eventArgs);
+    	//$this->_widgetListener($eventArgs);
     	
     	// Method which will be called when we try to update the route name of the home page.
     	$this->_NoUpdate_RouteName_HomePage($eventArgs);

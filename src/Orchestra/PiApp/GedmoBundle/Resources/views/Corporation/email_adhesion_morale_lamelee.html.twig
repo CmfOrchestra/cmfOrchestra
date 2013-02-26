@@ -1,6 +1,6 @@
 {% block subject %}
 {% autoescape false %}
-{{ 'pi.individual.form.lamelee.email.subject'|replace({'<p>': '', '</p>': ''})|trans }}
+{{ 'pi.individual.form.lamelee.email.subject'|trans|striptags }}
 {% endautoescape %}
 {% endblock %}
 {% block body %}

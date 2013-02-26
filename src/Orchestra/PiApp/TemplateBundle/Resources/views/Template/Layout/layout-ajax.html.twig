@@ -20,7 +20,8 @@
 		{% endif %}
 {% else %}
 	{% from getParameter('pi_app_admin.layout.template.flash') import session_flash %}
-	{% initJquery 'SESSION:flash' %}
+	{% from getParameter('pi_app_admin.layout.template.flash') import session_flash_frontoffice %}
+	{% initJquery 'SESSION:flash:fancybox' %}
 	{% initJquery 'TOOL:languagechoice' %}
 	
 	{% stylesheet "bundles/piappadmin/css/layout/screen-layout-ajax.css:prepend" %}
@@ -74,9 +75,13 @@
 			{% if is_granted('ROLE_USER') %}
 			    <div id="global-flash">
 					{% block global_flashes %}
-					    {{ session_flash() }}
-					    
-						{% set options_flash = {'type': ['notice', 'success', 'warning'], 'dialog-name': 'symfony-layout-flash' } %}
+						{#
+						{{ session_flash() }}
+						{% set options_flash = {'action':'renderdialog','type': ['notice', 'success', 'warning'], 'dialog-name': 'symfony-layout-flash' } %}
+						{{ renderJquery('SESSION', 'flash', options_flash )|raw }} 	   
+						#}					
+						{{ session_flash_frontoffice() }}
+						{% set options_flash = {'action':'renderfancybox','type': ['notice', 'success', 'warning'], 'dialog-name': 'confirm-popup' } %}
 						{{ renderJquery('SESSION', 'flash', options_flash )|raw }} 	    
 					{% endblock %}
 				</div>

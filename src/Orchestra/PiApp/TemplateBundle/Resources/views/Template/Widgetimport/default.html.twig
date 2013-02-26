@@ -15,15 +15,15 @@
 			{% for form in form_col_1 %}
             <li class="widget color-orange">  
                 <div class="widget-head">
-                    <h3>{{ form['renderTitle']|raw }}</h3>
+                    <h3>{{ form.renderTitle|trans|raw }}</h3>
                 </div>
 				<div class="edit-box" style="display:none;">
-					{{ form['renderForm']|raw }}
+					{{ form.renderForm|trans|raw }}
 					
-					{{ form['renderScript']|raw }}
+					{{ form.renderScript|trans|raw }}
 				</div>                     
                 <div class="widget-content">
-                    <p>{{ form['renderDescriptif']|raw }}</p>
+                    <p>{{ form.renderDescriptif|trans|raw }}</p>
                 </div>
             </li>
              {% endfor %}
@@ -33,15 +33,15 @@
 			{% for form in form_col_2 %}
             <li class="widget color-green">  
                 <div class="widget-head">
-                    <h3>{{ form['renderTitle']|raw }}</h3>
+                    <h3>{{ form['renderTitle']|trans|raw }}</h3>
                 </div>
 				<div class="edit-box" style="display:none;">
-					{{ form['renderForm']|raw }}
+					{{ form.renderForm|trans|raw }}
 					
-					{{ form['renderScript']|raw }}
+					{{ form.renderScript|trans|raw }}
 				</div>                     
                 <div class="widget-content">
-                    <p>{{ form['renderDescriptif']|raw }}</p>
+                    <p>{{ form.renderDescriptif|trans|raw }}</p>
                 </div>
             </li>
              {% endfor %}            
@@ -51,15 +51,15 @@
 			{% for form in form_col_3 %}
             <li class="widget color-white">  
                 <div class="widget-head">
-                    <h3>{{ form['renderTitle']|raw }}</h3>
+                    <h3>{{ form.renderTitle|trans|raw }}</h3>
                 </div>
 				<div class="edit-box" style="display:none;">
-					{{ form['renderForm']|raw }}
+					{{ form.renderForm|trans|raw }}
 					
-					{{ form['renderScript']|raw }}
+					{{ form.renderScript|trans|raw }}
 				</div>                     
                 <div class="widget-content">
-                    <p>{{ form['renderDescriptif']|raw }}</p>
+                    <p>{{ form.renderDescriptif|trans|raw }}</p>
                 </div>
             </li>
              {% endfor %}

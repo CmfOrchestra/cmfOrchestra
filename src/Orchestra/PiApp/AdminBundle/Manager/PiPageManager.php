@@ -276,7 +276,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 				if($block->getEnabled()) {
 					$source 	.= "{% block ".$block->getName()." %} \n";
 					$source 	.= "{{ parent() }}	\n";
-					$source 	.= "<orchestra id='block__".$block->getId()."' data-id='".$block->getId()."' data-name='".$block->getName()."' > \n";
+					$source 	.= "<orchestra id='block__".$block->getId()."' data-id='".$block->getId()."' data-name='".$this->container->get('translator')->trans($block->getName())."' > \n";
 					
 					if(isset($this->widgets[$id][$block->getId()]) && !empty($this->widgets[$id][$block->getId()])){
 						$all_widgets 	 = $this->widgets[$id][$block->getId()];

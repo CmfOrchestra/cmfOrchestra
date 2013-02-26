@@ -124,7 +124,7 @@ class LoginListener
 		$this->dispatcher->addListener(KernelEvents::RESPONSE, array($this, 'onKernelResponse'));
 		
 		// Return the success connecion flash message.		
-		$this->setFlash($this->getSession(), $this->getUser()->getUsername());		
+		//$this->setFlash($this->getSession(), $this->getUser()->getUsername());		
 	}	
 	
 	/**

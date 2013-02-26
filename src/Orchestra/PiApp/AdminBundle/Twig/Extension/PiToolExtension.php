@@ -158,8 +158,6 @@ class PiToolExtension extends \Twig_Extension
 						'alt'	=> $media->getAuthorname(),
 						'style'	=> $style,
 						'id'	=> $idImg,
-						'width' => '71%',
-						'height'=> 'auto',
 				));
 			} catch (\Exception $e) {
 				return "";

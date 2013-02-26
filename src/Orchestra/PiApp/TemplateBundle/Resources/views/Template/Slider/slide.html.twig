@@ -1,14 +1,14 @@
 		{% block body %}
 		<div id="{{ id }}">
 			<ul class="slides">
-			{{ content.boucle|raw }}
+			{{ slides.boucle|raw }}
 			</ul
 		</div>
 		{% endblock %}        
 			
 		{% block boucle %}
-				{% if entity.media.image.id is defined %}
-                   	{% set url = media_url(entity.media.mediaId, 'reference', true, entity.media.getUpdatedAt(), 'slide_') %}
+				{% if slide.media.image.id is defined %}
+                   	{% set url = media_url(slide.media.mediaId, 'reference', true, slide.media.getUpdatedAt(), 'slide_') %}
                 {% else %}
                    	{% set url = "" %}
                 {% endif %}

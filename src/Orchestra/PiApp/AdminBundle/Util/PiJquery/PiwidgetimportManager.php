@@ -57,7 +57,7 @@ class PiwidgetimportManager extends PiJqueryExtension
 	 *
 	 * @author (c) Etienne de Longeaux <etienne_delongeaux@hotmail.com>
 	 */	
-	protected function init() {
+	protected function init($options = null) {
 		// js
 		//$this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/ui/veneer/js/jquery.ui.veneer.js");
 		

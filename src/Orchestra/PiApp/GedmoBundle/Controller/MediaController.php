@@ -85,7 +85,7 @@ class MediaController extends abstractController
     {
     	return parent::positionajaxAction();
     }    
-
+    
     /**
      * Delete Media entities.
      *
@@ -99,7 +99,7 @@ class MediaController extends abstractController
     public function deleteajaxAction()
     {
     	return parent::deletajaxAction();
-    }
+    }    
     
     /**
      * Archive a Media entity.
@@ -115,7 +115,7 @@ class MediaController extends abstractController
     {
     	return parent::archiveajaxAction();
     }    
-        
+
     /**
      * Lists all Media entities.
      *
@@ -203,7 +203,7 @@ class MediaController extends abstractController
     	$status = $this->container->get('request')->query->get('status');
     	$entity = new Media();
     	$entity->setStatus($status);
-    	$form   = $this->createForm(new MediaType($em, $status), $entity, array('show_legend' => false));
+    	$form   = $this->createForm(new MediaType($this->container, $em, $status), $entity, array('show_legend' => false));
     
     	$NoLayout   = $this->container->get('request')->query->get('NoLayout');
     	if(!$NoLayout)	$template = "new.html.twig";  else 	$template = "new.html.twig";
@@ -246,7 +246,7 @@ class MediaController extends abstractController
     	$entity  = new Media();
     	$entity->setStatus($status);
     	$request = $this->getRequest();
-    	$form    = $this->createForm(new MediaType($em, $status), $entity, array('show_legend' => false));
+    	$form    = $this->createForm(new MediaType($this->container, $em, $status), $entity, array('show_legend' => false));
     	$form->bindRequest($request);
     
     	if ($form->isValid()) {
@@ -293,7 +293,7 @@ class MediaController extends abstractController
         	$entity->addTranslation(new MediaTranslation($locale));            
         }
 
-        $editForm   = $this->createForm(new MediaType($em, $status), $entity, array('show_legend' => false));
+        $editForm   = $this->createForm(new MediaType($this->container, $em, $status), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render("PiAppGedmoBundle:Media:$template", array(
@@ -333,7 +333,7 @@ class MediaController extends abstractController
         	$entity = $em->getRepository("PiAppGedmoBundle:Media")->find($id);
         }
 
-        $editForm   = $this->createForm(new MediaType($em, $status), $entity, array('show_legend' => false));
+        $editForm   = $this->createForm(new MediaType($this->container, $em, $status), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
 
         $editForm->bindRequest($this->getRequest(), $entity);

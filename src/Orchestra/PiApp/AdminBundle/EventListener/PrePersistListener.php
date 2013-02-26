@@ -52,7 +52,7 @@ class PrePersistListener extends CoreListener
     	$this->_Layout($eventArgs);
     	
     	// we set the PrePersist widget management
-    	$this->_widgetListener($eventArgs);
+    	//$this->_widgetListener($eventArgs);
     	
     	// Method which will be called when we check if the url of the page does not already exist.
     	$this->_single_SlugByPage($eventArgs);    	

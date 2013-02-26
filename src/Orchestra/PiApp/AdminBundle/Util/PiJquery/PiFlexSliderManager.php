@@ -60,7 +60,7 @@ class PiFlexSliderManager extends PiJqueryExtension
 	 *
 	 * @author Etienne de Longeaux <etienne_delongeaux@hotmail.com>
 	 */	
-	protected function init()
+	protected function init($options = null)
 	{
 		// css
 		//$this->container->get('pi_app_admin.twig.extension.layouthead')->addCssFile("bundles/piappadmin/js/slider/flexslider/css/flexcrollstyles.css");
@@ -201,7 +201,7 @@ class PiFlexSliderManager extends PiJqueryExtension
 
 		$templateContent = $this->container->get('twig')->loadTemplate("PiAppTemplateBundle:Template\\Slider:{$options['template']}");
 		if($templateContent->hasBlock("body")){
-			$slider_result	= $templateContent->renderBlock("body", array_merge($options, array('content'=>$sliders))) . " \n";
+			$slider_result	= $templateContent->renderBlock("body", array_merge($options, array('slides'=>$sliders))) . " \n";
 		}else{
 			$slider_result  = "<div $id_c >";
 			$slider_result .= "	<ul class='slides'>";

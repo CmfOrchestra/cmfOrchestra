@@ -88,40 +88,39 @@
 						<fieldset>
 							<legend class="bold">Vous sur le web</legend>
 
-              <div class="row cf">
-                <label class="social fb fleft">Facebook</label>
-                {{ form_widget(form.Facebook) }}
-                <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
-              </div>
-              <div class="row cf">
-                <label class="social gPlus fleft">Google +</label>
-                {{ form_widget(form.GooglePlus) }}
-                <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
-              </div>
-              <div class="row cf">
-                <label class="social twitter fleft">Twitter</label>
-                {{ form_widget(form.Twitter) }}
-                <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
-              </div>
-              <div class="row cf">
-                <label class="social linked fleft">LinedIn</label>
-                {{ form_widget(form.LinkedIn) }}
-                <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
-              </div>
-              <div class="row cf">
-                <label class="social viadeo fleft">Viadeo</label>
-                {{ form_widget(form.Viadeo) }}
-                <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
-              </div>
-
-							<div class="row">
-
-                {% if form.vars.value.url %} 
-                      {{ form_widget(form.url) }}
-                {% else %}
-                      {{ form_widget(form.url, { 'attr': {'data-validate': 'Site Internet'} }) }}
-                {% endif %}                   
+							<div class="row cf">
+							  <label class="social fb fleft">Facebook</label>
+							  {{ form_widget(form.Facebook) }}
+							  <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
 							</div>
+							<div class="row cf">
+							  <label class="social gPlus fleft">Google +</label>
+							  {{ form_widget(form.GooglePlus) }}
+							  <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
+							</div>
+							<div class="row cf">
+							  <label class="social twitter fleft">Twitter</label>
+							  {{ form_widget(form.Twitter) }}
+							  <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
+							</div>
+							<div class="row cf">
+							  <label class="social linked fleft">LinedIn</label>
+							  {{ form_widget(form.LinkedIn) }}
+							  <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
+							</div>
+							<div class="row cf">
+							  <label class="social viadeo fleft">Viadeo</label>
+							  {{ form_widget(form.Viadeo) }}
+							  <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
+							</div>
+
+							  <div class="row">
+							  {% if form.vars.value.url %} 
+									{{ form_widget(form.url) }}
+							  {% else %}
+									{{ form_widget(form.url, { 'attr': {'class':'resetRight required text','data-validate': 'Site Internet'} }) }}
+							  {% endif %}                   
+							  </div>
 						</fieldset>
 
 						<div class="button-ct cf">

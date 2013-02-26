@@ -100,6 +100,21 @@ class CategoryController extends abstractController
     {
     	return parent::deletajaxAction();
     }    
+    
+    /**
+     * Archive a Category entity.
+     *
+     * @Route("/admin/gedmo/category/archive", name="admin_gedmo_category_archiveentity_ajax")
+     * @Secure(roles="ROLE_USER")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access  public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function archiveajaxAction()
+    {
+    	return parent::archiveajaxAction();
+    }    
 
     /**
      * Lists all Category entities.
@@ -170,7 +185,7 @@ class CategoryController extends abstractController
     {
     	$em 	= $this->getDoctrine()->getEntityManager();
     	$entity = new Category();
-        $form   = $this->createForm(new CategoryType($em), $entity, array('show_legend' => false));
+        $form   = $this->createForm(new CategoryType($this->container, $em), $entity, array('show_legend' => false));
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout)	$template = "new.html.twig";  else 	$template = "new.html.twig";        
@@ -201,7 +216,7 @@ class CategoryController extends abstractController
     
         $entity  = new Category();
         $request = $this->getRequest();
-        $form    = $this->createForm(new CategoryType($em), $entity, array('show_legend' => false));
+        $form    = $this->createForm(new CategoryType($this->container, $em), $entity, array('show_legend' => false));
         $form->bindRequest($request);
 
         if ($form->isValid()) {
@@ -243,7 +258,7 @@ class CategoryController extends abstractController
         	$entity->addTranslation(new CategoryTranslation($locale));            
         }
 
-        $editForm   = $this->createForm(new CategoryType($em), $entity, array('show_legend' => false));
+        $editForm   = $this->createForm(new CategoryType($this->container, $em), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render("PiAppGedmoBundle:Category:$template", array(
@@ -276,7 +291,7 @@ class CategoryController extends abstractController
         	$entity = $em->getRepository("PiAppGedmoBundle:Category")->find($id);
         }
 
-        $editForm   = $this->createForm(new CategoryType($em), $entity, array('show_legend' => false));
+        $editForm   = $this->createForm(new CategoryType($this->container, $em), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
 
         $editForm->bindRequest($this->getRequest(), $entity);

@@ -221,17 +221,17 @@ class BlockType extends AbstractType
  			
  		if($is_media)
  			$builder
- 			->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'));
+ 			->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'));
  		else
  			$builder
- 			->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "hidden", 'pi.form.label.media.picture'));
+ 			->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "hidden", 'pi.form.label.media.picture'));
  			 			                     
  		if($is_media1)
  			$builder
- 			->add('media1', new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'));
+ 			->add('media1', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'));
  		else
  			$builder
- 			->add('media1', new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "hidden", 'pi.form.label.media.picture'));
+ 			->add('media1', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "hidden", 'pi.form.label.media.picture'));
         
     }
 

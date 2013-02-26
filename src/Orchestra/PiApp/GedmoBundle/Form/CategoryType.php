@@ -16,6 +16,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Description of the CategoryType form.
@@ -33,14 +34,20 @@ class CategoryType extends AbstractType
 	protected $_em;
 	
 	/**
+	 * @var \Symfony\Component\DependencyInjection\ContainerInterface
+	 */
+	protected $_container;	
+	
+	/**
 	 * Constructor.
 	 *
 	 * @param \Doctrine\ORM\EntityManager $em
 	 * @return void
 	 */
-	public function __construct(EntityManager $em)
+	public function __construct(ContainerInterface $container, EntityManager $em)
 	{
 		$this->_em = $em;
+		$this->_container 	= $container;
 	}
 		
     public function buildForm(FormBuilder $builder, array $options)
@@ -67,17 +74,21 @@ class CategoryType extends AbstractType
  			->add('name', 'text', array(
  				'label' => "pi.form.label.field.name"
  			))
+ 			->add('subtitle', 'text', array(
+ 					'label'	=> "pi.form.label.field.subtitle",
+ 					'required'  => false,
+ 			))
  			->add('descriptif', 'textarea', array(
  					'label'	=> "pi.form.label.field.description",
  					"label_attr" => array(
  							"class"=>"text_collection",
  					),
  					"attr" => array(
- 							"class"	=>"pi_editor_simple",
+ 							"class"	=>"pi_editor_simple_easy",
  					),
  					'required'  => false,
  			))
- 			->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture')) 			
+ 			->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
         ;
     }
 

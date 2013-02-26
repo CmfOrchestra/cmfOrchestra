@@ -441,9 +441,15 @@ class Tag extends AbstractTranslation
      *
      * @return array
      */
-    public function getWeight()
+    public function getWeight($key = "")
     {
-    	return $this->weight;
+    	if(!empty($key)){
+    		if($this->weight && array_key_exists($key, $this->weight))
+    			return $this->weight[ $key ];
+    		else
+    			return 0;
+    	}else
+    		return $this->weight;
     }
     
     /**
@@ -457,15 +463,36 @@ class Tag extends AbstractTranslation
     } 
 
     /**
-     * Adds a weight.
+     * increment a weight.
      *
      * @param string $weight
      */
     public function incrementWeight($key)
     {
-    	if (array_key_exists($key, $this->weight)) {
-    		$this->addWeight($key, $this->weight[$key] + 1);
-    	}else 
-    		$this->addWeight($key, 1);
-    }    
+    	if (!$this->weight) {
+			$this->addWeight($key, 1);
+		}
+		else {
+			if (array_key_exists($key, $this->weight)) {
+				$this->addWeight($key, $this->weight[$key] + 1);
+			}else 
+				$this->addWeight($key, 1);
+		}
+    } 
+
+    /**
+     * decrement a weight.
+     *
+     * @param string $weight
+     */
+    public function decrementWeight($key)
+    {
+   		if($this->weight && array_key_exists($key, $this->weight)) {
+   			if($this->weight[$key] > 1)
+   				$this->addWeight($key, $this->weight[$key] - 1);
+   			else
+   				unset($this->weight[$key]);
+   		}
+    }
+        
 }

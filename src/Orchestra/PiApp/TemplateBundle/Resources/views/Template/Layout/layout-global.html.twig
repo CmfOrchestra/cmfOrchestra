@@ -1,5 +1,6 @@
 {% from getParameter('pi_app_admin.layout.template.flash') import session_flash %}
-{%  initJquery 'SESSION:flash' %}
+{% from getParameter('pi_app_admin.layout.template.flash') import session_flash_frontoffice %}
+{% initJquery 'SESSION:flash:fancybox' %}
 {% if is_granted('ROLE_USER') %}
 	{%  initJquery 'MENU:org-chart-page' %}
 	{%  initJquery 'MENU:context-menu' %}
@@ -18,8 +19,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="{{ global_local_language }}" xml:lang='{{ global_local_language }}'> <!--<![endif]-->
     <head>
         <!--  Meta core -->
-        {% block global_meta %}{% endblock %}          
-    
+        {% block global_meta %}{% endblock %}         
+        
         <title>{% block global_title %}{% endblock %}</title>
         <link rel="shortcut icon" type="image/ico" href="{{ asset("favicon.ico") }}" />
         
@@ -47,10 +48,8 @@
 			{% CMFjavascripts 'php' %}
    		{% endif %}	
    		
-        
         <!--  script divers -->
         {% block global_script_divers %}
-        
 	        {% if not (is_granted('ROLE_USER')) %}	        
 	        {#
 			<script type="text/javascript">
@@ -74,7 +73,6 @@
 			</script>
 			#}
 			{% endif %}			
-        
         {% endblock %}                
         
         <!--  script Js core -->
@@ -88,7 +86,6 @@
     
     	<div id="global-layout" >
     		{% block global_layout %}{% endblock %}
-    		
 			<script type="text/javascript">
 			//<![CDATA[			
 				// exemple definition of picture : <img src="#" delayedsrc="http://mydomain.com/myimage.png"/ >
@@ -100,16 +97,20 @@
 			//]]>
 			</script>    		
 	    </div>
-	    
+
 	    <div id="global-flash">
 			{% block global_flashes %}
-			    {{ session_flash() }}
-			    
-				{% set options_flash = {'type': ['notice', 'success', 'warning'], 'dialog-name': 'symfony-layout-flash' } %}
-				{{ renderJquery('SESSION', 'flash', options_flash )|raw }} 	    
+					{#
+					{{ session_flash() }}
+					{% set options_flash = {'action':'renderdialog','type': ['notice', 'success', 'warning'], 'dialog-name': 'symfony-layout-flash' } %}
+					{{ renderJquery('SESSION', 'flash', options_flash )|raw }} 	   
+					#}					
+					{{ session_flash_frontoffice() }}
+					{% set options_flash = {'action':'renderfancybox','type': ['notice', 'success', 'warning'], 'dialog-name': 'confirm-popup' } %}
+					{{ renderJquery('SESSION', 'flash', options_flash )|raw }} 	
 			{% endblock %}
-		</div>		    
-	     
+		</div>
+					    
 		{% if is_granted('ROLE_USER') %}
 		<searchlucene>			
 				<div id="pi_page_bar_toggler"  class="menu-xp" ></div>
@@ -142,6 +143,5 @@
 			{% set template = getParameter('pi_app_admin.page.google_analytic_template') %}
 			{% include template with {'trackerKey':tracker} %}
 		{% endif %}
-						     
     </body>
 </html>

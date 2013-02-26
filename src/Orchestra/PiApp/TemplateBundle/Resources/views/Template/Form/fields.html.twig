@@ -227,7 +227,7 @@
     {% else %}
     <div class="clearfix {% if errors|length > 0 %}error{% endif %}">
                 {{ form_label(form, label) }}
-        <div class="input">
+        <div class="input time">
             {% set attr = attr|merge({'class': attr.class|default('') ~ ' inline-inputs'}) %}
             <div {{ block('widget_container_attributes') }}>
                     {{form_widget(form.hour, {'attr': {'class': attr.widget_class|default('')}}) }}
@@ -293,7 +293,7 @@
                 <li>
                 	<label>
 		            	{{ form_widget(child, {'attr': {'class': attr.widget_class|default('')}}) }}
-		            	<span>{{ child.get('label')|trans }}</span>
+		            	<span>{{ child.get('label')|trans|replace({'<p>': '', '</p>': ''})|raw }}</span>
 	                </label>
                 </li>
 	        {% endfor %}

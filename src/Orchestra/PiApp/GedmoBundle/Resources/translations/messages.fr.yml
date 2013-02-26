@@ -51,6 +51,9 @@ pi.dashboard.menu5.newsletter: Newsletter
 pi.dashboard.menu5.event: Evénement
 pi.dashboard.menu5.ads: Annonces
 
+# ENTITY :: MEDIA
+pi.media.form.field.mediadelete: Action visant à supprimer le media de type %s.
+
 # ENTITY :: MENU
 pi.menu.translation.title: Traductions de menu
 pi.menu.form.picture: Image

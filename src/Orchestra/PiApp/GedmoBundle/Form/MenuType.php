@@ -16,6 +16,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Description of the MenuType form.
@@ -33,14 +34,20 @@ class MenuType extends AbstractType
 	protected $_em;
 	
 	/**
+	 * @var \Symfony\Component\DependencyInjection\ContainerInterface
+	 */
+	protected $_container;	
+	
+	/**
 	 * Constructor.
 	 *
 	 * @param \Doctrine\ORM\EntityManager $em
 	 * @return void
 	 */
-	public function __construct(EntityManager $em)
+	public function __construct(ContainerInterface $container, EntityManager $em)
 	{
 		$this->_em = $em;
+		$this->_container 	= $container;
 	}
 		
     public function buildForm(FormBuilder $builder, array $options)
@@ -107,8 +114,13 @@ class MenuType extends AbstractType
  			->add('url', 'text', array(
  					'label'=>'pi.form.label.field.or',
  					'required'  => false,
- 			)) 			
-	        ->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'no_image_collection', "simpleLink", 'pi.form.label.media.picture'))	          
+ 			)) 	
+ 			->add('blank', 'checkbox', array(
+ 					'data'  => false,
+ 					'label'=>'pi.form.label.field.blank',
+ 					'required'  => false,
+ 			)) 					
+	        ->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'no_image_collection', "simpleLink", 'pi.form.label.media.picture'))	          
         ;
     }
 

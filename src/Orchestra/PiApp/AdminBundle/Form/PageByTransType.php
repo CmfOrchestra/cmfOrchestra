@@ -139,28 +139,24 @@ class PageByTransType extends AbstractType
 				    		"class"=>"pi_multiselect",
 				    ),
 			))      
-            ->add('meta_content_type', 'choice', array(
-            		'choices'   => PageRepository::getAvailableContentTypes(),
-            		'label'     => 'pi.page.form.meta_content_type',
-            		'required'  => true,
-            		'multiple'	=> false,
-            		'expanded'  => true,
-            		'read_only'	=> true,
-            ))
+            ->add('meta_content_type', 'hidden')
         	->add('cacheable', 'checkbox', array(
     				'label'     => 'pi.page.form.cacheable',
         			'required'  => false,
-        			'help_block' => 'Returns a 304 "not modified" status, when the template has not changed since last visit.'
+        			//'help_block' => 'Returns a 304 "not modified" status, when the template has not changed since last visit.',
+        			'help_block' => $this->_container->get('translator')->trans('pi.page.form.field.cacheable'),
         	))
             ->add('public', 'checkbox', array(
     				'label'     => 'pi.page.form.public',
             		'required'  => false,
-            		'help_block' => 'Allows proxies to cache the same content for different visitors.'
+            		//'help_block' => 'Allows proxies to cache the same content for different visitors.'
+            		'help_block' => $this->_container->get('translator')->trans('pi.page.form.field.public'),
         	))
             ->add('lifetime', 'number', array(
             		'label'     => 'pi.page.form.lifetime',
             		'required'  => false,
-            		'help_block' => 'Does a full content caching during the specified lifetime. Leave empty for no cache.'
+            		//'help_block' => 'Does a full content caching during the specified lifetime. Leave empty for no cache.'
+            		'help_block' => $this->_container->get('translator')->trans('pi.page.form.field.lifetime'),
             ))
             ->add('route_name', 'text', array(
             		'label'	=> 'pi.page.form.route_name'

@@ -45,7 +45,7 @@ class PiWidgetAdminManager extends PiJqueryExtension
 	 *
 	 * @author (c) Etienne de Longeaux <etienne_delongeaux@hotmail.com>
 	 */	
-	protected function init() {
+	protected function init($options = null) {
 		// template management
 		$this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/jquery/jquery.tmpl.min.js");
 		
@@ -176,9 +176,9 @@ class PiWidgetAdminManager extends PiJqueryExtension
 	      				                    }
 	      				                },
 	      				                captionButtons: {
-	      				                    pin: { visible: false },
+	      				                    //pin: { visible: false },
 	      				                    refresh: { visible: false },
-	      				                    toggle: { visible: false },
+	      				                    //toggle: { visible: false },
 	      				                    minimize: { visible: false },
 	      				                    maximize: { visible: false }
 	      				                },
@@ -221,9 +221,9 @@ class PiWidgetAdminManager extends PiJqueryExtension
 	      				                    }
 	      				                },
 	      				                captionButtons: {
-	      				                    pin: { visible: false },
+	      				                    //pin: { visible: false },
 	      				                    refresh: { visible: false },
-	      				                    toggle: { visible: false },
+	      				                    //toggle: { visible: false },
 	      				                    minimize: { visible: false },
 	      				                    maximize: { visible: false }
 	      				                },
@@ -265,9 +265,9 @@ class PiWidgetAdminManager extends PiJqueryExtension
 	       									window.location.href= "<?php echo $this->container->get('router')->generate('public_refresh_page') ?>";
 	       								},
 	      				                captionButtons: {
-	      				                    pin: { visible: true },
+	      				                    //pin: { visible: true },
 	      				                    refresh: { visible: true },
-	      				                    toggle: { visible: true },
+	      				                    //toggle: { visible: true },
 	      				                    minimize: { visible: true },
 	      				                    maximize: { visible: true }
 	      				                },	       								
@@ -320,9 +320,9 @@ class PiWidgetAdminManager extends PiJqueryExtension
 					                    	// end ajax	
 	       								},
 	      				                captionButtons: {
-	      				                    pin: { visible: true },
+	      				                    //pin: { visible: true },
 	      				                    refresh: { visible: true },
-	      				                    toggle: { visible: true },
+	      				                    //toggle: { visible: true },
 	      				                    minimize: { visible: true },
 	      				                    maximize: { visible: true }
 	      				                },	       								
@@ -382,9 +382,9 @@ class PiWidgetAdminManager extends PiJqueryExtension
        									window.location.href= "<?php echo $this->container->get('router')->generate('public_refresh_page') ?>"; 
        								},
       				                captionButtons: {
-      				                    pin: { visible: true },
+      				                    //pin: { visible: true },
       				                    refresh: { visible: true },
-      				                    toggle: { visible: true },
+      				                    //toggle: { visible: true },
       				                    minimize: { visible: true },
       				                    maximize: { visible: true }
       				                },       								
@@ -471,9 +471,9 @@ class PiWidgetAdminManager extends PiJqueryExtension
         				                },
         				                captionButtons: {
         				                	close: { visible: false },
-        				                    pin: { visible: false },
+        				                    //pin: { visible: false },
         				                    refresh: { visible: false },
-        				                    toggle: { visible: false },
+        				                    //toggle: { visible: false },
         				                    minimize: { visible: false },
         				                    maximize: { visible: false }
         				                },
@@ -496,9 +496,9 @@ class PiWidgetAdminManager extends PiJqueryExtension
         									window.location.href= "<?php echo $this->container->get('router')->generate('public_refresh_page') ?>"; 
         								},
 	      				                captionButtons: {
-	      				                    pin: { visible: true },
+	      				                    //pin: { visible: true },
 	      				                    refresh: { visible: true },
-	      				                    toggle: { visible: true },
+	      				                    //toggle: { visible: true },
 	      				                    minimize: { visible: true },
 	      				                    maximize: { visible: true }
 	      				                },        								

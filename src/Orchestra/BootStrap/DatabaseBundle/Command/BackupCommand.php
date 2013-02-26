@@ -23,7 +23,7 @@ use Symfony\Component\Console\Input\InputOption;
  *
  * <code>
  * 		php app/console orchestra:database:backup C:\xampp\htdocs\symf_lamelee\app\cache\Backup doctrine_backup_database-symflamelee_default.sql
- * 		php app/console orchestra:database:backup /home/www/lamelee/app/cache/Backup
+ * 		php app/console orchestra:database:backup /home/www/lamelee-rec/app/cache/Backup
  * </code>
  *
  * @category   Bootstrap_Command

@@ -52,7 +52,7 @@ class PiTwitterManager extends PiJqueryExtension
 	 *
 	 * @author Stephan Mascarell <stephan.mascarell@wanadoo.fr>
 	 */	
-	protected function init() {
+	protected function init($options = null) {
 		// js
 		$this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/timeago/timeago.js");
 	}

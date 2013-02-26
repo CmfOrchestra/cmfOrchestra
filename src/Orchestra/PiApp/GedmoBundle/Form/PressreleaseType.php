@@ -149,7 +149,7 @@ class PressreleaseType extends AbstractType
  					),
  			))		
  						
- 			->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'file', 'file_collection', "simpleLink", 'pi.pressmedia.form.file'))
+ 			->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'file', 'file_collection', "simpleLink", 'pi.pressmedia.form.file'))
         ;
     }
 

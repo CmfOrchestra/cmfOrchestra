@@ -64,22 +64,19 @@ class AdhesionCorporationType extends AbstractType
           'required'  	=> false,
  					"attr" => array(
  							"class"=>"required text",
-              'data-validate' => 'Nom*',
  					),
  			))
       ->add('UserName','text', array(
- 					'label'  => 'Choisissez votre Identifiant*',
-          'required'  	=> false,        
+          'required'  	=> false,   
+ 					'label'  => 'Choisissez votre Identifiant*',        
          	"attr" => array(
  							"class"=>"required text",
-              'data-validate' => 'Identifiant',
  					),
  			))
  			->add('Nickname','text', array(
           'required'  	=> false,        
  					"attr" => array(
  							"class"=>"resetRight required text",
-              'data-validate' => 'Prénom*',
  					),
  			))  
  			->add('Civility', 'choice', array(
@@ -95,36 +92,37 @@ class AdhesionCorporationType extends AbstractType
  					),
  			))           
  			->add('url','text', array(
-          'required'  	=> true,        
+          'required'  	=> false,        
  					"attr" => array(
  							"class"=>"resetRight required text",
               'data-validate' => 'Site Internet',
  					),
  			)) 
- 			->add('media','file')// new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
- 			->add('media2','file')// new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
+ 			->add('media','file', array(
+ 					'required'  => false,        
+ 			))  // new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
+ 			->add('media2','file', array(
+ 					'required'  => false,        
+ 			))  // new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
             
  			->add('UserPhone','text', array(
  					"attr" => array(
  							"class"=>"required phone",
-              'data-validate' => 'Téléphone*',
  					),
  			))
  			->add('Job','text', array(
  					"attr" => array(
  							"class"=>"required text",
-              'data-validate' => 'Fonction*',
  					),
  			))
       ->add('Email','text', array(
- 					'required'  => true,        
+ 					'required'  => false,        
  					"attr" => array(
  							"class"=>"required email",
-              'data-validate' => 'Email pro*',
  					),
  			))
       ->add('EmailPerso','text', array(
- 					'required'  => true,        
+ 					'required'  => false,        
  					"attr" => array(
  							"class"=>"email",
               'data-validate' => 'Email perso',
@@ -214,7 +212,7 @@ class AdhesionCorporationType extends AbstractType
  					),
  			))
       ->add('ArgumentCommercial','textarea', array(
- 					'required'  => true,        
+ 					'required'  => false,        
  					"attr" => array(
  							"class"=>"full required",
  					),
@@ -334,18 +332,8 @@ class AdhesionCorporationType extends AbstractType
  			))  
       ->add('Country','choice', array(
  					'required'  => true,    
-          'empty_value'  => 'Pays*',    
-          'choices'   => array(
-            '1' => 'Campagne adhésion', 
-            '2' => 'Contact Mêlée', 
-            '3' => 'Contact spontané', 
-            '4' => 'Historique',
-            '5' => 'Motivation inscription à une commission', 
-            '6' => 'Parrainage', 
-            '7' => 'Partenaire',
-            '8' => 'Visiteur évènement',
-            '9' => 'Autre',            
-            ),
+          			'empty_value'  => 'Pays*',    
+          			'choices'   => \PiApp\AdminBundle\Util\PiStringManager::allCountries($this->_locale),
  					"attr" => array(
  							"class"=>"resetRight required",
  					),
@@ -386,18 +374,8 @@ class AdhesionCorporationType extends AbstractType
  			)) 
       ->add('InvoiceCountry','choice', array(
  					'required'  => false,    
-          'empty_value'  => 'Pays*',    
-          'choices'   => array(
-            '1' => 'Campagne adhésion', 
-            '2' => 'Contact Mêlée', 
-            '3' => 'Contact spontané', 
-            '4' => 'Historique',
-            '5' => 'Motivation inscription à une commission', 
-            '6' => 'Parrainage', 
-            '7' => 'Partenaire',
-            '8' => 'Visiteur évènement',
-            '9' => 'Autre',            
-            ),
+          			'empty_value'  => 'Pays*',    
+          			'choices'   => \PiApp\AdminBundle\Util\PiStringManager::allCountries($this->_locale),
  					"attr" => array(
  							"class"=>"resetRight required",
  					),
@@ -423,48 +401,38 @@ class AdhesionCorporationType extends AbstractType
  					),
  			)) 
       ->add('MotherCP','text', array(       
-          'required'  => false,        
+          			'required'  => false,        
  					"attr" => array(
- 							"class"=>"required postCode",
-              "data-validate"=>"Code postal*",
+ 						"class"=>"required postCode",
+              			"data-validate"=>"Code postal*",
  					),
  			)) 
       ->add('MotherCity','text', array(       
-          'required'  => false,        
+          			'required'  => false,        
  					"attr" => array(
- 							"class"=>"required text",
-              "data-validate"=>"Ville*",
+ 						"class"=>"required text",
+              			"data-validate"=>"Ville*",
  					),
  			)) 
       ->add('MotherCountry','choice', array(
  					'required'  => false,    
-          'empty_value'  => 'Pays*',    
-          'choices'   => array(
-            '1' => 'Campagne adhésion', 
-            '2' => 'Contact Mêlée', 
-            '3' => 'Contact spontané', 
-            '4' => 'Historique',
-            '5' => 'Motivation inscription à une commission', 
-            '6' => 'Parrainage', 
-            '7' => 'Partenaire',
-            '8' => 'Visiteur évènement',
-            '9' => 'Autre',            
-            ),
+          			'empty_value'  => 'Pays*',    
+	          		'choices'   => \PiApp\AdminBundle\Util\PiStringManager::allCountries($this->_locale),
  					"attr" => array(
  							"class"=>"resetRight required",
  					),
  			))  
       ->add('MotherPhone','text', array(       
-          'required'  => false,        
+          			'required'  => false,        
  					"attr" => array(
  							"class"=>"required phone",
-              "data-validate"=>"Téléphone*",
+              				"data-validate"=>"Téléphone*",
  					),
  			))      
       ->add('MotherFax','text', array(       
-          'required'  => false,        
+          			'required'  => false,        
  					"attr" => array(
-              "data-validate"=>"Fax*",
+              			"data-validate"=>"Fax*",
  					),
  			)) 
       ->add('EffectifNational','text', array(       
@@ -483,18 +451,18 @@ class AdhesionCorporationType extends AbstractType
  			)) 
       ->add('LegalForm','choice', array(
  					'required'  => true,    
-          'empty_value'  => 'Forme juridique *',    
-          'choices'   => array(
-            '1' => 'Campagne adhésion', 
-            '2' => 'Contact Mêlée', 
-            '3' => 'Contact spontané', 
-            '4' => 'Historique',
-            '5' => 'Motivation inscription à une commission', 
-            '6' => 'Parrainage', 
-            '7' => 'Partenaire',
-            '8' => 'Visiteur évènement',
-            '9' => 'Autre',            
-            ),
+			          'empty_value'  => 'Forme juridique *',    
+			          'choices'   => array(
+			            '1' => 'Campagne adhésion', 
+			            '2' => 'Contact Mêlée', 
+			            '3' => 'Contact spontané', 
+			            '4' => 'Historique',
+			            '5' => 'Motivation inscription à une commission', 
+			            '6' => 'Parrainage', 
+			            '7' => 'Partenaire',
+			            '8' => 'Visiteur évènement',
+			            '9' => 'Autre',            
+			            ),
  					"attr" => array(
  							"class"=>"resetRight required",
  					),

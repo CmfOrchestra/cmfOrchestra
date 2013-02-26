@@ -37,6 +37,7 @@ $GLOBALS['JQUERY']['MENU'] = array(
 		'org-chart-page'		=> 'pi_app_admin.jquery_manager.orgchartpage',
 		'org-tree-page'			=> 'pi_app_admin.jquery_manager.orgtreepage',
 		'org-tree-semantique'	=> 'pi_app_admin.jquery_manager.orgsemantique',
+		'org-tree-breadcrumb'	=> 'pi_app_admin.jquery_manager.orgbreadcrumb',
 );
 
 $GLOBALS['JQUERY']['SLIDER'] = array(
@@ -207,11 +208,18 @@ class PiJqueryExtension extends \Twig_Extension
     	if(count($infos) <=1)
     		throw ExtensionException::initParameterUndefined($InfoService);
     	
-    	$container 				= $infos[0];
-    	$NameServiceValidator	= $infos[1];
+    	if(count($infos) ==2){
+    		$container 				= $infos[0];
+    		$NameServiceValidator	= $infos[1];
+    		$options				= null;
+    	}elseif(count($infos) == 3){
+    		$container 				= $infos[0];
+    		$NameServiceValidator	= $infos[1];
+    		$options				= $infos[2];
+    	}
     	
     	if($this->isServiceSupported($container, $NameServiceValidator))
-    		$this->container->get($this->service)->init();
+    		$this->container->get($this->service)->init($options);
     }  
 
     /**

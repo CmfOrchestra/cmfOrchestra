@@ -100,8 +100,8 @@ class MenuController extends abstractController
     public function deleteajaxAction()
     {
     	return parent::deletajaxAction();
-    }   
-
+    }    
+    
     /**
      * Archive a Menu entity.
      *
@@ -115,7 +115,7 @@ class MenuController extends abstractController
     public function archiveajaxAction()
     {
     	return parent::archiveajaxAction();
-    }    
+    }
 
     /**
      * Lists all Menu entities.
@@ -197,7 +197,7 @@ class MenuController extends abstractController
         	$entity->setParent($parent);
         }
         
-        $form   = $this->createForm(new MenuType($em), $entity, array('show_legend' => false));        
+        $form   = $this->createForm(new MenuType($this->container, $em), $entity, array('show_legend' => false));        
         return $this->render("PiAppGedmoBundle:Menu:$template", array(
             'entity' 	=> $entity,
             'form'   	=> $form->createView(),
@@ -223,7 +223,7 @@ class MenuController extends abstractController
     
         $entity  = new Menu();
         $request = $this->getRequest();
-        $form    = $this->createForm(new MenuType($em), $entity, array('show_legend' => false));
+        $form    = $this->createForm(new MenuType($this->container, $em), $entity, array('show_legend' => false));
         $form->bindRequest($request);
 
         if ($form->isValid()) {
@@ -265,7 +265,7 @@ class MenuController extends abstractController
         	$entity->addTranslation(new MenuTranslation($locale));            
         }
 
-        $editForm   = $this->createForm(new MenuType($em), $entity, array('show_legend' => false));
+        $editForm   = $this->createForm(new MenuType($this->container, $em), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render("PiAppGedmoBundle:Menu:$template", array(
@@ -299,7 +299,7 @@ class MenuController extends abstractController
         	$entity = $em->getRepository("PiAppGedmoBundle:Menu")->find($id);
         }
 
-        $editForm   = $this->createForm(new MenuType($em), $entity, array('show_legend' => false));
+        $editForm   = $this->createForm(new MenuType($this->container, $em), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
 
         $editForm->bindRequest($this->getRequest(), $entity);
@@ -471,7 +471,14 @@ class MenuController extends abstractController
     	$em->getRepository("PiAppGedmoBundle:Menu")->setRecover();
     	$result = $em->getRepository("PiAppGedmoBundle:Menu")->verify();
     	
-    	$nodes 		= $em->getRepository("PiAppGedmoBundle:Menu")->getAllTree($locale, $category, 'array', false, false);
+    	$node   = $this->container->get('request')->query->get('node');
+    	if(!empty($node) ){
+    		$node  = $em->getRepository("PiAppGedmoBundle:Menu")->findNodeOr404($node, $locale,'object');
+    	}else{
+    		$node = null;
+    	}
+    	
+    	$nodes 		= $em->getRepository("PiAppGedmoBundle:Menu")->getAllTree($locale, $category, 'array', false, false, $node);
     	$tree		= $em->getRepository("PiAppGedmoBundle:Menu")->buildTree($nodes, $options);    	
     	
         return $this->render("PiAppGedmoBundle:Menu:$template", array(

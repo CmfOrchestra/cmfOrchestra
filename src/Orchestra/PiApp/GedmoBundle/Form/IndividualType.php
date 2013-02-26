@@ -221,33 +221,33 @@ class IndividualType extends AbstractType
 		 		))
 		 		
 		 		
-		 	  ->add('pageurl', 'entity', array(
-		 				'class' => 'PiAppAdminBundle:Page',
-		 				'query_builder' => function(EntityRepository $er) {
-		 					return $er->getAllPageHtml();
-		 				},
-		 				'property' => 'route_name',
-		 				'empty_value' => 'pi.form.label.select.choose.option',
-		 				"label" 	=> "pi.form.label.field.url",
-		 				"label_attr" => array(
-		 						"class"=>"page_collection",
-		 				),
-		 				"attr" => array(
-		 						"class"=>"pi_simpleselect",
-		 				),
-		 				'multiple'	=> false,
-		 				'required'  => false,
-		 	  ))
-		 	  ->add('url', 'text', array(
-		 				"label" 	=> "pi.form.label.field.or",
-		 				"label_attr" => array(
-		 						"class"=>"page_collection",
-		 				),
-		 				'required'  => false,
-		 	  )) 		
+// 		 	  ->add('pageurl', 'entity', array(
+// 		 				'class' => 'PiAppAdminBundle:Page',
+// 		 				'query_builder' => function(EntityRepository $er) {
+// 		 					return $er->getAllPageHtml();
+// 		 				},
+// 		 				'property' => 'route_name',
+// 		 				'empty_value' => 'pi.form.label.select.choose.option',
+// 		 				"label" 	=> "pi.form.label.field.url",
+// 		 				"label_attr" => array(
+// 		 						"class"=>"page_collection",
+// 		 				),
+// 		 				"attr" => array(
+// 		 						"class"=>"pi_simpleselect",
+// 		 				),
+// 		 				'multiple'	=> false,
+// 		 				'required'  => false,
+// 		 	  ))
+// 		 	  ->add('url', 'text', array(
+// 		 				"label" 	=> "pi.form.label.field.or",
+// 		 				"label_attr" => array(
+// 		 						"class"=>"page_collection",
+// 		 				),
+// 		 				'required'  => false,
+// 		 	  )) 		
 		
 		 	  //->add('user', new \BootStrap\UserBundle\Form\Type\RegistrationFormType('collection'))
-		 	  ->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
+		 	  ->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
         ;
     }
 

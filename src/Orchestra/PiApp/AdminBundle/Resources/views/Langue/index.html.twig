@@ -1,6 +1,14 @@
 {% initJquery 'GRID:grid-table' %}
 {% stylesheet getParameter('pi_app_admin.admin.grid_theme_css') %}
-{% extends app.session.get('wurfl-layout') %}
+{% set NoLayout	= app.request.query.get('NoLayout') %}
+{% if NoLayout %}
+	{% stylesheet 'bundles/piappadmin/css/layout/admin/screen.css' %}
+	{% javascript 'bundles/piappadmin/js/jquery/custom_jquery.js' %}
+	{% set layout_nav = 'PiAppTemplateBundle::Template\\Layout\\layout-ajax.html.twig' %}
+{% else %}
+	{% set layout_nav = app.session.get('wurfl-layout') %}
+{% endif %}	
+{% extends layout_nav %}
 
 {% block title %}
 	<h1>Langue list</h1>

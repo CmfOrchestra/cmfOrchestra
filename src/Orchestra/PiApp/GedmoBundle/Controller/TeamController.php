@@ -200,10 +200,7 @@ class TeamController extends abstractController
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout)	$template = "new.html.twig";  else 	$template = "new.html.twig";   
         
-        $entity_cat = $em->getRepository("PiAppGedmoBundle:Category")->find($category);
-        if( !empty($category) && ($entity_cat instanceof \PiApp\GedmoBundle\Entity\Category) && method_exists($entity, 'setCategory'))
-        	$entity->setCategory($entity_cat);     
-        elseif(!empty($category) && method_exists($entity, 'setCategory'))
+         if($category)
         	$entity->setCategory($category);     
 
         return $this->render("PiAppGedmoBundle:Team:$template", array(

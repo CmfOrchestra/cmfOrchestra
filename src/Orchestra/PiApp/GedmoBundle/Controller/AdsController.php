@@ -53,7 +53,56 @@ class AdsController extends abstractController
      */
     public function enabledajaxAction()
     {
-    	return parent::enabledajaxAction();
+    	$request = $this->container->get('request');
+    	$em		 = $this->getDoctrine()->getEntityManager();
+    	
+    	if($request->isXmlHttpRequest()){
+    		$data		= $request->get('data', null);
+    		$new_data	= null;    		
+    		   		
+    		foreach ($data as $key => $value) {
+    			$values 	= explode('_', $value);
+    			$id	    	= $values[2];
+    			$position	= $values[0];    
+
+    			$new_data[$key] = array('position'=>$position, 'id'=>$id);
+    			$new_pos[$key]  = $position;
+    		}
+    		array_multisort($new_pos, SORT_ASC, $new_data);
+    		
+    		krsort($new_data);
+    		foreach ($new_data as $key => $value) {
+    			$entity = $em->getRepository($this->_entityName)->find($value['id']);
+    			$entity->setEnabled(true);
+    			
+    			if(method_exists($entity, 'setPosition'))
+    				$entity->setPosition(1);
+    			
+    			foreach ($entity->getTags() as $key => $tag) {
+    				$tag->incrementWeight('annonce');
+    				$em->persist($tag);
+    				$em->flush();
+    			}
+    			
+    			$em->persist($entity);
+    			$em->flush();
+    		}
+    		$em->clear();
+
+    		// we disable all flash message
+    		$this->container->get('session')->setFlashes(array());
+    		
+    		$tab= array();
+    		$tab['id'] = '-1';
+    		$tab['error'] = '';
+    		$tab['fieldErrors'] = '';
+    		$tab['data'] = '';
+    		 
+    		$response = new Response(json_encode($tab));
+    		$response->headers->set('Content-Type', 'application/json');
+    		return $response;    		
+    	}else
+    		throw ControllerException::callAjaxOnlySupported('enabledajax'); 
     }
 
     /**
@@ -68,7 +117,55 @@ class AdsController extends abstractController
      */
     public function disableajaxAction()
     {
-		return parent::disableajaxAction();
+		$request = $this->container->get('request');
+    	$em		 = $this->getDoctrine()->getEntityManager();
+    	
+    	if($request->isXmlHttpRequest()){
+    		$data		= $request->get('data', null);
+    		$new_data	= null;
+    		
+    		foreach ($data as $key => $value) {
+    			$values 	= explode('_', $value);
+    			$id	    	= $values[2];
+    			$position	= $values[0];    
+
+    			$new_data[$key] = array('position'=>$position, 'id'=>$id);
+    			$new_pos[$key]  = $position;
+    		}
+    		array_multisort($new_pos, SORT_ASC, $new_data);
+    		
+    		foreach ($new_data as $key => $value) {
+    			$entity = $em->getRepository($this->_entityName)->find($value['id']);
+    			$entity->setEnabled(false);
+    			
+    			if(method_exists($entity, 'setPosition'))
+    				$entity->setPosition(null);
+    			
+    			foreach ($entity->getTags() as $key => $tag) {
+    					$tag->decrementWeight('annonce');
+    					$em->persist($tag);
+    					$em->flush();
+    			}
+    			
+    			$em->persist($entity);
+    			$em->flush();
+    		}
+    		$em->clear();
+    		
+    		// we disable all flash message
+    		$this->container->get('session')->setFlashes(array());
+    		
+    		$tab= array();
+    		$tab['id'] = '-1';
+    		$tab['error'] = '';
+    		$tab['fieldErrors'] = '';
+    		$tab['data'] = '';
+    		 
+    		$response = new Response(json_encode($tab));
+    		$response->headers->set('Content-Type', 'application/json');
+    		return $response;    		
+    	}else
+    		throw ControllerException::callAjaxOnlySupported('disableajax'); 
     } 
 
 	/**
@@ -98,7 +195,51 @@ class AdsController extends abstractController
      */
     public function deleteajaxAction()
     {
-    	return parent::deletajaxAction();
+    	$request = $this->container->get('request');
+    	$em 	 = $this->getDoctrine()->getEntityManager();
+    	 
+    	if($request->isXmlHttpRequest()){
+    		$data		= $request->get('data', null);
+    		$new_data	= null;
+    		
+    		foreach ($data as $key => $value) {
+    			$values 	= explode('_', $value);
+    			$id	    	= $values[2];
+    			$position	= $values[0];    
+
+    			$new_data[$key] = array('position'=>$position, 'id'=>$id);
+    			$new_pos[$key]  = $position;
+    		}
+    		array_multisort($new_pos, SORT_ASC, $new_data);
+    		
+    		foreach ($new_data as $key => $value) {
+    			$entity = $em->getRepository($this->_entityName)->find($value['id']);
+    			
+    			foreach ($entity->getTags() as $key => $tag) {
+    				$tag->decrementWeight('annonce');
+    				$em->persist($tag);
+    				$em->flush();
+    			}
+    			
+    			$em->remove($entity);
+    			$em->flush();
+    		}
+    		$em->clear();
+    		
+    		// we disable all flash message
+            $this->container->get('session')->setFlashes(array());
+            
+            $tab= array();
+            $tab['id'] = '-1';
+            $tab['error'] = '';
+            $tab['fieldErrors'] = '';
+            $tab['data'] = '';
+             
+            $response = new Response(json_encode($tab));
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+    	}else
+    		throw ControllerException::callAjaxOnlySupported('deleteajax');
     }  
 
     /**
@@ -561,7 +702,6 @@ class AdsController extends abstractController
     		$entity->setName($user->getUsername());
     		$entity->setNickname($user->getUsername());
     		$entity->setEmail($user->getEmail());
-    		$entity->setDescriptif("Message *");
     		$entity->setAds($this->getAds($ads_id, $lang));
     		    		
     		$form   	= $this->createForm(new \PiApp\GedmoBundle\Form\AdsResponseType($em, $this->container), $entity, array('show_legend' => false));
@@ -610,23 +750,26 @@ class AdsController extends abstractController
     		$em->persist($entity);
     		$em->flush();
     		
-    		$this->get('session')->setFlash('notice', 'comment.flash.posted');
-    
     		//send mail
     		$templateFile = "PiAppGedmoBundle:Ads:email_ads.html.twig";
     		$templateContent = $this->get('twig')->loadTemplate($templateFile);
+
     		$subject = ($templateContent->hasBlock("subject")
     				           ? $templateContent->renderBlock("subject", array('ads'=>$ads, 'form'=> $request->get($form->getName(), array())))
     				           : "Default subject here");
     		$body = ($templateContent->hasBlock("body")
     				           ? $templateContent->renderBlock("body", array('ads'=>$ads, 'form'=> $request->get($form->getName(), array())))
     				           : "Default body here");
-    		
+
 			$list_files = $this->get("pi_app_admin.mailer_manager")->uploadAttached($_FILES);
-    		$this->get("pi_app_admin.mailer_manager")->send('ads@lamelee.fr', $ads->getUser()->getEmail(), null, null, $form["Email"]->getData(), $subject, $body , $list_files);
+    		$this->get("pi_app_admin.mailer_manager")->send('ads@lamelee.fr', $ads->getUser()->getEmail(), $subject, $body, null, null, $form["email"]->getData(), $list_files);
 			$this->get("pi_app_admin.mailer_manager")->deleteAttached($list_files);
+			
+			$this->container->get('session')->setFlashes(array());
+			$this->get('session')->setFlash('success', 'comment.flash.posted');
     	}else{
-    		$this->get('session')->setFlash('notice', 'comment.flash.noposted');
+    		$this->container->get('session')->setFlashes(array());
+    		$this->get('session')->setFlash('success', 'comment.flash.noposted');
     	}
     	  
     	$new_url 	= $this->container->get('bootstrap.RouteTranslator.factory')->getRefererRoute($lang);
@@ -644,5 +787,121 @@ class AdsController extends abstractController
 	    
 	    return $ads;
     }
+    
+    /**
+     * Template : Share an event .
+     *
+     * @Cache(maxage="86400")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access	public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function _template_postAction($template = '_template_form_post.html.twig', $lang = "")
+    {
+    	if(!$this->isUsernamePasswordToken()){
+   			$url		= $this->container->get('bootstrap.RouteTranslator.factory')->getRoute("page_lamelee_connexion", array('locale'=>$lang));
+   			return new RedirectResponse($url);
+    	}
+		
+		$em    = $this->getDoctrine()->getEntityManager();
+    
+    	if(empty($lang))
+    		$lang	= $this->container->get('session')->getLocale();
+
+    	if ($_POST){
+    		$entity   = new Ads();
+    		$request   = $this->getRequest();
+
+    		$form     = $this->createForm(new \PiApp\GedmoBundle\Form\AdsPostType($em, $this->container), $entity, array('show_legend' => false));
+    			
+    		$form->bindRequest($request);
+    		$user = $this->get('security.context')->getToken()->getUser();
+    			
+    		$entity->setUser($user);
+    			
+    		$author = $_POST['author'];
+    		$entity->setAuthor($author);
+			$entity->setStatus($_POST[$form->getName()]['status']);
+			$entity->setTypology($_POST[$form->getName()]['typology']);
+
+    		$tags_name = explode(',', $_POST['tags']);
+    		foreach ($tags_name as $tag_name) {
+    			$tag = $em->getRepository("PiAppAdminBundle:Tag")->getEntityByField($lang, array('content_search' => array('name' =>$tag_name)), 'object');
+    			if($tag){
+					$tag->incrementWeight('annonce');
+				}else{
+					$tag   = new \PiApp\AdminBundle\Entity\Tag();
+					$tag->setTranslatableLocale($lang);
+					$tag->setName($tag_name);
+					$tag->setGroupname('annonce');
+					$tag->addWeight('annonce', 1);
+					$em->persist($tag);
+					$em->flush();	
+				}
+				$entity->addTag($tag);
+    		}
+
+    		$this->container->get('session')->setFlashes(array());
+    		$this->get('session')->setFlash('success', 'ads.flash.ad.created');
+			$entity->setEnabled(true);
+    		$em->persist($entity);
+    		$em->flush();
+    	}
+    
+    	$entity = new Ads();
+    	$form	= $this->createForm(new \PiApp\GedmoBundle\Form\AdsPostType($em, $this->container), $entity, array('show_legend' => false));
+    	 
+    	return $this->render("PiAppGedmoBundle:Ads:$template", array(
+    			'entity' 	=> $entity,
+    			'form'	=> $form->createView(),
+    	));
+    }    
    
+    /**
+     * Template
+     *
+     * @Cache(maxage="86400")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access	public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function _template_wordcloudAction($template = '_template_lamelee_wordcloud.html.twig', $lang = "")
+    {
+    	$em 		= $this->getDoctrine()->getEntityManager();
+    
+    	if(empty($lang))
+    		$lang	= $this->container->get('session')->getLocale();
+    
+    	$query 		= $em->getRepository("PiAppAdminBundle:Tag")->createQueryBuilder('a')
+    	->select('a')
+    	->orderBy('a.created_at', 'DESC')
+    	->where('a.enabled = 1');
+    	$entities   = $em->getRepository("PiAppAdminBundle:Tag")->findTranslationsByQuery($lang, $query->getQuery(), 'object', false);
+    	
+    	// we get the max weight of the tag
+    	$max = 1;
+    	foreach($entities as $key => $tag){
+    		$weight = $tag->getWeight('annonce');
+    		if($weight >= $max)
+    			$max = $weight;
+    	}
+    	// we balance the weight on a scale of 1 to 10.
+    	$all_tags = null;
+    	foreach($entities as $key => $tag){
+    		$weight 			= $tag->getWeight('annonce');
+    		if($weight >= 1){
+    			$new_tag['name'] 	= $tag->translate($lang)->getName();
+    			$new_tag['weight'] 	= ($weight * 10)/$max;
+    			$all_tags[] = $new_tag;
+    		}
+    	}    	
+    	
+    	return $this->render("PiAppGedmoBundle:Ads:$template", array(
+    			'entities' => $all_tags,
+    			'locale'   => $lang,
+    	));
+    }
+        
 }

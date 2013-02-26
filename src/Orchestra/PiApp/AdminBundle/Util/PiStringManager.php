@@ -1110,7 +1110,7 @@ class PiStringManager implements PiStringManagerBuilderInterface
 		// we get the current directory.
 		$path = realpath(dirname(__FILE__) . "/Countries");
 		// we create the file name.
-		$locale = strtolower($locale);
+		//$locale = strtolower($locale);
 		$file = "{$locale}_country.json";
 		// we take all json files existing.
 		$all_files = \PiApp\AdminBundle\Util\PiFileManager::getFilesByType($path, "json");

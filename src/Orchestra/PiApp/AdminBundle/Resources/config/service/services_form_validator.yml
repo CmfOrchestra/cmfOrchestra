@@ -1,6 +1,7 @@
 parameters:
     pi_app_admin.validator.unique.class: PiApp\AdminBundle\Validator\Constraints\UniqueValidator
     pi_app_admin.validator.collectionof.class: PiApp\AdminBundle\Validator\Constraints\CollectionOfValidator
+    pi_app_admin.validator.partner.class: PiApp\AdminBundle\Validator\Constraints\MaxEntitiesByQueryValidator
 
 services:
     pi_app_admin.validator.unique:
@@ -12,4 +13,10 @@ services:
     pi_app_admin.validator.collectionof:
        class:      %pi_app_admin.validator.collectionof.class%
        tags:
-            - { name: validator.constraint_validator, alias: pi_app_admin.validator.collectionof }            
+            - { name: validator.constraint_validator, alias: pi_app_admin.validator.collectionof }
+            
+    pi_app_admin.validator.partner:
+       class:      %pi_app_admin.validator.partner.class%
+       arguments: [@service_container]
+       tags:
+            - { name: validator.constraint_validator, alias: pi_app_admin.validator.partner }                  

@@ -159,7 +159,7 @@ $GLOBALS['GEDMO_WIDGET_LISTENER']['PiAppGedmoBundle:Pressrelease'] = array(
 		'_template_show'	 => array(
 				'edit'		=> 'admin_gedmo_pressrelease_edit',
 		),
-		'_template_archive'	 => array(
+		'_template_list'	 => array(
 				'edit'		=> 'admin_gedmo_pressrelease',
 		),
 		'_template_archive'	 => array(

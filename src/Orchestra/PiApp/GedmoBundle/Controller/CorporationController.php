@@ -885,6 +885,7 @@ class CorporationController extends abstractController
                          ->trans('adhesion.flash.user_created',
                                   array('%email%' => $request->get('Email')));
 
+          $this->container->get('session')->setFlashes(array());
           $this->get('session')->setFlash('success', $flash);
           
           //send mail

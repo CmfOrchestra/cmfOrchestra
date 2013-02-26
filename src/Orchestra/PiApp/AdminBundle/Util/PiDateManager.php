@@ -81,12 +81,10 @@ class PiDateManager implements PiDateManagerBuilderInterface
     	if(is_string($date))
     		$date = intval($date);
     	
-    	if (version_compare(\PHP_VERSION, '5.3.4', '<') && !is_int($date)) {
+    	if (version_compare(\PHP_VERSION, '5.3.4', '<') && !is_int($date) && is_object($date)) {
     		$date = $date->getTimestamp();
     	}
-    	
         $dateFormater = \IntlDateFormatter::create($locale ?: \Locale::getDefault(), $this->formats[$dateType], $this->formats[$timeType], date_default_timezone_get(), null, $pattern);
-
         return $dateFormater->format($date);
     }
     
@@ -202,10 +200,30 @@ class PiDateManager implements PiDateManagerBuilderInterface
     	$month_name = array();
     	for($i=1;$i<=12;$i++){
     		if($i<=9) $key = '0'.$i; else $key = $i;
-    		$month_name[$key] = $this->localeDateFilter(new \DateTime(date( 'Y-m-d', mktime(0, 0, 0, $i))), 'long','medium', $locale, 'MMMM');
+    		$month_name[$key] = $this->format(new \DateTime(date( 'Y-m-d', mktime(0, 0, 0, $i))), 'long','medium', $locale, 'MMMM');
     	}
     	return	$month_name;
     } 
+    
+    /**
+     * List of all days.
+     *
+     * @param string $locale
+     * @access public
+     * @return array
+     * @static
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function allDays($locale)
+    {
+    	$day_name = array();
+    	for($i=1;$i<=7;$i++){
+    		if($i<=9) $key = '0'.$i; else $key = $i;
+    		$day_name[$key] = $this->format(new \DateTime( date('Y-m-d', strtotime("+$i day", strtotime("2013-02-17")))), 'long','medium', $locale, 'EEEE');
+    	}
+    	return	$day_name;
+    }    
     
     /**
      * List of the x next/last year/months/day of a date.
@@ -225,8 +243,8 @@ class PiDateManager implements PiDateManagerBuilderInterface
      */
     public function nextOrLastList($year, $month, $day, $order, $number, $type = 'month', $format = 'Y-m-d')
     {
-    	$month 		= str_replace('0','',$month);
-    	$day 		= str_replace('0','',$day);
+    	$month 		= str_replace(array('00','01','02','03','04','05','06','07','08','09'),array('0','1','2','3','4','5','6','7','8','9'),$month);
+    	$day 		= str_replace(array('00','01','02','03','04','05','06','07','08','09'),array('0','1','2','3','4','5','6','7','8','9'),$day);
     	$date 		= "{$year}-{$month}-{$day}";
     	
         $first  	= strtotime($date);

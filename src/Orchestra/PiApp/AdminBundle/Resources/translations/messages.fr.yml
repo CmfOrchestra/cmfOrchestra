@@ -86,6 +86,7 @@ pi.form.label.date.archivage: Date d'archivage
 pi.form.label.date.expired: Date d'expiration
 pi.form.label.media.picture: Image
 pi.form.label.media.file: Fichier
+pi.form.label.media.download: Télécharger
 
 pi.form.label.field.enabled: Activé
 pi.form.label.field.language: Langue
@@ -102,6 +103,7 @@ pi.form.label.field.choice: Choix
 pi.form.label.field.author: Auteur
 pi.form.label.field.user: Utilisateur
 pi.form.label.field.name: Nom
+pi.form.label.field.nickname: Prénom
 pi.form.label.field.meta_title: Titre meta
 pi.form.label.field.meta_keywords: Mots-clés meta
 pi.form.label.field.meta_description: Description meta
@@ -109,11 +111,21 @@ pi.form.label.field.adress.main: Adresse
 pi.form.label.field.adress.coordinates: Coordonnées
 pi.form.label.field.adress.phone: Téléphone
 pi.form.label.field.adress.fax: Fax
-pi.form.label.field.email: Email
+pi.form.label.field.email: E-mail
+pi.form.label.field.email.perso: E-mail personnelle
 pi.form.label.field.email.subject: Objet
 pi.form.label.field.email.body: Corps
 pi.form.label.field.email.cc: Cc
 pi.form.label.field.email.bcc: Cci
+pi.form.label.field.employment.job: Emploi
+pi.form.label.field.employment.company: Entreprise
+pi.form.label.field.employment.activity: Activité
+pi.form.label.field.employment.engineering: Ingénierie
+pi.form.label.field.social.facebook: Facebook
+pi.form.label.field.social.googleplus: GooglePlus
+pi.form.label.field.social.twitter:  Twitter
+pi.form.label.field.social.linkedin: LinkedIn
+pi.form.label.field.social.viadeo: Viadeo
 pi.form.label.select.choose.option: Choisissez une option
 pi.form.label.select.choose.options: Sélectionnez les options
 pi.form.label.select.choose.type: Choisissez un type
@@ -191,6 +203,9 @@ pi.page.form.indexable: Indexable
 pi.page.form.tags: Tags
 pi.page.form.breadcrumb: Fil d'Ariane
 pi.page.form.slug: Slug
+pi.page.form.field.cacheable: Retourne un page 304 "non modifiée"​​, lorsque la page n'a pas changé depuis la dernière visite.
+pi.page.form.field.public: Permet au proxy de mettre en cache le même contenu pour différents visiteurs.
+pi.page.form.field.lifetime: Définit la mise en cache du contenu de la page pendant la durée spécifiée. Laisser vide pour ne pas mettre en cache.
 
 # ENTITY :: WIDGET
 pi.widget.translation.title: Traductions de widget

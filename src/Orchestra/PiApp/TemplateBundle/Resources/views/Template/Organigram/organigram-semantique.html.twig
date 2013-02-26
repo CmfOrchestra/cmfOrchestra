@@ -1,0 +1,60 @@
+            <div id="leftContent">
+                <div id="header2"></div>
+                <div id="main_nav">{{ category|raw }}</div>
+                <div class="nav">
+                    <div class="button_nav">
+                        <a href="#" title=""><img src="{{ asset('bundles/piappadmin/images/layout/bouygues/fleche_gauche.png') }}" alt="" /></a>
+                        <a href="#" title=""><img src="{{ asset('bundles/piappadmin/images/layout/bouygues/fleche_droite.png') }}" alt="" /></a>
+                    </div>
+                </div>
+                <div id="formulaireWrapper" class="flexcroll">
+                    <form id="form_tree_semantique" action="{{ url }}" method="get">
+                        <fieldset>
+                            <label for="lieu">
+								{% if node.question is defined %}
+										{{ node.question|raw }}
+								{% endif %}   								                      		
+                            </label>
+                            
+                            <br />
+                            
+                            {% for entity in childs %}
+                            <input type="radio" name="node" value="{{ entity.id }}">{{ entity.title }}<br/>
+							<option value="{{ entity.id }}" >{{ entity.title }}</option>								
+							{% endfor %}
+                            
+							<input type="hidden" id="category" name="category" value="{{ category }}" >
+							<button type="submit" style="font-size:10px;" >OK</button>                            
+                        </fieldset>
+                    </form>
+                </div>
+                <div id="formulaireWrapper-flexcroll-vscroller"><div class="flexcroll-scrollbar"></div></div>
+                <div class="clear"></div>
+                <div class="nav">
+                    <div class="button_nav">
+                        <a href="#" title=""><img src="{{ asset('bundles/piappadmin/images/layout/bouygues/fleche_gauche.png') }}" alt="" /></a>
+                        <a href="#" title=""><img src="{{ asset('bundles/piappadmin/images/layout/bouygues/fleche_droite.png') }}" alt="" /></a>
+                    </div>
+               </div>
+                <div id="content" class="flexcroll">
+                    <h2>Historique de recherche</h2>
+                    <table cellspacing="0">
+                        <thead>
+                        <td>Questions</td><td>R&eacute;ponses</td>
+                        </thead>
+                        <tbody>
+
+                            {% for node in path %}
+								<tr><td>{{ node.question|raw }}</td><td>{{ node.reponse|raw }}</td></tr>
+							{% endfor %}
+							                        
+                        </tbody>
+                    </table>
+                </div>
+                <div id="content-flexcroll-vscroller"><div class="flexcroll-scrollbar"></div></div>
+            </div>
+            <div id="rightContent">
+				{% if node.content is defined %}
+					{{ node.content|raw }}
+				{% endif %}             
+            </div>

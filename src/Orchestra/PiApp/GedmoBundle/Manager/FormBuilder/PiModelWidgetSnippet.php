@@ -69,8 +69,8 @@ class PiModelWidgetSnippet extends PiFormBuilderManager
 	public static function getContents()
 	{
 		return array(
-				PiFormBuilderManager::CONTENT_RENDER_TITLE	=> "Widget Snippet",
-				PiFormBuilderManager::CONTENT_RENDER_DESC   => "Call for inserting a snippet.",
+				PiFormBuilderManager::CONTENT_RENDER_TITLE	=> "Blocs métier",
+				PiFormBuilderManager::CONTENT_RENDER_DESC   => "insérer un bloc métier",
 		);
 	}
 
@@ -111,13 +111,14 @@ class PiModelWidgetSnippet extends PiFormBuilderManager
 	        		'choices'   => $result,
 			        'multiple'	=> false,
 			        'required'  => true,
-			        'empty_value' => 'pi.form.label.select.choose.snippet',
+			        'empty_value' => 'pi.form.label.select.choose.block',
 			        "attr" => array(
 			        		"class"=>"pi_simpleselect",
 		        	),
         			"label_attr" => array(
         					"class"=>"insert_collection",
-        			),        			
+        			),    
+        			'label'     => 'Liste des blocs métier',
 	        ))
 	        ->add('configCssClass', 'text', array(
             		'label'     => 'Class Name / Snippet Name',
@@ -176,6 +177,8 @@ class PiModelWidgetSnippet extends PiFormBuilderManager
 					$("#piappgedmobundlemanagerformbuilderpimodelwidgetsnippet_plugin").removeAttr("required");
 					$("#piappgedmobundlemanagerformbuilderpimodelwidgetsnippet_action").removeAttr("required");
 					$("#piappgedmobundlemanagerformbuilderpimodelwidgetsnippet_configXml").removeAttr("required");
+
+					$("#piappgedmobundlemanagerformbuilderpimodelwidgetsnippet_choice").parents('.clearfix').hide();
     
     				$("input[id='piappgedmobundlemanagerformbuilderpimodelwidgetsnippet_choice_insert']").change(function () {
     					if($(this).is(':checked')){

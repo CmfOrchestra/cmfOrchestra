@@ -20,15 +20,19 @@
 		        	var _username 	= jQuery(this).find('input[name="_username"]').val();
 		        	var _password 	= jQuery(this).find('input[name="_password"]').val();
 		        	var _csrf_token = jQuery(this).find('input[name="_csrf_token"]').val();
-
-		        	var _return = true;
+		        	// var _return = true;
 		        	
 		            $.ajax({
 		                url: $(this).attr('action'),
 		                data: "_username="+_username+"&_password="+_password+"&_csrf_token="+_csrf_token,
 		                type: $(this).attr('method'),
 		                success: function(html) {
-		                	window.location.reload();
+		                	if ( /Bad credentials/i.test(html)==true ) {
+		                		// alert("Erreur de connexion");
+		                		$('#form-connexion').addClass('errorConnect');
+		                	} else {
+		                		window.location.reload();
+		                	}
 		                }
 		            });
 		        });
@@ -38,6 +42,7 @@
 		
 		<h3 class="tt-clr tt-9 bold">MON COMPTE</h3>
 		<form method="POST" action="{{ path('fos_user_security_check') }}" id="form-connexion" >
+			<p class="error resetM">pseudo ou email invalide</p>
 			<span class="input-text">
 				 <input type="text" id="_username" name="_username" value="{% if error %}{{ error }}{% elseif last_username is not empty  %}{{ last_username }}{% else %}pseudo{% endif %}">
 			</span>

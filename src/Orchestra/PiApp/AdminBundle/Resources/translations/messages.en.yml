@@ -86,6 +86,7 @@ pi.form.label.date.archivage: Archive date
 pi.form.label.date.expired: Expiration date
 pi.form.label.media.picture: Picture
 pi.form.label.media.file: File
+pi.form.label.media.download: Download
 
 pi.form.label.field.enabled: Enabled
 pi.form.label.field.language: Language
@@ -102,6 +103,7 @@ pi.form.label.field.choice: Choice
 pi.form.label.field.author: Author
 pi.form.label.field.user: User
 pi.form.label.field.name: Name
+pi.form.label.field.nickname: Nickname
 pi.form.label.field.meta_title: Meta Title
 pi.form.label.field.meta_keywords: Meta keywords
 pi.form.label.field.meta_description: Meta description
@@ -110,10 +112,20 @@ pi.form.label.field.adress.coordinates: Coordinates
 pi.form.label.field.adress.phone: Phone
 pi.form.label.field.adress.fax: Fax
 pi.form.label.field.email: Email
+pi.form.label.field.email.perso: Personal e-mail
 pi.form.label.field.email.subject: Subject
 pi.form.label.field.email.body: Body
 pi.form.label.field.email.cc: Cc
 pi.form.label.field.email.bcc: Bcc
+pi.form.label.field.employment.job: Job
+pi.form.label.field.employment.company: Company
+pi.form.label.field.employment.activity: Activity
+pi.form.label.field.employment.engineering: Engineering
+pi.form.label.field.social.facebook: Facebook
+pi.form.label.field.social.googleplus: GooglePlus
+pi.form.label.field.social.twitter:  Twitter
+pi.form.label.field.social.linkedin: LinkedIn
+pi.form.label.field.social.viadeo: Viadeo
 pi.form.label.select.choose.option: Choose an option
 pi.form.label.select.choose.options: Select options
 pi.form.label.select.choose.type: Choose a type
@@ -191,6 +203,9 @@ pi.page.form.indexable: Indexable
 pi.page.form.tags: Tags
 pi.page.form.breadcrumb: Breadcrumb
 pi.page.form.slug: Slug
+pi.page.form.field.cacheable: Returns a 304 "not modified" status, when the page has not changed since last visit.
+pi.page.form.field.public: Allows proxies to cache the same content for different visitors.
+pi.page.form.field.lifetime: Sets the full content page caching during the specified lifetime. Leave blank to not cache.
 
 # ENTITY :: WIDGET
 pi.widget.translation.title: Translation widget

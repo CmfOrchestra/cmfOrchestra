@@ -5,7 +5,7 @@
     database_name="symforchestra"
     database_user="root"
     database_password=""
-    mailer_transport="gmail"
+    mailer_transport="sendmail"
     mailer_host=""
     mailer_user=""
     mailer_password=""

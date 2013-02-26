@@ -549,6 +549,7 @@ class IndividualController extends abstractController
 	                         ->trans('Abonnement.flash.user_created',
 	                                  array('%email%' => $form["Email"]->getData()));
 	                      
+	          $this->container->get('session')->setFlashes(array());
 	          $this->get('session')->setFlash('success', $flash);
 	          
 	          //send mail
@@ -912,6 +913,7 @@ class IndividualController extends abstractController
 	                         ->trans('adhesion.flash.user_created',
 	                                  array('%email%' => $request->get('Email')));
 	                      
+	          $this->container->get('session')->setFlashes(array());
 	          $this->get('session')->setFlash('success', $flash);
             
             //send mail

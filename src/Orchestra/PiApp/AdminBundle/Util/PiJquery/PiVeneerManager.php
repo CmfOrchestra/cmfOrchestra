@@ -45,7 +45,7 @@ class PiVeneerManager extends PiJqueryExtension
 	 *
 	 * @author (c) Etienne de Longeaux <etienne_delongeaux@hotmail.com>
 	 */	
-	protected function init() {
+	protected function init($options = null) {
 		// js
 		$this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/ui/veneer/js/jquery.ui.veneer.js");
 		//$this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/ui/jquery.ui.widget.js");
@@ -98,7 +98,7 @@ class PiVeneerManager extends PiJqueryExtension
 								var id_block      = $(this).data('id');
 								var id_name_block = $(this).data("name");
 								/* Allow to draggable the block */
-								$("#ui-dialog-title-block__"+id_block+" span").html("BLOCK " + id_name_block);
+								$("#ui-dialog-title-block__"+id_block+" span").html("ZONE " + id_name_block);
 							});
 
 							/********************************

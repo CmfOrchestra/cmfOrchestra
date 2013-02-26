@@ -69,7 +69,7 @@ class PiListenerManager extends PiCoreManager implements PiListenerManagerBuilde
 		$response = $this->container->get('http_kernel')->forward($id, $params); // this allow redirection in controller action
 		
 		if($response instanceof \Symfony\Component\HttpFoundation\RedirectResponse)
-			return $response;
+			return "<div style='visibility:hidden'>".$response."</div>";
 		else
 			return utf8_decode(mb_convert_encoding($response->getContent(), "UTF-8", "HTML-ENTITIES"));
 	}	

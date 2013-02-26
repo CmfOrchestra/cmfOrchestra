@@ -59,10 +59,6 @@ class AdsType extends AbstractType
 		
     public function buildForm(FormBuilder $builder, array $options)
     {
-    	//$choiceList = $this->_em->getRepository("bundle:entity")->getArrayAllCategory();
-    	//if(!isset($choiceList) || !count($choiceList))
-    	//	$choiceList = array();
-    	
         $builder 			
  			->add('enabled', 'checkbox', array(
  					'data'  => true,
@@ -78,18 +74,6 @@ class AdsType extends AbstractType
  					),
  					'label'	=> 'pi.form.label.date.publication',
  			)) 			
- 			->add('archive_at', 'date', array(
- 					'widget' => 'single_text', // choice, text, single_text
- 					'input' => 'datetime',
- 					'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
- 					'required'  => false,
- 					"attr" => array(
- 							"class"=>"pi_datepicker",
- 					),
- 					'label'	=> 'pi.form.label.date.expired',
- 			))        	
-			
-
  			->add('user', 'entity', array(
             		'class' 	=> 'BootStrapUserBundle:User',
             		'label'	=> 'pi.form.label.field.user',
@@ -115,8 +99,33 @@ class AdsType extends AbstractType
  					),
  			))
  			
- 			->add('status')
- 			->add('typology')
+ 			->add('typology', 'choice', array(
+ 					'choices'   => array(
+ 							'pi.ads.form.type.market'	=>"pi.ads.form.type.market",
+ 							'pi.ads.form.type.job'     	=>"pi.ads.form.type.job",
+ 					),
+		            'empty_value' => 'pi.form.label.select.choose.typologie',
+		            'attr' 		=> array(
+		            		'class'=>'pi_simpleselect',
+		            ),        
+ 					'required'  => true,
+ 					'multiple'	=> false,
+ 					'expanded' => false,
+ 			))
+ 			->add('status', 'choice', array(
+ 					'choices'   => array(
+ 							'pi.ads.form.type.search'	=>"pi.ads.form.type.search",
+ 							'pi.ads.form.type.propose'  =>"pi.ads.form.type.propose",
+ 					),
+		          	'empty_value' => 'pi.form.label.select.choose.type',
+		         	'attr' 		=> array(
+		          			'class'=>'pi_simpleselect',
+		          	),        
+ 					'label'	=> 'Type',
+ 					'required'  => true,
+ 					'multiple'	=> false,
+ 					'expanded' => false,
+ 			))            
  			->add('title', 'text', array(
  					'label'	=> "pi.form.label.field.title",
  					"label_attr" => array(
@@ -130,13 +139,13 @@ class AdsType extends AbstractType
  							"class"=>"text_collection",
  					),
  					"attr" => array(
- 							"class"	=>"pi_editor_simple",
+ 							"class"	=>"pi_editor_simple_easy",
  					),
  					'required'  => false,
  			))
  			->add('author')
  			
- 			->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
+ 			->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'file', 'image_collection', "simpleLink", 'pi.form.label.media.file'))
         ;
     }
 

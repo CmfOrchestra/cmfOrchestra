@@ -1,0 +1,11 @@
+<section id="wordcloud"></section>
+
+<script type="text/javascript">
+//<![CDATA[
+		var word_list = [
+			   {% for tag in entities %}
+			   {text: "{{ tag.name }}", weight: {{ tag.weight }}, link: "{{ path_url("page_lamelee_menuwrapper_opportunites", {"locale":locale, "search":tag.name}) }}"},
+			   {% endfor %}
+			];
+//]]>
+</script>

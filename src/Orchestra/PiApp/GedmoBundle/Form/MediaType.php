@@ -16,6 +16,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Description of the MediaType form.
@@ -31,6 +32,11 @@ class MediaType extends AbstractType
 	 * @var \Doctrine\ORM\EntityManager
 	 */
 	protected $_em;
+	
+	/**
+	 * @var \Symfony\Component\DependencyInjection\ContainerInterface
+	 */
+	protected $_container;	
 	
 	/**
 	 * @var string
@@ -59,9 +65,10 @@ class MediaType extends AbstractType
 	 * @param string $status	['file', 'image', 'youtube', 'dailymotion']
 	 * @return void
 	 */
-	public function __construct(EntityManager $em, $status = "image", $class =  "media_collection", $simpleLink = "all", $labelLink = "")
+	public function __construct(ContainerInterface $container, EntityManager $em, $status = "image", $class =  "media_collection", $simpleLink = "all", $labelLink = "")
 	{
 		$this->_em			= $em;
+		$this->_container 	= $container;
 		$this->_status		= $status;
 		$this->_class		= $class;
 		$this->_simpleLink	= $simpleLink;
@@ -148,7 +155,7 @@ class MediaType extends AbstractType
 		 					),
 			    ))
     		;    
-    	}elseif( ($this->_simpleLink == "simpleLink") || ($this->_simpleLink == "hidden") ){
+    	}elseif( ($this->_simpleLink == "simpleLink") || ($this->_simpleLink == "hidden") || ($this->_simpleLink == "simple") ){
     		$builder
     		->add('enabled', 'hidden', array(
 	            		'data'  => true,
@@ -165,7 +172,7 @@ class MediaType extends AbstractType
     		$style = "";
   		
   		if($this->_status == "file"){
- 			if($this->_labelLink == "") $this->_labelLink = 'pi.form.label.media.file';
+				if($this->_labelLink == "") $this->_labelLink = 'pi.form.label.media.file';
  			$builder->add('image', 'sonata_media_type', array(
  					'provider'  => 'sonata.media.provider.file',
  					'context'   => 'newcontext',
@@ -219,12 +226,12 @@ class MediaType extends AbstractType
  		} 	
 
 
- 		if($this->_simpleLink != "hidden")
+ 		if(($this->_simpleLink != "hidden") && ($this->_simpleLink != "simple"))
 	 		$builder
 		 		->add('mediadelete', 'checkbox', array(
 	 				'data'  => false,
 	 				'required'  => false,
-	 				'help_block' => "Action to delete the {$this->_status} media",
+	 				'help_block' => $this->_container->get('translator')->trans('pi.media.form.field.mediadelete', array('%s'=>$this->_status)),
 	 				'label'		=> "pi.delete",
 	 				"label_attr" => array(
 	 						"class"=> $this->_class,

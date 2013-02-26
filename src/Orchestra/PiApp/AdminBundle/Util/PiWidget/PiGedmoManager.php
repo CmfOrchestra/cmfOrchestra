@@ -461,7 +461,7 @@ class PiGedmoManager extends PiWidgetExtension
 	 * Sets the render of the organigram action.
 	 *
 	 * <code>
-	 *  Pour appeler un organigramme
+	 *  Pour appeler un organigramme sur un arbre.
 	 *	<?xml version="1.0"?>
 	 *	<config>
 	 *		<widgets>
@@ -494,7 +494,7 @@ class PiGedmoManager extends PiWidgetExtension
 	 *	</config>
 	 *
 	 *
-	 *  Pour appeler un arbre semantique
+	 *  Pour appeler un arbre semantique.
 	 *	<?xml version="1.0"?>
 	 *	<config>
 	 *		<widgets>
@@ -523,6 +523,28 @@ class PiGedmoManager extends PiWidgetExtension
 	 *				<role>ROLE_SUPER_ADMIN</role>
 	 *			</roles>
 	 *		</advanced>
+	 *	</config>
+	 *
+	 *
+	 *  Pour appeler un breadcrumb sur un arbre.
+	 *	<?xml version="1.0"?>
+	 *	<config>
+	 *		<widgets>
+	 *			<gedmo>
+	 *				<controller>PiAppGedmoBundle:Menu:org-tree-breadcrumb</controller>
+	 *				<params>
+	 *					<node>3</node>
+	 *                  <template>organigram-breadcrumb.html.twig</template>
+	 *					<cachable>true</cachable>
+     *                  <organigram>
+     *		                <params>
+     *		                  	<action>renderDefault</action>
+     *							<menu>breadcrumb</menu>
+     *                    	</params>
+     *                  </organigram>
+	 *				</params>
+	 *			</gedmo>
+	 *		</widgets>
 	 *	</config>	 
 	 *
 	 * </code>

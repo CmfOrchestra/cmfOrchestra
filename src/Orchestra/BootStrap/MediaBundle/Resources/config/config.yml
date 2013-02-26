@@ -54,7 +54,7 @@ sonata_media:
 
             formats:
                 small: { width: 100 , quality: 70}
-                big:   { width: 500 , quality: 70}
+                #big:   { width: 500 , quality: 70}
                 #cinema:     { width: 1850 , quality: 768}
                 #grandmatv:  { width: 640 , quality: 480}
                 

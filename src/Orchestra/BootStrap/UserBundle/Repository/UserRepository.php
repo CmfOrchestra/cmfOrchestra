@@ -44,8 +44,8 @@ class UserRepository extends TranslationRepository
 			->leftJoin('a.individual', 'i')
 			->leftJoin('a.corporation', 'c');
 	
-		$em
-			->andWhere('a.enabled = 1');
+		if($enabled)
+			$em->andWhere('a.enabled = 1');
 		
 		if($is_home_page){
 			$orModule = $em->expr()->orx();

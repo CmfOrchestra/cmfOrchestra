@@ -98,8 +98,8 @@ class Menu extends AbstractDefault
      * @Gedmo\Translatable
      * @ORM\Column(name="subtitle", type="string", length=128, nullable=true)
      */
-    protected $subtitle;    
-    
+    protected $subtitle;  
+
     /**
      * @var string $configCssClass
      *
@@ -110,7 +110,7 @@ class Menu extends AbstractDefault
     /**
      * @var \PiApp\AdminBundle\Entity\Page $page
      * 
-     * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Page")
+     * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Page", inversedBy="menus", cascade={"persist"})
      * @ORM\JoinColumn(name="page_id", referencedColumnName="id", nullable=true)
      */
     protected $page;
@@ -120,12 +120,19 @@ class Menu extends AbstractDefault
      *
      * @ORM\Column(name="url", type="string", length=314, nullable=true)
      */
-    protected $url;    
+    protected $url;  
+
+    /**
+     * @var boolean $blank
+     *
+     * @ORM\Column(name="blank", type="boolean", nullable=true)
+     */
+    protected $blank;    
     
     /**
      * @var \PiApp\GedmoBundle\Entity\Media $media
      *
-     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Media" , cascade={"all"}, inversedBy="menu");
+     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Media", inversedBy="menu", cascade={"all"});
      * @ORM\JoinColumn(name="media_id", referencedColumnName="id", nullable=true)
      */
     protected $media;  
@@ -211,6 +218,27 @@ class Menu extends AbstractDefault
     }    
     
     /**
+     * Set blank
+     *
+     * @param boolean $blank
+     */
+    public function setBlank($blank)
+    {
+    	$this->blank = $blank;
+    	return $this;
+    }
+    
+    /**
+     * Get blank
+     *
+     * @return boolean
+     */
+    public function getBlank()
+    {
+    	return $this->blank;
+    }    
+    
+    /**
      * Set category
      *
      * @param \PiApp\GedmoBundle\Entity\Category $category
@@ -269,8 +297,8 @@ class Menu extends AbstractDefault
     public function getSubtitle()
     {
     	return $this->subtitle;
-    }    
-    
+    }   
+
     /**
      * Set configCssClass
      *

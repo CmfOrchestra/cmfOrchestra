@@ -17,6 +17,7 @@ parameters:
     piapp.manager.jquery.orgchartpage.class: PiApp\AdminBundle\Util\PiJquery\PiOrgChartPageManager
     piapp.manager.jquery.orgsemantique.class: PiApp\AdminBundle\Util\PiJquery\PiOrgSemantiquePageManager
     piapp.manager.jquery.orgtreepage.class: PiApp\AdminBundle\Util\PiJquery\PiOrgTreePageManager
+    piapp.manager.jquery.orgbreadcrumb.class: PiApp\AdminBundle\Util\PiJquery\PiOrgBreadcrumbManager
     piapp.manager.jquery.contextmenu.class : PiApp\AdminBundle\Util\PiJquery\PiContextMenuManager
     piapp.manager.jquery.backstretch.class: PiApp\AdminBundle\Util\PiJquery\PiBackstretchManager
     piapp.manager.jquery.veneer.class: PiApp\AdminBundle\Util\PiJquery\PiVeneerManager
@@ -103,6 +104,10 @@ services:
     pi_app_admin.jquery_manager.orgsemantique:
         class: %piapp.manager.jquery.orgsemantique.class%
         arguments: ['@service_container']          
+        
+    pi_app_admin.jquery_manager.orgbreadcrumb:
+        class: %piapp.manager.jquery.orgbreadcrumb.class%
+        arguments: ['@service_container']        
         
     pi_app_admin.jquery_manager.backstretch:
         class: %piapp.manager.jquery.backstretch.class%

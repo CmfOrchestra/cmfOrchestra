@@ -134,7 +134,7 @@ class PageByBlockController extends abstractController
         $entity = new Page();
         $entity->setMetaContentType(PageRepository::TYPE_TEXT_HTML);
         $entity->setUser($User);
-        $form   = $this->createForm(new PageType($User->getRoles()), $entity, array('show_legend' => false));
+        $form   = $this->createForm(new PageType($this->container, $User->getRoles()), $entity, array('show_legend' => false));
         
         //$form->remove('page_css');
         //$form->remove('page_js');
@@ -161,7 +161,7 @@ class PageByBlockController extends abstractController
         $entity->setMetaContentType(PageRepository::TYPE_TEXT_HTML);
         $entity->setUser($User);
         $request = $this->getRequest();
-        $form    = $this->createForm(new PageType($User->getRoles()), $entity, array('show_legend' => false));
+        $form    = $this->createForm(new PageType($this->container, $User->getRoles()), $entity, array('show_legend' => false));
         $form->bindRequest($request);        
 
         if ('POST' === $request->getMethod()) {
@@ -210,7 +210,7 @@ class PageByBlockController extends abstractController
             throw ControllerException::NotFoundException('Page');
         }
 
-        $editForm = $this->createForm(new PageType($User->getRoles()), $entity, array('show_legend' => false));
+        $editForm = $this->createForm(new PageType($this->container, $User->getRoles()), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
         
         return $this->render('PiAppAdminBundle:PageByBlock:edit.html.twig', array(
@@ -239,7 +239,7 @@ class PageByBlockController extends abstractController
             throw ControllerException::NotFoundException('Page');
         }
 
-        $editForm   = $this->createForm(new PageType($User->getRoles()), $entity, array('show_legend' => false));
+        $editForm   = $this->createForm(new PageType($this->container, $User->getRoles()), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();

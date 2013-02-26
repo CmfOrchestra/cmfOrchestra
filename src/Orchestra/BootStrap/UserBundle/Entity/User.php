@@ -63,19 +63,12 @@ class User extends BaseUser
 	protected $newsletters;
 	
 	/**
-	 * @var array of \Doctrine\Common\Collections\ArrayCollection typocommissions
+	 * @var \Doctrine\Common\Collections\ArrayCollection
 	 *
-	 * @ORM\ManyToMany(targetEntity="PiApp\GedmoBundle\Entity\Lamelee\TypoCommission", mappedBy="users")
+	 * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Ads", mappedBy="user")
 	 */
-	protected $typocommissions;
-	
-	/**
-	 * @var array of \Doctrine\Common\Collections\ArrayCollection events
-	 *
-	 * @ORM\ManyToMany(targetEntity="PiApp\GedmoBundle\Entity\Lamelee\Event", mappedBy="users")
-	 */
-	protected $events;
-  
+	protected $ads;  
+
 	/**
 	 * @var array of \Doctrine\Common\Collections\ArrayCollection $rssneeds
 	 *
@@ -147,6 +140,7 @@ class User extends BaseUser
     	$this->typocommissions	= new \Doctrine\Common\Collections\ArrayCollection();
     	$this->events	= new \Doctrine\Common\Collections\ArrayCollection();      
     	$this->rssneeds		= new \Doctrine\Common\Collections\ArrayCollection();
+		$this->ads	 	 = new \Doctrine\Common\Collections\ArrayCollection();
     }    
     
     /**
@@ -242,7 +236,27 @@ class User extends BaseUser
     {
        return $event->removeUser($this);
     }
+
+    /**
+     * Add ads
+     *
+     * @param \PiApp\GedmoBundle\Entity\Ads $ads
+     */
+    public function addAds(\PiApp\GedmoBundle\Entity\Ads $ads)
+    {
+    	$this->ads[] = $ads;
+    }
     
+    /**
+     * Get all ads
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getAds()
+    {
+    	return $this->ads;
+    }
+	
     /**
      * Get groups
      *
@@ -362,26 +376,6 @@ class User extends BaseUser
     public function getNewsletters()
     {
     	return $this->newsletters;
-    }
-    
-    /**
-     * Get typocommissions
-     *
-     * @return \Doctrine\Common\Collections\ArrayCollection
-     */
-    public function getTypoCommissions()
-    {
-    	return $this->typocommissions;
-    }
-    
-    /**
-     * Get events
-     *
-     * @return \Doctrine\Common\Collections\ArrayCollection
-     */
-    public function getEvents()
-    {
-    	return $this->events;
     }
     
     /**

@@ -45,7 +45,7 @@ class PiWizardFlowplayerManager extends PiJqueryExtension
 	 *
 	 * @author Etienne de Longeaux <etienne_delongeaux@hotmail.com>
 	 */	
-	protected function init() {
+	protected function init($options = null) {
 		$this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/flowplayer/jquery.tools.min.js");
 	}	
 	

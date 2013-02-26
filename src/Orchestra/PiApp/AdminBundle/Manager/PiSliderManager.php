@@ -173,6 +173,7 @@ class PiSliderManager extends PiCoreManager implements PiSliderManagerBuilderInt
 			
 			$parameters['slide']  = $slide;
 			$parameters['lang']	  = $locale;
+			$parameters['locale'] = $locale;
 			$parameters['key']	  = $key;
 			$parameters['last']	  = $last_key_value;
 			

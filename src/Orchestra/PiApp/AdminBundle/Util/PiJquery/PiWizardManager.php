@@ -45,7 +45,7 @@ class PiWizardManager extends PiJqueryExtension
 	 *
 	 * @author Etienne de Longeaux <etienne_delongeaux@hotmail.com>
 	 */	
-	protected function init() {
+	protected function init($options = null) {
 		// css
 		//$this->container->get('pi_app_admin.twig.extension.layouthead')->addCssFile("bundles/piappadmin/css/themes/wijmo/jquery.wijmo.wijwizard.css", "prepend");
 		$this->container->get('pi_app_admin.twig.extension.layouthead')->addCssFile("bundles/piappadmin/css/themes/wijmo/jquery.wijmo-complete.2.1.2.css", "prepend");

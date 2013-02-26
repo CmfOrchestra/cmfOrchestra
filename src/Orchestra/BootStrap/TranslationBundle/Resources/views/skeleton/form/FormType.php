@@ -143,7 +143,7 @@ class {{ form_class }} extends AbstractType
  			
  			{%- elseif field in ['media', 'media1', 'media2', 'media3', 'media4'] %}
  			
- 			->add('{{ field }}', new \PiApp\GedmoBundle\Form\MediaType($this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
+ 			->add('{{ field }}', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
 
  			{%- elseif field in ['title'] %}
  			

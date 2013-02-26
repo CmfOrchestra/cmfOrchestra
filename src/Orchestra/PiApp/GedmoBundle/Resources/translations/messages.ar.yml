@@ -51,6 +51,9 @@ pi.dashboard.menu5.newsletter: النشرة الإخبارية
 pi.dashboard.menu5.event: الحدث
 pi.dashboard.menu5.ads: الإعلانات
 
+# ENTITY :: MEDIA
+pi.media.form.field.mediadelete: العمل على إزالة وسائل الاعلام نوع %s
+
 # ENTITY :: MENU
 pi.menu.translation.title:  ترجمة القائمة
 pi.menu.form.picture: صورة

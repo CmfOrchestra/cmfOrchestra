@@ -86,6 +86,7 @@ pi.form.label.date.archivage: تاريخ الأرشيف
 pi.form.label.date.expired: تاريخ الانتهاء
 pi.form.label.media.picture: الصورة
 pi.form.label.media.file: ملف
+pi.form.label.media.download: تحميل
 
 pi.form.label.field.enabled: تمكين
 pi.form.label.field.language: اللغة
@@ -102,6 +103,7 @@ pi.form.label.field.choice: الاختيار
 pi.form.label.field.author: كاتب
 pi.form.label.field.user: مستخدم
 pi.form.label.field.name: الاسم
+pi.form.label.field.nickname: كنية
 pi.form.label.field.meta_title: العنوان الفوقية
 pi.form.label.field.meta_keywords: الكلمات الرئيسية ميتا
 pi.form.label.field.meta_description: الوصف ميتا
@@ -110,10 +112,20 @@ pi.form.label.field.adress.coordinates: الإحداثيات
 pi.form.label.field.adress.phone:  الهاتف
 pi.form.label.field.adress.fax: فاكس
 pi.form.label.field.email:  البريد الإلكتروني
+pi.form.label.field.email.perso: البريد الإلكتروني الشخصية
 pi.form.label.field.email.subject:  موضوع
 pi.form.label.field.email.body: الجسم
 pi.form.label.field.email.cc:  نسخة
 pi.form.label.field.email.bcc: مخفية
+pi.form.label.field.employment.job: شركة
+pi.form.label.field.employment.company: عمل
+pi.form.label.field.employment.activity: نشاط
+pi.form.label.field.employment.engineering: هندسة
+pi.form.label.field.social.facebook: Facebook
+pi.form.label.field.social.googleplus: GooglePlus
+pi.form.label.field.social.twitter:  Twitter
+pi.form.label.field.social.linkedin: LinkedIn
+pi.form.label.field.social.viadeo: Viadeo
 pi.form.label.select.choose.option: اختر خيارا
 pi.form.label.select.choose.options: الاختيار خيارات
 pi.form.label.select.choose.type: اختيار نوع
@@ -191,6 +203,9 @@ pi.page.form.indexable: فهرسة
 pi.page.form.tags: الكلمات
 pi.page.form.breadcrumb: التفصيلي
 pi.page.form.slug: سبيكة
+pi.page.form.field.cacheable: Returns a 304 "not modified" status, when the page has not changed since last visit.
+pi.page.form.field.public: Allows proxies to cache the same content for different visitors.
+pi.page.form.field.lifetime: Sets the full content page caching during the specified lifetime. Leave blank to not cache.
 
 # ENTITY :: WIDGET
 pi.widget.translation.title: ترجمات القطعة

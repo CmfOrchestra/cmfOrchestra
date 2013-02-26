@@ -55,9 +55,9 @@ class LangueController extends abstractController
         $em 		= $this->getDoctrine()->getEntityManager();
         $locale		= $this->container->get('session')->getLocale();
         $entities 	= $em->getRepository("PiAppAdminBundle:Langue")->findAllByEntity($locale, 'object', false);        
-
+        
         return $this->render('PiAppAdminBundle:Langue:index.html.twig', array(
-            'entities' => $entities
+            'entities' => $entities,
         ));
     }
     

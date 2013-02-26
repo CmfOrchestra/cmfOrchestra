@@ -60,7 +60,7 @@ class PiOrgChartPageManager extends PiJqueryExtension
 	 *
 	 * @author Etienne de Longeaux <etienne_delongeaux@hotmail.com>
 	 */	
-	protected function init()
+	protected function init($options = null)
 	{
 		// css
 		$this->container->get('pi_app_admin.twig.extension.layouthead')->addCssFile("bundles/piappadmin/js/orgchart/css/treepage.css");

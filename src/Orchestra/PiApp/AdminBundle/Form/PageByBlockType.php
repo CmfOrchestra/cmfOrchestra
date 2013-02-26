@@ -17,6 +17,7 @@ use Symfony\Component\Form\FormBuilder;
 
 use PiApp\AdminBundle\Repository\PageRepository;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Description of the PageByBlockType form.
@@ -28,6 +29,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class PageByBlockType extends AbstractType
 {
+
+	/**
+	 * @var \Symfony\Component\DependencyInjection\ContainerInterface
+	 */
+	protected $_container;
+	
 	/**
 	 * @var array
 	 */
@@ -39,9 +46,10 @@ class PageByBlockType extends AbstractType
 	 * @param array $roles_user
 	 * @return void
 	 */
-	public function __construct($roles_user = array('ROLE_ADMIN', 'ROLE_SUPER_ADMIN', 'ROLE_CONTENT_MANAGER'))
+	public function __construct(ContainerInterface $container, $roles_user = array('ROLE_ADMIN', 'ROLE_SUPER_ADMIN', 'ROLE_CONTENT_MANAGER'))
 	{
 		$this->_roles_user = $roles_user;
+		$this->_container 	= $container;
 	}
 		
     public function buildForm(FormBuilder $builder, array $options)
@@ -133,19 +141,22 @@ class PageByBlockType extends AbstractType
             		'read_only'	=> true,
             ))
         	->add('cacheable', 'checkbox', array(
-    				'label'     => 'Static Content?',
+    				'label'     => 'pi.page.form.cacheable',
         			'required'  => false,
-        			'help_block' => 'Returns a 304 "not modified" status, when the template has not changed since last visit.'
+        			//'help_block' => 'Returns a 304 "not modified" status, when the template has not changed since last visit.',
+        			'help_block' => $this->_container->get('translator')->trans('pi.page.form.field.cacheable'),
         	))
             ->add('public', 'checkbox', array(
-    				'label'     => 'Visitor-independant content?',
+    				'label'     => 'pi.page.form.public',
             		'required'  => false,
-            		'help_block' => 'Allows proxies to cache the same content for different visitors.'
+            		//'help_block' => 'Allows proxies to cache the same content for different visitors.'
+            		'help_block' => $this->_container->get('translator')->trans('pi.page.form.field.public'),
         	))
             ->add('lifetime', 'number', array(
-            		'label'     => 'Cache Lifetime',
+            		'label'     => 'pi.page.form.lifetime',
             		'required'  => false,
-            		'help_block' => 'Does a full content caching during the specified lifetime. Leave empty for no cache.'
+            		//'help_block' => 'Does a full content caching during the specified lifetime. Leave empty for no cache.'
+            		'help_block' => $this->_container->get('translator')->trans('pi.page.form.field.lifetime'),
             ))
             ->add('route_name')
             ->add('url')

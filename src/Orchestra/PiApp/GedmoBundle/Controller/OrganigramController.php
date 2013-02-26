@@ -108,7 +108,7 @@ class OrganigramController extends abstractController
     {
     	return parent::positionajaxAction();
     }    
-
+    
     /**
      * Delete Organigram entities.
      *
@@ -122,7 +122,7 @@ class OrganigramController extends abstractController
     public function deleteajaxAction()
     {
     	return parent::deletajaxAction();
-    }
+    }    
     
     /**
      * Archive a Organigram entity.
@@ -138,7 +138,7 @@ class OrganigramController extends abstractController
     {
     	return parent::archiveajaxAction();
     }    
-        
+
     /**
      * Finds and displays a Organigram entity.
      *
@@ -197,7 +197,7 @@ class OrganigramController extends abstractController
         	$entity->setParent($parent);
         }      
 
-        $form   = $this->createForm(new OrganigramType($em), $entity, array('show_legend' => false));
+        $form   = $this->createForm(new OrganigramType($this->container, $em), $entity, array('show_legend' => false));
         return $this->render("PiAppGedmoBundle:Organigram:$template", array(
             'entity' 	=> $entity,
             'form'   	=> $form->createView(),
@@ -226,7 +226,7 @@ class OrganigramController extends abstractController
     
         $entity  = new Organigram();
         $request = $this->getRequest();
-        $form    = $this->createForm(new OrganigramType($em), $entity, array('show_legend' => false));
+        $form    = $this->createForm(new OrganigramType($this->container, $em), $entity, array('show_legend' => false));
         $form->bindRequest($request);
 
         if ($form->isValid()) {
@@ -268,7 +268,7 @@ class OrganigramController extends abstractController
         	$entity->addTranslation(new OrganigramTranslation($locale));            
         }
 
-        $editForm   = $this->createForm(new OrganigramType($em), $entity, array('show_legend' => false));
+        $editForm   = $this->createForm(new OrganigramType($this->container, $em), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
         
         return $this->render("PiAppGedmoBundle:Organigram:$template", array(
@@ -302,7 +302,7 @@ class OrganigramController extends abstractController
         	$entity = $em->getRepository("PiAppGedmoBundle:Organigram")->find($id);
         }
 
-        $editForm   = $this->createForm(new OrganigramType($em), $entity, array('show_legend' => false));
+        $editForm   = $this->createForm(new OrganigramType($this->container, $em), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
 
         $editForm->bindRequest($this->getRequest(), $entity);
@@ -451,7 +451,14 @@ class OrganigramController extends abstractController
     	$em->getRepository("PiAppGedmoBundle:Organigram")->setRecover();
     	$result = $em->getRepository("PiAppGedmoBundle:Organigram")->verify();
     	
-    	$nodes 		= $em->getRepository("PiAppGedmoBundle:Organigram")->getAllTree($locale, $category, 'array', false, false);
+    	$node   = $this->container->get('request')->query->get('node');
+    	if(!empty($node) ){
+    		$node  = $em->getRepository("PiAppGedmoBundle:Organigram")->findNodeOr404($node, $locale,'object');
+    	}else{
+    		$node = null;
+    	}
+    	 
+    	$nodes 		= $em->getRepository("PiAppGedmoBundle:Organigram")->getAllTree($locale, $category, 'array', false, false, $node);
     	$tree		= $em->getRepository("PiAppGedmoBundle:Organigram")->buildTree($nodes, $options);
     	
     	return $this->render("PiAppGedmoBundle:Organigram:$template", array(

@@ -122,7 +122,7 @@ class PiMailerManager implements PiMailerManagerBuilderInterface
 				}
 			}
 			
-			$this->push($this->message);
+			return $this->push($this->message);
 		} catch (\Exception $e) {
 			return false;
 		}
@@ -158,7 +158,7 @@ class PiMailerManager implements PiMailerManagerBuilderInterface
 	 */
 	public function push(\Swift_Mime_Message $message)
 	{
-		$this->mailer->send($message);
+		return $this->mailer->send($message);
 	}	
 	
 	/**

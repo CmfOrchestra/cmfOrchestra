@@ -130,7 +130,7 @@ class PageCssJsController extends abstractController
     {
         $entity = new Page();
         $entity->setMetaContentType(PageRepository::TYPE_TEXT_CSS);
-        $form   = $this->createForm(new PageType(), $entity, array('show_legend' => false));
+        $form   = $this->createForm(new PageType($this->container), $entity, array('show_legend' => false));
 
         return $this->render('PiAppAdminBundle:PageCssJs:new.html.twig', array(
             'entity' => $entity,
@@ -151,7 +151,7 @@ class PageCssJsController extends abstractController
     {
         $entity  = new Page();
         $request = $this->getRequest();
-        $form    = $this->createForm(new PageType(), $entity, array('show_legend' => false));
+        $form    = $this->createForm(new PageType($this->container), $entity, array('show_legend' => false));
         $form->bindRequest($request);
 
         if ('POST' === $request->getMethod()) {
@@ -200,7 +200,7 @@ class PageCssJsController extends abstractController
             throw ControllerException::NotFoundException('Page');
         }
 
-        $editForm = $this->createForm(new PageType(), $entity, array('show_legend' => false));
+        $editForm = $this->createForm(new PageType($this->container), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
         
         return $this->render('PiAppAdminBundle:PageCssJs:edit.html.twig', array(
@@ -229,7 +229,7 @@ class PageCssJsController extends abstractController
             throw ControllerException::NotFoundException('Page');
         }
 
-        $editForm   = $this->createForm(new PageType(), $entity, array('show_legend' => false));
+        $editForm   = $this->createForm(new PageType($this->container), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();

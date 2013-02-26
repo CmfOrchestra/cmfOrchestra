@@ -13,7 +13,7 @@
           <a href="#">
             <h4 class='tt-8 tt-clr'>{{ ad.title }}</h4>
             <p>{{ ad.typology|trans }}</p>
-            <p class="txtright">le {{ ad.publishedat |date('m/y') }} par <strong>{{ ad.user }}</strong></p>
+            <p class="txtright">le {{ ad.createdat |date('m/y') }} par <strong>{{ ad.user }}</strong></p>
           </a>
         </li>
         {% endfor %}

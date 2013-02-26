@@ -13,7 +13,7 @@
 						<span class="bold tt-clr">{{ entity.translate(locale).getTitle()|replace({'<p>': '', '</p>': ''})|raw }}</span></a></p>
 				</section>
 				<footer>
-					<p><a href="{{ path_url("page_lamelee_menuwrapper_opportunites", {"locale":locale, "userID":entity.user.id}) }}">Posté par <strong>{{ entity.user }}</strong> <br/> {{ entity.publishedat|localedate('long','medium', locale, 'd LLLL y') }}</a></p>
+					<p><a href="{{ path_url("page_lamelee_menuwrapper_opportunites", {"locale":locale, "userID":entity.user.id}) }}">Posté par <strong>{{ entity.user }}</strong> <br/> {{ entity.createdat|localedate('long','medium', locale, 'd LLLL y') }}</a></p>
 				</footer>
 			</div>
 		</aside>

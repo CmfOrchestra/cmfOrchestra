@@ -45,7 +45,7 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
 	 *
 	 * @author Etienne de Longeaux <etienne_delongeaux@hotmail.com>
 	 */	
-	protected function init() {
+	protected function init($options = null) {
 		
 		// radio and checkbox managment
 		$this->container->get('pi_app_admin.twig.extension.layouthead')->addCssFile("bundles/piappadmin/css/themes/wijmo/jquery.wijmo.wijsuperpanel.css");
@@ -329,6 +329,7 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
 
 										        $(prototype_widget + " .pi_datetimepicker").wijinputdate({
 								            		showTrigger: true,
+								            		culture: '<?php echo str_replace("_", "-", $this->locale); ?>',
 								            		dateFormat: 'g'
 										        });
 

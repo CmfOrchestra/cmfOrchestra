@@ -57,6 +57,7 @@ class LangueType extends AbstractType
             		"attr" => array(
             				"class"=>"pi_simpleselect",
             		),
+            		'read_only'	=> true,
             ))
             ->add('label')
         ;

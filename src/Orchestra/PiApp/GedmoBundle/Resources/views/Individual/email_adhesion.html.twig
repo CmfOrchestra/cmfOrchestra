@@ -1,11 +1,11 @@
 {% block subject %}
 {% autoescape false %}
-{{ 'pi.individual.form.adhesion.email.subject'|replace({'<p>': '', '</p>': ''})|trans }}
+{{ 'pi.individual.form.adhesion.email.subject'|trans|striptags }}
 {% endautoescape %}
 {% endblock %}
 {% block body %}
 {% autoescape false %}
-{{ 'pi.individual.form.adhesion.email.body'|trans({'%login%': form.UserName, '%password%': password, '%name%': form.Name, '%nickname%': form.Nickname}) }}
+{{ 'pi.individual.form.adhesion.email.body'|trans({'%login%': form.UserName, '%password%': password, '%name%': form.Name|capitalize, '%nickname%': form.Nickname|capitalize}) }}
 {% endautoescape %}
 {% endblock %}
 {% block body_html %}{% endblock %}

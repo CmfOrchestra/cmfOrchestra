@@ -441,12 +441,10 @@ class NewsController extends abstractController
     	else
     		$page 	= 1;
     	 
-    	$paginator 			= $this->container->get('knp_paginator');
     	$query_pagination	= $em->getRepository("PiAppGedmoBundle:News")->getAllByCategory('', null, $order)->getQuery();
-    	
-    	$count = count($query_pagination->getArrayResult());
-    	$query_pagination->setHint('knp_paginator.count', $count);
+    	$count 				= count($query_pagination->getArrayResult());
     	 
+    	$paginator	= $this->container->get('knp_paginator');
     	$pagination = $paginator->paginate(
     			$query_pagination,
     			$page,	/*page number*/
@@ -455,7 +453,7 @@ class NewsController extends abstractController
     	 
     	$query_pagination->setFirstResult(($page-1)*$MaxResults);
     	$query_pagination->setMaxResults($MaxResults);
-    	$entities			= $em->getRepository("PiAppGedmoBundle:News")->findTranslationsByQuery($lang, $query_pagination, 'object', false);
+    	$entities	= $em->getRepository("PiAppGedmoBundle:News")->findTranslationsByQuery($lang, $query_pagination, 'object', false);
     	 
     	return $this->render("PiAppGedmoBundle:News:$template", array(
     			'entities'		=> $entities,
