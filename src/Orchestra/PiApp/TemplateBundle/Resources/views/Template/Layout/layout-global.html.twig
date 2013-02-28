@@ -1,6 +1,7 @@
 {% from getParameter('pi_app_admin.layout.template.flash') import session_flash %}
 {% from getParameter('pi_app_admin.layout.template.flash') import session_flash_frontoffice %}
 {% initJquery 'SESSION:flash:fancybox' %}
+{% initJquery 'SESSION:flash:wijmo' %}
 {% if is_granted('ROLE_USER') %}
 	{%  initJquery 'MENU:org-chart-page' %}
 	{%  initJquery 'MENU:context-menu' %}

@@ -79,11 +79,13 @@ pi.form.tab.box.add: Ajouter
 pi.form.tab.box.cancel: Annuler
 pi.form.title.default.create: Formulaire de création
 pi.form.title.default.update: Formulaire de modification
+
 pi.form.label.date.publication: Date de publication
 pi.form.label.date.creation: Date de création
 pi.form.label.date.updating: Date de modification
 pi.form.label.date.archivage: Date d'archivage
 pi.form.label.date.expired: Date d'expiration
+
 pi.form.label.media.picture: Image
 pi.form.label.media.file: Fichier
 pi.form.label.media.download: Télécharger
@@ -96,36 +98,79 @@ pi.form.label.field.subtitle: Sous-titre
 pi.form.label.field.description: Description
 pi.form.label.field.content: Contenu
 pi.form.label.field.content.detail: Détail du contenu
+pi.form.label.field.website: Site web
 pi.form.label.field.url: Lien
 pi.form.label.field.blank: Lien HTML vierge
 pi.form.label.field.or: Ou
 pi.form.label.field.choice: Choix
 pi.form.label.field.author: Auteur
 pi.form.label.field.user: Utilisateur
+pi.form.label.field.civility: Civilité
+pi.form.label.field.profile: Profil
 pi.form.label.field.name: Nom
 pi.form.label.field.nickname: Prénom
+pi.form.label.field.other: Autre
+pi.form.label.field.sponsor: Sponsor
+
 pi.form.label.field.meta_title: Titre meta
 pi.form.label.field.meta_keywords: Mots-clés meta
 pi.form.label.field.meta_description: Description meta
+
 pi.form.label.field.adress.main: Adresse
 pi.form.label.field.adress.coordinates: Coordonnées
 pi.form.label.field.adress.phone: Téléphone
 pi.form.label.field.adress.fax: Fax
+pi.form.label.field.adress.cp: Code postal
+pi.form.label.field.adress.city: Ville
+pi.form.label.field.adress.country: Pays
+
 pi.form.label.field.email: E-mail
 pi.form.label.field.email.perso: E-mail personnelle
 pi.form.label.field.email.subject: Objet
 pi.form.label.field.email.body: Corps
 pi.form.label.field.email.cc: Cc
 pi.form.label.field.email.bcc: Cci
+
 pi.form.label.field.employment.job: Emploi
 pi.form.label.field.employment.company: Entreprise
 pi.form.label.field.employment.activity: Activité
 pi.form.label.field.employment.engineering: Ingénierie
+
+pi.form.label.field.corporation.name: Nom de la société
+pi.form.label.field.corporation.name.commercial: Nom commercial de la société
+pi.form.label.field.corporation.activity: Activité
+pi.form.label.field.corporation.engineering: Ingénierie
+pi.form.label.field.corporation.detailactivity: Détail de l'activité
+pi.form.label.field.corporation.legalform: Forme juridique
+pi.form.label.field.corporation.effectif.national: Effective national
+pi.form.label.field.corporation.effectif.regional: Effective régional
+pi.form.label.field.corporation.code.naf: Code NAF
+pi.form.label.field.corporation.siret: SIRET
+pi.form.label.field.corporation.ca.national: CA national
+pi.form.label.field.corporation.argument.commercial: Argument compmecial
+pi.form.label.field.corporation.expertise: Expertise
+pi.form.label.field.corporation.speaker: Conférencier
+pi.form.label.field.corporation.origin.contact: Origine de contact
+pi.form.label.field.corporation.origin.contact.sponsor: Origine de contact du sponsor
+
 pi.form.label.field.social.facebook: Facebook
 pi.form.label.field.social.googleplus: GooglePlus
 pi.form.label.field.social.twitter:  Twitter
 pi.form.label.field.social.linkedin: LinkedIn
 pi.form.label.field.social.viadeo: Viadeo
+
+pi.form.label.field.scoopit.id: Identifiant scoop-it
+pi.form.label.field.scoopit.format: Format
+pi.form.label.field.scoopit.format.full.image: Image pleine
+pi.form.label.field.scoopit.format.with.description: Avec descriptif
+pi.form.label.field.scoopit.number: Nombre de slide
+pi.form.label.field.scoopit.title: Titre
+pi.form.label.field.scoopit.mode: Slider
+pi.form.label.field.scoopit.mode.dynamic: Dynamique
+pi.form.label.field.scoopit.mode.static: statique
+pi.form.label.field.scoopit.speed: Vitesse
+pi.form.label.field.scoopit.width: Largeur
+
 pi.form.label.select.choose.option: Choisissez une option
 pi.form.label.select.choose.options: Sélectionnez les options
 pi.form.label.select.choose.type: Choisissez un type
@@ -141,18 +186,18 @@ pi.footer.copyright: Tous droits réservés
 
 # session flash
 pi.session.flash.title: Un message de confirmation 
-pi.session.flash.form.errors: Vous avez des erreurs de validation !!!
+pi.session.flash.form.errors: Vous avez des erreurs de validation !
 pi.session.flash.welcom: Bienvenue! Vous vous êtes connecté avec succès.
-pi.session.flash.right.undelete: Vous n'avez pas les droits de suppression !!! Veuillez contacter votre administrateur.
+pi.session.flash.right.undelete: Vous n'avez pas les droits de suppression ! Veuillez contacter votre administrateur.
 pi.session.flash.right.delete: Vous avez supprimé le champs avec succès!
-pi.session.flash.right.unupdate: Vous n'avez pas les droits de modification !!! Veuillez contacter votre administrateur.
-pi.session.flash.right.update: Les informations ont été mises à jour !!!
-pi.session.flash.right.uncreate: Vous n'avez pas les droits de création !!! Veuillez contacter votre administrateur.
-pi.session.flash.right.create: Le nouvel élément a été créé !!!
+pi.session.flash.right.unupdate: Vous n'avez pas les droits de modification ! Veuillez contacter votre administrateur.
+pi.session.flash.right.update: Les informations ont été mises à jour !
+pi.session.flash.right.uncreate: Vous n'avez pas les droits de création ! Veuillez contacter votre administrateur.
+pi.session.flash.right.create: Le nouvel élément a été créé !
 pi.session.flash.right.anonymous: En tant qu'utilisateur anonyme, vous n'avez pas les droits de suppression.
-pi.session.flash.right.homepage.undelete: Vous n'avez pas la permission de supprimer la Home Page !!!
-pi.session.flash.right.homepage.notchange:  Vous n'avez pas la permission de modifier le Route de la Home Page !!!
-pi.session.flash.right.page.management_by_user_only: Vous n'avez pas la permission de manager cette page !!!
+pi.session.flash.right.homepage.undelete: Vous n'avez pas la permission de supprimer la Home Page !
+pi.session.flash.right.homepage.notchange:  Vous n'avez pas la permission de modifier le Route de la Home Page !
+pi.session.flash.right.page.management_by_user_only: Vous n'avez pas la permission de manager cette page !
 pi.session.flash.page.slug.exist: L'adresse {{ url }} existe déjà !
 pi.session.flash.page.notexist: vous n'avez pas appelé une page qui existe !
 pi.session.flash.page.notpermission: vous n'avez pas la permission d'accéder à cette page!

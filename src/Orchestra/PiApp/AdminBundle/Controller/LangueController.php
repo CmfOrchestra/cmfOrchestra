@@ -199,7 +199,7 @@ class LangueController extends abstractController
         	$entity->addTranslation(new LangueTranslation($locale));
         }        
 
-        $editForm = $this->createForm(new LangueType($locale), $entity, array('show_legend' => false));
+        $editForm = $this->createForm(new LangueType($locale, true), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
         
         return $this->render('PiAppAdminBundle:Langue:edit.html.twig', array(
@@ -228,7 +228,7 @@ class LangueController extends abstractController
         	$entity = $em->getRepository("PiAppAdminBundle:Langue")->find($id);
         }        
 
-        $editForm   = $this->createForm(new LangueType($locale), $entity);
+        $editForm   = $this->createForm(new LangueType($locale, true), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
         $editForm->bindRequest($request = $this->getRequest(), $entity);

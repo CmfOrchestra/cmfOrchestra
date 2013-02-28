@@ -304,6 +304,7 @@
 		</div>
 	</div>
    {% else %}
+   <div class="clearfix">
    <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
         {% if empty_value is not none %}
             <option value="">{{ empty_value|trans }}</option>
@@ -318,6 +319,7 @@
         {% set options = choices %}
         {{ block('widget_choice_options') }}
    </select>
+   </div>
    {% endif %}
 {% endspaceless %}
 {% endblock choice_widget %}

@@ -80,10 +80,13 @@ class FrontendController extends BaseController
 	 */
 	public function pageAction()
 	{
+		$route   = $this->container->get('request')->get('route_name');
+
 		// we get the page manager
 		$pageManager  	= $this->get('pi_app_admin.manager.page');
 		// we get the route name
-		$route = $this->container->get('request')->get('_route');
+		if(empty($route))
+			$route = $this->container->get('request')->get('_route');
 		// we set the object Translation Page by route
 		$pageManager->setPageByRoute($route);
 		// we return the render (cache or not)

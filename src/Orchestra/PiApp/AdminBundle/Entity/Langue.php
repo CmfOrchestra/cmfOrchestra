@@ -14,8 +14,8 @@ namespace PiApp\AdminBundle\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
-
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 use BootStrap\TranslationBundle\Model\AbstractTranslation;
 
@@ -26,6 +26,7 @@ use BootStrap\TranslationBundle\Model\AbstractTranslation;
  * @ORM\Entity(repositoryClass="PiApp\AdminBundle\Repository\LangueRepository")
  * @ORM\HasLifecycleCallbacks()
  * @Gedmo\TranslationEntity(class="PiApp\AdminBundle\Entity\Translation\LangueTranslation")
+ * @UniqueEntity("id")
  * 
  * @category   Admin_Entities
  * @package    Entity
@@ -60,7 +61,7 @@ class Langue extends AbstractTranslation
     /**
      * @var string $id
      *
-     * @ORM\Column(name="id", type="string", length=5, nullable=false)
+     * @ORM\Column(name="id", type="string", length=5, nullable=false, unique=true)
      * @ORM\Id
      */
     protected $id;

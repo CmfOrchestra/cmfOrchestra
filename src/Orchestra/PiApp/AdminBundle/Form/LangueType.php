@@ -31,19 +31,30 @@ class LangueType extends AbstractType
 	protected $_locale;
 	
 	/**
+	 * @var string
+	 */
+	protected $_isEdit;	
+	
+	/**
 	 * Constructor.
 	 *
 	 * @param \Doctrine\ORM\EntityManager $em
 	 * @param string	$locale
 	 * @return void
 	 */
-	public function __construct($locale)
+	public function __construct($locale, $isEdit = false)
 	{
 		$this->_locale	= $locale;
+		$this->_isEdit	= $isEdit;
 	}
 		
     public function buildForm(FormBuilder $builder, array $options)
     {
+    	if($this->_isEdit)
+    		$read_only = true;
+    	else
+    		$read_only = false;
+    	    	
         $builder
         	->add('enabled', 'checkbox', array(
             		'data'  => true,
@@ -57,7 +68,7 @@ class LangueType extends AbstractType
             		"attr" => array(
             				"class"=>"pi_simpleselect",
             		),
-            		'read_only'	=> true,
+            		'read_only'	=> $read_only,
             ))
             ->add('label')
         ;

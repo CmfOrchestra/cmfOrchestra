@@ -1122,7 +1122,9 @@ class PiStringManager implements PiStringManagerBuilderInterface
 		if(in_array($file, $all_files))
 			$all_countries =  get_object_vars(json_decode(file_get_contents(realpath($path.'/'.$file))));
 		else
-			$all_countries =  get_object_vars(json_decode(file_get_contents(realpath($path.'/en_country.json'))));	
+			$all_countries =  get_object_vars(json_decode(file_get_contents(realpath($path.'/en_country.json'))));
+
+		asort($all_countries);
 		
 		if($strtolowerKeys){
 			$news_key = array_map(function($key) {

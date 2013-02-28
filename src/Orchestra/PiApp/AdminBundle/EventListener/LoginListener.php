@@ -124,7 +124,7 @@ class LoginListener
 		$this->dispatcher->addListener(KernelEvents::RESPONSE, array($this, 'onKernelResponse'));
 		
 		// Return the success connecion flash message.		
-		//$this->setFlash($this->getSession(), $this->getUser()->getUsername());		
+		$this->getSession()->setFlash('empty', "");
 	}	
 	
 	/**
@@ -320,18 +320,14 @@ class LoginListener
 	/**
 	 * Sets the welcome flash message.
 	 *
-	 * @param Symfony\Component\HttpFoundation\Session $session
-	 * @param string $username
-	 * 
 	 * @return void
 	 * @access protected
 	 *
 	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
 	 */	
-	protected function setFlash($session, $username)
+	protected function setFlash()
 	{
-		$session->setFlash('notice', "pi.session.flash.welcom");
-		//$session->setFlash('success', "Mrs/Mlle " . ucfirst($username));
+		$this->getSession()->setFlash('notice', "pi.session.flash.welcom");
 	}	
 	
 	/**

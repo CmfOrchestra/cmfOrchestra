@@ -57,7 +57,7 @@ class MaxEntitiesByQueryValidator extends ConstraintValidator
         $max		= $constraint->max;
         
         // if there is already an entity
-        if( ($entities != null) && !empty($value) && (count($entities) >= $max) ){
+        if( ($entities != null) && !empty($value) && (count($entities) > $max) ){
             // the constraint does not pass
             $this->setMessage($this->container->get('translator')->trans($constraint->message));
             return false;
