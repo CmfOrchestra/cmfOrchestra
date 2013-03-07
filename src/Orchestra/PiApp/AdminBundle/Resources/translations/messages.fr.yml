@@ -47,6 +47,7 @@ pi.grid.action.update: Modifier
 pi.grid.action.save: Sauvegarder
 pi.grid.action.delete: Supprimer
 pi.grid.action.create: Créer
+pi.grid.action.validate: Valider
 pi.grid.action.back-to-the-list: Retour à la liste
 pi.grid.action.add-tab: Ajouter onglet
 pi.grid.action.copy: Copie presse-papiers

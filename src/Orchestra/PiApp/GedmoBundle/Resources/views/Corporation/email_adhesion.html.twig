@@ -5,7 +5,7 @@
 {% endblock %}
 {% block body %}
 {% autoescape false %}
-{{ 'pi.corporation.form.adhesion.email.body'|trans({'%login%': form.UserName, '%password%': password, '%name%': form.Name|capitalize, '%nickname%': form.Nickname|capitalize}) }}
+{{ 'pi.corporation.form.adhesion.email.body'|trans({'%login%': form.UserName, '%password%': password, '%confirmationUrl%': confirmationUrl, '%name%': form.Name|capitalize, '%nickname%': form.Nickname|capitalize})|raw }}
 {% endautoescape %}
 {% endblock %}
 {% block body_html %}{% endblock %}

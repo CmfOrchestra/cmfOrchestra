@@ -14,7 +14,9 @@ namespace PiApp\AdminBundle\Manager;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response as Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\SecurityContext;
+use FOS\UserBundle\Model\UserInterface;
 
 use PiApp\AdminBundle\Builder\PiTreeManagerBuilderInterface;
 use PiApp\AdminBundle\Manager\PiCoreManager;
@@ -30,6 +32,8 @@ use PiApp\AdminBundle\Entity\Widget;
  */
 class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuilderInterface 
 {    
+	const SESSION_EMAIL = 'fos_user_send_resetting_email/email';
+	
 	/**
 	 * Constructor.
 	 *
@@ -65,6 +69,9 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
 		else
 			$this->recursive_map($params);
 		
+		if(empty($lang))
+			$lang		= $this->container->get('session')->getLocale();
+		
 		$params['locale']	= $lang;
 		
 		if($method == "_connexion_default")
@@ -91,17 +98,29 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
 		else 
 			$template = "PiAppTemplateBundle:Template\\Login\\Security:login.html.twig";
 		
+		if(empty($params['locale']))
+			$params['locale']		= $this->container->get('session')->getLocale();		
+		
 		$em	  	 = $this->container->get('doctrine')->getEntityManager();		
 		$request = $this->container->get('request');
         $session = $request->getSession();
         
+        //$this->container->get('session')->remove('referer_redirection');
+        //print_r($referer_url = $this->container->get('session')->get('referer_redirection'));
+        
+        if(isset($params['referer_redirection']) && !empty($params['referer_redirection']) && ($params['referer_redirection'] == "true")){
+	        $referer_url = $this->container->get('request')->headers->get('referer');
+        }else{
+        	$referer_url = "";
+        }      
+        
         // get the error if any (works with forward and redirect -- see below)
         if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
             $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
-        } elseif (null !== $session && $session->has(SecurityContext::AUTHENTICATION_ERROR)) {
+        }elseif(null !== $session && $session->has(SecurityContext::AUTHENTICATION_ERROR)) {
             $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
             $session->remove(SecurityContext::AUTHENTICATION_ERROR);
-        } else {
+        }else{
             $error = '';
         }
 
@@ -117,9 +136,10 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
             'last_username' => $lastUsername,
             'error'         => $error,
             'csrf_token' 	=> $csrfToken,
+        	'referer_url'   => $referer_url,
         ));
         
-        $this->container->get('session')->setFlashes(array());
+        $this->container->get('session')->clearFlashes();
         return $response->getContent();
 	}
 	
@@ -140,9 +160,9 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
 			throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException(sprintf('The user with "confirmation token" does not exist for value "%s"', $token));
 		}
 	
-		if (!$user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
-			return new \Symfony\Component\HttpFoundation\RedirectResponse($this->container->get('router')->generate('fos_user_resetting_request'));
-		}
+// 		if (!$user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
+// 			return new \Symfony\Component\HttpFoundation\RedirectResponse($this->container->get('router')->generate('fos_user_resetting_request'));
+// 		}
 	
 		$form 			= $this->container->get('fos_user.resetting.form');
 		$formHandler 	= $this->container->get('fos_user.resetting.form.handler');
@@ -152,15 +172,16 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
             $response = new \Symfony\Component\HttpFoundation\RedirectResponse($this->container->get('router')->generate('home_page'));
             $this->authenticateUser($user, $response);
 
-            $this->container->get('session')->setFlashes(array());
+            $this->container->get('session')->clearFlashes();
 			return $response;
 		}
 		
-		$this->container->get('session')->setFlashes(array());
+		$this->container->get('session')->clearFlashes();
 		return $this->container->get('templating')->renderResponse($template, array(
 				'token' => $token,
 				'form' => $form->createView(),
 				'theme' => $this->container->getParameter('fos_user.template.theme'),
+				'route' => $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('_route', $this->container->get('session')->getLocale())
 		))->getContent();
 	}	
 	
@@ -182,5 +203,38 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
 			// checker (not enabled, expired, etc.).
 		}
 	}	
+	
+	/**
+	 * Send mail to reset user password
+	 */	
+    public function sendResettingEmailMessage(UserInterface $user, $route_reset_connexion)
+    {
+    	$user->generateConfirmationToken();
+    	$this->container->get('session')->set(static::SESSION_EMAIL, $this->getObfuscatedEmail($user));
+    	
+    	$url 	  = $this->container->get('bootstrap.RouteTranslator.factory')->getRoute($route_reset_connexion, array('token' => $user->getConfirmationToken()));
+    	$html_url = 'http://'.$this->container->get('Request')->getHttpHost() . $this->container->get('Request')->getBasePath().$url;
+    	$html_url = "<a href='$html_url'>" . $html_url . "</a>";
+    	return $html_url;
+    }	
+    
+    /**
+     * Get the truncated email displayed when requesting the resetting.
+     *
+     * The default implementation only keeps the part following @ in the address.
+     *
+     * @param \FOS\UserBundle\Model\UserInterface $user
+     *
+     * @return string
+     */
+    protected function getObfuscatedEmail(UserInterface $user)
+    {
+    	$email = $user->getEmail();
+    	if (false !== $pos = strpos($email, '@')) {
+    		$email = '...' . substr($email, $pos);
+    	}
+    
+    	return $email;
+    }    
 	
 }

@@ -42,6 +42,212 @@ use BootStrap\UserBundle\Entity\User;
 class AdherantController extends abstractController
 {
 	/**
+	 * List all members entities.
+	 *
+	 * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
+	 * @Route("/admin/gedmo/adherent/subscribers", name="admin_gedmo_list_adherent")
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 *
+	 * @access	public
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+	 */
+	public function membersAction()
+	{
+		$em 		= $this->getDoctrine()->getEntityManager();
+	
+		if(empty($lang))
+			$lang	= $this->container->get('session')->getLocale();
+		
+		$category   = $this->container->get('request')->query->get('category');
+		$NoLayout   = $this->container->get('request')->query->get('NoLayout');
+		if(!$NoLayout) 	$template = "adherent.html.twig"; else $template = "adherent.html.twig";		
+	
+   		$query_individuals		= $em->getRepository("PiAppGedmoBundle:Individual")->getAllByCategory("", null, "DESC");
+   		$query_individuals
+   			  ->andWhere("a.ArgumentActivity IS NOT NULL");
+   		$entities_individuals   = $em->getRepository("PiAppGedmoBundle:Individual")->findTranslationsByQuery($lang, $query_individuals->getQuery(), 'object', false);
+   		
+  		$query_companies		= $em->getRepository("PiAppGedmoBundle:Corporation")->getAllByCategory("", null, "DESC");
+   		$entities_companies     = $em->getRepository("PiAppGedmoBundle:Corporation")->findTranslationsByQuery($lang, $query_companies->getQuery(), 'object', false);
+   		
+   		$results 	= array();
+   		$publish 	= array();
+   		$entities	= array_merge($entities_individuals, $entities_companies);
+   		if(count($entities) >= 1){
+   			foreach($entities as $key => $result){
+   				if($result instanceof \PiApp\GedmoBundle\Entity\Individual)
+   					$results[$key]['type']		= "Individual";
+   				elseif($result instanceof \PiApp\GedmoBundle\Entity\Corporation)
+   					$results[$key]['type']		= "Corporation";
+   				
+   				$results[$key]['entity'] 		= $result;
+   				$results[$key]['publishedat']	= $result->getCreatedAt();
+   				$results[$key]['tri'] 			= $result->getCreatedAt()->getTimestamp();
+   			}
+   		}
+   		 
+   		// we create the pagination
+   		if(count($results) >= 1){
+   			foreach($results as $key => $result){
+   				$publish[$key]  = $result['tri'];
+   			}
+   			array_multisort($publish, SORT_DESC, $results);
+   		}   		
+     		
+		return $this->render("PiAppGedmoBundle:Adherant:$template", array(
+				'entities' 	=> $results,
+				'locale'   	=> $lang,
+				'NoLayout'	=> $NoLayout,
+				'category'	=> $category,
+		));
+	}
+	
+	/**
+	 * enabled payment status Individual/corporation entities.
+	 *
+	 * @Route("/admin/gedmo/adherent/enabledpaymentstatus", name="admin_gedmo_adherent_enabledpaymentstatus_ajax")
+	 * @Secure(roles="ROLE_USER")
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 *
+	 * @access  public
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+	 */
+	public function enabledpaymentstatusajaxAction()
+	{
+		$request = $this->container->get('request');
+    	$em		 = $this->getDoctrine()->getEntityManager();
+    	
+    	if($request->isXmlHttpRequest()){
+    		$data		= $request->get('data', null);
+    		$new_data	= null;    		
+    		   		
+    		foreach ($data as $key => $value) {
+    			$values 	= explode('_', $value);
+    			$id	    	= $values[2];
+    			$type		= $values[1];
+    			$position	= $values[0];   			
+
+    			$new_data[$key] = array('position'=>$position, 'id'=>$id, 'type'=>$type);
+    			$new_pos[$key]  = $position;
+    		}
+    		array_multisort($new_pos, SORT_ASC, $new_data);
+    		
+    		krsort($new_data);
+    		foreach ($new_data as $key => $value) {
+    			if($value['type'] == "Corporation"){
+    				$entity = $em->getRepository("PiAppGedmoBundle:Corporation")->find($value['id']);
+    			}else{
+    				$entity = $em->getRepository("PiAppGedmoBundle:Individual")->find($value['id']);
+    			}
+    			$entity->setPaymentstatus(true);
+    			$entity->getUser()->setRoles(array('ROLE_MEMBER'));
+    			
+    			$em->persist($entity);
+    			$em->flush();
+    			
+    			//send mail
+    			$templateFile = "PiAppGedmoBundle:Adherant:email_confirmation_inscription_adherent.html.twig";
+    			$templateContent = $this->get('twig')->loadTemplate($templateFile);
+    			$subject = ($templateContent->hasBlock("subject")
+    					? $templateContent->renderBlock("subject", array(
+    							'form'	  => $entity
+    					))
+    					: "Default subject here");
+    			$body = ($templateContent->hasBlock("body")
+    					? $templateContent->renderBlock("body", array(
+    							'form'	  => $entity
+    					))
+    					: "Default body here");
+    			$query		= $em->getRepository("PiAppGedmoBundle:Contact")->getAllByFields(array('enabled'=>true), 1, '', 'ASC');
+    			$query->leftJoin('a.category', 'c')
+    			->andWhere("c.id = :catID")
+    			->setParameter('catID', 22);
+    			$entity_cat = current($em->getRepository("PiAppGedmoBundle:Contact")->findTranslationsByQuery($this->container->get('session')->getLocale(), $query->getQuery(), "object", false));
+				if($entity_cat instanceof \PiApp\GedmoBundle\Entity\Contact)
+					$this->get("pi_app_admin.mailer_manager")->send($entity_cat->getEmail(), $entity->getEmail(), $subject, $body, $entity_cat->getEmailCc(), $entity_cat->getEmailBcc());
+				else
+					$this->get("pi_app_admin.mailer_manager")->send("confirmationadhesion@gmail.com", $user_email, $subject, $body);
+    		}
+    		$em->clear();
+
+    		// we disable all flash message
+    		$this->container->get('session')->clearFlashes();
+    		
+    		$tab= array();
+    		$tab['id'] = '-1';
+    		$tab['error'] = '';
+    		$tab['fieldErrors'] = '';
+    		$tab['data'] = '';
+    		 
+    		$response = new Response(json_encode($tab));
+    		$response->headers->set('Content-Type', 'application/json');
+    		return $response;    		
+    	}else
+    		throw ControllerException::callAjaxOnlySupported('enabledajax');
+	}	
+	
+	/**
+	 * disable payment status Individual/corporation entities.
+	 *
+	 * @Route("/admin/gedmo/adherent/disablepaymentstatus", name="admin_gedmo_adherent_disablepaymentstatus_ajax")
+	 * @Secure(roles="ROLE_USER")
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 *
+	 * @access  public
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+	 */
+	public function disablepaymentstatusajaxAction()
+	{
+		$request = $this->container->get('request');
+		$em		 = $this->getDoctrine()->getEntityManager();
+		 
+		if($request->isXmlHttpRequest()){
+			$data		= $request->get('data', null);
+			$new_data	= null;
+				
+			foreach ($data as $key => $value) {
+				$values 	= explode('_', $value);
+				$id	    	= $values[2];
+				$type		= $values[1];
+				$position	= $values[0];
+	
+				$new_data[$key] = array('position'=>$position, 'id'=>$id, 'type'=>$type);
+				$new_pos[$key]  = $position;
+			}
+			array_multisort($new_pos, SORT_ASC, $new_data);
+	
+			krsort($new_data);
+			foreach ($new_data as $key => $value) {
+				if($value['type'] == "Corporation")
+					$entity = $em->getRepository("PiAppGedmoBundle:Corporation")->find($value['id']);
+				else
+					$entity = $em->getRepository("PiAppGedmoBundle:Individual")->find($value['id']);
+				
+				$entity->setPaymentstatus(false);
+				$entity->getUser()->setRoles(array('ROLE_SUBSCRIBER'));
+				
+				$em->persist($entity);
+				$em->flush();
+			}
+			$em->clear();
+	
+			// we disable all flash message
+			$this->container->get('session')->clearFlashes();
+	
+			$tab= array();
+			$tab['id'] = '-1';
+			$tab['error'] = '';
+			$tab['fieldErrors'] = '';
+			$tab['data'] = '';
+			 
+			$response = new Response(json_encode($tab));
+			$response->headers->set('Content-Type', 'application/json');
+			return $response;
+		}else
+			throw ControllerException::callAjaxOnlySupported('enabledajax');
+	}	
+		
+	/**
      * Template : Finds and displays a list of Individual entity.
      * 
      * @return \Symfony\Component\HttpFoundation\Response
@@ -153,7 +359,7 @@ class AdherantController extends abstractController
     		}
     		
     		// we disable all flash message
-    		$this->container->get('session')->setFlashes(array());
+    		$this->container->get('session')->clearFlashes();
     		
     		return $this->render("PiAppGedmoBundle:Adherant:_template_adherant_detail.html.twig", array(
     				'entity' => $entity,

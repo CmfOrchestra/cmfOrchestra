@@ -44,7 +44,7 @@ class Individual extends AbstractDefault
 	 * @var array
 	 * @access  protected
 	 */
-	protected $_fields	= array('DetailActivity', 'ArgumentCommercial');
+	protected $_fields	= array('DetailActivity', 'ArgumentActivity');
 
 	/**
 	 * Name of the Translation Entity
@@ -152,7 +152,7 @@ class Individual extends AbstractDefault
      *
      * @ORM\Column(name="email", type="string", nullable = true)
      * @Assert\NotBlank()
-     * @Assert\Email()
+     * @Assert\Email(message="erreur.lamelee.mail.existed")
      */
     protected $Email;
     
@@ -322,6 +322,13 @@ class Individual extends AbstractDefault
     protected $Viadeo;
     
     /**
+     * @var boolean $paymentstatus
+     *
+     * @ORM\Column(name="paymentstatus", type="boolean", nullable=false)
+     */
+    protected $paymentstatus = false; 
+    
+    /**
      * Constructor
      */    
     public function __construct()
@@ -338,7 +345,7 @@ class Individual extends AbstractDefault
      */    
     public function __toString()
     {
-    	return (string) $this->getTradeName();
+    	return (string) $this->getNickname() . ' ' . $this->getName();
     }    
     
 	/**
@@ -1021,4 +1028,26 @@ class Individual extends AbstractDefault
     {
     	return $this->Viadeo;
     }   
+    
+    /**
+     * Set payment status
+     *
+     * @param string $paymentstatus
+     * @return this
+     */
+    public function setPaymentstatus($paymentstatus)
+    {
+    	$this->paymentstatus = $paymentstatus;
+    	return $this;
+    }
+    
+    /**
+     * Get payment status
+     *
+     * @return string
+     */
+    public function getPaymentstatus()
+    {
+    	return $this->paymentstatus;
+    }
 }

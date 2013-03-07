@@ -6,7 +6,7 @@
 
 {% block body %}
 {% autoescape false %}
-{{ 'pi.ads.form.email.body'|trans({'%annonce%':ads.title, '%name%': form.name|capitalize, '%nickname%': form.nickname|capitalize, '%email%':form.email, '%message%':form.descriptif}) }}
+{{ 'pi.ads.form.email.body'|trans({'%annonce%':ads.title, '%name%': form.name|capitalize, '%nickname%': form.nickname|capitalize, '%email%':form.email, '%message%':form.descriptif})|raw }}
 {% endautoescape %}
 {% endblock %}
 {% block body_html %}{% endblock %}

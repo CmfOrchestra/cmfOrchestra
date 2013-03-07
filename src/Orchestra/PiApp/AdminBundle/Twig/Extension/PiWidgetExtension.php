@@ -168,7 +168,10 @@ class PiWidgetExtension extends \Twig_Extension
 		/////////// USER WIDGET
 		$source .=  "		<user>\n";
 		$source .=  "			<controller>BootStrapUserBundle:User:_connexion_default</controller>\n";
-		$source .=  "			<template>FOSUserBundle:Security:login.html.twig</template>\n";
+		$source .=  "			<params>\n";
+		$source .=  "				<template>FOSUserBundle:Security:login.html.twig</template>\n";
+		$source .=  "				<referer_redirection>true</referer_redirection>\n";
+		$source .=  "			</params>\n";
 		$source .=  "		</user>\n";
 				
 		/////////// CONTENT WIDGET

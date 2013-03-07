@@ -1,6 +1,6 @@
 {% block subject %}
 {% autoescape false %}
-{{ 'resetting.email.subject'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}, 'FOSUserBundle')|raw }}
+{{ 'resetting.email.subject'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}, 'FOSUserBundle')|striptags }}
 {% endautoescape %}
 {% endblock %}
 {% block body_text %}

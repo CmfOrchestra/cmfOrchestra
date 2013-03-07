@@ -1,13 +1,11 @@
 {% block subject %}
 {% autoescape false %}
-{{ 'pi.individual.form.adhesion.email.subject'|trans|striptags }}
+{{ 'pi.individual.form.lamelee.email.subject'|trans|striptags }}
 {% endautoescape %}
 {% endblock %}
 {% block body %}
 {% autoescape false %}
-{{ 'pi.individual.form.adhesion.email.body'|trans({'%login%': form.UserName, '%password%': password, '%name%': form.Name|capitalize, '%nickname%': form.Nickname|capitalize}) }}
+{{ 'pi.individual.form.lamelee.email.body'|trans({'%login%': form.UserName, '%password%': password, '%confirmationUrl%': confirmationUrl, '%name%': form.Name|capitalize, '%nickname%': form.Nickname|capitalize})|raw }}
 {% endautoescape %}
 {% endblock %}
 {% block body_html %}{% endblock %}
-
-

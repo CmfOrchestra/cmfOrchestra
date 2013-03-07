@@ -1,41 +1,40 @@
+<div class="wrap">
 <section class="bloc-opportunites cf">
 	<section class="opportunites-recherche cf">
 		<header class="fleft resetM">
 			<h3 class="tt-5 tt-clr bold">{{ 'pi.lamelee.bloc.form.search.annuaire.opportunites'|trans|replace({'<p>': '', '</p>': ''})|raw }}</h3>
 		</header>
-		<section class="fright">
-			<form method="GET" action="{{ path_url("page_lamelee_menuwrapper_opportunites", {"locale":locale}) }}" >
-			<div class="row resetM fright">
-				<span class="input-text  top-align">
-				 	<input type="text" value="{{ search }}" name="search" class="resetBorder">
-				</span>
-				<input name="filtre1" type="hidden" value="{{ filtre1 }}"/>	
-				<input name="filtre2" type="hidden" value="{{ filtre2 }}"/>
-				<input type="submit" value="" class="searchSubmit resetBorder resetM middle-align">
-			</div>
-			</form>
-			<div class="filter clear">
+		<form class="fright" method="GET" action="{{ path_url("page_lamelee_menuwrapper_opportunites", {"locale":locale}) }}" >
+		<div class="row resetM fright">
+			<span class="input-text  top-align">
+			 	<input type="text" value="{{ search }}" name="search" class="resetBorder">
+			</span>
+			<input name="filtre1" type="hidden" value="{{ filtre1 }}"/>	
+			<input name="filtre2" type="hidden" value="{{ filtre2 }}"/>
+			<input type="submit" value="" class="searchSubmit resetBorder resetM middle-align">
+		</div>
+		</form>
+		<div class="row txtright clear cf">
+			<form class="iline" method="GET" action="{{ path_url("page_lamelee_menuwrapper_opportunites", {"locale":locale}) }}" >
 				<label class="tt-clr">Filtrer par :</label>
-				<form class="iline" method="GET" action="{{ path_url("page_lamelee_menuwrapper_opportunites", {"locale":locale}) }}" >
-					<input name="search"  type="hidden" value="{{ search }}"/>
-					<input name="filtre2" type="hidden" value="{{ filtre2 }}"/>
-					<select name="filtre1" onchange="this.form.submit()">
-						<option value="" >Toutes les sections</option>
-						<option value="{{ 'pi.ads.form.type.market' }}"	{% if filtre1 == ('pi.ads.form.type.market') %}selected="selected"{% endif %}>{{ 'pi.ads.form.type.market'|trans }}</option>
-						<option value="{{ 'pi.ads.form.type.job' }}"		{% if filtre1 == ('pi.ads.form.type.job') %}selected="selected"{% endif %}>{{ 'pi.ads.form.type.job'|trans }}</option>
-					</select>
-				</form>
-				<form class="iline" method="GET" action="{{ path_url("page_lamelee_menuwrapper_opportunites", {"locale":locale}) }}" >
-					<input name="search"  type="hidden" value="{{ search }}"/>
-					<input name="filtre1" type="hidden" value="{{ filtre1 }}"/>				
-					<select name="filtre2" onchange="this.form.submit()">
-						<option value="" >Tous les statuts </option>
-						<option value="{{ 'pi.ads.form.type.search' }}"	{% if filtre2 == ('pi.ads.form.type.search') %}selected="selected"{% endif %}>{{ 'pi.ads.form.type.search'|trans }}</option>
-						<option value="{{ 'pi.ads.form.type.propose' }}"	{% if filtre2 == ('pi.ads.form.type.propose') %}selected="selected"{% endif %}>{{ 'pi.ads.form.type.propose'|trans }}</option>
-					</select>
-				</form>
-			</div>
-		</section>
+				<input name="search"  type="hidden" value="{{ search }}"/>
+				<input name="filtre2" type="hidden" value="{{ filtre2 }}"/>
+				<select name="filtre1" onchange="this.form.submit()">
+					<option value="" >Toutes les sections</option>
+					<option value="{{ 'pi.ads.form.type.market' }}"	{% if filtre1 == ('pi.ads.form.type.market') %}selected="selected"{% endif %}>{{ 'pi.ads.form.type.market'|trans }}</option>
+					<option value="{{ 'pi.ads.form.type.job' }}"		{% if filtre1 == ('pi.ads.form.type.job') %}selected="selected"{% endif %}>{{ 'pi.ads.form.type.job'|trans }}</option>
+				</select>
+			</form>
+			<form class="iline" method="GET" action="{{ path_url("page_lamelee_menuwrapper_opportunites", {"locale":locale}) }}" >
+				<input name="search"  type="hidden" value="{{ search }}"/>
+				<input name="filtre1" type="hidden" value="{{ filtre1 }}"/>				
+				<select name="filtre2" onchange="this.form.submit()">
+					<option value="" >Tous les statuts </option>
+					<option value="{{ 'pi.ads.form.type.search' }}"	{% if filtre2 == ('pi.ads.form.type.search') %}selected="selected"{% endif %}>{{ 'pi.ads.form.type.search'|trans }}</option>
+					<option value="{{ 'pi.ads.form.type.propose' }}"	{% if filtre2 == ('pi.ads.form.type.propose') %}selected="selected"{% endif %}>{{ 'pi.ads.form.type.propose'|trans }}</option>
+				</select>
+			</form>
+		</div>
 	</section>
 	<section class="opportunites-results">
 		<header>
@@ -56,7 +55,7 @@
 					<article class="job-post-it">
 						<header class="resetM">
 							<h3 class="tt-{% if entity.typology|trans == 'pi.ads.form.type.market'|trans %}orange{% else %}purple{% endif %} bold uppercase"><a href="{{ path_url("page_lamelee_menuwrapper_opportunites", {"locale":locale, "filtre1":entity.typology}) }}">{{ entity.typology|trans }}</a></h3>
-							<div class="locked"></div>
+							<div {% if entity.typology|trans == 'pi.ads.form.type.market'|trans %}class="locked"{% endif %}></div>
 						</header>
 						<section class="post-it">
 							<p><a class="tt-clr" href="{{ path_url("page_lamelee_menuwrapper_opportunites", {"locale":locale, "filtre2":entity.status}) }}">{{ entity.status|trans }}</a></p>
@@ -124,3 +123,4 @@
 		{% endif %}
 	</section>
 </section>
+</div>

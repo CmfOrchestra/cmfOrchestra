@@ -33,63 +33,62 @@
 						<a href="#" class="dots third">3</a>
 					</figure>
 
-            <form action="#" method="post" class="cf"  {{ form_enctype(form) }} novalidate>
-            <input type="hidden" id="new" name="new" value="{{new}}">
-            <input type="hidden" id="step" name="step" value="1">
-            {{ form_errors(form) }}
-            {{ form_widget(form._token) }}            
+            <form action="{{ path_url("page_lamelee_adhesion_physique") }}" method="post" class="cf"  {{ form_enctype(form) }} novalidate>
+				<input type="hidden" id="new" name="new" value="{{new}}">
+				<input type="hidden" id="step" name="step" value="1">
+				{{ form_errors(form)|trans }}
+				{{ form_widget(form._token) }}            
 						<div class="title-border-simple cf">
 							<h3 class="tt-3 tt-clr bold fleft">Qui êtes-vous ?</h3>
 						</div>
 						<fieldset>
 							<div class="row cf">
 								{{ form_widget(form.Civility) }}
-                {% if form.vars.value.Name %} 
-                      {{ form_widget(form.Name) }}
-                {% else %}
-                      {{ form_widget(form.Name, { 'attr': {'data-validate': 'Nom*'} }) }}
-                {% endif %}
-                {% if form.vars.value.Nickname %} 
-                      {{ form_widget(form.Nickname) }}
-                {% else %}
-                      {{ form_widget(form.Nickname, { 'attr': {'data-validate': 'Prénom*'} }) }}
-                {% endif %}
-
+								{% if form.vars.value.Name %} 
+									  {{ form_widget(form.Name) }}
+								{% else %}
+									  {{ form_widget(form.Name, { 'attr': {'data-validate': 'Nom*'} }) }}
+								{% endif %}
+								{% if form.vars.value.Nickname %} 
+									  {{ form_widget(form.Nickname) }}
+								{% else %}
+									  {{ form_widget(form.Nickname, { 'attr': {'data-validate': 'Prénom*'} }) }}
+								{% endif %}
 							</div>
-					
 						</fieldset>
 						<fieldset>
 							<legend class="bold">Entreprise</legend>
 							<div class="row cf">
-                {% if form.vars.value.Job %} 
-                      {{ form_widget(form.Job) }}
-                {% else %}
-                      {{ form_widget(form.Job, { 'attr': {'data-validate': 'Fonction*'}}) }}
-                {% endif %}                  
-								<a href="#" class="tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
+								{% if form.vars.value.Job %} 
+									  {{ form_widget(form.Job) }}
+								{% else %}
+									  {{ form_widget(form.Job, { 'attr': {'data-validate': 'Fonction*'}}) }}
+								{% endif %}                  
+								<a href="#" class="tooltip" data-tooltip="{{'pi.individual.form.adhesion.tooltip.fonction'|trans|striptags|raw}}">Info</a>
 
 							</div>
 							<div class="row">	
+								{% if form.vars.value.Email and not(form.vars.errors|length) %} 
+									  {{ form_widget(form.Email) }}
+								{% elseif form.vars.errors|length %} 
+									  {{ form_widget(form.Email, { 'attr': {'class': 'error'} }) }}                
+								{% else %}
+									  {{ form_widget(form.Email, { 'attr': {'data-validate': 'Email pro*'} }) }}
+								{% endif %}                    
 
-                {% if form.vars.value.Email and not(form.vars.errors|length) %} 
-                      {{ form_widget(form.Email, { 'read_only': true }) }}
-                {% elseif form.vars.errors|length %} 
-                      {{ form_widget(form.Email, { 'attr': {'class': 'error'} }) }}                
-                {% else %}
-                      {{ form_widget(form.Email, { 'attr': {'data-validate': 'Email pro*'} }) }}
-                {% endif %}                    
-
-                {{ form_widget(form.EmailPerso, { 'attr': {'data-validate': 'Email perso'} }) }}
+								{% if form.vars.value.EmailPerso %} 
+									  {{ form_widget(form.EmailPerso) }}
+								{% else %}
+									  {{ form_widget(form.EmailPerso, { 'attr': {'data-validate': 'Email perso'} }) }}
+								{% endif %}    									
 							</div>
 							<div class="row">	
-                {% if form.vars.value.Phone %} 
-                      {{ form_widget(form.Phone) }}
-                {% else %}
-                      {{ form_widget(form.Phone, { 'attr': {'class':'required phone', 'data-validate': 'Téléphone*'} }) }}
-                {% endif %}                    
+								{% if form.vars.value.Phone %} 
+									  {{ form_widget(form.Phone) }}
+								{% else %}
+									  {{ form_widget(form.Phone, { 'attr': {'class':'required phone', 'data-validate': 'Téléphone*'} }) }}
+								{% endif %}                    
 							</div>
-						
-						
 						</fieldset>
 						<fieldset class="resetBorder">
 							<legend class="bold">Profil adhérent</legend>
@@ -97,21 +96,23 @@
 							<div class="row cf">
 								{{ form_widget(form.Profile) }}
 
-								<a href="#" class="tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
+								<a href="#" class="tooltip" data-tooltip="{{'pi.individual.form.adhesion.tooltip.profile'|trans|striptags|raw}}">Info</a>
 
 								{{ form_widget(form.ProfileOther) }}
 							</div>
 								
 							<div class="id-choice">
-                {% if form.vars.value.UserName and not(form.vars.errors|length) %} 
-                      {{ form_row(form.UserName, { 'read_only': true , 'label': 'Votre Identifiant'}) }}
-                {% elseif form.vars.errors|length %} 
-                      {{ form_row(form.UserName, {'label': 'Votre Identifiant'}) }}
-                {% else %}
-                      {{ form_label(form.UserName) }}
-                      {{ form_widget(form.UserName, {'attr': {'data-validate': 'Identifiant'} }) }}
-                {% endif %} 
-								<p class="light-clr"><small>Il vous sera demandé à chaque connexion et sera définitif</small></p>
+								{% if form.vars.value.UserName and not(form.UserName.vars.errors|length) %}
+										<label>Votre Identifiant</label>
+									  {{ form_row(form.UserName) }}
+								{% elseif form.UserName.vars.errors|length %} 
+										{{ form_label(form.UserName) }}
+									  {{ form_row(form.UserName, {'attr': {'class': 'error'} }) }}
+								{% else %}
+									  {{ form_label(form.UserName) }}
+									  {{ form_widget(form.UserName, {'attr': {'data-validate': 'Identifiant'} }) }}
+									  <p class="light-clr"><small>Il vous sera demandé à chaque connexion et sera définitif</small></p>
+								{% endif %} 								
 							</div>	
 							<p class="light-clr"><span class="tt-clr">*</span> champs obligatoire</p>
 						</fieldset>

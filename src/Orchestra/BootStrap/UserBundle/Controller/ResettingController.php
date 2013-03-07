@@ -77,13 +77,17 @@ class ResettingController extends ContainerAware
         return $response->getContent();
     }
     
-
+    /**
+     * Send mail to reset user password
+     */
     public function sendResettingEmailMessage(UserInterface $user, $route_reset_connexion)
     {
-    	$url = $this->container->get('bootstrap.RouteTranslator.factory')->getRoute($route_reset_connexion, array('token' => $user->getConfirmationToken()));
+    	$url 	  = $this->container->get('bootstrap.RouteTranslator.factory')->getRoute($route_reset_connexion, array('token' => $user->getConfirmationToken()));
+    	$html_url = 'http://'.$this->container->get('Request')->getHttpHost() . $this->container->get('Request')->getBasePath().$url;
+    	$html_url = "<a href='$html_url'>" . $html_url . "</a>";
     	$rendered = $this->container->get('templating')->render('PiAppTemplateBundle:Template\\Login\\Resetting:email.txt.twig', array(
     			'user' 				=> $user,
-    			'confirmationUrl' 	=> 'http://'.$this->container->get('Request')->getHttpHost() . $this->container->get('Request')->getBasePath().$url
+    			'confirmationUrl' 	=> $html_url,
     	));
     	$this->container->get("pi_app_admin.mailer_manager")->send("administrator@gmail.com", $user->getEmail(), "Changement de mot de passe", $rendered);
     }    

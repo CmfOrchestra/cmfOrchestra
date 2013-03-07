@@ -20,57 +20,108 @@
 	            <td>{{ entity.id }}</td>	
 	        </tr>	
 	        <tr>
-	            <th>Url</th>	
-	            <td>{{ entity.url }}</td>	
+	            <th>Created_at</th>	
+	            <td>{{ entity.createdat|date('Y-m-d H:i:s') }}</td>	
+	        </tr>
+			<tr>
+	        	<th>Media</th>
+	        	<td>
+	        		{% if entity.media.image is defined %}
+	        			{% media entity.media.image, 'reference' %}
+	        		{% endif %}
+	        	</td>
+	        </tr>    	        
+	        
+	        
+	        <tr>
+	            <th>&nbsp;</th>	
+	            <td>&nbsp;</td>		
 	        </tr>	
 	        <tr>
-	            <th>name</th>	
+	            <th>Login</th>	
+	            <td>{{ entity.UserName }}</td>	
+	        </tr>	        	
+	        <tr>
+	            <th>{{ 'pi.form.label.field.name'|trans }}</th>	
 	            <td>{{ entity.Name }}</td>	
-	        </tr>	
+	        </tr>
 	        <tr>
-	            <th>nickname</th>	
+	            <th>{{ 'pi.form.label.field.nickname'|trans }}</th>	
 	            <td>{{ entity.Nickname }}</td>	
-	        </tr>	
+	        </tr>
+	        
+	        	
 	        <tr>
-	            <th>phone</th>	
+	            <th style="background-color:black;color:white;font-size:21px">{{ 'pi.corporation.form.group.contact.entre'|trans }}</th>	
+	            <td style="background-color:black">&nbsp;</td>	
+	        </tr>	        	
+	        <tr>
+	            <th>{{ 'pi.form.label.field.adress.phone'|trans }}</th>	
 	            <td>{{ entity.Phone }}</td>	
 	        </tr>	
 	        <tr>
-	            <th>job</th>	
-	            <td>{{ entity.Job }}</td>	
-	        </tr>	
+	            <th>{{ 'pi.form.label.field.email'|trans }}</th>	
+	            <td>{{ entity.Email }}</td>	
+	        </tr>
+	       	<tr>
+	            <th>{{ 'pi.form.label.field.email.perso'|trans }}</th>	
+	            <td>{{ entity.EmailPerso }}</td>	
+	        </tr>
 	        <tr>
-	            <th>company</th>	
+	            <th>{{ 'pi.form.label.field.website'|trans }}</th>	
+	            <td>{{ entity.url }}</td>	
+	        </tr>	        
+	        
+	        
+	        <tr>
+	            <th style="background-color:black;color:white;font-size:21px">{{ 'pi.corporation.form.group.job'|trans }}</th>	
+	            <td style="background-color:black">&nbsp;</td>	
+	        </tr>		        
+	        <tr>
+	            <th>{{ 'pi.form.label.field.employment.company'|trans }}</th>	
 	            <td>{{ entity.Company }}</td>	
-	        </tr>	
+	        </tr>
 	        <tr>
-	            <th>activity</th>	
+	            <th>{{ 'pi.form.label.field.employment.job'|trans }}</th>	
+	            <td>{{ entity.Job }}</td>	
+	        </tr>	        	
+	        <tr>
+	            <th>{{ 'pi.form.label.field.employment.activity'|trans }}</th>	
 	            <td>{{ entity.Activity }}</td>	
-	        </tr>	
+	        </tr>
 	        <tr>
-	            <th>Created_at</th>	
-	            <td>{{ entity.createdat|date('Y-m-d H:i:s') }}</td>	
-	        </tr>	
+	            <th>{{ 'pi.form.label.field.employment.engineering'|trans }}</th>	
+	            <td>{{ entity.Engineering }}</td>	
+	        </tr>
+	        
+	        
+	        
 	        <tr>
-	            <th>Updated_at</th>	
-	            <td>{{ entity.updatedat|date('Y-m-d H:i:s') }}</td>	
-	        </tr>	
+	            <th style="background-color:black;color:white;font-size:21px">{{ 'pi.corporation.form.group.social'|trans }}</th>	
+	            <td style="background-color:black">&nbsp;</td>	
+	        </tr>	        
 	        <tr>
-	            <th>Published_at</th>	
-	            <td>{{ entity.publishedat|date('Y-m-d H:i:s') }}</td>	
-	        </tr>	
+	            <th>{{ 'pi.form.label.field.social.facebook'|trans }}</th>	
+	            <td>{{ entity.Facebook }}</td>	
+	        </tr>
 	        <tr>
-	            <th>Archive_at</th>	
-	            <td>{{ entity.archiveat|date('Y-m-d H:i:s') }}</td>	
-	        </tr>	
+	            <th>{{ 'pi.form.label.field.social.googleplus'|trans }}</th>	
+	            <td>{{ entity.GooglePlus }}</td>	
+	        </tr>
 	        <tr>
-	            <th>Enabled</th>	
-	            <td>{{ entity.enabled }}</td>	
-	        </tr>	
+	            <th>{{ 'pi.form.label.field.social.twitter'|trans }}</th>	
+	            <td>{{ entity.Twitter }}</td>	
+	        </tr>
 	        <tr>
-	            <th>Position</th>	
-	            <td>{{ entity.position }}</td>	
-	        </tr>	
+	            <th>{{ 'pi.form.label.field.social.linkedin'|trans }}</th>	
+	            <td>{{ entity.LinkedIn }}</td>	
+	        </tr>
+	        <tr>
+	            <th>{{ 'pi.form.label.field.social.viadeo'|trans }}</th>	
+	            <td>{{ entity.Viadeo }}</td>	
+	        </tr>	        	        	        	        
+
+	        
 	    </tbody>
 	</table>
 
@@ -78,18 +129,37 @@
 	
 				
 	<ul class="record_actions">
+		{% if type == "aderent" %}
+		<li>
+	        <form action="{{ path('admin_gedmo_list_adherent', { 'NoLayout': NoLayout, 'category':category }) }}" method="post">
+	            <button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
+	        </form>	        
+		</li>
+		{% elseif type == "event" %}
+		<li>
+	        <form action="{{ path('admin_gedmo_lamelee_event_subscribers', { 'NoLayout': NoLayout, 'category':category }) }}" method="post">
+	            <button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
+	        </form>	        
+		</li>
+		{% elseif type == "subscriber" %}
+		<li>
+	        <form action="{{ path('admin_gedmo_individual_subscribers', { 'NoLayout': NoLayout, 'category':category }) }}" method="post">
+	            <button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
+	        </form>	        
+		</li>
+        {% else %}
 		<li>
 	        <form action="{{ path('admin_gedmo_individual', { 'NoLayout': NoLayout, 'category':category }) }}" method="post">
 	            <button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
 	        </form>	        
 		</li>
-			<li>
+		<li>
 	        <form action="{{ path('admin_gedmo_individual_edit', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category }) }}" method="post">
 	            <button type="submit">{{ 'pi.grid.action.update'|trans }}</button>
 	        </form>	        
 		</li>
-			
-		{% if NoLayout == false %}
+		{% endif %}
+		{% if (NoLayout == false) and (type is empty) %}
 	    <li>
 	        <form action="{{ path('admin_gedmo_individual_delete', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category }) }}" method="post">
 	            {{ form_widget(delete_form) }}
@@ -97,8 +167,6 @@
 	        </form>
 	    </li>
 	    {% endif %}
-	    
-	
 	</ul>	
 		<script type="text/javascript">
 		//<![CDATA[

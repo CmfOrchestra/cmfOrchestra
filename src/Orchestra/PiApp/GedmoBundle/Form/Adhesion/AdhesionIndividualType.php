@@ -94,7 +94,9 @@ class AdhesionIndividualType extends AbstractType
  			->add('url','text', array(
 					'required'  	=> false,        
  			)) 
- 			->add('media','file')//, new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
+ 			->add('media','file', array(
+					'required'  	=> false,
+ 			))//, new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
             
  			->add('Phone','text', array(
 					'required'  	=> false,
@@ -108,19 +110,19 @@ class AdhesionIndividualType extends AbstractType
  							"class"=>"required text",
  					),
  			))
-      ->add('Email','text', array(
+			->add('Email','text', array(
  					'required'  => false,        
  					"attr" => array(
  							"class"=>"required email",
  					),
  			))
-      ->add('EmailPerso','text', array(
+			->add('EmailPerso','text', array(
  					'required'  => false,        
  					"attr" => array(
  							"class"=>"email",
  					),
  			))      
-      ->add('CP','text', array(       
+			->add('CP','text', array(       
 					'required'  => false,        
  					"attr" => array(
  							"class"=>"required postCode",
@@ -131,7 +133,6 @@ class AdhesionIndividualType extends AbstractType
  					'required'  => false,        
  					"attr" => array(
  							"class"=>"resetRight required text",
-							"data-validate"=>"Société *",
  					),
  			))
  			->add('Effectif','text', array(
@@ -215,7 +216,7 @@ class AdhesionIndividualType extends AbstractType
  							"class" => "resetRight selectSize origin",
  					),
  			))   
-      ->add('ProfileOther','text', array(
+			->add('ProfileOther','text', array(
  					'required'  => false,    
  					"attr" => array(
  							"class"=>"required text hidden otherOrigin",
@@ -223,20 +224,18 @@ class AdhesionIndividualType extends AbstractType
  			))
                   
  			->add('DetailActivity', 'text', array(
- 					'required'  => true,        
+ 					'required'  => false,        
 					"attr" => array(
  							"class"=>"required",
-							'data-validate' => 'Détails activité*',
  					),
  			))
-      ->add('ArgumentActivity','textarea', array(
- 					'required'  => true,        
+			->add('ArgumentActivity','textarea', array(
+ 					'required'  => false,        
  					"attr" => array(
  							"class"=>"full required",
-							'data-validate' => 'Argumentaire commercial*',
  					),
  			))  
-      ->add('Expertise','textarea', array(
+			->add('Expertise','textarea', array(
  					'required'  => false,        
  					"attr" => array(
  							"class"=>"full required",
@@ -251,7 +250,7 @@ class AdhesionIndividualType extends AbstractType
  							"class"=>"light-clr bold",
  					),
  			))
-      ->add('OriginContact','choice', array(
+			->add('OriginContact','choice', array(
  					'required'  => true,    
 					'empty_value'  => 'Contact*',    
 					'choices'   => array(
@@ -269,43 +268,43 @@ class AdhesionIndividualType extends AbstractType
  							"class"=>"required origin",
  					),
  			))
-      ->add('OriginContactOther','text', array(
+			->add('OriginContactOther','text', array(
  					'required'  => false,    
  					"attr" => array(
  							"class"=>"required text hidden otherOrigin",
  					),
  			))   
-      ->add('OriginContactSponsor','text', array(
+			->add('OriginContactSponsor','text', array(
  					'required'  => false,    
  					"attr" => array(
  							"class"=>"required text hidden sponsorOrigin",
  					),
  			))           
-      ->add('Facebook','text', array(   
+			->add('Facebook','text', array(   
           'required'  => false,     
  					"attr" => array(
  							"class"=>"fleft",
  					),
  			))
-      ->add('GooglePlus','text', array( 
+			->add('GooglePlus','text', array( 
           'required'  => false,        
  					"attr" => array(
  							"class"=>"fleft",
  					),
  			))
-      ->add('Twitter','text', array(    
+			->add('Twitter','text', array(    
           'required'  => false,        
  					"attr" => array(
  							"class"=>"fleft",
  					),
  			))
-      ->add('LinkedIn','text', array(     
+			->add('LinkedIn','text', array(     
           'required'  => false,        
  					"attr" => array(
  							"class"=>"fleft",
  					),
  			))
-      ->add('Viadeo','text', array(       
+			->add('Viadeo','text', array(       
           'required'  => false,        
  					"attr" => array(
  							"class"=>"fleft",

@@ -111,7 +111,10 @@ class PiUserManager extends PiWidgetExtension
 	 * 		<widgets>
 	 * 			<user>
 	 * 				<controller>BootStrapUserBundle:User:_connexion_default</controller>
- 	 *				<template>FOSUserBundle:Security:login.html.twig</template>
+ 	 *				<params>
+ 	 *					<template>PiAppTemplateBundle:Template\\Login\\Security:connexion-ajax-bloc.html.twig</template>
+ 	 *					<referer_redirection>true</referer_redirection>
+ 	 *				</params>
 	 * 			</user>
 	 *	 	</widgets>
 	 *   </config>

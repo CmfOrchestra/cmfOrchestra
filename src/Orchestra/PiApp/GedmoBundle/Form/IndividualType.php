@@ -61,61 +61,76 @@ class IndividualType extends AbstractType
     {
         $builder 			   				
 	 		  ->add('enabled', 'checkbox', array(
-	 				'data'  => true,
-	 				'label'	=> 'pi.form.label.field.enabled',
+	 				'data'  	=> true,
+	 				'label'		=> 'pi.form.label.field.enabled',
 	 		  ))
 	 		  ->add('highlighted', 'checkbox', array(
 	 		  		'required'  => false,
-	 		  		'data'  => true,
-	 		  		'label'	=> 'pi.partner.form.field.highlighted1',
+	 		  		'data'  	=> true,
+	 		  		'label'		=> 'pi.partner.form.field.highlighted1',
 	 		  ))
-			  ->add('Name','text', array(
-		      		'required'  	=> true,
-		 			))
 		      ->add('UserName','text', array(
-		      		'label'  => 'Identifiant',
-		      		'required'  	=> true,        
+		      		'label'		=> 'Login',
+		      		'required'  => true,        
+		 	  ))
+	 		  ->add('Name','text', array(
+			  		'label'		=> 'pi.form.label.field.name',
+		      		'required'  => true,
 		 	  ))
 		 	  ->add('Nickname','text', array(
-		      		'required'  	=> true,        
-		 			))
+		 	  		'label'		=> 'pi.form.label.field.nickname',
+		      		'required'  => true,        
+		 	  ))
 
 		 	  
 		 	  
 		 	  ->add('Phone','text', array(
+		 	  		'label'	=> 'pi.form.label.field.adress.phone',
 		 			'required'  => true,   
 		 	  		"label_attr" => array(
 		 	  				"class"=>"contact_collection",
 		 	  		),
 		 	  ))
 		      ->add('Email','text', array(
+		      		'label'	=> 'pi.form.label.field.email',
 		 			'required'  => true,
 		      		"label_attr" => array(
 		      				"class"=>"contact_collection",
 		      		),
 		 	  ))
 		      ->add('EmailPerso','text', array(
-		 			'required'  => true,
+		      		'label'	=> 'pi.form.label.field.email.perso',
+		 			'required'  => false,
 		      		"label_attr" => array(
 		      				"class"=>"contact_collection",
 		      		),
-		 	  ))    
+		 	  ))  
+		 	  ->add('url', 'text', array(
+		 	  		"label" 	=> "pi.form.label.field.website",
+		 	  		"label_attr" => array(
+		 	  				"class"=>"contact_collection",
+		 	  		),
+		 	  		'required'  => false,
+		 	  ))	 	    
 
 		 	  
 		 	  
 		 	  ->add('Company','text', array(
+		 	  		'label'	=> 'pi.form.label.field.employment.company',
 		 			'required'  => true,
 		 	  		"label_attr" => array(
 		 	  				"class"=>"job_collection",
 		 	  		),
 		 	  )) 		
 		 	  ->add('Job','text', array(
+		 	  		'label'	=> 'pi.form.label.field.employment.job',
 		 			'required'  => true,
 		 			"label_attr" => array(
 		 				"class"=>"job_collection",
 		 			),
 		 	  ))
 		 	  ->add('Activity', 'choice', array(
+		 	  		'label'	=> 'pi.form.label.field.employment.activity',
 		 			'required'  => true,        
 				    'choices'   => array(
 	 							'0' 								=> 'Activité*',
@@ -160,6 +175,7 @@ class IndividualType extends AbstractType
 		 			),
 		 	  )) 
 		 	  ->add('Engineering', 'choice', array(
+		 	  		'label'	=> 'pi.form.label.field.employment.engineering',
 		 			'required'  => false,        
 				    'choices'   => array(
 				            'Télécom'=>'Télécom',
@@ -189,31 +205,36 @@ class IndividualType extends AbstractType
 		
 		 			
 		 			
-		      ->add('Facebook','text', array(   
+		      ->add('Facebook','text', array( 
+		      		'label'	=> 'pi.form.label.field.social.facebook',
 		          	'required'  => false,     
 		 			"label_attr" => array(
 		 				"class"=>"social_collection",
 		 			),
 		 		))
 		      ->add('GooglePlus','text', array( 
+		      		'label'	=> 'pi.form.label.field.social.googleplus',
 		          	'required'  => false,        
 		 			"label_attr" => array(
 		 				"class"=>"social_collection",
 		 			),
 		 		))
 		      ->add('Twitter','text', array(    
+		      		'label'	=> 'pi.form.label.field.social.twitter',
 		          	'required'  => false,        
 		 			"label_attr" => array(
 		 				"class"=>"social_collection",
 		 			),
 		 		))
 		      ->add('LinkedIn','text', array(     
+		      		'label'	=> 'pi.form.label.field.social.linkedin',
 		          	'required'  => false,        
 			      	"label_attr" => array(
 			      		"class"=>"social_collection",
 			      	),      		
 		 		))
 		      ->add('Viadeo','text', array(       
+		      		'label'	=> 'pi.form.label.field.social.viadeo',
 		          	'required'  => false,        
 				    "label_attr" => array(
 				    	"class"=>"social_collection",
@@ -238,13 +259,7 @@ class IndividualType extends AbstractType
 // 		 				'multiple'	=> false,
 // 		 				'required'  => false,
 // 		 	  ))
-// 		 	  ->add('url', 'text', array(
-// 		 				"label" 	=> "pi.form.label.field.or",
-// 		 				"label_attr" => array(
-// 		 						"class"=>"page_collection",
-// 		 				),
-// 		 				'required'  => false,
-// 		 	  )) 		
+		
 		
 		 	  //->add('user', new \BootStrap\UserBundle\Form\Type\RegistrationFormType('collection'))
 		 	  ->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))

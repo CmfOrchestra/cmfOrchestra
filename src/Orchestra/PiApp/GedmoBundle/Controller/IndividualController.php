@@ -150,6 +150,41 @@ class IndividualController extends abstractController
             'category'	=> $category,
         ));
     }
+    
+    /**
+     * List all subscriber entities.
+     *
+     * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
+     * @Route("/admin/gedmo/individual/subscribers", name="admin_gedmo_individual_subscribers")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access	public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function subscribersAction()
+    {
+    	$em 		= $this->getDoctrine()->getEntityManager();
+    
+    	if(empty($lang))
+    		$lang	= $this->container->get('session')->getLocale();
+    	
+    	$category   = $this->container->get('request')->query->get('category');
+    	$NoLayout   = $this->container->get('request')->query->get('NoLayout');
+    	if(!$NoLayout) 	$template = "subscribers.html.twig"; else $template = "subscribers.html.twig";    	
+    
+    	$query		= $em->getRepository("PiAppGedmoBundle:Individual")->getAllByCategory("", null, "DESC");
+    	$query->leftJoin('a.user', 'u')
+    	->andWhere($query->expr()->like('u.roles', $query->expr()->literal('%"ROLE_SUBSCRIBER"%')))
+   		->andWhere("a.ArgumentActivity IS NULL");
+    	$entities   = $em->getRepository("PiAppGedmoBundle:Individual")->findTranslationsByQuery($lang, $query->getQuery(), 'object', false);
+    
+    	return $this->render("PiAppGedmoBundle:Individual:$template", array(
+    			'entities' 	=> $entities,
+    			'NoLayout'	=> $NoLayout,
+    			'category'	=> $category,
+    			'locale'   	=> $lang,
+    	));
+    }    
 
     /**
      * Finds and displays a Individual entity.
@@ -166,6 +201,7 @@ class IndividualController extends abstractController
         $locale		= $this->container->get('session')->getLocale();
         $entity 	= $em->getRepository("PiAppGedmoBundle:Individual")->findOneByEntity($locale, $id, 'object');
         
+        $type	    = $this->container->get('request')->query->get('type');
         $category   = $this->container->get('request')->query->get('category');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout) 	$template = "show.html.twig"; else $template = "show.html.twig";        
@@ -181,6 +217,7 @@ class IndividualController extends abstractController
             'NoLayout'	  => $NoLayout,
             'category'	  => $category,
             'delete_form' => $deleteForm->createView(),
+        	'type'		=> $type,
         ));
     }
 
@@ -195,8 +232,8 @@ class IndividualController extends abstractController
      */
     public function newAction()
     {
-    	  $em 		= $this->getDoctrine()->getEntityManager();
-    	  $entity 	= new Individual();
+   	  	$em 		= $this->getDoctrine()->getEntityManager();
+   	  	$entity 	= new Individual();
         $form   	= $this->createForm(new IndividualType($em, $this->container), $entity, array('show_legend' => false));
         
         $category   = $this->container->get('request')->query->get('category');
@@ -228,7 +265,7 @@ class IndividualController extends abstractController
         $em 		= $this->getDoctrine()->getEntityManager();
         $locale		= $this->container->get('session')->getLocale();
         
-        $category   = $this->container->get('request')->query->get('category');
+       	$category   = $this->container->get('request')->query->get('category');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout)	$template = "new.html.twig";  else 	$template = "new.html.twig";        
     
@@ -269,6 +306,7 @@ class IndividualController extends abstractController
     	$locale		= $this->container->get('session')->getLocale();
         $entity 	= $em->getRepository("PiAppGedmoBundle:Individual")->findOneByEntity($locale, $id, 'object');
         
+        $type	    = $this->container->get('request')->query->get('type');
         $category   = $this->container->get('request')->query->get('category');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout)	$template = "edit.html.twig";  else	$template = "edit.html.twig";        
@@ -287,6 +325,7 @@ class IndividualController extends abstractController
             'delete_form' => $deleteForm->createView(),
             'NoLayout' 	  => $NoLayout,
             'category'	  => $category,
+        	'type'		=> $type,
         ));
     }
 
@@ -305,6 +344,7 @@ class IndividualController extends abstractController
     	$locale		= $this->container->get('session')->getLocale();
         $entity 	= $em->getRepository("PiAppGedmoBundle:Individual")->findOneByEntity($locale, $id, "object"); 
         
+        $type	    = $this->container->get('request')->query->get('type');
         $category   = $this->container->get('request')->query->get('category');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout)	$template = "edit.html.twig";  else	$template = "edit.html.twig";        
@@ -322,7 +362,7 @@ class IndividualController extends abstractController
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_gedmo_individual_edit', array('id' => $id, 'NoLayout' => $NoLayout, 'category' => $category)));
+            return $this->redirect($this->generateUrl('admin_gedmo_individual_edit', array('id' => $id, 'NoLayout' => $NoLayout, 'category' => $category, 'type' => $type)));
         }
 
         return $this->render("PiAppGedmoBundle:Individual:$template", array(
@@ -331,6 +371,7 @@ class IndividualController extends abstractController
             'delete_form' => $deleteForm->createView(),
             'NoLayout' 	  => $NoLayout,
             'category'	  => $category,
+        	'type'		=> $type,
         ));
     }
 
@@ -437,8 +478,8 @@ class IndividualController extends abstractController
             'cat'	   => ucfirst($category),
         	'locale'   => $lang,
         ));
-    }     
-    
+    }   
+
     /**
      * Template : Finds and displays a Individual entity.
      *
@@ -457,17 +498,21 @@ class IndividualController extends abstractController
           $lang	= $this->container->get('session')->getLocale();
         $params['type'] = $type;
         $params['template'] = $template;
-    	  $category   = $this->container->get('request')->query->get('category');
+    	$category   = $this->container->get('request')->query->get('category');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         $entity 	= new Individual();
         $render = '';
         if (!empty($new)){
             $render = $this->container->get('http_kernel')->render('PiAppGedmoBundle:Individual:_template_inscriptionValidation', array('attributes'=>$params));
+			if($render == ''){
+				$url = $this->container->get('bootstrap.RouteTranslator.factory')->getRoute("home_page", array('locale'=>$lang));
+				return new RedirectResponse($url);
+			}
         }
 
         $form   	= $this->createForm(new AdhesionIndividualType($em, $this->container), $entity, array('show_legend' => false));
         
-        $newsletters = $this->_get_newsletters_categories($lang);
+        $newsletters = $this->_get_newsletters_categories($lang, null, 11);
 
         //exit;
         return $this->render("PiAppGedmoBundle:Individual:$template", array(
@@ -498,14 +543,14 @@ class IndividualController extends abstractController
 	      $data = $request->get($form->getName(), array());
 	      $form->bind($data);
 	
-	      $user_name  = $em->getRepository('BootStrapUserBundle:User')->findOneByName($form["UserName"]->getData());
+	      $user_name  = $em->getRepository('BootStrapUserBundle:User')->findOneByUsername($form["UserName"]->getData());
 	      if($user_name != null){
-	        $form->addError(new FormError('error message : username already exists!'));
+	        $form->addError(new FormError('erreur.lamelee.username.existed'));
 	      }
 	      $user_email = $em->getRepository('BootStrapUserBundle:User')->findOneByEmail($form["Email"]->getData());
 	
 	      if($user_email != null){
-	        $form->addError(new FormError('error message : email already exists!'));
+	        $form->addError(new FormError('erreur.lamelee.mail.existed'));
 	      }
 
 	      if ($form->isValid()) {
@@ -519,8 +564,8 @@ class IndividualController extends abstractController
 	          $user->setPlainPassword($password);
 	          $user->setEmail($form["Email"]->getData());
 	          $user->setEmailCanonical($form["Email"]->getData());
-            $user->setName($form["Name"]->getData());
-            $user->setNickname($form["Nickname"]->getData());             
+              $user->setName($form["Name"]->getData());
+              $user->setNickname($form["Nickname"]->getData());             
 	          $user->setEnabled(true);
 	          $user->setRoles(array('ROLE_SUBSCRIBER'));
 	          $user->setPermissions(array('VIEW', 'EDIT', 'CREATE', 'DELETE'));
@@ -555,26 +600,37 @@ class IndividualController extends abstractController
 	          //send mail
 	          $templateFile = "PiAppGedmoBundle:Individual:email_subscribe.html.twig";
 	          $templateContent = $this->get('twig')->loadTemplate($templateFile);
-	          
+	          $url_resetting = $this->container->get("pi_app_admin.manager.authentication")->sendResettingEmailMessage($user, "page_lamelee_reset");
 	          $subject = ($templateContent->hasBlock("subject")
 	              ? $templateContent->renderBlock("subject", array(
+	              'confirmationUrl' =>  $url_resetting,
 	              'password' => $password,
-	              'form'	 => $data
+	              'form'	 => $entity
 	              ))
 	              : "Default subject here");
 	          $body = ($templateContent->hasBlock("body")
 	              ? $templateContent->renderBlock("body", array(
+	              'confirmationUrl' =>  $url_resetting,
 	              'password' => $password,
-	              'form'	 => $data
+	              'form'	 => $entity
 	              ))
 	              : "Default body here");  
 	
-	          $this->get("pi_app_admin.mailer_manager")->send('mailinfo@lamelee.fr', $user->getEmail(), $subject, $body);
+	          $query		= $em->getRepository("PiAppGedmoBundle:Contact")->getAllByFields(array('enabled'=>true), 1, '', 'ASC');
+	          $query->leftJoin('a.category', 'c')
+	          ->andWhere("c.id = :catID")
+	          ->setParameter('catID', 23);
+    		  $entity_cat   = current($em->getRepository("PiAppGedmoBundle:Contact")->findTranslationsByQuery($lang, $query->getQuery(), "object", false));
+			  if($entity_cat instanceof \PiApp\GedmoBundle\Entity\Contact)
+					$this->get("pi_app_admin.mailer_manager")->send($entity_cat->getEmail(), $user->getEmail(), $subject, $body, $entity_cat->getEmailCc(), $entity_cat->getEmailBcc());
+			  else
+					$this->get("pi_app_admin.mailer_manager")->send("confirmationadhesion@gmail.com", $user->getEmail(), $subject, $body);
 	        
-	          return new Response('');
+			 return new Response('');
+
 	      }
         
-	        $newsletters = $this->_get_newsletters_categories($lang);
+	        $newsletters = $this->_get_newsletters_categories($lang, null, 11);
           
           return $this->render("PiAppGedmoBundle:Individual:$template", array(
               'entity'      => $entity,
@@ -598,7 +654,6 @@ class IndividualController extends abstractController
      */
     public function _template_adhesionAction($template = '_template_form_adhesion_step1.html.twig', $lang = "", $type = 'lamelee')
     {
-
         $em 		= $this->getDoctrine()->getEntityManager();
         
         $entity   = new Individual();
@@ -613,13 +668,17 @@ class IndividualController extends abstractController
         }
         
         $form   	= $this->createForm(new AdhesionIndividualType($em, $this->container), $entity, array('show_legend' => false));
-          
+
         $request = $_POST;
+		$retour = null;
+		if(isset($_GET['step']))
+			$retour = $_GET['step'];
+		
         if(isset($request['new']))
             $new   = $request['new'];
         else
             $new   = $this->container->get('request')->query->get('new');
-        
+
         if(isset($request['step']))
             $step   = $request['step'];
         else
@@ -635,31 +694,18 @@ class IndividualController extends abstractController
         $params['type'] = $type;
         $params['template'] = $template;
         
-    	  $category   = $this->container->get('request')->query->get('category');
+    	$category   = $this->container->get('request')->query->get('category');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         
         $render = '';
         
         //
-        if (!empty($new)){
+        if (!empty($new) and empty($retour) ){
               if($step == 1){
                 $render = $this->container->get('http_kernel')->render('PiAppGedmoBundle:Individual:_template_adhesionValidation', array('attributes'=>$params));
-              }
-              elseif($step==2){
-
-                $data = array();
-                $data['Civility'] = $request['Civility'];
-                $data['Name'] = $request['Name'];
-                $data['Nickname'] = $request['Nickname'];
-                $data['Job'] = $request['Job'];
-                $data['Email'] = $request['Email'];
-                $data['EmailPerso'] = $request['EmailPerso'];
-                $data['Phone'] = $request['Phone'];
-                $data['Profile'] = $request['Profile'];
-                $data['ProfileOther'] = $request['ProfileOther'];
-                $data['UserName'] = $request['UserName'];  
-                
+              }elseif($step==2){
                 $request_form = $request[$form->getName()];
+				$data = $this->container->get('session')->get('data');
                 $data['Facebook'] = $request_form['Facebook'];
                 $data['GooglePlus'] = $request_form['GooglePlus'];
                 $data['Twitter'] = $request_form['Twitter'];
@@ -670,18 +716,23 @@ class IndividualController extends abstractController
                 $data['DetailActivity'] = $request_form['DetailActivity'];
                 $data['ArgumentActivity'] = $request_form['ArgumentActivity'];         
                 $data['url'] = $request_form['url'];
+				if($data['step-max'] == 1)
+					$data['step-max'] = 2;
+				
                 $media_tmp = $_FILES[$form->getName()]['tmp_name']['media'];
                 $media_name = $_FILES[$form->getName()]['name']['media'];
                 $dir = $this->container->get('kernel')->getRootDir(). '/../web/uploads/media/tmp/';
+                \PiApp\AdminBundle\Util\PiFileManager::mkdirr($dir);
                 move_uploaded_file($media_tmp,$dir.$media_name);
                 $data['media'] = $dir.$media_name;
-
+				$data['media_path'] = '/uploads/media/tmp/'.$media_name;
+				
+				$this->container->get('session')->set('data', $data);
                   $form   	= $this->createForm(new AdhesionIndividualType($em, $this->container), $entity, array('show_legend' => false));
 
                   $template = '_template_form_adhesion_step3.html.twig';
                   
                   $newsletters = $this->_get_newsletters_categories($lang, $user);
-                  $commissions = $this->_get_commissions($lang); 
         
                   return $this->render("PiAppGedmoBundle:Individual:$template", array(
                       'entity'      => $entity,
@@ -694,13 +745,43 @@ class IndividualController extends abstractController
                       'newsletters' => $newsletters,
                       'commissions' => $commissions,
                   ));
-              }
-              else {
+              }else {
                   $render = $this->container->get('http_kernel')->render('PiAppGedmoBundle:Individual:_template_adhesionSave', array('attributes'=>$params));
+				  if($render == ''){
+					$url = $this->container->get('bootstrap.RouteTranslator.factory')->getRoute("home_page", array('locale'=>$lang));
+					return new RedirectResponse($url);
+				}
               }
         }
+		$data = $this->container->get('session')->get('data');
+		if(!empty($retour) and !empty($data)){
+			$entity->setCivility($data['Civility']);
+			$entity->setName($data['Name']);
+			$entity->setNickname($data['Nickname']);
+			$entity->setJob($data['Job']);
+			$entity->setEmail($data['Email']);
+			$entity->setEmailPerso($data['EmailPerso']);
+			$entity->setPhone($data['Phone']);
+			$entity->setProfile($data['Profile']);
+			$entity->setProfileOther($data['ProfileOther']);
+			$entity->setUserName($data['UserName']);
+			if($retour == 2){
+				$entity->setFacebook($data['Facebook']);
+				$entity->setGooglePlus($data['GooglePlus']);
+				$entity->setTwitter($data['Twitter']);
+				$entity->setLinkedIn($data['LinkedIn']);
+				$entity->setViadeo($data['Viadeo']);
+				$entity->setEngineering($data['Engineering']);
+				$entity->setActivity($data['Activity']);
+				$entity->setDetailActivity($data['DetailActivity']);
+				$entity->setArgumentActivity($data['ArgumentActivity']);
+				$entity->setUrl($data['url']);
 
-        //$form   	= $this->createForm(new AdhesionIndividualType($em, $this->container), $entity, array('show_legend' => false));
+				$template = '_template_form_adhesion_step2.html.twig';
+			}
+			$form   	= $this->createForm(new AdhesionIndividualType($em, $this->container), $entity, array('show_legend' => false));
+		}
+
 
         return $this->render("PiAppGedmoBundle:Individual:$template", array(
             'entity' 	=> $entity,
@@ -721,43 +802,59 @@ class IndividualController extends abstractController
               $lang   = $this->container->get('session')->getLocale();
        
       $category   = $this->container->get('request')->query->get('category');
-
       $NoLayout   = $this->container->get('request')->query->get('NoLayout');
 
       $entity   = new Individual();
-
       $form     = $this->createForm(new AdhesionIndividualType($em, $this->container), $entity, array('show_legend' => false));
-
-      $data = $request->get($form->getName(), array());
-      $form->bind($data);
-      
+      $dataform = $request->get($form->getName(), array());
+      $form->bind($dataform);
       if (false === $this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {        
-          $user_name  = $em->getRepository('BootStrapUserBundle:User')->findOneByName($form["UserName"]->getData());
+          $user_name  = $em->getRepository('BootStrapUserBundle:User')->findOneByUsername($form["UserName"]->getData());
           if($user_name != null){
-            $form->addError(new FormError('error message : username already exists!'));
+            $form->addError(new FormError('erreur.lamelee.username.existed'));
           }
 
           $user_email = $em->getRepository('BootStrapUserBundle:User')->findOneByEmail($form["Email"]->getData());
 
           if($user_email != null){
-            $form->addError(new FormError('error message : email already exists!'));
+            $form->addError(new FormError('erreur.lamelee.mail.existed'));
           }
       }
         
       if (!$form->hasErrors()) {
-
-        $data = array();
-        $data['Civility'] = $form['Civility']->getData();
-        $data['Name'] = $form['Name']->getData();
-        $data['Nickname'] = $form['Nickname']->getData();
-        $data['Job'] = $form['Job']->getData();
-        $data['Email'] = $form['Email']->getData();
+		  $data = $this->container->get('session')->get('data');
+		  if(!empty($data)){
+				if(isset($data['step-max']) and $data['step-max'] > 1){
+					$entity->setFacebook($data['Facebook']);
+					$entity->setGooglePlus($data['GooglePlus']);
+					$entity->setTwitter($data['Twitter']);
+					$entity->setLinkedIn($data['LinkedIn']);
+					$entity->setViadeo($data['Viadeo']);
+					$entity->setEngineering($data['Engineering']);
+					$entity->setActivity($data['Activity']);
+					$entity->setDetailActivity($data['DetailActivity']);
+					$entity->setArgumentActivity($data['ArgumentActivity']);
+					$entity->setUrl($data['url']);					
+				}
+		  }else{
+			  $data = array();
+		  }
+		
+		if(!isset($data['step-max']))
+			$data['step-max'] = 1;
+		
+        $data['Civility'] 	= $form['Civility']->getData();
+        $data['Name'] 		= $form['Name']->getData();
+        $data['Nickname'] 	= $form['Nickname']->getData();
+        $data['Job'] 		= $form['Job']->getData();
+        $data['Email'] 		= $form['Email']->getData();
         $data['EmailPerso'] = $form['EmailPerso']->getData();
-        $data['Phone'] = $form['Phone']->getData();
-        $data['Profile'] = $form['Profile']->getData();
+        $data['Phone'] 		= $form['Phone']->getData();
+        $data['Profile'] 	= $form['Profile']->getData();
         $data['ProfileOther'] = $form['ProfileOther']->getData();
-        $data['UserName'] = $form['UserName']->getData();  
+        $data['UserName'] 	= $form['UserName']->getData();  
 
+		$this->container->get('session')->set('data', $data);
         $form   	= $this->createForm(new AdhesionIndividualType($em, $this->container), $entity, array('show_legend' => false));
 
         $template = '_template_form_adhesion_step2.html.twig';
@@ -794,25 +891,22 @@ class IndividualController extends abstractController
               $lang   = $this->container->get('session')->getLocale();
        
       $category   = $this->container->get('request')->query->get('category');
-
       $NoLayout   = $this->container->get('request')->query->get('NoLayout');
 
       $entity   = new Individual();
-
       $form     = $this->createForm(new AdhesionIndividualType($em, $this->container), $entity, array('show_legend' => false));
 
       $data = $request->get($form->getName(), array());
       $form->bind($data);
-
       if (!$form->hasErrors()) {
             if (true === $this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {  
-                $connexion = $this->get('security.context')->getToken()->getUser();
-                $user = $em->getRepository("BootStrapUserBundle:User")->findOneById($connexion->getId());
-                $entity = $user->getIndividual();
-                $password = $user->getPassword();
+                $connexion 	= $this->get('security.context')->getToken()->getUser();
+                $user 		= $em->getRepository("BootStrapUserBundle:User")->findOneById($connexion->getId());
+                $entity 	= $user->getIndividual();
+                $password 	= $user->getPassword();
                 $user->setName($request->get('Name'));
                 $user->setNickname($request->get('Nickname'));            
-                $user->setRoles(array('ROLE_MEMBER'));
+                $user->setRoles(array('ROLE_SUBSCRIBER'));
                 if(isset($_POST['newsletters']) && !empty($_POST['newsletters'])){
                   $newsletters = $_POST['newsletters'];
                   foreach (array_keys($newsletters)  as $newsletter ) {
@@ -820,20 +914,11 @@ class IndividualController extends abstractController
                       $user->addNewsletter($nl);
                   }  
                 }
-                if(isset($_POST['commissions']) && !empty($_POST['commissions'])){
-                  $commissions = $_POST['commissions'];
-                  foreach (array_keys($commissions)  as $commission ) {
-                      $com  = $em->getRepository('PiAppGedmoBundle:Lamelee\TypoCommission')->findOneById($commission);
-                      $user->addTypoCommission($com);
-                  }  
-                }
                 
                 $em->persist($user);
                 $em->flush();	          
-            }
-            else{
+            }else{
                 $password = \PiApp\AdminBundle\Util\PiStringManager::random(8);
-                //$password = $request->get('UserName');
                 $user = new User();
                 $user->setUsername($request->get('UserName'));
                 $user->setName($request->get('Name'));
@@ -843,43 +928,49 @@ class IndividualController extends abstractController
                 $user->setEmail($request->get('Email'));
                 $user->setEmailCanonical($request->get('Email'));
                 $user->setEnabled(true);
-                $user->setRoles(array('ROLE_MEMBER'));
+                $user->setRoles(array('ROLE_SUBSCRIBER'));
                 $user->setPermissions(array('VIEW', 'EDIT', 'CREATE', 'DELETE'));
                 $user->setLangCode($em->getRepository('PiAppAdminBundle:Langue')->findOneById('fr_FR'));
-            
-                foreach (array_keys($newsletters)  as $newsletter ) {
-                    $nl  = $em->getRepository('PiAppGedmoBundle:Newsletter')->findOneById($newsletter);
-                    $user->addNewsletter($nl);
-                }
-                
-                foreach (array_keys($commissions)  as $commission ) {
-                    $com  = $em->getRepository('PiAppGedmoBundle:Lamelee\TypoCommission')->findOneById($commission);
-                    $user->addTypoCommission($com);
-                } 
-                
+                if(isset($_POST['newsletters']) && !empty($_POST['newsletters'])){
+					$newsletters = $_POST['newsletters'];            
+					foreach (array_keys($newsletters)  as $newsletter ) {
+						$nl  = $em->getRepository('PiAppGedmoBundle:Newsletter')->findOneById($newsletter);
+						$user->addNewsletter($nl);
+					}
+				}
+
                 $em->persist($user);
-                $em->flush();	 print_r($commissions);         
+                $em->flush();	 
                 $entity->setUser($user);   
                 
                 $entity->setTranslatableLocale($lang);
                 $entity->setEmail($request->get('Email'));      
                 $entity->setUserName($request->get('UserName'));
             }
-            
-            $media_pixel = new \BootStrap\MediaBundle\Entity\Media();
-            $media_pixel->setProviderName('sonata.media.provider.image');
-            $media_pixel->setContext("default");  
-            $media_pixel->setBinaryContent($request->get('media'));
-            $em->persist($media_pixel);
-            $em->flush();
-
-            $media_gedmo = new \PiApp\GedmoBundle\Entity\Media();
-            $media_gedmo->setImage($media_pixel);
-            $media_gedmo->setStatus('image');
-            $em->persist($media_gedmo);
-            $em->flush();
-            $entity->setMedia($media_gedmo);
-        
+			
+            if($request->get('media') != ""){
+				$media_pixel = new \BootStrap\MediaBundle\Entity\Media();
+				$media_pixel->setProviderName('sonata.media.provider.image');
+				$media_pixel->setContext("default");  
+				$media_pixel->setBinaryContent($request->get('media'));
+				
+				if($media_pixel instanceof \BootStrap\MediaBundle\Entity\Media){
+					$em->persist($media_pixel);
+					$em->flush();
+					
+					$media_gedmo = new \PiApp\GedmoBundle\Entity\Media();
+					$media_gedmo->setImage($media_pixel);
+					$media_gedmo->setStatus('image');
+					
+					if($media_gedmo instanceof \PiApp\GedmoBundle\Entity\Media){
+						$em->persist($media_gedmo);
+						$em->flush();
+						$entity->setMedia($media_gedmo);
+					}					
+				}
+			}
+			
+            $entity->setEnabled(true);
             $entity->setCivility($request->get('Civility'));
             $entity->setName($request->get('Name'));
             $entity->setNickname($request->get('Nickname'));
@@ -903,42 +994,55 @@ class IndividualController extends abstractController
             $entity->setOriginContact($form['OriginContact']->getData());            
             $entity->setOriginContactOther($form['OriginContactOther']->getData());
             $entity->setOriginContactSponsor($form['OriginContactSponsor']->getData());            
-	          $em->persist($entity);
-	          $em->flush();
+	        $em->persist($entity);
+	        $em->flush();
 	          
             //clear tmp media files 
             $this->_clear_media_tmp();
             
-	          $flash = $this->get('translator')
+	        $flash = $this->get('translator')
 	                         ->trans('adhesion.flash.user_created',
 	                                  array('%email%' => $request->get('Email')));
 	                      
-	          $this->container->get('session')->setFlashes(array());
-	          $this->get('session')->setFlash('success', $flash);
+	        $this->container->get('session')->setFlashes(array());
+	        $this->get('session')->setFlash('success', $flash);
             
             //send mail
-            $templateFile = "PiAppGedmoBundle:Individual:email_adhesion.html.twig";
-            $templateContent = $this->get('twig')->loadTemplate($templateFile);
-	          $subject = ($templateContent->hasBlock("subject")
+            $templateFile		= "PiAppGedmoBundle:Individual:email_adhesion.html.twig";
+            $templateContent	= $this->get('twig')->loadTemplate($templateFile);
+            
+            $url_resetting = $this->container->get("pi_app_admin.manager.authentication")->sendResettingEmailMessage($user, "page_lamelee_reset");
+	        $subject = ($templateContent->hasBlock("subject")
 	              ? $templateContent->renderBlock("subject", array(
+	              'confirmationUrl' =>  $url_resetting,
 	              'form'	 => $entity, 
                 'password'	 => $password,
 	              ))
 	              : "Default subject here");
-	          $body = ($templateContent->hasBlock("body")
+	        $body = ($templateContent->hasBlock("body")
 	              ? $templateContent->renderBlock("body", array(
+	              'confirmationUrl' =>  $url_resetting,
 	              'form'	 => $entity, 
                 'password'	 => $password,
 	              ))
 	              : "Default body here");   
             
-            $this->get("pi_app_admin.mailer_manager")->send('mailinfo@lamelee.fr', $user->getEmail(), $subject, $body);
-            
-          return new Response('');
+	          $query		= $em->getRepository("PiAppGedmoBundle:Contact")->getAllByFields(array('enabled'=>true), 1, '', 'ASC');
+	          $query->leftJoin('a.category', 'c')
+	          ->andWhere("c.id = :catID")
+	          ->setParameter('catID', 23);
+    		  $entity_cat   = current($em->getRepository("PiAppGedmoBundle:Contact")->findTranslationsByQuery($lang, $query->getQuery(), "object", false));
+			  if($entity_cat instanceof \PiApp\GedmoBundle\Entity\Contact)
+					$this->get("pi_app_admin.mailer_manager")->send($entity_cat->getEmail(), $user->getEmail(), $subject, $body, $entity_cat->getEmailCc(), $entity_cat->getEmailBcc());
+			  else
+					$this->get("pi_app_admin.mailer_manager")->send("confirmationadhesion@gmail.com", $user->getEmail(), $subject, $body);
+			  
+			$this->container->get('session')->remove('data');
+			
+			return new Response('');
           
       }
           $newsletters = $this->_get_newsletters_categories($lang);
-          $commissions = $this->_get_commissions($lang);
         
           return $this->render("PiAppGedmoBundle:Individual:$template", array(
               'entity'      => $entity,
@@ -948,26 +1052,23 @@ class IndividualController extends abstractController
               'new'	=> 1,
               'render'	=> '',
               'newsletters' => $newsletters,
-              'commissions' => $commissions,
           )); 
     }   
 
     private function _clear_media_tmp() {
     	try {
-        $path = $this->container->get('kernel')->getRootDir(). '/../web/uploads/media/tmp';
-        $all_files = \PiApp\AdminBundle\Util\PiFileManager::ListFiles($path);
-        foreach ($all_files as $filename ) {
-                if(filemtime($filename) < time() - 60 * 60 * 24)
-                  unlink ($filename);
-        }        
-
+	        $path = $this->container->get('kernel')->getRootDir(). '/../web/uploads/media/tmp';
+	        $all_files = \PiApp\AdminBundle\Util\PiFileManager::ListFiles($path);
+	        foreach ($all_files as $filename ) {
+	                if(filemtime($filename) < time() - 60 * 60 * 24)
+	                  unlink ($filename);
+	        }        
     	} catch (\Exception $e) {
     		return false;
     	}
-        
     }
     
-    private function _get_newsletters_categories($lang ='' ,$user ='') {
+    private function _get_newsletters_categories($lang ='' ,$user ='', $category_ignore='') {
       $em        = $this->getDoctrine()->getEntityManager();
       if(empty($lang))
               $lang   = $this->container->get('session')->getLocale();
@@ -982,31 +1083,19 @@ class IndividualController extends abstractController
               $checked ='checked';
             }
           }
-          $categories[$newsletter->getCategory()->getPosition() ][] = array(
-            $newsletter->getCategory()->translate($lang)->getName(),
-            $newsletter->getId(),
-            $newsletter->translate($lang)->getTitle(),
-            $checked,
-          );
-        }
+		  if($category_ignore != $newsletter->getCategory()->getId()){
+			$categories[$newsletter->getCategory()->getPosition() ][] = array(
+			  $newsletter->getCategory()->translate($lang)->getName(),
+			  $newsletter->getId(),
+			  $newsletter->translate($lang)->getTitle(),
+			  $checked,
+			);
+		  }
+		}
         ksort($categories);
         
         return $categories;
     }
     
-    private function _get_commissions($lang ="") {
-      $em        = $this->getDoctrine()->getEntityManager();
-      if(empty($lang))
-              $lang   = $this->container->get('session')->getLocale();
-      
-        $coms	= $em->getRepository("PiAppGedmoBundle:Lamelee\TypoCommission")->findAllByEntity($lang, 'object'); 
-
-        foreach ($coms as $com) {
-          $commissions[] = array(
-            $com->getId(),
-            $com->translate($lang)->getTitle()
-          );
-        }
-        return $commissions;
-    }   
+  
 }

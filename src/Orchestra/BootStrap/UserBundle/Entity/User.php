@@ -65,7 +65,7 @@ class User extends BaseUser
 	/**
 	 * @var \Doctrine\Common\Collections\ArrayCollection
 	 *
-	 * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Ads", mappedBy="user")
+	 * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Ads", mappedBy="user", cascade={"all"})
 	 */
 	protected $ads;  
 
@@ -193,27 +193,6 @@ class User extends BaseUser
     public function removeNewsletter(\PiApp\GedmoBundle\Entity\Newsletter $newsletter)
     {
        return $newsletter->removeUser($this);
-    }
-
-    /**
-     * Add typocommission
-     *
-     * @param \PiApp\GedmoBundle\Entity\Lamelee\TypoCommission $typocommission
-     */
-    public function addTypoCommission(\PiApp\GedmoBundle\Entity\Lamelee\TypoCommission $typocommission)
-    {
-        $typocommission->addUser($this);
-        $this->typocommissions[] = $typocommission;
-    }
-    
-    /**
-     * Remove typocommission
-     *
-     * @param \PiApp\GedmoBundle\Entity\Lamelee\TypoCommission $typocommission
-     */
-    public function removeTypoCommission(\PiApp\GedmoBundle\Entity\Lamelee\TypoCommission $typocommission)
-    {
-        return $typocommission->removeUser($this);
     }
 
     /**

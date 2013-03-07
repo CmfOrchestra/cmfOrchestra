@@ -20,33 +20,273 @@
 	            <td>{{ entity.id }}</td>	
 	        </tr>	
 	        <tr>
-	            <th>Url</th>	
-	            <td>{{ entity.url }}</td>	
-	        </tr>	
-	        <tr>
 	            <th>Created_at</th>	
 	            <td>{{ entity.createdat|date('Y-m-d H:i:s') }}</td>	
+	        </tr>	        
+			<tr>
+	        	<th>Media</th>
+	        	<td>
+	        		{% if entity.media.image is defined %}
+	        			{% media entity.media.image, 'reference' %}
+	        		{% endif %}
+	        		
+	        		<br />
+	        		
+	        		{% if entity.media2.image is defined %}
+	        			{% media entity.media2.image, 'reference' %}
+	        		{% endif %}
+	        	</td>
+	        </tr>  
+	        
+	        <tr>
+	            <th>&nbsp;</th>	
+	            <td>&nbsp;</td>	
+	        </tr>	        
+	        <tr>
+	            <th>Login</th>	
+	            <td>{{ entity.UserName }}</td>	
+	        </tr>	        	
+	        <tr>
+	            <th>{{ 'pi.form.label.field.name'|trans }}</th>	
+	            <td>{{ entity.Name }}</td>	
+	        </tr>
+	        <tr>
+	            <th>{{ 'pi.form.label.field.nickname'|trans }}</th>	
+	            <td>{{ entity.Nickname }}</td>	
+	        </tr>
+	        <tr>
+	            <th>{{ 'pi.form.label.field.profile'|trans }}</th>	
+	            <td>{{ entity.Profile }}</td>	
+	        </tr>
+	        <tr>
+	            <th>{{ 'pi.form.label.field.employment.job'|trans }}</th>	
+	            <td>{{ entity.Job }}</td>	
+	        </tr>	        
+	        <tr>
+	            <th>{{ 'pi.form.label.field.civility'|trans }}</th>	
+	            <td>{{ entity.Civility }}</td>	
+	        </tr>	        
+	        <tr>
+	            <th>{{ 'pi.form.label.field.adress.phone'|trans }}</th>	
+	            <td>{{ entity.UserPhone }}</td>	
 	        </tr>	
 	        <tr>
-	            <th>Updated_at</th>	
-	            <td>{{ entity.updatedat|date('Y-m-d H:i:s') }}</td>	
+	            <th>{{ 'pi.form.label.field.email'|trans }}</th>	
+	            <td>{{ entity.Email }}</td>	
+	        </tr>
+	       	<tr>
+	            <th>{{ 'pi.form.label.field.email.perso'|trans }}</th>	
+	            <td>{{ entity.EmailPerso }}</td>	
+	        </tr>
+	        <tr>
+	            <th>{{ 'pi.form.label.field.website'|trans }}</th>	
+	            <td>{{ entity.url }}</td>	
+	        </tr>	        
+	        
+	        
+	        
+	        <tr>
+	            <th style="background-color:black;color:white;font-size:21px">{{ 'pi.corporation.form.group.job'|trans }}</th>	
+	            <td style="background-color:black">&nbsp;</td>	
+	        </tr>	        
+	        <tr>
+	            <th>{{ 'pi.form.label.field.corporation.name'|trans }}</th>	
+	            <td>{{ entity.CorporationName }}</td>	
+	        </tr>
+	        <tr>
+	            <th>{{ 'pi.form.label.field.corporation.name.commercial'|trans }}</th>	
+	            <td>{{ entity.CommercialName }}</td>	
+	        </tr>	        	        
+	        <tr>
+	            <th>{{ 'pi.form.label.field.corporation.activity'|trans }}</th>	
+	            <td>{{ entity.Activity }}</td>	
+	        </tr>
+	        <tr>
+	            <th>{{ 'pi.form.label.field.corporation.engineering'|trans }}</th>	
+	            <td>{{ entity.Engineering }}</td>	
+	        </tr>
+	        <tr>
+	            <th>{{ 'pi.form.label.field.corporation.detailactivity'|trans }}</th>	
+	            <td>{{ entity.DetailActivity }}</td>	
+	        </tr>
+	        <tr>
+	            <th>{{ 'pi.form.label.field.corporation.legalform'|trans }}</th>	
+	            <td>{{ entity.LegalForm }}</td>	
+	        </tr>	        
+	        	        	             	        	        	        	        	        
+	        	        	                
+	        	       
+	        <tr>
+	            <th style="background-color:black;color:white;font-size:21px">{{ 'pi.corporation.form.group.info1'|trans }}</th>	
+	            <td style="background-color:black">&nbsp;</td>	
+	        </tr>
+	        <tr>
+	            <th>{{ 'pi.form.label.field.corporation.effectif.national'|trans }}</th>	
+	            <td>{{ entity.EffectifNational }}</td>	
 	        </tr>	
 	        <tr>
-	            <th>Published_at</th>	
-	            <td>{{ entity.publishedat|date('Y-m-d H:i:s') }}</td>	
+	            <th>{{ 'pi.form.label.field.corporation.effectif.regional'|trans }}</th>	
+	            <td>{{ entity.EffectifRegional }}</td>	
 	        </tr>	
 	        <tr>
-	            <th>Archive_at</th>	
-	            <td>{{ entity.archiveat|date('Y-m-d H:i:s') }}</td>	
+	            <th>{{ 'pi.form.label.field.corporation.code.naf'|trans }}</th>	
+	            <td>{{ entity.CodeNAF }}</td>	
 	        </tr>	
 	        <tr>
-	            <th>Enabled</th>	
-	            <td>{{ entity.enabled }}</td>	
+	            <th>{{ 'pi.form.label.field.corporation.siret'|trans }}</th>	
+	            <td>{{ entity.Siret }}</td>	
 	        </tr>	
 	        <tr>
-	            <th>Position</th>	
-	            <td>{{ entity.position }}</td>	
+	            <th>{{ 'pi.form.label.field.corporation.ca.national'|trans }}</th>	
+	            <td>{{ entity.CaNational }}</td>	
+	        </tr>		 
+	        
+	        
+	        <tr>
+	            <th style="background-color:black;color:white;font-size:21px">{{ 'pi.corporation.form.group.info2'|trans }}</th>	
+	            <td style="background-color:black">&nbsp;</td>	
+	        </tr>	        
+	        <tr>
+	            <th>{{ 'pi.form.label.field.corporation.argument.commercial'|trans }}</th>	
+	            <td>{{ entity.ArgumentCommercial }}</td>	
 	        </tr>	
+	        <tr>
+	            <th>{{ 'pi.form.label.field.corporation.expertise'|trans }}</th>	
+	            <td>{{ entity.Expertise }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>{{ 'pi.form.label.field.corporation.speaker'|trans }}</th>	
+	            <td>{{ entity.Speaker }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>{{ 'pi.form.label.field.corporation.origin.contact'|trans }}</th>	
+	            <td>{{ entity.OriginContact }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>{{ 'pi.form.label.field.other'|trans }}</th>	
+	            <td>{{ entity.OriginContactOther }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>{{ 'pi.form.label.field.corporation.origin.contact.sponsor'|trans }}</th>	
+	            <td>{{ entity.OriginContactSponsor }}</td>	
+	        </tr>		     
+	        
+	        
+	        <tr>
+	            <th style="background-color:black;color:white;font-size:21px">{{ 'pi.corporation.form.group.social'|trans }}</th>	
+	            <td style="background-color:black">&nbsp;</td>	
+	        </tr>	        
+	        <tr>
+	            <th>{{ 'pi.form.label.field.social.facebook'|trans }}</th>	
+	            <td>{{ entity.Facebook }}</td>	
+	        </tr>
+	        <tr>
+	            <th>{{ 'pi.form.label.field.social.googleplus'|trans }}</th>	
+	            <td>{{ entity.GooglePlus }}</td>	
+	        </tr>
+	        <tr>
+	            <th>{{ 'pi.form.label.field.social.twitter'|trans }}</th>	
+	            <td>{{ entity.Twitter }}</td>	
+	        </tr>
+	        <tr>
+	            <th>{{ 'pi.form.label.field.social.linkedin'|trans }}</th>	
+	            <td>{{ entity.LinkedIn }}</td>	
+	        </tr>
+	        <tr>
+	            <th>{{ 'pi.form.label.field.social.viadeo'|trans }}</th>	
+	            <td>{{ entity.Viadeo }}</td>	
+	        </tr>		
+	        
+	        
+	        <tr>
+	            <th style="background-color:black;color:white;font-size:21px">{{ 'pi.corporation.form.group.contact.entre'|trans }}</th>	
+	            <td style="background-color:black">&nbsp;</td>	
+	        </tr>	        
+	        <tr>
+	            <th>{{ 'pi.form.label.field.adress.main'|trans }}</th>	
+	            <td>{{ entity.Address }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>{{ 'pi.form.label.field.adress.cp'|trans }}</th>	
+	            <td>{{ entity.CP }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>{{ 'pi.form.label.field.adress.city'|trans }}</th>	
+	            <td>{{ entity.City }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>{{ 'pi.form.label.field.adress.country'|trans }}</th>	
+	            <td>{{ entity.Country }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>{{ 'pi.form.label.field.adress.phone'|trans }}</th>	
+	            <td>{{ entity.Phone }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>{{ 'pi.form.label.field.adress.fax'|trans }}</th>	
+	            <td>{{ entity.Fax }}</td>	
+	        </tr>	
+	        
+	        
+	        <tr>
+	            <th style="background-color:black;color:white;font-size:21px">{{ 'pi.corporation.form.group.contact.entre.mother'|trans }}</th>	
+	            <td style="background-color:black">&nbsp;</td>	
+	        </tr>	        
+	        <tr>
+	            <th>{{ 'pi.form.label.field.adress.main'|trans }}</th>	
+	            <td>{{ entity.MotherAddress }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>{{ 'pi.form.label.field.adress.cp'|trans }}</th>	
+	            <td>{{ entity.MotherCP }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>{{ 'pi.form.label.field.adress.city'|trans }}</th>	
+	            <td>{{ entity.MotherCity }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>{{ 'pi.form.label.field.adress.country'|trans }}</th>	
+	            <td>{{ entity.MotherCountry }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>{{ 'pi.form.label.field.adress.phone'|trans }}</th>	
+	            <td>{{ entity.MotherPhone }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>{{ 'pi.form.label.field.adress.fax'|trans }}</th>	
+	            <td>{{ entity.MotherFax }}</td>	
+	        </tr>
+	        
+	        
+	        <tr>
+	            <th style="background-color:black;color:white;font-size:21px">{{ 'pi.corporation.form.group.contact.entre.facturation'|trans }}</th>	
+	            <td style="background-color:black">&nbsp;</td>	
+	        </tr>	        
+	        <tr>
+	            <th>{{ 'pi.form.label.field.adress.main'|trans }}</th>	
+	            <td>{{ entity.InvoiceAddress }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>{{ 'pi.form.label.field.adress.cp'|trans }}</th>	
+	            <td>{{ entity.InvoiceCP }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>{{ 'pi.form.label.field.adress.city'|trans }}</th>	
+	            <td>{{ entity.InvoiceCity }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>{{ 'pi.form.label.field.adress.country'|trans }}</th>	
+	            <td>{{ entity.InvoiceCountry }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>{{ 'pi.form.label.field.adress.phone'|trans }}</th>	
+	            <td>{{ entity.InvoicePhone }}</td>	
+	        </tr>	
+	        <tr>
+	            <th>{{ 'pi.form.label.field.adress.fax'|trans }}</th>	
+	            <td>{{ entity.InvoiceFax }}</td>	
+	        </tr>		           	        	        	        	        	               	        	        	        	        
+	        	        
 	    </tbody>
 	</table>
 
@@ -54,18 +294,37 @@
 	
 				
 	<ul class="record_actions">
+		{% if type == "aderent" %}
+		<li>
+	        <form action="{{ path('admin_gedmo_list_adherent', { 'NoLayout': NoLayout, 'category':category }) }}" method="post">
+	            <button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
+	        </form>	        
+		</li>
+		{% elseif type == "event" %}
+		<li>
+	        <form action="{{ path('admin_gedmo_lamelee_event_subscribers', { 'NoLayout': NoLayout, 'category':category }) }}" method="post">
+	            <button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
+	        </form>	        
+		</li>
+		{% elseif type == "subscriber" %}
+		<li>
+	        <form action="{{ path('admin_gedmo_individual_subscribers', { 'NoLayout': NoLayout, 'category':category }) }}" method="post">
+	            <button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
+	        </form>	        
+		</li>
+        {% else %}
 		<li>
 	        <form action="{{ path('admin_gedmo_corporation', { 'NoLayout': NoLayout, 'category':category }) }}" method="post">
 	            <button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
 	        </form>	        
 		</li>
-			<li>
-	        <form action="{{ path('admin_gedmo_corporation_edit', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category }) }}" method="post">
-	            <button type="submit">{{ 'pi.grid.action.update'|trans }}</button>
+		<li>
+        <form action="{{ path('admin_gedmo_corporation_edit', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category }) }}" method="post">
+            <button type="submit">{{ 'pi.grid.action.update'|trans }}</button>
 	        </form>	        
 		</li>
-			
-		{% if NoLayout == false %}
+        {% endif %}	
+		{% if (NoLayout == false) and (type is empty) %}
 	    <li>
 	        <form action="{{ path('admin_gedmo_corporation_delete', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category }) }}" method="post">
 	            {{ form_widget(delete_form) }}
@@ -73,8 +332,6 @@
 	        </form>
 	    </li>
 	    {% endif %}
-	    
-	
 	</ul>	
 		<script type="text/javascript">
 		//<![CDATA[

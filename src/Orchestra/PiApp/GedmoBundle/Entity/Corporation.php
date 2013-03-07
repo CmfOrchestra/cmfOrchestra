@@ -162,8 +162,7 @@ class Corporation extends AbstractDefault
      * @var string $Email
      *
      * @ORM\Column(name="email", type="string", nullable = true)
-     * @Assert\NotBlank()
-     * @Assert\Email()
+     * @Assert\Email(message="erreur.lamelee.mail.existed")
      */
     protected $Email;
     
@@ -506,8 +505,14 @@ class Corporation extends AbstractDefault
      * @ORM\Column(name="ca_national", type="string", length=255, nullable = true)
      * 
      */
-    protected $CaNational ;
+    protected $CaNational;
 
+    /**
+     * @var boolean $paymentstatus
+     *
+     * @ORM\Column(name="paymentstatus", type="boolean", nullable=false)
+     */
+    protected $paymentstatus = false;    
     
     /**
      * Constructor
@@ -1723,5 +1728,27 @@ class Corporation extends AbstractDefault
     public function getCaNational()
     {
     	return $this->CaNational;
-    }   
+    } 
+
+    /**
+     * Set payment status
+     *
+     * @param string $paymentstatus
+     * @return this
+     */
+    public function setPaymentstatus($paymentstatus)
+    {
+    	$this->paymentstatus = $paymentstatus;
+    	return $this;
+    }
+    
+    /**
+     * Get payment status
+     *
+     * @return string
+     */
+    public function getPaymentstatus()
+    {
+    	return $this->paymentstatus;
+    }    
 }

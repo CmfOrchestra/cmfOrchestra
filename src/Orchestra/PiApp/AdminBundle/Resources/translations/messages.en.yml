@@ -47,6 +47,7 @@ pi.grid.action.update: Update
 pi.grid.action.save: Save
 pi.grid.action.delete: Delete
 pi.grid.action.create: Create
+pi.grid.action.validate: Validate
 pi.grid.action.back-to-the-list: Back to List
 pi.grid.action.add-tab: Add tab
 pi.grid.action.copy: Copy to clipboard

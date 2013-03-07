@@ -3,20 +3,20 @@
 		<div class="wrap">
 			<div class="content">
 				{% form_theme form theme %}
-				<form action="{{ path('page_lamelee_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST" id="form-connexion-reset">
+				<form action="{{ path(route, {'token': token}) }}" {{ form_enctype(form) }} method="POST" id="form-connexion-reset">
 					<div class="title-border-simple cf">
-						<h3 class="tt-3 tt-clr bold fleft">Changement de mot-de-passe</h3>
+						<h3 class="tt-3 tt-clr bold fleft">Création/Changement de mot-de-passe</h3>
 					</div>			
 					<fieldset class="resetBorder">	
 						<div class="row">
 				    	{{ form_widget(form) }}
 				    	</div>
 				    	<div class="button-ct">
-				        	<input type="submit"  class=" nextStep" value="{{ 'resetting.reset.submit'|trans({}, 'FOSUserBundle') }}" />
+				        	<input type="submit"  class=" nextStep" value="{{ 'pi.grid.action.validate'|trans }}" />
 				    	</div>
 				    </fieldset>
 				</form>
 			</div>
 		</div>
 	</section>		
-</div>		
+</div>

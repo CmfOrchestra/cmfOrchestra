@@ -41,7 +41,7 @@ class Ads extends AbstractDefault
 	 * @var array
 	 * @access  protected
 	 */
-	protected $_fields	= array('title',  'content');
+	protected $_fields	= array('title',  'content', 'slug', 'meta_keywords', 'meta_description');
 
 	/**
 	 * Name of the Translation Entity
@@ -88,11 +88,11 @@ class Ads extends AbstractDefault
     /**
      * @var \BootStrap\UserBundle\Entity\User $user
      *
-     * @ORM\ManyToOne(targetEntity="BootStrap\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="BootStrap\UserBundle\Entity\User", inversedBy="ads", cascade={"persist"})
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     protected $user;    
-    
+  
     /**
      * @var string $status
      *
@@ -105,7 +105,7 @@ class Ads extends AbstractDefault
      * @var string $typology
      *
      * @ORM\Column(name="typology", type="string", nullable=true)
-     * @Assert\NotBlank(message = "erreur.status.notblank")
+     * @Assert\NotBlank(message = "erreur.typology.notblank")
      */
     protected $typology;    
     
@@ -139,6 +139,31 @@ class Ads extends AbstractDefault
      * @ORM\JoinColumn(name="media_id", referencedColumnName="id", nullable=true)
      */
     protected $media;   
+    
+    /**
+     * @var string $slug
+     *
+     * @Gedmo\Translatable
+     * @Gedmo\Slug(separator="-", fields={"id", "title"})
+     * @ORM\Column(name="slug", length=128, unique=false, nullable=true)
+     */
+    protected $slug;
+    
+    /**
+     * @var text $meta_keywords
+     *
+     * @Gedmo\Translatable
+     * @ORM\Column(name="meta_keywords", type="text", nullable=true)
+     */
+    protected $meta_keywords;
+    
+    /**
+     * @var text $meta_description
+     *
+     * @Gedmo\Translatable
+     * @ORM\Column(name="meta_description", type="text", nullable=true)
+     */
+    protected $meta_description;    
 
     /**
      * Constructor
@@ -186,7 +211,7 @@ class Ads extends AbstractDefault
      *
      * @param \BootStrap\UserBundle\Entity\User
      */
-    public function setUser(\BootStrap\UserBundle\Entity\User $user)
+    public function setUser($user)
     {
     	$this->user = $user;
     }
@@ -371,4 +396,56 @@ class Ads extends AbstractDefault
     {
     	return $this->tags;
     }    
+    
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+    	return $this->slug;
+    }
+    
+    
+    /**
+     * Set meta_keywords
+     *
+     * @param text $metaKeywords
+     */
+    public function setMetaKeywords($metaKeywords)
+    {
+    	$this->meta_keywords = $metaKeywords;
+    }
+    
+    /**
+     * Get meta_keywords
+     *
+     * @return text
+     */
+    public function getMetaKeywords()
+    {
+    	return $this->meta_keywords;
+    }
+    
+    /**
+     * Set meta_description
+     *
+     * @param text $metaDescription
+     */
+    public function setMetaDescription($metaDescription)
+    {
+    	$this->meta_description = $metaDescription;
+    }
+    
+    /**
+     * Get meta_description
+     *
+     * @return text
+     */
+    public function getMetaDescription()
+    {
+    	return $this->meta_description;
+    }
+        
 }

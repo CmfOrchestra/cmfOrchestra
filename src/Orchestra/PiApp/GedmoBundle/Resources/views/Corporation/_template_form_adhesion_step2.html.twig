@@ -35,38 +35,68 @@
 
 					</figure>
 
-					<form action="#" method="post" class="cf">
-            <input type="hidden" id="new" name="new" value="{{new}}">
-            <input type="hidden" id="step" name="step" value="2">
-            {% for key,value in data %}
-                <input type="hidden" id="{{key}}" name="{{key}}" value="{{value}}">
-            {% endfor %}
+					<form action="{{ path_url("page_lamelee_adhesion_morale")}}" method="post" class="cf">
+						<input type="hidden" id="new" name="new" value="{{new}}">
+						<input type="hidden" id="step" name="step" value="2">
+						{% for key,value in data %}
+							<input type="hidden" id="{{key}}" name="{{key}}" value="{{value}}">
+						{% endfor %}
                 
-            {{ form_errors(form) }}
-            {{ form_widget(form._token) }}             
+						{{ form_errors(form) }}
+						{{ form_widget(form._token) }}             
 						<div class="title-border-simple cf">
 							<h3 class="tt-3 tt-clr bold fleft">Votre entreprise</h3>
 						</div>
 						<fieldset>
-							{{ form_widget(form.CorporationName) }}
-							<a href="#" class="tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
-              {{ form_widget(form.CommercialName) }}
-							<a href="#" class="tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
+							
+							{% if form.vars.value.CorporationName %} 
+								  {{ form_widget(form.CorporationName) }}
+							{% else %}
+								  {{ form_widget(form.CorporationName, { 'attr': {'data-validate': 'Raison sociale *'} }) }}
+							{% endif %}
+							<a href="#" class="tooltip" data-tooltip="{{'pi.corporation.form.adhesion.tooltip.corporationname'|trans|striptags|raw}}">Info</a>
+								{% if form.vars.value.CommercialName %} 
+									  {{ form_widget(form.CommercialName) }}
+								{% else %}
+									  {{ form_widget(form.CommercialName, { 'attr': {'data-validate': 'Nom commercial *'} }) }}
+								{% endif %}							
+							<a href="#" class="tooltip" data-tooltip="{{'pi.corporation.form.adhesion.tooltip.commercialname'|trans|striptags|raw}}">Info</a>
 						</fieldset>
 
 						<fieldset>
 							<legend class="bold">Adresse établissement</legend>
+								{% if form.vars.value.Address %} 
+									  {{ form_widget(form.Address) }}
+								{% else %}
+									  {{ form_widget(form.Address, { 'attr': {'data-validate': 'Adresse*'} }) }}
+								{% endif %}
 
-							{{ form_widget(form.Address) }}
 							<div class="row third">
-								{{ form_widget(form.CP) }}
-								{{ form_widget(form.City) }}
-								{{ form_widget(form.Country) }}
+								{% if form.vars.value.CP %} 
+									  {{ form_widget(form.CP) }}
+								{% else %}
+									  {{ form_widget(form.CP, { 'attr': {'data-validate': 'Code postal*'} }) }}
+								{% endif %}
+								{% if form.vars.value.City %} 
+									  {{ form_widget(form.City) }}
+								{% else %}
+									  {{ form_widget(form.City, { 'attr': {'data-validate': 'Ville*'} }) }}
+								{% endif %}
+ 
+								{{ form_widget(form.Country) }}								
 							</div>
 						
 							<div class="row">
-								{{ form_widget(form.Phone) }}
-								{{ form_widget(form.Fax) }}
+								{% if form.vars.value.Phone %} 
+									  {{ form_widget(form.Phone) }}
+								{% else %}
+									  {{ form_widget(form.Phone, { 'attr': {'data-validate': 'Téléphone*'} }) }}
+								{% endif %}
+								{% if form.vars.value.Fax %} 
+									  {{ form_widget(form.Fax) }}
+								{% else %}
+									  {{ form_widget(form.Fax, { 'attr': {'data-validate': 'Fax'} }) }}
+								{% endif %}									
 							</div>
 						</fieldset>
 
@@ -75,37 +105,80 @@
 								<a href="#invoice" class="tt-clr underline fleft">Ajouter une adresse de Facturation</a>
 							</div>
 
-
 						<fieldset id="invoice" class="hidden">
 							<legend class="bold">Adresse de Facturation (si différente)</legend>
+								{% if form.vars.value.InvoiceAddress %} 
+									  {{ form_widget(form.InvoiceAddress) }}
+								{% else %}
+									  {{ form_widget(form.InvoiceAddress, { 'attr': {'data-validate': 'Adresse*'} }) }}
+								{% endif %}
 
-							{{ form_widget(form.InvoiceAddress) }}
 							<div class="row third">
-                {{ form_widget(form.InvoiceCP) }}
-                {{ form_widget(form.InvoiceCity) }}
-                {{ form_widget(form.InvoiceCountry) }}
+								{% if form.vars.value.InvoiceCP %} 
+									  {{ form_widget(form.InvoiceCP) }}
+								{% else %}
+									  {{ form_widget(form.InvoiceCP, { 'attr': {'data-validate': 'Code postal*'} }) }}
+								{% endif %}
+								{% if form.vars.value.InvoiceCity %} 
+									  {{ form_widget(form.InvoiceCity) }}
+								{% else %}
+									  {{ form_widget(form.InvoiceCity, { 'attr': {'data-validate': 'Ville*'} }) }}
+								{% endif %}
+ 
+								{{ form_widget(form.InvoiceCountry) }}								
 							</div>
 						
 							<div class="row">
-								{{ form_widget(form.InvoicePhone) }}
-								{{ form_widget(form.InvoiceFax) }}
+								{% if form.vars.value.InvoicePhone %} 
+									  {{ form_widget(form.InvoicePhone) }}
+								{% else %}
+									  {{ form_widget(form.InvoicePhone, { 'attr': {'data-validate': 'Téléphone*'} }) }}
+								{% endif %}
+								{% if form.vars.value.InvoiceFax %} 
+									  {{ form_widget(form.InvoiceFax) }}
+								{% else %}
+									  {{ form_widget(form.InvoiceFax, { 'attr': {'data-validate': 'Fax'} }) }}
+								{% endif %}									
 							</div>
-
 						</fieldset>
+						
 
 						<fieldset id="mother" class="hidden">
 							<legend class="bold">Adresse de maison mère</legend>
 
-							{{ form_widget(form.MotherAddress) }}
+							
+								{% if form.vars.value.MotherAddress %} 
+									  {{ form_widget(form.MotherAddress) }}
+								{% else %}
+									  {{ form_widget(form.MotherAddress, { 'attr': {'data-validate': 'Adresse*'} }) }}
+								{% endif %}
+
 							<div class="row third">
-                {{ form_widget(form.MotherCP) }}
-                {{ form_widget(form.MotherCity) }}
-                {{ form_widget(form.MotherCountry) }}
+								{% if form.vars.value.MotherCP %} 
+									  {{ form_widget(form.MotherCP) }}
+								{% else %}
+									  {{ form_widget(form.MotherCP, { 'attr': {'data-validate': 'Code postal*'} }) }}
+								{% endif %}
+								{% if form.vars.value.MotherCity %} 
+									  {{ form_widget(form.MotherCity) }}
+								{% else %}
+									  {{ form_widget(form.MotherCity, { 'attr': {'data-validate': 'Ville*'} }) }}
+								{% endif %}
+ 
+								{{ form_widget(form.MotherCountry) }}								
 							</div>
 						
 							<div class="row">
-								{{ form_widget(form.MotherPhone) }}
-								{{ form_widget(form.MotherFax) }}
+								{% if form.vars.value.MotherPhone %} 
+									  {{ form_widget(form.MotherPhone) }}
+								{% else %}
+									  {{ form_widget(form.MotherPhone, { 'attr': {'data-validate': 'Téléphone*'} }) }}
+								{% endif %}
+								{% if form.vars.value.MotherFax %} 
+									  {{ form_widget(form.MotherFax) }}
+								{% else %}
+									  {{ form_widget(form.MotherFax, { 'attr': {'data-validate': 'Fax'} }) }}
+								{% endif %}									
 							</div>
 
 						</fieldset>
@@ -113,10 +186,18 @@
 						<fieldset class="resetBorder">
 							<legend class="bold">Effectif</legend>
 							<div class="row">
-                {{ form_widget(form.EffectifNational) }}
-								<a href="#" class="tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
-                {{ form_widget(form.EffectifRegional) }}
-								<a href="#" class="tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
+								{% if form.vars.value.EffectifNational %} 
+									  {{ form_widget(form.EffectifNational) }}
+								{% else %}
+									  {{ form_widget(form.EffectifNational, { 'attr': {'data-validate': 'Effectif national en cours *'} }) }}
+								{% endif %}									
+								<a href="#" class="tooltip" data-tooltip="{{'pi.corporation.form.adhesion.tooltip.effectifnational'|trans|striptags|raw}}">Info</a>
+								{% if form.vars.value.EffectifRegional %} 
+									  {{ form_widget(form.EffectifRegional) }}
+								{% else %}
+									  {{ form_widget(form.EffectifRegional, { 'attr': {'data-validate': 'Effectif regional en cours *'} }) }}
+								{% endif %}								
+								<a href="#" class="tooltip" data-tooltip="{{'pi.corporation.form.adhesion.tooltip.effectifregional'|trans|striptags|raw}}">Info</a>
 							</div>
 			
 						</fieldset>
@@ -126,7 +207,7 @@
 							
 							<div class="row" id="activity">	
 								{{ form_widget(form.Activity) }}
-								<a href="#" class="tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
+								<a href="#" class="tooltip" data-tooltip="{{'pi.corporation.form.adhesion.tooltip.activity'|trans|striptags|raw}}">Info</a>
 
 							</div>
 
@@ -134,26 +215,44 @@
 								{{ form_widget(form.Engineering) }}
 							</div>
 							<div class="row">
+								{% if form.vars.value.DetailActivity %} 
+									  {{ form_widget(form.DetailActivity) }}
+								{% else %}
+									  {{ form_widget(form.DetailActivity, { 'attr': {'data-validate': 'Détails activité*'} }) }}
+								{% endif %}								
 								{{ form_widget(form.DetailActivity) }}
-								<a href="#" class="tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
+								<a href="#" class="tooltip" data-tooltip="{{'pi.corporation.form.adhesion.tooltip.detailactivity'|trans|striptags|raw}}">Info</a>
 							</div>
 
 							<div class="row">
 								{{ form_widget(form.LegalForm) }}
-								<a href="#" class="tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
+								<a href="#" class="tooltip" data-tooltip="{{'pi.corporation.form.adhesion.tooltip.legalform'|trans|striptags|raw}}">Info</a>
 							</div>
 							<div class="row">
-                {{ form_widget(form.CodeNAF) }}
-                {{ form_widget(form.Siret) }}
+								{% if form.vars.value.CodeNAF %} 
+									  {{ form_widget(form.CodeNAF) }}
+								{% else %}
+									  {{ form_widget(form.CodeNAF, { 'attr': {'data-validate': 'Code NAF*'} }) }}
+								{% endif %}
+								{% if form.vars.value.Siret %} 
+									  {{ form_widget(form.Siret) }}
+								{% else %}
+									  {{ form_widget(form.Siret, { 'attr': {'data-validate': 'Siret*'} }) }}
+								{% endif %}									
+
 							</div>
 							<div class="row">
-                {{ form_widget(form.CaNational) }}
+								{% if form.vars.value.CaNational %} 
+									  {{ form_widget(form.CaNational) }}
+								{% else %}
+									  {{ form_widget(form.CaNational, { 'attr': {'data-validate': 'Ca National *'} }) }}
+								{% endif %}								
 							</div>
 						
 						</fieldset>
 
 						<div class="button-ct cf">
-							<a href="#" class="button purple fleft"><!--
+							<a href="{{ path_url("page_lamelee_adhesion_morale", {"step":1}) }}" class="button purple fleft"><!--
 								--><span>ETAPE PRECEDENTE</span><!--
 							--></a>
 

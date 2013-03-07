@@ -60,99 +60,271 @@ class CorporationType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder 
-		        ->add('enabled', 'checkbox', array(
-		        		'data'  => true,
-		        		'label'	=> 'pi.form.label.field.enabled',
-		        ))
-		        ->add('highlighted', 'checkbox', array(
-		        		'required'  => false,
-		        		'data'  => true,
-		        		'label'	=> 'pi.partner.form.field.highlighted1',
-		        ))
-	 			->add('Name','text', array(
-	         		 	'required'  	=> false,
-	 					"attr" => array(
-	 						"class"=>"required text",
-	              			'data-validate' => 'Nom*',
-	 					),
-	 			))
-	      		->add('UserName','text', array(
-	 					'label'  => 'Choisissez votre Identifiant*',
-	          			'required'  	=> false,        
-	         			"attr" => array(
-	 						"class"=>"required text",
-	              			'data-validate' => 'Identifiant',
-	 					),
-	 			))
-	 			->add('Nickname','text', array(
-	          			'required'  	=> false,        
-	 					"attr" => array(
-	 						"class"=>"resetRight required text",
-	              			'data-validate' => 'Prénom*',
-	 					),
-	 			))  
-	 			->add('Civility', 'choice', array(
-	 					'required'  => false,        
+		      ->add('enabled', 'checkbox', array(
+		       		'data'  	=> true,
+		       		'label'		=> 'pi.form.label.field.enabled',
+		       ))
+		      ->add('highlighted', 'checkbox', array(
+		       		'required'  => false,
+		       		'data'  	=> true,
+		       		'label'		=> 'pi.partner.form.field.highlighted1',
+		      ))
+		      ->add('UserName','text', array(
+		      		'label'		=> 'Login',
+		      		'required'  => true,        
+		 	  ))
+	 		  ->add('Name','text', array(
+			  		'label'		=> 'pi.form.label.field.name',
+		      		'required'  => true,
+		 	  ))
+		 	  ->add('Nickname','text', array(
+		 	  		'label'		=> 'pi.form.label.field.nickname',
+		      		'required'  => true,        
+		 	  )) 
+		 	  ->add('Profile', 'choice', array(
+		 	  		'label'	=> 'pi.form.label.field.profile',
+		 	  		'required'  => false,
+		 	  		'choices'   => array('fournisseur' => 'Fournisseur TIC', 'user' => 'Utilisateur TIC'),
+		 	  ))
+		 	  ->add('Job','text', array(
+		 	  		'label'	=> 'pi.form.label.field.employment.job',
+		 	  		'required'  => false,
+		 	  ))
+	 		  ->add('Civility', 'choice', array(
+	 		  			'label'		=> 'pi.form.label.field.civility',
+	 					'required'  => false,   
+	 		  		    'expanded' => true,
 			          	'choices'   => array(
 				            '1' => 'Mr', 
 				            '2' => 'Mme', 
 				            '3' => 'Mlle'
 			            ),
-	          			'empty_value'  => 'Civilité*', 
-	 					"attr" => array(
-	 							"class"=>"required selectSize inputSame",
-	 					),
+	 		  ))  
+	 		  ->add('UserPhone','text', array(
+	 		  		'label'	=> 'pi.form.label.field.adress.phone',
+	 		  		'required'  => false,
+	 		  ))
+		      ->add('Email','text', array(
+		      		'label'	=> 'pi.form.label.field.email',
+		      		'required'  => false,
+		 	  ))
+		      ->add('EmailPerso','text', array(
+		      		'label'	=> 'pi.form.label.field.email.perso',
+		      		'required'  => false,
+		 	  ))
+		 	  ->add('url', 'text', array(
+		 	  		"label" 	=> "pi.form.label.field.website",
+		 	  		'required'  => false,
+		 	  ))
+ 			  
+	 			
+	 			
+	 			
+			  ->add('Facebook','text', array( 
+		      		'label'	=> 'pi.form.label.field.social.facebook',
+		          	'required'  => false,     
+		 			"label_attr" => array(
+		 				"class"=>"social_collection",
+		 			),
+		 	  ))
+		      ->add('GooglePlus','text', array( 
+		      		'label'	=> 'pi.form.label.field.social.googleplus',
+		          	'required'  => false,        
+		 			"label_attr" => array(
+		 				"class"=>"social_collection",
+		 			),
+		 	  ))
+		      ->add('Twitter','text', array(    
+		      		'label'	=> 'pi.form.label.field.social.twitter',
+		          	'required'  => false,        
+		 			"label_attr" => array(
+		 				"class"=>"social_collection",
+		 			),
+		      ))
+		      ->add('LinkedIn','text', array(     
+		      		'label'	=> 'pi.form.label.field.social.linkedin',
+		          	'required'  => false,        
+			      	"label_attr" => array(
+			      		"class"=>"social_collection",
+			      	),      		
+		 	  ))
+		      ->add('Viadeo','text', array(       
+		      		'label'	=> 'pi.form.label.field.social.viadeo',
+		          	'required'  => false,        
+				    "label_attr" => array(
+				    	"class"=>"social_collection",
+				    ),      		
+		 	  )) 
+	 			
+	 			
+	 			
+
+	      		->add('Address','text', array(    
+	      				'label'	=> 'pi.form.label.field.adress.main',
+	          			'required'  => false,        
+	      				"label_attr" => array(
+	      						"class"=>"contact_entre_collection",
+	      				),
 	 			))  
-	 			->add('url','text', array(
-	          			'required'  	=> true,        
-	 					"attr" => array(
-	 						"class"=>"resetRight required text",
-	              			'data-validate' => 'Site Internet',
+	      		->add('CP','text', array(    
+	      				'label'	=> 'pi.form.label.field.adress.cp',
+	          			'required'  => false,        
+	      				"label_attr" => array(
+	      						"class"=>"contact_entre_collection",
+	      				),
+	 			))  
+	      		->add('City','text', array(     
+	      				'label'	=> 'pi.form.label.field.adress.city',
+	          			'required'  => false,        
+	      				"label_attr" => array(
+	      						"class"=>"contact_entre_collection",
+	      				),
+	 			))  
+	      		->add('Country','choice', array(
+	      				'label'	=> 'pi.form.label.field.adress.country',
+	 					'required'  => false,    
+				        'choices'   => \PiApp\AdminBundle\Util\PiStringManager::allCountries($this->_locale),
+	      				"attr" => array(
+	      						"class"=>"pi_simpleselect",
+	      				),
+	      				"label_attr" => array(
+	      					"class"=>"contact_entre_collection",
+	      				),
+	 			))  
+	      		->add('Phone','text', array(     
+	      				'label'	=> 'pi.form.label.field.adress.phone',
+	          			'required'  => false,        
+	      				"label_attr" => array(
+	      						"class"=>"contact_entre_collection",
+	      				),
+	 			))  
+	      		->add('Fax','text', array(       
+	      				'label'	=> 'pi.form.label.field.adress.fax',
+	          			'required'  => false,        
+	      				"label_attr" => array(
+	      						"class"=>"contact_entre_collection",
+	      				),
+	 			)) 
+	 			
+	 			
+	 			
+	 			
+	      		->add('MotherAddress','text', array(     
+	      				'label'	=> 'pi.form.label.field.adress.main',
+	          			'required'  => false,        
+	      				"label_attr" => array(
+	      						"class"=>"contact_mother_collection",
+	      				),
+	 			)) 
+	      		->add('MotherCP','text', array(      
+	      				'label'	=> 'pi.form.label.field.adress.cp',
+	          			'required'  => false,        
+	      				"label_attr" => array(
+	      						"class"=>"contact_mother_collection",
+	      				),
+	 			)) 
+	      		->add('MotherCity','text', array(       
+	      				'label'	=> 'pi.form.label.field.adress.city',
+	          			'required'  => false,        
+	      				"label_attr" => array(
+	      						"class"=>"contact_mother_collection",
+	      				),
+	 			)) 
+	      		->add('MotherCountry','choice', array(
+	      				'label'	=> 'pi.form.label.field.adress.country',
+	 					'required'  => false,    
+				        'choices'   => \PiApp\AdminBundle\Util\PiStringManager::allCountries($this->_locale),
+	      				"attr" => array(
+	      						"class"=>"pi_simpleselect",
+	      				),
+	      				"label_attr" => array(
+	      						"class"=>"contact_mother_collection",
+	      				),
+	 			))  
+	      		->add('MotherPhone','text', array(       
+	      				'label'	=> 'pi.form.label.field.adress.phone',
+	          			'required'  => false,        
+	      				"label_attr" => array(
+	      						"class"=>"contact_mother_collection",
+	      				),
+	 			))      
+	      		->add('MotherFax','text', array(
+	      				'label'	=> 'pi.form.label.field.adress.fax',
+	          			'required'  => false,        
+	      				"label_attr" => array(
+	      						"class"=>"contact_mother_collection",
+	      				),
+	 			)) 
+	 			
+	 			
+	 			
+	 			
+	 			->add('InvoiceAddress','text', array(
+	 					'label'	=> 'pi.form.label.field.adress.main',
+	 					'required'  => false,
+	 					"label_attr" => array(
+	 							"class"=>"contact_facuration_collection",
 	 					),
-	 			))	            
-	 			->add('UserPhone','text', array(
-	 					"attr" => array(
-	 						"class"=>"required phone",
-	              			'data-validate' => 'Téléphone*',
-	 					),
-	 					
 	 			))
-	      		->add('Email','text', array(
-	 					'required'  => true,        
-	 					"attr" => array(
-	 						"class"=>"required email",
-	              			'data-validate' => 'Email pro*',
+	 			->add('InvoiceCP','text', array(
+	 					'label'	=> 'pi.form.label.field.adress.cp',
+	 					'required'  => false,
+	 					"label_attr" => array(
+	 							"class"=>"contact_facuration_collection",
 	 					),
 	 			))
-	      		->add('EmailPerso','text', array(
-	 					'required'  => true,        
+	 			->add('InvoiceCity','text', array(
+	 					'required'  => false,
+	 					"label_attr" => array(
+	 							"class"=>"contact_facuration_collection",
+	 					),
+	 			))
+	 			->add('InvoiceCountry','choice', array(
+	 					'label'	=> 'pi.form.label.field.adress.country',
+	 					'required'  => false,
+	 					'choices'   => \PiApp\AdminBundle\Util\PiStringManager::allCountries($this->_locale),
 	 					"attr" => array(
-	 						"class"=>"email",
-	             			'data-validate' => 'Email perso',
+	 							"class"=>"pi_simpleselect",
+	 					),
+	 					"label_attr" => array(
+	 							"class"=>"contact_facuration_collection",
+	 					),
+	 			))
+	 			->add('InvoicePhone','text', array(
+	 					'label'	=> 'pi.form.label.field.adress.phone',
+	 					'required'  => false,
+	 					"label_attr" => array(
+	 							"class"=>"contact_facuration_collection",
+	 					),
+	 			))
+	 			->add('InvoiceFax','text', array(
+	 					'label'	=> 'pi.form.label.field.adress.fax',
+	 					'required'  => false,
+	 					"label_attr" => array(
+	 							"class"=>"contact_facuration_collection",
 	 					),
 	 			))
 
 	 			
-	 			->add('Job','text', array(
-	 					'required'  => true,
+	 			
+
+	 			->add('CorporationName','text', array(
+	 					'label'	=> 'pi.form.label.field.corporation.name',
+	 					'required'  => false,
 	 					"label_attr" => array(
 	 							"class"=>"job_collection",
 	 					),
 	 			))
-	 			->add('Profile', 'choice', array(
+	 			->add('CommercialName','text', array(
+	 					'label'	=> 'pi.form.label.field.corporation.name.commercial',
 	 					'required'  => false,
-	 					'expanded' => true,
-	 					'choices'   => array('fournisseur' => 'Fournisseur TIC', 'user' => 'Utilisateur TIC'),
-	 					"attr" => array(
-	 							"class" => "required",
-	 					),
 	 					"label_attr" => array(
 	 							"class"=>"job_collection",
 	 					),
-	 						
-	 			))			
+	 			))	 			
 	 			->add('Activity', 'choice', array(
-	 					'required'  => true,
+	 					'label'	=> 'pi.form.label.field.corporation.activity',
+	 					'required'  => false,
 	 					'choices'   => array(
 	 							'0' 								=> 'Activité*',
 	 							'TIC' 								=> 'TIC',
@@ -196,24 +368,25 @@ class CorporationType extends AbstractType
 	 					),
 	 			))
 	 			->add('Engineering', 'choice', array(
+	 					'label'	=> 'pi.form.label.field.corporation.engineering',
 	 					'required'  => false,
 	 					'choices'   => array(
-					            'Télécom'										=>'Télécom',
-					            'Services en informatique'						=>'Services en informatique',
-					            'Ressources humaines'							=>'Ressources humaines',
-					            'Ingénierie des savoirs et de la connaissance'	=>'Ingénierie des savoirs et de la connaissance',
-					            'Infrastructures et reseaux'					=>'Infrastructures et reseaux',
-					            'Informatique technique et métiers'				=>'Informatique technique et métiers',
-					            'Informatique de gestion'						=>'Informatique de gestion',
-					            'Formation recherche et développement'			=>'Formation recherche et développement',
-					            'Financement'									=>'Financement',
-					            'Entreprise TIC et information sur les TIC'		=>'Entreprise TIC et information sur les TIC',
-					            'Editeur de logiciel'							=>'Editeur de logiciel',
-					            'Développement web'								=>'Développement web',
-					            'Contenu multimédia'							=>'Contenu multimédia',
-					            'Constructeur et distributeur de matériel'		=>'Constructeur et distributeur de matériel',
-					            'Conseil'										=>'Conseil',
-					            'Autre'											=>'Autre',
+	 							'Télécom'										=>'Télécom',
+	 							'Services en informatique'						=>'Services en informatique',
+	 							'Ressources humaines'							=>'Ressources humaines',
+	 							'Ingénierie des savoirs et de la connaissance'	=>'Ingénierie des savoirs et de la connaissance',
+	 							'Infrastructures et reseaux'					=>'Infrastructures et reseaux',
+	 							'Informatique technique et métiers'				=>'Informatique technique et métiers',
+	 							'Informatique de gestion'						=>'Informatique de gestion',
+	 							'Formation recherche et développement'			=>'Formation recherche et développement',
+	 							'Financement'									=>'Financement',
+	 							'Entreprise TIC et information sur les TIC'		=>'Entreprise TIC et information sur les TIC',
+	 							'Editeur de logiciel'							=>'Editeur de logiciel',
+	 							'Développement web'								=>'Développement web',
+	 							'Contenu multimédia'							=>'Contenu multimédia',
+	 							'Constructeur et distributeur de matériel'		=>'Constructeur et distributeur de matériel',
+	 							'Conseil'										=>'Conseil',
+	 							'Autre'											=>'Autre',
 	 					),
 	 					"attr" => array(
 	 							"class"=>"pi_simpleselect",
@@ -221,346 +394,102 @@ class CorporationType extends AbstractType
 	 					"label_attr" => array(
 	 							"class"=>"job_collection",
 	 					),
-	 			))
-	 			
-	 			
-	 			
-	      		->add('Facebook','text', array(   
-	          			'required'  => false,     
-	 					"attr" => array(
-	 						"class"=>"fleft",
-	 					),
-	      				"label_attr" => array(
-	      						"class"=>"social_collection",
-	      				),
-	 			))
-	      		->add('GooglePlus','text', array( 
-	          			'required'  => false,        
-	 					"attr" => array(
-	 						"class"=>"fleft",
-	 					),
-	      				"label_attr" => array(
-	      						"class"=>"social_collection",
-	      				),
-	 			))
-	      		->add('Twitter','text', array(    
-	         	 		'required'  => false,        
-	 					"attr" => array(
-	 						"class"=>"fleft",
-	 					),
-	      				"label_attr" => array(
-	      						"class"=>"social_collection",
-	      				),
-	 			))
-	      		->add('LinkedIn','text', array(     
-	         			'required'  => false,        
-	 					"attr" => array(
-	 						"class"=>"fleft",
-	 					),
-	      				"label_attr" => array(
-	      						"class"=>"social_collection",
-	      				),
-	 			))
-	      		->add('Viadeo','text', array(       
-	          			'required'  => false,        
-	 					"attr" => array(
-	 						"class"=>"fleft",
-	 					),
-	      				"label_attr" => array(
-	      						"class"=>"social_collection",
-	      				),
-	 			))  
-	 			
-	 			
-	 			
-
-	      		->add('Address','text', array(       
-	          			'required'  => false,        
-	 					"attr" => array(
-	 						"class"=>"full required text",
-	              			"data-validate"=>"Adresse*",
-	 					),
-	      				"label_attr" => array(
-	      						"class"=>"contact_entre_collection",
-	      				),
-	 			))  
-	      		->add('CP','text', array(       
-	          		'required'  => false,        
-	 					"attr" => array(
-	 						"class"=>"required postCode",
-	              			"data-validate"=>"Code postal*",
-	 					),
-	      				"label_attr" => array(
-	      						"class"=>"contact_entre_collection",
-	      				),
-	 			))  
-	      		->add('City','text', array(       
-	          			'required'  => false,        
-	 					"attr" => array(
-	 						"class"=>"required text",
-	              			"data-validate"=>"Ville*",
-	 					),
-	      				"label_attr" => array(
-	      						"class"=>"contact_entre_collection",
-	      				),
-	 			))  
-	      		->add('Country','choice', array(
-	 					  'required'  => true,    
-				          'empty_value'  => 'Pays*',    
-				          'choices'   => array(
-				            '1' => 'Campagne adhésion', 
-				            '2' => 'Contact Mêlée', 
-				            '3' => 'Contact spontané', 
-				            '4' => 'Historique',
-				            '5' => 'Motivation inscription à une commission', 
-				            '6' => 'Parrainage', 
-				            '7' => 'Partenaire',
-				            '8' => 'Visiteur évènement',
-				            '9' => 'Autre',            
-				            ),
-		 					"attr" => array(
-		 							"class"=>"resetRight required",
-		 					),
-	      				"label_attr" => array(
-	      						"class"=>"contact_entre_collection",
-	      				),
-	 			))  
-	      		->add('Phone','text', array(       
-	          			'required'  => false,        
-	 					"attr" => array(
-	 						"class"=>"required phone",
-	              			"data-validate"=>"Téléphone*",
-	 					),
-	      				"label_attr" => array(
-	      						"class"=>"contact_entre_collection",
-	      				),
-	 			))  
-	      		->add('Fax','text', array(       
-	          			'required'  => false,        
-	 					"attr" => array(
-	              			"data-validate"=>"Fax*",
-	 					),
-	      				"label_attr" => array(
-	      						"class"=>"contact_entre_collection",
-	      				),
-	 			)) 
-	 			
-	 			
-	 			
-	 			
-	      		->add('MotherAddress','text', array(       
-	          			'required'  => false,        
-	 					"attr" => array(
-	 						"class"=>"full required text",
-	              		"data-validate"=>"Adresse*",
-	 					),
-	      				"label_attr" => array(
-	      						"class"=>"contact_mother_collection",
-	      				),
-	 			)) 
-	      		->add('MotherCP','text', array(       
-	          			'required'  => false,        
-	 					"attr" => array(
-	 						"class"=>"required postCode",
-	              		"data-validate"=>"Code postal*",
-	 					),
-	      				"label_attr" => array(
-	      						"class"=>"contact_mother_collection",
-	      				),
-	 			)) 
-	      		->add('MotherCity','text', array(       
-	          			'required'  => false,        
-	 					"attr" => array(
-	 						"class"=>"required text",
-	              		"data-validate"=>"Ville*",
-	 					),
-	      				"label_attr" => array(
-	      						"class"=>"contact_mother_collection",
-	      				),
-	 			)) 
-	      		->add('MotherCountry','choice', array(
-	 					'required'  => true,    
-				          'empty_value'  => 'Pays*',    
-				          'choices'   => array(
-				            '1' => 'Campagne adhésion', 
-				            '2' => 'Contact Mêlée', 
-				            '3' => 'Contact spontané', 
-				            '4' => 'Historique',
-				            '5' => 'Motivation inscription à une commission', 
-				            '6' => 'Parrainage', 
-				            '7' => 'Partenaire',
-				            '8' => 'Visiteur évènement',
-				            '9' => 'Autre',            
-				            ),
-		 					"attr" => array(
-		 							"class"=>"resetRight required",
-		 					),
-	      				"label_attr" => array(
-	      						"class"=>"contact_mother_collection",
-	      				),
-	 			))  
-	      		->add('MotherPhone','text', array(       
-	          			'required'  => false,        
-	 					"attr" => array(
-	 						"class"=>"required phone",
-	              			"data-validate"=>"Téléphone*",
-	 					),
-	      				"label_attr" => array(
-	      						"class"=>"contact_mother_collection",
-	      				),
-	 			))      
-	      		->add('MotherFax','text', array(       
-	          			'required'  => false,        
-	 					"attr" => array(
-	              			"data-validate"=>"Fax*",
-	 					),
-	      				"label_attr" => array(
-	      						"class"=>"contact_mother_collection",
-	      				),
-	 			)) 
-	 			
-	 			
-	 			
-	 			
-	 			->add('InvoiceAddress','text', array(
+	 			))	 			
+	 			->add('DetailActivity', 'text', array(
+	 					'label'	=> 'pi.form.label.field.corporation.detailactivity',
 	 					'required'  => false,
-	 					"attr" => array(
-	 							"class"=>"full required text",
-	 							"data-validate"=>"Adresse*",
-	 					),
 	 					"label_attr" => array(
-	 							"class"=>"contact_facuration_collection",
+	 							"class"=>"job_collection",
 	 					),
 	 			))
-	 			->add('InvoiceCP','text', array(
+	 			->add('LegalForm','choice', array(
+	 					'label'	=> 'pi.form.label.field.corporation.legalform',
 	 					'required'  => false,
-	 					"attr" => array(
-	 							"class"=>"required postCode",
-	 							"data-validate"=>"Code postal*",
-	 					),
-	 					"label_attr" => array(
-	 							"class"=>"contact_facuration_collection",
-	 					),
-	 			))
-	 			->add('InvoiceCity','text', array(
-	 					'required'  => false,
-	 					"attr" => array(
-	 							"class"=>"required text",
-	 							"data-validate"=>"Ville*",
-	 					),
-	 					"label_attr" => array(
-	 							"class"=>"contact_facuration_collection",
-	 					),
-	 			))
-	 			->add('InvoiceCountry','choice', array(
-	 					'required'  => true,
-	 					'empty_value'  => 'Pays*',
 	 					'choices'   => array(
-	 							'1' => 'Campagne adhésion',
-	 							'2' => 'Contact Mêlée',
-	 							'3' => 'Contact spontané',
-	 							'4' => 'Historique',
-	 							'5' => 'Motivation inscription à une commission',
-	 							'6' => 'Parrainage',
-	 							'7' => 'Partenaire',
-	 							'8' => 'Visiteur évènement',
-	 							'9' => 'Autre',
-	 					),
-	 					"attr" => array(
-	 							"class"=>"resetRight required",
+				            '1' => 'SCOP ou assimilés', 
+				            '2' => 'Syndicat', 
+				            '3' => 'SA', 
+				          	'4' => 'SARL',
+				            '5' => 'SAS',
+				            '6' => 'Etablissement public', 
+				            '7' => 'Entreprise individuelle', 
+				            '8' => 'Association',
+				            '9' => 'Autre ',
 	 					),
 	 					"label_attr" => array(
-	 							"class"=>"contact_facuration_collection",
-	 					),
-	 			))
-	 			->add('InvoicePhone','text', array(
-	 					'required'  => false,
-	 					"attr" => array(
-	 							"class"=>"required phone",
-	 							"data-validate"=>"Téléphone*",
-	 					),
-	 					"label_attr" => array(
-	 							"class"=>"contact_facuration_collection",
-	 					),
-	 			))
-	 			->add('InvoiceFax','text', array(
-	 					'required'  => false,
-	 					"attr" => array(
-	 							"data-validate"=>"Fax*",
-	 					),
-	 					"label_attr" => array(
-	 							"class"=>"contact_facuration_collection",
+	 							"class"=>"job_collection",
 	 					),
 	 			))
 
 	 			
 	 			
-
-	 			->add('CorporationName','text', array(
+	 			
+	 			->add('EffectifNational','text', array(
+	 					'label'	=> 'pi.form.label.field.corporation.effectif.national',
 	 					'required'  => false,
-	 					"attr" => array(
-	 							"class"=>"required text",
-	 							"data-validate"=>"Raison sociale *",
-	 					),
 	 					"label_attr" => array(
 	 							"class"=>"info1_collection",
 	 					),
 	 			))
-	 			->add('CommercialName','text', array(
+	 			->add('EffectifRegional','text', array(
+	 					'label'	=> 'pi.form.label.field.corporation.effectif.regional',
 	 					'required'  => false,
-	 					"attr" => array(
-	 							"class"=>"required text",
-	 							"data-validate"=>"Nom commercial *",
+	 					"label_attr" => array(
+	 							"class"=>"info1_collection",
 	 					),
+	 			))
+	 			
+	 			->add('CodeNAF','text', array(
+	 					'label'	=> 'pi.form.label.field.corporation.code.naf',
+	 					'required'  => false,
+	 					"label_attr" => array(
+	 							"class"=>"info1_collection",
+	 					),
+	 			))
+	 			->add('Siret','text', array(
+	 					'label'	=> 'pi.form.label.field.corporation.siret',
+	 					'required'  => false,
+	 					"label_attr" => array(
+	 							"class"=>"info1_collection",
+	 					),
+	 			))
+	 			->add('CaNational','text', array(
+	 					'label'	=> 'pi.form.label.field.corporation.ca.national',
+	 					'required'  => false,
 	 					"label_attr" => array(
 	 							"class"=>"info1_collection",
 	 					),
 	 			))	 			
-	 			->add('DetailActivity', 'text', array(
-	 					'required'  => true,
-	 					"attr" => array(
-	 							"class"=>"required",
-	 							'data-validate' => 'Détails activité*',
-	 					),
-	 					"label_attr" => array(
-	 							"class"=>"info1_collection",
-	 					),
-	 			))
+	 			
+	 			
+	 			
+	 			
 	 			->add('ArgumentCommercial','textarea', array(
-	 					'required'  => true,
-	 					"attr" => array(
-	 							"class"=>"full required",
-	 					),
+	 					'label'	=> 'pi.form.label.field.corporation.argument.commercial',
+	 					'required'  => false,
 	 					"label_attr" => array(
-	 							"class"=>"info1_collection",
+	 							"class"=>"info2_collection",
 	 					),
 	 			))
 	 			->add('Expertise','textarea', array(
+	 					'label'	=> 'pi.form.label.field.corporation.expertise',
 	 					'required'  => false,
-	 					"attr" => array(
-	 							"class"=>"full required",
-	 					),
 	 					"label_attr" => array(
-	 							"class"=>"info1_collection",
+	 							"class"=>"info2_collection",
 	 					),
 	 			))
-	 			
 	 			->add('Speaker', 'choice', array(
+	 					'label'	=> 'pi.form.label.field.corporation.speaker',
 	 					'required'  => false,
 	 					'expanded' => true,
 	 					'choices'   => array('oui' => 'Oui', 'non' => 'Non', 'potentiel' => 'Potentiel'),
-	 					"attr" => array(
-	 							"class" => "required",
-	 					),
 	 					"label_attr" => array(
-	 							"class" => "light-clr bold",
-	 					),
-	 					"label_attr" => array(
-	 							"class"=>"info1_collection",
+	 							"class"=>"info2_collection",
 	 					),
 	 			))
 	 			->add('OriginContact','choice', array(
-	 					'required'  => true,
+	 					'label'	=> 'pi.form.label.field.corporation.origin.contact',
+	 					'required'  => false,
 	 					'empty_value'  => 'Contact*',
 	 					'choices'   => array(
 	 							'campagne' => 'Campagne adhésion',
@@ -573,108 +502,26 @@ class CorporationType extends AbstractType
 	 							'visiteur' => 'Visiteur évènement',
 	 							'other' => 'Autre',
 	 					),
-	 					"attr" => array(
-	 							"class"=>"required origin",
-	 					),
 	 					"label_attr" => array(
-	 							"class"=>"info1_collection",
+	 							"class"=>"info2_collection",
 	 					),
 	 			))
 	 			->add('OriginContactOther','text', array(
+	 					'label'	=> 'pi.form.label.field.other',
 	 					'required'  => false,
-	 					"attr" => array(
-	 							"class"=>"required text hidden otherOrigin",
-	 					),
 	 					"label_attr" => array(
-	 							"class"=>"info1_collection",
+	 							"class"=>"info2_collection",
 	 					),
 	 			))
 	 			->add('OriginContactSponsor','text', array(
+	 					'label'	=> 'pi.form.label.field.corporation.origin.contact.sponsor',
 	 					'required'  => false,
-	 					"attr" => array(
-	 							"class"=>"required text hidden sponsorOrigin",
-	 					),
 	 					"label_attr" => array(
-	 							"class"=>"info1_collection",
+	 							"class"=>"info2_collection",
 	 					),
 	 			))
 	 			
 	 			
-
-	 			
-	 			
-	      		->add('EffectifNational','text', array(       
-	          			'required'  => false,        
-	 					"attr" => array(
-	 						"class"=>"required text",
-	              			"data-validate"=>"Effectif national en cours *",
-	 					),
-	      				"label_attr" => array(
-	      						"class"=>"info2_collection",
-	      				),
-	 			)) 
-	      		->add('EffectifRegional','text', array(       
-	          			'required'  => false,        
-	 					"attr" => array(
-	 						"class"=>"required text",
-	              			"data-validate"=>"Effectif regional en cours *",
-	 					),
-	      				"label_attr" => array(
-	      						"class"=>"info2_collection",
-	      				),
-	 			)) 
-	      		->add('LegalForm','choice', array(
-	 					  'required'  => true,    
-				          'empty_value'  => 'Forme juridique *',    
-				          'choices'   => array(
-				            '1' => 'Campagne adhésion', 
-				            '2' => 'Contact Mêlée', 
-				            '3' => 'Contact spontané', 
-				            '4' => 'Historique',
-				            '5' => 'Motivation inscription à une commission', 
-				            '6' => 'Parrainage', 
-				            '7' => 'Partenaire',
-				            '8' => 'Visiteur évènement',
-				            '9' => 'Autre',            
-				            ),
-		 					"attr" => array(
-		 							"class"=>"resetRight required",
-		 					),
-	      				"label_attr" => array(
-	      						"class"=>"info2_collection",
-	      				),
-	 			)) 
-	      		->add('CodeNAF','text', array(       
-	          			'required'  => false,        
-	 					"attr" => array(
-	 						"class"=>"required text",
-	              			"data-validate"=>"Code NAF*",
-	 					),
-	      				"label_attr" => array(
-	      						"class"=>"info2_collection",
-	      				),
-	 			)) 
-	      		->add('Siret','text', array(       
-	          			'required'  => false,        
-	 					"attr" => array(
-	 						"class"=>"required text",
-	              			"data-validate"=>"Siret*",
-	 					),
-	      				"label_attr" => array(
-	      						"class"=>"info2_collection",
-	      				),
-	 			)) 
-	      		->add('CaNational','text', array(       
-	          			'required'  => false,        
-	 					"attr" => array(
-	 						"class"=>"required text",
-	              			"data-validate"=>"Ca National *",
-	 					),
-	      				"label_attr" => array(
-	      						"class"=>"info2_collection",
-	      				),
-	 			))     
-
 
  			// 		 	  ->add('pageurl', 'entity', array(
  			// 		 				'class' => 'PiAppAdminBundle:Page',
@@ -693,17 +540,10 @@ class CorporationType extends AbstractType
  			// 		 				'multiple'	=> false,
  			// 		 				'required'  => false,
  			// 		 	  ))
- 			// 		 	  ->add('url', 'text', array(
- 			// 		 				"label" 	=> "pi.form.label.field.or",
- 			// 		 				"label_attr" => array(
- 			// 		 						"class"=>"page_collection",
- 			// 		 				),
- 			// 		 				'required'  => false,
- 			// 		 	  ))	 			
         
- 				//->add('user', new \BootStrap\UserBundle\Form\Type\RegistrationFormType('collection'))
- 				->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
- 				->add('media2', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
+ 			//->add('user', new \BootStrap\UserBundle\Form\Type\RegistrationFormType('collection'))
+ 			->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
+ 			->add('media2', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
  			
         ;
     }

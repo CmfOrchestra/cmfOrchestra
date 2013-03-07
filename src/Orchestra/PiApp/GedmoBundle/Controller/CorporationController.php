@@ -166,6 +166,7 @@ class CorporationController extends abstractController
         $locale		= $this->container->get('session')->getLocale();
         $entity 	= $em->getRepository("PiAppGedmoBundle:Corporation")->findOneByEntity($locale, $id, 'object');
         
+        $type	    = $this->container->get('request')->query->get('type');
         $category   = $this->container->get('request')->query->get('category');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout) 	$template = "show.html.twig"; else $template = "show.html.twig";        
@@ -181,6 +182,7 @@ class CorporationController extends abstractController
             'NoLayout'	  => $NoLayout,
             'category'	  => $category,
             'delete_form' => $deleteForm->createView(),
+        	'type'		  => $type,
         ));
     }
 
@@ -269,6 +271,7 @@ class CorporationController extends abstractController
     	$locale		= $this->container->get('session')->getLocale();
         $entity 	= $em->getRepository("PiAppGedmoBundle:Corporation")->findOneByEntity($locale, $id, 'object');
         
+        $type	    = $this->container->get('request')->query->get('type');
         $category   = $this->container->get('request')->query->get('category');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout)	$template = "edit.html.twig";  else	$template = "edit.html.twig";        
@@ -287,6 +290,7 @@ class CorporationController extends abstractController
             'delete_form' => $deleteForm->createView(),
             'NoLayout' 	  => $NoLayout,
             'category'	  => $category,
+        	'type'		=> $type,
         ));
     }
 
@@ -305,6 +309,7 @@ class CorporationController extends abstractController
     	$locale		= $this->container->get('session')->getLocale();
         $entity 	= $em->getRepository("PiAppGedmoBundle:Corporation")->findOneByEntity($locale, $id, "object"); 
         
+        $type	    = $this->container->get('request')->query->get('type');
         $category   = $this->container->get('request')->query->get('category');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout)	$template = "edit.html.twig";  else	$template = "edit.html.twig";        
@@ -322,7 +327,7 @@ class CorporationController extends abstractController
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_gedmo_corporation_edit', array('id' => $id, 'NoLayout' => $NoLayout, 'category' => $category)));
+            return $this->redirect($this->generateUrl('admin_gedmo_corporation_edit', array('id' => $id, 'NoLayout' => $NoLayout, 'category' => $category, 'type' => $type)));
         }
 
         return $this->render("PiAppGedmoBundle:Corporation:$template", array(
@@ -331,6 +336,7 @@ class CorporationController extends abstractController
             'delete_form' => $deleteForm->createView(),
             'NoLayout' 	  => $NoLayout,
             'category'	  => $category,
+        	'type'		=> $type,
         ));
     }
 
@@ -450,12 +456,13 @@ class CorporationController extends abstractController
      */
     public function _template_adhesionAction($template = '_template_form_adhesion_step1.html.twig', $lang = "", $type = 'lamelee')
     {
-
         $em 		= $this->getDoctrine()->getEntityManager();
-
-        $entity   = new Corporation();
-        
-        if (true === $this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {        
+        $entity   	= new Corporation();
+        $user = '';
+        if (true === $this->get('security.context')->isGranted('ROLE_MEMBER')) {
+        	$url = $this->container->get('bootstrap.RouteTranslator.factory')->getRoute("home_page", array('locale'=>$lang));
+   			return new RedirectResponse($url);
+        }elseif (true === $this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {        
             $connexion = $this->get('security.context')->getToken()->getUser();
             $user = $em->getRepository("BootStrapUserBundle:User")->findOneById($connexion->getId());
 
@@ -468,16 +475,16 @@ class CorporationController extends abstractController
               $entity->setUserName($user->getIndividual()->getUserName());
             }
         }
-        
-        $form   	= $this->createForm(new AdhesionCorporationType($em, $this->container), $entity, array('show_legend' => false));
-          
+        $form    = $this->createForm(new AdhesionCorporationType($em, $this->container), $entity, array('show_legend' => false));
         $request = $_POST;
-        
+		$retour = null;
+		if(isset($_GET['step']))
+			$retour = $_GET['step'];        
         if(isset($request['new']))
             $new   = $request['new'];
         else
             $new   = $this->container->get('request')->request->get('new');
-        
+
         if(isset($request['step']))
             $step   = $request['step'];
         else
@@ -493,12 +500,12 @@ class CorporationController extends abstractController
         $params['type'] = $type;
         $params['template'] = $template;
         
-    	  $category   = $this->container->get('request')->query->get('category');
+    	$category   = $this->container->get('request')->query->get('category');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
 
         $render = '';
 
-        if (!empty($new)){
+        if (!empty($new) and empty($retour) ){
           
               if($step == 1){
                 $render = $this->container->get('http_kernel')->render('PiAppGedmoBundle:Corporation:_template_adhesionValidation', array('attributes'=>$params));
@@ -506,18 +513,18 @@ class CorporationController extends abstractController
               }
               elseif($step==2){
                   
-                  $data = array();
-                  $data['Civility'] = $request['Civility'];
-                  $data['Name'] = $request['Name'];
-                  $data['Nickname'] = $request['Nickname'];
-                  $data['Job'] = $request['Job'];
-                  $data['Email'] = $request['Email'];
-                  $data['EmailPerso'] = $request['EmailPerso'];
-                  $data['UserPhone'] = $request['UserPhone'];
-                  $data['Profile'] = $request['Profile'];
-                  $data['UserName'] = $request['UserName'];  
-                  $data['media'] = $request['media'];
-                  
+                  $data = $this->container->get('session')->get('data');
+				  if($data['step-max'] == 1)
+						$data['step-max'] = 2;
+				  if($data['step-max'] > 2){
+						$entity->setFacebook($data['Facebook']);
+						$entity->setGooglePlus($data['GooglePlus']);
+						$entity->setTwitter($data['Twitter']);
+						$entity->setLinkedIn($data['LinkedIn']);
+						$entity->setViadeo($data['Viadeo']);
+						$entity->setArgumentCommercial($data['ArgumentCommercial']);
+						$entity->setUrl($data['url']);						
+				  }
                   $request_form = $request[$form->getName()];
                   $data['CorporationName'] = $request_form['CorporationName'];
                   $data['CommercialName'] = $request_form['CommercialName'];
@@ -549,8 +556,10 @@ class CorporationController extends abstractController
                   $data['CaNational'] = $request_form['CaNational'];
                   $data['Siret'] = $request_form['Siret'];                
 
+				  $this->container->get('session')->set('data', $data);
                   $template = '_template_form_adhesion_step3.html.twig';
-                  
+                  $form    = $this->createForm(new AdhesionCorporationType($em, $this->container), $entity, array('show_legend' => false));
+				  
                   return $this->render("PiAppGedmoBundle:Corporation:$template", array(
                       'entity'      => $entity,
                       'data'      => $data,
@@ -563,7 +572,10 @@ class CorporationController extends abstractController
               }
               elseif($step==3){
 
-                $data = array();
+                  $data = $this->container->get('session')->get('data');
+				  if($data['step-max'] == 2)
+						$data['step-max'] = 3;
+				  
                 $data['Civility'] = $request['Civility'];
                 $data['Name'] = $request['Name'];
                 $data['Nickname'] = $request['Nickname'];
@@ -572,8 +584,12 @@ class CorporationController extends abstractController
                 $data['EmailPerso'] = $request['EmailPerso'];
                 $data['UserPhone'] = $request['UserPhone'];
                 $data['Profile'] = $request['Profile'];
-                $data['UserName'] = $request['UserName'];  
-                $data['media'] = $request['media'];
+                $data['UserName'] = $request['UserName'];
+
+                if(isset($request['media']))
+                	$data['media'] = $request['media'];
+                else
+                	$data['media'] = "";
                 
                 $data['CorporationName'] = $request['CorporationName'];
                 $data['CommercialName'] = $request['CommercialName'];
@@ -616,15 +632,18 @@ class CorporationController extends abstractController
 
                 $media2_tmp = $_FILES[$form->getName()]['tmp_name']['media2'];
                 $media2_name = $_FILES[$form->getName()]['name']['media2'];
-
-                $dir = $this->container->get('kernel')->getRootDir(). '/../web/uploads/media/tmp/';
-                move_uploaded_file($media2_tmp,$dir.$media2_name);
-                $data['media2'] = $dir.$media2_name;  
-
+				if(!empty($media2_name)){
+					$dir = $this->container->get('kernel')->getRootDir(). '/../web/uploads/media/tmp/';
+					\PiApp\AdminBundle\Util\PiFileManager::mkdirr($dir);
+					move_uploaded_file($media2_tmp,$dir.$media2_name);
+					$data['media2'] = $dir.$media2_name;  
+					$data['media2_path'] = '/uploads/media/tmp/'.$media2_name;
+				}
+				$this->container->get('session')->set('data', $data);
+				
                   $template = '_template_form_adhesion_step4.html.twig';
                   
                   $newsletters = $this->_get_newsletters_categories($lang, $user);
-                  $commissions = $this->_get_commissions($lang); 
                   
                   return $this->render("PiAppGedmoBundle:Corporation:$template", array(
                       'entity'      => $entity,
@@ -635,14 +654,77 @@ class CorporationController extends abstractController
                       'new'	=> '1',
                       'render'	=> '',
                       'newsletters'	=> $newsletters,
-                      'commissions' => $commissions,
                   ));
               }              
               else {
-                  $render = $this->container->get('http_kernel')->render('PiAppGedmoBundle:Corporation:_template_adhesionSave', array('attributes'=>$params));
+					$render = $this->container->get('http_kernel')->render('PiAppGedmoBundle:Corporation:_template_adhesionSave', array('attributes'=>$params));
+					if($render == ''){
+						$url = $this->container->get('bootstrap.RouteTranslator.factory')->getRoute("home_page", array('locale'=>$lang));
+						return new RedirectResponse($url);
+					}
               }
         }
+		
+		$data = $this->container->get('session')->get('data');
+		
+		if(!empty($retour) and !empty($data)){
+			$entity->setCivility($data['Civility']);
+			$entity->setName($data['Name']);
+			$entity->setNickname($data['Nickname']);
+			$entity->setJob($data['Job']);
+			$entity->setEmail($data['Email']);
+			$entity->setEmailPerso($data['EmailPerso']);
+			$entity->setUserPhone($data['UserPhone']);
+			$entity->setProfile($data['Profile']);
+			$entity->setUserName($data['UserName']);
+		
+			if($retour == 2){
+				$entity->setCorporationName($data['CorporationName']);
+				$entity->setCommercialName($data['CommercialName']);
+				$entity->setAddress($data['Address']);
+				$entity->setCP($data['CP']);
+				$entity->setCity($data['City']);
+				$entity->setCountry($data['Country']);
+				$entity->setPhone($data['Phone']);
+				$entity->setFax($data['Fax']);
+				$entity->setInvoiceAddress($data['InvoiceAddress']);
+				$entity->setInvoiceCP($data['InvoiceCP']);
+				$entity->setInvoiceCity($data['InvoiceCity']);
+				$entity->setInvoiceCountry($data['InvoiceCountry']);
+				$entity->setInvoicePhone($data['InvoicePhone']);
+				$entity->setInvoiceFax($data['InvoiceFax']);
+				$entity->setMotherAddress($data['MotherAddress']);
+				$entity->setMotherCP($data['MotherCP']);
+				$entity->setMotherCity($data['MotherCity']);
+				$entity->setMotherCountry($data['MotherCountry']);
+				$entity->setMotherPhone($data['MotherPhone']);
+				$entity->setMotherFax($data['MotherFax']);				
+				$entity->setActivity($data['Activity']);
+				$entity->setDetailActivity($data['DetailActivity']);
+				$entity->setEngineering($data['Engineering']);
+				$entity->setEffectifNational($data['EffectifNational']);
+				$entity->setEffectifRegional($data['EffectifRegional']);
+				$entity->setLegalForm($data['LegalForm']);
+				$entity->setCodeNAF($data['CodeNAF']);				
+				$entity->setCaNational($data['CaNational']);
+				$entity->setSiret($data['Siret']);       
 
+				$template = '_template_form_adhesion_step2.html.twig';
+			}
+			if($retour == 3){
+				$entity->setFacebook($data['Facebook']);
+				$entity->setGooglePlus($data['GooglePlus']);
+				$entity->setTwitter($data['Twitter']);
+				$entity->setLinkedIn($data['LinkedIn']);
+				$entity->setViadeo($data['Viadeo']);
+				$entity->setArgumentCommercial($data['ArgumentCommercial']);
+				$entity->setUrl($data['url']);
+
+				$template = '_template_form_adhesion_step3.html.twig';
+			}			
+			$form    = $this->createForm(new AdhesionCorporationType($em, $this->container), $entity, array('show_legend' => false));
+		}
+		
         return $this->render("PiAppGedmoBundle:Corporation:$template", array(
             'entity' 	=> $entity,
             'form'   	=> $form->createView(),
@@ -650,6 +732,7 @@ class CorporationController extends abstractController
             'category'	=> $category,
             'new'	=> 1,
             'render'	=> $render,
+			'data'	=> $data,
         ));  
     }
 
@@ -663,30 +746,66 @@ class CorporationController extends abstractController
               $lang   = $this->container->get('session')->getLocale();
        
       $category   = $this->container->get('request')->query->get('category');
-
       $NoLayout   = $this->container->get('request')->query->get('NoLayout');
 
       $entity   = new Corporation();
-
       $form     = $this->createForm(new AdhesionCorporationType($em, $this->container), $entity, array('show_legend' => false));
 
-      $data = $request->get($form->getName(), array());
-      $form->bind($data);
+      $dataform = $request->get($form->getName(), array());
+      $form->bind($dataform);
       if (false === $this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {        
-          $user_name  = $em->getRepository('BootStrapUserBundle:User')->findOneByName($form["UserName"]->getData());
+          $user_name  = $em->getRepository('BootStrapUserBundle:User')->findOneByUsername($form["UserName"]->getData());
           if($user_name != null){
-            $form->addError(new FormError('error message : username already exists!'));
+            $form->addError(new FormError('erreur.lamelee.username.existed'));
           }
 
           $user_email = $em->getRepository('BootStrapUserBundle:User')->findOneByEmail($form["Email"]->getData());
 
           if($user_email != null){
-            $form->addError(new FormError('error message : email already exists!'));
+            $form->addError(new FormError('erreur.lamelee.mail.existed'));
           }
       }
       if (!$form->hasErrors()) {
+		  $data = $this->container->get('session')->get('data');
+		  if(!empty($data)){
+				if(isset($data['step-max']) and $data['step-max'] > 1){
+					$entity->setCorporationName($data['CorporationName']);
+					$entity->setCommercialName($data['CommercialName']);
+					$entity->setAddress($data['Address']);
+					$entity->setCP($data['CP']);
+					$entity->setCity($data['City']);
+					$entity->setCountry($data['Country']);
+					$entity->setPhone($data['Phone']);
+					$entity->setFax($data['Fax']);
+					$entity->setInvoiceAddress($data['InvoiceAddress']);
+					$entity->setInvoiceCP($data['InvoiceCP']);
+					$entity->setInvoiceCity($data['InvoiceCity']);
+					$entity->setInvoiceCountry($data['InvoiceCountry']);
+					$entity->setInvoicePhone($data['InvoicePhone']);
+					$entity->setInvoiceFax($data['InvoiceFax']);
+					$entity->setMotherAddress($data['MotherAddress']);
+					$entity->setMotherCP($data['MotherCP']);
+					$entity->setMotherCity($data['MotherCity']);
+					$entity->setMotherCountry($data['MotherCountry']);
+					$entity->setMotherPhone($data['MotherPhone']);
+					$entity->setMotherFax($data['MotherFax']);				
+					$entity->setActivity($data['Activity']);
+					$entity->setDetailActivity($data['DetailActivity']);
+					$entity->setEngineering($data['Engineering']);
+					$entity->setEffectifNational($data['EffectifNational']);
+					$entity->setEffectifRegional($data['EffectifRegional']);
+					$entity->setLegalForm($data['LegalForm']);
+					$entity->setCodeNAF($data['CodeNAF']);				
+					$entity->setCaNational($data['CaNational']);
+					$entity->setSiret($data['Siret']);			
+				}
+		  }
+		  else{
+			  $data = array();
+		  }
+		if(!isset($data['step-max']))
+			$data['step-max'] = 1;
 
-        $data = array();
         $data['Civility'] = $form['Civility']->getData();
         $data['Name'] = $form['Name']->getData();
         $data['Nickname'] = $form['Nickname']->getData();
@@ -698,10 +817,18 @@ class CorporationController extends abstractController
         $data['UserName'] = $form['UserName']->getData();        
         $media_tmp = $_FILES[$form->getName()]['tmp_name']['media'];
         $media_name = $_FILES[$form->getName()]['name']['media'];
-        $dir = $this->container->get('kernel')->getRootDir(). '/../web/uploads/media/tmp/';
-        move_uploaded_file($media_tmp,$dir.$media_name);
-        $data['media'] = $dir.$media_name;
+		if(!empty($media_name)){
+			$dir = $this->container->get('kernel')->getRootDir(). '/../web/uploads/media/tmp/';
+			\PiApp\AdminBundle\Util\PiFileManager::mkdirr($dir);
+			move_uploaded_file($media_tmp,$dir.$media_name);
+			$data['media'] = $dir.$media_name;
+			$data['media_path'] = '/uploads/media/tmp/'.$media_name;
+		}
+		$this->container->get('session')->set('data', $data);
 
+        $entity->setCountry('fr');
+        $entity->setMotherCountry('fr');
+        $entity->setInvoiceCountry('fr');
         $form   	= $this->createForm(new AdhesionCorporationType($em, $this->container), $entity, array('show_legend' => false));
 
         $template = '_template_form_adhesion_step2.html.twig';
@@ -738,28 +865,24 @@ class CorporationController extends abstractController
               $lang   = $this->container->get('session')->getLocale();
        
       $category   = $this->container->get('request')->query->get('category');
-
       $NoLayout   = $this->container->get('request')->query->get('NoLayout');
 
       $entity   = new Corporation();
-
       $form     = $this->createForm(new AdhesionCorporationType($em, $this->container), $entity, array('show_legend' => false));
 
       $data = $request->get($form->getName(), array());
       $form->bind($data);
-
       if (!$form->hasErrors()) {
           if (true === $this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {  
-              $connexion = $this->get('security.context')->getToken()->getUser();
-              $user = $em->getRepository("BootStrapUserBundle:User")->findOneById($connexion->getId());
-              $password = $user->getPassword();
-              $individual = $user->getIndividual();
+              $connexion 	= $this->get('security.context')->getToken()->getUser();
+              $user 		= $em->getRepository("BootStrapUserBundle:User")->findOneById($connexion->getId());
+              $password 	= $user->getPassword();
+              $individual 	= $user->getIndividual();
               $em->remove($individual);
               $em->flush();
           }
           else{
               $password = \PiApp\AdminBundle\Util\PiStringManager::random(8);
-              //$password = $request->get('UserName');
           }
 
           $user = new User();
@@ -771,7 +894,7 @@ class CorporationController extends abstractController
           $user->setEmail($request->get('Email'));
           $user->setEmailCanonical($request->get('Email'));
           $user->setEnabled(true);
-          $user->setRoles(array('ROLE_MEMBER'));
+          $user->setRoles(array('ROLE_SUBSCRIBER'));
           $user->setPermissions(array('VIEW', 'EDIT', 'CREATE', 'DELETE'));
           $user->setLangCode($em->getRepository('PiAppAdminBundle:Langue')->findOneById('fr_FR'));
 
@@ -782,13 +905,6 @@ class CorporationController extends abstractController
                 $user->addNewsletter($nl);
             }
           }
-          if(isset($_POST['commissions']) && !empty($_POST['commissions'])){
-            $commissions = $_POST['commissions'];          
-            foreach (array_keys($commissions)  as $commission ) {
-                $com  = $em->getRepository('PiAppGedmoBundle:Lamelee\TypoCommission')->findOneById($commission);
-                $user->addTypoCommission($com);
-            }
-          }
           $em->persist($user);
           $em->flush();
           
@@ -797,37 +913,41 @@ class CorporationController extends abstractController
           $entity->setEmail($request->get('Email'));      
           $entity->setUserName($request->get('UserName'));
    
-          $media_pixel = new \BootStrap\MediaBundle\Entity\Media();
-          $media_pixel->setProviderName('sonata.media.provider.image');
-          $media_pixel->setContext("default");  
-          $media_pixel->setBinaryContent($request->get('media'));
-          $em->persist($media_pixel);
-          $em->flush();
+          if($request->get('media') != ""){
+	          $media_pixel = new \BootStrap\MediaBundle\Entity\Media();
+	          $media_pixel->setProviderName('sonata.media.provider.image');
+	          $media_pixel->setContext("default");  
+	          $media_pixel->setBinaryContent($request->get('media'));
+	          $em->persist($media_pixel);
+	          $em->flush();
+	          
+	          $media_gedmo = new \PiApp\GedmoBundle\Entity\Media();
+	          $media_gedmo->setImage($media_pixel);
+	          $media_gedmo->setStatus('image');
+	          $em->persist($media_gedmo);
+	          $em->flush();
+	          $entity->setMedia($media_gedmo);	          
+          }
           
-          
-          $media_gedmo = new \PiApp\GedmoBundle\Entity\Media();
-          $media_gedmo->setImage($media_pixel);
-          $media_gedmo->setStatus('image');
-          $em->persist($media_gedmo);
-          $em->flush();
-          $entity->setMedia($media_gedmo);
+          if($request->get('media2') != ""){
+	          $media_pixel = new \BootStrap\MediaBundle\Entity\Media();
+	          $media_pixel->setProviderName('sonata.media.provider.image');
+	          $media_pixel->setContext("default");
+	          $media_pixel->setBinaryContent($request->get('media2'));
+	          $em->persist($media_pixel);
+	          $em->flush();
+	          
+	          $media_gedmo = new \PiApp\GedmoBundle\Entity\Media();
+	          $media_gedmo->setImage($media_pixel);
+	          $media_gedmo->setStatus('image');
+	          $em->persist($media_gedmo);
+	          $em->flush();
+	          $entity->setMedia2($media_gedmo);	          
+          }
 
-          $media_pixel = new \BootStrap\MediaBundle\Entity\Media();
-          $media_pixel->setProviderName('sonata.media.provider.image');
-          $media_pixel->setContext("default");  
-          $media_pixel->setBinaryContent($request->get('media2'));
-          $em->persist($media_pixel);
-          $em->flush();
-
-          $media_gedmo = new \PiApp\GedmoBundle\Entity\Media();
-          $media_gedmo->setImage($media_pixel);
-          $media_gedmo->setStatus('image');
-          $em->persist($media_gedmo);
-          $em->flush();        
-          $entity->setMedia2($media_gedmo);
-        
           $entity->setTranslatableLocale($lang);
           
+          $entity->setEnabled(true);
           $entity->setCivility($request->get('Civility'));
           $entity->setName($request->get('Name'));
           $entity->setNickname($request->get('Nickname'));
@@ -891,26 +1011,37 @@ class CorporationController extends abstractController
           //send mail
           $templateFile = "PiAppGedmoBundle:Corporation:email_adhesion.html.twig";
           $templateContent = $this->get('twig')->loadTemplate($templateFile);
+          $url_resetting = $this->container->get("pi_app_admin.manager.authentication")->sendResettingEmailMessage($user, "page_lamelee_reset");
           $subject = ($templateContent->hasBlock("subject")
               ? $templateContent->renderBlock("subject", array(
+              'confirmationUrl' =>  $url_resetting,
               'form'	 => $entity, 
               'password'	 => $password,
               ))
               : "Default subject here");
           $body = ($templateContent->hasBlock("body")
               ? $templateContent->renderBlock("body", array(
+              'confirmationUrl' =>  $url_resetting,
               'form'	 => $entity, 
               'password'	 => $password,
               ))
               : "Default body here");   
 
-          $this->get("pi_app_admin.mailer_manager")->send('mailinfo@lamelee.fr', $user->getEmail(), $subject, $body);
+	          $query		= $em->getRepository("PiAppGedmoBundle:Contact")->getAllByFields(array('enabled'=>true), 1, '', 'ASC');
+	          $query->leftJoin('a.category', 'c')
+	          ->andWhere("c.id = :catID")
+	          ->setParameter('catID', 23);
+    		  $entity_cat   = current($em->getRepository("PiAppGedmoBundle:Contact")->findTranslationsByQuery($lang, $query->getQuery(), "object", false));
+			  if($entity_cat instanceof \PiApp\GedmoBundle\Entity\Contact)
+					$this->get("pi_app_admin.mailer_manager")->send($entity_cat->getEmail(), $user->getEmail(), $subject, $body, $entity_cat->getEmailCc(), $entity_cat->getEmailBcc());
+			  else
+					$this->get("pi_app_admin.mailer_manager")->send("confirmationadhesion@gmail.com", $user->getEmail(), $subject, $body);
             
-          return new Response('');
+			$this->container->get('session')->remove('data');
+			return new Response('');
           
       }
           $newsletters = $this->_get_newsletters_categories($lang);
-          $commissions = $this->_get_commissions($lang);
           
           return $this->render("PiAppGedmoBundle:Corporation:$template", array(
               'entity'      => $entity,
@@ -920,7 +1051,6 @@ class CorporationController extends abstractController
               'new'	=> 1,
               'render'	=> '',
               'categories' => $newsletters,
-              'commissions' => $commissions,
           )); 
     }   
 
@@ -950,20 +1080,5 @@ class CorporationController extends abstractController
         
         return $categories;
     }
-    
-    private function _get_commissions($lang ="") {
-      $em        = $this->getDoctrine()->getEntityManager();
-      if(empty($lang))
-              $lang   = $this->container->get('session')->getLocale();
-      
-        $coms	= $em->getRepository("PiAppGedmoBundle:Lamelee\TypoCommission")->findAllByEntity($lang, 'object'); 
-
-        foreach ($coms as $com) {
-          $commissions[] = array(
-            $com->getId(),
-            $com->translate($lang)->getTitle()
-          );
-        }
-        return $commissions;
-    }    
+  
 }

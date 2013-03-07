@@ -69,7 +69,7 @@ abstract class abstractController extends Controller
     		$em->clear();
 
     		// we disable all flash message
-    		$this->container->get('session')->setFlashes(array());
+    		$this->container->get('session')->clearFlashes();
     		
     		$tab= array();
     		$tab['id'] = '-1';
@@ -124,7 +124,7 @@ abstract class abstractController extends Controller
     		$em->clear();
     		
     		// we disable all flash message
-    		$this->container->get('session')->setFlashes(array());
+    		$this->container->get('session')->clearFlashes();
     		
     		$tab= array();
     		$tab['id'] = '-1';
@@ -174,7 +174,7 @@ abstract class abstractController extends Controller
     		$em->clear();
     		
     		// we disable all flash message
-            $this->container->get('session')->setFlashes(array());
+            $this->container->get('session')->clearFlashes();
             
             $tab= array();
             $tab['id'] = '-1';
@@ -231,7 +231,7 @@ abstract class abstractController extends Controller
     		$em->clear();
     
     		// we disable all flash message
-    		$this->container->get('session')->setFlashes(array());
+    		$this->container->get('session')->clearFlashes();
     
     		$tab= array();
     		$tab['id'] = '-1';
@@ -279,7 +279,7 @@ abstract class abstractController extends Controller
    			}		
    			
     		// we disable all flash message
-    		$this->container->get('session')->setFlashes(array());
+    		$this->container->get('session')->clearFlashes();
     
     		$tab= array();
     		$tab['id'] = '-1';

@@ -1,0 +1,235 @@
+{% initJquery 'GRID:grid-table' %}
+{% stylesheet getParameter('pi_app_admin.admin.grid_theme_css') %}
+{% if NoLayout %}
+	{% stylesheet 'bundles/piappadmin/css/layout/admin/screen.css' %}
+	{% javascript 'bundles/piappadmin/js/jquery/custom_jquery.js' %}
+	{% set layout_nav = 'PiAppTemplateBundle::Template\\Layout\\layout-ajax.html.twig' %}
+{% else %}
+	{% set layout_nav = app.session.get('wurfl-layout') %}
+{% endif %}	
+{% extends layout_nav %}
+
+{% block title %}
+	<h1>Adhérents</h1>
+{% endblock %}
+ 
+{% block content %}
+
+	<table id="grid_corporation" class="grid" >
+	    <thead>
+	        <tr>	            
+	            <th class="position" >Position</th>	        
+              	<th>Id</th>
+              	<th>Type d'inscrit</th>
+              	<th>Mise en avant</th>
+              	<th>Type</th>	      
+	            <th>Société</th>
+	            <th>Nom</th>	    	            
+	            <th>Prénom</th>	            
+	            <th>Fonction</th>	            
+	            <th>Login</th>	
+	            <th>Date</th>	            
+	            <th>Paiement</th>	        	
+	            <th>Actions</th>
+	            
+	            <th>{{ 'pi.form.label.field.profile'|trans }}</th>
+	            <th>{{ 'pi.form.label.field.civility'|trans }}</th>
+	            <th>{{ 'pi.form.label.field.adress.phone'|trans }}</th>
+	            <th>{{ 'pi.form.label.field.email'|trans }}</th>
+	            <th>{{ 'pi.form.label.field.email.perso'|trans }}</th>
+	            <th>{{ 'pi.form.label.field.website'|trans }}</th>
+	            
+	            <th>{{ 'pi.corporation.form.group.job'|trans }} - {{ 'pi.form.label.field.corporation.name.commercial'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.job'|trans }} - {{ 'pi.form.label.field.corporation.activity'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.job'|trans }} - {{ 'pi.form.label.field.corporation.engineering'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.job'|trans }} - {{ 'pi.form.label.field.corporation.detailactivity'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.job'|trans }} - {{ 'pi.form.label.field.corporation.legalform'|trans }}</th>
+	            
+	            <th>{{ 'pi.corporation.form.group.info1'|trans }} - {{ 'pi.form.label.field.corporation.effectif.national'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.info1'|trans }} - {{ 'pi.form.label.field.corporation.effectif.regional'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.info1'|trans }} - {{ 'pi.form.label.field.corporation.code.naf'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.info1'|trans }} - {{ 'pi.form.label.field.corporation.siret'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.info1'|trans }} - {{ 'pi.form.label.field.corporation.ca.national'|trans }}</th>
+	            
+	            <th>{{ 'pi.corporation.form.group.info2'|trans }} - {{ 'pi.form.label.field.corporation.argument.commercial'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.info2'|trans }} - {{ 'pi.form.label.field.corporation.expertise'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.info2'|trans }} - {{ 'pi.form.label.field.corporation.speaker'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.info2'|trans }} - {{ 'pi.form.label.field.corporation.origin.contact'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.info2'|trans }} - {{ 'pi.form.label.field.other'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.info2'|trans }} - {{ 'pi.form.label.field.corporation.origin.contact.sponsor'|trans }}</th>
+	            
+	            <th>{{ 'pi.corporation.form.group.social'|trans }} - {{ 'pi.form.label.field.social.facebook'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.social'|trans }} - {{ 'pi.form.label.field.social.googleplus'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.social'|trans }} - {{ 'pi.form.label.field.social.twitter'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.social'|trans }} - {{ 'pi.form.label.field.social.linkedin'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.social'|trans }} - {{ 'pi.form.label.field.social.viadeo'|trans }}</th>
+	            
+	            <th>{{ 'pi.corporation.form.group.contact.entre'|trans }} - {{ 'pi.form.label.field.adress.main'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.contact.entre'|trans }} - {{ 'pi.form.label.field.adress.cp'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.contact.entre'|trans }} - {{ 'pi.form.label.field.adress.city'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.contact.entre'|trans }} - {{ 'pi.form.label.field.adress.country'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.contact.entre'|trans }} - {{ 'pi.form.label.field.adress.phone'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.contact.entre'|trans }} - {{ 'pi.form.label.field.adress.fax'|trans }}</th>
+	            
+	            <th>{{ 'pi.corporation.form.group.contact.entre.mother'|trans }} - {{ 'pi.form.label.field.adress.main'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.contact.entre.mother'|trans }} - {{ 'pi.form.label.field.adress.cp'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.contact.entre.mother'|trans }} - {{ 'pi.form.label.field.adress.city'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.contact.entre.mother'|trans }} - {{ 'pi.form.label.field.adress.country'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.contact.entre.mother'|trans }} - {{ 'pi.form.label.field.adress.phone'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.contact.entre.mother'|trans }} - {{ 'pi.form.label.field.adress.fax'|trans }}</th>
+				
+				<th>{{ 'pi.corporation.form.group.contact.entre.facturation'|trans }} - {{ 'pi.form.label.field.adress.main'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.contact.entre.facturation'|trans }} - {{ 'pi.form.label.field.adress.cp'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.contact.entre.facturation'|trans }} - {{ 'pi.form.label.field.adress.city'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.contact.entre.facturation'|trans }} - {{ 'pi.form.label.field.adress.country'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.contact.entre.facturation'|trans }} - {{ 'pi.form.label.field.adress.phone'|trans }}</th>
+	            <th>{{ 'pi.corporation.form.group.contact.entre.facturation'|trans }} - {{ 'pi.form.label.field.adress.fax'|trans }}</th>	            
+	        </tr>
+	    </thead>
+	    <tbody>
+	    {% set num_line = 0 %}
+	    {% for entity_info in entities %}
+	    	{% set entity = entity_info.entity %}
+	    	{% set type   = entity_info.type %}
+	        <tr {% if(num_line == 0) %}class="odd"{% endif %}  id='{{ entity.position }}_{{ type }}_{{ entity.id }}'  >
+	        	<td class="position" >{{ entity.position}}</td>	
+	            <td><a href="{{ path('admin_gedmo_corporation_show', { 'id': entity.id, 'NoLayout': NoLayout, 'category':category }) }}" title="">{{ entity.id }}</a></td>
+	            <td>{% if type == "Corporation" %}Personne morale{% else %}Personne physique{% endif %}</td>	
+	            <td>
+                  {% if entity.highlighted == 1 %}Home Page{% else %}Autres{% endif %}
+	            </td>	
+	           	<td>
+					{% if type == "Corporation" %}
+					<img src="{{ asset('bundles/piappadmin/images/grid/company.png') }}" width="32px" border="0" alt="{{ type }}" title="{{ type }}"/>
+                	{% else %}
+                	<img src="{{ asset('bundles/piappadmin/images/grid/person.png') }}"  width="32px" border="0" alt="{{ type }}" title="{{ type }}"/>
+                	{% endif %}
+	            </td>	
+                <td>
+					{% if type == "Corporation" %}
+	   				{{ entity.CorporationName }}
+	   				{% else %}
+	   				{{ entity.Company }}	   				
+	   				{% endif %}	
+	            </td>	
+	            <td>
+	            	{{ entity.Name|limite("0", 55)|raw }}
+	            </td>		            
+	            <td>
+	            	{{ entity.Nickname|limite("0", 55)|raw }}
+	            </td>	
+	            <td>
+	            	{{ entity.Job|limite("0", 55)|raw }}
+	            </td>	
+	            <td>
+	            	{{ entity.username }}
+	            </td>		
+	            <td>{% if entity.createdat %}{{ entity.createdat|date('d/m/Y H:i')|replace({':':'H'}) }}{% endif%}</td>
+	            <td class="enabled" >{{ entity.paymentstatus }}</td>	
+				<td>
+					{% if type == "Corporation" %}
+					<a href="{{ path('admin_gedmo_corporation_show', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category, 'type':"aderent" }) }}" title="{{ 'pi.grid.action.show'|trans }}" class="icon-3 info-tooltip" >&nbsp;</a>
+					<a href="{{ path('admin_gedmo_corporation_edit', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category, 'type':"aderent" }) }}" title="{{ 'pi.grid.action.edit'|trans }}" class="icon-1 info-tooltip" >&nbsp;</a>
+                	{% else %}
+                	<a href="{{ path('admin_gedmo_individual_show', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category, 'type':"aderent" }) }}" title="{{ 'pi.grid.action.show'|trans }}" class="icon-3 info-tooltip" >&nbsp;</a>
+                	<a href="{{ path('admin_gedmo_individual_edit', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category, 'type':"aderent" }) }}" title="{{ 'pi.grid.action.edit'|trans }}" class="icon-1 info-tooltip" >&nbsp;</a>
+                	{% endif %}
+				</td>
+				            	
+	            <td>{% if entity.Profile is defined %}{{ entity.Profile }}{% endif %}</td>	
+	            <td>{% if entity.Civility is defined %}{{ entity.Civility }}{% endif %}</td>	
+	            <td>{% if entity.UserPhone is defined %}{{ entity.UserPhone }}{% endif %}</td>	
+	            <td>{% if entity.Email is defined %}{{ entity.Email }}{% endif %}</td>	
+	            <td>{% if entity.EmailPerso is defined %}{{ entity.EmailPerso }}{% endif %}</td>	
+	            <td>{% if entity.url is defined %}{{ entity.url }}{% endif %}</td>	
+	            	
+	            <td>{% if entity.CommercialName is defined %}{{ entity.CommercialName }}{% endif %}</td>	
+	            <td>{% if entity.Activity is defined %}{{ entity.Activity }}{% endif %}</td>	
+	            <td>{% if entity.Engineering is defined %}{{ entity.Engineering }}{% endif %}</td>	
+	            <td>{% if entity.DetailActivity is defined %}{{ entity.DetailActivity }}{% endif %}</td>	
+	            <td>{% if entity.LegalForm is defined %}{{ entity.LegalForm }}{% endif %}</td>	
+	            	
+	            <td>{% if entity.EffectifNational is defined %}{{ entity.EffectifNational }}{% endif %}</td>	
+	            <td>{% if entity.EffectifRegional is defined %}{{ entity.EffectifRegional }}{% endif %}</td>	
+	            <td>{% if entity.CodeNAF is defined %}{{ entity.CodeNAF }}{% endif %}</td>	
+	            <td>{% if entity.Siret is defined %}{{ entity.Siret }}{% endif %}</td>	
+	            <td>{% if entity.CaNational is defined %}{{ entity.CaNational }}{% endif %}</td>	
+	            	
+	            <td>{% if entity.ArgumentCommercial is defined %}{{ entity.ArgumentCommercial }}{% endif %}</td>	
+	            <td>{% if entity.Expertise is defined %}{{ entity.Expertise }}{% endif %}</td>	
+	            <td>{% if entity.Speaker is defined %}{{ entity.Speaker }}{% endif %}</td>	
+	            <td>{% if entity.OriginContact is defined %}{{ entity.OriginContact }}{% endif %}</td>	
+	            <td>{% if entity.OriginContactOther is defined %}{{ entity.OriginContactOther }}{% endif %}</td>	
+	            <td>{% if entity.OriginContactSponsor is defined %}{{ entity.OriginContactSponsor }}{% endif %}</td>	
+	            	
+	            <td>{% if entity.Facebook is defined %}{{ entity.Facebook }}{% endif %}</td>	
+	            <td>{% if entity.GooglePlus is defined %}{{ entity.GooglePlus }}{% endif %}</td>	
+	            <td>{% if entity.Twitter is defined %}{{ entity.Twitter }}{% endif %}</td>	
+	            <td>{% if entity.LinkedIn is defined %}{{ entity.LinkedIn }}{% endif %}</td>	
+	            <td>{% if entity.Viadeo is defined %}{{ entity.Viadeo }}{% endif %}</td>	            
+	            	
+	            <td>{% if entity.Address is defined %}{{ entity.Address }}{% endif %}</td>	
+	            <td>{% if entity.CP is defined %}{{ entity.CP }}{% endif %}</td>	
+	            <td>{% if entity.City is defined %}{{ entity.City }}{% endif %}</td>	
+	            <td>{% if entity.Country is defined %}{{ entity.Country }}{% endif %}</td>	
+	            <td>{% if entity.Phone is defined %}{{ entity.Phone }}{% endif %}</td>	
+	            <td>{% if entity.Fax is defined %}{{ entity.Fax }}{% endif %}</td>	
+	            	
+	            <td>{% if entity.MotherAddress is defined %}{{ entity.MotherAddress }}{% endif %}</td>	
+	            <td>{% if entity.MotherCP is defined %}{{ entity.MotherCP }}{% endif %}</td>	
+	            <td>{% if entity.MotherCity is defined %}{{ entity.MotherCity }}{% endif %}</td>	
+	            <td>{% if entity.MotherCountry is defined %}{{ entity.MotherCountry }}{% endif %}</td>	
+	            <td>{% if entity.MotherPhone is defined %}{{ entity.MotherPhone }}{% endif %}</td>	
+	            <td>{% if entity.MotherFax is defined %}{{ entity.MotherFax }}{% endif %}</td>
+	            	
+	            <td>{% if entity.InvoiceAddress is defined %}{{ entity.InvoiceAddress }}{% endif %}</td>	
+	            <td>{% if entity.InvoiceCP is defined %}{{ entity.InvoiceCP }}{% endif %}</td>	
+	            <td>{% if entity.InvoiceCity is defined %}{{ entity.InvoiceCity }}{% endif %}</td>	
+	            <td>{% if entity.InvoiceCountry is defined %}{{ entity.InvoiceCountry }}{% endif %}</td>	
+	            <td>{% if entity.InvoicePhone is defined %}{{ entity.InvoicePhone }}{% endif %}</td>	
+	            <td>{% if entity.InvoiceFax is defined %}{{ entity.InvoiceFax }}{% endif %}</td>	
+
+	        </tr>
+	        {% if num_line == 0 %} 
+	        	{% set num_line = 1 %}
+	        {% else %}
+	        	{% set num_line = 0 %}
+	        {% endif %}	
+	                
+	    {% endfor %}
+	    </tbody>
+	</table>
+
+	{% set options_gridtabale = {'grid-name': 'grid_corporation', 'grid-type':'simple', 
+			'grid-paginate':'true',
+			'grid-LengthMenu':50,
+			'grid-filters-select': ['0','1','4','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57'],
+			'grid-filters': { 
+					'1':'Position',
+					'2':'Identifiant',
+				},
+			'grid-sorting': { 
+					'10':'desc',
+				},
+			'grid-visible': {
+				'0':'false',
+				'1':'false',
+				'2':'false',
+				'3':'false',
+				'13':'false','14':'false','15':'false','16':'false','17':'false','18':'false','19':'false',
+				'20':'false','21':'false','22':'false','23':'false','24':'false','25':'false','26':'false','27':'false','28':'false','29':'false',
+				'30':'false','31':'false','32':'false','33':'false','34':'false','35':'false','36':'false','37':'false','38':'false','39':'false',
+				'40':'false','41':'false','42':'false','43':'false','44':'false','45':'false','46':'false','47':'false','48':'false','49':'false',
+				'50':'false','51':'false','52':'false','53':'false','54':'false','55':'false','56':'false','57':'false',
+				},						
+			'grid-actions': { 
+					'rows_grouping': {'columnIndex':3, 'Collapsible':'false', 'HideColumn':'true', 'SortDirection':'desc'},
+					'export': {'sButtonText':'pi.grid.action.export'},
+					'rows_default_enabled_paiementstatus': {'withImg':true, 'reload':true,'sButtonText':'pi.grid.lamelee.action.enabled_paiementstatus.sButtonText', 'route':'admin_gedmo_adherent_enabledpaymentstatus_ajax','questionTitle':'pi.grid.lamelee.action.enabled_paiementstatus.questionTitle', 'questionText':'pi.grid.lamelee.action.enabled_paiementstatus.questionText'},
+					'rows_default_disable_paiementstatus': {'withImg':true, 'reload':true,'sButtonText':'pi.grid.lamelee.action.disable_paiementstatus.sButtonText', 'route':'admin_gedmo_adherent_disablepaymentstatus_ajax','questionTitle':'pi.grid.lamelee.action.disable_paiementstatus.questionTitle', 'questionText':'pi.grid.lamelee.action.disable_paiementstatus.questionText'},
+				}		
+			} 			
+	%}
+	{{ renderJquery('GRID', 'grid-table', options_gridtabale )|raw }}	
+
+{% endblock %}

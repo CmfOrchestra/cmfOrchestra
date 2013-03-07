@@ -90,7 +90,7 @@ class AdsController extends abstractController
     		$em->clear();
 
     		// we disable all flash message
-    		$this->container->get('session')->setFlashes(array());
+    		$this->container->get('session')->clearFlashes();
     		
     		$tab= array();
     		$tab['id'] = '-1';
@@ -153,7 +153,7 @@ class AdsController extends abstractController
     		$em->clear();
     		
     		// we disable all flash message
-    		$this->container->get('session')->setFlashes(array());
+    		$this->container->get('session')->clearFlashes();
     		
     		$tab= array();
     		$tab['id'] = '-1';
@@ -227,7 +227,7 @@ class AdsController extends abstractController
     		$em->clear();
     		
     		// we disable all flash message
-            $this->container->get('session')->setFlashes(array());
+            $this->container->get('session')->clearFlashes();
             
             $tab= array();
             $tab['id'] = '-1';
@@ -627,7 +627,7 @@ class AdsController extends abstractController
 
     	$paginator 			= $this->container->get('knp_paginator');
     
-    	$query_pagination	= $em->getRepository("PiAppGedmoBundle:Ads")->getAllByCategory('', null, $order);
+    	$query_pagination	= $em->getRepository("PiAppGedmoBundle:Ads")->createQueryBuilder('a')->select('a')->orderBy('a.created_at', $order);
     	if(!empty($search)){
     		$query_pagination
     		->leftJoin('a.tags', 'tag')
@@ -762,13 +762,21 @@ class AdsController extends abstractController
     				           : "Default body here");
 
 			$list_files = $this->get("pi_app_admin.mailer_manager")->uploadAttached($_FILES);
-    		$this->get("pi_app_admin.mailer_manager")->send('ads@lamelee.fr', $ads->getUser()->getEmail(), $subject, $body, null, null, $form["email"]->getData(), $list_files);
+    		$query		= $em->getRepository("PiAppGedmoBundle:Contact")->getAllByFields(array('enabled'=>true), 1, '', 'ASC');
+    		$query->leftJoin('a.category', 'c')
+    		->andWhere("c.id = :catID")
+    		->setParameter('catID', 24);
+    		$entity_cat = current($em->getRepository("PiAppGedmoBundle:Contact")->findTranslationsByQuery($lang, $query->getQuery(), "object", false));
+    		if($entity_cat instanceof \PiApp\GedmoBundle\Entity\Contact)
+    			$this->get("pi_app_admin.mailer_manager")->send($entity_cat->getEmail(), $ads->getUser()->getEmail(), $subject, $body, $entity_cat->getEmailCc(), $entity_cat->getEmailBcc(), $form["email"]->getData(), $list_files);
+    		else
+    			$this->get("pi_app_admin.mailer_manager")->send('ads@lamelee.fr', $ads->getUser()->getEmail(), $subject, $body, null, null, $form["email"]->getData(), $list_files);
 			$this->get("pi_app_admin.mailer_manager")->deleteAttached($list_files);
 			
-			$this->container->get('session')->setFlashes(array());
+			$this->container->get('session')->clearFlashes();
 			$this->get('session')->setFlash('success', 'comment.flash.posted');
     	}else{
-    		$this->container->get('session')->setFlashes(array());
+    		$this->container->get('session')->clearFlashes();
     		$this->get('session')->setFlash('success', 'comment.flash.noposted');
     	}
     	  
@@ -842,7 +850,7 @@ class AdsController extends abstractController
 				$entity->addTag($tag);
     		}
 
-    		$this->container->get('session')->setFlashes(array());
+    		$this->container->get('session')->clearFlashes();
     		$this->get('session')->setFlash('success', 'ads.flash.ad.created');
 			$entity->setEnabled(true);
     		$em->persist($entity);

@@ -47,6 +47,7 @@ pi.grid.action.update: حَدِّث
 pi.grid.action.save: احفظ
 pi.grid.action.delete: احذف
 pi.grid.action.create: أنشئ
+pi.grid.action.validate:  التحقق من صحة
 pi.grid.action.back-to-the-list: العودة إلى القائمة
 pi.grid.action.add-tab: إضافة التبويب
 pi.grid.action.copy: نسخ إلى الحافظة

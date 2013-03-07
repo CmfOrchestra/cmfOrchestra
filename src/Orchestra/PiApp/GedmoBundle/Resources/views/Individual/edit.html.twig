@@ -22,7 +22,7 @@
 		</ul>
 
 		{% form_theme edit_form getParameter('pi_app_admin.layout.template.form') %}
-		<form class="myform" action="{{ path('admin_gedmo_individual_update', { 'id': entity.id, 'NoLayout': NoLayout, 'category':category }) }}" method="post" {{ form_enctype(edit_form) }} novalidate>
+		<form class="myform" action="{{ path('admin_gedmo_individual_update', { 'id': entity.id, 'NoLayout': NoLayout, 'category':category, 'type':type}) }}" method="post" {{ form_enctype(edit_form) }} novalidate>
 		    <div id="tabs-1">
 		    	{{ form_widget(edit_form) }}
 		    </div>
@@ -40,13 +40,26 @@
 		
 		
 	<ul class="record_actions">
-		<li>
+		<li>{% if type == "aderent" %}
+			<form action="{{ path('admin_gedmo_list_adherent', { 'NoLayout': NoLayout, 'category':category }) }}" method="post">
+        		<button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
+	        </form>
+			{% elseif type == "event" %}
+			<form action="{{ path('admin_gedmo_lamelee_event_subscribers', { 'NoLayout': NoLayout, 'category':category }) }}" method="post">
+        		<button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
+	        </form>
+			{% elseif type == "subscriber" %}
+			<form action="{{ path('admin_gedmo_individual_subscribers', { 'NoLayout': NoLayout, 'category':category }) }}" method="post">
+        		<button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
+	        </form>	  	        
+            {% else %}
 	        <form action="{{ path('admin_gedmo_individual', { 'NoLayout': NoLayout, 'category':category }) }}" method="post">
 	            <button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
-	        </form>	        
+	        </form>	   
+	        {% endif %}     
 		</li>
 			
-		{% if NoLayout == false %}
+		{% if (NoLayout == false) and (type is empty) %}
 	    <li>
 	        <form action="{{ path('admin_gedmo_individual_delete', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category }) }}" method="post">
 	            {{ form_widget(delete_form) }}

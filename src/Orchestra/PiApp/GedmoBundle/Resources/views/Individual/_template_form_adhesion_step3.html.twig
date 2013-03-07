@@ -22,7 +22,7 @@
 							<a href="#" class="button Bperson on" data-button="toggle"><!--
 								--><span>Personne physique</span><!--
 							--></a>
-							<a href="{{ path_url("page_lamelee_adhesion_morale")}}" class="button Bsociety" data-button="toggle"><!--
+							<a href="#" class="button Bsociety" data-button="toggle"><!--
 								--><span>Personne morale</span><!--
 							--></a>
 							</div>
@@ -38,96 +38,69 @@
 					</div>
 				
 					<form action="#" method="post" class="cf">
-            <input type="hidden" id="new" name="new" value="{{new}}">
-            <input type="hidden" id="step" name="step" value="3">
-            {% for key,value in data %}
-                <input type="hidden" id="{{key}}" name="{{key}}" value="{{value}}">
-            {% endfor %}            
-            {{ form_errors(form) }}
-            {{ form_widget(form._token) }}            
-						<fieldset>
-							<legend class="bold">Mes commissions</legend>
-						
-							<p class="light-clr">
-								Veuillez sélectionner les commisions auxquels vous souhaitez participer :
-							</p>
-							<div class="row radio-list cf">
-                {% set com_len = commissions|length %}
-                {% for i in 1..2 %}
-                <div class="half fleft">
-                  {% if i == 1 %}
-                      {% set deb = 0 %}
-                      {% set fin = (((com_len)+(com_len%2))/2 -1)  %}
-                  {% else  %}
-                      {% set deb = (((com_len)+(com_len%2))/2 ) %}
-                      {% set fin = com_len -1 %}
-                  {% endif %}
-                  {% for com in deb..fin  %}
-                      <div class="field">
-                        <input type="checkbox" name="commissions[{{attribute(attribute(commissions, com), 0)}}]">
-                        <label class="light-clr">{{attribute(attribute(commissions, com), 1)}}</label>
-                      </div>
-                  {% endfor %}
-                </div>
-                {% endfor %}                	
-							</div>
-						</fieldset>
+						<input type="hidden" id="new" name="new" value="{{new}}">
+						<input type="hidden" id="step" name="step" value="3">
+						{% for key,value in data %}
+							<input type="hidden" id="{{key}}" name="{{key}}" value="{{value}}">
+						{% endfor %}            
+						{{ form_errors(form) }}
+						{{ form_widget(form._token) }}            
 
 						<fieldset>
-							<legend class="bold">Mes Newsletter</legend>
+							<legend class="bold">Mes Newsletters</legend>
 						
 							<p class="light-clr">
 								Veuillez sélectionner les newsletters que vous souhaitez recevoir :
 							</p>
 						<div class="row cf">
-              {% for key,cat in newsletters %}
-                {% set catlength = cat|length %}
-                {% if catlength == 1 %}
-                    <div class="field fleft">
-                      <input type="checkbox" name="newsletters[{{ attribute(attribute(cat, 0), 1)}}]" {{ attribute(attribute(cat, 0), 3)}}>
-                      <label class="light-clr bold">{{ attribute(attribute(cat, 0), 0)}}</label>
-                    </div>
-                {% else %}
-                    <div class="field fleft">
-                      <input type="checkbox" id="list-news">
-                      <label class="light-clr bold">{{ attribute(attribute(cat, 0), 0)}}</label>
-                    </div>   
-                    {% set deb = 0 %}
-                    <div class="bulle-info news-list cf fright">
-                      <span class="arrow"></span>
-                      {% for i in 1..2 %}
-                      <div class="half fleft">
-                        {% if i == 1 %}
-                            {% set deb = 0 %}
-                            {% set fin = (((catlength)+(catlength%2))/2 -1)  %}
-                        {% else  %}
-                            {% set deb = (((catlength)+(catlength%2))/2 ) %}
-                            {% set fin = catlength -1 %}
-                        {% endif %}
-                        {% for nl in deb..fin  %}
-                            <div class="field">
-                              <input type="checkbox" name="newsletters[{{attribute(attribute(cat, nl), 1)}}]" {{attribute(attribute(cat, nl), 3)}}>
-                              <label class="light-clr">{{attribute(attribute(cat, nl), 2)}}</label>
-                            </div>
-                        {% endfor %}
-                      </div>
-                      {% endfor %}
-                    </div>                
-                {% endif %}
-              {% endfor %}
+							{% for key,cat in newsletters %}
+							  {% set catlength = cat|length %}
+							  {% if catlength == 1 %}
+								  <div class="field fleft">
+									<input type="checkbox" name="newsletters[{{ attribute(attribute(cat, 0), 1)}}]" {{ attribute(attribute(cat, 0), 3)}}>
+									<label class="light-clr bold">{{ attribute(attribute(cat, 0), 0)}}</label>
+								  </div>
+							  {% else %}
+								  <div class="field fleft">
+									<input type="checkbox" id="list-news">
+									<label class="light-clr bold">{{ attribute(attribute(cat, 0), 0)}}</label>
+								  </div>   
+								  {% set deb = 0 %}
+								  <div class="bulle-info news-list cf fright">
+									<span class="arrow"></span>
+									{% for i in 1..2 %}
+									<div class="half fleft">
+									  {% if i == 1 %}
+										  {% set deb = 0 %}
+										  {% set fin = (((catlength)+(catlength%2))/2 -1)  %}
+									  {% else  %}
+										  {% set deb = (((catlength)+(catlength%2))/2 ) %}
+										  {% set fin = catlength -1 %}
+									  {% endif %}
+									  {% for nl in deb..fin  %}
+										  <div class="field">
+											<input type="checkbox" name="newsletters[{{attribute(attribute(cat, nl), 1)}}]" {{attribute(attribute(cat, nl), 3)}}>
+											<label class="light-clr">{{attribute(attribute(cat, nl), 2)}}</label>
+										  </div>
+									  {% endfor %}
+									</div>
+									{% endfor %}
+								  </div>                
+							  {% endif %}
+							{% endfor %}
 						</div>              
 						</fieldset>
 
 						<fieldset class="cf">
 							<legend class="bold fleft">Quelles sont vos expertises ?</legend>
-							<a href="#" class="fleft tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
+							<a href="#" class="fleft tooltip" data-tooltip="{{'pi.individual.form.adhesion.tooltip.expertise'|trans|striptags|raw}}">Info</a>
 							{{ form_widget(form.Expertise) }}
 						</fieldset>
 
 						<fieldset>
 							<div class="row cf"> 
 								<p class="radioLabel tt-10  bold fleft">Souhaitez vous être conférencier ? *</p>
-								<a href="#" class="fleft tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
+								<a href="#" class="fleft tooltip" data-tooltip="{{'pi.individual.form.adhesion.tooltip.conferencier'|trans|striptags|raw}}">Info</a>
 							</div>
 							<div class="row"> 
 								{{ form_widget(form.Speaker) }}
@@ -136,12 +109,12 @@
 						<fieldset>
 							<legend class="bold">Origine de contact et motivations </legend>
 							{{ form_widget(form.OriginContact) }}
-              {{ form_widget(form.OriginContactOther) }}
-              {{ form_widget(form.OriginContactSponsor) }}
+							{{ form_widget(form.OriginContactOther) }}
+							{{ form_widget(form.OriginContactSponsor) }}
 						</fieldset>
 
 						<div class="button-ct cf">
-						<a href="#" class="button purple fleft"><!--
+						<a href="{{ path_url("page_lamelee_adhesion_physique", {"step":2}) }}" class="button purple fleft"><!--
 							--><span>ETAPE PRECEDENTE</span><!--
 						--></a>					
 						<input type="submit" value="VALIDER" class="fright nextStep" title="Valider ma demande d'adhésion">

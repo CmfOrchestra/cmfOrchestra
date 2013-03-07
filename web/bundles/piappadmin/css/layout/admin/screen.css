@@ -1215,3 +1215,16 @@ span.connexion-my-account:hover,
 span.connexion-login-logout:hover{
 	color: #238bdb;
 	}
+	
+	
+	
+	
+/*  FLASH ----------------------------------------------- */
+.fancybox-wrap .tt-grey{
+  background-color: #424242;
+  line-height: 45px;
+  padding-left:10px;
+}
+.fancybox-wrap .tt-grey *{
+    color:#fff;
+}
