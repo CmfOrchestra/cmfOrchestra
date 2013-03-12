@@ -47,17 +47,17 @@
 								{% if form.vars.value.Name %} 
 									  {{ form_widget(form.Name) }}
 								{% else %}
-									  {{ form_widget(form.Name, { 'attr': {'data-validate': 'Nom*'} }) }}
+									  {{ form_widget(form.Name, { 'attr': {'data-validate': 'Nom *'} }) }}
 								{% endif %}
 								{% if form.vars.value.Nickname %} 
 									  {{ form_widget(form.Nickname) }}
 								{% else %}
-									  {{ form_widget(form.Nickname, { 'attr': {'data-validate': 'Prénom*'} }) }}
+									  {{ form_widget(form.Nickname, { 'attr': {'data-validate': 'Prénom *'} }) }}
 								{% endif %}
 							</div>
 						</fieldset>
 						<fieldset>
-							<legend class="bold">Entreprise</legend>
+							<legend class="bold"></legend>
 							<div class="row cf">
 								{% if form.vars.value.Job %} 
 									  {{ form_widget(form.Job) }}
@@ -68,12 +68,12 @@
 
 							</div>
 							<div class="row">	
-								{% if form.vars.value.Email and not(form.vars.errors|length) %} 
+								{% if form.vars.value.Email and not(form.Email.vars.errors|length) %} 
 									  {{ form_widget(form.Email) }}
 								{% elseif form.vars.errors|length %} 
 									  {{ form_widget(form.Email, { 'attr': {'class': 'error'} }) }}                
 								{% else %}
-									  {{ form_widget(form.Email, { 'attr': {'data-validate': 'Email pro*'} }) }}
+									  {{ form_widget(form.Email, { 'attr': {'data-validate': 'Email pro *'} }) }}
 								{% endif %}                    
 
 								{% if form.vars.value.EmailPerso %} 
@@ -86,12 +86,12 @@
 								{% if form.vars.value.Phone %} 
 									  {{ form_widget(form.Phone) }}
 								{% else %}
-									  {{ form_widget(form.Phone, { 'attr': {'class':'required phone', 'data-validate': 'Téléphone*'} }) }}
+									  {{ form_widget(form.Phone, { 'attr': {'class':'required phone', 'data-validate': 'Téléphone *'} }) }}
 								{% endif %}                    
 							</div>
 						</fieldset>
 						<fieldset class="resetBorder">
-							<legend class="bold">Profil adhérent</legend>
+							<legend class="bold">Profil adhérent *</legend>
 
 							<div class="row cf">
 								{{ form_widget(form.Profile) }}
@@ -114,7 +114,7 @@
 									  <p class="light-clr"><small>Il vous sera demandé à chaque connexion et sera définitif</small></p>
 								{% endif %} 								
 							</div>	
-							<p class="light-clr"><span class="tt-clr">*</span> champs obligatoire</p>
+							<p class="light-clr"><span class="tt-clr">*</span> champs obligatoires</p>
 						</fieldset>
 
 						<input type="submit" value="ETAPE SUIvaNTE" class="fright nextStep">

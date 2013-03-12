@@ -37,6 +37,7 @@
 					<div class="title-border-simple cf">
 						<h3 class="tt-3 tt-clr bold fleft">La mêlée et vous</h3>
 					</div>
+					
 					{% form_theme form "PiAppTemplateBundle:Template\\Form:form_table_layout.html.twig" %}
 					<form action="{{ path_url("page_lamelee_adhesion_morale")}}" method="post" class="cf">
 						<input type="hidden" id="new" name="new" value="{{new}}">
@@ -46,6 +47,33 @@
 						{% endfor %}            
 						{{ form_errors(form) }}
 						{{ form_widget(form._token) }}             
+						<fieldset>
+							<legend class="bold">Mes commissions</legend>
+						
+							<p class="light-clr">
+								Veuillez sélectionner les commisions auxquelles vous souhaitez participer :
+							</p>
+							<div class="row radio-list cf">
+								{% set com_len = commissions|length %}
+								{% for i in 1..2 %}
+								<div class="half fleft">
+								  {% if i == 1 %}
+									  {% set deb = 0 %}
+									  {% set fin = (((com_len)+(com_len%2))/2 -1)  %}
+								  {% else  %}
+									  {% set deb = (((com_len)+(com_len%2))/2 ) %}
+									  {% set fin = com_len -1 %}
+								  {% endif %}
+								  {% for com in deb..fin  %}
+									  <div class="field">
+										<input type="checkbox" name="commissions[{{attribute(attribute(commissions, com), 0)}}]">
+										<label class="light-clr">{{attribute(attribute(commissions, com), 1)}}</label>
+									  </div>
+								  {% endfor %}
+								</div>
+								{% endfor %}                	
+							</div>
+						</fieldset>
 
 						<fieldset>
 							<legend class="bold">Mes Newsletters</legend>
@@ -94,7 +122,7 @@
 						</fieldset>
 
 						<fieldset class="cf">
-							<legend class="bold fleft">Quelles sont vos expertises ? *</legend>
+							<legend class="bold fleft">Quelles sont vos expertises ?</legend>
 							<a href="#" class="fleft tooltip" data-tooltip="{{'pi.corporation.form.adhesion.tooltip.expertise'|trans|striptags|raw}}">Info</a>
 							{{ form_widget(form.Expertise) }}
 						</fieldset>

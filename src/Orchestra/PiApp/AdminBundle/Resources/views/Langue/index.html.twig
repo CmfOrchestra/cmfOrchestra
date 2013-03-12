@@ -27,7 +27,7 @@
 	    <tbody>
 	    {% set num_line = 0 %}
 	    {% for entity in entities %}
-	        <tr {% if(num_line == 0) %}class="odd"{% endif %} id="{{ entity.id }}_row_{{ entity.id }}"  >
+	        <tr {% if(num_line == 0) %}class="odd"{% endif %} id="{{ entity.id }}"  >
 	            <td><a href="{{ path('admin_langue_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
 	            <td>{{ entity.label }}</td>
 	            <td class="enabled" >{{ entity.enabled }}</td>

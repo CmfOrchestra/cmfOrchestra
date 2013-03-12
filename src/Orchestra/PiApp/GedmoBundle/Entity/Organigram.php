@@ -122,7 +122,7 @@ class Organigram extends AbstractDefault
     protected $content;    
     
     /**
-     * @var integer $page
+     * @var \PiApp\AdminBundle\Entity\Page $page
      * 
      * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Page")
      * @ORM\JoinColumn(name="page_id", referencedColumnName="id", nullable=true)
@@ -130,7 +130,7 @@ class Organigram extends AbstractDefault
     protected $page;
     
     /**
-     * @var integer $media
+     * @var \PiApp\GedmoBundle\Entity\Media $media
      *
      * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Media" , cascade={"all"}, inversedBy="organigram");
      * @ORM\JoinColumn(name="media_id", referencedColumnName="id", nullable=true)

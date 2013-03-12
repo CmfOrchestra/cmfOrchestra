@@ -92,6 +92,13 @@ class Pressrelease extends AbstractDefault
     protected $pressmedia;
     
     /**
+     * @var string $author
+     *
+     * @ORM\Column(name="author", type="string", length=255, nullable = true)
+     */
+    protected $author;    
+    
+    /**
      * @var \PiApp\AdminBundle\Entity\Page $pageurl
      *
      * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Page")
@@ -206,6 +213,27 @@ class Pressrelease extends AbstractDefault
     	return $this->pressmedia;
     }    
 
+    /**
+     * Get author
+     *
+     * @return string
+     */
+    public function getAuthor()
+    {
+    	return $this->author;
+    }
+    
+    /**
+     * Set author
+     *
+     * @param string $author
+     */
+    public function setAuthor($author)
+    {
+    	$this->author = $author;
+    	return $this;
+    }
+        
     /**
      * Set page url
      *

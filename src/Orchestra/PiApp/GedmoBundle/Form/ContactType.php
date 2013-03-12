@@ -92,10 +92,10 @@ class ContactType extends AbstractType
  							"class"=>"block_collection",
  					),
  					"attr" => array(
- 							"class"	=>"pi_editor_simple",
+ 							"class"	=>"pi_editor_simple_easy",
  					),
  					'required'  => false,
- 			))	
+ 			))			
  			->add('coordinates', 'text', array(
  					"label" => 'pi.form.label.field.adress.coordinates',
  					'required'  => false,
@@ -114,7 +114,7 @@ class ContactType extends AbstractType
  							"class"=>"address_collection",
  					),
  					"attr" => array(
- 							"class"	=>"pi_editor_simple",
+ 							"class"	=>"pi_editor_simple_easy",
  					),
  					'required'  => false,
  			))

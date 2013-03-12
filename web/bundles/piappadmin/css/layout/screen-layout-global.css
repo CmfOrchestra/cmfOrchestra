@@ -84,3 +84,6 @@
  } 
  
 /* BALISES IDOINE FOR IE */
+orchestra, searchlucene {
+	display: block;
+}

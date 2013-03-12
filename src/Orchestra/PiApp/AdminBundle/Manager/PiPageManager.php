@@ -276,7 +276,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 				if($block->getEnabled()) {
 					$source 	.= "{% block ".$block->getName()." %} \n";
 					$source 	.= "{{ parent() }}	\n";
-					$source 	.= "<orchestra id='block__".$block->getId()."' data-id='".$block->getId()."' data-name='".$this->container->get('translator')->trans($block->getName())."' > \n";
+					$source 	.= "<orchestra id=\"block__".$block->getId()."\" data-id=\"".$block->getId()."\" data-name=\"".$this->container->get('translator')->trans($block->getName())."\" style=\"display: block\"> \n";
 					
 					if(isset($this->widgets[$id][$block->getId()]) && !empty($this->widgets[$id][$block->getId()])){
 						$all_widgets 	 = $this->widgets[$id][$block->getId()];
@@ -301,12 +301,12 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 							    		$pos = $widget->getPosition();
 							    		
 							    		// we return the render (cache or not)
-							    		$widget_position[ $pos ]	 = "<orchestra id='widget__".$widget->getId()."' data-id='".$widget->getId()."' > \n";
+							    		$widget_position[ $pos ]	 = "<orchestra id=\"widget__".$widget->getId()."\" data-id=\"".$widget->getId()."\" style=\"display: block\"> \n";
  							    		$widget_position[ $pos ] 	.= $widgetManager->render($this->language). " \n";
  							    		$widget_position[ $pos ] 	.= "</orchestra> \n";
 							    	}else{
 							    		// we return the render (cache or not)
-							    		$widget_position[]	 		 = "<orchestra id='widget__".$widget->getId()."' data-id='".$widget->getId()."' > \n";
+							    		$widget_position[]	 		 = "<orchestra id=\"widget__".$widget->getId()."\" data-id=\"".$widget->getId()."\" > \n";
  							    		$widget_position[] 			.= $widgetManager->render($this->language) . " \n";
  							    		$widget_position[] 			.= "</orchestra> \n";
 							    	} 

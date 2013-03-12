@@ -460,6 +460,7 @@ class CorporationController extends abstractController
         $entity   	= new Corporation();
         $user = '';
         if (true === $this->get('security.context')->isGranted('ROLE_MEMBER')) {
+        	sleep(7);
         	$url = $this->container->get('bootstrap.RouteTranslator.factory')->getRoute("home_page", array('locale'=>$lang));
    			return new RedirectResponse($url);
         }elseif (true === $this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {        
@@ -475,15 +476,25 @@ class CorporationController extends abstractController
               $entity->setUserName($user->getIndividual()->getUserName());
             }
         }
-        $form    = $this->createForm(new AdhesionCorporationType($em, $this->container), $entity, array('show_legend' => false));
-        $request = $_POST;
-		$retour = null;
+        $form    	= $this->createForm(new AdhesionCorporationType($em, $this->container), $entity, array('show_legend' => false));
+        $request 	= $_POST;
+		$retour 	= null;
+		
 		if(isset($_GET['step']))
 			$retour = $_GET['step'];        
         if(isset($request['new']))
             $new   = $request['new'];
         else
             $new   = $this->container->get('request')->request->get('new');
+        
+/*         if($this->container->get('session')->has('data') && !isset($_GET['step']) && !isset($request['new'])){
+        	$tmp_data = $this->container->get('session')->get('data');
+        	if(count($tmp_data) >= 2){
+        		print_r($this->container->get('session')->get('data'));  
+        		$this->container->get('session')->set('data', null);
+        		exit;
+        	}
+        }     */    	
 
         if(isset($request['step']))
             $step   = $request['step'];
@@ -492,26 +503,20 @@ class CorporationController extends abstractController
 
         if(empty($lang))
           $lang	= $this->container->get('session')->getLocale();
-        
         if(empty($step))
           $step	= 1;
         
-        $params['step'] = $step;
-        $params['type'] = $type;
+        $params['step'] 	= $step;
+        $params['type'] 	= $type;
         $params['template'] = $template;
         
-    	$category   = $this->container->get('request')->query->get('category');
-        $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-
         $render = '';
-
         if (!empty($new) and empty($retour) ){
           
               if($step == 1){
                 $render = $this->container->get('http_kernel')->render('PiAppGedmoBundle:Corporation:_template_adhesionValidation', array('attributes'=>$params));
               
-              }
-              elseif($step==2){
+              }elseif($step==2){
                   
                   $data = $this->container->get('session')->get('data');
 				  if($data['step-max'] == 1)
@@ -562,15 +567,12 @@ class CorporationController extends abstractController
 				  
                   return $this->render("PiAppGedmoBundle:Corporation:$template", array(
                       'entity'      => $entity,
-                      'data'      => $data,
+                      'data'      	=> $data,
                       'form'        => $form->createView(),
-                      'NoLayout'    => $NoLayout,
-                      'category'    => $category,
-                      'new'	=> '1',
-                      'render'	=> '',
+                      'new'			=> '1',
+                      'render'		=> '',
                   ));
-              }
-              elseif($step==3){
+              }elseif($step==3){
 
                   $data = $this->container->get('session')->get('data');
 				  if($data['step-max'] == 2)
@@ -644,19 +646,18 @@ class CorporationController extends abstractController
                   $template = '_template_form_adhesion_step4.html.twig';
                   
                   $newsletters = $this->_get_newsletters_categories($lang, $user);
+                  $commissions = $this->_get_commissions($lang); 
                   
                   return $this->render("PiAppGedmoBundle:Corporation:$template", array(
                       'entity'      => $entity,
-                      'data'      => $data,
+                      'data'      	=> $data,
                       'form'        => $form->createView(),
-                      'NoLayout'    => $NoLayout,
-                      'category'    => $category,
-                      'new'	=> '1',
-                      'render'	=> '',
+                      'new'			=> '1',
+                      'render'		=> '',
                       'newsletters'	=> $newsletters,
+                      'commissions' => $commissions,
                   ));
-              }              
-              else {
+              }else {
 					$render = $this->container->get('http_kernel')->render('PiAppGedmoBundle:Corporation:_template_adhesionSave', array('attributes'=>$params));
 					if($render == ''){
 						$url = $this->container->get('bootstrap.RouteTranslator.factory')->getRoute("home_page", array('locale'=>$lang));
@@ -710,8 +711,7 @@ class CorporationController extends abstractController
 				$entity->setSiret($data['Siret']);       
 
 				$template = '_template_form_adhesion_step2.html.twig';
-			}
-			if($retour == 3){
+			}elseif($retour == 3){
 				$entity->setFacebook($data['Facebook']);
 				$entity->setGooglePlus($data['GooglePlus']);
 				$entity->setTwitter($data['Twitter']);
@@ -728,11 +728,9 @@ class CorporationController extends abstractController
         return $this->render("PiAppGedmoBundle:Corporation:$template", array(
             'entity' 	=> $entity,
             'form'   	=> $form->createView(),
-            'NoLayout'  => $NoLayout,
-            'category'	=> $category,
-            'new'	=> 1,
+            'new'		=> 1,
             'render'	=> $render,
-			'data'	=> $data,
+			'data'		=> $data,
         ));  
     }
 
@@ -745,14 +743,11 @@ class CorporationController extends abstractController
       if(empty($lang))
               $lang   = $this->container->get('session')->getLocale();
        
-      $category   = $this->container->get('request')->query->get('category');
-      $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-
       $entity   = new Corporation();
       $form     = $this->createForm(new AdhesionCorporationType($em, $this->container), $entity, array('show_legend' => false));
-
       $dataform = $request->get($form->getName(), array());
       $form->bind($dataform);
+      
       if (false === $this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {        
           $user_name  = $em->getRepository('BootStrapUserBundle:User')->findOneByUsername($form["UserName"]->getData());
           if($user_name != null){
@@ -834,12 +829,10 @@ class CorporationController extends abstractController
         $template = '_template_form_adhesion_step2.html.twig';
 
         return $this->render("PiAppGedmoBundle:Corporation:$template", array(
-            'entity'      => $entity,
+            'entity'    => $entity,
             'data'      => $data,
-            'form'        => $form->createView(),
-            'NoLayout'    => $NoLayout,
-            'category'    => $category,
-            'new'	=> '1',
+            'form'      => $form->createView(),
+            'new'		=> '1',
             'render'	=> '',
         ));
       }
@@ -847,11 +840,9 @@ class CorporationController extends abstractController
       return $this->render("PiAppGedmoBundle:Corporation:$template", array(
               'entity'      => $entity,
               'form'        => $form->createView(),
-              'NoLayout'    => $NoLayout,
-              'category'    => $category,
-              'new'	=> 1,
-              'render'	=> '',
-          )); 
+              'new'			=> 1,
+              'render'		=> '',
+      )); 
 
     }   
     
@@ -864,9 +855,6 @@ class CorporationController extends abstractController
       if(empty($lang))
               $lang   = $this->container->get('session')->getLocale();
        
-      $category   = $this->container->get('request')->query->get('category');
-      $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-
       $entity   = new Corporation();
       $form     = $this->createForm(new AdhesionCorporationType($em, $this->container), $entity, array('show_legend' => false));
 
@@ -903,6 +891,13 @@ class CorporationController extends abstractController
             foreach (array_keys($newsletters)  as $newsletter ) {
                 $nl  = $em->getRepository('PiAppGedmoBundle:Newsletter')->findOneById($newsletter);
                 $user->addNewsletter($nl);
+            }
+          }
+          if(isset($_POST['commissions']) && !empty($_POST['commissions'])){
+            $commissions = $_POST['commissions'];          
+            foreach (array_keys($commissions)  as $commission ) {
+                $com  = $em->getRepository('PiAppGedmoBundle:Lamelee\TypoCommission')->findOneById($commission);
+                $user->addTypoCommission($com);
             }
           }
           $em->persist($user);
@@ -1042,15 +1037,15 @@ class CorporationController extends abstractController
           
       }
           $newsletters = $this->_get_newsletters_categories($lang);
+          $commissions = $this->_get_commissions($lang);
           
           return $this->render("PiAppGedmoBundle:Corporation:$template", array(
               'entity'      => $entity,
               'form'        => $form->createView(),
-              'NoLayout'    => $NoLayout,
-              'category'    => $category,
-              'new'	=> 1,
-              'render'	=> '',
-              'categories' => $newsletters,
+              'new'			=> 1,
+              'render'		=> '',
+              'categories' 	=> $newsletters,
+              'commissions' => $commissions,
           )); 
     }   
 
@@ -1080,5 +1075,20 @@ class CorporationController extends abstractController
         
         return $categories;
     }
-  
+    
+    private function _get_commissions($lang ="") {
+      $em        = $this->getDoctrine()->getEntityManager();
+      if(empty($lang))
+              $lang   = $this->container->get('session')->getLocale();
+      
+        $coms	= $em->getRepository("PiAppGedmoBundle:Lamelee\TypoCommission")->findAllByEntity($lang, 'object'); 
+
+        foreach ($coms as $com) {
+          $commissions[] = array(
+            $com->getId(),
+            $com->translate($lang)->getTitle()
+          );
+        }
+        return $commissions;
+    }    
 }

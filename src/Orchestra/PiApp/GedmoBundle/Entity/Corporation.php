@@ -25,7 +25,7 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  *
  * @ORM\Table(
  * 			name="gedmo_corporation",
- *          indexes={@ORM\Index(name="name_idx", columns={"name"})}
+ *          indexes={@ORM\Index(name="name_idx", columns={"user_name"})}
  * )
  * @ORM\Entity(repositoryClass="PiApp\GedmoBundle\Repository\CorporationRepository")
  * @ORM\HasLifecycleCallbacks()

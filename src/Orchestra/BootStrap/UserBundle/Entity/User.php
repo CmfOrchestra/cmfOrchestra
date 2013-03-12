@@ -137,8 +137,6 @@ class User extends BaseUser
     	
     	$this->groups		= new \Doctrine\Common\Collections\ArrayCollection();
     	$this->newsletters	= new \Doctrine\Common\Collections\ArrayCollection();
-    	$this->typocommissions	= new \Doctrine\Common\Collections\ArrayCollection();
-    	$this->events	= new \Doctrine\Common\Collections\ArrayCollection();      
     	$this->rssneeds		= new \Doctrine\Common\Collections\ArrayCollection();
 		$this->ads	 	 = new \Doctrine\Common\Collections\ArrayCollection();
     }    
@@ -193,27 +191,6 @@ class User extends BaseUser
     public function removeNewsletter(\PiApp\GedmoBundle\Entity\Newsletter $newsletter)
     {
        return $newsletter->removeUser($this);
-    }
-
-    /**
-     * Add event
-     *
-     * @param \PiApp\GedmoBundle\Entity\Lamelee\Event $event
-     */
-    public function addEvent(\PiApp\GedmoBundle\Entity\Lamelee\Event $event)
-    {
-        $event->addUser($this);
-        $this->events[] = $event;
-    }
-    
-    /**
-     * Remove event
-     *
-     * @param \PiApp\GedmoBundle\Entity\Lamelee\Event $event
-     */
-    public function removeEvent(\PiApp\GedmoBundle\Entity\Lamelee\Event $event)
-    {
-       return $event->removeUser($this);
     }
 
     /**

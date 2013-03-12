@@ -285,7 +285,7 @@ class AdherantController extends abstractController
     	if($type == "person"){
     		$query		= $em->getRepository("PiAppGedmoBundle:Individual")->getAllByCategory("", $MaxResults, $order);
     		$query->leftJoin('a.user', 'u')
-    			  ->andWhere($query->expr()->like('LOWER(a.UserName)', $query->expr()->literal(strtolower($lettre).'%')))    			  
+    			  ->andWhere($query->expr()->like('LOWER(a.Name)', $query->expr()->literal(strtolower($lettre).'%')))    			  
     			  ->andWhere($query->expr()->like('u.roles', $query->expr()->literal('%"ROLE_MEMBER"%')));
     		if(!empty($filtre1))
     			$query->andWhere($query->expr()->like('LOWER(a.Activity)', $query->expr()->literal(strtolower($filtre1).'%')));
@@ -301,7 +301,10 @@ class AdherantController extends abstractController
     			$Engineering = array();    
     	}elseif($type == "company"){
       		$query		= $em->getRepository("PiAppGedmoBundle:Corporation")->getAllByCategory("", $MaxResults, $order);
-      		$query->andWhere($query->expr()->like('LOWER(a.UserName)', $query->expr()->literal(strtolower($lettre).'%')));
+      		$query
+      			->leftJoin('a.user', 'u')
+      			->andWhere($query->expr()->like('LOWER(a.CommercialName)', $query->expr()->literal(strtolower($lettre).'%')))
+      			->andWhere($query->expr()->like('u.roles', $query->expr()->literal('%"ROLE_MEMBER"%')));
       		if(!empty($filtre1))
       			$query->andWhere($query->expr()->like('LOWER(a.Activity)', $query->expr()->literal(strtolower($filtre1).'%')));
       		if(!empty($filtre2))

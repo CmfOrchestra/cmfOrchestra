@@ -156,7 +156,7 @@ class ContentType extends AbstractType
  							"class"=>"content_collection",
  					),
             ))  
-//          ->add('pagecssclass')
+          ->add('pagecssclass')
         ;
     }
 

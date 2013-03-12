@@ -161,7 +161,7 @@ class PiFormSimpleManager extends PiJqueryExtension
 								bold : {inline : 'span', 'classes' : 'bold'},
 								italic : {inline : 'span', 'classes' : 'italic'},
 								underline : {inline : 'span', 'classes' : 'underline', exact : true},
-								strikethrough : {inline : 'del'}
+								strikethrough : {inline : 'del'},
 							},
 							// Drop lists for link/image/media/template dialogs
 							template_external_list_url : "<?php echo $url_base ?>/plugins/lists/template_list.js",
@@ -234,7 +234,7 @@ class PiFormSimpleManager extends PiJqueryExtension
 								bold : {inline : 'span', 'classes' : 'bold'},
 								italic : {inline : 'span', 'classes' : 'italic'},
 								underline : {inline : 'span', 'classes' : 'underline', exact : true},
-								strikethrough : {inline : 'del'}
+								strikethrough : {inline : 'del'},
 							},
 							// Drop lists for link/image/media/template dialogs
 							template_external_list_url : "<?php echo $url_base ?>/plugins/template_list.js",
@@ -306,7 +306,7 @@ class PiFormSimpleManager extends PiJqueryExtension
 								bold : {inline : 'span', 'classes' : 'bold'},
 								italic : {inline : 'span', 'classes' : 'italic'},
 								underline : {inline : 'span', 'classes' : 'underline', exact : true},
-								strikethrough : {inline : 'del'}
+								strikethrough : {inline : 'del'},
 							},
 							// Drop lists for link/image/media/template dialogs
 							template_external_list_url : "<?php echo $url_base ?>/plugins/template_list.js",
@@ -378,7 +378,7 @@ class PiFormSimpleManager extends PiJqueryExtension
 								bold : {inline : 'span', 'classes' : 'bold'},
 								italic : {inline : 'span', 'classes' : 'italic'},
 								underline : {inline : 'span', 'classes' : 'underline', exact : true},
-								strikethrough : {inline : 'del'}
+								strikethrough : {inline : 'del'},
 							},
 							// Drop lists for link/image/media/template dialogs
 							template_external_list_url : "<?php echo $url_base ?>/plugins/lists/template_list.js",

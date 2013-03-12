@@ -78,10 +78,6 @@ class NewsType extends AbstractType
  					'label'	=> "pi.form.label.field.title",
  					'required'  => true,
  			))
- 			->add('descriptif', 'textarea', array(
- 					'label'	=> 'pi.form.label.field.description',
- 					'required'  => true,
- 			))
  			
  			
  			->add('pagedetail', 'entity', array(
@@ -103,14 +99,20 @@ class NewsType extends AbstractType
  			))
  			
  			
- 			
+ 			->add('descriptif', 'textarea', array(
+ 					'label'	=> 'pi.form.label.field.description',
+ 					"label_attr" => array(
+ 							"class"=>"information_collection",
+ 					),
+ 					'required'  => true,
+ 			))
  			->add('content', 'textarea', array(
  					'label'	=> "pi.form.label.field.content",
  					"label_attr" => array(
  							"class"=>"information_collection",
  					),
  					"attr" => array(
- 							"class"	=>"pi_editor_simple",
+ 							"class"	=>"pi_editor_simple_easy",
  					),
  					'required'  => false,
  			))
@@ -120,7 +122,7 @@ class NewsType extends AbstractType
  							"class"=>"information_collection",
  					),
  					"attr" => array(
- 							"class"	=>"pi_editor_simple",
+ 							"class"	=>"pi_editor_simple_easy",
  					),
  					'required'  => false,
  			))

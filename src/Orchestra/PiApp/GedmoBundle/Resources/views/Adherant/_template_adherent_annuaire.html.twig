@@ -4,17 +4,24 @@
 			<div class="zoom"></div>
 			<ul class="cf">
 				{% for entity_last in entities_last %}
+				{% if entity_last.individual.id is defined %}
+					{% set id_corporation = '' %}
+					{% set id_individual = entity_last.individual.id %}
+				{% elseif entity_last.corporation.id is defined %}
+					{% set id_corporation = entity_last.corporation.id %}
+					{% set id_individual = '' %}
+				{% endif %}
 				<li>
 					<figure>
-						<a href="#">
+						<a href="{{ path_url('admin_gedmo_adherent_detail_ajax', {'lang':locale, 'id_individual':id_individual, 'id_corporation':id_corporation}) }}" class="popin fancybox.ajax">
 			     	 	{% if entity_last.individual.media.image.id is defined %}
-						<img src="{{ media_url(entity_last.individual.media.mediaId, 'reference', true, entity_last.individual.media.getUpdatedAt(), 'lamelee_event_') }}" alt="LA MELEE"/>
-						{% elseif entity_last.corporation.media.image.id is defined %}
-						<img src="{{ media_url(entity_last.corporation.media.mediaId, 'reference', true, entity_last.corporation.media.getUpdatedAt(), 'lamelee_event_') }}" alt="LA MELEE"/>
+						<img src="{{ media_url(entity_last.individual.media.image.id, 'reference', true, entity_last.individual.media.getUpdatedAt(), 'lamelee_individual_') }}" alt="LA MELEE"/>
+						{% elseif entity_last.corporation.media2.image.id is defined %}
+						<img src="{{ media_url(entity_last.corporation.media2.image.id, 'reference', true, entity_last.corporation.media2.getUpdatedAt(), 'lamelee_coorporation_') }}" alt="LA MELEE"/>
 			     	   	{% endif %}
 						</a>
 						<figcaption>
-							<p><a href="#"> <span class="bold">
+							<p><a href="{{ path_url('admin_gedmo_adherent_detail_ajax', {'lang':locale, 'id_individual':id_individual, 'id_corporation':id_corporation}) }}" class="popin fancybox.ajax"> <span class="bold">
 								{% if entity_last.individual.Name is defined %}
 			   					{{ entity_last.individual.Name }}
 			   					{% elseif entity_last.corporation.Name is defined %}
@@ -29,8 +36,8 @@
 											</span><br>
 				   				{% if entity_last.individual.Company is defined %}
 					   			{{ entity_last.individual.Company }}
-					   			{% elseif entity_last.corporation.CorporationName is defined %}
-					   			{{ entity_last.corporation.CorporationName }}
+					   			{% elseif entity_last.corporation.CommercialName is defined %}
+					   			{{ entity_last.corporation.CommercialName }}
 					   			{% endif %}
 								</a>
 							</p>
@@ -47,7 +54,7 @@
 	<div class="wrap">
 		<article class="search">
 			<header class="cf">
-				<h3 class="fleft tt-4 tt-clr">{{ 'pi.lamelee.bloc.form.search.annuaire.adherant'|trans|replace({'<p>': '', '</p>': ''})|raw }}</h3>
+				<h3 class="fleft tt-4 tt-clr">{{ 'pi.lamelee.bloc.form.search.annuaire.adherant'|trans|striptags }}</h3>
 				<div class="fleft">
 				 <a href="{{ path_url("page_lamelee_menuwrapper_association_adherent", {"locale":locale, "type":"company", "lettre":lettre, "filtre1":filtre1, "filtre2":filtre2}) }}" class="button society {% if type == "company"%}on{% endif %}" data-button="toggle"><!--
 					--><span>Une société</span><!--
@@ -125,7 +132,7 @@
 		<header>
 			<div class="title-border-simple cf">
 				<h3 class="tt-5 tt-clr fleft">
-				<span>{{ entities|count }}</span> adhérents</h3>
+				<span>{{ entities|count }}</span> {{ 'Résultat'|translate_plural("Résultats", entities|count) }}</h3>
 			</div>
 		</header>
 			<ul class="results cf">
@@ -141,8 +148,10 @@
 					<span class="innovation"></span>
 					<a href="{{ path_url('admin_gedmo_adherent_detail_ajax', {'lang':locale, 'id_individual':id_individual, 'id_corporation':id_corporation}) }}" class="popin fancybox.ajax">
 						<figure>
-							{% if entity.media.image.id is defined %}
-							<img src="{{ media_url(entity.media.mediaId, 'reference', true, entity.media.getUpdatedAt(), 'lamelee_event_') }}" alt="LA MELEE"/>
+							{% if (entity.media.image.id is defined) and (entity.ArgumentActivity is defined) %}
+							<img src="{{ media_url(entity.media.image.id, 'reference', true, entity.media.getUpdatedAt(), 'lamelee_individual_') }}" alt="LA MELEE"/>
+							{% elseif (entity.media2.image.id is defined) and (entity.ArgumentActivity is not defined)  %}
+							<img src="{{ media_url(entity.media2.image.id, 'reference', true, entity.media2.getUpdatedAt(), 'lamelee_coorporation_') }}" alt="LA MELEE"/>
 				     	   	{% endif %}
 							<figcaption>
 								<p class="light-clr"><span class="tt-clr">
@@ -157,8 +166,8 @@
 									</strong></span><br>
 									{% if entity.Company is defined %}
 						   			{{ entity.Company }}
-						   			{% elseif entity.CorporationName is defined %}
-						   			{{ entity.CorporationName }}
+						   			{% elseif entity.CommercialName is defined %}
+						   			{{ entity.CommercialName }}
 						   			{% endif %}
 								</p>
 							</figcaption>

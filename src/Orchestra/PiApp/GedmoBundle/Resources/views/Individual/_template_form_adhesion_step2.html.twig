@@ -46,38 +46,38 @@
 							<figure class="fleft">
 								{% if app.session.get('data') is defined %} 
 									{% set data = app.session.get('data') %}
-									{% if data['media_path'] is defined %} 
+									{% if data['media_path'] is defined and (data['media_path'] != "/uploads/media/tmp/") %} 
 										{% set media = data['media_path'] %}	
 									{% endif %}
 								{% endif %}
 								{% if media is defined %} 
 									<img alt="LA MELEE" width="120" height="100" src="{{ media }}">
 								{% else %}
-									  <img alt="LA MELEE" src="./media/img/body/annuAdh/03.jpg">
+									  <img alt="LA MELEE" src="/media/img/body/annuAdh/default_avatar_user.png">
 								{% endif %}	
 							</figure>
 							<div class="row fleft">
-								<label>Votre photo </label>
-							{{ form_widget(form.media) }}
+								<label>Télécharger une photo de profil (taille max.500 ko, formats JPEG/JPG/PNG/GIF)</label>
+								{{ form_widget(form.media) }}
 							</div>
 
 						</fieldset>				
  
 						<fieldset class="resetBorder">
-							<legend class="bold">Votre activité</legend>
+							<legend class="bold">Votre activité *</legend>
 							<div class="row" id="activity">	
 								{{ form_widget(form.Activity) }}
 								<a href="#" class="tooltip" data-tooltip="{{'pi.individual.form.adhesion.tooltip.activity'|trans|striptags|raw}}">Info</a>
 							</div>
 
 							<div class="row hidden" id="activityList">	
-								{{ form_widget(form.Engineering) }}
+								{{ form_widget(form.Engineering, { 'attr': {'data-validate': 'sous-activité *'} }) }}
 							</div>
 							<div class="row">
 								{% if form.vars.value.DetailActivity %} 
 									  {{ form_widget(form.DetailActivity) }}
 								{% else %}
-									  {{ form_widget(form.DetailActivity, { 'attr': {'data-validate': 'Détails activité*'}}) }}
+									  {{ form_widget(form.DetailActivity, { 'attr': {'data-validate': 'Détails activité *'}}) }}
 								{% endif %}	
 							</div>
 
@@ -85,8 +85,9 @@
 								{% if form.vars.value.ArgumentActivity %} 
 									  {{ form_widget(form.ArgumentActivity) }}
 								{% else %}
-									  {{ form_widget(form.ArgumentActivity, { 'attr': {'data-validate': 'Argumentaire commercial*'}}) }}
+									  {{ form_widget(form.ArgumentActivity, { 'attr': {'data-validate': 'Argumentaire commercial *'}}) }}
 								{% endif %}								
+								<a href="#" class="tooltip" data-tooltip="{{'pi.corporation.form.adhesion.tooltip.argumentcommercial'|trans|striptags|raw}}">Info</a>
 							</div>
 					
 							<p class="light-clr"><span class="tt-clr">*</span>champs obligatoires</p>

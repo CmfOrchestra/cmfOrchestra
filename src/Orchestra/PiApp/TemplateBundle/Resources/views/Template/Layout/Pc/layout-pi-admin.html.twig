@@ -271,9 +271,7 @@
 					<li {{ in_paths("admin_gedmo_corporation", 'class="sub_show"')|raw }}	><a href="{{ path("admin_gedmo_corporation") }}" >{{ 'pi.dashboard.menu5.corporation'|trans }}</a></li>
 					<li {{ in_paths("admin_gedmo_individual_subscribers", 'class="sub_show"')|raw }}	><a href="{{ path("admin_gedmo_individual_subscribers") }}" >{{ 'Abonnés'|trans }}</a></li>
 					<li {{ in_paths("admin_gedmo_list_adherent", 'class="sub_show"')|raw }}	><a href="{{ path("admin_gedmo_list_adherent") }}" >{{ 'Adhérents'|trans }}</a></li>
-					<li {{ in_paths("admin_gedmo_lamelee_event_subscribers", 'class="sub_show"')|raw }}	><a href="{{ path("admin_gedmo_lamelee_event_subscribers") }}" >{{ 'Inscrits aux événements'|trans }}</a></li>
 					<li><a style="color:#238BDB" >&#187;</a></li>
-					<li {{ in_paths("admin_gedmo_lamelee_event", 'class="sub_show"')|raw }}	><a href="{{ path("admin_gedmo_lamelee_event") }}" >{{ 'pi.dashboard.menu5.event'|trans }}</a></li>
 					<li {{ in_paths("admin_gedmo_ads", 'class="sub_show"')|raw }}	><a href="{{ path("admin_gedmo_ads") }}" >{{ 'pi.dashboard.menu5.ads'|trans }}</a></li>
 					<li><a style="color:#238BDB" >&#187;</a></li>
 					<li {{ in_paths("admin_gedmo_rss", 'class="sub_show"')|raw }}	><a href="{{ path("admin_gedmo_rss") }}" >{{ 'pi.dashboard.menu5.rss'|trans }}</a></li>
@@ -286,14 +284,12 @@
 			
 			<div class="nav-divider">&nbsp;</div>
 			
-			<ul {{ in_paths("admin_gedmo_lamelee_article:admin_gedmo_lamelee_comment:admin_gedmo_lamelee_resource:admin_gedmo_contact:admin_gedmo_partner:admin_gedmo_pressrelease:admin_gedmo_team", 'class="current"', 'class="select"')|raw }} ><li><a href="#nogo"><strong>{{ 'pi.dashboard.menu6.title'|trans }}</strong><!--[if IE 7]><!--></a><!--<![endif]-->
+			<ul {{ in_paths("admin_gedmo_category:admin_gedmo_lamelee_article:admin_gedmo_lamelee_comment:admin_gedmo_lamelee_resource:admin_gedmo_contact:admin_gedmo_partner:admin_gedmo_pressrelease:admin_gedmo_team", 'class="current"', 'class="select"')|raw }} ><li><a href="#nogo"><strong>{{ 'pi.dashboard.menu6.title'|trans }}</strong><!--[if IE 7]><!--></a><!--<![endif]-->
 			<!--[if lte IE 6]><table><tr><td><![endif]-->
-			<div class="select_sub {{ in_paths("admin_gedmo_lamelee_article:admin_gedmo_lamelee_comment:admin_gedmo_lamelee_resource:admin_gedmo_contact:admin_gedmo_partner:admin_gedmo_pressrelease:admin_gedmo_team", 'show')|raw }} ">
+			<div class="select_sub {{ in_paths("admin_gedmo_category:admin_gedmo_lamelee_article:admin_gedmo_lamelee_comment:admin_gedmo_lamelee_resource:admin_gedmo_contact:admin_gedmo_partner:admin_gedmo_pressrelease:admin_gedmo_team", 'show')|raw }} ">
 				<ul class="sub">
-					<li {{ in_paths("admin_gedmo_lamelee_article", 'class="sub_show"')|raw }}			><a href="{{ path("admin_gedmo_lamelee_article") }}" >{{ 'pi.dashboard.menu6.news'|trans }}</a></li>
-					<li {{ in_paths("admin_gedmo_lamelee_comment", 'class="sub_show"')|raw }}			><a href="{{ path("admin_gedmo_lamelee_comment") }}" >{{ 'pi.dashboard.menu6.comment'|trans }}</a></li>
+					<li {{ in_paths("admin_gedmo_category", 'class="sub_show"')|raw }}			><a href="{{ path("admin_gedmo_category") }}" >{{ 'pi.dashboard.menu7.category'|trans }}</a></li>
 					<li><a style="color:#238BDB" >&#187;</a></li>
-					<li {{ in_paths("admin_gedmo_lamelee_resource", 'class="sub_show"')|raw }}			><a href="{{ path("admin_gedmo_lamelee_resource") }}" >{{ 'pi.dashboard.menu6.resource'|trans }}</a></li>
 					<li {{ in_paths("admin_gedmo_contact", 'class="sub_show"')|raw }}				><a href="{{ path("admin_gedmo_contact") }}" >{{ 'pi.dashboard.menu6.contact'|trans }}</a></li>	
 					<li><a style="color:#238BDB" >&#187;</a></li>
 					<li {{ in_paths("admin_gedmo_partner", 'class="sub_show"')|raw }}			><a href="{{ path("admin_gedmo_partner") }}" >{{ 'pi.dashboard.menu6.partner'|trans }}</a></li>
@@ -306,27 +302,6 @@
 			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
 			</li>
 			</ul>			
-			
-			<div class="nav-divider">&nbsp;</div>			
-			
-			<ul {{ in_paths("admin_gedmo_category:admin_gedmo_lamelee_typo_event:admin_gedmo_lamelee_typo_commission:admin_gedmo_lamelee_typo_midenews:admin_gedmo_lamelee_typo_thematic", 'class="current"', 'class="select"')|raw }} ><li><a href="#nogo"><strong>{{ 'pi.dashboard.menu7.title'|trans }}</strong><!--[if IE 7]><!--></a><!--<![endif]-->
-			<!--[if lte IE 6]><table><tr><td><![endif]-->
-			<div class="select_sub {{ in_paths("admin_gedmo_category:admin_gedmo_lamelee_typo_event:admin_gedmo_lamelee_typo_commission:admin_gedmo_lamelee_typo_midenews:admin_gedmo_lamelee_typo_thematic", 'show')|raw }} ">
-				<ul class="sub">
-					<li {{ in_paths("admin_gedmo_lamelee_typo_thematic", 'class="sub_show"')|raw }}	><a href="{{ path("admin_gedmo_lamelee_typo_thematic") }}" >{{ 'pi.dashboard.menu7.typo.thematic'|trans }}</a></li>
-					<li><a style="color:#238BDB" >&#187;</a></li>
-					<li {{ in_paths("admin_gedmo_lamelee_typo_midenews", 'class="sub_show"')|raw }}	><a href="{{ path("admin_gedmo_lamelee_typo_midenews") }}" >{{ 'pi.dashboard.menu7.typo.midenews'|trans }}</a></li>
-					<li><a style="color:#238BDB" >&#187;</a></li>
-					<li {{ in_paths("admin_gedmo_lamelee_typo_commission", 'class="sub_show"')|raw }}	><a href="{{ path("admin_gedmo_lamelee_typo_commission") }}" >{{ 'pi.dashboard.menu7.typo.commission'|trans }}</a></li>
-					<li><a style="color:#238BDB" >&#187;</a></li>
-					<li {{ in_paths("admin_gedmo_lamelee_typo_event", 'class="sub_show"')|raw }}	><a href="{{ path("admin_gedmo_lamelee_typo_event") }}" >{{ 'pi.dashboard.menu7.typo.event'|trans }}</a></li>
-					<li><a style="color:#238BDB" >&#187;</a></li>
-					<li {{ in_paths("admin_gedmo_category", 'class="sub_show"')|raw }}			><a href="{{ path("admin_gedmo_category") }}" >{{ 'pi.dashboard.menu7.category'|trans }}</a></li>
-				</ul>
-			</div>
-			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
-			</li>
-			</ul>					
 			
 			<div class="clear"></div>
 			</div>

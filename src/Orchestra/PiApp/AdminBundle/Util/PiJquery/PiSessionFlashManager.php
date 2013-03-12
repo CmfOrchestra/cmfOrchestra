@@ -176,6 +176,7 @@ class PiSessionFlashManager extends PiJqueryExtension
 							$.fancybox({
 						        type: 'inline',
 						        height: 'auto',
+						        padding:0,
 						        content: layout_flash_message
 						    });
 				        }		

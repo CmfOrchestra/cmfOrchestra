@@ -62,30 +62,28 @@ class BootStrapUserBundle extends Bundle
 		}else
 			$roles_json = '';
 		
-		try {
-			$heritage_role  = json_decode($roles_json);
+		$heritage_role  = json_decode($roles_json);
+		if(is_object($heritage_role)){
 			$heritage_role  = get_object_vars($heritage_role->HERITAGE_ROLES);
-		} catch (\Exception $e) {
-			// we set the default values of heritage roles.
-		$heritage_role  = array(
+		}else{
+			$heritage_role  = array(
 					'ROLE_SUBSCRIBER'       => array('ROLE_ALLOWED_TO_SWITCH'),
 					'ROLE_MEMBER'	        => array('ROLE_SUBSCRIBER', 'ROLE_ALLOWED_TO_SWITCH'),
-					
+						
 					'ROLE_USER'       		=> array('ROLE_ALLOWED_TO_SWITCH'),
-					
+						
 					'ROLE_EDITOR'      		=> array('ROLE_MEMBER', 'ROLE_USER', 'ROLE_ALLOWED_TO_SWITCH'),
 					'ROLE_MODERATOR'   		=> array('ROLE_EDITOR',  'ROLE_ALLOWED_TO_SWITCH'),
-					
+						
 					'ROLE_DESIGNER'      	=> array('ROLE_MEMBER', 'ROLE_USER', 'ROLE_ALLOWED_TO_SWITCH'),
-		
+			
 					'ROLE_CONTENT_MANAGER'  => array('ROLE_DESIGNER', 'ROLE_MODERATOR', 'ROLE_ALLOWED_TO_SWITCH'),
 					'ROLE_ADMIN'       		=> array('ROLE_CONTENT_MANAGER', 'ROLE_ALLOWED_TO_SWITCH'),
-		
+			
 					'SONATA'		   		=> array('ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT ', 'ROLE_SONATA_PAGE_ADMIN_BLOCK_EDIT', 'ROLE_ALLOWED_TO_SWITCH'),
-		
+			
 					'ROLE_SUPER_ADMIN' 		=> array('ROLE_ADMIN', 'ROLE_ALLOWED_TO_SWITCH', 'ROLE_SONATA_ADMIN', 'SONATA'),
 			);
-			//{"HERITAGE_ROLES":{"ROLE_ALLOWED_TO_SWITCH":null,"ROLE_USER":["ROLE_ALLOWED_TO_SWITCH"],"ROLE_SUBSCRIBER":["ROLE_ALLOWED_TO_SWITCH"],"ROLE_EDITOR":["ROLE_ALLOWED_TO_SWITCH","ROLE_USER","ROLE_MEMBER"],"ROLE_MODERATOR":["ROLE_EDITOR","ROLE_ALLOWED_TO_SWITCH"],"ROLE_DESIGNER":["ROLE_ALLOWED_TO_SWITCH","ROLE_USER","ROLE_MEMBER"],"ROLE_CONTENT_MANAGER":["ROLE_DESIGNER","ROLE_MODERATOR","ROLE_ALLOWED_TO_SWITCH"],"ROLE_ADMIN":["ROLE_CONTENT_MANAGER","ROLE_ALLOWED_TO_SWITCH"],"SONATA":["ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT ","ROLE_SONATA_PAGE_ADMIN_BLOCK_EDIT","ROLE_ALLOWED_TO_SWITCH"],"ROLE_SUPER_ADMIN":["ROLE_ADMIN","ROLE_ALLOWED_TO_SWITCH","ROLE_SONATA_ADMIN","SONATA"],"ROLE_MEMBER":["ROLE_ALLOWED_TO_SWITCH","ROLE_SUBSCRIBER"]}}
 		}
 		//print_r($heritage_role);exit;
 

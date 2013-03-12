@@ -20,18 +20,19 @@
 	            <td>{{ entity.id }}</td>	
 	        </tr>	
 	        <tr>
-	            <th>Created_at</th>	
+	            <th>Date</th>	
 	            <td>{{ entity.createdat|date('Y-m-d H:i:s') }}</td>	
 	        </tr>	        
 			<tr>
 	        	<th>Media</th>
 	        	<td>
+	        		Photo
 	        		{% if entity.media.image is defined %}
 	        			{% media entity.media.image, 'reference' %}
 	        		{% endif %}
 	        		
 	        		<br />
-	        		
+	        		Logo
 	        		{% if entity.media2.image is defined %}
 	        			{% media entity.media2.image, 'reference' %}
 	        		{% endif %}
@@ -44,43 +45,43 @@
 	        </tr>	        
 	        <tr>
 	            <th>Login</th>	
-	            <td>{{ entity.UserName }}</td>	
-	        </tr>	        	
+	            <td>{{ entity.UserName|trans }}</td>	
+	        </tr>	      
+	        <tr>
+	            <th>{{ 'pi.form.label.field.civility'|trans }}</th>	
+	            <td>{{ entity.Civility|trans }}</td>	
+	        </tr>		          	
 	        <tr>
 	            <th>{{ 'pi.form.label.field.name'|trans }}</th>	
-	            <td>{{ entity.Name }}</td>	
+	            <td>{{ entity.Name|trans }}</td>	
 	        </tr>
 	        <tr>
 	            <th>{{ 'pi.form.label.field.nickname'|trans }}</th>	
-	            <td>{{ entity.Nickname }}</td>	
+	            <td>{{ entity.Nickname|trans }}</td>	
 	        </tr>
 	        <tr>
 	            <th>{{ 'pi.form.label.field.profile'|trans }}</th>	
-	            <td>{{ entity.Profile }}</td>	
+	            <td>{{ entity.Profile|trans }}</td>	
 	        </tr>
 	        <tr>
 	            <th>{{ 'pi.form.label.field.employment.job'|trans }}</th>	
-	            <td>{{ entity.Job }}</td>	
-	        </tr>	        
-	        <tr>
-	            <th>{{ 'pi.form.label.field.civility'|trans }}</th>	
-	            <td>{{ entity.Civility }}</td>	
+	            <td>{{ entity.Job|trans }}</td>	
 	        </tr>	        
 	        <tr>
 	            <th>{{ 'pi.form.label.field.adress.phone'|trans }}</th>	
-	            <td>{{ entity.UserPhone }}</td>	
+	            <td>{{ entity.UserPhone|trans }}</td>	
 	        </tr>	
 	        <tr>
 	            <th>{{ 'pi.form.label.field.email'|trans }}</th>	
-	            <td>{{ entity.Email }}</td>	
+	            <td>{{ entity.Email|trans }}</td>	
 	        </tr>
 	       	<tr>
 	            <th>{{ 'pi.form.label.field.email.perso'|trans }}</th>	
-	            <td>{{ entity.EmailPerso }}</td>	
+	            <td>{{ entity.EmailPerso|trans }}</td>	
 	        </tr>
 	        <tr>
 	            <th>{{ 'pi.form.label.field.website'|trans }}</th>	
-	            <td>{{ entity.url }}</td>	
+	            <td>{{ entity.url|trans }}</td>	
 	        </tr>	        
 	        
 	        
@@ -91,27 +92,27 @@
 	        </tr>	        
 	        <tr>
 	            <th>{{ 'pi.form.label.field.corporation.name'|trans }}</th>	
-	            <td>{{ entity.CorporationName }}</td>	
+	            <td>{{ entity.CorporationName|trans }}</td>	
 	        </tr>
 	        <tr>
 	            <th>{{ 'pi.form.label.field.corporation.name.commercial'|trans }}</th>	
-	            <td>{{ entity.CommercialName }}</td>	
+	            <td>{{ entity.CommercialName|trans }}</td>	
 	        </tr>	        	        
 	        <tr>
 	            <th>{{ 'pi.form.label.field.corporation.activity'|trans }}</th>	
-	            <td>{{ entity.Activity }}</td>	
+	            <td>{{ entity.Activity|trans }}</td>	
 	        </tr>
 	        <tr>
 	            <th>{{ 'pi.form.label.field.corporation.engineering'|trans }}</th>	
-	            <td>{{ entity.Engineering }}</td>	
+	            <td>{{ entity.Engineering|trans }}</td>	
 	        </tr>
 	        <tr>
 	            <th>{{ 'pi.form.label.field.corporation.detailactivity'|trans }}</th>	
-	            <td>{{ entity.DetailActivity }}</td>	
+	            <td>{{ entity.DetailActivity|trans }}</td>	
 	        </tr>
 	        <tr>
 	            <th>{{ 'pi.form.label.field.corporation.legalform'|trans }}</th>	
-	            <td>{{ entity.LegalForm }}</td>	
+	            <td>{{ entity.LegalForm|trans }}</td>	
 	        </tr>	        
 	        	        	             	        	        	        	        	        
 	        	        	                
@@ -122,23 +123,23 @@
 	        </tr>
 	        <tr>
 	            <th>{{ 'pi.form.label.field.corporation.effectif.national'|trans }}</th>	
-	            <td>{{ entity.EffectifNational }}</td>	
+	            <td>{{ entity.EffectifNational|trans }}</td>	
 	        </tr>	
 	        <tr>
 	            <th>{{ 'pi.form.label.field.corporation.effectif.regional'|trans }}</th>	
-	            <td>{{ entity.EffectifRegional }}</td>	
+	            <td>{{ entity.EffectifRegional|trans }}</td>	
 	        </tr>	
 	        <tr>
 	            <th>{{ 'pi.form.label.field.corporation.code.naf'|trans }}</th>	
-	            <td>{{ entity.CodeNAF }}</td>	
+	            <td>{{ entity.CodeNAF|trans }}</td>	
 	        </tr>	
 	        <tr>
 	            <th>{{ 'pi.form.label.field.corporation.siret'|trans }}</th>	
-	            <td>{{ entity.Siret }}</td>	
+	            <td>{{ entity.Siret|trans }}</td>	
 	        </tr>	
 	        <tr>
 	            <th>{{ 'pi.form.label.field.corporation.ca.national'|trans }}</th>	
-	            <td>{{ entity.CaNational }}</td>	
+	            <td>{{ entity.CaNational|trans }}</td>	
 	        </tr>		 
 	        
 	        
@@ -148,27 +149,23 @@
 	        </tr>	        
 	        <tr>
 	            <th>{{ 'pi.form.label.field.corporation.argument.commercial'|trans }}</th>	
-	            <td>{{ entity.ArgumentCommercial }}</td>	
+	            <td>{{ entity.ArgumentCommercial|trans }}</td>	
 	        </tr>	
 	        <tr>
 	            <th>{{ 'pi.form.label.field.corporation.expertise'|trans }}</th>	
-	            <td>{{ entity.Expertise }}</td>	
+	            <td>{{ entity.Expertise|trans }}</td>	
 	        </tr>	
 	        <tr>
 	            <th>{{ 'pi.form.label.field.corporation.speaker'|trans }}</th>	
-	            <td>{{ entity.Speaker }}</td>	
+	            <td>{{ entity.Speaker|replace({'_':'.'})|trans }}</td>	
 	        </tr>	
 	        <tr>
 	            <th>{{ 'pi.form.label.field.corporation.origin.contact'|trans }}</th>	
-	            <td>{{ entity.OriginContact }}</td>	
-	        </tr>	
-	        <tr>
-	            <th>{{ 'pi.form.label.field.other'|trans }}</th>	
-	            <td>{{ entity.OriginContactOther }}</td>	
+	            <td>{{ entity.OriginContact|trans }} {{ entity.OriginContactOther|trans }}</td>	
 	        </tr>	
 	        <tr>
 	            <th>{{ 'pi.form.label.field.corporation.origin.contact.sponsor'|trans }}</th>	
-	            <td>{{ entity.OriginContactSponsor }}</td>	
+	            <td>{{ entity.OriginContactSponsor|trans }}</td>	
 	        </tr>		     
 	        
 	        
@@ -178,23 +175,23 @@
 	        </tr>	        
 	        <tr>
 	            <th>{{ 'pi.form.label.field.social.facebook'|trans }}</th>	
-	            <td>{{ entity.Facebook }}</td>	
+	            <td>{{ entity.Facebook|trans }}</td>	
 	        </tr>
 	        <tr>
 	            <th>{{ 'pi.form.label.field.social.googleplus'|trans }}</th>	
-	            <td>{{ entity.GooglePlus }}</td>	
+	            <td>{{ entity.GooglePlus|trans }}</td>	
 	        </tr>
 	        <tr>
 	            <th>{{ 'pi.form.label.field.social.twitter'|trans }}</th>	
-	            <td>{{ entity.Twitter }}</td>	
+	            <td>{{ entity.Twitter|trans }}</td>	
 	        </tr>
 	        <tr>
 	            <th>{{ 'pi.form.label.field.social.linkedin'|trans }}</th>	
-	            <td>{{ entity.LinkedIn }}</td>	
+	            <td>{{ entity.LinkedIn|trans }}</td>	
 	        </tr>
 	        <tr>
 	            <th>{{ 'pi.form.label.field.social.viadeo'|trans }}</th>	
-	            <td>{{ entity.Viadeo }}</td>	
+	            <td>{{ entity.Viadeo|trans }}</td>	
 	        </tr>		
 	        
 	        
@@ -204,27 +201,27 @@
 	        </tr>	        
 	        <tr>
 	            <th>{{ 'pi.form.label.field.adress.main'|trans }}</th>	
-	            <td>{{ entity.Address }}</td>	
+	            <td>{{ entity.Address|trans }}</td>	
 	        </tr>	
 	        <tr>
 	            <th>{{ 'pi.form.label.field.adress.cp'|trans }}</th>	
-	            <td>{{ entity.CP }}</td>	
+	            <td>{{ entity.CP|trans }}</td>	
 	        </tr>	
 	        <tr>
 	            <th>{{ 'pi.form.label.field.adress.city'|trans }}</th>	
-	            <td>{{ entity.City }}</td>	
+	            <td>{{ entity.City|trans }}</td>	
 	        </tr>	
 	        <tr>
 	            <th>{{ 'pi.form.label.field.adress.country'|trans }}</th>	
-	            <td>{{ entity.Country }}</td>	
+	            <td>{{ get_img_flag_By_country(entity.Country, 'balise', "16")|raw }}</td>
 	        </tr>	
 	        <tr>
 	            <th>{{ 'pi.form.label.field.adress.phone'|trans }}</th>	
-	            <td>{{ entity.Phone }}</td>	
+	            <td>{{ entity.Phone|trans }}</td>	
 	        </tr>	
 	        <tr>
 	            <th>{{ 'pi.form.label.field.adress.fax'|trans }}</th>	
-	            <td>{{ entity.Fax }}</td>	
+	            <td>{{ entity.Fax|trans }}</td>	
 	        </tr>	
 	        
 	        
@@ -234,27 +231,27 @@
 	        </tr>	        
 	        <tr>
 	            <th>{{ 'pi.form.label.field.adress.main'|trans }}</th>	
-	            <td>{{ entity.MotherAddress }}</td>	
+	            <td>{{ entity.MotherAddress|trans }}</td>	
 	        </tr>	
 	        <tr>
 	            <th>{{ 'pi.form.label.field.adress.cp'|trans }}</th>	
-	            <td>{{ entity.MotherCP }}</td>	
+	            <td>{{ entity.MotherCP|trans }}</td>	
 	        </tr>	
 	        <tr>
 	            <th>{{ 'pi.form.label.field.adress.city'|trans }}</th>	
-	            <td>{{ entity.MotherCity }}</td>	
+	            <td>{{ entity.MotherCity|trans }}</td>	
 	        </tr>	
 	        <tr>
 	            <th>{{ 'pi.form.label.field.adress.country'|trans }}</th>	
-	            <td>{{ entity.MotherCountry }}</td>	
+	            <td>{{ get_img_flag_By_country(entity.MotherCountry, 'balise', "16")|raw }}</td>
 	        </tr>	
 	        <tr>
 	            <th>{{ 'pi.form.label.field.adress.phone'|trans }}</th>	
-	            <td>{{ entity.MotherPhone }}</td>	
+	            <td>{{ entity.MotherPhone|trans }}</td>	
 	        </tr>	
 	        <tr>
 	            <th>{{ 'pi.form.label.field.adress.fax'|trans }}</th>	
-	            <td>{{ entity.MotherFax }}</td>	
+	            <td>{{ entity.MotherFax|trans }}</td>	
 	        </tr>
 	        
 	        
@@ -264,27 +261,27 @@
 	        </tr>	        
 	        <tr>
 	            <th>{{ 'pi.form.label.field.adress.main'|trans }}</th>	
-	            <td>{{ entity.InvoiceAddress }}</td>	
+	            <td>{{ entity.InvoiceAddress|trans }}</td>	
 	        </tr>	
 	        <tr>
 	            <th>{{ 'pi.form.label.field.adress.cp'|trans }}</th>	
-	            <td>{{ entity.InvoiceCP }}</td>	
+	            <td>{{ entity.InvoiceCP|trans }}</td>	
 	        </tr>	
 	        <tr>
 	            <th>{{ 'pi.form.label.field.adress.city'|trans }}</th>	
-	            <td>{{ entity.InvoiceCity }}</td>	
+	            <td>{{ entity.InvoiceCity|trans }}</td>	
 	        </tr>	
 	        <tr>
 	            <th>{{ 'pi.form.label.field.adress.country'|trans }}</th>	
-	            <td>{{ entity.InvoiceCountry }}</td>	
+	            <td>{{ get_img_flag_By_country(entity.InvoiceCountry, 'balise', "16")|raw }}</td>	
 	        </tr>	
 	        <tr>
 	            <th>{{ 'pi.form.label.field.adress.phone'|trans }}</th>	
-	            <td>{{ entity.InvoicePhone }}</td>	
+	            <td>{{ entity.InvoicePhone|trans }}</td>	
 	        </tr>	
 	        <tr>
 	            <th>{{ 'pi.form.label.field.adress.fax'|trans }}</th>	
-	            <td>{{ entity.InvoiceFax }}</td>	
+	            <td>{{ entity.InvoiceFax|trans }}</td>	
 	        </tr>		           	        	        	        	        	               	        	        	        	        
 	        	        
 	    </tbody>

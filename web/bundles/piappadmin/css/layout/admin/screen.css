@@ -1228,3 +1228,7 @@ span.connexion-login-logout:hover{
 .fancybox-wrap .tt-grey *{
     color:#fff;
 }
+
+.fancybox-wrap p{
+    padding: 7px;
+}

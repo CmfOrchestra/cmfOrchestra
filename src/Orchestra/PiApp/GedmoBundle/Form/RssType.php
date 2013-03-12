@@ -59,6 +59,19 @@ class RssType extends AbstractType
 		
     public function buildForm(FormBuilder $builder, array $options)
     {
+      $choiceList = $this->_em->getRepository("PiAppGedmoBundle:Lamelee\TypoThematic")->findAllByEntity($this->_locale, 'object');
+      $thematic = array();
+      $commission = array();
+      foreach($choiceList as $choice){
+        $thematic[$choice->getConfigCssClass()]=$choice->getTitle();
+      }
+      $list['THEMATIC'] = $thematic;
+      $choiceList = $this->_em->getRepository("PiAppGedmoBundle:Lamelee\TypoCommission")->findAllByEntity($this->_locale, 'object');
+      foreach($choiceList as $choice){
+        $commission[$choice->getConfigCssClass()]=$choice->getTitle();
+      }      
+      $list['COMMISSION'] = $commission;
+
         $builder
 	        ->add('enabled', 'checkbox', array(
 	        		'data'  => true,
@@ -66,16 +79,16 @@ class RssType extends AbstractType
 	        ))
         
  					
- 			->add('published_at', 'date', array(
- 					'widget' => 'single_text', // choice, text, single_text
- 					'input' => 'datetime',
- 					'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
- 					'required'  => false,
- 					"attr" => array(
- 							"class"=>"pi_datepicker",
- 					),
- 					'label'	=> 'pi.form.label.date.publication',
- 			)) 		
+//  			->add('published_at', 'date', array(
+//  					'widget' => 'single_text', // choice, text, single_text
+//  					'input' => 'datetime',
+//  					'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
+//  					'required'  => false,
+//  					"attr" => array(
+//  							"class"=>"pi_datepicker",
+//  					),
+//  					'label'	=> 'pi.form.label.date.publication',
+//  			)) 		
  			
  			
  			->add('category', 'entity', array(
@@ -98,8 +111,15 @@ class RssType extends AbstractType
  					"label_attr" => array(
  							"class"=>"category_collection",
  					),
+ 			)) 				
+ 			->add('configCssClass', 'choice', array(
+ 					'choices'   => $list,
+ 					'label'	=> 'pi.rss.form.type',
+          'empty_value' => 'pi.form.label.select.choose.rss',
+ 					'required'  => true,
+ 					'multiple'	=> false,
+ 					'expanded' => false,
  			)) 			
- 			
  			
  			->add('title', 'text', array(
  					'label'	=> "pi.form.label.field.title",

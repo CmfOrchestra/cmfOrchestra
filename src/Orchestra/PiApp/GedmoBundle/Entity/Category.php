@@ -41,7 +41,7 @@ class Category extends AbstractDefault
 	 * @var array
 	 * @access  protected
 	 */
-	protected $_fields	= array('name');
+	protected $_fields	= array('name', 'subtitle', 'descriptif');
 	
 	/**
 	 * Name of the Translation Entity
@@ -79,13 +79,21 @@ class Category extends AbstractDefault
     protected $name;
     
     /**
+     * @var string
+     *
+     * @Gedmo\Translatable
+     * @ORM\Column(name="subtitle", type="string", length=128, nullable=true)
+     */
+    protected $subtitle;    
+    
+    /**
      * @var text $descriptif
      *
      * @Gedmo\Translatable
      * @ORM\Column(name="descriptif", type="text", nullable=true)
      */
     protected $descriptif;
-    
+
     /**
      * @var \PiApp\GedmoBundle\Entity\Media $media
      *
@@ -243,6 +251,26 @@ class Category extends AbstractDefault
     public function getName()
     {
     	return $this->name;
+    }   
+
+    /**
+     * Set $subtitle
+     *
+     * @param string $subtitle
+     */
+    public function setSubtitle($subtitle)
+    {
+    	$this->subtitle = $subtitle;
+    }
+    
+    /**
+     * Get subtitle
+     *
+     * @return string
+     */
+    public function getSubtitle()
+    {
+    	return $this->subtitle;
     }    
     
     /**
@@ -264,7 +292,7 @@ class Category extends AbstractDefault
     public function getDescriptif()
     {
     	return $this->descriptif;
-    }
+    }    
     
     /**
      * Set media
@@ -274,12 +302,12 @@ class Category extends AbstractDefault
     public function setMedia($media)
     {
     	//     	if(($media instanceof \PiApp\GedmoBundle\Entity\Media) && ($media->getImage()->getName() == ""))
-    	// 	    	$this->media = null;
-    	//     	else{
-    	//     		$this->media = $media;
-    	//     	}
-    	$this->media = $media;
-    	return $this;
+    		// 	    	$this->media = null;
+    		//     	else{
+    		//     		$this->media = $media;
+    		//     	}
+    		$this->media = $media;
+    		return $this;
     }
     
     /**
@@ -299,7 +327,9 @@ class Category extends AbstractDefault
      */
     public function addContact(\PiApp\GedmoBundle\Entity\Contact $itemsContacts)
     {
-    	$this->items_contact[] = $itemsContacts;
+    	if(!$this->items_contact->contains($itemsContacts)){
+    		$this->items_contact->add($itemsContacts);
+    	}
     }
     
     /**

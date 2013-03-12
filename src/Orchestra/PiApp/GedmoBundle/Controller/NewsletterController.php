@@ -114,8 +114,8 @@ class NewsletterController extends abstractController
     public function archiveajaxAction()
     {
     	return parent::archiveajaxAction();
-    }    
-    
+    }
+        
     /**
      * Lists all Newsletter entities.
      *
@@ -139,7 +139,7 @@ class NewsletterController extends abstractController
     		$query		= $em->getRepository("PiAppGedmoBundle:Newsletter")->setContainer($this->container)->getAllByCategory($category, null, '', 'ASC', false)->getQuery();
     		$entities   = $em->getRepository("PiAppGedmoBundle:Newsletter")->findTranslationsByQuery($locale, $query, 'object', false);
     	}else
-    		$entities	= $em->getRepository("PiAppGedmoBundle:Newsletter")->setContainer($this->container)->findAllByEntity($locale, 'object'); 
+    		$entities	= $em->getRepository("PiAppGedmoBundle:Newsletter")->setContainer($this->container)->findAllByEntity($locale, 'object');    	
 
         return $this->render("PiAppGedmoBundle:Newsletter:$template", array(
             'entities'	=> $entities,
@@ -201,10 +201,10 @@ class NewsletterController extends abstractController
         if(!$NoLayout)	$template = "new.html.twig";  else 	$template = "new.html.twig";   
         
         $entity_cat = $em->getRepository("PiAppGedmoBundle:Category")->find($category);
-        if( !empty($category) && ($entity_cat instanceof \PiApp\GedmoBundle\Entity\Category) && method_exists($entity, 'setCategory'))
-        	$entity->setCategory($entity_cat);     
-        elseif(!empty($category) && method_exists($entity, 'setCategory'))
-        	$entity->setCategory($category);   
+        if( !empty($category) && ($entity_cat instanceof \PiApp\GedmoBundle\Entity\Category))
+        	$entity->setCategory($entity_cat);
+        elseif(!empty($category))
+        	$entity->setCategory($category); 
 
         return $this->render("PiAppGedmoBundle:Newsletter:$template", array(
             'entity' 	=> $entity,

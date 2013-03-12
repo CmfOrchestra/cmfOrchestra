@@ -19,14 +19,14 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * Description of the TeamType form.
+ * Description of the ContactType form.
  *
  * @category   PI_CRUD_Form
  * @package    Form
  *
  * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
-class TeamType extends AbstractType
+class AdsResponseType extends AbstractType
 {
 	/**
 	 * @var \Doctrine\ORM\EntityManager
@@ -61,47 +61,48 @@ class TeamType extends AbstractType
     {
         $builder 			
  			->add('enabled', 'checkbox', array(
-            		'data'  => true,
+ 					'data'  => true,
  					'label'	=> 'pi.form.label.field.enabled',
-            )) 		
-            ->add('category', 'choice', array(
-             	'choices'   => array(
-             							"Le bureau" =>"Le bureau",
-             			 				"Le conseil d'administration" => "Le conseil d'administration",
-             							"Les permanents" => "Les permanents"
-             					),
-             	'empty_value' => 'pi.form.label.select.choose.category',
-             	'label'	=> "pi.form.label.field.category",
-             	"attr" => array(
-             			"class"=>"pi_simpleselect",
-             	),
-             	"label_attr" => array(
-             			"class"=>"category_collection",
-             	),
-             	'multiple'	=> false,
-             	'required'  => false,
-            ))            	
-        	->add('name', 'text', array(
- 					'label'		=> "pi.form.label.field.name",
- 					'required'  => false,
- 			))			
- 			->add('nickname', 'text', array(
- 					'label'		=> "Prénom",
+ 			))
+ 			->add('category', 'entity', array(
+ 					'class' => 'PiAppGedmoBundle:Category',
+ 					'query_builder' => function(EntityRepository $er) {
+ 						return $er->createQueryBuilder('k')
+ 						->select('k')
+ 						->where('k.type = :type')
+ 						->orderBy('k.name', 'ASC')
+ 						->setParameter('type', 0);
+ 					},
+ 					'property' => 'name',
+ 					'empty_value' => 'pi.form.label.select.choose.category',
+ 					'label'	=> "pi.form.label.field.category",
+ 					'multiple'	=> false,
  					'required'  => false,
  			)) 			
- 			->add('InscrJob', 'text', array(
- 					'label'		=> "Poste",
+ 			->add('name','text', array(
+ 					'required'  	=> false,
+ 			))
+ 			->add('nickname','text', array(
+ 					'required'  	=> false,
+ 			)) 			
+ 			->add('email', 'text', array(
+ 					"label" => 'pi.form.label.field.email',
+ 					'required'  => false,
+ 			))
+ 			->add('descriptif', 'textarea', array(
+ 					'label'	=> "pi.form.label.field.description",
+ 					"attr" => array(
+ 							"class"	=>"full required",
+ 							"data-validate"=>"Message *",
+ 					),
  					'required'  => false,
  			)) 			
- 			->add('email') 			
-
- 			->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
         ;
     }
 
     public function getName()
     {
-        return 'piapp_gedmobundle_teamtype';
+        return 'piapp_gedmobundle_contacttype';
     }
         
 }

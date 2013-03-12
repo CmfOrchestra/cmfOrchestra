@@ -169,17 +169,13 @@ class PiWidgetManager extends PiCoreManager implements PiWidgetManagerBuilderInt
 // 		$source = $this->extensionWidget->FactoryFunction(strtoupper($container), strtolower($NameAction), $options);
 
 		if(!empty($cssClass))
-			$source  = " <orchestra class=\"{$cssClass}\"> \n";
+			$source  = " <div class=\"{$cssClass}\"> \n";
 		else
-			$source  = " <orchestra> \n";
+			$source  = " <div> \n";
 		
 		$source .= "     {% set options = {'widget-id': '$id', 'widget-lang': '$lang'} %} \n";
 		$source .= "     {{ renderWidget('".strtoupper($container)."', '".strtolower($NameAction)."', options )|raw }} \n";
-		
-		if(!empty($cssClass))
-			$source .= " </orchestra> \n";
-		else
-			$source .= " </orchestra> \n";
+		$source .= " </div> \n";
 		
 		return $source;
 	}

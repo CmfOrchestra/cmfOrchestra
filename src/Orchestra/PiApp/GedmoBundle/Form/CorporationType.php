@@ -69,6 +69,17 @@ class CorporationType extends AbstractType
 		       		'data'  	=> true,
 		       		'label'		=> 'pi.partner.form.field.highlighted1',
 		      ))
+		      ->add('Civility', 'choice', array(
+		      		'label'		=> 'pi.form.label.field.civility',
+		      		'empty_value' => 'pi.form.label.select.choose.civility',
+		      		'required'  => false,
+		      		'expanded' => false,
+		      		'choices'   => array(
+	 		  				'pi.form.label.field.civility.type.mr' 	=> 'pi.form.label.field.civility.type.mr',
+	 		  				'pi.form.label.field.civility.type.mme' => 'pi.form.label.field.civility.type.mme',
+	 		  				'pi.form.label.field.civility.type.mlle'=> 'pi.form.label.field.civility.type.mlle'
+	 		  		),
+		      ))		      
 		      ->add('UserName','text', array(
 		      		'label'		=> 'Login',
 		      		'required'  => true,        
@@ -81,25 +92,19 @@ class CorporationType extends AbstractType
 		 	  		'label'		=> 'pi.form.label.field.nickname',
 		      		'required'  => true,        
 		 	  )) 
-		 	  ->add('Profile', 'choice', array(
-		 	  		'label'	=> 'pi.form.label.field.profile',
-		 	  		'required'  => false,
-		 	  		'choices'   => array('fournisseur' => 'Fournisseur TIC', 'user' => 'Utilisateur TIC'),
-		 	  ))
 		 	  ->add('Job','text', array(
 		 	  		'label'	=> 'pi.form.label.field.employment.job',
 		 	  		'required'  => false,
+		 	  ))		 	  
+		 	  ->add('Profile', 'choice', array(
+		 	  		'label'	=> 'pi.form.label.field.profile',
+		 	  		'required'  => false,
+		 	  		'empty_value' => 'pi.form.label.select.choose.profile',
+		 	  		'choices'   => array(
+		 	  				'pi.form.label.field.profile.type.fournisseur.tic' 	=> 'pi.form.label.field.profile.type.fournisseur.tic',
+		 	  				'pi.form.label.field.profile.type.user.tic' 		=> 'pi.form.label.field.profile.type.user.tic',
+		 	  		),
 		 	  ))
-	 		  ->add('Civility', 'choice', array(
-	 		  			'label'		=> 'pi.form.label.field.civility',
-	 					'required'  => false,   
-	 		  		    'expanded' => true,
-			          	'choices'   => array(
-				            '1' => 'Mr', 
-				            '2' => 'Mme', 
-				            '3' => 'Mlle'
-			            ),
-	 		  ))  
 	 		  ->add('UserPhone','text', array(
 	 		  		'label'	=> 'pi.form.label.field.adress.phone',
 	 		  		'required'  => false,
@@ -325,41 +330,41 @@ class CorporationType extends AbstractType
 	 			->add('Activity', 'choice', array(
 	 					'label'	=> 'pi.form.label.field.corporation.activity',
 	 					'required'  => false,
-	 					'choices'   => array(
-	 							'0' 								=> 'Activité*',
-	 							'TIC' 								=> 'TIC',
-	 							'Administration/Audit/Conseil' 		=> 'Administration/Audit/Conseil',
-	 							'Aéronautique' 						=> 'Aéronautique',
-	 							'Agro-alimentaire' 					=> 'Agro-alimentaire',
-	 							'Banque/Finance' 					=> 'Banque/Finance',
-	 							'Biens de consommation' 			=> 'Biens de consommation',
-	 							'Chimie/Pharma/Biotechnologies' 	=> 'Chimie/Pharma/Biotechnologies',
-	 							'Communication/Médias' 				=> 'Communication/Médias',
-	 							'Divertissement' 					=> 'Divertissement',
-	 							'Environnement' 					=> 'Environnement',
-	 							'Fabrication produits' 				=> 'Fabrication produits',
-	 							'Electronique' 						=> 'Electronique',
-	 							'Industrie Défense/Spatial' 		=> 'Industrie Défense/Spatial',
-	 							'Automobile' 						=> 'Automobile',
-	 							'Distribution' 						=> 'Distribution',
-	 							'Loisirs/Tourisme' 					=> 'Loisirs/Tourisme',
-	 							'Assurances'						=> 'Assurances',
-	 							'Santé/Hôpitaux'					=> 'Santé/Hôpitaux',
-	 							'Education'							=> 'Education',
-	 							'Ingénierie'						=> 'Ingénierie',
-	 							'Associatif'						=> 'Associatif',
-	 							'Industrie'							=> 'Industrie',
-	 							'Energie'							=> 'Energie',
-	 							'Secteur public'					=> 'Secteur public',
-	 							'rR & Dd'							=> 'R & D',
-	 							'BTP'								=> 'BTP',
-	 							'Service à la personne'				=> 'Service à la personne',
-	 							'RH'								=> 'RH',
-	 							'Services aux entreprises'			=> 'Services aux entreprises',
-	 							'Technologie'						=> 'Technologie',
-	 							'Transport et logistique'			=> 'Transport et logistique',
-	 							'Autre'								=> 'Autre',
-	 					),
+	 					'empty_value' => 'pi.form.label.select.choose.activity',
+				    	'choices'   => array(
+ 							  'pi.form.label.field.corporation.activity.tic' 		=> 'pi.form.label.field.corporation.activity.tic', 
+							  'pi.form.label.field.corporation.activity.admin' 		=> 'pi.form.label.field.corporation.activity.admin',
+							  'pi.form.label.field.corporation.activity.aero' 		=> 'pi.form.label.field.corporation.activity.aero',
+							  'pi.form.label.field.corporation.activity.agro' 		=> 'pi.form.label.field.corporation.activity.agro',
+							  'pi.form.label.field.corporation.activity.bank' 		=> 'pi.form.label.field.corporation.activity.bank',
+							  'pi.form.label.field.corporation.activity.biens' 		=> 'pi.form.label.field.corporation.activity.biens',
+							  'pi.form.label.field.corporation.activity.chimie' 	=> 'pi.form.label.field.corporation.activity.chimie',
+							  'pi.form.label.field.corporation.activity.com' 		=> 'pi.form.label.field.corporation.activity.com',
+							  'pi.form.label.field.corporation.activity.divert' 	=> 'pi.form.label.field.corporation.activity.divert',
+							  'pi.form.label.field.corporation.activity.env' 		=> 'pi.form.label.field.corporation.activity.env',
+							  'pi.form.label.field.corporation.activity.fab' 		=> 'pi.form.label.field.corporation.activity.fab',
+							  'pi.form.label.field.corporation.activity.elect' 		=> 'pi.form.label.field.corporation.activity.elect',
+							  'pi.form.label.field.corporation.activity.indus.def' 	=> 'pi.form.label.field.corporation.activity.indus.def',
+							  'pi.form.label.field.corporation.activity.auto' 		=> 'pi.form.label.field.corporation.activity.auto',
+							  'pi.form.label.field.corporation.activity.distrib' 	=> 'pi.form.label.field.corporation.activity.distrib',
+							  'pi.form.label.field.corporation.activity.loisir' 	=> 'pi.form.label.field.corporation.activity.loisir',
+							  'pi.form.label.field.corporation.activity.assur' 		=> 'pi.form.label.field.corporation.activity.assur',
+							  'pi.form.label.field.corporation.activity.sante' 		=> 'pi.form.label.field.corporation.activity.sante',
+							  'pi.form.label.field.corporation.activity.educ' 		=> 'pi.form.label.field.corporation.activity.educ',
+							  'pi.form.label.field.corporation.activity.ing' 		=> 'pi.form.label.field.corporation.activity.ing',
+							  'pi.form.label.field.corporation.activity.asso' 		=> 'pi.form.label.field.corporation.activity.asso',
+							  'pi.form.label.field.corporation.activity.indus' 		=> 'pi.form.label.field.corporation.activity.indus',
+							  'pi.form.label.field.corporation.activity.energie' 	=> 'pi.form.label.field.corporation.activity.energie',
+							  'pi.form.label.field.corporation.activity.public' 	=> 'pi.form.label.field.corporation.activity.public',
+							  'pi.form.label.field.corporation.activity.rd' 		=> 'pi.form.label.field.corporation.activity.rd',
+							  'pi.form.label.field.corporation.activity.btp' 		=> 'pi.form.label.field.corporation.activity.btp',
+							  'pi.form.label.field.corporation.activity.service' 	=> 'pi.form.label.field.corporation.activity.service',
+							  'pi.form.label.field.corporation.activity.rh' 		=> 'pi.form.label.field.corporation.activity.rh',
+							  'pi.form.label.field.corporation.activity.service.pro'=> 'pi.form.label.field.corporation.activity.service.pro',
+							  'pi.form.label.field.corporation.activity.techno' 	=> 'pi.form.label.field.corporation.activity.techno',
+							  'pi.form.label.field.corporation.activity.trans' 		=> 'pi.form.label.field.corporation.activity.trans',
+							  'pi.form.label.field.other' 							=> 'pi.form.label.field.other',
+				        ),
 	 					"attr" => array(
 	 							"class"=>"pi_simpleselect",
 	 					),
@@ -368,33 +373,34 @@ class CorporationType extends AbstractType
 	 					),
 	 			))
 	 			->add('Engineering', 'choice', array(
-	 					'label'	=> 'pi.form.label.field.corporation.engineering',
-	 					'required'  => false,
-	 					'choices'   => array(
-	 							'Télécom'										=>'Télécom',
-	 							'Services en informatique'						=>'Services en informatique',
-	 							'Ressources humaines'							=>'Ressources humaines',
-	 							'Ingénierie des savoirs et de la connaissance'	=>'Ingénierie des savoirs et de la connaissance',
-	 							'Infrastructures et reseaux'					=>'Infrastructures et reseaux',
-	 							'Informatique technique et métiers'				=>'Informatique technique et métiers',
-	 							'Informatique de gestion'						=>'Informatique de gestion',
-	 							'Formation recherche et développement'			=>'Formation recherche et développement',
-	 							'Financement'									=>'Financement',
-	 							'Entreprise TIC et information sur les TIC'		=>'Entreprise TIC et information sur les TIC',
-	 							'Editeur de logiciel'							=>'Editeur de logiciel',
-	 							'Développement web'								=>'Développement web',
-	 							'Contenu multimédia'							=>'Contenu multimédia',
-	 							'Constructeur et distributeur de matériel'		=>'Constructeur et distributeur de matériel',
-	 							'Conseil'										=>'Conseil',
-	 							'Autre'											=>'Autre',
-	 					),
-	 					"attr" => array(
-	 							"class"=>"pi_simpleselect",
-	 					),
-	 					"label_attr" => array(
-	 							"class"=>"job_collection",
-	 					),
-	 			))	 			
+		 	  		'label'	=> 'pi.form.label.field.employment.engineering',
+		 			'required'  => false,        
+				    'empty_value' => 'Choisir une sous-activité',
+					'choices'   => array(
+							  'pi.form.label.field.corporation.engineering.telecom'				=> 'pi.form.label.field.corporation.engineering.telecom',
+							  'pi.form.label.field.corporation.engineering.info.service'		=> 'pi.form.label.field.corporation.engineering.info.service',
+							  'pi.form.label.field.corporation.engineering.rh'					=> 'pi.form.label.field.corporation.engineering.rh',
+							  'pi.form.label.field.corporation.engineering.ingenierie.savoirs'	=> 'pi.form.label.field.corporation.engineering.ingenierie.savoirs',
+							  'pi.form.label.field.corporation.engineering.infra'				=> 'pi.form.label.field.corporation.engineering.infra',
+							  'pi.form.label.field.corporation.engineering.info.tech'			=> 'pi.form.label.field.corporation.engineering.info.tech',
+							  'pi.form.label.field.corporation.engineering.info.gestion'		=> 'pi.form.label.field.corporation.engineering.info.gestion',
+							  'pi.form.label.field.corporation.engineering.form'				=> 'pi.form.label.field.corporation.engineering.form',
+							  'pi.form.label.field.corporation.engineering.finance'				=> 'pi.form.label.field.corporation.engineering.finance',
+							  'pi.form.label.field.corporation.engineering.entreprise.tic'		=> 'pi.form.label.field.corporation.engineering.entreprise.tic',
+							  'pi.form.label.field.corporation.engineering.editeur'				=> 'pi.form.label.field.corporation.engineering.editeur',
+							  'pi.form.label.field.corporation.engineering.dev.web'				=> 'pi.form.label.field.corporation.engineering.dev.web',
+							  'pi.form.label.field.corporation.engineering.multimedia'			=> 'pi.form.label.field.corporation.engineering.multimedia',
+							  'pi.form.label.field.corporation.engineering.materiel.constr.dest'=> 'pi.form.label.field.corporation.engineering.materiel.constr.dest',
+							  'pi.form.label.field.corporation.engineering.conseil'				=> 'pi.form.label.field.corporation.engineering.conseil',
+							  'pi.form.label.field.other' 										=> 'pi.form.label.field.other',
+					),
+		 			"attr" => array(
+		 				"class"=>"pi_simpleselect",
+		 			),
+		 			"label_attr" => array(
+		 				"class"=>"job_collection",
+		 			),
+		 	    ))  		
 	 			->add('DetailActivity', 'text', array(
 	 					'label'	=> 'pi.form.label.field.corporation.detailactivity',
 	 					'required'  => false,
@@ -405,16 +411,20 @@ class CorporationType extends AbstractType
 	 			->add('LegalForm','choice', array(
 	 					'label'	=> 'pi.form.label.field.corporation.legalform',
 	 					'required'  => false,
+	 					'empty_value'  => 'Forme juridique *',
 	 					'choices'   => array(
-				            '1' => 'SCOP ou assimilés', 
-				            '2' => 'Syndicat', 
-				            '3' => 'SA', 
-				          	'4' => 'SARL',
-				            '5' => 'SAS',
-				            '6' => 'Etablissement public', 
-				            '7' => 'Entreprise individuelle', 
-				            '8' => 'Association',
-				            '9' => 'Autre ',
+				            'pi.form.label.field.corporation.legalform.type.scop' 			=> 'pi.form.label.field.corporation.legalform.type.scop', 
+				            'pi.form.label.field.corporation.legalform.type.syndicat' 		=> 'pi.form.label.field.corporation.legalform.type.syndicat', 
+				            'pi.form.label.field.corporation.legalform.type.sa' 			=> 'pi.form.label.field.corporation.legalform.type.sa', 
+				          	'pi.form.label.field.corporation.legalform.type.sarl' 			=> 'pi.form.label.field.corporation.legalform.type.sarl',
+				            'pi.form.label.field.corporation.legalform.type.sas' 			=> 'pi.form.label.field.corporation.legalform.type.sas',
+				            'pi.form.label.field.corporation.legalform.type.etabl.public' 	=> 'pi.form.label.field.corporation.legalform.type.etabl.public', 
+				            'pi.form.label.field.corporation.legalform.type.entr.indiv'	 	=> 'pi.form.label.field.corporation.legalform.type.entr.indiv', 
+				            'pi.form.label.field.corporation.legalform.type.assoc'			=> 'pi.form.label.field.corporation.legalform.type.assoc',
+				            'pi.form.label.field.other' 									=> 'pi.form.label.field.other',
+	 					),
+	 					"attr" => array(
+	 							"class"=>"pi_simpleselect",
 	 					),
 	 					"label_attr" => array(
 	 							"class"=>"job_collection",
@@ -481,8 +491,12 @@ class CorporationType extends AbstractType
 	 			->add('Speaker', 'choice', array(
 	 					'label'	=> 'pi.form.label.field.corporation.speaker',
 	 					'required'  => false,
-	 					'expanded' => true,
-	 					'choices'   => array('oui' => 'Oui', 'non' => 'Non', 'potentiel' => 'Potentiel'),
+	 					'expanded' => false,
+	 					'choices'   => array(
+	 							'pi.form.label.field.yes' 		=> 'pi.form.label.field.yes',
+	 							'pi.form.label.field.no' 		=> 'pi.form.label.field.no',
+	 							'pi.form.label.field.potential' => 'pi.form.label.field.potential'
+	 					),
 	 					"label_attr" => array(
 	 							"class"=>"info2_collection",
 	 					),
@@ -492,15 +506,18 @@ class CorporationType extends AbstractType
 	 					'required'  => false,
 	 					'empty_value'  => 'Contact*',
 	 					'choices'   => array(
-	 							'campagne' => 'Campagne adhésion',
-	 							'contact' => 'Contact Mêlée',
-	 							'spontane' => 'Contact spontané',
-	 							'historique' => 'Historique',
-	 							'motivation' => 'Motivation inscription à une commission',
-	 							'sponsor' => 'Parrainage',
-	 							'partenaire' => 'Partenaire',
-	 							'visiteur' => 'Visiteur évènement',
-	 							'other' => 'Autre',
+ 							'pi.form.label.field.corporation.origin.contact.type.campagne' 		=> 'pi.form.label.field.corporation.origin.contact.type.campagne',
+ 							'pi.form.label.field.corporation.origin.contact.type.lamelee' 		=> 'pi.form.label.field.corporation.origin.contact.type.lamelee',
+ 							'pi.form.label.field.corporation.origin.contact.type.spontane' 		=> 'pi.form.label.field.corporation.origin.contact.type.spontane',
+ 							'pi.form.label.field.corporation.origin.contact.type.historique' 	=> 'pi.form.label.field.corporation.origin.contact.type.historique',
+ 							'pi.form.label.field.corporation.origin.contact.type.motivation' 	=> 'pi.form.label.field.corporation.origin.contact.type.motivation',
+ 							'pi.form.label.field.corporation.origin.contact.type.sponsor' 		=> 'pi.form.label.field.corporation.origin.contact.type.sponsor',
+ 							'pi.form.label.field.corporation.origin.contact.type.partenaire' 	=> 'pi.form.label.field.corporation.origin.contact.type.partenaire',
+ 							'pi.form.label.field.corporation.origin.contact.type.visiteur.event'=> 'pi.form.label.field.corporation.origin.contact.type.visiteur.event',
+ 							'pi.form.label.field.other' 
+	 					),
+	 					"attr" => array(
+	 							"class"=>"pi_simpleselect",
 	 					),
 	 					"label_attr" => array(
 	 							"class"=>"info2_collection",
@@ -520,30 +537,10 @@ class CorporationType extends AbstractType
 	 							"class"=>"info2_collection",
 	 					),
 	 			))
-	 			
-	 			
-
- 			// 		 	  ->add('pageurl', 'entity', array(
- 			// 		 				'class' => 'PiAppAdminBundle:Page',
- 			// 		 				'query_builder' => function(EntityRepository $er) {
- 			// 		 					return $er->getAllPageHtml();
- 			// 		 				},
- 			// 		 				'property' => 'route_name',
- 			// 		 				'empty_value' => 'pi.form.label.select.choose.option',
- 			// 		 				"label" 	=> "pi.form.label.field.url",
- 			// 		 				"label_attr" => array(
- 			// 		 						"class"=>"page_collection",
- 			// 		 				),
- 			// 		 				"attr" => array(
- 			// 		 						"class"=>"pi_simpleselect",
- 			// 		 				),
- 			// 		 				'multiple'	=> false,
- 			// 		 				'required'  => false,
- 			// 		 	  ))
         
- 			//->add('user', new \BootStrap\UserBundle\Form\Type\RegistrationFormType('collection'))
- 			->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
- 			->add('media2', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
+ 				//->add('user', new \BootStrap\UserBundle\Form\Type\RegistrationFormType('collection'))
+ 				->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
+ 				->add('media2', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
  			
         ;
     }

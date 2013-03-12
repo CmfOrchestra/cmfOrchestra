@@ -64,26 +64,26 @@ class NewsletterType extends AbstractType
 	        		'data'  => true,
 	        		'label'	=> 'pi.form.label.field.enabled',
 	        ))
-	        ->add('published_at', 'date', array(
-	        		'widget' => 'single_text', // choice, text, single_text
-	        		'input' => 'datetime',
-	        		'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
-	        		'required'  => false,
-	        		"attr" => array(
-	        				"class"=>"pi_datepicker",
-	        		),
-	        		'label'	=> 'pi.form.label.date.publication',
-	        ))
-	        ->add('archive_at', 'date', array(
-	        		'widget' => 'single_text', // choice, text, single_text
-	        		'input' => 'datetime',
-	        		'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
-	        		'required'  => false,
-	        		"attr" => array(
-	        				"class"=>"pi_datepicker",
-	        		),
-	        		'label'	=> 'pi.form.label.date.archivage',
-	        ))	        
+// 	        ->add('published_at', 'date', array(
+// 	        		'widget' => 'single_text', // choice, text, single_text
+// 	        		'input' => 'datetime',
+// 	        		'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
+// 	        		'required'  => false,
+// 	        		"attr" => array(
+// 	        				"class"=>"pi_datepicker",
+// 	        		),
+// 	        		'label'	=> 'pi.form.label.date.publication',
+// 	        ))
+// 	        ->add('archive_at', 'date', array(
+// 	        		'widget' => 'single_text', // choice, text, single_text
+// 	        		'input' => 'datetime',
+// 	        		'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
+// 	        		'required'  => false,
+// 	        		"attr" => array(
+// 	        				"class"=>"pi_datepicker",
+// 	        		),
+// 	        		'label'	=> 'pi.form.label.date.archivage',
+// 	        ))	        
 	        
 	        
  			->add('category', 'entity', array(
@@ -107,6 +107,26 @@ class NewsletterType extends AbstractType
  							"class"=>"category_collection",
  					),
  			))
+ 			
+ 			->add('configCssClass', 'choice', array(
+ 					'choices'   => array(
+ 							'system'		=>"pi.newsletter.type.system",
+ 							'innovation'	=>"pi.newsletter.type.innovation",
+ 							'tele-work'		=>"pi.newsletter.type.tele-work",
+ 							'security'		=>"pi.newsletter.type.security",
+ 							'world' 		=>"pi.newsletter.type.world",
+ 							'sante'			=>"pi.newsletter.type.sante",
+ 							'tech'			=>"pi.newsletter.type.tech",
+ 							'mobile'		=>"pi.newsletter.type.mobile",
+ 							'e-com'			=>"pi.newsletter.type.e-com",
+ 							'opensource'	=>"pi.newsletter.type.opensource",
+ 							'telecom'		=>"pi.newsletter.type.telecom",
+ 					),
+ 					'label'	=> 'pi.newsletter.form.type',
+ 					'required'  => true,
+ 					'multiple'	=> false,
+ 					'expanded' => false,
+ 			))
 
  			->add('title', 'text', array(
  					'label'	=> "pi.form.label.field.title",
@@ -120,7 +140,7 @@ class NewsletterType extends AbstractType
  							"class"=>"text_collection",
  					), 	
  					"attr" => array(
- 							"class"	=>"pi_editor_simple",
+ 							"class"	=>"pi_editor_simple_easy",
  					),	
  					'required'  => false,
  			)) 			
@@ -130,35 +150,35 @@ class NewsletterType extends AbstractType
  							"class"=>"text_collection",
  					), 	
  					"attr" => array(
- 							"class"	=>"pi_editor_simple",
+ 							"class"	=>"pi_editor_simple_easy",
  					),				
  					'required'  => false,
  			)) 	
 
- 			->add('pageurl', 'entity', array(
- 					'class' => 'PiAppAdminBundle:Page',
- 					'query_builder' => function(EntityRepository $er) {
- 						return $er->getAllPageHtml();
- 					},
- 					'property' => 'route_name',
- 					'empty_value' => 'pi.form.label.select.choose.option',
- 					"label" 	=> "pi.form.label.field.url",
- 					'multiple'	=> false,
- 					'required'  => false,
- 					"label_attr" => array(
- 							"class"=>"page_collection",
- 					),
- 					"attr" => array(
- 							"class"=>"pi_simpleselect",
- 					),
- 			)) 			
- 			->add('url', 'text', array(
- 					"label" 	=> "pi.form.label.field.or",
- 					"label_attr" => array(
- 							"class"=>"page_collection",
- 					),
- 					'required'  => false,
- 			)) 			
+//  			->add('pageurl', 'entity', array(
+//  					'class' => 'PiAppAdminBundle:Page',
+//  					'query_builder' => function(EntityRepository $er) {
+//  						return $er->getAllPageHtml();
+//  					},
+//  					'property' => 'route_name',
+//  					'empty_value' => 'pi.form.label.select.choose.option',
+//  					"label" 	=> "pi.form.label.field.url",
+//  					'multiple'	=> false,
+//  					'required'  => false,
+//  					"label_attr" => array(
+//  							"class"=>"page_collection",
+//  					),
+//  					"attr" => array(
+//  							"class"=>"pi_simpleselect",
+//  					),
+//  			)) 			
+//  			->add('url', 'text', array(
+//  					"label" 	=> "pi.form.label.field.or",
+//  					"label_attr" => array(
+//  							"class"=>"page_collection",
+//  					),
+//  					'required'  => false,
+//  			)) 			
  						
        	
  			->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture')) 			

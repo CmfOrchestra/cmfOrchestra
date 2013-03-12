@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+	{% if entities|count >= 1 %}
+	<title>Fil de La Mêlée</title>
+	<subtitle>Derniers Articles {{ title }}</subtitle>
+	<link href="{{ url('gedmo_lamelee_feeds', {'type':'thematic', 'value':value }) }}" rel="self"/>
+	<updated>{{ lastUpdated.format(constant('DATE_ATOM')) }}</updated>
+	<author>
+		<name>Article</name>
+	</author>
+	<id>{{ feedId }}</id>
+	
+	 {% for entity in entities %}
+		<entry>
+			<title>{{ title }} >{{ entity.title }}</title>
+			<link href="{{ entity.url }}" />
+			<id>{{ entity.id }}</id>
+			<updated>{{ entity.publishedat.format(constant('DATE_ATOM')) }}</updated>
+			<summary type="xhtml">
+				<div xmlns="http://www.w3.org/1999/xhtml">
+					{% if entity.image %}
+					<div>
+						<a href="{{ entity.url }}">
+							<img  width="102" height="102" src="{{ entity.image }}" alt="LA MELEE"/>
+						</a>
+					</div>
+					{% endif %}					
+					<div>
+						{{ entity.descriptif|striptags|truncateText(180, '(...)') }}
+					</div>
+				</div>
+			</summary>
+			<author>
+				<name>{{ entity.author}}</name>
+			</author>
+		</entry>
+	{% endfor %}
+	{% endif %}
+</feed>

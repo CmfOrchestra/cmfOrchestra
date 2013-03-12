@@ -134,10 +134,12 @@ class RssController extends abstractController
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if(!$NoLayout) 	$template = "index.html.twig"; else $template = "index.html.twig";
         
-        if($NoLayout)
-    		$entities 	= $em->getRepository("PiAppGedmoBundle:Rss")->getAllEnableByCatAndByPosition($locale, $category, 'object');
-    	else
-    		$entities	= $em->getRepository("PiAppGedmoBundle:Rss")->findAllByEntity($locale, 'object');
+    	if($NoLayout){
+    		//$entities 	= $em->getRepository("PiAppGedmoBundle:Rss")->getAllEnableByCatAndByPosition($locale, $category, 'object');
+    		$query		= $em->getRepository("PiAppGedmoBundle:Rss")->getAllByCategory($category, null, '', 'ASC', false)->getQuery();
+    		$entities   = $em->getRepository("PiAppGedmoBundle:Rss")->findTranslationsByQuery($locale, $query, 'object', false);
+    	}else
+    		$entities	= $em->getRepository("PiAppGedmoBundle:Rss")->findAllByEntity($locale, 'object');    	
 
         return $this->render("PiAppGedmoBundle:Rss:$template", array(
             'entities'	=> $entities,
@@ -199,10 +201,10 @@ class RssController extends abstractController
         if(!$NoLayout)	$template = "new.html.twig";  else 	$template = "new.html.twig";   
         
         $entity_cat = $em->getRepository("PiAppGedmoBundle:Category")->find($category);
-        if( !empty($category) && ($entity_cat instanceof \PiApp\GedmoBundle\Entity\Category) && method_exists($entity, 'setCategory'))
-        	$entity->setCategory($entity_cat);     
-        elseif(!empty($category) && method_exists($entity, 'setCategory'))
-        	$entity->setCategory($category); 
+        if( !empty($category) && ($entity_cat instanceof \PiApp\GedmoBundle\Entity\Category))
+        	$entity->setCategory($entity_cat);
+        elseif(!empty($category))
+        	$entity->setCategory($category);  
 
         return $this->render("PiAppGedmoBundle:Rss:$template", array(
             'entity' 	=> $entity,
@@ -436,5 +438,192 @@ class RssController extends abstractController
         	'locale'   => $lang,
         ));
     }     
-    
+
+    /**
+     * Template : Finds and displays feeds.
+	 * 
+	 * @Route("/feeds", name="gedmo_lamelee_feeds")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access	public
+     * @author Riad HELLAL <r.hellal@novediagroup.com>
+     */
+	
+	public function feedAction($type='', $value='', $maxResult = 10, $locale = '')
+	{
+		$em = $this->getDoctrine()->getEntityManager();
+    	if(empty($locale))
+    		$locale	= $this->container->get('session')->getLocale();
+    	
+    	$type		= $_GET['type'];
+		if(isset($_GET['value']))
+			$value	= $_GET['value'];
+
+		$last_date ='';
+		
+		$query = $em->getRepository('PiAppGedmoBundle:Lamelee\Article')->createQueryBuilder('a')
+			->setFirstResult(0);
+		if($type == 'typomidenews' or $type == 'mid'){
+			if($type == 'typomidenews'){
+				$query->leftJoin('a.typomidenews', 't')
+				->where("t.id = :typomidenewsID")
+				->setParameter('typomidenewsID', $value);
+
+				$feed_title = $em->getRepository("PiAppGedmoBundle:Lamelee\TypoMideNews")->findOneByEntity($locale, $value, 'object', false)->getTitle();
+			}	
+			elseif($type == 'mid'){
+				$query->leftJoin('a.typomidenews', 't')
+				->where("a.typomidenews IS NOT NULL");
+
+				$feed_title = "MID e-news";	
+			}
+			
+			$query->andWhere("a.enabled = 1")
+			  ->setMaxResults($maxResult)
+			  ->orderBy('a.published_at', 'DESC');
+
+			$output	= $em->getRepository("PiAppGedmoBundle:Lamelee\Article")->findTranslationsByQuery($locale, $query->getQuery(), 'object', false);
+
+			foreach ($output as $entity) {
+				$last_date = $entity->getPublishedAt();
+				break;
+			}
+			$template = '_template_midenews_rss.atom.twig';
+		}
+		else{
+			$entities_event = array();
+			if($type == 'typothematic'){
+				$feed_title = $em->getRepository("PiAppGedmoBundle:Lamelee\TypoThematic")->findOneByEntity($locale, $value, 'object', false)->getTitle();
+			}
+			elseif($type == 'lamelee'){
+				$feed_title = 'Lamelee';
+			}
+			elseif ($type == 'typocommission') {
+				$feed_title = $em->getRepository("PiAppGedmoBundle:Lamelee\TypoCommission")->findOneByEntity($locale, $value, 'object', false)->getTitle();
+			}
+			
+			$template = '_template_lamelee_rss_thematic.atom.twig';
+			
+			$query_thematics	   = $em->getRepository("PiAppGedmoBundle:Lamelee\TypoThematic")->getAllByCategory("", null, '', 'ASC', true, false)->getQuery();
+			$entities_thematics    = $em->getRepository("PiAppGedmoBundle:Lamelee\TypoThematic")->findTranslationsByQuery($locale, $query_thematics, 'object', false);   
+			
+			$request_article   = $this->request("Article", $value);
+    		$request_resource  = $this->request("Resource", $value);
+    		if ($type != 'typocommission'){
+				$request_event     = $this->request("Event", $value);
+				$entities_event	   = $em->getRepository("PiAppGedmoBundle:Lamelee\Event")->findTranslationsByQuery($locale, $request_event->getQuery(), 'object', false);
+			}
+    		$entities_article  = $em->getRepository("PiAppGedmoBundle:Lamelee\Article")->findTranslationsByQuery($locale, $request_article->getQuery(), 'object', false);
+    		$entities_resource = $em->getRepository("PiAppGedmoBundle:Lamelee\Resource")->findTranslationsByQuery($locale, $request_resource->getQuery(), 'object', false);
+    		
+    		$entities		   = array_merge($entities_article, $entities_event, $entities_resource);
+			
+			$results = array();
+			$publish = array();
+
+			if(count($entities) >= 1){
+				foreach($entities as $key => $result){
+					$results[$key]['title'] 	 	= "";
+					$results[$key]['descriptif']	= "";
+					$results[$key]['image']			= "";
+					$results[$key]['author']		= "Lamelee";
+
+					$results[$key]['id']		= $result->translate($locale)->getId();
+
+					if(method_exists($result, 'getTitle'))
+						$results[$key]['title']		= $result->translate($locale)->getTitle();
+
+					if(method_exists($result, 'getDescriptif'))
+						$results[$key]['descriptif']= $result->translate($locale)->getDescriptif();
+					elseif(method_exists($result, 'getContent1'))
+						$results[$key]['descriptif']	= $result->translate($locale)->getContent1();
+
+					if(method_exists($result, 'getAuthor'))
+						$results[$key]['author']= $result->translate($locale)->getAuthor();
+
+					$results[$key]['publishedat']	= $result->getPublishedAt();
+					$results[$key]['tri'] 			= $result->getPublishedAt()->getTimestamp();
+					$results[$key]['url']			= "#";
+
+					if($result instanceof \PiApp\GedmoBundle\Entity\Lamelee\Article){
+						if($result->getTypomidenews() instanceof \PiApp\GedmoBundle\Entity\Lamelee\TypoMideNews){
+							$results[$key]['url']	= $this->container->get('bootstrap.RouteTranslator.factory')->getRoute("page_midenews_article", array("locale"=>$locale, "slug"=>$result->translate($locale)->getSlug(), "thema"=>$result->getTypomidenews()->getTitle()));
+						}elseif(($result->getTypocommission() instanceof \PiApp\GedmoBundle\Entity\Lamelee\TypoCommission) && ($result->getTypocommission()->getTypothematic() instanceof \PiApp\GedmoBundle\Entity\Lamelee\TypoThematic)){
+							$results[$key]['url']	= $this->container->get('bootstrap.RouteTranslator.factory')->getRoute("page_lamelee_menuwrapper_thematic_article", array("locale"=>$locale, "slug"=>$result->getSlug(), "thema"=>$result->getTypocommission()->getTypothematic()->getTitle()));
+						}else{
+							$thema = current($entities_thematics);
+							$results[$key]['url']	= $this->container->get('bootstrap.RouteTranslator.factory')->getRoute("page_lamelee_menuwrapper_thematic_article", array("locale"=>$locale, "slug"=>$result->translate($locale)->getSlug(), "thema"=>$thema->getTitle()));
+						}
+					}elseif($result instanceof \PiApp\GedmoBundle\Entity\Lamelee\Event){
+						$results[$key]['url']		= $this->container->get('bootstrap.RouteTranslator.factory')->getRoute("page_lamelee_menuwrapper_evenements_detail", array("locale"=>$locale, "slug"=>$result->translate($locale)->getSlug()));
+					}elseif($result instanceof \PiApp\GedmoBundle\Entity\Lamelee\Resource){
+						if(($result->getMedia() instanceof \PiApp\GedmoBundle\Entity\Media) && ($result->getMedia()->getImage() instanceof \BootStrap\MediaBundle\Entity\Media)){
+							$results[$key]['url']	= $this->container->get('sonata.media.twig.extension')->path($result->getMedia()->getImage()->getId(), 'reference');
+						}else{
+							$results[$key]['url']	= "#";
+						}
+					}
+
+					if(($result->getMedia() instanceof \PiApp\GedmoBundle\Entity\Media) && ($result->getMedia()->getImage() instanceof \BootStrap\MediaBundle\Entity\Media) && ($result->getMedia()->getStatus() == 'image')){
+						$results[$key]['image']	= $this->container->get('sonata.media.twig.extension')->path($result->getMedia()->getImage()->getId(), 'reference');
+					}					
+				}
+    		 }
+
+			if(count($results) >= 1){
+				foreach($results as $key => $result){
+					$publish[$key]  = $result['tri'];
+				}
+				array_multisort($publish, SORT_DESC, $results);
+				$output = array_slice($results, 0, $maxResult);;
+			}else
+				$output = null;			
+			
+
+			if(count($output) >= 1){
+				foreach ($output as $entity) {
+					$last_date = $entity['publishedat'];
+					break;
+				}
+			}
+    	}
+
+		return $this->render("PiAppGedmoBundle:Rss:$template", array(
+			'entities' => $output,
+			'locale' => $locale,
+			'value' => $value,
+			'type' => $type,
+			'title' => $feed_title,
+			'lastUpdated' => $last_date,
+			'feedId' => sha1($this->get('router')->generate('gedmo_lamelee_feeds', array('type'=> $type,'value'=> $value), true)),
+		));
+	}
+	
+    /**
+     * Create the request of search
+     *
+     * @return array
+     *
+     * @access	private
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    private function request($entity, $typothematic)
+    {
+    	$em 		= $this->getDoctrine()->getEntityManager();
+
+		$query	= $em->getRepository("PiAppGedmoBundle:Lamelee\\".$entity)->createQueryBuilder('a')->select('a');
+		$query->orderBy('a.published_at', 'DESC');
+
+		$query->andWhere('a.enabled = 1');
+
+		if(!empty($typothematic)){
+			$query
+			->leftJoin('a.typothematics', 't')
+			->andWhere("t.id = :typothematicsID")
+			->setParameter('typothematicsID', $typothematic);
+		}
+
+    	return $query;
+    }	
 }

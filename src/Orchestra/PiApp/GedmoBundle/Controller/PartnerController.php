@@ -99,8 +99,8 @@ class PartnerController extends abstractController
     public function deleteajaxAction()
     {
     	return parent::deletajaxAction();
-    }  
-
+    }   
+    
     /**
      * Archive a Partner entity.
      *
@@ -114,8 +114,8 @@ class PartnerController extends abstractController
     public function archiveajaxAction()
     {
     	return parent::archiveajaxAction();
-    }    
-    
+    }
+        
     /**
      * Lists all Partner entities.
      *
@@ -416,15 +416,38 @@ class PartnerController extends abstractController
      * @access	public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com> 
      */
-    public function _template_listAction($category = '', $MaxResults = null, $template = '_tmp_list.html.twig', $order = 'DESC', $lang = "")
+    public function _template_listAction($category = '', $MaxResults = null, $template = '_tmp_list.html.twig', $order = 'DESC', $lang = "", $type='')
     {
     	$em 		= $this->getDoctrine()->getEntityManager();
 
     	if(empty($lang))
     		$lang	= $this->container->get('session')->getLocale();
     		
-    	$query		= $em->getRepository("PiAppGedmoBundle:Partner")->getAllByCategory($category, $MaxResults, $order)->getQuery();
-        $entities   = $em->getRepository("PiAppGedmoBundle:Partner")->findTranslationsByQuery($lang, $query, 'object', false);                   
+    	if(empty($type)){
+    		$query		= $em->getRepository("PiAppGedmoBundle:Partner")->getAllByCategory($category, $MaxResults, '', $order)->getQuery();
+        	$entities   = $em->getRepository("PiAppGedmoBundle:Partner")->findTranslationsByQuery($lang, $query, 'object', false);
+       	}elseif($type == 'archive'){
+       		$query			= $em->getRepository("PiAppGedmoBundle:Partner")->getAllByCategory($category, $MaxResults, '', $order)->getQuery();
+        	$entities_all   = $em->getRepository("PiAppGedmoBundle:Partner")->findTranslationsByQuery($lang, $query, 'object', false);
+        	
+        	$entities = array();
+        	foreach($entities_all as $key => $entity){
+        		$cat = $entity->getCategory();
+        		if($cat instanceof \PiApp\GedmoBundle\Entity\Category){
+        			$entities[ $cat->getPosition() ]['partner'][] = $entity;
+        			$entities[ $cat->getPosition() ]['name']	  = $cat->getName();
+        		}
+        	}
+        	
+        	ksort($entities);
+        	
+    	}elseif($type == 'highlighted1'){
+    		$entities	= $em->getRepository("PiAppGedmoBundle:Partner")->findBy(array('highlighted1'=>true, 'enabled'=>true), array('title'=>$order), $MaxResults);
+    	}elseif($type == 'highlighted2'){
+    		$entities	= $em->getRepository("PiAppGedmoBundle:Partner")->findBy(array('highlighted2'=>true, 'enabled'=>true), array('title'=>$order), $MaxResults);
+    	}elseif($type == 'highlighted3'){
+    		$entities	= $em->getRepository("PiAppGedmoBundle:Partner")->findBy(array('highlighted3'=>true, 'enabled'=>true), array('title'=>$order), $MaxResults);
+    	}         
 
         return $this->render("PiAppGedmoBundle:Partner:$template", array(
             'entities' => $entities,
@@ -432,5 +455,31 @@ class PartnerController extends abstractController
         	'locale'   => $lang,
         ));
     }     
+    
+    /**
+     * Template : Finds and displays a list of Partner entity.
+     *
+     * @Cache(maxage="86400")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access	public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function _template_annuaireAction($template = '_tmp_list.html.twig', $order = 'DESC', $lang = "")
+    {
+    	$em 		= $this->getDoctrine()->getEntityManager();
+    
+    	if(empty($lang))
+    		$lang	= $this->container->get('session')->getLocale();
+    
+    	$adh_fixe	= $em->getRepository("PiAppGedmoBundle:Partner")->findBy(array('highlighted1'=>true, 'enabled'=>true), array('title'=>$order), 4);
+    	$adh_alea	= $em->getRepository("PiAppGedmoBundle:Partner")->findBy(array('highlighted2'=>true, 'enabled'=>true), array('title'=>$order), 12);
+    	
+    	return $this->render("PiAppGedmoBundle:Partner:$template", array(
+    			'adh_fixe' => $adh_fixe,
+    			'adh_alea' => $adh_alea,
+    			'locale'   => $lang,
+    	));
+    }    
     
 }

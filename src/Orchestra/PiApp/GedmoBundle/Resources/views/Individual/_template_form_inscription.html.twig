@@ -25,15 +25,16 @@
 						</div>
 						<fieldset>
 							<div class="row cf">
+								{{ form_widget(form.Civility) }}
 								{% if form.vars.value.Name %} 
 									  {{ form_widget(form.Name) }}
 								{% else %}
-									  {{ form_widget(form.Name, { 'attr': {'data-validate': 'Nom*'} }) }}
+									  {{ form_widget(form.Name, { 'attr': {'data-validate': 'Nom *'} }) }}
 								{% endif %}
 								{% if form.vars.value.Nickname %} 
 									  {{ form_widget(form.Nickname) }}
 								{% else %}
-									  {{ form_widget(form.Nickname, { 'attr': {'data-validate': 'Prénom*'} }) }}
+									  {{ form_widget(form.Nickname, { 'attr': {'data-validate': 'Prénom *'} }) }}
 								{% endif %}
 							</div>
 						</fieldset>
@@ -43,12 +44,12 @@
 								{% if form.vars.value.Company %} 
 									  {{ form_widget(form.Company) }}
 								{% else %}
-									  {{ form_widget(form.Company, { 'attr': {'data-validate': 'Société*'}}) }}
+									  {{ form_widget(form.Company, { 'attr': {'data-validate': 'Société *'}}) }}
 								{% endif %}								
 								{% if form.vars.value.Job %} 
 									  {{ form_widget(form.Job) }}
 								{% else %}
-									  {{ form_widget(form.Job, { 'attr': {'data-validate': 'Fonction*'}}) }}
+									  {{ form_widget(form.Job, { 'attr': {'data-validate': 'Fonction *'}}) }}
 								{% endif %}								
 							</div>
 							<div class="row" id="activity">	
@@ -59,11 +60,11 @@
 									{{ form_widget(form.Engineering) }}
 								</div>
 							<div class="row">
-									{% if form.vars.value.url %} 
-										  {{ form_widget(form.url) }}
-									{% else %}
-										  {{ form_widget(form.url, { 'attr': {'class':'text', 'data-validate': 'Site Web'}}) }}
-									{% endif %}								
+								{% if form.vars.value.url %} 
+									  {{ form_widget(form.url) }}
+								{% else %}
+									  {{ form_widget(form.url, { 'attr': {'class':'text', 'data-validate': 'Site Web'}}) }}
+								{% endif %}								
 							</div>
 						
 						</fieldset>
@@ -75,12 +76,12 @@
 									{% elseif form.vars.errors|length %} 
 										  {{ form_widget(form.Email, { 'attr': {'class': 'error'} }) }}                
 									{% else %}
-										  {{ form_widget(form.Email, { 'attr': {'data-validate': 'Email pro*'} }) }}
+										  {{ form_widget(form.Email, { 'attr': {'data-validate': 'Email pro *'} }) }}
 									{% endif %}
 									{% if form.vars.value.Phone %} 
 										  {{ form_widget(form.Phone) }}
 									{% else %}
-										  {{ form_widget(form.Phone, { 'attr': {'class':'phone', 'data-validate': 'Téléphone*'} }) }}
+										  {{ form_widget(form.Phone, { 'attr': {'class':'phone', 'data-validate': 'Téléphone'} }) }}
 									{% endif %}
 								</div>
 						</fieldset>
@@ -126,12 +127,12 @@
 
 								<p class="light-clr"><small>Il vous sera demandé à chaque connexion et sera définitif</small></p>
 							</div>	
-							<p class="light-clr"><span class="tt-clr">*</span> champs obligatoire</p>
+							<p class="light-clr"><span class="tt-clr">*</span> champs obligatoires</p>
 
 						</fieldset>
 
 						<div class="title-border-simple cf">
-							<h3 class="tt-9 tt-clr fleft">Mes newsletter</h3>
+							<h3 class="tt-9 tt-clr fleft">Mes newsletters</h3>
 						</div>
 						
 						<p class="light-clr">
@@ -175,7 +176,7 @@
 						</div>
 
 						<div class="button-ct clear">
-							<input type="submit" value="JE M'inscris" class="nextStep">
+							<input type="submit" value="Je m'abonne" class="nextStep">
 						</div>
 					</form>
 

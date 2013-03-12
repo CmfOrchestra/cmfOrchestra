@@ -286,7 +286,6 @@ class Slider extends AbstractDefault
      */
     public function setCategory($category)
     {
-    	
     	$this->category = $category;
     	return $this;
     }

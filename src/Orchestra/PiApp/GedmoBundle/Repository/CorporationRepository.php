@@ -40,11 +40,12 @@ class CorporationRepository extends TranslationRepository
 	public function findOneByUser($user_id, $locale, $result = "object", $INNER_JOIN = false)
 	{
 		$em = $this->getEntityManager()->createQueryBuilder()
-		->select('p')
-		->from($this->_entityName,'p')
-		->leftJoin('p.user', 'u')
-		->andwhere('p.enabled = :enabled')
-		->andWhere('p.user = :userID')
+		->select('a')
+		->from($this->_entityName,'a')
+		->leftJoin('a.user', 'u')
+		->where('a.archived = 0')
+		->andWhere('a.enabled = :enabled')
+		->andWhere('a.user = :userID')
 		->andwhere('u.enabled = :enabled')
 		->setParameters(array(
 				'enabled'	=> 1,

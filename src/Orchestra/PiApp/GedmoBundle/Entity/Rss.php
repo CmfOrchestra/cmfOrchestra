@@ -88,6 +88,13 @@ class Rss extends AbstractDefault
     protected $category;    
     
     /**
+     * @var string $configCssClass
+     *
+     * @ORM\Column(name="config_css_class", type="string", nullable=true)
+     */
+    protected $configCssClass;    
+    
+    /**
      * @var string
      *
      * @Gedmo\Translatable
@@ -186,7 +193,9 @@ class Rss extends AbstractDefault
      */
     public function addUser(\BootStrap\UserBundle\Entity\User $users)
     {
-    	$this->users[] = $users;
+    	if(!$this->users->contains($users)){
+    		$this->users->add($users);
+    	}
     }    
     
     /**
@@ -209,7 +218,27 @@ class Rss extends AbstractDefault
     {
     	return $this->category;
     }
-        
+    
+    /**
+     * Set configCssClass
+     *
+     * @param string $configCssClass
+     */
+    public function setConfigCssClass($configCssClass)
+    {
+        $this->configCssClass = $configCssClass;
+    }
+
+    /**
+     * Get configCssClass
+     *
+     * @return string 
+     */
+    public function getConfigCssClass()
+    {
+        return $this->configCssClass;
+    }
+    
     /**
      * Set $title
      *

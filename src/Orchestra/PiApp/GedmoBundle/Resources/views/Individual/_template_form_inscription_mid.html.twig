@@ -18,48 +18,84 @@
 				<div class="content">
 					
 					<form action="" method="POST" class="cf" novalidate>
-            <input type="hidden" id="new" name="new" value="{{new}}">
-            {{ form_errors(form) }}
-            {{ form_widget(form._token) }}
+			            <input type="hidden" id="new" name="new" value="{{new}}">
+			            {{ form_errors(form) }}
+			            {{ form_widget(form._token) }}
 						<div class="title-border-simple cf">
 							<h3 class="tt-9 mid-clr fleft">MID e-news</h3>
 						</div>
 							<div class="field">
-								<input type="checkbox">
+							{% for key,cat in newsletters %}
+							  {% set catlength = cat|length %}
+							  {% if (catlength == 1) and (attribute(attribute(cat, 0), 4) == 15) %}
+								<input type="checkbox" name="newsletters[{{ attribute(attribute(cat, 0), 1)}}]">
 								<label class="light-clr">Je souhaite recevoir les newsletters MID e-news</label>
+							  {% endif %}
+							{% endfor %}
 							</div>
 						<div class="title-border-simple cf">
 							<h3 class="tt-9 mid-clr fleft">Mes données personnelles</h3>
 						</div>
 						<fieldset>
 							<div class="row cf">
-								{{ form_widget(form.Name) }}
-								{{ form_widget(form.Nickname) }}
+							    {{ form_widget(form.Civility) }}
+								{% if form.vars.value.Name %} 
+									  {{ form_widget(form.Name) }}
+								{% else %}
+									  {{ form_widget(form.Name, { 'attr': {'data-validate': 'Nom *'} }) }}
+								{% endif %}
+								{% if form.vars.value.Nickname %} 
+									  {{ form_widget(form.Nickname) }}
+								{% else %}
+									  {{ form_widget(form.Nickname, { 'attr': {'data-validate': 'Prénom *'} }) }}
+								{% endif %}
 							</div>
 						</fieldset>
 						<fieldset>
 							<legend class="bold">Entreprise</legend>
 							<div class="row cf">
-								{{ form_widget(form.Company) }}
-                {{ form_widget(form.Job) }}
+								{% if form.vars.value.Company %} 
+									  {{ form_widget(form.Company) }}
+								{% else %}
+									  {{ form_widget(form.Company, { 'attr': {'data-validate': 'Société *'}}) }}
+								{% endif %}								
+								{% if form.vars.value.Job %} 
+									  {{ form_widget(form.Job) }}
+								{% else %}
+									  {{ form_widget(form.Job, { 'attr': {'data-validate': 'Fonction *'}}) }}
+								{% endif %}	
 							</div>
 							<div class="row" id="activity">	
-                  {{ form_widget(form.Activity) }}
-									<a href="#" class="tooltip" data-tooltip="Du texte d'exemple pour l'infobulle">Info</a>
+                  				{{ form_widget(form.Activity) }}
+								<a href="#" class="tooltip" data-tooltip="{{'pi.individual.form.inscription.tooltip.activity'|trans|striptags|raw}}">Info</a>
 							</div>
 								<div class="row hidden" id="activityList">	
-                    {{ form_widget(form.Engineering) }}
+                    			{{ form_widget(form.Engineering) }}
 								</div>
 							<div class="row">
-								{{ form_widget(form.url) }}
+								{% if form.vars.value.url %} 
+									  {{ form_widget(form.url) }}
+								{% else %}
+									  {{ form_widget(form.url, { 'attr': {'class':'text', 'data-validate': 'Site Web'}}) }}
+								{% endif %}	
 							</div>
 						
 						</fieldset>
 						<fieldset class="resetBorder">
 								<legend class="bold">Contact</legend>
 								<div class="row">	
-									{{ form_widget(form.Email) }}	
-									{{ form_widget(form.Phone) }}
+									{% if form.vars.value.Email and not(form.vars.errors|length) %} 
+										  {{ form_widget(form.Email) }}
+									{% elseif form.vars.errors|length %} 
+										  {{ form_widget(form.Email, { 'attr': {'class': 'error'} }) }}                
+									{% else %}
+										  {{ form_widget(form.Email, { 'attr': {'data-validate': 'Email pro *'} }) }}
+									{% endif %}
+									{% if form.vars.value.Phone %} 
+										  {{ form_widget(form.Phone) }}
+									{% else %}
+										  {{ form_widget(form.Phone, { 'attr': {'class':'phone', 'data-validate': 'Téléphone'} }) }}
+									{% endif %}
 								</div>
 						</fieldset>
 
@@ -68,127 +104,77 @@
 								<div class="row cf">
 									<label class="social fb fleft">Facebook</label>
 									{{ form_widget(form.Facebook) }}
-                  <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
+									<a href="#" class="tooltip" data-tooltip="{{'pi.individual.form.inscription.tooltip.facebook'|trans|striptags|raw}}">Info</a>
 								</div>
 								<div class="row cf">
 									<label class="social gPlus fleft">Google +</label>
 									{{ form_widget(form.GooglePlus) }}
-                  <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
+									<a href="#" class="tooltip" data-tooltip="{{'pi.individual.form.inscription.tooltip.googleplus'|trans|striptags|raw}}">Info</a>
 								</div>
 								<div class="row cf">
 									<label class="social twitter fleft">Twitter</label>
 									{{ form_widget(form.Twitter) }}
-                  <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
+									<a href="#" class="tooltip" data-tooltip="{{'pi.individual.form.inscription.tooltip.twitter'|trans|striptags|raw}}">Info</a>
 								</div>
 								<div class="row cf">
 									<label class="social linked fleft">LinedIn</label>
 									{{ form_widget(form.LinkedIn) }}
-                  <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
+									<a href="#" class="tooltip" data-tooltip="{{'pi.individual.form.inscription.tooltip.linkedin'|trans|striptags|raw}}">Info</a>
 								</div>
 								<div class="row cf">
 									<label class="social viadeo fleft">Viadeo</label>
 									{{ form_widget(form.Viadeo) }}
-                  <a href="#" class="tooltip" data-tooltip="Copiez l'url de votre page profil">Info</a>
-								</div>
-							<div class="id-choice">
-								
-								{{ form_row(form.UserName) }}
-
-								<p class="light-clr"><small>Il vous sera demandé à chaque connexion et sera définitif</small></p>
-							</div>	
-							<p class="light-clr"><span class="tt-clr">*</span> champs obligatoire</p>
-
+									<a href="#" class="tooltip" data-tooltip="{{'pi.individual.form.inscription.tooltip.viadeo'|trans|striptags|raw}}">Info</a>
+								</div>	
+								<p class="light-clr"><span class="tt-clr">*</span> champs obligatoires</p>
 						</fieldset>
 
 						<div class="title-border-simple cf">
-							<h3 class="tt-9  mid-clr fleft">Newsletter La Mêlée</h3>
+							<h3 class="tt-9  mid-clr fleft">Newsletters La Mêlée</h3>
 						</div>
 						
 						<p class="light-clr">
 							Veuillez sélectionner les newsletters que vous souhaitez recevoir :
 						</p>
 						<div class="row cf">
-							<div class="field fleft">
-								<input type="checkbox">
-								<label class="light-clr bold">Infomêlée</label>
-							</div>
-
-							<div class="field fleft">
-								<input type="checkbox">
-								<label class="light-clr bold">Infocantine</label>
-							</div>
-							<div class="field fleft">
-								<input type="checkbox" id="list-news">
-								<label class="light-clr bold">Thema'TIC</label>
-							</div>
-							<div class="bulle-info news-list cf fright">
-								<span class="arrow"></span>
-								<div class="half fleft">
-									<div class="field">
-										<input type="checkbox">
-										<label class="light-clr">Systeme d'informations</label>
+							{% for key,cat in newsletters %}
+							  {% set catlength = cat|length %}
+							  {% if (catlength == 1) and (attribute(attribute(cat, 0), 4) != 15) %}
+								  <div class="field fleft">
+									<input type="checkbox" name="newsletters[{{ attribute(attribute(cat, 0), 1)}}]">
+									<label class="light-clr bold">{{ attribute(attribute(cat, 0), 0)}}</label>
+								  </div>
+							  {% elseif (attribute(attribute(cat, 0), 4) != 15) %}
+								  <div class="field fleft">
+									<input type="checkbox" id="list-news">
+									<label class="light-clr bold">{{ attribute(attribute(cat, 0), 0)}}</label>
+								  </div>   
+								  <div class="bulle-info news-list cf fright">
+									<span class="arrow"></span>
+									{% for i in 1..2 %}
+									<div class="half fleft">
+									  {% if i == 1 %}
+										  {% set deb = 0 %}
+										  {% set fin = (((catlength)+(catlength%2))/2 -1)  %}
+									  {% else  %}
+										  {% set deb = (((catlength)+(catlength%2))/2 ) %}
+										  {% set fin = catlength -1 %}
+									  {% endif %}
+									  {% for nl in deb..fin  %}
+										  <div class="field">
+											<input type="checkbox" name="newsletters[{{attribute(attribute(cat, nl), 1)}}]">
+											<label class="light-clr">{{attribute(attribute(cat, nl), 2)}}</label>
+										  </div>
+									  {% endfor %}
 									</div>
-									<div class="field">
-										<input type="checkbox">
-										<label class="light-clr">Sécurité informatique</label>
-									</div>
-									<div class="field">
-										<input type="checkbox">
-										<label class="light-clr">International</label>
-									</div>
-									<div class="field">
-										<input type="checkbox">
-										<label class="light-clr">Logiciels libre</label>
-									</div>
-									<div class="field">
-										<input type="checkbox">
-										<label class="light-clr">Innovation</label>
-									</div>
-									<div class="field">
-										<input type="checkbox">
-										<label class="light-clr">Emplois et formation</label>
-									</div>
-									<div class="field">
-										<input type="checkbox">
-										<label class="light-clr">Intelligence Collective</label>
-									</div>
-									
-								</div>
-								<div class="half fleft">
-									<div class="field">
-										<input type="checkbox">
-										<label class="light-clr">Systeme d'informations</label>
-									</div>
-									<div class="field">
-										<input type="checkbox">
-										<label class="light-clr">Sécurité informatique</label>
-									</div>
-									<div class="field">
-										<input type="checkbox">
-										<label class="light-clr">International</label>
-									</div>
-									<div class="field">
-										<input type="checkbox">
-										<label class="light-clr">Logiciels libre</label>
-									</div>
-									<div class="field">
-										<input type="checkbox">
-										<label class="light-clr">Innovation</label>
-									</div>
-									<div class="field">
-										<input type="checkbox">
-										<label class="light-clr">Emplois et formation</label>
-									</div>
-									<div class="field">
-										<input type="checkbox">
-										<label class="light-clr">Intelligence Collective</label>
-									</div>		
-								</div>
-							</div>
+									{% endfor %}
+								  </div>                
+							  {% endif %}
+							{% endfor %}							
 						</div>
            
 						<div class="button-ct clear">
-							<input type="submit" value="JE M'inscris" class="fright nextStep">
+							<input type="submit" value="Je m'abonne" class="fright nextStep-mid">
 						</div>
 
 					</form>

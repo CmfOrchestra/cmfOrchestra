@@ -113,7 +113,7 @@ class SliderType extends AbstractType
  							"class"=>"detail_collection",
  					),
 	        		"attr" => array(
-	        				"class"	=>"pi_editor_simple",
+	        				"class"	=>"pi_editor_simple_easy",
 	        		),
             ))
 	        ->add('descriptifright', 'textarea', array(
@@ -123,7 +123,7 @@ class SliderType extends AbstractType
  							"class"=>"detail_collection",
  					),
 	        		"attr" => array(
-	        				"class"	=>"pi_editor_simple",
+	        				"class"	=>"pi_editor_simple_easy",
 	        		),
             ))
             

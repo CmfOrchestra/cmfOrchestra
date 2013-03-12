@@ -80,12 +80,13 @@ class AdhesionCorporationType extends AbstractType
  					),
  			))  
  			->add('Civility', 'choice', array(
- 					'required'  => false,        
+ 					'required'  => false,     
+ 					'empty_value' => 'pi.form.label.select.choose.civility',
 					'choices'   => array(
-					  '1' => 'Mr', 
-					  '2' => 'Mme', 
-					  '3' => 'Mlle'
-					  ),
+	 		  				'pi.form.label.field.civility.type.mr' 	=> 'pi.form.label.field.civility.type.mr',
+	 		  				'pi.form.label.field.civility.type.mme' => 'pi.form.label.field.civility.type.mme',
+	 		  				'pi.form.label.field.civility.type.mlle'=> 'pi.form.label.field.civility.type.mlle'
+	 		  		),
 					'empty_value'  => 'Civilité*', 
  					"attr" => array(
  							"class"=>"required selectSize inputSame",
@@ -101,7 +102,10 @@ class AdhesionCorporationType extends AbstractType
  					'required'  => false,        
  			))  // new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
  			->add('media2','file', array(
- 					'required'  => false,        
+ 					'required'  => false,   
+ 					"attr" => array(
+ 							"class"=>"required text",
+ 					),
  			))  // new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
             
  			->add('UserPhone','text', array(
@@ -129,41 +133,41 @@ class AdhesionCorporationType extends AbstractType
  					),
  			))               
  			->add('Activity', 'choice', array(
- 					'required'  => true,        
+ 					'required'  => false,        
+ 					'empty_value' => 'pi.form.label.select.choose.activity',
 					'choices'   => array(
-					  '0' => 'Activité*', 
-					  'tic' => 'TIC', 
-					  'admin' => 'Administration/Audit/Conseil',
-					  'aero' => 'Aéronautique',
-					  'agro' => 'Agro-alimentaire',
-					  'banque' => 'Banque/Finance',
-					  'biens' => 'Biens de consommation',
-					  'chimie' => 'Chimie/Pharma/Biotechnologies',
-					  'com' => 'Communication/Médias',
-					  'divert' => 'Divertissement',
-					  'env' => 'Environnement',
-					  'fab' => 'Fabrication produits',
-					  'elect' => 'Electronique',
-					  'indus-def' => 'Industrie Défense/Spatial',
-					  'auto' => 'Automobile',
-					  'distrib' => 'Distribution',
-					  'loisir' => 'Loisirs/Tourisme',
-					  'assur' => 'Assurances',
-					  'sante' => 'Santé/Hôpitaux',
-					  'educ' => 'Education',
-					  'ing' => 'Ingénierie',
-					  'asso' => 'Associatif',
-					  'indus' => 'Industrie',
-					  'energie' => 'Energie',
-					  'public' => 'Secteur public',
-					  'r&d' => 'R & D',
-					  'btp' => 'BTP',
-					  'service' => 'Service à la personne',
-					  'rh' => 'RH',
-					  'service-pro' => 'Services aux entreprises',
-					  'techno' => 'Technologie',
-					  'trans' => 'Transport et logistique',
-					  'autre' => 'Autre',
+ 							  'pi.form.label.field.corporation.activity.tic' 		=> 'pi.form.label.field.corporation.activity.tic', 
+							  'pi.form.label.field.corporation.activity.admin' 		=> 'pi.form.label.field.corporation.activity.admin',
+							  'pi.form.label.field.corporation.activity.aero' 		=> 'pi.form.label.field.corporation.activity.aero',
+							  'pi.form.label.field.corporation.activity.agro' 		=> 'pi.form.label.field.corporation.activity.agro',
+							  'pi.form.label.field.corporation.activity.bank' 		=> 'pi.form.label.field.corporation.activity.bank',
+							  'pi.form.label.field.corporation.activity.biens' 		=> 'pi.form.label.field.corporation.activity.biens',
+							  'pi.form.label.field.corporation.activity.chimie' 	=> 'pi.form.label.field.corporation.activity.chimie',
+							  'pi.form.label.field.corporation.activity.com' 		=> 'pi.form.label.field.corporation.activity.com',
+							  'pi.form.label.field.corporation.activity.divert' 	=> 'pi.form.label.field.corporation.activity.divert',
+							  'pi.form.label.field.corporation.activity.env' 		=> 'pi.form.label.field.corporation.activity.env',
+							  'pi.form.label.field.corporation.activity.fab' 		=> 'pi.form.label.field.corporation.activity.fab',
+							  'pi.form.label.field.corporation.activity.elect' 		=> 'pi.form.label.field.corporation.activity.elect',
+							  'pi.form.label.field.corporation.activity.indus.def' 	=> 'pi.form.label.field.corporation.activity.indus.def',
+							  'pi.form.label.field.corporation.activity.auto' 		=> 'pi.form.label.field.corporation.activity.auto',
+							  'pi.form.label.field.corporation.activity.distrib' 	=> 'pi.form.label.field.corporation.activity.distrib',
+							  'pi.form.label.field.corporation.activity.loisir' 	=> 'pi.form.label.field.corporation.activity.loisir',
+							  'pi.form.label.field.corporation.activity.assur' 		=> 'pi.form.label.field.corporation.activity.assur',
+							  'pi.form.label.field.corporation.activity.sante' 		=> 'pi.form.label.field.corporation.activity.sante',
+							  'pi.form.label.field.corporation.activity.educ' 		=> 'pi.form.label.field.corporation.activity.educ',
+							  'pi.form.label.field.corporation.activity.ing' 		=> 'pi.form.label.field.corporation.activity.ing',
+							  'pi.form.label.field.corporation.activity.asso' 		=> 'pi.form.label.field.corporation.activity.asso',
+							  'pi.form.label.field.corporation.activity.indus' 		=> 'pi.form.label.field.corporation.activity.indus',
+							  'pi.form.label.field.corporation.activity.energie' 	=> 'pi.form.label.field.corporation.activity.energie',
+							  'pi.form.label.field.corporation.activity.public' 	=> 'pi.form.label.field.corporation.activity.public',
+							  'pi.form.label.field.corporation.activity.rd' 		=> 'pi.form.label.field.corporation.activity.rd',
+							  'pi.form.label.field.corporation.activity.btp' 		=> 'pi.form.label.field.corporation.activity.btp',
+							  'pi.form.label.field.corporation.activity.service' 	=> 'pi.form.label.field.corporation.activity.service',
+							  'pi.form.label.field.corporation.activity.rh' 		=> 'pi.form.label.field.corporation.activity.rh',
+							  'pi.form.label.field.corporation.activity.service.pro'=> 'pi.form.label.field.corporation.activity.service.pro',
+							  'pi.form.label.field.corporation.activity.techno' 	=> 'pi.form.label.field.corporation.activity.techno',
+							  'pi.form.label.field.corporation.activity.trans' 		=> 'pi.form.label.field.corporation.activity.trans',
+							  'pi.form.label.field.other' 							=> 'pi.form.label.field.other',
 					  ),
  					"attr" => array(
  							"class"=>"resetRight selectSize required",
@@ -171,23 +175,24 @@ class AdhesionCorporationType extends AbstractType
  			)) 
  			->add('Engineering', 'choice', array(
  					  'required'  => false,
+ 					  'empty_value' => 'Choisir une sous-activité',
 			          'choices'   => array(
-			            'telecom'=>'Télécom',
-			            'service-info'=>'Services en informatique',
-			            'ressources-h'=>'Ressources humaines',
-			            'ingenierie-savoirs'=>'Ingénierie des savoirs et de la connaissance',
-			            'infra'=>'Infrastructures et reseaux',
-			            'info-tech'=>'Informatique technique et métiers',
-			            'info-gestion'=>'Informatique de gestion',
-			            'form'=>'Formation recherche et développement',
-			            'finance'=>'Financement',
-			            'entreprise-tic'=>'Entreprise TIC et information sur les TIC',
-			            'editeur'=>'Editeur de logiciel',
-			            'dev-web'=>'Développement web',
-			            'multimedia'=>'Contenu multimédia',
-			            'materiel'=>'Constructeur et distributeur de matériel',
-			            'conseil'=>'Conseil',
-			            'autre'=>'Autre',
+							  'pi.form.label.field.corporation.engineering.telecom'				=> 'pi.form.label.field.corporation.engineering.telecom',
+							  'pi.form.label.field.corporation.engineering.info.service'		=> 'pi.form.label.field.corporation.engineering.info.service',
+							  'pi.form.label.field.corporation.engineering.rh'					=> 'pi.form.label.field.corporation.engineering.rh',
+							  'pi.form.label.field.corporation.engineering.ingenierie.savoirs'	=> 'pi.form.label.field.corporation.engineering.ingenierie.savoirs',
+							  'pi.form.label.field.corporation.engineering.infra'				=> 'pi.form.label.field.corporation.engineering.infra',
+							  'pi.form.label.field.corporation.engineering.info.tech'			=> 'pi.form.label.field.corporation.engineering.info.tech',
+							  'pi.form.label.field.corporation.engineering.info.gestion'		=> 'pi.form.label.field.corporation.engineering.info.gestion',
+							  'pi.form.label.field.corporation.engineering.form'				=> 'pi.form.label.field.corporation.engineering.form',
+							  'pi.form.label.field.corporation.engineering.finance'				=> 'pi.form.label.field.corporation.engineering.finance',
+							  'pi.form.label.field.corporation.engineering.entreprise.tic'		=> 'pi.form.label.field.corporation.engineering.entreprise.tic',
+							  'pi.form.label.field.corporation.engineering.editeur'				=> 'pi.form.label.field.corporation.engineering.editeur',
+							  'pi.form.label.field.corporation.engineering.dev.web'				=> 'pi.form.label.field.corporation.engineering.dev.web',
+							  'pi.form.label.field.corporation.engineering.multimedia'			=> 'pi.form.label.field.corporation.engineering.multimedia',
+							  'pi.form.label.field.corporation.engineering.materiel.constr.dest'=> 'pi.form.label.field.corporation.engineering.materiel.constr.dest',
+							  'pi.form.label.field.corporation.engineering.conseil'				=> 'pi.form.label.field.corporation.engineering.conseil',
+							  'pi.form.label.field.other' 										=> 'pi.form.label.field.other',
 			            ),
 	 					"attr" => array(
 	 							"class"=>"resetRight selectSize",
@@ -196,18 +201,22 @@ class AdhesionCorporationType extends AbstractType
  			))                          
  			->add('Profile', 'choice', array(
  					'required'  => false,
-          'expanded' => true,        
-          'choices'   => array('fournisseur' => 'Fournisseur TIC', 'user' => 'Utilisateur TIC'),
+          			'expanded' => true,    
+ 					'empty_value' => 'Votre profil',
+          			'choices'   => array(
+			 	  			  'pi.form.label.field.profile.type.fournisseur.tic' 	=> 'pi.form.label.field.profile.type.fournisseur.tic',
+			 	  			  'pi.form.label.field.profile.type.user.tic' 			=> 'pi.form.label.field.profile.type.user.tic',
+		 	  		),
  					"attr" => array(
  							"class" => "required",
  					),
-          "label_attr" => array(
+          			"label_attr" => array(
  							"class" => "light-clr bold",
  					),
-        ))       
+	        ))       
  			->add('DetailActivity', 'text', array(
  					'required'  => false,        
-          	"attr" => array(
+          			"attr" => array(
  							"class"=>"required",
  					),
  			))
@@ -215,39 +224,44 @@ class AdhesionCorporationType extends AbstractType
  					'required'  => false,        
  					"attr" => array(
  							"class"=>"full required",
+ 							"maxlength" => "1500",
  					),
  			))  
       ->add('Expertise','textarea', array(
  					'required'  => false,        
  					"attr" => array(
- 							"class"=>"full required",
+ 							"class"=>"full",
  					),
  			))
                   
  			->add('Speaker', 'choice', array(
  					'required'  => false,   
-          'expanded' => true,
-          'choices'   => array('oui' => 'Oui', 'non' => 'Non', 'potentiel' => 'Potentiel'),
+          			'expanded' => true,
+          			'choices'   => array(
+	 						'pi.form.label.field.yes' 		=> 'pi.form.label.field.yes',
+	 						'pi.form.label.field.no' 		=> 'pi.form.label.field.no',
+	 						'pi.form.label.field.potential' => 'pi.form.label.field.potential'
+	 				),
  					"attr" => array(
  							"class" => "required",
  					),
-          "label_attr" => array(
+          			"label_attr" => array(
  							"class" => "light-clr bold",
  					),
  			))
       ->add('OriginContact','choice', array(
- 				  'required'  => true,    
+ 				  'required'  => false,    
 		          'empty_value'  => 'Contact*',    
 		          'choices'   => array(
-			            'campagne' => 'Campagne adhésion', 
-			            'contact' => 'Contact Mêlée', 
-			            'spontane' => 'Contact spontané', 
-			            'historique' => 'Historique',
-			            'motivation' => 'Motivation inscription à une commission', 
-			            'sponsor' => 'Parrainage', 
-			            'partenaire' => 'Partenaire',
-			            'visiteur' => 'Visiteur évènement',
-			            'other' => 'Autre',            
+ 							'pi.form.label.field.corporation.origin.contact.type.campagne' 		=> 'pi.form.label.field.corporation.origin.contact.type.campagne',
+ 							'pi.form.label.field.corporation.origin.contact.type.lamelee' 		=> 'pi.form.label.field.corporation.origin.contact.type.lamelee',
+ 							'pi.form.label.field.corporation.origin.contact.type.spontane' 		=> 'pi.form.label.field.corporation.origin.contact.type.spontane',
+ 							'pi.form.label.field.corporation.origin.contact.type.historique' 	=> 'pi.form.label.field.corporation.origin.contact.type.historique',
+ 							'pi.form.label.field.corporation.origin.contact.type.motivation' 	=> 'pi.form.label.field.corporation.origin.contact.type.motivation',
+ 							'pi.form.label.field.corporation.origin.contact.type.sponsor' 		=> 'pi.form.label.field.corporation.origin.contact.type.sponsor',
+ 							'pi.form.label.field.corporation.origin.contact.type.partenaire' 	=> 'pi.form.label.field.corporation.origin.contact.type.partenaire',
+ 							'pi.form.label.field.corporation.origin.contact.type.visiteur.event'=> 'pi.form.label.field.corporation.origin.contact.type.visiteur.event',
+ 							'pi.form.label.field.other'											=> 'pi.form.label.field.other',            
 		            ),
  					"attr" => array(
  							"class"=>"required origin",
@@ -429,7 +443,7 @@ class AdhesionCorporationType extends AbstractType
  					),
  			)) 
       ->add('LegalForm','choice', array(
- 					'required'  => true,    
+ 					'required'  => false,    
 			          'empty_value'  => 'Forme juridique *',    
 			          'choices'   => array(
 			            '1' => 'SCOP ou assimilés', 

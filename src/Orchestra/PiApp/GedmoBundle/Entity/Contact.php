@@ -79,7 +79,7 @@ class Contact extends AbstractDefault
      * @var \PiApp\GedmoBundle\Entity\Ads $ads
      * 
      * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Ads", inversedBy="responses", cascade={"persist"})
-     * @ORM\JoinColumn(name="category", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="ads", referencedColumnName="id", nullable=true)
      */
     protected $ads;    
     

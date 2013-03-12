@@ -100,7 +100,7 @@ class ContactController extends abstractController
     {
     	return parent::deletajaxAction();
     } 
-      
+    
     /**
      * Archive a Contact entity.
      *
@@ -114,8 +114,8 @@ class ContactController extends abstractController
     public function archiveajaxAction()
     {
     	return parent::archiveajaxAction();
-    }
-        
+    }    
+      
     /**
      * Lists all Contact entities.
      *
@@ -188,7 +188,14 @@ class ContactController extends abstractController
         $form   = $this->createForm(new ContactType($em, $this->container), $entity, array('show_legend' => false));
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-        if(!$NoLayout)	$template = "new.html.twig";  else 	$template = "new.html.twig";        
+        $category   = $this->container->get('request')->query->get('category');
+        if(!$NoLayout)	$template = "new.html.twig";  else 	$template = "new.html.twig";
+
+        $entity_cat = $em->getRepository("PiAppGedmoBundle:Category")->find($category);
+        if( !empty($category) && ($entity_cat instanceof \PiApp\GedmoBundle\Entity\Category))
+        	$entity->setCategory($entity_cat);
+        elseif(!empty($category))
+        	$entity->setCategory($category);        
 
         return $this->render("PiAppGedmoBundle:Contact:$template", array(
             'entity' => $entity,

@@ -84,8 +84,8 @@ class SliderController extends abstractController
     public function positionajaxAction()
     {
     	return parent::positionajaxAction();
-    }   
-
+    }    
+    
     /**
      * Delete Slider entities.
      *
@@ -99,8 +99,8 @@ class SliderController extends abstractController
     public function deleteajaxAction()
     {
     	return parent::deletajaxAction();
-    }    
-    
+    }   
+
     /**
      * Archive a Slider entity.
      *
@@ -137,7 +137,7 @@ class SliderController extends abstractController
     		$query		= $em->getRepository("PiAppGedmoBundle:Slider")->getAllByCategory($category, null, '', 'ASC', false)->getQuery();
     		$entities   = $em->getRepository("PiAppGedmoBundle:Slider")->findTranslationsByQuery($locale, $query, 'object', false);
     	}else
-    		$entities	= $em->getRepository("PiAppGedmoBundle:Slider")->findAllByEntity($locale, 'object'); 
+    		$entities	= $em->getRepository("PiAppGedmoBundle:Slider")->findAllByEntity($locale, 'object');    	
     
     	return $this->render("PiAppGedmoBundle:Slider:$template", array(
     			'entities' => $entities,
@@ -195,10 +195,10 @@ class SliderController extends abstractController
         if(!$NoLayout)	$template = "new.html.twig";  else 	$template = "new_ajax.html.twig";
         
         $entity_cat = $em->getRepository("PiAppGedmoBundle:Category")->find($category);
-        if( !empty($category) && ($entity_cat instanceof \PiApp\GedmoBundle\Entity\Category) && method_exists($entity, 'setCategory'))
-        	$entity->setCategory($entity_cat);     
-        elseif(!empty($category) && method_exists($entity, 'setCategory'))
-        	$entity->setCategory($category); 
+        if( !empty($category) && ($entity_cat instanceof \PiApp\GedmoBundle\Entity\Category))
+        	$entity->setCategory($entity_cat);
+        elseif(!empty($category))
+        	$entity->setCategory($category);
         
         $form   = $this->createForm(new SliderType($em, $locale, $this->container), $entity, array('show_legend' => false));
         return $this->render("PiAppGedmoBundle:Slider:$template", array(

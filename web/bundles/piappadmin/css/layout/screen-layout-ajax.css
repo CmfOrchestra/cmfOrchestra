@@ -29,5 +29,19 @@ a:hover	{
 	color: black;
 	}
 	
-.sf-toolbarreset{display:none;}	
+.sf-toolbarreset{display:none;}
+
+/*  FLASH ----------------------------------------------- */
+.fancybox-wrap .tt-grey{
+  background-color: #424242;
+  line-height: 45px;
+  padding-left:10px;
+}
+.fancybox-wrap .tt-grey *{
+    color:#fff;
+}
+
+.fancybox-wrap p{
+    padding: 7px;
+}
 	

@@ -23,14 +23,14 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
 /**
  * PiApp\GedmoBundle\Entity\Individual
  *
- * @ORM\Table(
- * 			name="gedmo_individual",
- *          indexes={@ORM\Index(name="name_idx", columns={"name"})}
+ * @ORM\Table(name="gedmo_individual",
+ *          indexes={@ORM\Index(name="name_idx", columns={"user_name"})}
  * )
  * @ORM\Entity(repositoryClass="PiApp\GedmoBundle\Repository\IndividualRepository")
  * @ORM\HasLifecycleCallbacks()
  * @Gedmo\TranslationEntity(class="PiApp\GedmoBundle\Entity\Translation\IndividualTranslation")
  * @UniqueEntity({"UserName", "Email"})
+ * 
  * @category   Gedmo_Entities
  * @package    Entity
  *

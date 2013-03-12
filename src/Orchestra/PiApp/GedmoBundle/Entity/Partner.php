@@ -17,6 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use PiApp\AdminBundle\Validator\Constraints as MyAssert;
 
 use BootStrap\TranslationBundle\Model\AbstractDefault;
 
@@ -66,6 +67,13 @@ class Partner extends AbstractDefault
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;    
+    
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection $events
+     *
+     * @ORM\ManyToMany(targetEntity="PiApp\GedmoBundle\Entity\Lamelee\Event", mappedBy="partners")
+     */
+    protected $events;    
     
     /**
      * @var \PiApp\GedmoBundle\Entity\Category $category
@@ -129,7 +137,30 @@ class Partner extends AbstractDefault
      * @ORM\Column(name="url", type="string", length=314, nullable=true)
      */
     protected $url; 
+    
+    /**
+     * @var boolean $highlighted1
+     *
+     * @ORM\Column(name="highlighted1", type="boolean", nullable=true)
+     * @MyAssert\MaxEntitiesByQuery(entity="PiAppGedmoBundle:Partner", field="{'highlighted1':true,'enabled':true}", max="4", message="pi.partner.form.field.highlighted1.max")
+     */
+    protected $highlighted1;   
 
+    /**
+     * @var boolean $highlighted2
+     *
+     * @ORM\Column(name="highlighted2", type="boolean", nullable=true)
+     * @MyAssert\MaxEntitiesByQuery(entity="PiAppGedmoBundle:Partner", field="{'highlighted2':true,'enabled':true}", max="12", message="pi.partner.form.field.highlighted2.max")
+     */
+    protected $highlighted2;    
+
+    /**
+     * @var boolean $highlighted3
+     *
+     * @ORM\Column(name="highlighted3", type="boolean", nullable=true)
+     * @MyAssert\MaxEntitiesByQuery(entity="PiAppGedmoBundle:Partner", field="{'highlighted3':true,'enabled':true}", max="4", message="pi.partner.form.field.highlighted3.max")
+     */
+    protected $highlighted3;    
     
     /**
      * Constructor
@@ -137,6 +168,8 @@ class Partner extends AbstractDefault
     public function __construct()
     {
     	parent::__construct();
+    	
+    	$this->events	= new \Doctrine\Common\Collections\ArrayCollection();
     }    
     
     /**
@@ -332,5 +365,77 @@ class Partner extends AbstractDefault
     {
     	return $this->media;
     }  
+    
+    /**
+     * Get events
+     *
+     * @return text
+     */
+    public function getEvents()
+    {
+    	return $this->events;
+    }   
+
+    /**
+     * Set highlighted1
+     *
+     * @param string $highlighted
+     */
+    public function setHighlighted1($highlighted)
+    {
+    	$this->highlighted1 = $highlighted;
+    }
+    
+    /**
+     * Get highlighted
+     *
+     * @return string
+     */
+    public function getHighlighted1()
+    {
+    	return $this->highlighted1;
+    }    
+    
+    /**
+     * Set highlighted2
+     *
+     * @param string $highlighted
+     */
+    public function setHighlighted2($highlighted)
+    {
+    	$this->highlighted2 = $highlighted;
+    }
+    
+    /**
+     * Get highlighted2
+     *
+     * @return string
+     */
+    public function getHighlighted2()
+    {
+    	return $this->highlighted2;
+    }    
+    
+    /**
+     * Set highlighted3
+     *
+     * @param string $highlighted
+     */
+    public function setHighlighted3($highlighted)
+    {
+    	$this->highlighted3 = $highlighted;
+    }
+    
+    /**
+     * Get highlighted3
+     *
+     * @return string
+     */
+    public function getHighlighted3()
+    {
+    	return $this->highlighted3;
+    }    
+    
+    
 
 }

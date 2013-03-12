@@ -10,17 +10,18 @@
 				</header>
 				<section class="post-it">
 						<p class="resetM"><a class="tt-clr" href="{{ path_url("page_lamelee_menuwrapper_opportunites", {"locale":locale, "filtre2":entity.status}) }}">{{ entity.status|trans }}<br/>
-						<span class="bold tt-clr">{{ entity.translate(locale).getTitle()|replace({'<p>': '', '</p>': ''})|raw }}</span></a></p>
+						<span class="bold tt-clr">{{ entity.translate(locale).getTitle()|striptags }}</span></a></p>
 				</section>
 				<footer>
 					<p><a href="{{ path_url("page_lamelee_menuwrapper_opportunites", {"locale":locale, "userID":entity.user.id}) }}">Posté par <strong>{{ entity.user }}</strong> <br/> {{ entity.createdat|localedate('long','medium', locale, 'd LLLL y') }}</a></p>
 				</footer>
 			</div>
 		</aside>
+		{% if is_granted("ROLE_MEMBER") or (is_granted("ROLE_SUBSCRIBER") and (entity.typology|trans == 'pi.ads.form.type.job'|trans)) %}
 		<section class="details">	
 			<div class="wrap cf">
 				<header class="resetM">
-					<h3 class="tt-5 bold tt-clr">{{ entity.translate(locale).getTitle()|replace({'<p>': '', '</p>': ''})|raw }}</h3>
+					<h3 class="tt-5 bold tt-clr">{{ entity.translate(locale).getTitle()|striptags }}</h3>
 					<p class="light-clr">Cette annonce expirera le 12 août 2012</p>
 					<ul class="cf tag ">
 	                    {% for tag in entity.tags %}
@@ -39,13 +40,20 @@
 							{% set url_file = "#" %}
 						{% endif %}					
 						<a href="{{ url_file }}" target="_blanc" class="button purple"><!--
-							--><span>{{ 'pi.lamelee.opportunite.telecharger.piece.jointe'|trans|replace({'<p>': '', '</p>': ''})|raw }}</span><!--
+							--><span>{{ 'pi.lamelee.opportunite.telecharger.piece.jointe'|trans|striptags }}</span><!--
 						--></a>
 					</div>
 					{% render 'PiAppGedmoBundle:Ads:_template_form' with { 'ads_id': entity.id, 'template':'_template_form_ads.html.twig'} %}
 				</section>
 			</div>
 		</section>
+		{% else %}
+			<article class="content cf">
+			{{ 'pi.lamelee.access_member.opportunite'|trans|raw }}
+			</article>
+			{% set widget_service_params = {"template":"PiAppTemplateBundle:Template@@@@@@@@Login@@@@@@@@Security:connexion-ajax-bloc.html.twig"} %} 
+	 		{{ getService('pi_app_admin.manager.authentication').renderSource('BootStrapUserBundle:User~_connexion_default', 'fr_FR', widget_service_params)|raw }} 
+		{% endif %}		
 	</section>
 </section>	
 <!-- //OPPORTUNITES RESULTS -->

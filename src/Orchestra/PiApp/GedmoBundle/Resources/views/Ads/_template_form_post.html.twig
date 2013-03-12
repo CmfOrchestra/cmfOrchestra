@@ -6,8 +6,9 @@
 	(des compétences, des outils, des stages / emplois...)</p>
 </header>	
 			
+{% if is_granted("IS_AUTHENTICATED_FULLY") %}			
 <section class="opportunite-post">
-{% form_theme form "PiAppTemplateBundle:Template\\Form:form_table_layout.html.twig" %}	
+		{% form_theme form "PiAppTemplateBundle:Template\\Form:form_table_layout.html.twig" %}	
 		<form action="#" method="post" class="cf" enctype="multipart/form-data">
 			{{ form_errors(form) }}
 			{{ form_widget(form._token) }} 		
@@ -32,11 +33,11 @@
 						<div class="input choice">
 							<div>
 								<input type="radio" checked disabled="disabled" id="piapp_gedmobundle_ads_posttype_status_pi.ads.form.type.search" name="piapp_gedmobundle_ads_posttype[status]" class="required inputs-list" value="pi.ads.form.type.search">
-								<label class="">{{'pi.ads.form.type.post.search'|trans|replace({'<p>':'','</p>':''})|raw}}</label>
+								<label class="">{{ 'pi.ads.form.type.post.search'|trans|striptags }}</label>
 							</div>
 							<div>
 								<input type="radio" disabled="disabled" id="piapp_gedmobundle_ads_posttype_status_pi.ads.form.type.propose" name="piapp_gedmobundle_ads_posttype[status]" class="required inputs-list" value="pi.ads.form.type.propose">
-								<label class="">{{'pi.ads.form.type.post.propose'|trans|replace({'<p>':'','</p>':''})|raw}}</label>
+								<label class="">{{ 'pi.ads.form.type.post.propose'|trans|striptags }}</label>
 							</div>
 						</div>	
 						<input type='hidden' id="piapp_gedmobundle_ads_posttype_status_pi.ads.form.type.search" name="piapp_gedmobundle_ads_posttype[status]" value="pi.ads.form.type.search" />
@@ -53,11 +54,11 @@
 						<div class="input choice">
 							<div>
 								<input type="radio" disabled="disabled" id="piapp_gedmobundle_ads_posttype_typology_pi.ads.form.type.market" name="piapp_gedmobundle_ads_posttype[typology]" class="resetP required inputs-list" value="pi.ads.form.type.market">
-								<label class="">{{'pi.ads.form.type.market'|trans|replace({'<p>':'','</p>':''})|raw}}</label>
+								<label class="">{{ 'pi.ads.form.type.market'|trans|striptags }}</label>
 							</div>
 							<div>
 								<input type="radio" disabled="disabled" checked id="piapp_gedmobundle_ads_posttype_typology_pi.ads.form.type.job" name="piapp_gedmobundle_ads_posttype[typology]" class="resetP required inputs-list" value="pi.ads.form.type.job">
-								<label class="">{{'pi.ads.form.type.job'|trans|replace({'<p>':'','</p>':''})|raw}}</label>
+								<label class="">{{ 'pi.ads.form.type.job'|trans|striptags }}</label>
 							</div>
 						</div>
 						<input type='hidden' id="piapp_gedmobundle_ads_posttype_typology_pi.ads.form.type.job" name="piapp_gedmobundle_ads_posttype[typology]" value="pi.ads.form.type.job" />
@@ -80,12 +81,12 @@
 
 		<div class="row">
 			<div class="row">
-				<a class="underline tt-clr popin-cond" href="#conditions">{{'pi.lamelee.opportunite.connaissance.conditions'|trans|replace({'<p>':'','</p>':''})|raw}}</a>
+				<a class="underline tt-clr popin-cond" href="#conditions">{{ 'pi.lamelee.opportunite.connaissance.conditions'|trans|striptags }}</a>
 			</div>
 		
 			<input type="checkbox" class="required">
 			
-			<label class="checkboxLabel light-clr">{{'pi.lamelee.opportunite.accept.conditions'|trans|replace({'<p>':'','</p>':''})|raw}}
+			<label class="checkboxLabel light-clr">{{ 'pi.lamelee.opportunite.accept.conditions'|trans|striptags }}
 			</label>
 		</div>
 		<div class="row">
@@ -122,4 +123,10 @@
                 singleFieldNode: $('#keywords')
             });
         });
-    </script>
+</script>
+{% else %}
+<section class="opportunite-post">
+{% set widget_service_params = {"template":"PiAppTemplateBundle:Template@@@@@@@@Login@@@@@@@@Security:connexion-ajax-bloc.html.twig"} %} 
+{{ getService('pi_app_admin.manager.authentication').renderSource('BootStrapUserBundle:User~_connexion_default', 'fr_FR', widget_service_params)|raw }}
+</section>
+{% endif %}

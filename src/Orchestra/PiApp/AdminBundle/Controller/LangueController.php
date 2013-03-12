@@ -73,7 +73,34 @@ class LangueController extends abstractController
      */
     public function enabledajaxAction()
     {
-    	return parent::enabledajaxAction();
+    	$request = $this->container->get('request');
+    	$em		 = $this->getDoctrine()->getEntityManager();
+    	
+    	if($request->isXmlHttpRequest()){
+    		$data		= $request->get('data', null);
+    		foreach ($data as $key => $id) {
+    			$entity = $em->getRepository($this->_entityName)->find($id);
+    			$entity->setEnabled(true);
+    			
+    			$em->persist($entity);
+    			$em->flush();
+    		}
+    		$em->clear();
+
+    		// we disable all flash message
+    		$this->container->get('session')->clearFlashes();
+    		
+    		$tab= array();
+    		$tab['id'] = '-1';
+    		$tab['error'] = '';
+    		$tab['fieldErrors'] = '';
+    		$tab['data'] = '';
+    		 
+    		$response = new Response(json_encode($tab));
+    		$response->headers->set('Content-Type', 'application/json');
+    		return $response;    		
+    	}else
+    		throw ControllerException::callAjaxOnlySupported('enabledajax'); 
     }
     
     /**
@@ -88,7 +115,34 @@ class LangueController extends abstractController
      */
     public function disableajaxAction()
     {
-    	return parent::disableajaxAction();
+    	$request = $this->container->get('request');
+    	$em		 = $this->getDoctrine()->getEntityManager();
+    	
+    	if($request->isXmlHttpRequest()){
+    		$data		= $request->get('data', null);
+    		foreach ($data as $key => $id) {
+    			$entity = $em->getRepository($this->_entityName)->find($id);
+    			$entity->setEnabled(false);
+    			
+    			$em->persist($entity);
+    			$em->flush();
+    		}
+    		$em->clear();
+    		
+    		// we disable all flash message
+    		$this->container->get('session')->clearFlashes();
+    		
+    		$tab= array();
+    		$tab['id'] = '-1';
+    		$tab['error'] = '';
+    		$tab['fieldErrors'] = '';
+    		$tab['data'] = '';
+    		 
+    		$response = new Response(json_encode($tab));
+    		$response->headers->set('Content-Type', 'application/json');
+    		return $response;    		
+    	}else
+    		throw ControllerException::callAjaxOnlySupported('disableajax'); 
     }
     
     /**

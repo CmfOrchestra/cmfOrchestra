@@ -80,7 +80,7 @@ class Content extends AbstractDefault
      * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Category", inversedBy="items_content")
      * @ORM\JoinColumn(name="category", referencedColumnName="id", nullable=true)
      */
-    protected $category; 
+    protected $category;   
     
     /**
      * @var text $descriptif

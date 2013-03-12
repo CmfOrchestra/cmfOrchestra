@@ -95,7 +95,8 @@ abstract class abstractListener
 	{    	
         $entity 		= $eventArgs->getEntity();
         $entityManager 	= $eventArgs->getEntityManager();
-
+        $entity_name 	= get_class($entity);
+        
         //update updated_at field when method setUpdatedAt exists in entity object
         if (method_exists($entity, 'setUpdatedAt')) {
         	// we modify the Update_at value
@@ -113,9 +114,8 @@ abstract class abstractListener
         	// we modify the heritage value
         	if ($isUsernamePasswordToken && $this->isUsernamePasswordToken())
         		$entity->setHeritage($this->container->get('bootstrap.Role.factory')->getBestRoles($this->getUserRoles()));
-        }        
+        }   
         
-        $entity_name = get_class($entity);
         // we give the right of persist if the entity is in the AUTHORIZATION_PREPERSIST container
         if(isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST']) && isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST'][$entity_name])){
         	if(is_array($GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST'][$entity_name])){
@@ -130,7 +130,7 @@ abstract class abstractListener
         			$entityManager->initializeObject($entity);
         			return true;
         		}
-        	}else{
+        	}elseif($GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST'][$entity_name] == true){
         		// IMPORTANT !!! sinon ne fonctionne pas avec les collection links :
         		if (method_exists($entity, 'setHeritage'))
         			$entity->setHeritage(array('ROLE_SUPER_ADMIN'));
@@ -198,14 +198,38 @@ abstract class abstractListener
 	{
         $entity 		= $eventArgs->getEntity();
         $entityManager 	= $eventArgs->getEntityManager();
-
+        $entity_name 	= get_class($entity);
+        
+        // we given't the right of remove if the entity is in the AUTHORIZATION_PREREMOVE container
+        if(isset($GLOBALS['ENTITIES']['PROHIBITION_PREUPDATE']) && isset($GLOBALS['ENTITIES']['PROHIBITION_PREUPDATE'][$entity_name])){
+        	if(is_array($GLOBALS['ENTITIES']['PROHIBITION_PREUPDATE'][$entity_name])){
+        		$id_entity = $entity->getId();
+        		if(in_array($id_entity, $GLOBALS['ENTITIES']['PROHIBITION_PREUPDATE'][$entity_name])){
+		       		// just for register in data the change do in this class listener :
+		       		$class = $entityManager->getClassMetadata(get_class($entity));
+		       		$entityManager->getUnitOfWork()->computeChangeSet($class, $entity);
+		       		
+		       		// we throw the message.
+		       		$this->setFlash('pi.session.flash.right.anonymous');
+		       		return false;
+        		}
+        	}elseif($GLOBALS['ENTITIES']['PROHIBITION_PREUPDATE'][$entity_name] == true){
+	       		// just for register in data the change do in this class listener :
+	       		$class = $entityManager->getClassMetadata(get_class($entity));
+	       		$entityManager->getUnitOfWork()->computeChangeSet($class, $entity);
+	       		
+	       		// we throw the message.
+	       		$this->setFlash('pi.session.flash.right.anonymous');
+	       		return false;
+        	}
+        }        
+        
         if (method_exists($entity, 'setUpdatedAt')) {
         	// we modify the Update_at value
             $entity->setUpdatedAt(new \DateTime());
         }
-
-        $entity_name = get_class($entity);
-        // we give the right of persist if the entity is in the AUTHORIZATION_PREPERSIST container
+                
+        // we give the right of update if the entity is in the AUTHORIZATION_PREPERSIST container
         if(isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE']) && isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE'][$entity_name])){
         	if(is_array($GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE'][$entity_name])){
         		$route = $this->container->get('request')->get('_route');
@@ -216,7 +240,7 @@ abstract class abstractListener
    					$entityManager->getUnitOfWork()->recomputeSingleEntityChangeSet($class, $entity);
         			return true;
         		}
-        	}else{
+        	}elseif($GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE'][$entity_name] == true){
         		$class = $entityManager->getClassMetadata(get_class($entity));
    				$entityManager->getUnitOfWork()->recomputeSingleEntityChangeSet($class, $entity);
         		return true;
@@ -287,13 +311,29 @@ abstract class abstractListener
 		// get the order entity
 		$entity 		= $eventArgs->getEntity();
 		$entityManager 	= $eventArgs->getEntityManager();
+		$entity_name 	= get_class($entity);
 		
-		$entity_name = get_class($entity);
-// 		if(!in_array($entity_name, array('BootStrap\UserBundle\Entity\User'))){
-// 			print_r("AUTHORIZATION_PREREMOVE");
-// 			print_r($entity_name);exit;
-// 		}		
-		// we give the right of persist if the entity is in the AUTHORIZATION_PREREMOVE container
+		// we given't the right of remove if the entity is in the AUTHORIZATION_PREREMOVE container
+		if(isset($GLOBALS['ENTITIES']['PROHIBITION_PREREMOVE']) && isset($GLOBALS['ENTITIES']['PROHIBITION_PREREMOVE'][$entity_name])){
+			if(is_array($GLOBALS['ENTITIES']['PROHIBITION_PREREMOVE'][$entity_name])){
+				$id_entity = $entity->getId();
+				if(in_array($id_entity, $GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE'][$entity_name])){
+					// we stop the remove method.
+					$entityManager->getUnitOfWork()->detach($entity);				
+					// we throw the message.
+					$this->setFlash('pi.session.flash.right.undelete');
+					return false;
+				}
+			}elseif($GLOBALS['ENTITIES']['PROHIBITION_PREREMOVE'][$entity_name] == true){
+				// we stop the remove method.
+				$entityManager->getUnitOfWork()->detach($entity);				
+				// we throw the message.
+				$this->setFlash('pi.session.flash.right.undelete');
+				return false;
+			}
+		}		
+	
+		// we give the right of remove if the entity is in the AUTHORIZATION_PREREMOVE container
 		if(isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE']) && isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE'][$entity_name])){
 			if(is_array($GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE'][$entity_name])){
 				$route = $this->container->get('request')->get('_route');
@@ -302,7 +342,7 @@ abstract class abstractListener
 				if(in_array($route, $GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE'][$entity_name])){
 					return true;
 				}
-			}else{
+			}elseif($GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE'][$entity_name] == true){
 				return true;
 			}
 		}	
@@ -320,8 +360,7 @@ abstract class abstractListener
 		if ($isUsernamePasswordToken && $this->isUsernamePasswordToken()) {
 			if($this->isRestrictionByRole($entity)){
 				//  we stop the remove method.
-				$entityManager->getUnitOfWork()->detach($entity);
-					
+				$entityManager->getUnitOfWork()->detach($entity);					
 				// we throw the message.
 				$this->setFlash('pi.session.flash.right.undelete');
 				return false;
@@ -334,8 +373,7 @@ abstract class abstractListener
 				return true;
 			}else{
 				//  we stop the remove method.
-				$entityManager->getUnitOfWork()->detach($entity);
-				
+				$entityManager->getUnitOfWork()->detach($entity);				
 				// we throw the message.
 				$this->setFlash('pi.session.flash.right.undelete');
 				return false;

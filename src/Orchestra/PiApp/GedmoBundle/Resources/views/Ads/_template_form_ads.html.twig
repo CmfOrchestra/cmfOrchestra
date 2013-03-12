@@ -1,7 +1,7 @@
 <form method="post" action="{{ path('piapp_gedmo_ads_create', { 'ads_id' : entity.ads.id } ) }}" id="ads-response" class="annonceForm cf" enctype="multipart/form-data">
     {{ form_errors(form) }}
     {{ form_widget(form._token) }} 
-	<h3 class="tt-9">{{ 'pi.lamelee.opportunite.reponse.annonce'|trans|replace({'<p>': '', '</p>': ''})|raw }}</h3>
+	<h3 class="tt-9">{{ 'pi.lamelee.opportunite.reponse.annonce'|trans|striptags }}</h3>
 		<div class="half fleft">
 			{{ form_widget(form.name) }}
 			{{ form_widget(form.nickname) }}

@@ -87,7 +87,7 @@ class BlockController extends abstractController
     } 
     
     /**
-     * Delete BLock entities.
+     * Delete Block entities.
      *
      * @Route("/admin/gedmo/block/delete", name="admin_gedmo_block_deletentity_ajax")
      * @Secure(roles="ROLE_USER")
@@ -130,12 +130,13 @@ class BlockController extends abstractController
     	$em 		= $this->getDoctrine()->getEntityManager();
     	$locale		= $this->container->get('session')->getLocale();
     	
+    	$category   = $this->container->get('request')->query->get('category');
     	$NoLayout   = $this->container->get('request')->query->get('NoLayout');
     	if(!$NoLayout) 	$template = "index.html.twig"; else $template = "index.html.twig";
     	
     	if($NoLayout){
-    		//$entities 	= $em->getRepository("PiAppGedmoBundle:Block")->getAllEnableByCatAndByPosition($locale, ", 'object');
-    		$query		= $em->getRepository("PiAppGedmoBundle:Block")->getAllByCategory("", null, '', 'ASC', false)->getQuery();
+    		//$entities 	= $em->getRepository("PiAppGedmoBundle:Block")->getAllEnableByCatAndByPosition($locale, $category, 'object');
+    		$query		= $em->getRepository("PiAppGedmoBundle:Block")->getAllByCategory($category, null, '', 'ASC', false)->getQuery();
     		$entities   = $em->getRepository("PiAppGedmoBundle:Block")->findTranslationsByQuery($locale, $query, 'object', false);
     	}else
     		$entities	= $em->getRepository("PiAppGedmoBundle:Block")->findAllByEntity($locale, 'object');
@@ -143,6 +144,7 @@ class BlockController extends abstractController
     	return $this->render("PiAppGedmoBundle:Block:$template", array(
     			'entities' => $entities,
     			'NoLayout'	=> $NoLayout,
+    			'category'	=> $category,
     	));
     }    
     
@@ -195,7 +197,14 @@ class BlockController extends abstractController
         $form   = $this->createForm(new BlockType($em, $locale, $this->container), $entity, array('show_legend' => false));
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-        if(!$NoLayout)	$template = "new.html.twig";  else 	$template = "new.html.twig";        
+        $category   = $this->container->get('request')->query->get('category');
+        if(!$NoLayout)	$template = "new.html.twig";  else 	$template = "new.html.twig";    
+
+        $entity_cat = $em->getRepository("PiAppGedmoBundle:Category")->find($category);
+        if( !empty($category) && ($entity_cat instanceof \PiApp\GedmoBundle\Entity\Category))
+        	$entity->setCategory($entity_cat);
+        elseif(!empty($category))
+        	$entity->setCategory($category);        
 
         return $this->render("PiAppGedmoBundle:Block:$template", array(
             'entity' => $entity,

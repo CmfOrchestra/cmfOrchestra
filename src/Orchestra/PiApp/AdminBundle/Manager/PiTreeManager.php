@@ -106,17 +106,21 @@ class PiTreeManager extends PiCoreManager implements PiTreeManagerBuilderInterfa
 			$node = null;
 		}
 			
-		if(isset($params['enabledonly']) && ($params['enabledonly'] == "false")){
-			if(!empty($template))
-				$nodes 		= $em->getRepository($entity)->setContainer($this->container)->getAllTree($locale, $category, 'object', false, false, $node);
-			else
-				$nodes 		= $em->getRepository($entity)->setContainer($this->container)->getAllTree($locale, $category, 'array', false, false, $node);
-		}else{
-			if(!empty($template)){
-				$nodes 		= $em->getRepository($entity)->setContainer($this->container)->getAllTree($locale, $category, 'object', false, true, $node);
-			}else
-				$nodes 		= $em->getRepository($entity)->setContainer($this->container)->getAllTree($locale, $category, 'array', false, true, $node);
-		}		
+		try {
+			if(isset($params['enabledonly']) && ($params['enabledonly'] == "false")){
+				if(!empty($template))
+					$nodes 		= $em->getRepository($entity)->setContainer($this->container)->getAllTree($locale, $category, 'object', false, false, $node);
+				else
+					$nodes 		= $em->getRepository($entity)->setContainer($this->container)->getAllTree($locale, $category, 'array', false, false, $node);
+			}else{
+				if(!empty($template)){
+					$nodes 		= $em->getRepository($entity)->setContainer($this->container)->getAllTree($locale, $category, 'object', false, true, $node);
+				}else
+					$nodes 		= $em->getRepository($entity)->setContainer($this->container)->getAllTree($locale, $category, 'array', false, true, $node);
+			}			
+		} catch (\Exception $e) {
+			$nodes = null;
+		}
 		
 		if(!empty($template)){
 			$params['locale']		= $locale;
@@ -398,17 +402,22 @@ class PiTreeManager extends PiCoreManager implements PiTreeManagerBuilderInterfa
 		
 		$category	= utf8_decode($category);
 		
-		if(isset($params['enabledonly']) && ($params['enabledonly'] == "false")){
-			if(!empty($category))
-				$nodes 		= $em->getRepository($entity)->setContainer($this->container)->getAllTree($locale, $category, 'array', false, false, $node);
-			else
-				$nodes 		= $em->getRepository($entity)->setContainer($this->container)->getAllTree($locale, '', 'array', false, false, $node);
-		}else{
-			if(!empty($category))
-				$nodes 		= $em->getRepository($entity)->setContainer($this->container)->getAllTree($locale, $category, 'array', false, true, $node);
-			else
-				$nodes 		= $em->getRepository($entity)->setContainer($this->container)->getAllTree($locale, '', 'array', false, true, $node);
+		try {
+			if(isset($params['enabledonly']) && ($params['enabledonly'] == "false")){
+				if(!empty($category))
+					$nodes 		= $em->getRepository($entity)->setContainer($this->container)->getAllTree($locale, $category, 'array', false, false, $node);
+				else
+					$nodes 		= $em->getRepository($entity)->setContainer($this->container)->getAllTree($locale, '', 'array', false, false, $node);
+			}else{
+				if(!empty($category))
+					$nodes 		= $em->getRepository($entity)->setContainer($this->container)->getAllTree($locale, $category, 'array', false, true, $node);
+				else
+					$nodes 		= $em->getRepository($entity)->setContainer($this->container)->getAllTree($locale, '', 'array', false, true, $node);
+			}			
+		} catch (\Exception $e) {
+			$nodes = null;
 		}
+
 		$tree		= $em->getRepository($entity)->buildTree($nodes, $options);
 		
 		return $tree;

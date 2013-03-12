@@ -32,7 +32,6 @@
 						<a href="#" class="dots second active">2</a>
 						<a href="#" class="dots third">3</a>
 						<a href="#" class="dots fourth">4</a>
-
 					</figure>
 
 					<form action="{{ path_url("page_lamelee_adhesion_morale")}}" method="post" class="cf">
@@ -68,19 +67,19 @@
 								{% if form.vars.value.Address %} 
 									  {{ form_widget(form.Address) }}
 								{% else %}
-									  {{ form_widget(form.Address, { 'attr': {'data-validate': 'Adresse*'} }) }}
+									  {{ form_widget(form.Address, { 'attr': {'data-validate': 'Adresse *'} }) }}
 								{% endif %}
 
 							<div class="row third">
 								{% if form.vars.value.CP %} 
 									  {{ form_widget(form.CP) }}
 								{% else %}
-									  {{ form_widget(form.CP, { 'attr': {'data-validate': 'Code postal*'} }) }}
+									  {{ form_widget(form.CP, { 'attr': {'data-validate': 'Code postal *'} }) }}
 								{% endif %}
 								{% if form.vars.value.City %} 
 									  {{ form_widget(form.City) }}
 								{% else %}
-									  {{ form_widget(form.City, { 'attr': {'data-validate': 'Ville*'} }) }}
+									  {{ form_widget(form.City, { 'attr': {'data-validate': 'Ville *'} }) }}
 								{% endif %}
  
 								{{ form_widget(form.Country) }}								
@@ -90,7 +89,7 @@
 								{% if form.vars.value.Phone %} 
 									  {{ form_widget(form.Phone) }}
 								{% else %}
-									  {{ form_widget(form.Phone, { 'attr': {'data-validate': 'Téléphone*'} }) }}
+									  {{ form_widget(form.Phone, { 'attr': {'data-validate': 'Téléphone *'} }) }}
 								{% endif %}
 								{% if form.vars.value.Fax %} 
 									  {{ form_widget(form.Fax) }}
@@ -102,7 +101,7 @@
 
 							<div class="add-info cf">
 								<a href="#mother" class="tt-clr underline fleft">Ajouter une adresse de maison mère</a>
-								<a href="#invoice" class="tt-clr underline fleft">Ajouter une adresse de Facturation</a>
+								<a href="#invoice" class="tt-clr underline fleft">Ajouter une adresse de facturation</a>
 							</div>
 
 						<fieldset id="invoice" class="hidden">
@@ -110,19 +109,19 @@
 								{% if form.vars.value.InvoiceAddress %} 
 									  {{ form_widget(form.InvoiceAddress) }}
 								{% else %}
-									  {{ form_widget(form.InvoiceAddress, { 'attr': {'data-validate': 'Adresse*'} }) }}
+									  {{ form_widget(form.InvoiceAddress, { 'attr': {'data-validate': 'Adresse *'} }) }}
 								{% endif %}
 
 							<div class="row third">
 								{% if form.vars.value.InvoiceCP %} 
 									  {{ form_widget(form.InvoiceCP) }}
 								{% else %}
-									  {{ form_widget(form.InvoiceCP, { 'attr': {'data-validate': 'Code postal*'} }) }}
+									  {{ form_widget(form.InvoiceCP, { 'attr': {'data-validate': 'Code postal *'} }) }}
 								{% endif %}
 								{% if form.vars.value.InvoiceCity %} 
 									  {{ form_widget(form.InvoiceCity) }}
 								{% else %}
-									  {{ form_widget(form.InvoiceCity, { 'attr': {'data-validate': 'Ville*'} }) }}
+									  {{ form_widget(form.InvoiceCity, { 'attr': {'data-validate': 'Ville *'} }) }}
 								{% endif %}
  
 								{{ form_widget(form.InvoiceCountry) }}								
@@ -132,7 +131,7 @@
 								{% if form.vars.value.InvoicePhone %} 
 									  {{ form_widget(form.InvoicePhone) }}
 								{% else %}
-									  {{ form_widget(form.InvoicePhone, { 'attr': {'data-validate': 'Téléphone*'} }) }}
+									  {{ form_widget(form.InvoicePhone, { 'attr': {'data-validate': 'Téléphone *'} }) }}
 								{% endif %}
 								{% if form.vars.value.InvoiceFax %} 
 									  {{ form_widget(form.InvoiceFax) }}
@@ -150,19 +149,19 @@
 								{% if form.vars.value.MotherAddress %} 
 									  {{ form_widget(form.MotherAddress) }}
 								{% else %}
-									  {{ form_widget(form.MotherAddress, { 'attr': {'data-validate': 'Adresse*'} }) }}
+									  {{ form_widget(form.MotherAddress, { 'attr': {'data-validate': 'Adresse *'} }) }}
 								{% endif %}
 
 							<div class="row third">
 								{% if form.vars.value.MotherCP %} 
 									  {{ form_widget(form.MotherCP) }}
 								{% else %}
-									  {{ form_widget(form.MotherCP, { 'attr': {'data-validate': 'Code postal*'} }) }}
+									  {{ form_widget(form.MotherCP, { 'attr': {'data-validate': 'Code postal *'} }) }}
 								{% endif %}
 								{% if form.vars.value.MotherCity %} 
 									  {{ form_widget(form.MotherCity) }}
 								{% else %}
-									  {{ form_widget(form.MotherCity, { 'attr': {'data-validate': 'Ville*'} }) }}
+									  {{ form_widget(form.MotherCity, { 'attr': {'data-validate': 'Ville *'} }) }}
 								{% endif %}
  
 								{{ form_widget(form.MotherCountry) }}								
@@ -172,7 +171,7 @@
 								{% if form.vars.value.MotherPhone %} 
 									  {{ form_widget(form.MotherPhone) }}
 								{% else %}
-									  {{ form_widget(form.MotherPhone, { 'attr': {'data-validate': 'Téléphone*'} }) }}
+									  {{ form_widget(form.MotherPhone, { 'attr': {'data-validate': 'Téléphone *'} }) }}
 								{% endif %}
 								{% if form.vars.value.MotherFax %} 
 									  {{ form_widget(form.MotherFax) }}
@@ -203,7 +202,7 @@
 						</fieldset>
 
 						<fieldset class="resetBorder">
-							<legend class="bold">Activités</legend>
+							<legend class="bold">Activité *</legend>
 							
 							<div class="row" id="activity">	
 								{{ form_widget(form.Activity) }}
@@ -212,13 +211,13 @@
 							</div>
 
 							<div class="row hidden" id="activityList">	
-								{{ form_widget(form.Engineering) }}
+								{{ form_widget(form.Engineering, { 'attr': {'data-validate': 'sous-activité *'} }) }}
 							</div>
 							<div class="row">
 								{% if form.vars.value.DetailActivity %} 
 									  {{ form_widget(form.DetailActivity) }}
 								{% else %}
-									  {{ form_widget(form.DetailActivity, { 'attr': {'data-validate': 'Détails activité*'} }) }}
+									  {{ form_widget(form.DetailActivity, { 'attr': {'data-validate': 'Détails activité *'} }) }}
 								{% endif %}								
 								{{ form_widget(form.DetailActivity) }}
 								<a href="#" class="tooltip" data-tooltip="{{'pi.corporation.form.adhesion.tooltip.detailactivity'|trans|striptags|raw}}">Info</a>
@@ -232,12 +231,12 @@
 								{% if form.vars.value.CodeNAF %} 
 									  {{ form_widget(form.CodeNAF) }}
 								{% else %}
-									  {{ form_widget(form.CodeNAF, { 'attr': {'data-validate': 'Code NAF*'} }) }}
+									  {{ form_widget(form.CodeNAF, { 'attr': {'data-validate': 'Code NAF *'} }) }}
 								{% endif %}
 								{% if form.vars.value.Siret %} 
 									  {{ form_widget(form.Siret) }}
 								{% else %}
-									  {{ form_widget(form.Siret, { 'attr': {'data-validate': 'Siret*'} }) }}
+									  {{ form_widget(form.Siret, { 'attr': {'data-validate': 'Siret *'} }) }}
 								{% endif %}									
 
 							</div>
@@ -245,7 +244,7 @@
 								{% if form.vars.value.CaNational %} 
 									  {{ form_widget(form.CaNational) }}
 								{% else %}
-									  {{ form_widget(form.CaNational, { 'attr': {'data-validate': 'Ca National *'} }) }}
+									  {{ form_widget(form.CaNational, { 'attr': {'data-validate': 'CA national *'} }) }}
 								{% endif %}								
 							</div>
 						

@@ -285,7 +285,7 @@
 {% spaceless %}
     {% if expanded %}
     <div class="clearfix">
-		{{ form_label(form, label) }}
+		{{ block('field_label_attr_aware_label') }}
 		<div class="input choice">
 			{% set attr = attr|merge({'class': attr.class|default('') ~ ' inputs-list'}) %}
         	<ul {{ block('widget_container_attributes') }}>

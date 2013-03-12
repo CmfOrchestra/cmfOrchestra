@@ -91,6 +91,13 @@ pi.form.label.media.picture: Picture
 pi.form.label.media.file: File
 pi.form.label.media.download: Download
 
+pi.form.label.field.other: Other
+pi.form.label.field.or: Or
+pi.form.label.field.yes: Yes
+pi.form.label.field.no: No
+pi.form.label.field.perhaps: Perhaps
+pi.form.label.field.potential: Potential
+
 pi.form.label.field.enabled: Enabled
 pi.form.label.field.language: Language
 pi.form.label.field.category: Category
@@ -102,15 +109,28 @@ pi.form.label.field.content.detail: Content detail
 pi.form.label.field.website: Website
 pi.form.label.field.url: Link
 pi.form.label.field.blank: Blank link HTML
-pi.form.label.field.or: Or
 pi.form.label.field.choice: Choice
 pi.form.label.field.author: Author
 pi.form.label.field.user: User
+
 pi.form.label.field.civility: Civility
+pi.form.label.field.civility.type.mr: Mr
+pi.form.label.field.civility.type.mme: Ms
+pi.form.label.field.civility.type.mlle: Miss
+
 pi.form.label.field.profile: Profile
+pi.form.label.field.profile.type.fournisseur: Provider
+pi.form.label.field.profile.type.fournisseur.tic: ICT Provider
+pi.form.label.field.profile.type.user: User
+pi.form.label.field.profile.type.user.tic: User ICT
+pi.form.label.field.profile.type.cadre: Excecutive
+pi.form.label.field.profile.type.cadre.salarie: Excecutive employee
+pi.form.label.field.profile.type.salarie: Employee
+pi.form.label.field.profile.type.autoentrepreneur: Auto-entrepreneur
+pi.form.label.field.profile.type.other.adherent.individual: Other individual members
+
 pi.form.label.field.name: Name
 pi.form.label.field.nickname: Nickname
-pi.form.label.field.other: Other
 pi.form.label.field.sponsor: Sponsor
 
 pi.form.label.field.meta_title: Meta Title
@@ -124,6 +144,7 @@ pi.form.label.field.adress.fax: Fax
 pi.form.label.field.adress.cp: Postcode
 pi.form.label.field.adress.city: City
 pi.form.label.field.adress.country: Country
+pi.form.label.field.adress.location: Location
 
 pi.form.label.field.email: Email
 pi.form.label.field.email.perso: Personal e-mail
@@ -139,10 +160,68 @@ pi.form.label.field.employment.engineering: Engineering
 
 pi.form.label.field.corporation.name: Company Name
 pi.form.label.field.corporation.name.commercial: Commercial company Name
+
 pi.form.label.field.corporation.activity: Activity
-pi.form.label.field.corporation.engineering: Engineering
 pi.form.label.field.corporation.detailactivity: Activity Detail
-pi.form.label.field.corporation.legalform: Legal form
+pi.form.label.field.corporation.activity.tic: ICT
+pi.form.label.field.corporation.activity.admin: Administration / Audit / Consulting
+pi.form.label.field.corporation.activity.aero: Aerospace
+pi.form.label.field.corporation.activity.agro: Food
+pi.form.label.field.corporation.activity.bank: Banking / Finance
+pi.form.label.field.corporation.activity.biens: Consumer Goods
+pi.form.label.field.corporation.activity.chimie: Chemical / Pharma / Biotech
+pi.form.label.field.corporation.activity.com: Communication / Media
+pi.form.label.field.corporation.activity.divert: Entertainment
+pi.form.label.field.corporation.activity.env: Environment
+pi.form.label.field.corporation.activity.fab: Manufacture products
+pi.form.label.field.corporation.activity.elect: Electronics
+pi.form.label.field.corporation.activity.indus.def: Industry Defence / Aerospace
+pi.form.label.field.corporation.activity.auto: Automotive
+pi.form.label.field.corporation.activity.distrib: Distribution
+pi.form.label.field.corporation.activity.loisir: Leisure / Tourism
+pi.form.label.field.corporation.activity.assur: Insurance
+pi.form.label.field.corporation.activity.sante: Health / Hospitals
+pi.form.label.field.corporation.activity.educ: Education
+pi.form.label.field.corporation.activity.ing: Engineering
+pi.form.label.field.corporation.activity.asso: Associative
+pi.form.label.field.corporation.activity.indus: Industry
+pi.form.label.field.corporation.activity.energie: Energy
+pi.form.label.field.corporation.activity.public: Public Sector
+pi.form.label.field.corporation.activity.rd: R & D
+pi.form.label.field.corporation.activity.btp: BTP
+pi.form.label.field.corporation.activity.service: Service person
+pi.form.label.field.corporation.activity.rh: Human Resources
+pi.form.label.field.corporation.activity.service.pro: Business Services
+pi.form.label.field.corporation.activity.techno: Technology
+pi.form.label.field.corporation.activity.trans: Transportation and Logistics
+
+pi.form.label.field.corporation.engineering: Engineering
+pi.form.label.field.corporation.engineering.telecom: Telecom
+pi.form.label.field.corporation.engineering.info.service: Computer Services
+pi.form.label.field.corporation.engineering.rh: Human Resources
+pi.form.label.field.corporation.engineering.ingenierie.savoirs: Engineering of knowledge
+pi.form.label.field.corporation.engineering.infra: Infrastructure and Networks
+pi.form.label.field.corporation.engineering.info.tech: Trades and Technical Information
+pi.form.label.field.corporation.engineering.info.gestion: Information Management
+pi.form.label.field.corporation.engineering.form: Training Research and Development
+pi.form.label.field.corporation.engineering.finance: Financing
+pi.form.label.field.corporation.engineering.entreprise.tic: Company information ICTs and ICT
+pi.form.label.field.corporation.engineering.editeur: Editor Software
+pi.form.label.field.corporation.engineering.dev.web: Web Development
+pi.form.label.field.corporation.engineering.multimedia: Multimedia Content
+pi.form.label.field.corporation.engineering.materiel.constr.dest: Manufacturer and distributor of equipment
+pi.form.label.field.corporation.engineering.conseil: Council
+
+pi.form.label.field.corporation.legalform: Legal
+pi.form.label.field.corporation.legalform.type.scop: SCOP or similar
+pi.form.label.field.corporation.legalform.type.syndicat: Union
+pi.form.label.field.corporation.legalform.type.sa: SA
+pi.form.label.field.corporation.legalform.type.sarl: SARL
+pi.form.label.field.corporation.legalform.type.sas: SAS
+pi.form.label.field.corporation.legalform.type.etabl.public: public institution
+pi.form.label.field.corporation.legalform.type.entr.indiv: Sole Proprietorship
+pi.form.label.field.corporation.legalform.type.assoc: Association
+
 pi.form.label.field.corporation.effectif.national: Effective national
 pi.form.label.field.corporation.effectif.regional: Effective regional
 pi.form.label.field.corporation.code.naf: NAF Code
@@ -151,7 +230,16 @@ pi.form.label.field.corporation.ca.national: National Turnover
 pi.form.label.field.corporation.argument.commercial: Argument compmecial
 pi.form.label.field.corporation.expertise: Expertise
 pi.form.label.field.corporation.speaker: Speaker
+
 pi.form.label.field.corporation.origin.contact: Origin Contact
+pi.form.label.field.corporation.origin.contact.type.campagne: Membership Campaign
+pi.form.label.field.corporation.origin.contact.type.spontane: Spontaneous contact 
+pi.form.label.field.corporation.origin.contact.type.historique: History
+pi.form.label.field.corporation.origin.contact.type.motivation: Motivation inscription to a committee
+pi.form.label.field.corporation.origin.contact.type.sponsor: Sponsorship
+pi.form.label.field.corporation.origin.contact.type.partenaire: Partner
+pi.form.label.field.corporation.origin.contact.type.visiteur: Guest
+pi.form.label.field.corporation.origin.contact.type.visiteur.event: Guest event
 pi.form.label.field.corporation.origin.contact.sponsor: Origin of contact sponsor
 
 pi.form.label.field.social.facebook: Facebook
@@ -172,6 +260,15 @@ pi.form.label.field.scoopit.mode.static: Static
 pi.form.label.field.scoopit.speed: Speed
 pi.form.label.field.scoopit.width: Width
 
+pi.form.label.field.price: Price
+pi.form.label.field.paiement: Payment
+pi.form.label.field.paiement.type.1: Paying
+pi.form.label.field.paiement.type.0: Free
+pi.form.label.field.modepaiement: Payment
+pi.form.label.field.modepaiement.type.1: Paypal
+pi.form.label.field.modepaiement.type.2: On site
+pi.form.label.field.modepaiement.type.3: By check
+
 pi.form.label.select.choose.option: Choose an option
 pi.form.label.select.choose.options: Select options
 pi.form.label.select.choose.type: Choose a type
@@ -181,6 +278,9 @@ pi.form.label.select.choose.block: Choose a block
 pi.form.label.select.choose.content: Choose a content
 pi.form.label.select.choose.snippet: Choose a snippet
 pi.form.label.select.choose.typologie: Choose a typology
+pi.form.label.select.choose.activity: Choose an activity
+pi.form.label.select.choose.civility: Choose a civility
+pi.form.label.select.choose.profile: Choose a profile
 
 # Footer
 pi.footer.copyright: Copyright

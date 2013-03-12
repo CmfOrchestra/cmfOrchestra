@@ -50,12 +50,12 @@
 								{% if form.vars.value.Name %} 
 									  {{ form_widget(form.Name) }}
 								{% else %}
-									  {{ form_widget(form.Name, { 'attr': {'data-validate': 'Nom*'} }) }}
+									  {{ form_widget(form.Name, { 'attr': {'data-validate': 'Nom *'} }) }}
 								{% endif %}
 								{% if form.vars.value.Nickname %} 
 									  {{ form_widget(form.Nickname) }}
 								{% else %}
-									  {{ form_widget(form.Nickname, { 'attr': {'data-validate': 'Prénom*'} }) }}
+									  {{ form_widget(form.Nickname, { 'attr': {'data-validate': 'Prénom *'} }) }}
 								{% endif %}	
 							</div>
 
@@ -64,7 +64,7 @@
 								{% if form.vars.value.Job %} 
 									  {{ form_widget(form.Job) }}
 								{% else %}
-									  {{ form_widget(form.Job, { 'attr': {'data-validate': 'Fonction*'}}) }}
+									  {{ form_widget(form.Job, { 'attr': {'data-validate': 'Fonction *'}}) }}
 								{% endif %}  	
 							</div>
 		
@@ -79,12 +79,11 @@
 								{% if media is defined %} 
 									<img alt="LA MELEE" width="120" height="100" src="{{ media }}">
 								{% else %}
-									  <img alt="LA MELEE" src="./media/img/body/annuAdh/03.jpg">
+									  <img alt="LA MELEE" src="/media/img/body/annuAdh/default_avatar_user.png">
 								{% endif %}	
 								</figure>
 								<div class="row fleft">
-									<label>Télécharger une photo de profil</label>
-
+									<label>Télécharger une photo de profil (taille max.500 ko, formats JPEG/JPG/PNG/GIF)</label>
 									{{ form_widget(form.media, { 'attr': {'class': 'required'} }) }}
 								</div>
 							</div>
@@ -95,7 +94,7 @@
 								{% elseif form.vars.errors|length %} 
 									  {{ form_widget(form.Email, { 'attr': {'class': 'error'} }) }}                
 								{% else %}
-									  {{ form_widget(form.Email, { 'attr': {'data-validate': 'Email pro*'} }) }}
+									  {{ form_widget(form.Email, { 'attr': {'data-validate': 'Email pro *'} }) }}
 								{% endif %}  
 									
 								{% if form.vars.value.EmailPerso %} 
@@ -110,7 +109,7 @@
 								{% if form.vars.value.UserPhone %} 
 									  {{ form_widget(form.UserPhone) }}
 								{% else %}
-									  {{ form_widget(form.UserPhone, { 'attr': {'data-validate': 'Téléphone*'} }) }}
+									  {{ form_widget(form.UserPhone, { 'attr': {'data-validate': 'Téléphone *'} }) }}
 								{% endif %} 
 							</div>
 	

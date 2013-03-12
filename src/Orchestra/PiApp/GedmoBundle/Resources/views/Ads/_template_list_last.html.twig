@@ -9,8 +9,8 @@
     <div class="work-list">
       <ul>
         {% for ad in ads %}
-        <li {% if loop.index % 2 %}class="zebra"{% endif %}>
-          <a href="#">
+        <li {% if (loop.index % 2) and (ad.typology|trans == 'pi.ads.form.type.market'|trans) %}class="zebra locked"{% elseif (loop.index % 2) and (ad.typology|trans != 'pi.ads.form.type.market'|trans) %}class="zebra"{% endif %}>
+          <a href="{{ path_url('page_lamelee_menuwrapper_opportunites_detail', {'locale':locale, 'slug':ad.translate(locale).getSlug()}) }}">
             <h4 class='tt-8 tt-clr'>{{ ad.title }}</h4>
             <p>{{ ad.typology|trans }}</p>
             <p class="txtright">le {{ ad.createdat |date('m/y') }} par <strong>{{ ad.user }}</strong></p>

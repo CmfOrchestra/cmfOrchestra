@@ -23,7 +23,7 @@
         	$entity->setCategory($entity_cat);     
         elseif(!empty($category) && method_exists($entity, 'setCategory'))
         	$entity->setCategory($category);
-
+        	
 {% if 'annotation' == format %}
         return array(
             'entity' 	=> $entity,

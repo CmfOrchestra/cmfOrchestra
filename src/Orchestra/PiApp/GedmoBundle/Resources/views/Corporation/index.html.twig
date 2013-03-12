@@ -46,13 +46,13 @@
 	            	{{ entity.Nickname|limite("0", 55)|raw }}
 	            </td>	
 	            <td>
-	            	{{ entity.Civility|limite("0", 55)|raw }}
+	            	{{ entity.Civility|trans }}
 	            </td>	
 	            <td>
 	            	{{ entity.Job|limite("0", 55)|raw }}
 	            </td>	
 	            <td>
-	            	{{ entity.Activity|limite("0", 55)|raw }}
+	            	{{ entity.Activity|trans }}
 	            </td>		
 	            <td class="enabled" >{{ entity.enabled}}</td>	
 				<td>

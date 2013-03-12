@@ -807,10 +807,10 @@ class AdsController extends abstractController
      */
     public function _template_postAction($template = '_template_form_post.html.twig', $lang = "")
     {
-    	if(!$this->isUsernamePasswordToken()){
-   			$url		= $this->container->get('bootstrap.RouteTranslator.factory')->getRoute("page_lamelee_connexion", array('locale'=>$lang));
-   			return new RedirectResponse($url);
-    	}
+//     	if(!$this->isUsernamePasswordToken()){
+//    			$url		= $this->container->get('bootstrap.RouteTranslator.factory')->getRoute("page_lamelee_connexion", array('locale'=>$lang));
+//    			return new RedirectResponse($url);
+//     	}
 		
 		$em    = $this->getDoctrine()->getEntityManager();
     
