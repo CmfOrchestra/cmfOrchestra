@@ -136,9 +136,13 @@ ul  {
 	width: 164px;
 	}
 #content-outer	{
+	position:absolute;
+	width: 100%;
+	margin-top:170px;
 	background: url(../../../images/shared/content_repeat.jpg) repeat-x;
 	}
 #content	{
+	position:relative;
 	color: #333;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
@@ -237,6 +241,13 @@ height:15px;
 	
 /* PAGING --------------------------------------------------------- */	
 
+#admin-header{
+	position:fixed;
+	z-index:9999999999999999999;
+	width:100%;
+	border-bottom: 7px solid #B5AD86;
+}
+
 #paging-table {
 	float: right;
 	margin: 0 4px 0 0;
@@ -280,7 +291,7 @@ height:15px;
 /*  ACTIONS BOX ----------------------------------------------- */	
 #actions-box	{
 	float: left;
-	margin: 0 0 0 0px;
+	margin: 0 0 5px 0px;
 	position: relative;
 	}
 a.action-slider	{
@@ -768,13 +779,16 @@ Copyright (c) 2005-2007 Stu Nicholls. All rights reserved. This stylesheet and t
 
  
 #footer	{
-height: 70px;
-	 
-	margin: 80px auto 0px auto;
+	position:fixed;
+	bottom:0;
+	left:50%;
+	margin-left:-629px;
+	z-index:999999;
+	background-color: #FFF;
+	height: 70px;
 	padding: 0px 0 0 0;
 	text-align: left;
-	min-width: 780px;
-	max-width: 1260px;
+	width: 1258px;
 	}
 #footer-left	{
 	color: #818181;

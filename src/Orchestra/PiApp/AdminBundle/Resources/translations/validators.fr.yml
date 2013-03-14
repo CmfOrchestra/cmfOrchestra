@@ -7,3 +7,5 @@ erreur.typology.notblank: Vous devez renseigner une typologie
 erreur.slug.notblank: Vous devez renseigner un slug
 erreur.title.notblank: Vous devez renseigner un titre
 erreur.metacontenttype.notblank: Vous devez renseigner un content-type
+
+erreur.unauthorized.method: Cette fonctionalité n'est pas autorisée.

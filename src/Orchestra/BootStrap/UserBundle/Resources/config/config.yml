@@ -40,7 +40,7 @@ fos_user:
     registration:
         confirmation:
             from_email: # Use this node only if you don't want the global email address for the confirmation email
-                address:        etienne.delongeaux@gmail.com
+                address:        orchestra@gmail.com
                 sender_name:    commercial
             enabled:    true # change to true for required email confirmation
             #template:   FOSUserBundle:Registration:email.txt.twig
@@ -55,7 +55,7 @@ fos_user:
         token_ttl: 86400
         email:
             from_email: # Use this node only if you don't want the global email address for the resetting email
-                address:        etienne.delongeaux@gmail.com
+                address:        orchestra@gmail.com
                 sender_name:    admin
             template:   FOSUserBundle:Resetting:email.txt.twig
         form:

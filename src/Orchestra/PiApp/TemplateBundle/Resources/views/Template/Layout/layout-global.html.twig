@@ -52,27 +52,22 @@
         <!--  script divers -->
         {% block global_script_divers %}
 	        {% if not (is_granted('ROLE_USER')) %}	        
-	        {#
 			<script type="text/javascript">
 			//<![CDATA[
-					jQuery(document).ready(function() {
-					
-						$("div[id^='widget__']").each(function(index_) {
-							content1 = $(this).html();
-							$(this).before(content1);
-							$(this).remove();
-						});
-												
-						$("div[id^='block__']").each(function(index_) {
-							content2 = $(this).html();
-							$(this).before(content2);
-							$(this).remove();											
-						});
-						
-					});	
+			jQuery(document).ready(function() {
+				$("orchestra[id^='widget__']").each(function(index_) {
+					content1 = $(this).html();
+					$(this).before(content1);
+					$(this).remove();
+				});
+				$("orchestra[id^='block__']").each(function(index_) {
+					content2 = $(this).html();
+					$(this).before(content2);
+					$(this).remove();											
+				});
+			});	
 			//]]>
 			</script>
-			#}
 			{% endif %}			
         {% endblock %}                
         

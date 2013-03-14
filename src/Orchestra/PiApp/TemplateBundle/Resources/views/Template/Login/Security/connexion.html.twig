@@ -13,7 +13,7 @@
 		<h3 class="tt-clr tt-9 bold">MON COMPTE</h3>
 		<form method="POST" action="{{ path('fos_user_security_check') }}" id="form-connexion" >
 			<span class="input-text">
-				 <input type="text" id="_username" name="_username" value="{% if error %}{{ error }}{% elseif last_username is not empty  %}{{ last_username }}{% else %}Identifiant{% endif %}">
+				 <input type="text" id="_username" name="_username" value="{% if error %}{{ error }}{% elseif last_username is not empty  %}{{ last_username }}{% else %}Identifiant{% endif %}" data-validate="{% if error %}{{ error }}{% elseif last_username is not empty  %}{{ last_username }}{% else %}Identifiant{% endif %}">
 			</span>
 			 <span class="input-pass">
 				 <input type="password" id="_password" name="_password" value="mot de passe">
