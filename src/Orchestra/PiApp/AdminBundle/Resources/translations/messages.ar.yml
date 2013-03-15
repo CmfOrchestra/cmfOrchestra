@@ -94,6 +94,8 @@ pi.form.label.date.creation: تاريخ الإنشاء
 pi.form.label.date.updating: تاريخ التحديث
 pi.form.label.date.archivage: تاريخ الأرشيف
 pi.form.label.date.expired: تاريخ الانتهاء
+pi.form.label.date.start: تاريخ بدء
+pi.form.label.date.end:  نهاية التاريخ
 
 pi.form.label.media.picture: الصورة
 pi.form.label.media.file: ملف

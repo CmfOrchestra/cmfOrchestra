@@ -146,6 +146,7 @@ class PiFormSimpleManager extends PiJqueryExtension
 							// Style formats for 'styleselect'
 							style_formats : [
 								{title : 'Liste point rose', selector : 'ul', classes : 'roseDisc'},
+								{title : 'Titre rose', block : 'h3', classes : 'tt-5 tt-clr'},
 								{title : 'Titre 1', block : 'h3', classes : 'tt-1'},
 								{title : 'Titre 2', block : 'h3', classes : 'tt-2'},
 								{title : 'Titre 3', block : 'h3', classes : 'tt-3'},
@@ -219,6 +220,7 @@ class PiFormSimpleManager extends PiJqueryExtension
 							// Style formats for 'styleselect'
 							style_formats : [
 								{title : 'Liste point rose', selector : 'ul', classes : 'roseDisc'},
+								{title : 'Titre rose', block : 'h3', classes : 'tt-5 tt-clr'},
 								{title : 'Titre 1', block : 'h3', classes : 'tt-1'},
 								{title : 'Titre 2', block : 'h3', classes : 'tt-2'},
 								{title : 'Titre 3', block : 'h3', classes : 'tt-3'},
@@ -291,6 +293,7 @@ class PiFormSimpleManager extends PiJqueryExtension
 							// Style formats for 'styleselect'
 							style_formats : [
 								{title : 'Liste point rose', selector : 'ul', classes : 'roseDisc'},
+								{title : 'Titre rose', block : 'h3', classes : 'tt-5 tt-clr'},
 								{title : 'Titre 1', block : 'h3', classes : 'tt-1'},
 								{title : 'Titre 2', block : 'h3', classes : 'tt-2'},
 								{title : 'Titre 3', block : 'h3', classes : 'tt-3'},
@@ -363,6 +366,7 @@ class PiFormSimpleManager extends PiJqueryExtension
 							// Style formats for 'styleselect'
 							style_formats : [
 								{title : 'Liste point rose', selector : 'ul', classes : 'roseDisc'},
+								{title : 'Titre rose', block : 'h3', classes : 'tt-5 tt-clr'},
 								{title : 'Titre 1', block : 'h3', classes : 'tt-1'},
 								{title : 'Titre 2', block : 'h3', classes : 'tt-2'},
 								{title : 'Titre 3', block : 'h3', classes : 'tt-3'},

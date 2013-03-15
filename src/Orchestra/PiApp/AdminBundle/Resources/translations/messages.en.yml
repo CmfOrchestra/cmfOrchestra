@@ -94,6 +94,8 @@ pi.form.label.date.creation: Created date
 pi.form.label.date.updating: Updated date
 pi.form.label.date.archivage: Archive date
 pi.form.label.date.expired: Expiration date
+pi.form.label.date.start: Start Date
+pi.form.label.date.end: End Date
 
 pi.form.label.media.picture: Picture
 pi.form.label.media.file: File

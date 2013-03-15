@@ -390,6 +390,7 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
 							// Style formats for 'styleselect'
 							style_formats : [
 								{title : 'Liste point rose', selector : 'ul', classes : 'roseDisc'},
+								{title : 'Titre rose', block : 'h3', classes : 'tt-5 tt-clr'},
 								{title : 'Titre 1', block : 'h3', classes : 'tt-1'},
 								{title : 'Titre 2', block : 'h3', classes : 'tt-2'},
 								{title : 'Titre 3', block : 'h3', classes : 'tt-3'},
@@ -463,6 +464,7 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
 							// Style formats for 'styleselect'
 							style_formats : [
 								{title : 'Liste point rose', selector : 'ul', classes : 'roseDisc'},
+								{title : 'Titre rose', block : 'h3', classes : 'tt-5 tt-clr'},
 								{title : 'tt-6', block : 'h3', classes : 'tt-6'},
 								{title : 'tt-7', block : 'h3', classes : 'tt-7'},
 								{title : 'Tt-11', block : 'h3', classes : 'tt-11'},
@@ -540,6 +542,7 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
 								{title : 'Titre 2', block : 'h3', classes : 'tt-7'},
 								{title : 'Titre 3 La Melee', block : 'h3', classes : 'tt-11'},
 								{title : 'Titre 3 MideNews', block : 'h4', classes : 'tt-12'},
+								{title : 'Titre rose', block : 'h3', classes : 'tt-5 tt-clr'},
 						
 							],
 							formats : {
@@ -607,6 +610,7 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
 							// Style formats for 'styleselect'
 							style_formats : [
 								{title : 'Liste point rose', selector : 'ul', classes : 'roseDisc'},
+								{title : 'Titre rose', block : 'h3', classes : 'tt-5 tt-clr'},
 								{title : 'Titre 1', block : 'h3', classes : 'tt-1'},
 								{title : 'Titre 2', block : 'h3', classes : 'tt-2'},
 								{title : 'Titre 3', block : 'h3', classes : 'tt-3'},
