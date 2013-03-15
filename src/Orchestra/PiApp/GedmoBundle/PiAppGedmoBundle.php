@@ -75,6 +75,7 @@ $GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST']= array(
 		'PiApp\GedmoBundle\Entity\Corporation'=> true,
 		'PiApp\GedmoBundle\Entity\Translation\CorporationTranslation'=> true,
 );
+
 $GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE']= array(
 		'BootStrap\MediaBundle\Entity\Media'	=> true,
 		'PiApp\GedmoBundle\Entity\Media'	=> true,
@@ -88,6 +89,11 @@ $GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE']= array(
 		'PiApp\GedmoBundle\Entity\Corporation'=> true,
 		'PiApp\GedmoBundle\Entity\Translation\CorporationTranslation'=> true,
 );
+$GLOBALS['ENTITIES']['PROHIBITION_PREUPDATE']= array(
+		// 		'PiApp\GedmoBundle\Entity\Contact'								=> array(1,2,19),
+		// 		'PiApp\GedmoBundle\Entity\Translation\ContactTranslation'		=> true,		
+);
+
 $GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE']= array(
 		'BootStrap\MediaBundle\Entity\Media'	=> true,
 		'PiApp\GedmoBundle\Entity\Media'	=> true,
@@ -100,6 +106,10 @@ $GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE']= array(
 		'PiApp\GedmoBundle\Entity\Translation\IndividualTranslation'=> true,
 		'PiApp\GedmoBundle\Entity\Corporation'=> true,
 		'PiApp\GedmoBundle\Entity\Translation\CorporationTranslation'=> true,
+);
+$GLOBALS['ENTITIES']['PROHIBITION_PREREMOVE']= array(
+// 		'PiApp\GedmoBundle\Entity\Contact'								=> true,
+// 		'PiApp\GedmoBundle\Entity\Translation\ContactTranslation'		=> true,
 );
 
 /**************************  MATRIX LISTENER ***************************/

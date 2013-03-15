@@ -1,11 +1,3 @@
-<header>
-	<h2 class="tt-1">Opportunités</h2>
-	<p>Bienvenue sur le mur des opportunités de la Mélée numérique, 
-	un endroit où vous pouvez accrocher un post-it «je recherche» 
-	(un outil, un contact, un stage ...) ou un post-it «je propose» 
-	(des compétences, des outils, des stages / emplois...)</p>
-</header>	
-			
 {% if is_granted("IS_AUTHENTICATED_FULLY") %}			
 <section class="opportunite-post">
 		{% form_theme form "PiAppTemplateBundle:Template\\Form:form_table_layout.html.twig" %}	

@@ -72,6 +72,14 @@ pi.grid.action.select: Selection
 pi.grid.action.select_all: Select all
 pi.grid.action.select_none: Deselect all
 
+pi.grid.action.enabled_paiementstatus.sButtonText: Enable Payment
+pi.grid.action.enabled_paiementstatus.questionTitle: Payment Activation of a member
+pi.grid.action.enabled_paiementstatus.questionText: Are you sure you want to enable the payment (s) member (s)?
+
+pi.grid.action.disable_paiementstatus.sButtonText: Disable Payment
+pi.grid.action.disable_paiementstatus.questionTitle: Disable payment of a Participant
+pi.grid.action.disable_paiementstatus.questionText: Are you sure you want to disable the payment (s) member (s)?
+
 #form
 pi.form.tab.box.close: Close
 pi.form.tab.box.title: Add tab

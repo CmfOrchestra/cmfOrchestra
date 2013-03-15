@@ -28,6 +28,7 @@ pi.dashboard.menu3.tag: وسم
 pi.dashboard.menu3.keyword: كلمة البحث الرئيسية
 pi.dashboard.menu3.comment: تعليق
 pi.dashboard.menu3.word: الكلمات
+pi.dashboard.menu3.category: فئة
 
 pi.dashboard.menu4.title: قطعة
 pi.dashboard.menu4.page: صفحة
@@ -37,19 +38,20 @@ pi.dashboard.menu4.slider: شريط التمرير
 pi.dashboard.menu4.organigram: الهيكل التنظيمي
 pi.dashboard.menu4.block: الصندوق
 pi.dashboard.menu4.media: الإعلام
-pi.dashboard.menu4.category: فئة
 pi.dashboard.menu4.news: الأخبار
-pi.dashboard.menu4.contact: الاتصال
-pi.dashboard.menu4.pressrelease: النشرات الصحفية
-pi.dashboard.menu4.partner: الشركاء
 
 pi.dashboard.menu5.title: العمل
 pi.dashboard.menu5.individual: الفردية
 pi.dashboard.menu5.corporation: الشركة
 pi.dashboard.menu5.rss: Rss
 pi.dashboard.menu5.newsletter: النشرة الإخبارية
-pi.dashboard.menu5.event: الحدث
 pi.dashboard.menu5.ads: الإعلانات
+
+pi.dashboard.menu6.title: آخرون
+pi.dashboard.menu6.contact: الاتصال
+pi.dashboard.menu6.pressrelease: النشرات الصحفية
+pi.dashboard.menu6.partner: الشركاء
+pi.dashboard.menu6.team: فريق
 
 # ENTITY :: MEDIA
 pi.media.form.field.mediadelete: العمل على إزالة وسائل الاعلام نوع %s

@@ -22,8 +22,8 @@ use Symfony\Component\Console\Input\InputOption;
  * Command to create a new backup of the database.
  *
  * <code>
- * 		php app/console orchestra:database:backup C:\xampp\htdocs\symf_lamelee\app\cache\Backup doctrine_backup_database-symflamelee_default.sql
- * 		php app/console orchestra:database:backup /home/www/lamelee-rec/app/cache/Backup
+ * 		php app/console orchestra:database:backup C:\xampp\htdocs\orchestra\app\cache\Backup doctrine_backup_database-symflamelee_default.sql
+ * 		php app/console orchestra:database:backup /home/www/orchestra/app/cache/Backup
  * </code>
  *
  * @category   Bootstrap_Command

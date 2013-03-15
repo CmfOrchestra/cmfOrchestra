@@ -69,13 +69,6 @@ class Partner extends AbstractDefault
     protected $id;    
     
     /**
-     * @var \Doctrine\Common\Collections\ArrayCollection $events
-     *
-     * @ORM\ManyToMany(targetEntity="PiApp\GedmoBundle\Entity\Lamelee\Event", mappedBy="partners")
-     */
-    protected $events;    
-    
-    /**
      * @var \PiApp\GedmoBundle\Entity\Category $category
      * 
      * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Category", inversedBy="items_partner")
@@ -365,16 +358,6 @@ class Partner extends AbstractDefault
     {
     	return $this->media;
     }  
-    
-    /**
-     * Get events
-     *
-     * @return text
-     */
-    public function getEvents()
-    {
-    	return $this->events;
-    }   
 
     /**
      * Set highlighted1

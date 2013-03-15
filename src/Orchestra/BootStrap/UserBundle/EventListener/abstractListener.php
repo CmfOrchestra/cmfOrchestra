@@ -117,26 +117,34 @@ abstract class abstractListener
         }   
         
         // we give the right of persist if the entity is in the AUTHORIZATION_PREPERSIST container
-        if(isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST']) && isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST'][$entity_name])){
-        	if(is_array($GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST'][$entity_name])){
-        		$route = $this->container->get('request')->get('_route');
-        		if((empty($route) || ($route == "_internal")))
-        			$route = $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('_route', $this->container->get('session')->getLocale());
-        		if(in_array($route, $GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST'][$entity_name])){
-        			// IMPORTANT !!! sinon ne fonctionne pas avec les collection links :
-        			if(method_exists($entity, 'setHeritage'))
-        				$entity->setHeritage(array('ROLE_SUPER_ADMIN'));
-        			
-        			$entityManager->initializeObject($entity);
-        			return true;
-        		}
-        	}elseif($GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST'][$entity_name] == true){
-        		// IMPORTANT !!! sinon ne fonctionne pas avec les collection links :
-        		if (method_exists($entity, 'setHeritage'))
-        			$entity->setHeritage(array('ROLE_SUPER_ADMIN'));
-        		$entityManager->initializeObject($entity);
-        		return true;
-        	}        
+        if ($this->container->isScopeActive('request')) {
+	        if(isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST']) && isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST'][$entity_name])){
+	        	if(is_array($GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST'][$entity_name])){
+	        		$route = $this->container->get('request')->get('_route');
+	        		if((empty($route) || ($route == "_internal")))
+	        			$route = $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('_route', $this->container->get('session')->getLocale());
+	        		if(in_array($route, $GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST'][$entity_name])){
+	        			// IMPORTANT !!! sinon ne fonctionne pas avec les collection links :
+	        			if(method_exists($entity, 'setHeritage'))
+	        				$entity->setHeritage(array('ROLE_SUPER_ADMIN'));
+	        			
+	        			$entityManager->initializeObject($entity);
+	        			return true;
+	        		}
+	        	}elseif($GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST'][$entity_name] == true){
+	        		// IMPORTANT !!! sinon ne fonctionne pas avec les collection links :
+	        		if (method_exists($entity, 'setHeritage'))
+	        			$entity->setHeritage(array('ROLE_SUPER_ADMIN'));
+	        		$entityManager->initializeObject($entity);
+	        		return true;
+	        	}        
+	        }
+        }else{
+        	// IMPORTANT !!! sinon ne fonctionne pas avec les collection links :
+        	if (method_exists($entity, 'setHeritage'))
+        		$entity->setHeritage(array('ROLE_SUPER_ADMIN'));
+        	$entityManager->initializeObject($entity);
+        	return true;        	
         }
         
         // If AnonymousToken user,
@@ -229,23 +237,29 @@ abstract class abstractListener
             $entity->setUpdatedAt(new \DateTime());
         }
                 
-        // we give the right of update if the entity is in the AUTHORIZATION_PREPERSIST container
-        if(isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE']) && isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE'][$entity_name])){
-        	if(is_array($GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE'][$entity_name])){
-        		$route = $this->container->get('request')->get('_route');
-        		if((empty($route) || ($route == "_internal")))
-        			$route = $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('_route', $this->container->get('session')->getLocale());
-        		if(in_array($route, $GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE'][$entity_name])){
-        			$class = $entityManager->getClassMetadata(get_class($entity));
-   					$entityManager->getUnitOfWork()->recomputeSingleEntityChangeSet($class, $entity);
-        			return true;
-        		}
-        	}elseif($GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE'][$entity_name] == true){
-        		$class = $entityManager->getClassMetadata(get_class($entity));
-   				$entityManager->getUnitOfWork()->recomputeSingleEntityChangeSet($class, $entity);
-        		return true;
-        	}
-        }        
+        if ($this->container->isScopeActive('request')) {
+	        // we give the right of update if the entity is in the AUTHORIZATION_PREPERSIST container
+	        if(isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE']) && isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE'][$entity_name])){
+	        	if(is_array($GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE'][$entity_name])){
+	        		$route = $this->container->get('request')->get('_route');
+	        		if((empty($route) || ($route == "_internal")))
+	        			$route = $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('_route', $this->container->get('session')->getLocale());
+	        		if(in_array($route, $GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE'][$entity_name])){
+	        			$class = $entityManager->getClassMetadata(get_class($entity));
+	   					$entityManager->getUnitOfWork()->recomputeSingleEntityChangeSet($class, $entity);
+	        			return true;
+	        		}
+	        	}elseif($GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE'][$entity_name] == true){
+	        		$class = $entityManager->getClassMetadata(get_class($entity));
+	   				$entityManager->getUnitOfWork()->recomputeSingleEntityChangeSet($class, $entity);
+	        		return true;
+	        	}
+	        }
+        }else{
+        	$class = $entityManager->getClassMetadata(get_class($entity));
+        	$entityManager->getUnitOfWork()->recomputeSingleEntityChangeSet($class, $entity);
+        	return true;
+        }
      	
        	// If AnonymousToken user,
        	if ($isAnonymousToken && $this->isAnonymousToken()) {
@@ -333,18 +347,22 @@ abstract class abstractListener
 			}
 		}		
 	
-		// we give the right of remove if the entity is in the AUTHORIZATION_PREREMOVE container
-		if(isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE']) && isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE'][$entity_name])){
-			if(is_array($GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE'][$entity_name])){
-				$route = $this->container->get('request')->get('_route');
-				if((empty($route) || ($route == "_internal")))
-					$route = $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('_route', $this->container->get('session')->getLocale());
-				if(in_array($route, $GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE'][$entity_name])){
+		if ($this->container->isScopeActive('request')) {
+			// we give the right of remove if the entity is in the AUTHORIZATION_PREREMOVE container
+			if(isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE']) && isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE'][$entity_name])){
+				if(is_array($GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE'][$entity_name])){
+					$route = $this->container->get('request')->get('_route');
+					if((empty($route) || ($route == "_internal")))
+						$route = $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('_route', $this->container->get('session')->getLocale());
+					if(in_array($route, $GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE'][$entity_name])){
+						return true;
+					}
+				}elseif($GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE'][$entity_name] == true){
 					return true;
 				}
-			}elseif($GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE'][$entity_name] == true){
-				return true;
 			}
+		}else{
+			return true;
 		}	
 
 		// If AnonymousToken user,

@@ -7,5 +7,3 @@ erreur.typology.notblank: يجب إدخال التصنيف
 erreur.slug.notblank: يجب إدخال حالة السبيكة
 erreur.title.notblank: يجب إدخال عنوان
 erreur.metacontenttype.notblank: يجب إدخال نوع المحتوى
-
-erreur.unauthorized.method: غير مسموح هذه الميزة

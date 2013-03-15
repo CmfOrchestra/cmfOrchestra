@@ -23,7 +23,7 @@ fos_user:
     use_username_form_type: true
     model_manager_name:     null  # change it to the name of your entity/document manager if you don't want to use the default one.
     from_email:
-        address:       etienne.delongeaux@gmail.com
+        address:       orchestra@gmail.com
         sender_name:   Admin    
     profile:
         form:

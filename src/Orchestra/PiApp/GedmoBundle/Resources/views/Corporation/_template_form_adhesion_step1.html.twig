@@ -125,18 +125,21 @@
 							</div>
 						
 							<div class="id-choice">
+							{% if is_granted("IS_AUTHENTICATED_FULLY") and (not is_granted("ROLE_MEMBER")) %}
+									  <label>Votre Identifiant</label>
+									  {{ form_widget(form.UserName, {'attr': {'readonly': ''} }) }}
+							{% else %}
 								{% if form.vars.value.UserName and not(form.UserName.vars.errors|length) %}
 										<label>Votre Identifiant</label>
-									  {{ form_row(form.UserName) }}
+									  {{ form_widget(form.UserName) }}
 								{% elseif form.UserName.vars.errors|length %} 
-										{{ form_label(form.UserName) }}
 									  {{ form_row(form.UserName, {'attr': {'class': 'error'} }) }}
 								{% else %}
 									  {{ form_label(form.UserName) }}
 									  {{ form_widget(form.UserName, {'attr': {'data-validate': 'Identifiant'} }) }}
 									  <p class="light-clr"><small>Il vous sera demandé à chaque connexion et sera définitif</small></p>
 								{% endif %} 
-								  
+							{% endif %} 
 							</div>	
 							<p class="light-clr"><span class="tt-clr">*</span> champs obligatoires</p>
 						</fieldset>

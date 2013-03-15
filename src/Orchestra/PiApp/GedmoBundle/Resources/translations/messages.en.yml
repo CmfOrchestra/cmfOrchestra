@@ -28,6 +28,7 @@ pi.dashboard.menu3.tag: Tag
 pi.dashboard.menu3.keyword: Keyword
 pi.dashboard.menu3.comment: Comment
 pi.dashboard.menu3.word: Words
+pi.dashboard.menu3.category: Category
 
 pi.dashboard.menu4.title: Widget
 pi.dashboard.menu4.page: Page
@@ -37,19 +38,20 @@ pi.dashboard.menu4.slider: Slider
 pi.dashboard.menu4.organigram: Organigram chart
 pi.dashboard.menu4.block: Block
 pi.dashboard.menu4.media: Media
-pi.dashboard.menu4.category: Category
 pi.dashboard.menu4.news: News
-pi.dashboard.menu4.contact: Contact
-pi.dashboard.menu4.pressrelease: Press releases
-pi.dashboard.menu4.partner: Partners
 
 pi.dashboard.menu5.title: Work
 pi.dashboard.menu5.individual: Individual
 pi.dashboard.menu5.corporation: Corporation
 pi.dashboard.menu5.rss: Rss
 pi.dashboard.menu5.newsletter: Newsletter
-pi.dashboard.menu5.event: Event
 pi.dashboard.menu5.ads: Ads
+
+pi.dashboard.menu6.title: Others
+pi.dashboard.menu6.contact: Contact
+pi.dashboard.menu6.pressrelease: Press releases
+pi.dashboard.menu6.partner: Partners
+pi.dashboard.menu6.team: Team
 
 # ENTITY :: MEDIA
 pi.media.form.field.mediadelete: Action to remove the media %s type.

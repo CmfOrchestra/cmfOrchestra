@@ -72,6 +72,14 @@ pi.grid.action.select:  مجموعه
 pi.grid.action.select_all: اختر كل
 pi.grid.action.select_none: ألغ  كل
 
+pi.grid.action.enabled_paiementstatus.sButtonText:  تمكين الدفع
+pi.grid.action.enabled_paiementstatus.questionTitle: تفعيل الدفع لأحد أعضاء
+pi.grid.action.enabled_paiementstatus.questionText: هل أنت متأكد من أنك تريد تمكين الدفع (ق) عضو 
+
+pi.grid.action.disable_paiementstatus.sButtonText:  تعطيل الدفع
+pi.grid.action.disable_paiementstatus.questionTitle:  تعطيل دفع مشارك
+pi.grid.action.disable_paiementstatus.questionText:  هل أنت متأكد من أنك تريد تعطيل الدفع (ق) عضو 
+
 #form
 pi.form.tab.box.close: إغلاق
 pi.form.tab.box.title: إضافة التبويب

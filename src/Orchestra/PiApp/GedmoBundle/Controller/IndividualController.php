@@ -732,7 +732,6 @@ class IndividualController extends abstractController
                   $template = '_template_form_adhesion_step3.html.twig';
                   
                   $newsletters = $this->_get_newsletters_categories($lang, $user);
-                  $commissions = $this->_get_commissions($lang); 
         
                   return $this->render("PiAppGedmoBundle:Individual:$template", array(
                       'entity'      => $entity,
@@ -743,7 +742,6 @@ class IndividualController extends abstractController
                       'new'	=> '1',
                       'render'	=> '',
                       'newsletters' => $newsletters,
-                      'commissions' => $commissions,
                   ));
               }else {
                   $render = $this->container->get('http_kernel')->render('PiAppGedmoBundle:Individual:_template_adhesionSave', array('attributes'=>$params));
@@ -916,13 +914,6 @@ class IndividualController extends abstractController
                       $user->addNewsletter($nl);
                   }  
                 }
-                if(isset($_POST['commissions']) && !empty($_POST['commissions'])){
-                  $commissions = $_POST['commissions'];
-                  foreach (array_keys($commissions)  as $commission ) {
-                      $com  = $em->getRepository('PiAppGedmoBundle:Lamelee\TypoCommission')->findOneById($commission);
-                      $user->addTypoCommission($com);
-                  }  
-                }
                 
                 $em->persist($user);
                 $em->flush();	          
@@ -946,13 +937,6 @@ class IndividualController extends abstractController
 						$nl  = $em->getRepository('PiAppGedmoBundle:Newsletter')->findOneById($newsletter);
 						$user->addNewsletter($nl);
 					}
-				}
-				if(isset($_POST['commissions']) && !empty($_POST['commissions'])){
-					$commissions = $_POST['commissions'];
-					foreach (array_keys($commissions)  as $commission ) {
-						$com  = $em->getRepository('PiAppGedmoBundle:Lamelee\TypoCommission')->findOneById($commission);
-						$user->addTypoCommission($com);
-					} 
 				}
                 $em->persist($user);
                 $em->flush();	 
@@ -1058,7 +1042,6 @@ class IndividualController extends abstractController
           
       }
           $newsletters = $this->_get_newsletters_categories($lang);
-          $commissions = $this->_get_commissions($lang);
         
           return $this->render("PiAppGedmoBundle:Individual:$template", array(
               'entity'      => $entity,
@@ -1068,7 +1051,6 @@ class IndividualController extends abstractController
               'new'	=> 1,
               'render'	=> '',
               'newsletters' => $newsletters,
-              'commissions' => $commissions,
           )); 
     }   
 
@@ -1114,20 +1096,5 @@ class IndividualController extends abstractController
         
         return $categories;
     }
-    
-    private function _get_commissions($lang ="") {
-      $em        = $this->getDoctrine()->getEntityManager();
-      if(empty($lang))
-              $lang   = $this->container->get('session')->getLocale();
-      
-        $coms	= $em->getRepository("PiAppGedmoBundle:Lamelee\TypoCommission")->findAllByEntity($lang, 'object'); 
-
-        foreach ($coms as $com) {
-          $commissions[] = array(
-            $com->getId(),
-            $com->translate($lang)->getTitle()
-          );
-        }
-        return $commissions;
-    }   
+  
 }

@@ -1,0 +1,26 @@
+fos_user:
+     username:
+         already_used: The name is already in use
+         blank: Enter a user name please
+         short: The user name is too short
+         long: The user name is too long
+     email:
+         already_used: The email address is already in use
+         blank: Enter an e-mail please
+         short: The e-mail address is too short
+         long: The e-mail address is too long
+         invalid: The e-mail address is invalid
+     password:
+         blank: Enter a password please
+         short: The password is too short
+     new_password:
+         blank: Enter a new password please
+         short: The new password is too short
+     current_password:
+         invalid: The password is invalid
+     group:
+         blank: Enter a name please
+         short: The name is too short
+         long: The name is too long
+        
+erreur.unauthorized.method: This feature is not allowed.

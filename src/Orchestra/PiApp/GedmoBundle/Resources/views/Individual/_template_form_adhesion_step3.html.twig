@@ -46,33 +46,6 @@
 						{% endfor %}            
 						{{ form_errors(form) }}
 						{{ form_widget(form._token) }}            
-						<fieldset>
-							<legend class="bold">Mes commissions</legend>
-						
-							<p class="light-clr">
-								Veuillez sélectionner les commisions auxquelles vous souhaitez participer :
-							</p>
-							<div class="row radio-list cf">
-								{% set com_len = commissions|length %}
-								{% for i in 1..2 %}
-								<div class="half fleft">
-								  {% if i == 1 %}
-									  {% set deb = 0 %}
-									  {% set fin = (((com_len)+(com_len%2))/2 -1)  %}
-								  {% else  %}
-									  {% set deb = (((com_len)+(com_len%2))/2 ) %}
-									  {% set fin = com_len -1 %}
-								  {% endif %}
-								  {% for com in deb..fin  %}
-									  <div class="field">
-										<input type="checkbox" name="commissions[{{attribute(attribute(commissions, com), 0)}}]">
-										<label class="light-clr">{{attribute(attribute(commissions, com), 1)}}</label>
-									  </div>
-								  {% endfor %}
-								</div>
-								{% endfor %}                	
-							</div>
-						</fieldset>
 
 						<fieldset>
 							<legend class="bold">Mes Newsletters</legend>

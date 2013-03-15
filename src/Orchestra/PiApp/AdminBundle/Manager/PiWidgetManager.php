@@ -160,7 +160,7 @@ class PiWidgetManager extends PiCoreManager implements PiWidgetManagerBuilderInt
 		$container 		= $this->getCurrentWidget()->getPlugin();
 		$NameAction		= $this->getCurrentWidget()->getAction();
 		$id				= $this->getCurrentWidget()->getId();
-		$cssClass		= $this->getCurrentWidget()->getConfigCssClass();
+		$cssClass		= \PiApp\AdminBundle\Util\PiStringManager::slugify($this->getCurrentWidget()->getConfigCssClass());
 		//$configureXml	= $this->container->get('pi_app_admin.string_manager')->filtreString($this->getCurrentWidget()->getConfigXml());
 		
 // 		$options = array(

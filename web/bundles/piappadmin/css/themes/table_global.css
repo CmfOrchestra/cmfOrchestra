@@ -93,6 +93,7 @@ table.dataTable tr td:last-child a{border:0px;}
 	background: url(../../images/grid/filter-funnel-icone-8019-16.png) no-repeat;
 }
 
+
 tr.odd:hover{
 	transition-property: background-color;
 	-moz-transition-property: background-color;

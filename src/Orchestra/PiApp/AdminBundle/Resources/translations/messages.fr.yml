@@ -72,6 +72,14 @@ pi.grid.action.select: Sélection
 pi.grid.action.select_all: Tout selectionner
 pi.grid.action.select_none: Tout déselectionner
 
+pi.grid.action.enabled_paiementstatus.sButtonText: Activer Paiement
+pi.grid.action.enabled_paiementstatus.questionTitle: Activation de paiement d'un adhérent
+pi.grid.action.enabled_paiementstatus.questionText: êtes-vous sûr de vouloir activer le paiement de(s) adhérent(s) ?
+
+pi.grid.action.disable_paiementstatus.sButtonText: Désactiver Paiement
+pi.grid.action.disable_paiementstatus.questionTitle: Désactivation de paiement d'un adhérent
+pi.grid.action.disable_paiementstatus.questionText: êtes-vous sûr de vouloir désactiver le paiement de(s) adhérent(s) ?
+
 #form
 pi.form.tab.box.close: Fermer
 pi.form.tab.box.title: Ajouter l'onglet

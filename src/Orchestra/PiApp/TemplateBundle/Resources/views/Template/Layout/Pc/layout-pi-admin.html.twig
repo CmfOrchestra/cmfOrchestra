@@ -132,7 +132,7 @@
 	
 		<!-- start logo -->
 		<div id="logo">
-			<a href="{{ path('admin_homepage') }}" title="logo"><img src="{{ asset('bundles/piappadmin/images/logo/logo-orchestra-white.png') }}" height="70" alt="" /></a>
+			<a href="{{ path('admin_homepage') }}" title="logo"><img src="{{ asset('bundles/piappadmin/images/logo/logo-orchestra-white.png') }}" height="67" alt="" /></a>
 		</div>
 		<!-- end logo -->
 		
@@ -226,15 +226,16 @@
 			
 			<div class="nav-divider">&nbsp;</div>
 			
-			<ul {{ in_paths("admin_word:admin_rubrique_tree:admin_keyword:admin_tag:admin_langue", 'class="current"', 'class="select"')|raw }} ><li><a href="#nogo"><strong>{{ 'pi.dashboard.menu3.title'|trans }}</strong><!--[if IE 7]><!--></a><!--<![endif]-->
+			<ul {{ in_paths("admin_gedmo_category:admin_word:admin_rubrique_tree:admin_keyword:admin_tag:admin_langue", 'class="current"', 'class="select"')|raw }} ><li><a href="#nogo"><strong>{{ 'pi.dashboard.menu3.title'|trans }}</strong><!--[if IE 7]><!--></a><!--<![endif]-->
 			<!--[if lte IE 6]><table><tr><td><![endif]-->
-			<div class="select_sub {{ in_paths("admin_word:admin_rubrique_tree:admin_keyword:admin_tag:admin_langue", 'show')|raw }} ">
+			<div class="select_sub {{ in_paths("admin_gedmo_category:admin_word:admin_rubrique_tree:admin_keyword:admin_tag:admin_langue", 'show')|raw }} ">
 				<ul class="sub">
 					<li {{ in_paths("admin_rubrique_tree", 'class="sub_show"')|raw }}	><a href="{{ path("admin_rubrique_tree") }}" >{{ 'pi.dashboard.menu3.rubrique'|trans }}</a></li>
 					<li {{ in_paths("admin_langue", 'class="sub_show"')|raw }}		><a href="{{ path("admin_langue") }}" >{{ 'pi.dashboard.menu3.language'|trans }}</a></li>
 					<li {{ in_paths("admin_tag", 'class="sub_show"')|raw }}			><a href="{{ path("admin_tag") }}" >{{ 'pi.dashboard.menu3.tag'|trans }}</a></li>
 					<li {{ in_paths("admin_keyword", 'class="sub_show"')|raw }}		><a href="{{ path("admin_keyword") }}" >{{ 'pi.dashboard.menu3.keyword'|trans }}</a></li>
-					<li {{ in_paths("admin_word", 'class="sub_show"')|raw }}		><a href="{{ path("admin_word") }}" >{{ 'pi.dashboard.menu3.word'|trans }}</a></li>	
+					<li {{ in_paths("admin_word", 'class="sub_show"')|raw }}		><a href="{{ path("admin_word") }}" >{{ 'pi.dashboard.menu3.word'|trans }}</a></li>
+					<li {{ in_paths("admin_gedmo_category", 'class="sub_show"')|raw }}			><a href="{{ path("admin_gedmo_category") }}" >{{ 'pi.dashboard.menu3.category'|trans }}</a></li>	
 				</ul>
 			</div>
 			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
@@ -285,12 +286,10 @@
 			
 			<div class="nav-divider">&nbsp;</div>
 			
-			<ul {{ in_paths("admin_gedmo_category:admin_gedmo_lamelee_article:admin_gedmo_lamelee_comment:admin_gedmo_lamelee_resource:admin_gedmo_contact:admin_gedmo_partner:admin_gedmo_pressrelease:admin_gedmo_team", 'class="current"', 'class="select"')|raw }} ><li><a href="#nogo"><strong>{{ 'pi.dashboard.menu6.title'|trans }}</strong><!--[if IE 7]><!--></a><!--<![endif]-->
+			<ul {{ in_paths("admin_gedmo_lamelee_article:admin_gedmo_lamelee_comment:admin_gedmo_lamelee_resource:admin_gedmo_contact:admin_gedmo_partner:admin_gedmo_pressrelease:admin_gedmo_team", 'class="current"', 'class="select"')|raw }} ><li><a href="#nogo"><strong>{{ 'pi.dashboard.menu6.title'|trans }}</strong><!--[if IE 7]><!--></a><!--<![endif]-->
 			<!--[if lte IE 6]><table><tr><td><![endif]-->
-			<div class="select_sub {{ in_paths("admin_gedmo_category:admin_gedmo_lamelee_article:admin_gedmo_lamelee_comment:admin_gedmo_lamelee_resource:admin_gedmo_contact:admin_gedmo_partner:admin_gedmo_pressrelease:admin_gedmo_team", 'show')|raw }} ">
+			<div class="select_sub {{ in_paths("admin_gedmo_lamelee_article:admin_gedmo_lamelee_comment:admin_gedmo_lamelee_resource:admin_gedmo_contact:admin_gedmo_partner:admin_gedmo_pressrelease:admin_gedmo_team", 'show')|raw }} ">
 				<ul class="sub">
-					<li {{ in_paths("admin_gedmo_category", 'class="sub_show"')|raw }}			><a href="{{ path("admin_gedmo_category") }}" >{{ 'pi.dashboard.menu7.category'|trans }}</a></li>
-					<li><a style="color:#238BDB" >&#187;</a></li>
 					<li {{ in_paths("admin_gedmo_contact", 'class="sub_show"')|raw }}				><a href="{{ path("admin_gedmo_contact") }}" >{{ 'pi.dashboard.menu6.contact'|trans }}</a></li>	
 					<li><a style="color:#238BDB" >&#187;</a></li>
 					<li {{ in_paths("admin_gedmo_partner", 'class="sub_show"')|raw }}			><a href="{{ path("admin_gedmo_partner") }}" >{{ 'pi.dashboard.menu6.partner'|trans }}</a></li>

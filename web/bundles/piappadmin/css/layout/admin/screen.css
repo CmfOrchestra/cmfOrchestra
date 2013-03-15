@@ -102,7 +102,7 @@ ul  {
 #page-top-outer	{
 	background: url(../../../images/shared/top_bg.jpg) top center repeat-x;
 	border-bottom: 1px solid #7e7e7e;
-	height: 92px;
+	height: 69px;
 	}
 #page-top	{
 	margin: 0 auto;
@@ -112,7 +112,7 @@ ul  {
 	}
 #logo	{
 	float: left;
-	margin: 15px 0 0 15px;
+	margin: 0px 0 0 15px;
 	}
 #logo	a	{
 	display: block;
@@ -138,7 +138,7 @@ ul  {
 #content-outer	{
 	position:absolute;
 	width: 100%;
-	margin-top:170px;
+	margin-top:152px;
 	background: url(../../../images/shared/content_repeat.jpg) repeat-x;
 	}
 #content	{
@@ -150,7 +150,7 @@ ul  {
 	margin: 0 auto 0 auto;
 	max-width: 1260px;
 	min-width: 780px;
-	padding: 35px 0px 30px 0px;
+	padding: 15px 0px 30px 0px;
 	}
 #content-inner	{
 	color: #333;
@@ -174,11 +174,13 @@ ul  {
 	line-height: 0px;
 	}
  
-	
+.image-fixed-left {position:fixed;top:50%;margin-top:-110px;margin-left:-5px;}
+.image-fixed-right {position:fixed;top:50%;margin-top:-110px;margin-right:5px;}
+
 #content-table-inner	{
 	font-size: 12px;
 	line-height: 12px;
-	padding: 10px 0 20px 0;
+	padding: 0px 0 20px 0;
 	}
 #tbl-border-top	{
 	background: url(../../../images/shared/border_top.jpg) top repeat-x;
@@ -201,7 +203,7 @@ ul  {
 #table-content	{
 	line-height: 16px;
 	margin: 0 10px 10px 10px;
-	min-height: 300px;
+	min-height: 400px;
 }
 	
 	
@@ -233,7 +235,7 @@ height:15px;
 }	
 
 #page-heading	{
-	margin: 0 0 15px 20px;
+	margin: 0 0 5px 20px;
 	}
 
 
@@ -243,7 +245,7 @@ height:15px;
 
 #admin-header{
 	position:fixed;
-	z-index:9999999999999999999;
+	z-index:9999;
 	width:100%;
 	border-bottom: 7px solid #B5AD86;
 }
@@ -782,25 +784,25 @@ Copyright (c) 2005-2007 Stu Nicholls. All rights reserved. This stylesheet and t
 	position:fixed;
 	bottom:0;
 	left:50%;
-	margin-left:-629px;
+	margin-left:-634px;
 	z-index:999999;
 	background-color: #FFF;
-	height: 70px;
+	height: 42px;
 	padding: 0px 0 0 0;
 	text-align: left;
-	width: 1258px;
+	width: 1268px;
 	}
 #footer-left	{
 	color: #818181;
 	 
 	font-size: 11px;
 	line-height: 35px;
-	padding: 15px 0 15px 25px;
+	padding: 5px 0 5px 25px;
 	margin: 0 20px;
 	
 	border-top: 1px solid #dbdbdb;
-	border-bottom: 1px solid #dbdbdb;
-	background: url(../../../images/shared/icon_idlogo.jpg) no-repeat 0 23px;
+	/*border-bottom: 1px solid #dbdbdb;*/
+	background: url(../../../images/shared/icon_idlogo.jpg) no-repeat 0 13px;
 	} 
 #footer-left a	{
 	color: #818181;
@@ -1229,9 +1231,6 @@ span.connexion-my-account:hover,
 span.connexion-login-logout:hover{
 	color: #238bdb;
 	}
-	
-	
-	
 	
 /*  FLASH ----------------------------------------------- */
 .fancybox-wrap .tt-grey{

@@ -7,5 +7,3 @@ erreur.typology.notblank: You must enter a typology
 erreur.slug.notblank: You must enter a slug
 erreur.title.notblank: You must enter a title
 erreur.metacontenttype.notblank: You must enter a content-type
-
-erreur.unauthorized.method: This feature is not allowed.

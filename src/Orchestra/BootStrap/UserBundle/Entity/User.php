@@ -137,6 +137,8 @@ class User extends BaseUser
     	
     	$this->groups		= new \Doctrine\Common\Collections\ArrayCollection();
     	$this->newsletters	= new \Doctrine\Common\Collections\ArrayCollection();
+    	$this->typocommissions	= new \Doctrine\Common\Collections\ArrayCollection();
+    	$this->events	= new \Doctrine\Common\Collections\ArrayCollection();      
     	$this->rssneeds		= new \Doctrine\Common\Collections\ArrayCollection();
 		$this->ads	 	 = new \Doctrine\Common\Collections\ArrayCollection();
     }    

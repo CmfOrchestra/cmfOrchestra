@@ -16,6 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response as Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use FOS\UserBundle\Model\UserInterface;
 
 use PiApp\AdminBundle\Builder\PiTreeManagerBuilderInterface;
@@ -152,34 +153,45 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
 			$template = $params['template'];
 		else
 			$template = "PiAppTemplateBundle:Template\\Login\\Resetting:reset_content.html.twig";
-				
-		$token  = $this->container->get('request')->query->get('token');
 		
-		$user 	= $this->container->get('fos_user.user_manager')->findUserByConfirmationToken($token);
-		if (null === $user) {
-			throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException(sprintf('The user with "confirmation token" does not exist for value "%s"', $token));
+		if(isset($params['url_redirection']) && !empty($params['url_redirection']))
+			$url_redirection = $params['url_redirection'];
+		else
+			$url_redirection = $this->container->get('router')->generate("home_page");
+				
+		$token  	 = $this->container->get('request')->query->get('token');
+		
+		// if a user is connected, we generate automatically the token if it is not given in parameter.
+		if(empty($token) && $this->isUsernamePasswordToken()){
+			$token = $this->tokenUser($this->getToken()->getUser());
+			$user  = $this->getToken()->getUser();
+		}else{
+			$user 	= $this->container->get('fos_user.user_manager')->findUserByConfirmationToken($token);
+			if (null === $user) {
+				throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException(sprintf('The user with "confirmation token" does not exist for value "%s"', $token));
+			}
+			
+			// 		if (!$user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
+			// 			return new \Symfony\Component\HttpFoundation\RedirectResponse($this->container->get('router')->generate('fos_user_resetting_request'));
+			// 		}
 		}
-	
-// 		if (!$user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
-// 			return new \Symfony\Component\HttpFoundation\RedirectResponse($this->container->get('router')->generate('fos_user_resetting_request'));
-// 		}
 	
 		$form 			= $this->container->get('fos_user.resetting.form');
 		$formHandler 	= $this->container->get('fos_user.resetting.form.handler');
 		$process 		= $formHandler->process($user);
 	
 		if ($process) {
-            $response = new \Symfony\Component\HttpFoundation\RedirectResponse($this->container->get('router')->generate('home_page'));
-            $this->authenticateUser($user, $response);
-
-            $this->container->get('session')->clearFlashes();
+			$response = new \Symfony\Component\HttpFoundation\RedirectResponse($url_redirection);
+			$this->authenticateUser($user, $response);
+			
+			$this->container->get('session')->clearFlashes();
 			return $response;
 		}
 		
 		$this->container->get('session')->clearFlashes();
 		return $this->container->get('templating')->renderResponse($template, array(
 				'token' => $token,
-				'form' => $form->createView(),
+				'form'  => $form->createView(),
 				'theme' => $this->container->getParameter('fos_user.template.theme'),
 				'route' => $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('_route', $this->container->get('session')->getLocale())
 		))->getContent();
@@ -203,7 +215,7 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
 			// checker (not enabled, expired, etc.).
 		}
 	}	
-	
+		
 	/**
 	 * Send mail to reset user password
 	 */	
@@ -217,6 +229,17 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
     	$html_url = "<a href='$html_url'>" . $html_url . "</a>";
     	return $html_url;
     }	
+    
+    /**
+     * return confirmation token to reset user password
+     */
+    public function tokenUser(UserInterface $user)
+    {
+    	$user->generateConfirmationToken();
+    	$this->container->get('session')->set(static::SESSION_EMAIL, $this->getObfuscatedEmail($user));
+    	 
+    	return $user->getConfirmationToken();
+    }    
     
     /**
      * Get the truncated email displayed when requesting the resetting.

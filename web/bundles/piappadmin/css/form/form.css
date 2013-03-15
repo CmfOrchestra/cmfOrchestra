@@ -6,6 +6,10 @@
 .myform{
 	/* max-width: 595px; */
 }
+.myform img{
+	max-width: 300px;
+	height:auto;
+}
 .myform fieldset{
 	margin: 0;
 	padding: 4%;
@@ -86,6 +90,9 @@
 	-moz-box-shadow: 4px 4px 4px #ddd;
 	-webkit-box-shadow: 4px 4px 4px #ddd;
 	box-shadow: 4px 4px 4px #ddd;	
+}
+.myform .time select{
+	width: 75px;
 }
 .myform textarea{
 	height: 71px;
@@ -179,6 +186,7 @@
 	-moz-box-shadow: 4px 4px 4px #ddd;
 	-webkit-box-shadow: 4px 4px 4px #ddd;
 	box-shadow: 4px 4px 4px #ddd; 	
+	z-index: 9999999;
 }
 .myform .choice span.help-inline {
 	position: absolute;

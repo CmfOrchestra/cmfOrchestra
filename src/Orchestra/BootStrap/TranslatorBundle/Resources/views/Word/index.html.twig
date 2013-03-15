@@ -15,6 +15,15 @@
  
 {% block content %}
 
+	{% if NoLayout == false %}
+	<!--  start actions-box ............................................... -->
+	<div id="actions-box">
+		<a href="{{ path('admin_word_new') }}" class="action-edit" title="{{ 'pi.grid.action.create'|trans }}">{{ 'pi.grid.action.create'|trans }}</a>
+		<div class="clear"></div>	
+	</div>
+	<!-- end actions-box........... -->
+	{% endif %}
+	
 	<table id="grid_word" class="grid" >
 	    <thead>
 	        <tr>	            
@@ -34,13 +43,13 @@
         		<td class="position" >{{ entity.position}}</td>
 	            <td><a href="{{ path('admin_word_show', { 'id': entity.id, 'NoLayout': NoLayout }) }}" title="">{{ entity.id }}</a></td>	
 	            <td>
-	            	{{ entity.category|limite("0", 55)|raw }}
+	            	{{ entity.category|limite("0", 55) }}
 	            </td>	
 	            <td>
-					{{ entity.keyword|limite("0", 55)|raw }}
+					{{ entity.keyword|striptags|limite("0", 55) }}
 				</td>
 				<td>
-					{{ entity.label|limite("0", 55)|raw }}
+					{{ entity.label|striptags|limite("0", 55) }}
 	            </td>	
 	            <td class="enabled" >{{ entity.enabled}}</td>
 				<td>
@@ -58,20 +67,6 @@
 	    </tbody>
 	</table>
 
-		{% if NoLayout == false %}
-	<!--  start actions-box ............................................... -->
-	<div id="actions-box">
-		<a href="" class="action-slider"><span>{{ 'pi.grid.action.title'|trans }}</span></a>
-		<div id="actions-box-slider">
-			{#<a href="javascript:void(0);" class="action-edit" title="{{ 'pi.grid.action.edit'|trans }}">{{ 'pi.grid.action.edit'|trans }}</a> #}
-			{#<a href="javascript:void(0);" class="action-delete" title="{{ 'pi.grid.action.delete'|trans }}">{{ 'pi.grid.action.delete'|trans }}</a>#}
-			<a href="{{ path('admin_word_new') }}" class="action-edit" title="{{ 'pi.grid.action.create'|trans }}">{{ 'pi.grid.action.create'|trans }}</a>
-		</div>
-		<div class="clear"></div>	
-	</div>
-	<!-- end actions-box........... -->
-	{% endif %}
-	
 	{% set options_gridtabale = {'grid-name': 'grid_word', 'grid-type':'simple', 
 			'grid-paginate':'false',
 			'grid-filters': { 

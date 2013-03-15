@@ -646,7 +646,6 @@ class CorporationController extends abstractController
                   $template = '_template_form_adhesion_step4.html.twig';
                   
                   $newsletters = $this->_get_newsletters_categories($lang, $user);
-                  $commissions = $this->_get_commissions($lang); 
                   
                   return $this->render("PiAppGedmoBundle:Corporation:$template", array(
                       'entity'      => $entity,
@@ -655,7 +654,6 @@ class CorporationController extends abstractController
                       'new'			=> '1',
                       'render'		=> '',
                       'newsletters'	=> $newsletters,
-                      'commissions' => $commissions,
                   ));
               }else {
 					$render = $this->container->get('http_kernel')->render('PiAppGedmoBundle:Corporation:_template_adhesionSave', array('attributes'=>$params));
@@ -893,13 +891,6 @@ class CorporationController extends abstractController
                 $user->addNewsletter($nl);
             }
           }
-          if(isset($_POST['commissions']) && !empty($_POST['commissions'])){
-            $commissions = $_POST['commissions'];          
-            foreach (array_keys($commissions)  as $commission ) {
-                $com  = $em->getRepository('PiAppGedmoBundle:Lamelee\TypoCommission')->findOneById($commission);
-                $user->addTypoCommission($com);
-            }
-          }
           $em->persist($user);
           $em->flush();
           
@@ -1006,7 +997,7 @@ class CorporationController extends abstractController
           //send mail
           $templateFile = "PiAppGedmoBundle:Corporation:email_adhesion.html.twig";
           $templateContent = $this->get('twig')->loadTemplate($templateFile);
-          $url_resetting = $this->container->get("pi_app_admin.manager.authentication")->sendResettingEmailMessage($user, "page_lamelee_reset");
+          $url_resetting = $this->container->get("pi_app_admin.manager.authentication")->sendResettingEmailMessage($user, "home_page");
           $subject = ($templateContent->hasBlock("subject")
               ? $templateContent->renderBlock("subject", array(
               'confirmationUrl' =>  $url_resetting,
@@ -1037,7 +1028,6 @@ class CorporationController extends abstractController
           
       }
           $newsletters = $this->_get_newsletters_categories($lang);
-          $commissions = $this->_get_commissions($lang);
           
           return $this->render("PiAppGedmoBundle:Corporation:$template", array(
               'entity'      => $entity,
@@ -1045,7 +1035,6 @@ class CorporationController extends abstractController
               'new'			=> 1,
               'render'		=> '',
               'categories' 	=> $newsletters,
-              'commissions' => $commissions,
           )); 
     }   
 
@@ -1075,20 +1064,5 @@ class CorporationController extends abstractController
         
         return $categories;
     }
-    
-    private function _get_commissions($lang ="") {
-      $em        = $this->getDoctrine()->getEntityManager();
-      if(empty($lang))
-              $lang   = $this->container->get('session')->getLocale();
-      
-        $coms	= $em->getRepository("PiAppGedmoBundle:Lamelee\TypoCommission")->findAllByEntity($lang, 'object'); 
-
-        foreach ($coms as $com) {
-          $commissions[] = array(
-            $com->getId(),
-            $com->translate($lang)->getTitle()
-          );
-        }
-        return $commissions;
-    }    
+  
 }

@@ -1,0 +1,104 @@
+# Group
+group:
+    edit:
+        submit: Update group
+    show:
+        name: Name of the group
+    new:
+        submit: Create Group
+    flash:
+        updated: The group has been updated
+        created: The group was created
+        deleted: The group has been deleted
+
+# Security
+"Bad credentials": Username or password incorrect
+
+security:
+    login:
+        username: "Username :"
+        password: "Password :"
+        remember_me: Remember Me
+        submit: Login
+
+# Profile
+profile:
+    show:
+        username: Username
+        email: E-mail
+    edit:
+        submit: Update
+    flash:
+        updated: The profile has been updated
+
+# Password change
+change_password:
+    submit: Change the password
+    flash:
+        success: The password has been changed
+
+# Registration
+registration:
+    check_email: An e-mail has been sent to the address %email%. It contains an activation link on which you must click to activate your account.
+    confirmed: %username% Congratulations, your account is now activated.
+    back: Back to the original page.
+    submit: Register
+    flash:
+        user_created: The user was successfully created
+    email:
+        subject: Welcome %username% !
+        message: |
+            Hello %username% !
+
+            To confirm your account, thank you for visit %confirmationUrl%
+
+            Sincerely,
+            Team.
+
+# Password resetting
+resetting:
+    password_already_requested: A new password has been requested for this user in the last 24 hours.
+    check_email: An e-mail has been sent to the address% email%. It contains a link that you must click to reset your password.
+    request:
+        invalid_username: E-mail "%username%" does not exist.
+        username: "E-mail"
+        submit: Reset password
+    reset:
+        submit: Change the password
+    flash:
+        success: The password has been reset successfully
+    email:
+        subject: Welcome %username% !
+        message: |
+            Hello %username% !
+
+            To reset your password, thank you visit %confirmationUrl%
+
+            Sincerely,
+            Team.
+
+# Global strings
+layout:
+    logout: Logout
+    login: Login
+    register: Register
+    logged_in_as: Logged in as %username%
+
+# Form field labels
+fos_user_group_form_name: "Group Name"
+
+fos_user_profile_form_user_username: "Username"
+fos_user_profile_form_user_email: "E-mail"
+fos_user_profile_form_current: "Current Password"
+
+fos_user_registration_form_username: "Username"
+fos_user_registration_form_email: "E-mail"
+fos_user_registration_form_plainPassword_first: "Password:"
+fos_user_registration_form_plainPassword_second: "Checking"
+
+fos_user_resetting_form_new_first: "New password:"
+fos_user_resetting_form_new_second: "Checking"
+
+fos_user_change_password_form_new_first: "New password:"
+fos_user_change_password_form_new_second: "Checking"
+fos_user_change_password_form_current: "Current Password"

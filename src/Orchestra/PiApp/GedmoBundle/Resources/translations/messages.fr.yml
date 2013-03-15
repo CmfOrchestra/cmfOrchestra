@@ -28,6 +28,7 @@ pi.dashboard.menu3.tag: Tag
 pi.dashboard.menu3.keyword: Mots clé
 pi.dashboard.menu3.comment: Commentaire
 pi.dashboard.menu3.word: Mots
+pi.dashboard.menu3.category: Catégorie
 
 pi.dashboard.menu4.title: Widget
 pi.dashboard.menu4.page: Page
@@ -37,19 +38,20 @@ pi.dashboard.menu4.slider: Slider
 pi.dashboard.menu4.organigram: Organigramme
 pi.dashboard.menu4.block: Bloc
 pi.dashboard.menu4.media: Media
-pi.dashboard.menu4.category: Catégorie
 pi.dashboard.menu4.news: Actualités
-pi.dashboard.menu4.contact: Contact
-pi.dashboard.menu4.pressrelease: Communiqués de presse
-pi.dashboard.menu4.partner: Partenaires
 
 pi.dashboard.menu5.title: Ouvrage
 pi.dashboard.menu5.individual: Personne physique
 pi.dashboard.menu5.corporation: Personne morale
 pi.dashboard.menu5.rss: Rss
 pi.dashboard.menu5.newsletter: Newsletter
-pi.dashboard.menu5.event: Evénement
 pi.dashboard.menu5.ads: Annonces
+
+pi.dashboard.menu6.title: Autres
+pi.dashboard.menu6.contact: Contact
+pi.dashboard.menu6.pressrelease: Communiqués de presse
+pi.dashboard.menu6.partner: Partenaires
+pi.dashboard.menu6.team: Equipe
 
 # ENTITY :: MEDIA
 pi.media.form.field.mediadelete: Action visant à supprimer le media de type %s.

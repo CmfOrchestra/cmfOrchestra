@@ -717,7 +717,7 @@ class AdsController extends abstractController
     }
     
     /**
-     * Template : Finds and displays a list of the last Lamelee\Article entity.
+     * Template :
      *
      * @Route("/opportunite/{ads_id}", name="piapp_gedmo_ads_create", requirements={"_method"="POST", "ads_id" = "\d+"})
      * @return \Symfony\Component\HttpFoundation\Response

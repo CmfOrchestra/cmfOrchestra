@@ -59,18 +59,6 @@ class RssType extends AbstractType
 		
     public function buildForm(FormBuilder $builder, array $options)
     {
-      $choiceList = $this->_em->getRepository("PiAppGedmoBundle:Lamelee\TypoThematic")->findAllByEntity($this->_locale, 'object');
-      $thematic = array();
-      $commission = array();
-      foreach($choiceList as $choice){
-        $thematic[$choice->getConfigCssClass()]=$choice->getTitle();
-      }
-      $list['THEMATIC'] = $thematic;
-      $choiceList = $this->_em->getRepository("PiAppGedmoBundle:Lamelee\TypoCommission")->findAllByEntity($this->_locale, 'object');
-      foreach($choiceList as $choice){
-        $commission[$choice->getConfigCssClass()]=$choice->getTitle();
-      }      
-      $list['COMMISSION'] = $commission;
 
         $builder
 	        ->add('enabled', 'checkbox', array(
@@ -112,14 +100,6 @@ class RssType extends AbstractType
  							"class"=>"category_collection",
  					),
  			)) 				
- 			->add('configCssClass', 'choice', array(
- 					'choices'   => $list,
- 					'label'	=> 'pi.rss.form.type',
-          'empty_value' => 'pi.form.label.select.choose.rss',
- 					'required'  => true,
- 					'multiple'	=> false,
- 					'expanded' => false,
- 			)) 			
  			
  			->add('title', 'text', array(
  					'label'	=> "pi.form.label.field.title",

@@ -1,4 +1,4 @@
-<div class="third-col-tpl fleft">
+{#<div class="third-col-tpl fleft">
 	<section class="bloc-connexion">
 		<div class="wrap">
 			<div class="content">
@@ -20,3 +20,31 @@
 		</div>
 	</section>		
 </div>
+#}
+<section class="bloc-connexion">
+		<div class="wrap content">
+				<header class="resetM">
+					<div class="title-border-simple cf">
+						<h3 class="tt-5 tt-clr fleft">Création/Changement de mot-de-passe</h3>
+					</div>
+				</header>
+				{% form_theme form theme %}
+				<form action="{{ path(route, {'token': token}) }}" {{ form_enctype(form) }} method="POST" id="form-connexion-reset">
+					<div class="row">
+						{{ form_errors(form) }}
+    					{{ form_widget(form._token) }}
+					</div>
+					<div class="row">
+						<label class="i-block fourth">{{ form_label(form.new.first) }}</label>
+						{{ form_widget(form.new.first) }}
+					</div>
+					<div class="row">
+						<label class="i-block fourth">{{ form_label(form.new.second) }}</label>
+						{{ form_widget(form.new.second) }}
+					</div>
+					<div class="txtcenter">
+						<input type="submit" class="txtcenter nextStep" value="{{ 'pi.grid.action.validate'|trans }}">
+					</div>
+				</form>
+			</div>
+</section>
