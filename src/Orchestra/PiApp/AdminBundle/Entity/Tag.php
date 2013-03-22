@@ -88,7 +88,7 @@ class Tag extends AbstractTranslation
      * @var string $name
      *
      * @Gedmo\Translatable
-     * @ORM\Column(name="name", type="string", length=255, nullable=false, unique=true)
+     * @ORM\Column(name="name", type="string", length=255, nullable=true, unique=true)
      * @Assert\NotBlank()
      * @Assert\MinLength(limit = 2, message = "Le nom doit avoir au moins {{ limit }} caractères")
      */

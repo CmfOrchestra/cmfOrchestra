@@ -136,7 +136,22 @@ class PiMailerManager implements PiMailerManagerBuilderInterface
 	 */
 	public function init(\Swift_Mime_Message $message, $from, $to, $cc, $bcc, $replayto, $subject, $body)
 	{
-	try {
+		if(is_string($cc)){
+			$cc_new	= $this->container->get('pi_app_admin.regex_manager')->verifByRegularExpression($cc, 'mail', PREG_SPLIT_NO_EMPTY);
+			if( is_array($cc_new) && (count($cc_new)==1) && (count($cc_new[0])>=1) )
+				$cc = $cc_new[0];
+			else
+				$cc = null;
+		}
+		if(is_string($bcc)){
+			$bcc_new = $this->container->get('pi_app_admin.regex_manager')->verifByRegularExpression($bcc, 'mail', PREG_SPLIT_NO_EMPTY);
+			if( is_array($bcc_new) && (count($bcc_new)==1) && (count($bcc_new[0])>=1) )
+				$bcc = $bcc_new[0];
+			else
+				$cc = null;
+		}		
+
+		try {
 			$message
 			->setTo($to)
 			->setFrom($from)

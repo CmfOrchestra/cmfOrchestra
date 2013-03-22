@@ -341,7 +341,7 @@ class PiLuceneManager extends PiCoreManager implements PiSearchLuceneManagerBuil
 			if(empty($query))
 				return null;
 			else
-				$query = \PiApp\AdminBundle\Util\PiStringManager::minusculesSansAccents($query);
+				$query = $this->container->get('pi_app_admin.string_manager')->minusculesSansAccents($query);
 			
 			if(empty($locale))
 				$locale = $this->container->get('session')->getLocale();
@@ -362,7 +362,7 @@ class PiLuceneManager extends PiCoreManager implements PiSearchLuceneManagerBuil
 				$options	 = $options_default;
 			
 			if($options['searchBool']){
-				$q_string 	 = \PiApp\AdminBundle\Util\PiStringManager::cleanWhitespace($query);
+				$q_string 	 = $this->container->get('pi_app_admin.string_manager')->cleanWhitespace($query);
 				$q_array	 = explode(' ', $q_string);
 			
 				if($options['searchByMotif']){

@@ -267,8 +267,8 @@ class PiToolExtension extends \Twig_Extension
 	public function getImgFlagByCountryFunction($country, $type ="img", $taille="16")
 	{
 		$locale				= $this->container->get('session')->getLocale();
-		$all_countries 		= \PiApp\AdminBundle\Util\PiStringManager::allCountries($locale);       
-		$all_countries_en 	= \PiApp\AdminBundle\Util\PiStringManager::allCountries("en_GB");
+		$all_countries 		= $this->container->get('pi_app_admin.string_manager')->allCountries($locale);       
+		$all_countries_en 	= $this->container->get('pi_app_admin.string_manager')->allCountries("en_GB");
 		
         if(isset($all_countries[strtolower($country)])){
         	$img_country  = str_replace(' ', '-', $all_countries_en[strtolower($country)]) . "-Flag-".$taille.".png";
@@ -329,20 +329,17 @@ class PiToolExtension extends \Twig_Extension
 				if( ($sluggable_field_search == 'id') && isset($match['id']) ){
 					$entity 		= $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->findOneByEntity($lang, $match['id'], 'object');
 					if(is_object($entity) && method_exists($entity, $method_title))
-						return $entity->$method_title();
-					else
-						return $title;
+						$title = $entity->$method_title();
 				}elseif(array_key_exists($sluggable_field_search, $match)){
 					$result = $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->getContentByField($lang, array('content_search' => array($sluggable_field_search =>$match[$sluggable_field_search]), 'field_result'=>$sluggable_title), false);
 					if(is_object($result))
-						return $result->getContent();
-				}else
-					return $title;
-			}else
-				return $title;			
+						$title = $result->getContent();
+				}
+			}			
 		} catch (\Exception $e) {
-			return $title;
 		}
+		
+		return $title;
 	}
 	
 	/**
@@ -356,13 +353,13 @@ class PiToolExtension extends \Twig_Extension
 		$lang  		 	= $this->container->get('session')->getLocale();
 		$Uri		 	= $this->container->get('request')->getUri();
 		$BasePath		= $this->container->get('request')->getUriForPath('');
-		$author		 	= $this->container->getParameter('pi_app_admin.layout.meta.author');
-		$copyright		= $this->container->getParameter('pi_app_admin.layout.meta.copyright');
-		$description 	= $this->container->getParameter('pi_app_admin.layout.meta.description');
-		$keywords	 	= $this->container->getParameter('pi_app_admin.layout.meta.keywords');
-		$og_type		= $this->container->getParameter('pi_app_admin.layout.meta.og_type');
-		$og_image		= $this->container->getParameter('pi_app_admin.layout.meta.og_image');
-		$og_site_name 	= $this->container->getParameter('pi_app_admin.layout.meta.og_site_name');
+		$author		 	= str_replace('"', "'", $this->container->getParameter('pi_app_admin.layout.meta.author'));
+		$copyright		= str_replace('"', "'", $this->container->getParameter('pi_app_admin.layout.meta.copyright'));
+		$description 	= str_replace('"', "'", $this->container->getParameter('pi_app_admin.layout.meta.description'));
+		$keywords	 	= str_replace('"', "'", $this->container->getParameter('pi_app_admin.layout.meta.keywords'));
+		$og_type		= str_replace('"', "'", $this->container->getParameter('pi_app_admin.layout.meta.og_type'));
+		$og_image		= str_replace('"', "'", $this->container->getParameter('pi_app_admin.layout.meta.og_image'));
+		$og_site_name 	= str_replace('"', "'", $this->container->getParameter('pi_app_admin.layout.meta.og_site_name'));
 		
 		// if the file doesn't exist, we call an exception
 		$is_file_exist = realpath($this->container->get('kernel')->getRootDir(). '/../web/' . $og_image);
@@ -405,32 +402,38 @@ class PiToolExtension extends \Twig_Extension
 				if( ($sluggable_field_search == 'id') && isset($match['id']) ){
 					$entity = $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->findOneByEntity($lang, $match['id'], 'object');
 					if(is_object($entity) && method_exists($entity, $method_title) && method_exists($entity, $method_resume) && method_exists($entity, $method_keywords)){
-						$new_meta				= "	<meta property='og:title' content=\"{$entity->$method_title()}\"/>";
-						$options['description'] = $entity->$method_resume();
-						$options['keywords']	= $entity->$method_keywords();
+						$og_title = str_replace('"', "'", $entity->$method_title());
+						$new_meta				= "	<meta property='og:title' content=\"{$og_title}\"/>";
+						$options['description'] = str_replace('"', "'", $entity->$method_resume());
+						$options['keywords']	= str_replace('"', "'", $entity->$method_keywords());
 					}
 				}elseif(array_key_exists($sluggable_field_search, $match)){
 					$meta_title						= $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->getContentByField($lang, array('content_search' => array($sluggable_field_search =>$match[$sluggable_field_search]), 'field_result'=>$sluggable_title), false);
-					$meta_resume						= $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->getContentByField($lang, array('content_search' => array($sluggable_field_search =>$match[$sluggable_field_search]), 'field_result'=>$sluggable_resume), false);
+					$meta_resume					= $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->getContentByField($lang, array('content_search' => array($sluggable_field_search =>$match[$sluggable_field_search]), 'field_result'=>$sluggable_resume), false);
 					$meta_keywords					= $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->getContentByField($lang, array('content_search' => array($sluggable_field_search =>$match[$sluggable_field_search]), 'field_result'=>$sluggable_keywords), false);
 					
-					if(is_object($meta_title))
-						$new_meta					= "<meta property='og:title' content=\"{$meta_title->getContent()}\"/>";
+					if(is_object($meta_title)){
+						$og_title = str_replace('"', "'", $meta_title->getContent());
+						$new_meta					= "<meta property='og:title' content=\"{$og_title}\"/>";
+					}
 					if(is_object($meta_resume))
-						$options['description'] 	= $meta_resume->getContent();
+						$options['description'] 	= str_replace('"', "'", $meta_resume->getContent());
 					if(is_object($meta_keywords))
-						$options['keywords']		= $meta_keywords->getContent();
+						$options['keywords']		= str_replace('"', "'", $meta_keywords->getContent());
 				}
 			}
 			
-			if(empty($new_meta) && isset($options['title']) && !empty($options['title']))
+			if(empty($new_meta) && isset($options['title']) && !empty($options['title'])){
+				$options['title'] = str_replace('"', "'", $options['title']);
 				$metas[] = "	<meta property='og:title' content=\"{$options['title']}\"/>";
-			elseif(!empty($new_meta))
+			}elseif(!empty($new_meta))
 				$metas[] = $new_meta;
 			
 		} catch (\Exception $e) {
-			if(isset($options['title']) && !empty($options['title']))
-				$metas[] = "	<meta property='og:title' content=\"{$options['title']}\"/>";			
+			if(isset($options['title']) && !empty($options['title'])){
+				$options['title'] = str_replace('"', "'", $options['title']);
+				$metas[] 		  = "	<meta property='og:title' content=\"{$options['title']}\"/>";
+			}			
 		}
 		
 		if(isset($og_type) && !empty($og_type))
