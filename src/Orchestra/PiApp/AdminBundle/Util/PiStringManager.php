@@ -701,8 +701,84 @@ class PiStringManager implements PiStringManagerBuilderInterface
 		);
 		return $text;
 	}
-
-		/**
+	
+	/**
+	 * This function transforms a string without accents.
+	 *
+	 * @param string $text
+	 * @param string $e		encode format
+	 * @access public
+	 * @return string
+	 * @static
+	 *
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+	 */
+	public static function withoutaccent($chaine, $e ='utf-8')
+	{
+		if (version_compare(PHP_VERSION, '5.2.3', '>='))
+			$str = htmlentities($chaine, ENT_NOQUOTES, $e, false);
+		else
+			$str = htmlentities($chaine, ENT_NOQUOTES, $e);
+	
+		// NB : On ne peut pas utiliser strtr qui fonctionne mal avec utf8.
+		$str = preg_replace('#\&([A-za-z])(?:acute|cedil|circ|grave|ring|tilde|uml)\;#', '\1', $str);
+	
+		return $str;
+	}	
+	
+	/**
+	 * Tucfirst UTF-8 aware function
+	 *
+	 * @param string $text
+	 * @param string $e		encode format
+	 * @access public
+	 * @return string
+	 * @static
+	 *
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+	 */	
+	public static function ucfirst($string, $e ='utf-8')
+	{
+		$string = trim($string);
+		if (function_exists('mb_strtoupper') && function_exists('mb_substr') && !empty($string)) {
+			$string = mb_strtolower($string, $e);
+			$upper 	= mb_strtoupper($string, $e);
+			preg_match('#(.)#us', $upper, $matches);
+			$string = $matches[1] . mb_substr($string, 1, mb_strlen($string, $e), $e);
+		} else {
+			$string = ucfirst($string);
+		}
+		return $string;
+	}
+	
+	/**
+	 * This function return an array filtering with a letter
+	 *
+	 * @param string $fst
+	 * @param array $arr
+	 * @param string $e		encode format
+	 * @access private
+	 * @return array
+	 * @static
+	 * 
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+	 */
+	public static function filter($fst, $arr, $e ='utf-8', $output){
+		$new_arr=array();
+	
+		for($i=0;$i<=(count($arr)-1);$i++){
+			$first_letter_withoutaccent = substr(self::withoutaccent($arr[$i]['label'], $e), 0, 1);
+			$fst_letter_withoutaccent	= self::withoutaccent($fst, $e);
+	
+			if(strcasecmp($first_letter_withoutaccent, $fst_letter_withoutaccent)  == 0){
+				$new_arr[] = $arr[$i]['label'];
+			}
+		}
+		 
+		return $new_arr;
+	}	
+	
+	/**
 	 * This function deletes all doubled words in a string.
 	 *
 	 * @param string $text

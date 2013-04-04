@@ -15,6 +15,21 @@
  
 {% block content %}
 
+	<!--  start actions-box ............................................... -->
+	<div id="actions-box">
+		<a href="" class="action-slider"><span>{{ 'pi.grid.action.title'|trans }}</span></a>
+		<div id="actions-box-slider">
+			{#<a href="" class="action-edit" title="{{ 'pi.grid.action.edit'|trans }}">{{ 'pi.grid.action.edit'|trans }}</a>#}
+			{#<a href="" class="action-delete" title="{{ 'pi.grid.action.delete'|trans }}">{{ 'pi.grid.action.delete'|trans }}</a>#}
+			<a href="{{ path('admin_gedmo_media_new', {'NoLayout':NoLayout, 'category':category, 'status':'file'}) }}" class="action-edit" title="{{ 'pi.grid.action.create'|trans }}">{{ 'pi.grid.action.create'|trans }} File</a>
+			<a href="{{ path('admin_gedmo_media_new', {'NoLayout':NoLayout, 'category':category, 'status':'image'}) }}" class="action-edit" title="{{ 'pi.grid.action.create'|trans }}">{{ 'pi.grid.action.create'|trans }} Image</a>
+			<a href="{{ path('admin_gedmo_media_new', {'NoLayout':NoLayout, 'category':category, 'status':'youtube'}) }}" class="action-edit" title="{{ 'pi.grid.action.create'|trans }}">{{ 'pi.grid.action.create'|trans }} Youtube</a>
+			<a href="{{ path('admin_gedmo_media_new', {'NoLayout':NoLayout, 'category':category, 'status':'dailymotion'}) }}" class="action-edit" title="{{ 'pi.grid.action.create'|trans }}">{{ 'pi.grid.action.create'|trans }} Dailymotion</a>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!-- end actions-box........... -->
+	
 	<table id="grid_media" class="grid" >
 	    <thead>
 	        <tr>	            
@@ -61,21 +76,6 @@
 	    {% endfor %}
 	    </tbody>
 	</table>
-	
-	<!--  start actions-box ............................................... -->
-	<div id="actions-box">
-		<a href="" class="action-slider"><span>{{ 'pi.grid.action.title'|trans }}</span></a>
-		<div id="actions-box-slider">
-			{#<a href="" class="action-edit" title="{{ 'pi.grid.action.edit'|trans }}">{{ 'pi.grid.action.edit'|trans }}</a>#}
-			{#<a href="" class="action-delete" title="{{ 'pi.grid.action.delete'|trans }}">{{ 'pi.grid.action.delete'|trans }}</a>#}
-			<a href="{{ path('admin_gedmo_media_new', {'NoLayout':NoLayout, 'category':category, 'status':'file'}) }}" class="action-edit" title="{{ 'pi.grid.action.create'|trans }}">{{ 'pi.grid.action.create'|trans }} File</a>
-			<a href="{{ path('admin_gedmo_media_new', {'NoLayout':NoLayout, 'category':category, 'status':'image'}) }}" class="action-edit" title="{{ 'pi.grid.action.create'|trans }}">{{ 'pi.grid.action.create'|trans }} Image</a>
-			<a href="{{ path('admin_gedmo_media_new', {'NoLayout':NoLayout, 'category':category, 'status':'youtube'}) }}" class="action-edit" title="{{ 'pi.grid.action.create'|trans }}">{{ 'pi.grid.action.create'|trans }} Youtube</a>
-			<a href="{{ path('admin_gedmo_media_new', {'NoLayout':NoLayout, 'category':category, 'status':'dailymotion'}) }}" class="action-edit" title="{{ 'pi.grid.action.create'|trans }}">{{ 'pi.grid.action.create'|trans }} Dailymotion</a>
-		</div>
-		<div class="clear"></div>
-	</div>
-	<!-- end actions-box........... -->
 	
 	{% set options_gridtabale = {'grid-name': 'grid_media', 'grid-type':'simple', 
 			'grid-paginate':'false',

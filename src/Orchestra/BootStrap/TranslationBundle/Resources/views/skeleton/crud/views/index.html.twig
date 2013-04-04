@@ -15,6 +15,20 @@
  
 {{ '{% block content %}' }}
 
+	{% if 'new' in actions %}
+	{{ "{% if NoLayout == false %}" }}
+	<!--  start actions-box ............................................... -->
+	<div id="actions-box">
+		<!-- <a href="" class="action-slider"><span>{{ "{{ 'pi.grid.action.title'|trans }}" }}</span></a> -->
+		<!-- <div id="actions-box-slider"> -->
+			<a href="{{ "{{ path('"~ route_name_prefix ~"_new', {'NoLayout':NoLayout, 'category':category}) }}" }}" class="action-edit" title="{{ "{{ 'pi.grid.action.create'|trans }}" }}">{{ "{{ 'pi.grid.action.create'|trans }}" }}</a>
+		<!-- </div> -->
+		<div class="clear"></div>
+	</div>
+	<!-- end actions-box........... -->
+	{{ "{% endif %}" }}
+	{% endif %}
+
 	<table id="grid_{{ entity|lower|replace({"\\": '_'}) }}" class="grid" >
 	    <thead>
 	        <tr>
@@ -92,20 +106,6 @@
 	    {{ "{% endfor %}" }}
 	    </tbody>
 	</table>
-
-	{% if 'new' in actions %}
-	{{ "{% if NoLayout == false %}" }}
-	<!--  start actions-box ............................................... -->
-	<div id="actions-box">
-		<a href="" class="action-slider"><span>{{ "{{ 'pi.grid.action.title'|trans }}" }}</span></a>
-		<div id="actions-box-slider">
-			<a href="{{ "{{ path('"~ route_name_prefix ~"_new', {'NoLayout':NoLayout, 'category':category}) }}" }}" class="action-edit" title="{{ "{{ 'pi.grid.action.create'|trans }}" }}">{{ "{{ 'pi.grid.action.create'|trans }}" }}</a>
-		</div>
-		<div class="clear"></div>
-	</div>
-	<!-- end actions-box........... -->
-	{{ "{% endif %}" }}
-	{% endif %}
 
 	{{ "{% set options_gridtabale = {'grid-name': 'grid_"~ entity|lower|replace({"\\": '_'}) ~"', 'grid-type':'simple', 
 			'grid-paginate':'true',

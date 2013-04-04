@@ -47,6 +47,8 @@ interface PiStringManagerBuilderInterface
 	public static function remove_comment_in_css_file($string = null);
 	public static function json_encodeDecToUTF8($array);
 	public static function minusculesSansAccents($texte);
+	public static function withoutaccent($chaine, $e ='utf-8');
+	public static function ucfirst($string, $e ='utf-8');
 	public static function uniqueWord($text);
 	public static function filtreConvertUTF8ToDec($string);
 	public static function taille_content($text);

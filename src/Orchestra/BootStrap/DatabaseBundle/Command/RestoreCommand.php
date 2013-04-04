@@ -24,8 +24,8 @@ use Symfony\Component\Console\Input\InputOption;
  * we have to be connected for restore the databse otherwhise the database server has gone away.
  *
  * <code>
- * 		php app/console orchestra:database:restore C:\xampp\htdocs\orchestra\app\cache\Backup doctrine_backup_database-symflamelee_default.sql
- * 		php app/console orchestra:database:restore /home/www/orchestra/app/cache/Backup doctrine_backup_database-symflamelee_default.sql
+ * 		php app/console orchestra:database:restore app\cache\Backup doctrine_backup_database-symflamelee_rec_2013-04-04-18-40-23.sql
+ * 		php app/console orchestra:database:restore app/cache/Backup doctrine_backup_database-symflamelee_rec_2013-04-04-18-40-23.sql
  * </code>
  * 
  * @category   Bootstrap_Command
@@ -35,6 +35,34 @@ use Symfony\Component\Console\Input\InputOption;
  */
 class RestoreCommand extends ContainerAwareCommand
 {
+	/**
+	 * @var \PiApp\AdminBundle\Util\PiLogManager
+	 */
+	private $_logger;
+	
+	/**
+	 * Constructor.
+	 *
+	 * @param	$kernel	HttpKernelInterface A HttpKernelInterface instance
+	 * @access	public
+	 * @author	Etienne de Longeaux <etienne.delongeaux@gmail.com>
+	 */
+	public function __construct($kernel = null)
+	{
+		parent::__construct();
+	
+		//-----we initialize the container-----
+		if(is_object($kernel) && method_exists($kernel, 'getContainer'))
+			$this->setContainer($kernel->getContainer());
+	}
+	
+	/**
+	 * configure the command.
+	 *
+	 * @return void
+	 * @access protected
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+	 */	
     protected function configure()
     {
         $this
@@ -58,13 +86,30 @@ EOT
         ;
     }
 
+    /**
+     * Execute the command.
+     *
+     * @return void
+     * @access protected
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */    
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+    	//-----we initialize the logger-----
+    	$this->_logger	= $this->getContainer()->get('pi_app_admin.log_manager');
+    	$this->_logger->setPath($this->getContainer()->getParameter("kernel.logs_dir"));
+    	$this->_logger->setInit('log_databasebundle_restore', date("YmdH"));
+    	$this->_logger->setInfo(date("Y-m-d H:i:s")." [LOG RESTORE] Begin launch  :");
+    	    	
         $path 				= $input->getArgument('path');
         $fileName			= $input->getArgument('filename') ? $input->getArgument('filename') : null;
     	
         $container 			= $this->getContainer();
         $DatabaseManager 	= $container->get('bootstrap.database.factory');
-        $output 			= $DatabaseManager->getRestoreFactory()->run($output, array('path'=>$path, 'filename'=>$fileName));        
+        $output 			= $DatabaseManager->getRestoreFactory()->run($output, array('path'=>$path, 'filename'=>$fileName));
+
+        //-----we close the logger-----
+        $this->_logger->setInfo(date("Y-m-d H:i:s")." [END] End launch");
+        $this->_logger->save();        
     }
 }

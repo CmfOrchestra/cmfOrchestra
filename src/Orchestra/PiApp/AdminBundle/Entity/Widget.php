@@ -45,7 +45,7 @@ class Widget
      * @var \PiApp\AdminBundle\Entity\Block $block
      * 
      * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Block", inversedBy="widgets", cascade={"persist"})
-     * @ORM\JoinColumn(name="block_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="block_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $block;    
     

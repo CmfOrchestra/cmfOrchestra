@@ -20,16 +20,26 @@
 		        	var _username 	= jQuery(this).find('input[name="_username"]').val();
 		        	var _password 	= jQuery(this).find('input[name="_password"]').val();
 		        	var _csrf_token = jQuery(this).find('input[name="_csrf_token"]').val();
-		        	// var _return = true;
+
+				    if ( _username=="" || _password=="") {
+				    	if (_username=="") {
+				     		$('#form-connexion').addClass('errorConnect').find('p.error').text("Veuillez saisir votre identifiant.");
+				     	} else {
+				       		$('#form-connexion').addClass('errorConnect').find('p.error').text("Veuillez saisir votre mot de passe.");
+				    	}
+				    	return false;
+				    } else {
+				    	$('#form-connexion').removeClass('errorConnect');
+				    }
 		        	
 		            $.ajax({
 		                url: $(this).attr('action'),
 		                data: "_username="+_username+"&_password="+_password+"&_csrf_token="+_csrf_token,
 		                type: $(this).attr('method'),
 		                success: function(html) {
-		                	if ( /Bad credentials/i.test(html)==true ) {
-		                		// alert("Erreur de connexion");
-		                		$('#form-connexion').addClass('errorConnect');
+		                	if ( /Bad credentials/i.test(html)==true  || /password is invalid/i.test(html)==true ) {
+		                		// $('#form-connexion').addClass('errorConnect');
+		                		$('#form-connexion-block').addClass('errorConnect').find('p.error').text("Identifiant/mot de passe invalide.");
 		                	} else {
 		                		window.location.reload();
 		                	}

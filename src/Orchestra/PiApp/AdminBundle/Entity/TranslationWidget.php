@@ -42,7 +42,7 @@ class TranslationWidget
      * @var \PiApp\AdminBundle\Entity\Widget $widget
      * 
      * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Widget", inversedBy="translations", cascade={"persist"})
-     * @ORM\JoinColumn(name="widget_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="widget_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $widget;
     

@@ -1,3 +1,12 @@
+	{% if NoLayout == false %}
+	<!--  start actions-box ............................................... -->
+	<div id="actions-box">
+		<a href="{{ path('admin_gedmo_content_new', {'NoLayout':NoLayout, 'category':category}) }}" class="action-edit">{{ 'pi.grid.action.create'|trans }}</a>
+		<div class="clear"></div>
+	</div>
+	<!-- end actions-box........... -->
+	{% endif %}	
+	
 	<table id="grid_content"  class="grid" >
 	    <thead>
 	        <tr>	        
@@ -39,20 +48,6 @@
 	    </tbody>
 	</table>
 
-	{% if NoLayout == false %}
-	<!--  start actions-box ............................................... -->
-	<div id="actions-box">
-		<a href="" class="action-slider"><span>{{ 'pi.grid.action.title'|trans }}</span></a>
-		<div id="actions-box-slider">
-			{#<a href="" class="action-edit">{{ 'pi.grid.action.edit'|trans }}</a>#}
-			{#<a href="" class="action-delete">{{ 'pi.grid.action.delete'|trans }}</a>#}
-			<a href="{{ path('admin_gedmo_content_new', {'NoLayout':NoLayout, 'category':category}) }}" class="action-edit">{{ 'pi.grid.action.create'|trans }}</a>
-		</div>
-		<div class="clear"></div>
-	</div>
-	<!-- end actions-box........... -->
-	{% endif %}
-	
 	{% set options_gridtabale = {'grid-name': 'grid_content', 'grid-type':'simple', 'grid-paginate':'false',
 		'grid-filters': {
 				'1':'Identifiant',

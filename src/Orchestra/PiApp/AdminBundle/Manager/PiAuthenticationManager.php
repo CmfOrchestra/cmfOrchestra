@@ -184,11 +184,9 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
 			$response = new \Symfony\Component\HttpFoundation\RedirectResponse($url_redirection);
 			$this->authenticateUser($user, $response);
 			
-			$this->container->get('session')->clearFlashes();
 			return $response;
 		}
 		
-		$this->container->get('session')->clearFlashes();
 		return $this->container->get('templating')->renderResponse($template, array(
 				'token' => $token,
 				'form'  => $form->createView(),

@@ -144,7 +144,7 @@ class Rss extends AbstractDefault
      */    
     public function __toString()
     {
-    	return (string) $this->getTradeName();
+    	return (string) $this->getTitle();
     }    
     
 	/**

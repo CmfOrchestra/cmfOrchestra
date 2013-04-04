@@ -44,7 +44,7 @@ class TranslationPage
      * @var \PiApp\AdminBundle\Entity\Page $page
      * 
      * @ORM\ManyToOne(targetEntity="PiApp\AdminBundle\Entity\Page", inversedBy="translations", cascade={"persist"})
-     * @ORM\JoinColumn(name="page_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="page_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $page;
     

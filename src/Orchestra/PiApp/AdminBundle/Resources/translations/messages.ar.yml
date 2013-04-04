@@ -64,6 +64,7 @@ pi.grid.action.info.empty: إظهار 0 إلى 0 من 0 السجلات
 pi.grid.action.info.filtered: (تصفية من السجلات _MAX_ مجموع)
 pi.grid.action.waiting: انتظر
 pi.grid.action.activation: تفعيل
+pi.grid.action.active: نشط
 pi.grid.action.row_enabled: مُفَعَّل
 pi.grid.action.row_disable: عَطِّل
 pi.grid.action.row_delete: احذف
@@ -301,6 +302,7 @@ pi.session.flash.form.errors: خطأ عند التحقق من صحة النمو�
 pi.session.flash.welcom: أهلا وسهلا! كان الدخول الخاص بك بنجاح.
 pi.session.flash.right.undelete:  ليس لديك إذن لحذف! يرجى الاتصال بالمسؤول.
 pi.session.flash.right.delete: لقد نجحت في إزالة الخانات!
+pi.session.flash.wrong.undelete: وكان غير قادر على إكمال الحذف بنجاح! يرجى الاتصال بالمسؤول
 pi.session.flash.right.unupdate:  ليس لديك إذن لتحديث! يرجى الاتصال بالمسؤول.
 pi.session.flash.right.update: تم تحديث المعلومات!
 pi.session.flash.right.uncreate:  ليس لديك إذن لإنشاء! يرجى الاتصال بالمسؤول.

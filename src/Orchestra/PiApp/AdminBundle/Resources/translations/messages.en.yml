@@ -64,6 +64,7 @@ pi.grid.action.info.empty: Showing 0 to 0 of 0 records
 pi.grid.action.info.filtered: (filtered from _MAX_ total records)
 pi.grid.action.waiting: Wait
 pi.grid.action.activation: Activation
+pi.grid.action.active: Active
 pi.grid.action.row_enabled: Enabled
 pi.grid.action.row_disable: Disable
 pi.grid.action.row_delete: Delete
@@ -299,16 +300,17 @@ pi.footer.copyright: Copyright
 pi.session.flash.title: Confirmation message
 pi.session.flash.form.errors: Validation error, check form!
 pi.session.flash.welcom: Welcome! Your login was successful.
-pi.session.flash.right.undelete: You do not have permission to delete !!! Please contact your administrator.
-pi.session.flash.right.delete: You have deleted the field successfully !!!
-pi.session.flash.right.unupdate: You do not have permission to update !!! Please contact your administrator.
-pi.session.flash.right.update: The information has been updated !!!
-pi.session.flash.right.uncreate: You do not have permission to create !!! Please contact your administrator.
-pi.session.flash.right.create: The new item has been created !!!
+pi.session.flash.right.undelete: You do not have permission to delete ! Please contact your administrator.
+pi.session.flash.right.delete: You have deleted the field successfully !
+pi.session.flash.wrong.undelete: Deletion was unable to complete successfully ! Please contact your administrator.
+pi.session.flash.right.unupdate: You do not have permission to update ! Please contact your administrator.
+pi.session.flash.right.update: The information has been updated !
+pi.session.flash.right.uncreate: You do not have permission to create ! Please contact your administrator.
+pi.session.flash.right.create: The new item has been created !
 pi.session.flash.right.anonymous: As an anonymous user, you do not have delete rights.
-pi.session.flash.right.homepage.undelete: You do not have permission to delete the home page !!!
+pi.session.flash.right.homepage.undelete: You do not have permission to delete the home page !
 pi.session.flash.right.homepage.notchange:  You do not have permission to update the Route name of the home page
-pi.session.flash.right.page.management_by_user_only: You do not have permission to manager this page !!!
+pi.session.flash.right.page.management_by_user_only: You do not have permission to manager this page !
 pi.session.flash.page.slug.exist: The url {{ url }} already existed ! 
 pi.session.flash.page.notexist: you did not call a page that exists !
 pi.session.flash.page.notpermission: you don't have permission to view this page!

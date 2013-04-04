@@ -64,6 +64,7 @@ pi.grid.action.info.empty: Affichage de 0 à 0 de 0 enregistrement
 pi.grid.action.info.filtered: (filtré à partir de _MAX_ enregistrements au total)
 pi.grid.action.waiting: Patientez
 pi.grid.action.activation: Activation
+pi.grid.action.active: Actif
 pi.grid.action.row_enabled: Activer
 pi.grid.action.row_disable: Désactiver
 pi.grid.action.row_delete: Supprimer
@@ -301,6 +302,7 @@ pi.session.flash.form.errors: Vous avez des erreurs de validation !
 pi.session.flash.welcom: Bienvenue! Vous vous êtes connecté avec succès.
 pi.session.flash.right.undelete: Vous n'avez pas les droits de suppression ! Veuillez contacter votre administrateur.
 pi.session.flash.right.delete: Vous avez supprimé le champs avec succès!
+pi.session.flash.wrong.undelete: La suppression n'a pu s'effectuer avec succès! Veuillez contacter votre administrateur.
 pi.session.flash.right.unupdate: Vous n'avez pas les droits de modification ! Veuillez contacter votre administrateur.
 pi.session.flash.right.update: Les informations ont été mises à jour !
 pi.session.flash.right.uncreate: Vous n'avez pas les droits de création ! Veuillez contacter votre administrateur.

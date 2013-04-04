@@ -313,7 +313,7 @@ class BlockByWidgetController extends abstractController
             	$em->remove($entity);
             	$em->flush();
             } catch (\Exception $e) {
-            	$this->container->get('session')->setFlash('notice', 'pi.session.flash.right.undelete');
+            	$this->container->get('session')->setFlash('notice', 'pi.session.flash.wrong.undelete');
             }
         }
 

@@ -15,6 +15,15 @@
  
 {% block content %}
 
+	{% if NoLayout == false %}
+	<!--  start actions-box ............................................... -->
+	<div id="actions-box">
+		<a href="{{ path('admin_gedmo_partner_new') }}" class="action-edit" title="{{ 'pi.grid.action.create'|trans }}">{{ 'pi.grid.action.create'|trans }}</a>
+		<div class="clear"></div>
+	</div>
+	<!-- end actions-box........... -->
+	{% endif %}
+	
 	<table id="grid_partner" class="grid" >
 	    <thead>
 	        <tr>
@@ -66,18 +75,6 @@
 	    </tbody>
 	</table>
 
-		{% if NoLayout == false %}
-	<!--  start actions-box ............................................... -->
-	<div id="actions-box">
-		<a href="" class="action-slider"><span>{{ 'pi.grid.action.title'|trans }}</span></a>
-		<div id="actions-box-slider">
-			<a href="{{ path('admin_gedmo_partner_new') }}" class="action-edit" title="{{ 'pi.grid.action.create'|trans }}">{{ 'pi.grid.action.create'|trans }}</a>
-		</div>
-		<div class="clear"></div>
-	</div>
-	<!-- end actions-box........... -->
-	{% endif %}
-	
 	{% set options_gridtabale = {'grid-name': 'grid_partner', 'grid-type':'simple', 
 			'grid-paginate':'true',
 			'grid-LengthMenu':1000,

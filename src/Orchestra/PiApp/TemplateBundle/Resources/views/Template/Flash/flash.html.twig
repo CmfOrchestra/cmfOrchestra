@@ -11,7 +11,7 @@
 
 {% macro session_flash(type) %}
 	{% set types = ['success', 'notice', 'error', 'warning'] %}
-	{% if (not app.session.hasFlash('empty')) and (app.session.getFlashes()|length > 0) %}
+	{% if app.session.getFlashes()|length > 0 %}
 	<div id="symfony-layout-flash" title="{{ 'pi.session.flash.title' | trans }}">
             {% if type|default(false) %}
             {% else %}
@@ -33,7 +33,7 @@
 
 {% macro session_flash_frontoffice(type) %}
 	{% set types = ['success', 'notice', 'error', 'warning'] %}
-    {% if (not app.session.hasFlash('empty')) and (app.session.getFlashes()|length > 0) %}
+    {% if app.session.getFlashes()|length > 0 %}
 	<div class="fancybox-flash" style="display:none">
 		<div id="confirm-popup">
 			<section class="forgotten-password">

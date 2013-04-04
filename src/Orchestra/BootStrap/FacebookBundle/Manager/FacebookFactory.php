@@ -74,4 +74,18 @@ class FacebookFactory implements FacebookFactoryInterface
 		}
 	}	
 	
+	/**
+	 * get the client.
+	 *
+	 * @param CacheClientInterface $client The client object or service
+	 * @access public
+	 * @return void
+	 *
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+	 */
+	public function getClient()
+	{
+		return $this->_client;
+	}	
+	
 }

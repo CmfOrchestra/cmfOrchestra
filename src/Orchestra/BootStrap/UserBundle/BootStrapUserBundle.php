@@ -142,6 +142,8 @@ class BootStrapUserBundle extends Bundle
 						array('path' => '^/adminsonata/', 'role' => 'ROLE_SUPER_ADMIN', 'requires_channel' => self::HTTP_TYPE),
 						# PAGES ACCESSIBLES A TOUS
 						array('path' => '^/.*', 'role' => 'IS_AUTHENTICATED_ANONYMOUSLY', 'requires_channel' => 'http'),
+						# DESACTIVER LE FRONT ACCES AUX NON LOGGE
+						#array('path' => '^/', 'role' => 'ROLE_USER', 'requires_channel' => self::HTTP_TYPE),
 				),				
 		));
 		
