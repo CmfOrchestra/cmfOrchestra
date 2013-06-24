@@ -408,45 +408,61 @@ class PiFormSimpleManager extends PiJqueryExtension
 					
 					// THIS FUNCTION ALLOW TO INJECT SEVERAL FIELDS IN A ACCORDION MENU.
 			        this.ftc_accordion_form = function(className, title, idForm){
-			        	$(idForm+" fieldset:first").addClass('no-accordion');
-						if ( $('.accordion-form').length == 0 ) $("<div class='accordion-form'>").insertAfter(idForm+" fieldset");
-						var accordionId = "accordion_"+className;
-						$("<fieldset id='"+accordionId+"' class='accordion'><a href='#' class='accordion_link_"+className+"' title='"+title+"'>"+title+"</a></fieldset>").appendTo('.accordion-form');
+						var tabsToProcess = $(idForm+" .ui-tabs-panel");
 						
-						$("."+className).each(function(index) {
-							$(this).parent('.clearfix').detach().appendTo("#"+accordionId);
-						});	
-						
-						$('#'+accordionId+' a').click(function () {
-							// $(this).parent('fieldset').toggleClass('open').siblings('fieldset').removeClass('open');
-							var that = $(this);
-							var newHeight = function(){
-								var h=16;	//initial height when closed
-								that.parent('fieldset').children('.clearfix').each(function(ind,el){
-									h += $(el).outerHeight(true);
-								});
-								return (h+80)+'px';
-							};
+						$(tabsToProcess).each(function(indTab,tabProcessed){
+							var tabProcessedId = $(tabProcessed).attr("id");
 							
-							if ( $(this).parent('fieldset').hasClass('open') ){
-								$(this).parent('fieldset').removeClass('open');
-								$(this).parent('fieldset').animate({
-									height: '16px'
-								  }, 400, 'swing'
-								);
-							} else {
-								$(this).parent('fieldset').animate({
-									height: newHeight()
-								  }, 400, 'swing', function() {
-									$(this).addClass('open');
-								}).siblings('fieldset').removeClass('open').animate({
-									height: '16px'
-								  }, 400, 'swing'
-								);
+							if ( $("#"+tabProcessedId+" ."+className).length ==0 ) {
+								// Process next $.each()
+								return;
 							}
-							return false;
+							
+							$("#"+tabProcessedId+" fieldset:first").addClass("no-accordion");
+							if ( $("#"+tabProcessedId+" .accordion-form").length == 0 ) {
+								$("<div class='accordion-form'>").insertAfter("#"+tabProcessedId+" fieldset");
+							}
+							
+							var accordionId = "accordion_" + tabProcessedId + "_" + className;
+							$("<fieldset id='"+accordionId+"' class='accordion'><a href='#' class='accordion_link_"+className+"' title='"+title+"'>"+title+"</a></fieldset>").appendTo("#"+tabProcessedId+" .accordion-form");
+							
+							$("#"+tabProcessedId+" ."+className).each(function(indClass) {
+								//$(this).parent('.clearfix').detach().appendTo("#"+accordionId);
+								$(this).closest('.clearfix').detach().appendTo("#"+accordionId);
+							});	
+						
+							$('#'+accordionId+' a').click(function () {
+								var that = $(this);
+								var newHeight = function(){
+									var h=16;	//initial height when closed
+									that.parent('fieldset').children('.clearfix').each(function(ind,el){
+										h += $(el).outerHeight(true);
+									});
+									return (h+80)+'px';
+								};
+								
+								if ( $(this).parent('fieldset').hasClass('open') ){
+									$(this).parent('fieldset').removeClass('open');
+									$(this).parent('fieldset').animate({
+										height: '16px'
+									  }, 400, 'swing'
+									);
+								} else {
+									$(this).parent('fieldset').animate({
+										height: newHeight()
+									  }, 400, 'swing', function() {
+										$(this).addClass('open');
+									}).siblings('fieldset').removeClass('open').animate({
+										height: '16px'
+									  }, 400, 'swing'
+									);
+								}
+								return false;
+							});
 						});
-					}					
+					};
+						
+						
 					
 					// this function allow to inject several fields in a dialog.
 			        this.ftc_dialog_form = function(className, title, idForm, height, width, position){
@@ -457,13 +473,13 @@ class PiFormSimpleManager extends PiJqueryExtension
 						var form	 = "form_"+className;
 						var obj_form = null;
 						var dialogId = "dialog_"+className;
-		
+
 						$("<div id='"+dialogId+"' class='dialog_form' ><span id='"+form+"'></span></div>").appendTo(idForm);
 					
 						$("."+className).each(function(index) {
 							$(this).parent().attr('style', "display:none");
 						});	
-		
+
 						// modal dialog init: custom buttons and a "close" callback reseting the form inside
 						var $dialog_form = $('#'+dialogId).wijdialog({
 							zIndex: 99999,
@@ -497,7 +513,7 @@ class PiFormSimpleManager extends PiJqueryExtension
 			                show: 'scale',
 			                hide: 'scale',				
 						});	
-		
+
 						button.click(function () {
 							if(obj_form != null){
 								obj_form = $("#"+form).detach();
@@ -515,7 +531,7 @@ class PiFormSimpleManager extends PiJqueryExtension
 								
 							$dialog_form.wijdialog('open');
 						});						
-					};		
+					};	
 						
 				};
 			

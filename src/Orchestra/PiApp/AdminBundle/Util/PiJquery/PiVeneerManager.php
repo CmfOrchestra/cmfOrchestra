@@ -85,13 +85,14 @@ class PiVeneerManager extends PiJqueryExtension
 						if($(':ui-veneer').is(':visible')){
 							$(".block_action_menu").css("display", 'none');
 							$("orchestra[id^='block__'] h6").css("display", 'none');
+							$("orchestra[id^='block__'] h6").add("style", 'clear:both');
 							$(":ui-veneer").veneer( "destroy" );
 						}else{
 							// we set up the venner on all blocks
 							$(".block_action_menu").css("display", 'inline-block');
 							$("orchestra[id^='block__'] h6").css("display", 'block');
 							$("orchestra[id^='block__']").veneer( {disabled: true, title: "<span></span>"} );
-							$("orchestra[id^='block__'] h6").veneer( {collapsible: true, uiBorder: true, title: "WIDGET" } );
+							$("orchestra[id^='block__'] h6").veneer( {collapsible: true, uiBorder: true, title: "WIDGET" } ).parent().css("clear", 'both');
 
 							// we add the admin block Template to all widget
 							$("orchestra[id^='block__']").each(function(index) {

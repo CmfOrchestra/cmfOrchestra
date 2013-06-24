@@ -265,7 +265,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
 		$source 	.= "{% block global_meta %} \n";
 		$source 	.= "{{ parent() }}	\n";
 
-		$source 	.= "	{{ metas_page({'description':'{$description}','keywords':'{$keywords}','title':'{$title}'})|raw }} \n";
+		$source 	.= "	{{ metas_page({'description':\"{$description}\",'keywords':\"{$keywords}\",'title':\"{$title}\"})|raw }} \n";
 		$source 	.= "{% endblock %} \n";
 		
 		if(isset($this->blocks[$id]) && !empty($this->blocks[$id])){

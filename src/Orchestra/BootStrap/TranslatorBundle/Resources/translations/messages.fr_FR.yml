@@ -1,1 +1,17 @@
-{  }
+paco.back.menu1.title: '<p>Pages</p>'
+paco.back.menu1.sub.subscribers: '<p>Liste des inscrits</p>'
+paco.back.menu1.sub.newsletter: '<p>Liste des inscrits newsletter</p>'
+paco.back.menu1.sub.animations: '<p>Animations de bas de page</p>'
+paco.back.menu1.sub.slides: '<p>Slides</p>'
+paco.back.menu1.sub.timelines: '<p>Timelines</p>'
+paco.back.menu2.title: '<p>1 MILLION</p>'
+paco.back.menu3.title: '<p>Lady MILLION</p>'
+paco.back.menu4.title: '<p>Club MILLION</p>'
+paco.back.menu2.sub.intense: '<p>1 MILLION INTENSE</p>'
+paco.back.menu2.sub.edp: '<p>1 MILLION EDP</p>'
+paco.back.menu2.sub.gold: '<p>1 MILLION ABSOLUTLY GOLD</p>'
+paco.back.menu3.sub.eau: '<p>Lady MILLION Eau de Toilette</p>'
+paco.back.menu3.sub.edp: '<p>Lady MILLION EDP</p>'
+paco.back.menu3.sub.gold: "<p>Lady\_MILLION ABSOLUTLY GOLD</p>"
+paco.back.menu4.sub.walk: '<p>WALK OF FAME</p>'
+paco.back.menu4.sub.mymillion: '<p>MY MILLION</p>'

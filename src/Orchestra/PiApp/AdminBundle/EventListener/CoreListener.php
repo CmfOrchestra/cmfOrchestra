@@ -391,22 +391,20 @@ abstract class CoreListener extends abstractListener
      */
     final protected function _NoUpdate_RouteName_HomePage(PreUpdateEventArgs $eventArgs)
     {
-    	$entity_page	= $eventArgs->getEntity();
+        $entity_page	= $eventArgs->getEntity();
     	$entityManager 	= $eventArgs->getEntityManager();
     
     	// we set the persist of the Page entity
     	if($entity_page instanceof \PiApp\AdminBundle\Entity\Page){
     		$isflash = false;
-    		if($eventArgs->hasChangedField('route_name') && ($eventArgs->getOldValue('route_name') == 'home_page') ){
-    			$eventArgs->setNewValue('route_name', 'home_page');
-    
-    			if($eventArgs->hasChangedField('enabled')){
-    				$eventArgs->setNewValue('enabled', '1');
-    			}
-    
-    			if($eventArgs->hasChangedField('meta_content_type')){
-    				$eventArgs->setNewValue('meta_content_type', PageRepository::TYPE_TEXT_HTML);
-    			}
+    		if(
+    				($eventArgs->hasChangedField('route_name') && ($eventArgs->getOldValue('route_name') == 'home_page'))
+    				||
+    				($entity_page->getRouteName() == 'home_page')
+    		){
+    			$entity_page->setRouteName('home_page');
+   				$entity_page->setEnabled(true);
+   				$entity_page->setMetaContentType(PageRepository::TYPE_TEXT_HTML);
     
     			$isflash = true;
     		}

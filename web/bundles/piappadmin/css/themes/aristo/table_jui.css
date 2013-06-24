@@ -537,7 +537,17 @@ a.icon-5	{
 a:hover.icon-5	{
 	background: url(../../../images/table/table_icon_5.gif) 0 -24px;
 	}
-	
+a.icon-6    {
+    background: url(../../../images/table/table_icon_6.gif) no-repeat;
+    display: block;
+    float: left;
+    height: 24px;
+    margin: 0 8px 0 0;
+    width: 24px;
+    }
+a:hover.icon-6  {
+    background: url(../../../images/table/table_icon_6.gif) 0 -24px;
+    } 	
 	
 /********************************
  *

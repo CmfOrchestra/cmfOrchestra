@@ -90,6 +90,7 @@ class PiToolExtension extends \Twig_Extension
 				'substr'			=> new \Twig_Filter_Method($this, 'substrFilter'),
 				'ucfirst'			=> new \Twig_Filter_Method($this, 'ucfirstFilter'),
 				'ucwords'			=> new \Twig_Filter_Method($this, 'ucwordsFilter'),
+				'cleanWhitespace'	=> new \Twig_Filter_Method($this, 'cleanWhitespaceFilter'),
 				'sanitize'			=> new \Twig_Filter_Method($this, 'sanitizeFilter'),	
 				'slugify'			=> new \Twig_Filter_Method($this, 'slugifyFilter'),
 
@@ -111,6 +112,14 @@ class PiToolExtension extends \Twig_Extension
 				'translate_plural'	=> new \Twig_Filter_Method($this, 'translatepluralFilter'),
 				'pluralize'			=> new \Twig_Filter_Method($this, 'pluralizeFilter'),
 				'depluralize'		=> new \Twig_Filter_Method($this, 'depluralizeFilter'),
+				
+				
+				// SEO
+				'obfuscateLink' 	=> new \Twig_Filter_Method($this, 'obfuscateLinkFilter'),			
+
+				// cryptage
+				'encrypt'			=> new \Twig_Filter_Method($this, 'encryptFilter'),
+				'decrypt'			=> new \Twig_Filter_Method($this, 'decryptFilter'),
 		);
 	}
 
@@ -353,13 +362,13 @@ class PiToolExtension extends \Twig_Extension
 		$lang  		 	= $this->container->get('session')->getLocale();
 		$Uri		 	= $this->container->get('request')->getUri();
 		$BasePath		= $this->container->get('request')->getUriForPath('');
-		$author		 	= str_replace('"', "'", $this->container->getParameter('pi_app_admin.layout.meta.author'));
-		$copyright		= str_replace('"', "'", $this->container->getParameter('pi_app_admin.layout.meta.copyright'));
-		$description 	= str_replace('"', "'", $this->container->getParameter('pi_app_admin.layout.meta.description'));
-		$keywords	 	= str_replace('"', "'", $this->container->getParameter('pi_app_admin.layout.meta.keywords'));
-		$og_type		= str_replace('"', "'", $this->container->getParameter('pi_app_admin.layout.meta.og_type'));
-		$og_image		= str_replace('"', "'", $this->container->getParameter('pi_app_admin.layout.meta.og_image'));
-		$og_site_name 	= str_replace('"', "'", $this->container->getParameter('pi_app_admin.layout.meta.og_site_name'));
+		$author		 	= str_replace(array('"',"’"), array("'","'"), $this->container->getParameter('pi_app_admin.layout.meta.author'));
+		$copyright		= str_replace(array('"',"’"), array("'","'"), $this->container->getParameter('pi_app_admin.layout.meta.copyright'));
+		$description 	= str_replace(array('"',"’"), array("'","'"), $this->container->getParameter('pi_app_admin.layout.meta.description'));
+		$keywords	 	= str_replace(array('"',"’"), array("'","'"), $this->container->getParameter('pi_app_admin.layout.meta.keywords'));
+		$og_type		= str_replace(array('"',"’"), array("'","'"), $this->container->getParameter('pi_app_admin.layout.meta.og_type'));
+		$og_image		= str_replace(array('"',"’"), array("'","'"), $this->container->getParameter('pi_app_admin.layout.meta.og_image'));
+		$og_site_name 	= str_replace(array('"',"’"), array("'","'"), $this->container->getParameter('pi_app_admin.layout.meta.og_site_name'));
 		
 		// if the file doesn't exist, we call an exception
 		$is_file_exist = realpath($this->container->get('kernel')->getRootDir(). '/../web/' . $og_image);
@@ -402,10 +411,10 @@ class PiToolExtension extends \Twig_Extension
 				if( ($sluggable_field_search == 'id') && isset($match['id']) ){
 					$entity = $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->findOneByEntity($lang, $match['id'], 'object');
 					if(is_object($entity) && method_exists($entity, $method_title) && method_exists($entity, $method_resume) && method_exists($entity, $method_keywords)){
-						$og_title = str_replace('"', "'", $entity->$method_title());
+						$og_title 				= str_replace(array('"',"’"), array("'","'"), $entity->$method_title());
 						$new_meta				= "	<meta property='og:title' content=\"{$og_title}\"/>";
-						$options['description'] = str_replace('"', "'", $entity->$method_resume());
-						$options['keywords']	= str_replace('"', "'", $entity->$method_keywords());
+						$options['description'] = str_replace(array('"',"’"), array("'","'"), $entity->$method_resume());
+						$options['keywords']	= str_replace(array('"',"’"), array("'","'"), $entity->$method_keywords());
 					}
 				}elseif(array_key_exists($sluggable_field_search, $match)){
 					$meta_title						= $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->getContentByField($lang, array('content_search' => array($sluggable_field_search =>$match[$sluggable_field_search]), 'field_result'=>$sluggable_title), false);
@@ -413,25 +422,25 @@ class PiToolExtension extends \Twig_Extension
 					$meta_keywords					= $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->getContentByField($lang, array('content_search' => array($sluggable_field_search =>$match[$sluggable_field_search]), 'field_result'=>$sluggable_keywords), false);
 					
 					if(is_object($meta_title)){
-						$og_title = str_replace('"', "'", $meta_title->getContent());
+						$og_title 					= str_replace(array('"',"’"), array("'","'"), $meta_title->getContent());
 						$new_meta					= "<meta property='og:title' content=\"{$og_title}\"/>";
 					}
 					if(is_object($meta_resume))
-						$options['description'] 	= str_replace('"', "'", $meta_resume->getContent());
+						$options['description'] 	= str_replace(array('"',"’"), array("'","'"), $meta_resume->getContent());
 					if(is_object($meta_keywords))
-						$options['keywords']		= str_replace('"', "'", $meta_keywords->getContent());
+						$options['keywords']		= str_replace(array('"',"’"), array("'","'"), $meta_keywords->getContent());
 				}
 			}
 			
 			if(empty($new_meta) && isset($options['title']) && !empty($options['title'])){
-				$options['title'] = str_replace('"', "'", $options['title']);
+				$options['title'] = str_replace(array('"',"’"), array("'","'"), $options['title']);
 				$metas[] = "	<meta property='og:title' content=\"{$options['title']}\"/>";
 			}elseif(!empty($new_meta))
 				$metas[] = $new_meta;
 			
 		} catch (\Exception $e) {
 			if(isset($options['title']) && !empty($options['title'])){
-				$options['title'] = str_replace('"', "'", $options['title']);
+				$options['title'] = str_replace(array('"',"’"), array("'","'"), $options['title']);
 				$metas[] 		  = "	<meta property='og:title' content=\"{$options['title']}\"/>";
 			}			
 		}
@@ -464,6 +473,7 @@ class PiToolExtension extends \Twig_Extension
 			$metas[] = "	<meta name='keywords' content=\"".$options['keywords']."\"/>";
 		elseif(isset($keywords) && !empty($keywords))
 			$metas[] = "	<meta name='keywords' content=\"".$keywords."\"/>";
+		
 		
 		
 		// mobile management
@@ -688,6 +698,10 @@ class PiToolExtension extends \Twig_Extension
 		return ucwords($string);
 	}
 	
+	public function cleanWhitespaceFilter($string) {
+		return $this->container->get('pi_app_admin.string_manager')->cleanWhitespace($string);
+	}	
+	
 	public function sanitizeFilter($string, $force_lowercase = true, $anal = false, $trunc = 100) {
 		return $this->container->get('pi_app_admin.string_manager')->sanitize($string, $force_lowercase, $anal, $trunc);
 	}
@@ -717,5 +731,62 @@ class PiToolExtension extends \Twig_Extension
 		$HtmlCutter->setParams($strCaractereCesure, $intDecrementationCesurePos);
 		return $HtmlCutter->run();
 	}
+	
+	/**
+	 * encrypt string
+	 *
+	 * @param string $string
+	 * @param string $key
+	 */
+	public function encryptFilter($string, $key = "0A1TG4GO")
+	{
+		$result = '';
+		for($i=0; $i<strlen($string); $i++) {
+		    $char = substr($string, $i, 1);
+		    $keychar = substr($key, ($i % strlen($key))-1, 1);
+		    $char = chr(ord($char)+ord($keychar));
+		    $result.=$char;
+		}
+		return strtr(base64_encode($result), '+/=', '-_,');
+	}
+	
+	/**
+	 * decrypt string
+	 *
+	 * @param string $string
+	 * @param string $key
+	 */
+	public function decryptFilter($string, $key = "0A1TG4GO")
+	{
+		$result = '';
+		$string = base64_decode(strtr($string, '-_,', '+/='));
+		for($i=0; $i<strlen($string); $i++) {
+		    $char = substr($string, $i, 1);
+		    $keychar = substr($key, ($i % strlen($key))-1, 1);
+		    $char = chr(ord($char)-ord($keychar));
+		    $result.=$char;
+		}
+		return $result;
+	}   	
+	
+	/**
+	 * Obfuscate link. SEO worst practice.
+	 * Code by @position
+	 *
+	 * @param string $url
+	 */
+	public function obfuscateLinkFilter($url)
+	{
+		$_base16 = "0A12B34C56D78E9F";
+	
+		$output = "";
+		for ($i = 0; $i < strlen($url); $i++) {
+			$cc = ord($url[$i]);
+			$ch = $cc >> 4;
+			$cl = $cc - ($ch * 16);
+			$output .= $_base16[$ch] . $_base16[$cl];
+		}
+		return $output;
+	}	
 	
 }

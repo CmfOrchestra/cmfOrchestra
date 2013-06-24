@@ -25,6 +25,7 @@ interface PiFileManagerBuilderInterface
 	public static function getFileContent($path);
 	public static function getFileExtension($filename);
 	public static function getFileName($path);
+	public static function GlobFiles($dirRegex, $options = null);
 	public static function getFilesByType($path, $type = false, $appendPath = false, $includeExtension = true);
 	public static function ListFiles($dir, $type = false);
 	public function getContentCodeFile($file_code);

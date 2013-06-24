@@ -653,16 +653,6 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
 					
 					// THIS FUNCTION ALLOW TO INJECT SEVERAL FIELDS IN A ACCORDION MENU.
 			        this.ftc_accordion_form = function(className, title, idForm){
-						/* 
-						$(idForm+" fieldset:first").addClass('no-accordion');
-						if ( $('.accordion-form').length == 0 ) $("<div class='accordion-form'>").insertAfter(idForm+" fieldset");
-						var accordionId = "accordion_"+className;
-						$("<fieldset id='"+accordionId+"' class='accordion'><a href='#' class='accordion_link_"+className+"' title='"+title+"'>"+title+"</a></fieldset>").appendTo('.accordion-form');
-						
-						$("."+className).each(function(index) {
-							$(this).parent('.clearfix').detach().appendTo("#"+accordionId);
-						});
-						*/
 						var tabsToProcess = $(idForm+" .ui-tabs-panel");
 						
 						$(tabsToProcess).each(function(indTab,tabProcessed){
@@ -682,7 +672,8 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
 							$("<fieldset id='"+accordionId+"' class='accordion'><a href='#' class='accordion_link_"+className+"' title='"+title+"'>"+title+"</a></fieldset>").appendTo("#"+tabProcessedId+" .accordion-form");
 							
 							$("#"+tabProcessedId+" ."+className).each(function(indClass) {
-								$(this).parent('.clearfix').detach().appendTo("#"+accordionId);
+								//$(this).parent('.clearfix').detach().appendTo("#"+accordionId);
+								$(this).closest('.clearfix').detach().appendTo("#"+accordionId);
 							});	
 						
 							$('#'+accordionId+' a').click(function () {

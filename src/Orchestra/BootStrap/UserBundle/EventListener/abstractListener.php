@@ -109,13 +109,6 @@ abstract class abstractListener
             $entity->setCreatedAt(new \DateTime());
         }
         
-        //update heritage field when method setHeritage exists in entity object
-        if (method_exists($entity, 'setHeritage')) {
-        	// we modify the heritage value
-        	if ($isUsernamePasswordToken && $this->isUsernamePasswordToken())
-        		$entity->setHeritage($this->container->get('bootstrap.Role.factory')->getBestRoles($this->getUserRoles()));
-        }   
-        
         // we give the right of persist if the entity is in the AUTHORIZATION_PREPERSIST container
         if ($this->container->isScopeActive('request')) {
 	        if(isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST']) && isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST'][$entity_name])){
@@ -124,25 +117,40 @@ abstract class abstractListener
 	        		if((empty($route) || ($route == "_internal")))
 	        			$route = $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('_route', $this->container->get('session')->getLocale());
 	        		if(in_array($route, $GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST'][$entity_name])){
-	        			// IMPORTANT !!! sinon ne fonctionne pas avec les collection links :
-	        			if(method_exists($entity, 'setHeritage'))
-	        				$entity->setHeritage(array('ROLE_SUPER_ADMIN'));
+	        			//update heritage field when method setHeritage exists in entity object
+	        			if (method_exists($entity, 'setHeritage')){
+	        				if ($isUsernamePasswordToken && $this->isUsernamePasswordToken()){
+	        					$entity->setHeritage($this->container->get('bootstrap.Role.factory')->getBestRoles($this->getUserRoles()));
+	        				} else {
+	        					$entity->setHeritage(array('ROLE_SUPER_ADMIN'));
+	        				}
+	        			}
 	        			
 	        			$entityManager->initializeObject($entity);
 	        			return true;
 	        		}
 	        	}elseif($GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST'][$entity_name] == true){
-	        		// IMPORTANT !!! sinon ne fonctionne pas avec les collection links :
-	        		if (method_exists($entity, 'setHeritage'))
-	        			$entity->setHeritage(array('ROLE_SUPER_ADMIN'));
+	        		//update heritage field when method setHeritage exists in entity object
+	        		if (method_exists($entity, 'setHeritage')){
+	        			if ($isUsernamePasswordToken && $this->isUsernamePasswordToken()){
+	        				$entity->setHeritage($this->container->get('bootstrap.Role.factory')->getBestRoles($this->getUserRoles()));
+	        			} else {
+	        				$entity->setHeritage(array('ROLE_SUPER_ADMIN'));
+	        			}
+	        		}
 	        		$entityManager->initializeObject($entity);
 	        		return true;
 	        	}        
 	        }
         }else{
-        	// IMPORTANT !!! sinon ne fonctionne pas avec les collection links :
-        	if (method_exists($entity, 'setHeritage'))
-        		$entity->setHeritage(array('ROLE_SUPER_ADMIN'));
+        	//update heritage field when method setHeritage exists in entity object
+        	if (method_exists($entity, 'setHeritage')){
+        		if ($isUsernamePasswordToken && $this->isUsernamePasswordToken()){
+        			$entity->setHeritage($this->container->get('bootstrap.Role.factory')->getBestRoles($this->getUserRoles()));
+        		} else {
+        			$entity->setHeritage(array('ROLE_SUPER_ADMIN'));
+        		}
+        	}
         	$entityManager->initializeObject($entity);
         	return true;        	
         }
@@ -151,9 +159,9 @@ abstract class abstractListener
         if ($isAnonymousToken && $this->isAnonymousToken()) {
         	// we schedules the orphaned entity for removal
         	$entityManager->getUnitOfWork()->scheduleOrphanRemoval($entity);
-        	       		
        		// we throw the message.
        		$this->setFlash('pi.session.flash.right.anonymous');
+       		
        		return false;
         }
         
@@ -161,15 +169,12 @@ abstract class abstractListener
         if ($isUsernamePasswordToken && $this->isUsernamePasswordToken()) {
         	// if user have the create right
         	if( in_array('CREATE', $this->getUserPermissions()) || in_array('ROLE_SUPER_ADMIN', $this->getUserRoles()) || $isAllPermissions) {
-        		//ini_set('memory_limit', '-1');
-        		
-        		// IMPORTANT !!! sinon ne fonctionne pas avec les collection links :
+        		//update heritage field when method setHeritage exists in entity object
+        		if (method_exists($entity, 'setHeritage')){
+        			$entity->setHeritage($this->container->get('bootstrap.Role.factory')->getBestRoles($this->getUserRoles()));
+        		}
+        		// IMPORTANT !!! otherwise dont't work with collection links
         		$entityManager->initializeObject($entity);
-        		
-        		// ATTENTION !!! fonctionne sauf avec les collection links :
-        		//$class = $entityManager->getClassMetadata(get_class($entity));
-        		//$entityManager->getUnitOfWork()->computeChangeSet($class, $entity);
-        		
         		// we throw the message.
         		if($entity instanceof \PiApp\AdminBundle\Entity\HistoricalStatus){
         		}else
@@ -179,9 +184,9 @@ abstract class abstractListener
         	}else{
         		// we schedules the orphaned entity for removal
         		$entityManager->getUnitOfWork()->scheduleOrphanRemoval($entity);
-        		
         		// we throw the message.
         		$this->setFlash('pi.session.flash.right.uncreate');
+        		
         		return false;
         	}
         }                

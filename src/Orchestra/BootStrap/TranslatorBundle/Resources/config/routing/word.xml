@@ -35,4 +35,16 @@
         <requirement key="_method">post</requirement>
     </route>
 
+    <route id="admin_word_translate" pattern="/{id}/translate">
+        <default key="_controller">BootStrapTranslatorBundle:Word:translate</default>
+    </route>
+
+    <route id="admin_word_edit_translate" pattern="/{id}/{lang}/edit_translate">
+        <default key="_controller">BootStrapTranslatorBundle:Word:editTranslate</default>
+    </route>
+
+    <route id="admin_word_update_translate" pattern="/{id}/{lang}/update_translate">
+        <default key="_controller">BootStrapTranslatorBundle:Word:updateTranslate</default>
+        <requirement key="_method">post</requirement>
+    </route>
 </routes>

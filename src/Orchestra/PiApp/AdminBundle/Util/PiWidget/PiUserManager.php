@@ -148,7 +148,7 @@ class PiUserManager extends PiWidgetExtension
     			if($xmlConfig->widgets->user->get('params'))
     				$params = $xmlConfig->widgets->user->params->toArray();
     			else
-    				$params = aarray();
+    				$params = array();
     	
     			return $this->runByService('pi_app_admin.manager.authentication', "$this->entity~$this->method", $lang, $params);
     		}else

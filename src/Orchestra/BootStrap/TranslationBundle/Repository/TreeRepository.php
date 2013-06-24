@@ -371,7 +371,29 @@ class TreeRepository extends NestedTreeRepository
     		$query->setMaxResults($MaxResults);
     
     	return $query;
-    }        
+    }    
+
+    /**
+     * Gets all field values of an translation entity.
+     *
+     * @param	$id		value of the id
+     * @return object
+     * @access public
+     *
+     * @author Riad HELLAL <r.hellal@novediagroup.com>
+     * @since 2013-05-30
+     */
+    public function getTranslationsByObjectId($id)
+    {
+    	$query	= $this->_em->createQuery("SELECT p FROM {$this->_entityTranslationName} p  WHERE p.object = :objectId ");
+    	$query->setParameter('objectId', $id);
+    	$entities = $query->getResult();
+    
+    	if(!is_null($entities)){
+    		return $entities;
+    	}else
+    		return null;
+    }    
     
     /**
      * {@inheritDoc}

@@ -26,6 +26,7 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 
 use BootStrap\TranslatorBundle\Entity\Word;
 use BootStrap\TranslatorBundle\Form\WordType;
+use BootStrap\TranslatorBundle\Form\WordTranslateType;
 use BootStrap\TranslatorBundle\Entity\Translation\WordTranslation;
 
 /**
@@ -296,6 +297,117 @@ class WordController extends abstractController
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'NoLayout' 	  => $NoLayout,
+        ));
+    }
+    /**
+     * Lists all Word entities.
+     *
+     * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
+	 * @return \Symfony\Component\HttpFoundation\Response
+     *
+	 * @access	public
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
+     */
+    public function translateAction($id)
+    {
+    	$em 		= $this->getDoctrine()->getEntityManager();
+    	$locale		= $this->container->get('session')->getLocale();
+		$NoLayout   = $this->container->get('request')->query->get('NoLayout');
+		$entity = $em->getRepository("BootStrapTranslatorBundle:Word")->findOneByEntity($locale, $id, 'object');
+		$locales 	= $em->getRepository("PiAppAdminBundle:Langue")->findAllByEntity($locale, 'object');        
+        $translations 	= $em->getRepository("BootStrapTranslatorBundle:Word")->getTranslationsByObjectId($id);
+		$entities = array();
+		foreach($locales as $lang){
+			$langs[$lang->getId()] = $lang->getLabel();
+		}
+		foreach($translations as $trans){
+			$entities[$trans->getLocale()] = $trans;
+		}
+        $template = "translate.html.twig";
+
+        return $this->render("BootStrapTranslatorBundle:Word:$template", array(
+            'entities' => $entities,
+			'source' =>$entity,
+            'locale'	=> $locale,
+			'langs' => $langs,
+			'NoLayout' 	  => $NoLayout,
+        ));
+    }
+	
+    /**
+     * Displays a form to edit an existing Word entity.
+     *
+     * @Secure(roles="ROLE_USER")
+	 * @return \Symfony\Component\HttpFoundation\Response
+     *
+	 * @access	public
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
+     */
+    public function editTranslateAction($id, $lang)
+    {
+        $em 	  = $this->getDoctrine()->getEntityManager();
+		$NoLayout   = $this->container->get('request')->query->get('NoLayout');
+        $entity = $em->getRepository("BootStrapTranslatorBundle:Word")->findOneByEntity($lang, $id, 'object');
+        
+        $template = "editTranslate.html.twig";
+
+        if (!$entity) {
+        	$entity = $em->getRepository("BootStrapTranslatorBundle:Word")->find($id);
+        	$entity->addTranslation(new WordTranslation($lang));            
+        }
+
+        $editForm   = $this->createForm(new WordTranslateType($em, $lang, $this->container), $entity, array('show_legend' => false));
+
+        return $this->render("BootStrapTranslatorBundle:Word:$template", array(
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+			'NoLayout' 	  => $NoLayout,		 
+		    'lang' 	  => $lang,		 
+        ));
+    }
+
+    /**
+     * Edits an existing Word entity.
+     *
+     * @Secure(roles="ROLE_USER")
+	 * @return \Symfony\Component\HttpFoundation\Response
+     *
+	 * @access	public
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
+     */
+    public function updateTranslateAction($id, $lang)
+    {
+        $em 	= $this->getDoctrine()->getEntityManager();
+
+        $entity = $em->getRepository("BootStrapTranslatorBundle:Word")->findOneByEntity($lang, $id, "object"); 
+        
+        $NoLayout   = $this->container->get('request')->query->get('NoLayout');
+        $template = "editTranslate.html.twig";
+
+        if (!$entity) {
+        	$entity = $em->getRepository("BootStrapTranslatorBundle:Word")->find($id);
+        }
+
+        $editForm   = $this->createForm(new WordTranslateType($em, $lang, $this->container), $entity, array('show_legend' => false));
+        $deleteForm = $this->createDeleteForm($id);
+		
+        $editForm->bindRequest($this->getRequest(), $entity);
+        if ($editForm->isValid()) {
+            $entity->setTranslatableLocale($lang);
+            $em->persist($entity);
+            $em->flush();
+						
+            $this->container->get("bootstrap_translator.translation_cache")->wordsTranslation();
+            
+            return $this->redirect($this->generateUrl('admin_word_edit_translate', array('id' => $id, 'lang' => $lang, 'NoLayout' => $NoLayout)));
+        }
+
+        return $this->render("BootStrapTranslatorBundle:Word:$template", array(
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+            'NoLayout' 	  => $NoLayout,
+		    'lang' 	  => $lang,			  
         ));
     }
 

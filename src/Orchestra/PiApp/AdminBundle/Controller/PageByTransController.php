@@ -219,9 +219,6 @@ class PageByTransController extends abstractController
         	$template = "new_ajax.html.twig";        
 
         if ('POST' === $request->getMethod()) {
-        
-        	$form->bindRequest($request);  
-        	      
 	        if ($form->isValid()) {
 	            $em = $this->getDoctrine()->getEntityManager();
 	

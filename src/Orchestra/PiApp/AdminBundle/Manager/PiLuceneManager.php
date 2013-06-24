@@ -198,11 +198,14 @@ class PiLuceneManager extends PiCoreManager implements PiSearchLuceneManagerBuil
 				
 				if(array_key_exists($sluggable_field_search, $match)){
 					$entity	= $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->getEntityByField($this->language, array('content_search' => array($sluggable_field_search =>$match[$sluggable_field_search])), 'object');
-					
 					if(is_object($entity) && method_exists($entity, $method_title)){
-						$indexValues['ModDate']	 = $entity->getPublishedAt()->getTimestamp();
 						$indexValues['Title']	 = $entity->$method_title();
 					}
+					if(is_object($entity) && method_exists($entity, "getPublishedAt") && ($entity->getPublishedAt() instanceof \DateTime)){
+						$indexValues['ModDate']	 = $entity->getPublishedAt()->getTimestamp();
+					} elseif (is_object($entity) && method_exists($entity, "getUpdatedAt") && ($entity->getUpdatedAt()  instanceof \DateTime)){
+						$indexValues['ModDate']	 = $entity->getUpdatedAt()->getTimestamp();
+					}	
 				}else{
 					$indexValues['ModDate']	 = $translationPage->getPublishedAt()->getTimestamp();
 					$indexValues['Title']	 = $translationPage->getMetaTitle();

@@ -187,6 +187,9 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
 			return $response;
 		}
 		
+		if(!isset($params['no_clearflashes']))
+			$this->container->get('session')->clearFlashes();
+		
 		return $this->container->get('templating')->renderResponse($template, array(
 				'token' => $token,
 				'form'  => $form->createView(),

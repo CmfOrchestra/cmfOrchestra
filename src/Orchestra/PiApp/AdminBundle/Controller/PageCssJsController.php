@@ -155,9 +155,6 @@ class PageCssJsController extends abstractController
         $form->bindRequest($request);
 
         if ('POST' === $request->getMethod()) {
-        
-        	$form->bindRequest($request);  
-        	      
 	        if ($form->isValid()) {
 	            $em = $this->getDoctrine()->getEntityManager();
 	

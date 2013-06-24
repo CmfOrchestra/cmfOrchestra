@@ -511,6 +511,28 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
     }
     
     /**
+     * Gets all field values of an translation entity.
+     *
+     * @param	$id		value of the id
+     * @return object
+     * @access public
+     *
+     * @author Riad HELLAL <r.hellal@novediagroup.com>
+     * @since 2013-05-30
+     */
+    public function getTranslationsByObjectId($id)
+    {
+    	$query	= $this->_em->createQuery("SELECT p FROM {$this->_entityTranslationName} p  WHERE p.object = :objectId ");
+    	$query->setParameter('objectId', $id);
+    	$entities = $query->getResult();
+    
+    	if(!is_null($entities)){
+    		return $entities;
+    	}else
+    		return null;
+    }    
+    
+    /**
      * Gets all entities by one category.
      *
      * @return array\entity
