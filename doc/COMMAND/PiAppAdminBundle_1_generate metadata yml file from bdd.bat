@@ -1,1 +1,0 @@
-php app/console doctrine:mapping:convert yml ./src/PiApp/AdminBundle/Resources/config/doctrine/metadata/orm --from-database --force

@@ -1,0 +1,95 @@
+							<ul class="">
+                            {% for node in nodes %}
+                            	
+                            		{% set childs_routesnames = getService('doctrine').getEntityManager().getRepository("PiAppGedmoBundle:Menu").findChildsRouteByParentId(node.id, locale, 'string') %}
+                            		           
+	                            	{% if(node.lvl == 1) %}
+	                            		{%  set url_lft = node.lft %}
+	                            		{%  set url_rgt = node.rgt %}
+										{%  set url = "#" %}
+			                            {% if node.page.getId() is defined %}
+			                            	{%  set url = path_url(node.page.getRouteName(), {'locale':locale}) %}
+										{% elseif node.url is not empty %}
+			                                {%  set url = node.url %}
+			                            {% endif %}               
+			                            
+	                            		<li class="{{ "{{ in_paths('"~childs_routesnames~"', 'liActiveClass', '') }}" }}">
+	                            			<a href="{{ url }}" {% if node.getBlank() == 1 %}target="_blank"{% endif %}>
+	                            				{% if (node.media.image.id is defined) and (node.media.image.name != getParameter("pi_app_admin.page.media_pixel")) %}
+												<img src="{{ media_url(node.media.image.id, 'reference', true, node.media.getUpdatedAt(), 'lamelee_tree_') }}" title="" alt="" />
+												{% else %}
+												{{ node.translate(locale).getTitle() }}
+	                            				{% endif %}
+	                            			</a>
+	                            	{% endif %}
+	                            		
+											{% if (node.lvl == 2) and (node.lft == url_lft+1)  %}
+		                            		<ul>
+		                            			{%  set url_2_lft = node.lft %}
+	                            				{%  set url_2_rgt = node.rgt %}
+		                            		{% endif %}
+		                            		
+		                            		{% if (node.lvl == 2) %}
+												{%  set url_2 = "#" %}
+		                            			{% if node.page.getId() is defined %}
+		                            				{%  set url_2 = path_url(node.page.getRouteName(), {'locale':locale}) %}
+												{% elseif node.url is not empty %}
+												  {%  set url_2   = node.url %}
+												{% endif %}	 	         
+		                            			<li class="{{ "{{ in_paths('"~childs_routesnames~"', 'liActiveClass', '') }}" }}">
+		                            				<a href="{{ url_2 }}" {% if node.getBlank() == 1 %}target="_blank"{% endif %}>
+			                            				{% if (node.media.image.id is defined) and (node.media.image.name != getParameter("pi_app_admin.page.media_pixel")) %}
+														<img src="{{ media_url(node.media.image.id, 'reference', true, node.media.getUpdatedAt(), 'lamelee_tree_') }}" title="" alt="" />
+														{% else %}
+			                            				{{ node.translate(locale).getTitle() }}
+			                            				{% endif %}
+			                            			</a>
+		                            		{% endif %}
+		                            		
+				                            		{% if (node.lvl == 3) and (node.lft == url_2_lft+1)  %}
+				                            		<ul>
+				                            			{%  set url_3_lft = node.lft %}
+			                            				{%  set url_3_rgt = node.rgt %}
+				                            		{% endif %}
+				                            		
+														{% if (node.lvl == 3) %}
+															{%  set url_3 = "#" %}
+					                            			{% if node.page.getId() is defined %}
+					                            				{%  set url_3 = path_url(node.page.getRouteName(), {'locale':locale}) %}
+															{% elseif node.url is not empty %}
+															  {%  set url_3   = node.url %}
+															{% endif %}		         
+					                            			<li class="">
+																<a href="{{ url_3 }}" {% if node.getBlank() == 1 %}target="_blank"{% endif %}>
+						                            				{% if (node.media.image.id is defined) and (node.media.image.name != getParameter("pi_app_admin.page.media_pixel")) %}
+																	<img src="{{ media_url(node.media.image.id, 'reference', true, node.media.getUpdatedAt(), 'lamelee_tree_') }}" title="" alt="" />
+																	{% else %}
+						                            				{{ node.translate(locale).getTitle() }}
+						                            				{% endif %}
+						                            			</a>					                            				
+					                            		{% endif %}	
+					                            		
+					                            		{% if (node.lvl == 3) %}
+					                            			</li>
+					                            		{% endif %}					                            				                            		
+				                            		
+													{% if (node.lvl == 3) and (node.rgt == url_2_rgt-1) %}	
+													</ul>
+		                            			</li>
+		                            				{% endif %}				                            		
+		                            				
+		                            		{% if (node.lvl == 2) and (node.lft == node.rgt-1) %}
+		                            			</li>
+		                            		{% endif %}	                            			
+		                            			
+		                            		{% if (node.lvl == 2) and (node.rgt == url_rgt-1) %}	
+		                            		</ul>
+		                            	</li>
+		                            		{% endif %}	                            	                            	
+	                            	
+	                            	{% if (node.lvl == 1) and ((node.rgt == url_rgt-1) or (node.lft == node.rgt-1)) %}
+	                            		</li>
+	                            	{% endif %}
+	                            	
+                            {% endfor %}
+                            </ul>

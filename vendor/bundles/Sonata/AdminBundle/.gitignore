@@ -1,5 +1,0 @@
-.DS_Store
-phpunit.xml
-Resources/doc/_build/*
-nbproject
-coverage

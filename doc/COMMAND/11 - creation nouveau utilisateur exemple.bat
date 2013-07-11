@@ -1,1 +1,0 @@
-php app/console fos:user:create admin etienne.delongeaux@gmail.com adminpsw

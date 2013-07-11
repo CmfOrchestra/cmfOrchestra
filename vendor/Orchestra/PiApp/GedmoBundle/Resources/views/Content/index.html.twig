@@ -1,0 +1,13 @@
+{% initJquery 'GRID:grid-table' %}
+{% stylesheet getParameter('pi_app_admin.admin.theme_css')~":prepend" %}
+{% extends app.request.attributes.get('orchestra-layout') %}
+
+{% block title %}
+	<h1>Content list</h1>
+{% endblock %}
+ 
+{% block content %}
+
+	{% include 'PiAppGedmoBundle:Content:index_view.html.twig' with {'NoLayout':NoLayout, 'entities':entities, 'category':category} %}
+
+{% endblock %}

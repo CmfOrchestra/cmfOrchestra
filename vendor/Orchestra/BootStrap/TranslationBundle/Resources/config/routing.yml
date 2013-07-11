@@ -1,0 +1,6 @@
+#
+#    BootStrapTranslationBundle routing extra of pi_routing database
+#    
+fos_route_extra:
+    resource: .
+    type: extra

@@ -1,0 +1,144 @@
+						<div id="headerSearch" class="clearfix row">
+							<div id="mainTitleSearch" class="fleft">
+								<div id="titleSearch">
+									<h1>>{{ "%s Result"|translate_plural("%s Results", count)}} for</h1>
+								</div>
+								<div id="subtitleSearch">
+									<h2>"{{ query_search }}"</h2>
+								</div>
+							</div>
+							<div class="fright">
+								<form action="?" method="get" id="search-paginator">
+									<select name="max">
+										<option value="5"  {% if max == 5 %}selected{% endif %}>Show 5 results</option>
+	                                    <option value="10" {% if max == 10 %}selected{% endif %}>Show 10 results</option>
+	                                    <option value="15" {% if max == 15 %}selected{% endif %}>Show 15 results</option>
+	                                    <option value="20" {% if max == 20 %}selected{% endif %}>Show 20 results</option>
+									</select>
+									<input name="page" 			type="hidden" value="1"/>
+									<input name="query_search"  type="hidden" value="{{ query_search }}"/>
+								</form>
+							</div>
+						</div>
+						<div id="mainBodySearch">
+						
+						
+							{% if (paginator|count) > 1  %}
+							<header class="pageSearch clearfix rox">
+								<div class="fleft"><p>Displaying {{ max }} results out of {{ count }}</p></div>
+								<div class="fright">
+									<ul class="listPagesSearch">
+										{% if page > 1  %}
+										<li><a href="?query_search={{ query_search }}&page={{ page - 1 }}&max={{ max }}" class="prev">&lt;</a></li>
+										{% endif %}
+										
+										{% for index,paginator_current in  paginator %}
+										<li><a href="?query_search={{ query_search }}&page={{ index+1 }}&max={{ max }}" {% if page == (index+1) %}class="active"{% endif %} >{{ index+1 }}</a></li>
+										{% endfor %}
+										
+										{% if page < (paginator|count)  %}
+										<li><a href="?query_search={{ query_search }}&page={{ page +1 }}&max={{ max }}" class="next">&gt;</a></li>
+										{% endif %}
+									</ul>
+								</div>
+							</header>
+							{% endif %}
+							
+							
+							<div id="bodySearch">
+							{% for year,entitiesByYear in pagination %}
+								
+								{% for timestamp,entitiesByMonth in entitiesByYear %}	
+								<section class="groupResult">
+									<div class="headerResult clearfix row">
+										<div class="dateResult fleft">{{ timestamp|localedate('long','medium', app.request.locale, 'LLLL') }}</div>
+										<div class="nbResult fleft">{{ "pi.result"|translate_plural("pi.result_plural", entitiesByMonth|count)}}</div>
+									</div>
+									<div class="complexListSearch">
+										<ul>
+										{% for entity_tag in entitiesByMonth %}
+						  					{% set Key 		= entity_tag['Key'] %}
+						  					{% set Query	= entity_tag['Query'] %}
+						  					{% set Lang		= entity_tag['Lang'] %}
+						  					{% set Etag 	= entity_tag['Etag'] %}
+						  					{% set Route 	= entity_tag['Route'] %}
+						  					{% set Path 	= entity_tag['Path'] %}
+						  					{% set match_path 	= match_url(entity_tag['Path']) %}
+						  					{% set Keywords = entity_tag['Keywords'] %}
+						  					{% set Title	= entity_tag['Title'] %}
+						  					{% set ModDate	= entity_tag['ModDate'] %}
+						  					{% set MaxResultByWord	= entity_tag['MaxResultByWord'] %}
+						  					
+						  					{% if (Route != "page_search") and (match_path|count >= 1) %}									
+											<li>
+												<p title="- {{ Query }} - {{ Keywords }}" >
+													<a href="{{ Path }}" title="- {{ Query }} - {{ Keywords }}"  >
+			                                        	<span class="solutionFinderLineTitle">{{ Title|limite('0', 85)|replace({"<p>": "", "</p>": ""})|raw }}</span></br>
+						  								{#{{ ModDate|localedate('long','medium', app.request.locale~"_"~app.request.locale, 'EEEE, LLLL d, y') }}#}
+			                                        	{{ getService('pi_app_admin.manager.search_lucene').contentPage(Etag, match_path, Query, MaxResultByWord, 'highlightedWordSearch', 690)|lower|replace({"<p>": "", "</p>": ""})|raw }}
+			                                        </a>  
+			                                    </p>
+			                                </li>
+			                                {% endif %}	
+			                            {% endfor %}
+		                                </ul>
+									</div>
+								</section>
+								{% endfor %}
+								
+							{% endfor %}
+							</div>
+
+							
+							{% if max >= 15  %}
+							<div class="fright">
+								<br />
+								<form action="?" method="get" id="search-paginator">
+									<select name="max">
+										<option value="5"  {% if max == 5 %}selected{% endif %}>Show 5 results</option>
+	                                    <option value="10" {% if max == 10 %}selected{% endif %}>Show 10 results</option>
+	                                    <option value="15" {% if max == 15 %}selected{% endif %}>Show 15 results</option>
+	                                    <option value="20" {% if max == 20 %}selected{% endif %}>Show 20 results</option>
+									</select>
+									<input name="page" 			type="hidden" value="1"/>
+									<input name="query_search"  type="hidden" value="{{ query_search }}"/>
+								</form>
+							</div>
+							{% endif %}	
+														
+							{% if (paginator|count) > 1  %}
+							<footer class="pageSearch clearfix">
+								<div class="fright">
+									<ul class="listPagesSearch">
+									<ul class="listPagesSearch">
+										{% if page > 1  %}
+										<li><a href="?query_search={{ query_search }}&page={{ page - 1 }}&max={{ max }}" class="prev">&lt;</a></li>
+										{% endif %}
+										
+										{% for index,paginator_current in  paginator %}
+										<li><a href="?query_search={{ query_search }}&page={{ index+1 }}&max={{ max }}" {% if page == (index+1) %}class="active"{% endif %} >{{ index+1 }}</a></li>
+										{% endfor %}
+										
+										{% if page < (paginator|count)  %}
+										<li><a href="?query_search={{ query_search }}&page={{ page +1 }}&max={{ max }}" class="next">&gt;</a></li>
+										{% endif %}
+									</ul>
+									</ul>
+								</div>
+							</footer>
+							{% endif %}
+							
+						</div>    
+						
+						                            
+		                <script type="text/javascript">
+		                //<![CDATA[
+			                $(document).ready(function(){
+						        $(".complexListSearch [title]").wijtooltip();	
+
+						        $("#search-paginator select").change(function() {
+						        	  $("#search-paginator").trigger("submit");
+						        });	
+						    });
+		              	//]]>  
+					    </script> 

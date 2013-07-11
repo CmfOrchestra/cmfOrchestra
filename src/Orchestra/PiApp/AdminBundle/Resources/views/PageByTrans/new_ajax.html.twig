@@ -1,8 +1,0 @@
-{% initJquery 'FORM:prototype-bytab' %}
-{% extends "PiAppTemplateBundle::Template\\Layout\\layout-ajax.html.twig" %}
-
-{% block global_layout %}
-
-	{% include 'PiAppAdminBundle:PageByTrans:new_view.html.twig' with {'form':form, 'NoLayout':NoLayout} %}
-
-{% endblock %}

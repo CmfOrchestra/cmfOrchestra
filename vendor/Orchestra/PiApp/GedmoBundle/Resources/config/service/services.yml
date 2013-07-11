@@ -1,0 +1,14 @@
+parameters:
+    piapp.gedmo.repository.class: PiApp\GedmoBundle\Repository\Repository
+    
+services:
+    #
+    # configuration of the main repository manager allowed for the repository management
+    #  
+    pi_app_gedmo.repository:
+        class: %piapp.gedmo.repository.class%
+        arguments: ['@doctrine.orm.entity_manager']
+        
+    #
+    # configuration of the event subscriber of entities
+    #

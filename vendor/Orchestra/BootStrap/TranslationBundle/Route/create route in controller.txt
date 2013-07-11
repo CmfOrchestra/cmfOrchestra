@@ -1,0 +1,21 @@
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\RouteCollection;
+use Symfony\Component\Routing\Route;
+use Symfony\Component\Routing\RequestContext;
+use Symfony\Component\Routing\Generator\UrlGenerator;
+ 
+// routes
+$routes = new RouteCollection();
+$routes->add('page', new Route('/blog/{slug}'));
+$routes->add('blog', new Route('/blog/'));
+ 
+// current context
+$request = Request::create('http://example.org/blog/what-a-wonderful-world/comments');
+$context = new RequestContext();
+$context->fromRequest($request);
+ 
+// create a generator
+$generator = new UrlGenerator($routes, $context);
+ 
+// generate a relative-path URL (will output ./)
+echo $generator->generate('blog', array(), UrlGeneratorInterface::RELATIVE_PATH);

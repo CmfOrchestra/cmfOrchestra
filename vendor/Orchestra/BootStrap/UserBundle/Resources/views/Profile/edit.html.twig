@@ -1,0 +1,11 @@
+{% if is_granted("IS_AUTHENTICATED_FULLY") %}
+	{% set layout_nav = app.request.attributes.get('orchestra-layout') %}
+{% else %}
+	{% set layout_nav = getParameter('pi_app_admin.layout.template.connexion') %}
+{% endif %}	
+
+{% extends layout_nav %}
+
+{% block content %}
+{% include "FOSUserBundle:Profile:edit_content.html.twig" %}
+{% endblock content %}

@@ -1,0 +1,85 @@
+{% initJquery 'GRID:grid-table' %}
+{% extends app.request.attributes.get('orchestra-layout') %}
+
+{% block title %}
+	<h1>Layout list</h1>
+{% endblock %}
+ 
+{% block content %}
+
+	<!--  start actions-box ............................................... -->
+	<div id="actions-box">
+		<a href="{{ path('admin_layout_new') }}" class="action-edit">{{ 'pi.grid.action.create'|trans }}</a>
+		<div class="clear"></div>
+	</div>
+	<!-- end actions-box........... -->
+	
+	<table id="grid" >
+	    <thead>
+	        <tr>
+	            <th>Id</th>
+	            <th>Name</th>
+	            <th>File PC</th>
+	            <th>File Mobile</th>
+	            <th>Configxml</th>
+	            <th>Enabled</th>
+	            <th>Actions</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	    {% set num_line = 0 %}
+	    {% for entity in entities %}
+	        <tr {% if(num_line == 0) %}class="odd"{% endif %} id="{{ entity.id }}_row_{{ entity.id }}"  >
+	            <td><a href="{{ path('admin_layout_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+	            <td>{{ entity.name }}</td>
+	            <td>{{ entity.filepc }}</td>
+	            <td>{{ entity.filemobile }}</td>
+	            <td>{{ entity.configXml|limite('0', 25) }}</td>
+	            <td class="enabled" >{{ entity.enabled }}</td>
+	            <td>
+					<a href="{{ path('admin_layout_show', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.show'|trans }}" class="icon-3 info-tooltip">&nbsp;</a>
+					<a href="{{ path('admin_layout_edit', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.edit'|trans }}" class="icon-1 info-tooltip">&nbsp;</a>
+	            </td>
+	        </tr>
+	        {% if num_line == 0 %} 
+	        	{% set num_line = 1 %} 
+	        {% else %}
+	        	{% set num_line = 0 %}
+	        {% endif %}		        
+	    {% endfor %}
+	    </tbody>
+	</table>
+	
+	{% set options_gridtabale = {'grid-name': 'grid', 'grid-type':'simple', 
+		'grid-paginate':'true',
+		'grid-LengthMenu':50,
+		'grid-filters-select': ['0','4','5', '6'],
+		'grid-filters': {
+				'1':'Identifiant',
+			},
+		'grid-sorting': { 
+				'1':'desc',
+			},	
+		'grid-visible': {
+				'0':'false',
+			},	
+		'grid-actions': {
+				'select_all': {'sButtonText':'pi.grid.action.select_all'},
+				'select_none': {'sButtonText':'pi.grid.action.select_none'},
+				'rows_enabled': {'sButtonText':'pi.grid.action.row_enabled', 'route':'admin_layout_enabledentity_ajax'},
+				'rows_disable': {'sButtonText':'pi.grid.action.row_disable', 'route':'admin_layout_disablentity_ajax'},
+				'rows_delete': {'sButtonText':'pi.grid.action.row_delete', 'route':'admin_layout_deletentity_ajax'},
+				
+				'rows_text_test': {'sButtonText':'test','title':'Titre de mon action', 'route':'admin_layout_enabledentity_ajax'},
+				
+				'copy': {'sButtonText':'pi.grid.action.copy'},
+				'print': {'sButtonText':'pi.grid.action.print'},
+				'export_pdf': {'sButtonText':'pi.grid.action.export'},				
+				'export_csv': {'sButtonText':'pi.grid.action.export'},
+				'export_xls': {'sButtonText':'pi.grid.action.export'},
+			}				
+		}
+	%}
+	{{ renderJquery('GRID', 'grid-table', options_gridtabale )|raw }}	
+	
+{% endblock %}

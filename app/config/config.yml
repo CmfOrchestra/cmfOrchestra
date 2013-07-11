@@ -1,59 +1,64 @@
 imports:
-    - { resource: parameters.ini }
-    - { resource: "@BootStrapUserBundle/Resources/config/config.yml" }
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    
     - { resource: "@BootStrapUserBundle/Resources/config/security.yml" }
+    - { resource: "@BootStrapAclManagerBundle/Resources/config/security.yml" }
+    - { resource: "@BootStrapAdminBundle/Resources/config/security.yml" }
 
 framework:
-    #esi:             ~    # esi: { enabled: true }
-    # The fallback option defines the fallback locale when a translation does not exist
-    # in the user's locale
-    translator:      { fallback: en }
+    translator:      { fallback: %locale% }
     secret:          %secret%
-    charset:         UTF-8
-    router:          { resource: "%kernel.root_dir%/config/routing.yml" }
-    form:            true
-    csrf_protection: true
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: %kernel.debug%
+    form:            ~
+    csrf_protection: ~
     validation:      { enable_annotations: true }
-    templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    default_locale:  "%locale%"
+    trusted_proxies: ~
+    #trust_proxy_headers: false # Whether or not the Request object should trust proxy headers (X_FORWARDED_FOR/HTTP_CLIENT_IP)
     session:
-        default_locale: %locale%
-        auto_start:     true
-        lifetime:       3600    
-        
+        lifetime:       604800 #86400 
+        #cookie_lifetime: 604800
+    #esi: true # Pour utiliser les tags ESI dans les templates Twig         
+    fragments:       ~
+
 # Twig Configuration
 twig:
-    charset:              %kernel.charset%
-    debug:                %kernel.debug%
-    strict_variables:     %kernel.debug%
-    auto_reload:          ~
-    exception_controller:  Symfony\Bundle\TwigBundle\Controller\ExceptionController::showAction 
+    debug:            %kernel.debug%
+    strict_variables: %kernel.debug%
 
 # Assetic Configuration
 assetic:
     debug:          %kernel.debug%
     use_controller: false
+#    bundles:        [ PiAppTemplateBundle, PiAppGedmoBundle, PiAppAdminBundle ]
+    #java: /usr/bin/java
     filters:
         cssrewrite: ~
         #closure:
-        #    jar: %kernel.root_dir%/Ressources/java/compiler.jar
+        #    jar: %kernel.root_dir%/Resources/java/compiler.jar
         yui_css:
-            jar: %kernel.root_dir%/Ressources/java/yuicompressor-2.4.7.jar
+            jar: %kernel.root_dir%/Resources/yuicompressor-2.4.7/build/yuicompressor-2.4.7.jar
         yui_js:
-            jar: %kernel.root_dir%/Ressources/java/yuicompressor-2.4.7.jar
-            
+            jar: %kernel.root_dir%/Resources/yuicompressor-2.4.7/build/yuicompressor-2.4.7.jar        
 
 # Swiftmailer Configuration
 swiftmailer:
     transport: %mailer_transport%
-#   host:      %mailer_host%
+    host:      %mailer_host%
     username:  %mailer_user%
     password:  %mailer_password%
 #    port:                 587
 #    encryption:           ssl
 #    auth_mode:            login
-#    spool:
-#        type:                 file
-#        path:                 "%kernel.cache_dir%/swiftmailer/spool"
+    spool:
+        type:                 file
+        path:                 "%kernel.cache_dir%/swiftmailer/spool"
 #    sender_address:       ~
 #    antiflood:
 #        threshold:            99
@@ -61,7 +66,425 @@ swiftmailer:
 #    delivery_address:     ~
 #    disable_delivery:     ~
 #    logging:              "%kernel.debug%"    
+    
+    
+# Stof Doctrine Configuration
+stof_doctrine_extensions:
+    default_locale: %locale%
+    translation_fallback: true
+    orm:
+        default:
+            tree: true
+            timestampable: true
+            sluggable: true
+            loggable: true
+            sortable: true
+            translatable: true
+            
+#
+# SonataDoctrineORMAdminBundle configuration
+#
+sonata_doctrine_orm_admin:
+    # default value is null, so doctrine uses the value defined in the configuration
+    entity_manager: ~
 
-jms_security_extra:
-    secure_controllers:  true
-    secure_all_services: false
+    templates:
+        form:
+            - SonataDoctrineORMAdminBundle:Form:form_admin_fields.html.twig
+        filter:
+            - SonataDoctrineORMAdminBundle:Form:filter_admin_fields.html.twig
+        types:
+            list:
+                array:      SonataAdminBundle:CRUD:list_array.html.twig
+                boolean:    SonataAdminBundle:CRUD:list_boolean.html.twig
+                date:       SonataAdminBundle:CRUD:list_date.html.twig
+                datetime:   SonataAdminBundle:CRUD:list_datetime.html.twig
+                text:       SonataAdminBundle:CRUD:base_list_field.html.twig
+                trans:      SonataAdminBundle:CRUD:list_trans.html.twig
+                string:     SonataAdminBundle:CRUD:base_list_field.html.twig
+                smallint:   SonataAdminBundle:CRUD:base_list_field.html.twig
+                bigint:     SonataAdminBundle:CRUD:base_list_field.html.twig
+                integer:    SonataAdminBundle:CRUD:base_list_field.html.twig
+                decimal:    SonataAdminBundle:CRUD:base_list_field.html.twig
+                identifier: SonataAdminBundle:CRUD:base_list_field.html.twig
+
+            show:
+                array:      SonataAdminBundle:CRUD:show_array.html.twig
+                boolean:    SonataAdminBundle:CRUD:show_boolean.html.twig
+                date:       SonataAdminBundle:CRUD:show_date.html.twig
+                datetime:   SonataAdminBundle:CRUD:show_datetime.html.twig
+                text:       SonataAdminBundle:CRUD:base_show_field.html.twig
+                trans:      SonataAdminBundle:CRUD:show_trans.html.twig
+                string:     SonataAdminBundle:CRUD:base_show_field.html.twig
+                smallint:   SonataAdminBundle:CRUD:base_show_field.html.twig
+                bigint:     SonataAdminBundle:CRUD:base_show_field.html.twig
+                integer:    SonataAdminBundle:CRUD:base_show_field.html.twig
+                decimal:    SonataAdminBundle:CRUD:base_show_field.html.twig
+ 
+#               
+# Doctrine Configuration
+#
+doctrine:
+    dbal:
+        types:
+            json: Sonata\Doctrine\Types\JsonType    
+        default_connection:       default
+        connections:
+            default:
+                driver:   %database_driver%
+                host:     %database_host%
+                port:     %database_port%
+                dbname:   %database_name%
+                user:     %database_user%
+                password: %database_password%
+                charset:  UTF8
+                mapping_types:
+                      enum:       string
+                      varbinary:  string
+                      tinyblob:   text
+
+    orm:
+        auto_generate_proxy_classes: %kernel.debug%
+        auto_mapping: true
+        mappings:
+            FOSUserBundle: ~
+            StofDoctrineExtensionsBundle: ~
+            SonataMediaBundle: ~
+            BootStrapUserBundle: ~
+            BootStrapTranslationBundle: ~
+            BootStrapTranslatorBundle: ~
+            BootStrapMediaBundle: ~        
+            PiAppAdminBundle: ~
+            PiAppGedmoBundle: ~
+            translatable:
+                type: annotation
+                alias: Gedmo
+                prefix: Gedmo\Translatable\Entity
+                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
+                
+            loggable:
+                type: annotation
+                alias: Gedmo
+                prefix: Gedmo\Loggable\Entity
+                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Entity"
+            tree:
+                type: annotation
+                alias: Gedmo
+                prefix: Gedmo\Tree\Entity
+                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Entity"
+        metadata_cache_driver: array
+        query_cache_driver: array
+        result_cache_driver: array
+#       result_cache_driver:
+#            type: memcache
+#            host: localhost
+#            port: 11211
+#            instance_class: Memcache       
+            
+#               
+# Doctrine MongoDB Configuration
+#      
+
+#
+# FOSUserBundle configuration
+#
+fos_user:
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: BootStrap\UserBundle\Entity\User
+    use_listener:           true
+    use_username_form_type: true
+    model_manager_name:     null  # change it to the name of your entity/document manager if you don't want to use the default one.
+    from_email:
+        address:       orchestra@gmail.com
+        sender_name:   Admin    
+    profile:
+        form:
+            type:               fos_user_profile
+            name:               fos_user_profile_form
+            validation_groups:  [Profile]
+    change_password:
+        form:
+            type:               fos_user_change_password
+            name:               fos_user_change_password_form
+            validation_groups:  [ChangePassword]
+    registration:
+        confirmation:
+            from_email: # Use this node only if you don't want the global email address for the confirmation email
+                address:        orchestra@gmail.com
+                sender_name:    commercial
+            enabled:    true # change to true for required email confirmation
+            #template:   FOSUserBundle:Registration:email.txt.twig
+        #email:
+            template:   FOSUserBundle:Registration:registration.email.twig
+        form:
+            type:               bootstrap_user_registration
+            name:               fos_user_registration_form
+            validation_groups:  [Registration]
+    resetting:
+        token_ttl: 86400
+        email:
+            from_email: # Use this node only if you don't want the global email address for the resetting email
+                address:        orchestra@gmail.com
+                sender_name:    admin
+            template:   FOSUserBundle:Resetting:email.txt.twig
+        form:
+            type:               fos_user_resetting
+            name:               fos_user_resetting_form
+            validation_groups:  [ResetPassword]            
+    service:
+        mailer:                 fos_user.mailer.default
+        email_canonicalizer:    fos_user.util.canonicalizer.default
+        username_canonicalizer: fos_user.util.canonicalizer.default
+        user_manager:           fos_user.user_manager.default
+    template:
+        engine: twig
+    group:
+        group_class: BootStrap\UserBundle\Entity\Group
+        group_manager:  fos_user.group_manager.default
+        form:
+            type:               fos_user_group
+            name:               fos_user_group_form
+            validation_groups:  [Registration]
+            
+#
+# routing configuration
+#        
+be_simple_i18n_routing: ~   
+
+#
+# SonataAdminBundle configuration
+#
+sonata_admin:
+    security:
+        handler: sonata.admin.security.handler.role
+    title: Sonata Project
+    title_logo: %kernel.http_host%/bundles/piappadmin/images/logo/logo-orchestra-white.png
+    templates:
+        # default global templates
+        layout:  SonataAdminBundle::standard_layout.html.twig
+        ajax:    SonataAdminBundle::ajax_layout.html.twig
+
+        # default value if done set, actions templates, should extends a global templates
+        list:    SonataAdminBundle:CRUD:list.html.twig
+        show:    SonataAdminBundle:CRUD:show.html.twig
+        edit:    SonataAdminBundle:CRUD:edit.html.twig        
+       
+#
+# SonataCacheBundle configuration
+#
+
+
+#
+# SonataBlockBundle configuration
+#
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
+
+        #sonata.admin_doctrine_orm.block.audit:
+        #    contexts:   [admin]
+
+        sonata.block.service.text:
+        sonata.block.service.action:
+        sonata.block.service.rss:
+
+        # Some specific block from the SonataMediaBundle
+        #sonata.media.block.media:
+        #sonata.media.block.gallery:
+        #sonata.media.block.feature_media:
+
+#
+# SonataMediaBundle configuration
+#
+sonata_media:
+    default_context: default
+    db_driver: doctrine_orm
+    class:
+        media:              BootStrap\MediaBundle\Entity\Media
+        gallery:            BootStrap\MediaBundle\Entity\Gallery
+        gallery_has_media:  BootStrap\MediaBundle\Entity\GalleryHasMedia
+    contexts:
+        default:  # the default context is mandatory
+            download:
+                strategy: sonata.media.security.public_strategy         # ROLE_USER
+                #strategy: sonata.media.security.superadmin_strategy  # ROLE_SUPER_ADMIN or ROLE_ADMIN
+                #strategy: sonata.media.security.public_strategy      # no restriction, files are public
+                #strategy: sonata.media.security.forbidden_strategy   # not possible to retrieve the original file
+                #strategy: sonata.media.security.connected_strategy   # IS_AUTHENTICATED_FULLY or IS_AUTHENTICATED_REMEMBERED
+                mode: http              # use php to send the file
+                #mode: X-Sendfile        # use the X-Sendfile flag (Apache + mod_xsendfile : https://tn123.org/mod_xsendfile/)
+                #mode: X-Accel-Redirect  # use the X-Accel-Redirect flag (Nginx : http://wiki.nginx.org/X-accel)
+            providers:
+                - sonata.media.provider.dailymotion
+                - sonata.media.provider.youtube
+                - sonata.media.provider.image
+                - sonata.media.provider.file
+
+            formats:
+                small: { width: 100 , quality: 70}
+                #big:   { width: 500 , quality: 70}
+                #cinema:     { width: 1850 , quality: 768}
+                #grandmatv:  { width: 640 , quality: 480}
+                
+                
+    cdn:
+        server:
+            path: %kernel.http_host%/uploads/media # http://media.sonata-project.org/
+            
+        #panther:
+        #    path:       http://domain.pantherportal.com/uploads/media
+        #    site_id:
+        #    password:
+        #    username:
+
+        #fallback:
+        #    master:     sonata.media.cdn.panther
+        #    fallback:   sonata.media.cdn.server     
+                
+    filesystem:
+        local:
+            directory:  %kernel.root_dir%/../web/uploads/media
+            create:     true
+
+    providers:
+        file:
+            resizer:    false
+            filesystem: sonata.media.filesystem.local
+            cdn:        sonata.media.cdn.server
+            generator:  sonata.media.generator.default
+            thumbnail:  sonata.media.thumbnail.format
+
+        image:
+            resizer:    sonata.media.resizer.simple # sonata.media.resizer.square
+            filesystem: sonata.media.filesystem.local
+            cdn:        sonata.media.cdn.server
+            generator:  sonata.media.generator.default
+            thumbnail:  sonata.media.thumbnail.format
+        
+        youtube:
+            resizer:    sonata.media.resizer.simple
+            filesystem: sonata.media.filesystem.local
+            cdn:        sonata.media.cdn.server
+            generator:  sonata.media.generator.default
+            thumbnail:  sonata.media.thumbnail.format
+
+        dailymotion:
+            resizer:    sonata.media.resizer.simple
+            filesystem: sonata.media.filesystem.local
+            cdn:        sonata.media.cdn.server
+            generator:  sonata.media.generator.default
+            thumbnail:  sonata.media.thumbnail.format
+                       
+        vimeo:
+            resizer:    sonata.media.resizer.simple
+            filesystem: sonata.media.filesystem.local
+            cdn:        sonata.media.cdn.server
+            generator:  sonata.media.generator.default
+            thumbnail:  sonata.media.thumbnail.format  
+            
+#
+# MenuBundle configuration
+#
+knp_menu:
+    twig: true  # set to false to disable the Twig extension and the TwigRenderer
+    templating: false # if true, enables the helper for PHP templates
+    default_renderer: twig # The renderer to use, list is also available by default
+    
+##
+## KnpPaginationBundle configuration
+##
+#knp_paginator:
+#    page_range: 5                      # default page range used in pagination control
+#    default_options:
+#        page_name: page                # page query parameter name
+#        sort_field_name: sort          # sort field query parameter name
+#        sort_direction_name: direction # sort direction query parameter name
+#        distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
+#    template:
+#        pagination: KnpPaginatorBundle:Pagination:sliding.html.twig     # sliding pagination controls template
+#        sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template 
+#        
+#knp_snappy:
+#    pdf:
+#        enabled:    true
+#        #binary:     /usr/local/bin/wkhtmltopdf
+#        options:    []
+#    image:
+#        enabled:    true
+#        #binary:     /usr/local/bin/wkhtmltoimage
+#        options:    []                                           
+            
+#
+# PiAppAdminBundle configuration
+#
+pi_app_admin:
+    layout:
+        init_pc:
+            template_name: layout-pi-orchestra.html.twig
+            route_redirection_name: home_page
+        init_mobile:
+            template_name: Default
+            route_redirection_name: home_page
+        login_role:
+            redirection_admin: admin_homepage
+            template_admin: layout-pi-admin.html.twig
+            redirection_user: admin_homepage
+            template_user: layout-pi-admin.html.twig
+            redirection_subscriber: home_page
+            template_subscriber: layout-pi-orchestra.html.twig
+        template:
+            template_connection: layout-security.html.twig
+            template_form: fields.html.twig
+            template_grid: grid.theme.html.twig
+            template_flash: flash.html.twig
+        meta_head:
+            author: Orchestra
+            copyright: http://www.cmf-orchestra.net/
+            title: Orchestra
+            description: Based in Europe with operational offices in Switzerland, France, Russia, West and South Africa, Singapore.
+            keywords: Orchestra, symfony 2, framework, CMF, CMS, PHP web applications
+            og_type: Orchestra
+            og_image: bundles/piappadmin/images/logo/logo-orchestra-white.png
+            og_site_name: http://www.cmf-orchestra.com/
+    page:
+        homepage_deletewidget: true
+        page_management_by_user_only: true
+        single_slug: false
+        refresh_allpage_containing_snippet: true
+        refresh_css_js_cache_file: true
+        indexation_authorized_automatically: false
+        switch_language_browser_authorized: false
+        switch_layout_mobile_authorized: false
+        switch_layout_init_redirection_authorized: false
+        memcache_enable: false
+    cookies:
+        date_expire: false
+        date_interval: PT4H
+    form:
+        show_legend: true
+        show_child_legend: false
+        error_type: inline
+    admin:
+        context_menu_theme: pi2 # {'xp', 'default', 'vista', 'osx', 'human', 'gloss', 'gloss,gloss-cyan', 'gloss,gloss-semitransparent', 'pi', 'pi2'}
+        grid_index_css: style-grid-1.css             
+        grid_show_css: style-grid-1.css
+        theme_css: rocket # {'orchestra', 'aristo', 'rocket', 'smoothness', 'dark-hive'}
+        
+twig:
+    globals:
+      pagesize: 100
+      nbProduct: 41
+      navigator:
+          chrome:  25
+          safari:  4
+          ie:      7
+          firefox: 11.9
+      mobile:
+          android: 2.2
+          ios: 5.9
+      tablet:
+          android: 3.9
+          ios: 5.9

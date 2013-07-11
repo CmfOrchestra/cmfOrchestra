@@ -1,0 +1,116 @@
+## Stof Doctrine Configuration
+#stof_doctrine_extensions:
+#    default_locale: %locale%
+#    translation_fallback: true
+#    orm:
+#        default:
+#            tree: true
+#            timestampable: true
+#            sluggable: true
+#            loggable: true
+#            sortable: true
+#            translatable: true
+#            
+##
+## SonataDoctrineORMAdminBundle configuration
+##
+#sonata_doctrine_orm_admin:
+#    # default value is null, so doctrine uses the value defined in the configuration
+#    entity_manager: ~
+#
+#    templates:
+#        form:
+#            - SonataDoctrineORMAdminBundle:Form:form_admin_fields.html.twig
+#        filter:
+#            - SonataDoctrineORMAdminBundle:Form:filter_admin_fields.html.twig
+#        types:
+#            list:
+#                array:      SonataAdminBundle:CRUD:list_array.html.twig
+#                boolean:    SonataAdminBundle:CRUD:list_boolean.html.twig
+#                date:       SonataAdminBundle:CRUD:list_date.html.twig
+#                datetime:   SonataAdminBundle:CRUD:list_datetime.html.twig
+#                text:       SonataAdminBundle:CRUD:base_list_field.html.twig
+#                trans:      SonataAdminBundle:CRUD:list_trans.html.twig
+#                string:     SonataAdminBundle:CRUD:base_list_field.html.twig
+#                smallint:   SonataAdminBundle:CRUD:base_list_field.html.twig
+#                bigint:     SonataAdminBundle:CRUD:base_list_field.html.twig
+#                integer:    SonataAdminBundle:CRUD:base_list_field.html.twig
+#                decimal:    SonataAdminBundle:CRUD:base_list_field.html.twig
+#                identifier: SonataAdminBundle:CRUD:base_list_field.html.twig
+#
+#            show:
+#                array:      SonataAdminBundle:CRUD:show_array.html.twig
+#                boolean:    SonataAdminBundle:CRUD:show_boolean.html.twig
+#                date:       SonataAdminBundle:CRUD:show_date.html.twig
+#                datetime:   SonataAdminBundle:CRUD:show_datetime.html.twig
+#                text:       SonataAdminBundle:CRUD:base_show_field.html.twig
+#                trans:      SonataAdminBundle:CRUD:show_trans.html.twig
+#                string:     SonataAdminBundle:CRUD:base_show_field.html.twig
+#                smallint:   SonataAdminBundle:CRUD:base_show_field.html.twig
+#                bigint:     SonataAdminBundle:CRUD:base_show_field.html.twig
+#                integer:    SonataAdminBundle:CRUD:base_show_field.html.twig
+#                decimal:    SonataAdminBundle:CRUD:base_show_field.html.twig
+# 
+##               
+## Doctrine Configuration
+##
+#doctrine:
+#    dbal:
+#        types:
+#            json: Sonata\Doctrine\Types\JsonType    
+#        default_connection:       default
+#        connections:
+#            default:
+#                driver:   %database_driver%
+#                host:     %database_host%
+#                port:     %database_port%
+#                dbname:   %database_name%
+#                user:     %database_user%
+#                password: %database_password%
+#                charset:  UTF8
+#                mapping_types:
+#                      enum:       string
+#                      varbinary:  string
+#                      tinyblob:   text
+#
+#    orm:
+#        auto_generate_proxy_classes: %kernel.debug%
+#        auto_mapping: true
+#        mappings:
+#            FOSUserBundle: ~
+#            StofDoctrineExtensionsBundle: ~
+#            SonataMediaBundle: ~
+#            BootStrapUserBundle: ~
+#            BootStrapTranslationBundle: ~
+#            BootStrapTranslatorBundle: ~
+#            BootStrapMediaBundle: ~        
+#            PiAppAdminBundle: ~
+#            PiAppGedmoBundle: ~
+#            translatable:
+#                type: annotation
+#                alias: Gedmo
+#                prefix: Gedmo\Translatable\Entity
+#                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
+#                
+#            loggable:
+#                type: annotation
+#                alias: Gedmo
+#                prefix: Gedmo\Loggable\Entity
+#                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Entity"
+#            tree:
+#                type: annotation
+#                alias: Gedmo
+#                prefix: Gedmo\Tree\Entity
+#                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Entity"
+#        metadata_cache_driver: array
+#        query_cache_driver: array
+#        result_cache_driver: array
+##       result_cache_driver:
+##            type: memcache
+##            host: localhost
+##            port: 11211
+##            instance_class: Memcache       
+#            
+##               
+## Doctrine MongoDB Configuration
+##     

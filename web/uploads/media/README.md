@@ -1,261 +1,174 @@
-ORCHESTRA Bundles
-=====================
+Symfony Standard Edition
+========================
 
+Welcome to the Symfony Standard Edition - a fully-functional Symfony2
+application that you can use as the skeleton for your new applications.
 
-Orchestra is not just the description you just read above. It also allows you to create your own CMS. 
-It's a CMF easy to use, build your own template (layout), add your own custom block with your own logic, 
-build all the widget you need. That it what Orcherstra is made for.
+This document contains information on how to download, install, and start
+using Symfony. For a more detailed explanation, see the [Installation][1]
+chapter of the Symfony Documentation.
 
+1) Installing the Standard Edition
+----------------------------------
 
-## Structure of the framework
+When it comes to installing the Symfony Standard Edition, you have the
+following options.
 
-The bundle has been split into 2 directories :
+### Use Composer (*recommended*)
 
-**BootStrap**
+As Symfony uses [Composer][2] to manage its dependencies, the recommended way
+to create a new project is to use it.
 
-``` bash
-* AclManagerBundle : A bundle which provides classes to run ACL Manager`s utilities for Symfony2
-* AdminBundle : A bundle which overload the SonataAdminBundle
-* CacheBundle : A bundle which provides classes to cache handlers (memcache, files)
-* DatabaseBundle : A bundle which provides classes and commands to run DB vendor`s utilities to backup and restore databases. 
-* FacebookBundle : A bundle which provides a factory of classes allowing to work and develop utilities of facebook API.
-* GoogleBundle : A bundle which provides a factory of classes allowing to work and develop utilities of google API.
-* MediaBundle : A bundle which overload the SonataMediaBundle.
-* TranslationBundle : A bundle which provides models of classes allowing to work and develop with Gedmo translation and Gedmo tree, and a command to
-generate orchestra bundle with a CRUD system of an entity
-* UserBundle : the current one, contains core libraries and services
-* WurflBundle : the current one, contains core libraries and services
-```
+If you don't have Composer yet, download it following the instructions on
+http://getcomposer.org/ or just run the following command:
 
-**PiApp**
+    curl -s http://getcomposer.org/installer | php
 
-``` bash
-* AdminBundle : A bundle which construct all the CMF with all managers of the creation of page with blocks and widgets.
-* GedmoBundle : A bundle which is used to create a project with the CMF.
-* TemplateBundle :  A bundle which is used to stock all template of layout and others.
-```
+Then, use the `create-project` command to generate a new Symfony application:
 
-## Dependencies
+    php composer.phar create-project symfony/framework-standard-edition path/to/install
 
-Register all bundle in your `app/AppKernel.php` file:
+Composer will install Symfony and all its dependencies under the
+`path/to/install` directory.
 
-``` php
-    public function registerBundles()
-    {
-        $bundles = array(
-            new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new Symfony\Bundle\SecurityBundle\SecurityBundle(),
-            new Symfony\Bundle\TwigBundle\TwigBundle(),
-        		
-            new Symfony\Bundle\MonologBundle\MonologBundle(),
-            new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
-            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
-            new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-        	
-        	# secure
-       		new JMS\AopBundle\JMSAopBundle(),
-       		new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
-       		new JMS\DiExtraBundle\JMSDiExtraBundle($this),  
-        		
-        	# route
-        	new BeSimple\I18nRoutingBundle\BeSimpleI18nRoutingBundle(),
+### Download an Archive File
 
-        	# doctrine
-            new Symfony\Bundle\DoctrineBundle\DoctrineBundle(),
-        	new Symfony\Bundle\DoctrineFixturesBundle\DoctrineFixturesBundle(),
-        	new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
-        		
-        	# sonata admin
-        	new Sonata\AdminBundle\SonataAdminBundle(), //
-        	new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(), //
-        	new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(), //
-        	new Sonata\CacheBundle\SonataCacheBundle(),
-        	new Sonata\BlockBundle\SonataBlockBundle(),
-        	new Sonata\MediaBundle\SonataMediaBundle(), //
-        
-        	# tools
-        	new FOS\UserBundle\FOSUserBundle(), // gestion user/groupe
-        	new Knp\Bundle\MenuBundle\KnpMenuBundle(), // gestion menu
-        	new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(), // gestion pagination        	
-        	
-        	# boostrap
-        	new BootStrap\DatabaseBundle\BootStrapDatabaseBundle(), 
-        	new BootStrap\CacheBundle\BootStrapCacheBundle(),
-        	new BootStrap\WurflBundle\BootStrapWurflBundle(),
-        	new BootStrap\AclManagerBundle\BootStrapAclManagerBundle(),
-        	new BootStrap\AdminBundle\BootStrapAdminBundle(),
-        	new BootStrap\UserBundle\BootStrapUserBundle(),
-        	new BootStrap\TranslationBundle\BootStrapTranslationBundle(),
-        	new BootStrap\TranslatorBundle\BootStrapTranslatorBundle(),
-        	new BootStrap\MediaBundle\BootStrapMediaBundle(),
-        	new BootStrap\GoogleBundle\BootStrapGoogleBundle(),
-        	new BootStrap\FacebookBundle\BootStrapFacebookBundle(),
-        		
-        	# trades
-        	new PiApp\AdminBundle\PiAppAdminBundle(),
-        	new PiApp\GedmoBundle\PiAppGedmoBundle(),
-        	new PiApp\TemplateBundle\PiAppTemplateBundle(),
-        );
-```
+To quickly test Symfony, you can also download an [archive][3] of the Standard
+Edition and unpack it somewhere under your web server root directory.
 
-## autoload.php
+If you downloaded an archive "without vendors", you also need to install all
+the necessary dependencies. Download composer (see above) and run the
+following command:
 
-Register all namespace before using the bundle. Add the following line to your `app/autoload.php` 
+    php composer.phar install
 
-``` php
+2) Checking your System Configuration
+-------------------------------------
 
-    $loader->registerNamespaces(array(
-		'Symfony'          => array(__DIR__.'/../vendor/symfony/src', __DIR__.'/../vendor/bundles'),
-		'Sensio'           => __DIR__.'/../vendor/bundles',
-		
-		// JMS
-		'JMS'              => __DIR__.'/../vendor/bundles',
-		
-		// generate code library
-		'CG'               => __DIR__.'/../vendor/cg-library/src',
-		
-		// doctrine extension
-		'Doctrine\\Common\\DataFixtures'	=> __DIR__.'/../vendor/doctrine-fixtures/lib',
-		'Doctrine\\Common' 					=> __DIR__.'/../vendor/doctrine-common/lib',
-		'Doctrine\\DBAL\\Migrations'        => __DIR__.'/../vendor/doctrine-migrations/lib',
-		'Doctrine\\DBAL'   					=> __DIR__.'/../vendor/doctrine-dbal/lib',
-		'Doctrine'         					=> __DIR__.'/../vendor/doctrine/lib',
-		'Stof'             					=> __DIR__.'/../vendor/bundles',
-		'Gedmo'            					=> __DIR__.'/../vendor/gedmo-doctrine-extensions/library/lib',
-		
-		'Monolog'          => __DIR__.'/../vendor/monolog/src',
-		'Assetic'          => __DIR__.'/../vendor/assetic/src',
-		'Metadata'         => __DIR__.'/../vendor/metadata/src',
-		
-		// BUNDLES
-		'FOS' 			   => __DIR__.'/../vendor/bundles',
-		'Genemu'		   => __DIR__.'/../vendor/bundles',
-		'Exporter'   	   => __DIR__.'/../vendor/exporter/lib',
-		'Sonata'		   => __DIR__.'/../vendor/bundles',  // dependency :  Knp\Bundle and Knp\Menu
-		'BeSimple'		   => __DIR__.'/../vendor/bundles', // Route - WSDL
-		
-		
-		'Knp\\Bundle'	   => __DIR__.'/../vendor/bundles',
-		'Knp\\Menu'   	   => __DIR__.'/../vendor/Knp-menu/src',
-		'Knp\\Component'   => __DIR__.'/../vendor/knp-components/src',
-		
-		'Imagine'		   => __DIR__.'/../vendor/imagine/lib', // dependency : sonata Media
-		'Gaufrette'        => __DIR__.'/../vendor/gaufrette/src', // dependency : sonata Media
-		'Buzz'             => __DIR__.'/../vendor/buzz/lib', // dependency : sonata Media
-		
-		// ORCHESTRA BUNDLES
-		'BootStrap'  	  	=> __DIR__.'/../src/Orchestra',
-		'PiApp'    			=> __DIR__.'/../src/Orchestra',
-				
-));
-```
+Before starting coding, make sure that your local system is properly
+configured for Symfony.
 
-## Installation
+Execute the `check.php` script from the command line:
 
-### Step 0: Configuring Serveur
+    php app/check.php
 
-**Required** : 
+Access the `config.php` script from a browser:
 
-- PHP with at least version 5.3.2 of PHP
-- Sqlite3 must be enabled
-- JSON must be enabled
-- Ctype must be enabled
-- PHP-XML module must be installed
-- Installtion the gd library (for images): apt-get install php5-gd [command linux]
-- PHP.ini must have the extensions:
+    http://localhost/path/to/symfony/app/web/config.php
 
-    - date.timezone
-    - php_fileinfo.dll
-    - PDO_SQLITE.dll
-    - php_intl.dll
-    - php_memcache.dll
-    - php_curl.dll
-    
-**Doctrine** : 
+If you get any warnings or recommendations, fix them before moving on.
 
-To use Doctrine, you will need to have installed PDO. And you must have installed the PDO driver for the database server you want to use.    
+3) Browsing the Demo Application
+--------------------------------
 
-### Step 1: Configuring parameters  BDD and mailer
+Congratulations! You're now ready to use Symfony.
 
-* Open the file orchestra_project / app / config / parameters.ini.
-* Give the name "mydatabase" for example in the database and choose the type pdo_mysql to use a MySQL database.
-* Give your user and password of your Gmail count.
-* Change the secret code that will be used to protect your application from XSS attacks.
+From the `config.php` page, click the "Bypass configuration and go to the
+Welcome page" link to load up your first Symfony page.
 
-``` bash
-[parameters]
-    database_driver="pdo_mysql"
-    database_host="localhost"
-    database_port=""
-    database_name="mydatabase"
-    database_user="root"
-    database_password=""
-    mailer_transport="gmail"
-    mailer_host=""
-    mailer_user="MyUserGMAIL"
-    mailer_password="MyPswGMAIL"
-    locale="en_GB"
-    secret="5b5a0ff57bd45284dafe7f104fc7d8e15"
-```
+You can also use a web-based configurator by clicking on the "Configure your
+Symfony Application online" link of the `config.php` page.
 
-### Step 2: Setting up Permissions
+To see a real-live Symfony page in action, access the following page:
 
-* The directories app / cache app / logs should be writable by both the web server and the user.
-* On a UNIX system, if your web server is different from your user, you can run the following commands once in your project to ensure that the permissions are correctly installed. 
-* We must change www-data on your web server.
+    web/app_dev.php/demo/hello/Fabien
 
-Many systems allow you to use ACL chmod a + :
+4) Getting started with Symfony
+-------------------------------
 
-``` bash
-rm -rf app/cache/Backup*
-rm -rf app/cache/Indexation*
-rm -rf app/cache/media*
-rm -rf app/logs/*
+This distribution is meant to be the starting point for your Symfony
+applications, but it also contains some sample code that you can learn from
+and play with.
 
-sudo chmod +a "www-data allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
-sudo chmod +a "`whoami` allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
-```
+A great way to start learning Symfony is via the [Quick Tour][4], which will
+take you through all the basic features of Symfony2.
 
-**For more information** : http://symfony.com/doc/current/book/installation.html
+Once you're feeling good, you can move onto reading the official
+[Symfony2 book][5].
 
-Then you must add the uploads/media folder to allow specific users to load :
+A default bundle, `AcmeDemoBundle`, shows you Symfony2 in action. After
+playing with it, you can remove it by following these steps:
 
-``` bash
-mkdir web/uploads
-mkdir web/uploads/media
-chmod –R 0777 web/uploads
+  * delete the `src/Acme` directory;
 
-mkdir web/yui
-chmod –R 0777 web/yui
-```
+  * remove the routing entries referencing AcmeBundle in
+    `app/config/routing_dev.yml`;
 
-### Step 3: Create database, tables and fixtures
+  * remove the AcmeBundle from the registered bundles in `app/AppKernel.php`;
 
-- Open your console (cmd) or Putty.
-- Go to the root of the application orchestra_project.
+  * remove the `web/bundles/acmedemo` directory;
 
-**Type the following command to create the database**
+  * remove the `security.providers`, `security.firewalls.login` and
+    `security.firewalls.secured_area` entries in the `security.yml` file or
+    tweak the security configuration to fit your needs.
 
-``` bash
+What's inside?
+---------------
 
-	php  app/console  doctrine:database:create
+The Symfony Standard Edition is configured with the following defaults:
 
-```
+  * Twig is the only configured template engine;
 
-**Type the following command to create the tables**
+  * Doctrine ORM/DBAL is configured;
 
-``` bash
+  * Swiftmailer is configured;
 
-	php  app/console  doctrine:schema:create
+  * Annotations for everything are enabled.
 
-```
+It comes pre-configured with the following bundles:
 
-**Type the following command to install fixtures of the tables**
+  * **FrameworkBundle** - The core Symfony framework bundle
 
-``` bash
+  * [**SensioFrameworkExtraBundle**][6] - Adds several enhancements, including
+    template and routing annotation capability
 
-	php  app/console  doctrine:fixtures:load
+  * [**DoctrineBundle**][7] - Adds support for the Doctrine ORM
 
-```
+  * [**TwigBundle**][8] - Adds support for the Twig templating engine
 
-**For more information** : http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
+  * [**SecurityBundle**][9] - Adds security by integrating Symfony's security
+    component
+
+  * [**SwiftmailerBundle**][10] - Adds support for Swiftmailer, a library for
+    sending emails
+
+  * [**MonologBundle**][11] - Adds support for Monolog, a logging library
+
+  * [**AsseticBundle**][12] - Adds support for Assetic, an asset processing
+    library
+
+  * [**JMSSecurityExtraBundle**][13] - Allows security to be added via
+    annotations
+
+  * [**JMSDiExtraBundle**][14] - Adds more powerful dependency injection
+    features
+
+  * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and
+    the web debug toolbar
+
+  * **SensioDistributionBundle** (in dev/test env) - Adds functionality for
+    configuring and working with Symfony distributions
+
+  * [**SensioGeneratorBundle**][15] (in dev/test env) - Adds code generation
+    capabilities
+
+  * **AcmeDemoBundle** (in dev/test env) - A demo bundle with some example
+    code
+
+Enjoy!
+
+[1]:  http://symfony.com/doc/2.2/book/installation.html
+[2]:  http://getcomposer.org/
+[3]:  http://symfony.com/download
+[4]:  http://symfony.com/doc/2.2/quick_tour/the_big_picture.html
+[5]:  http://symfony.com/doc/2.2/index.html
+[6]:  http://symfony.com/doc/2.2/bundles/SensioFrameworkExtraBundle/index.html
+[7]:  http://symfony.com/doc/2.2/book/doctrine.html
+[8]:  http://symfony.com/doc/2.2/book/templating.html
+[9]:  http://symfony.com/doc/2.2/book/security.html
+[10]: http://symfony.com/doc/2.2/cookbook/email.html
+[11]: http://symfony.com/doc/2.2/cookbook/logging/monolog.html
+[12]: http://symfony.com/doc/2.2/cookbook/assetic/asset_management.html
+[13]: http://jmsyst.com/bundles/JMSSecurityExtraBundle/master
+[14]: http://jmsyst.com/bundles/JMSDiExtraBundle/master
+[15]: http://symfony.com/doc/2.2/bundles/SensioGeneratorBundle/index.html

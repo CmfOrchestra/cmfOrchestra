@@ -1,0 +1,43 @@
+{% macro flash(type, message, close) %}
+	<div class="alert-message {{ type }}" data-alert="alert" title="{{ type }}">
+		{% if close|default(false) %} 
+			<a class="close" href="#">×</a>
+		{% endif %}
+		<p>
+			{{ message | trans | raw }}
+		</p>
+	</div>
+{% endmacro %}
+
+{% macro session_flash() %}
+	{% set types = ['permission','success','notice','error','warning'] %}
+    {% if app.session.flashbag.peekAll()|count > 0 %}
+	<div id="symfony-layout-flash" title="{{ 'pi.session.flash.title' | trans }}">
+        {% for type in types %}
+				{% for flashMessage in app.session.flashbag.get(type)|php_funct('array_unique') %}
+				    {{ _self.flash(type, flashMessage) | raw }}	
+				{% endfor %}
+         {% endfor %} 
+	</div>
+	{% endif %}
+{% endmacro %}
+
+{% macro session_flash_frontoffice() %}
+	{% set types = ['permission','success','notice','error','warning'] %}
+    {% if app.session.flashbag.peekAll()|count > 0 %}
+	<div id="confirm-popup-flash" style="display:none">
+		<div class="fancybox-flash">
+			<section>
+				<header class="tt-grey">
+					<h3>MESSAGE</h3>
+				</header>			
+                {% for type in types %}
+                    {% for flashMessage in app.session.flashbag.get(type)|php_funct('array_unique') %}
+					    {{ _self.flash(type, flashMessage) | raw }}	
+					{% endfor %}
+                {% endfor %}            	
+			</section>
+		</div>
+	</div>
+	{% endif %}
+{% endmacro %}

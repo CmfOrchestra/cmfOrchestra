@@ -260,14 +260,14 @@ div.DTED_Lightbox_Content {
 
 div.DTED_Lightbox_Close {
 	position: absolute;
-	top: -15px;
+	top: -18px;
 	right: -15px;
-	width: 30px;
-	height: 30px;
+	width: 33px;
+	height: 33px;
 	background: url('../images/close.png') no-repeat top left;
 	cursor: pointer;
 	*cursor: hand;
-	z-index: 12;
+	z-index: 999999;
 }
 
 div.DTED_Lightbox_Background {

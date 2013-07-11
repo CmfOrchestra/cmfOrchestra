@@ -1,1 +1,0 @@
-php bin/vendors install --reinstall

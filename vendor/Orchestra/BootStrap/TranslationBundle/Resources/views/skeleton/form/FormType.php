@@ -1,0 +1,332 @@
+<?php
+/**
+ * This file is part of the <PI_CRUD> project.
+ *
+ * @category   PI_CRUD_Form
+ * @package    Form
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+ * @since 20XX-XX-XX
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+namespace {{ namespace }}\Form{{ entity_namespace ? '\\' ~ entity_namespace : '' }};
+
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
+
+/**
+ * Description of the {{ form_class }} form.
+ *
+ * @category   PI_CRUD_Form
+ * @package    Form
+ *
+ * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+ */
+class {{ form_class }} extends AbstractType
+{
+	/**
+	 * @var \Doctrine\ORM\EntityManager
+	 */
+	protected $_em;
+	
+	/**
+	 * @var \Symfony\Component\DependencyInjection\ContainerInterface
+	 */
+	protected $_container;	
+	
+	/**
+	 * @var string
+	 */
+	protected $_locale;	
+	
+	/**
+	 * Constructor.
+	 *
+	 * @param \Doctrine\ORM\EntityManager $em
+	 * @param string	$locale
+	 * @return void
+	 */
+	public function __construct(EntityManager $em, ContainerInterface $container)
+	{
+		$this->_em 			= $em;
+		$this->_locale		= $container->get('request')->getLocale();
+		$this->_container 	= $container;
+	}
+		
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+    	//$choiceList = $this->_em->getRepository("bundle:entity")->getArrayAllByField('category');
+    	//if (!isset($choiceList) || !count($choiceList))
+    	//	$choiceList = array();
+    	
+        $builder
+        {%- for field in fields %}
+            
+        	{%- if field in ['enabled'] %}
+        	
+ 			->add('enabled', 'checkbox', array(
+            		'data'  => true,
+ 					'label'	=> 'pi.form.label.field.enabled',
+            ))
+            
+ 			{%- elseif field in ['created_at'] %}
+ 			
+ 			->add('created_at', 'date', array(
+ 					'widget' => 'single_text', // choice, text, single_text
+ 					'input' => 'datetime',
+ 					'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
+ 					'required'  => false,
+ 					"attr" => array(
+ 							"class"=>"pi_datepicker",
+ 					),
+ 					'label'	=> 'pi.form.label.date.creation',
+ 			))
+ 						
+ 			{%- elseif field in ['updated_at'] %}
+ 			
+ 			->add('updated_at', 'date', array(
+ 					'widget' => 'single_text', // choice, text, single_text
+ 					'input' => 'datetime',
+ 					'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
+ 					'required'  => false,
+ 					"attr" => array(
+ 							"class"=>"pi_datepicker",
+ 					),
+ 					'label'	=> 'pi.form.label.date.updating',
+ 			))
+ 						
+ 			{%- elseif field in ['published_at'] %}
+ 			
+ 			->add('published_at', 'date', array(
+ 					'widget' => 'single_text', // choice, text, single_text
+ 					'input' => 'datetime',
+ 					'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
+ 					'required'  => false,
+ 					"attr" => array(
+ 							"class"=>"pi_datepicker",
+ 					),
+ 					'label'	=> 'pi.form.label.date.publication',
+ 			))
+ 					
+ 			{%- elseif field in ['archive_at'] %}
+ 			
+ 			->add('archive_at', 'date', array(
+ 					'widget' => 'single_text', // choice, text, single_text
+ 					'input' => 'datetime',
+ 					'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
+ 					'required'  => false,
+ 					"attr" => array(
+ 							"class"=>"pi_datepicker",
+ 					),
+ 					'label'	=> 'pi.form.label.date.archivage',
+ 			))
+ 					
+ 			{%- elseif field in ['image', 'image1', 'image2', 'image3', 'image4'] %}
+ 			
+ 			->add('{{ field }}', 'sonata_media_type', array(
+ 					'provider' => 'sonata.media.provider.image',
+ 					'context'  => 'default',
+ 					'label'	=> 'pi.form.label.media.picture',
+ 			))
+ 			
+ 			{%- elseif field in ['file', 'file1', 'file2', 'file3', 'file4'] %}
+ 			
+ 			->add('{{ field }}', 'sonata_media_type', array(
+ 					'provider' => 'sonata.media.provider.file',
+ 					'context'  => 'default',
+ 					'label'	=> 'pi.form.label.media.file',
+ 			))
+ 			
+ 			{%- elseif field in ['media', 'media1', 'media2', 'media3', 'media4'] %}
+ 			
+ 			->add('{{ field }}', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
+
+ 			{%- elseif field in ['title'] %}
+ 			
+ 			->add('{{ field }}', 'text', array(
+ 					'label'	=> "pi.form.label.field.title",
+ 					"label_attr" => array(
+ 							"class"=>"text_collection",
+ 					),
+ 					'required'  => false,
+ 			))   
+ 			
+ 			{%- elseif field in ['subtitle'] %}
+ 			
+ 			->add('{{ field }}', 'text', array(
+ 					'label'	=> "pi.form.label.field.subtitle",
+ 					"label_attr" => array(
+ 							"class"=>"text_collection",
+ 					),
+ 					'required'  => false,
+ 			)) 			
+ 			
+ 			{%- elseif field in ['descriptif'] %}
+ 			
+ 			->add('{{ field }}', 'textarea', array(
+ 					'label'	=> "pi.form.label.field.description",
+ 					"label_attr" => array(
+ 							"class"=>"text_collection",
+ 					), 	
+ 					"attr" => array(
+ 							"class"	=>"pi_editor_simple",
+ 					),
+ 					'required'  => false,
+ 			))
+
+ 			{%- elseif field in ['content'] %}
+ 			
+ 			->add('{{ field }}', 'textarea', array(
+ 					'label'	=> "pi.form.label.field.content",
+ 					"label_attr" => array(
+ 							"class"=>"text_collection",
+ 					), 	
+ 					"attr" => array(
+ 							"class"	=>"pi_editor_simple",
+ 					),
+ 					'required'  => false,
+ 			)) 			
+ 			
+ 			
+ 			{%- elseif field in ['meta_keywords'] %}
+ 			
+ 			->add('{{ field }}', 'textarea', array(
+ 					"label" => "pi.form.label.field.meta_keywords",
+ 					"label_attr" => array(
+ 							"class"=>"seo_collection",
+ 					), 		
+ 					'required'  => false,
+ 			))
+ 			
+ 			{%- elseif field in ['meta_description'] %}
+ 			
+ 			->add('{{ field }}', 'textarea', array(
+ 					"label" => "pi.form.label.field.meta_description",
+ 					"label_attr" => array(
+ 							"class"=>"seo_collection",
+ 					),
+ 					'required'  => false,
+ 			))
+ 			
+ 			{%- elseif field in ['page'] %}
+ 			
+ 			->add('{{ field }}', 'entity', array(
+ 					'class' => 'PiAppAdminBundle:Page',
+ 					'query_builder' => function(EntityRepository $er) {
+ 						return $er->getAllPageHtml();
+ 					},
+ 					'property' => 'route_name',
+ 					'empty_value' => 'pi.form.label.select.choose.option',
+ 					"label" 	=> "pi.form.label.field.url",
+ 					"label_attr" => array(
+ 							"class"=>"page_collection",
+ 					),
+ 					"attr" => array(
+ 							"class"=>"pi_simpleselect",
+ 					),
+ 					'multiple'	=> false,
+ 					'required'  => false,
+ 			)) 			
+ 			
+ 			{%- elseif field in ['pageurl'] %}
+ 			
+ 			->add('{{ field }}', 'entity', array(
+ 					'class' => 'PiAppAdminBundle:Page',
+ 					'query_builder' => function(EntityRepository $er) {
+ 						return $er->getAllPageHtml();
+ 					},
+ 					'property' => 'route_name',
+ 					'empty_value' => 'pi.form.label.select.choose.option',
+ 					"label" 	=> "pi.form.label.field.url",
+ 					"label_attr" => array(
+ 							"class"=>"page_collection",
+ 					),
+ 					"attr" => array(
+ 							"class"=>"pi_simpleselect",
+ 					),
+ 					'multiple'	=> false,
+ 					'required'  => false,
+ 			))
+ 			
+ 			{%- elseif field in ['url'] %}
+ 			
+ 			->add('{{ field }}', 'text', array(
+ 					"label" 	=> "pi.form.label.field.url",
+ 					"label_attr" => array(
+ 							"class"=>"page_collection",
+ 					),
+ 					'required'  => false,
+ 			))
+
+ 			{%- elseif field in ['category'] %}
+ 			
+//  			->add('{{ field }}', 'choice', array(
+//  					'choices'   => $choiceList,
+//  					'empty_value' => 'pi.form.label.select.choose.category',
+//  					'label'	=> "pi.form.label.field.category",
+//  					"attr" => array(
+//  							"class"=>"pi_simpleselect",
+//  					),
+//  					"label_attr" => array(
+//  							"class"=>"category_collection",
+//  					),
+//  					'multiple'	=> false,
+//  					'required'  => false,
+//  			))
+ 			
+//  			->add('{{ field }}', 'entity', array(
+//  					'class' => 'PiAppGedmoBundle:Category',
+//			 			'query_builder' => function(EntityRepository $er) {
+//			 				return $er->createQueryBuilder('k')
+//			 				->select('k')
+//			 				->where('k.type = :type')
+//			 				->orderBy('k.name', 'ASC')
+//			 				->setParameter('type', 3);
+//			 			},
+//  					'property' => 'name',
+//  					'empty_value' => 'pi.form.label.select.choose.category',
+//  					'label'	=> "pi.form.label.field.category",
+//  					"attr" => array(
+//  							"class"=>"pi_simpleselect",
+//  					),
+//  					'multiple'	=> false,
+//  					'required'  => false,
+//  			))
+ 			
+ 			{%- elseif field in ['categoryother'] %}
+ 			
+ 			->add('{{ field }}', 'text', array(
+ 					"label" 	=> "pi.form.label.field.or",
+ 					'required'  => false,
+ 					"label_attr" => array(
+ 							"class"=>"category_collection",
+ 					),
+ 			)) 		
+
+ 			{%- elseif field in ['heritage'] %}
+ 			
+ 				 			
+ 			{%- elseif field in ['archived'] %}
+ 			
+ 			
+ 			{%- else %}
+ 			
+ 			->add('{{ field }}')
+ 			
+ 			{%- endif %}
+
+        {%- endfor %}
+
+        ;
+    }
+
+    public function getName()
+    {
+        return '{{ form_type_name }}';
+    }
+        
+}

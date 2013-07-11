@@ -1,0 +1,133 @@
+{% from getParameter('pi_app_admin.layout.template.flash') import session_flash %}
+{% from getParameter('pi_app_admin.layout.template.flash') import session_flash_frontoffice %}
+{% initJquery 'SESSION:flash:fancybox' %}
+{% if is_granted('ROLE_USER') %}
+	{%  initJquery 'MENU:org-chart-page' %}
+	{%  initJquery 'MENU:context-menu' %}
+	{%  initJquery 'TOOL:widgetadmin' %}
+	{%  initJquery 'TOOL:veneer' %}
+{% endif %}
+{% if global_local_language is not defined %}
+ 	{% set global_local_language = app.request.getLocale()|lower %}
+{% endif %}
+<!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+
+{% set infos_langue 	= global_local_language|split('_') %}
+{% set lang_name 	  	= infos_langue|steps(0)  %}
+<!--[if IE 7]> <html class="no-js ie7" lang="{{ lang_name }}"> <![endif]-->
+<!--[if IE 8]> <html class="no-js ie8" lang="{{ lang_name }}"> <![endif]-->
+
+<!--[if gt IE 8]><!--> <html class="no-js" lang="{{ lang_name }}" xml:lang='{{ lang_name }}'> <!--<![endif]-->
+    <head>
+        <title>{% block global_title %}{% endblock %}</title>
+        <link rel="shortcut icon" type="image/ico" href="{{ asset("favicon.ico") }}" />
+        
+    	<!--  Meta core -->
+        {% block global_meta %}{% endblock %}         
+        
+        <!--  Css core -->
+        {% stylesheet "bundles/piappadmin/css/layout/screen-layout-global.css:prepend" %}
+        {% if is_granted('ROLE_USER') %}
+        {% stylesheet getParameter('pi_app_admin.admin.theme_css')~":prepend" %}
+        {% endif %}
+        
+        
+        {% if (is_granted('ROLE_USER')) %}
+   			{% CMFstylesheets 'file' %}
+   		{% else %}	
+   			{% CMFstylesheets 'php' %}
+   		{% endif %}	
+        
+        <!--[if lt IE 9]>
+			<script type="text/javascript" src="/bundles/piappadmin/js/html5shiv/html5shiv.js"></script>
+			<script type="text/javascript" src="/bundles/piappadmin/js/html5shiv/html5shiv-printshiv.js"></script>
+		<![endif]-->        
+        
+        <!--  Js core -->
+   		{% javascript "bundles/piappadmin/js/ui/jquery-ui-1.10.3.custom.min.js:prepend" %}
+		{% javascript "bundles/piappadmin/js/jquery/jquery-migrate-1.2.1.min.js:prepend" %}
+   		{% javascript "bundles/piappadmin/js/jquery/jquery-2.0.2.min.js:prepend" %}
+		
+		{% if (is_granted('ROLE_USER')) %}
+   			{% CMFjavascripts 'file' %}
+   		{% else %}	
+			{% CMFjavascripts 'php' %}
+   		{% endif %}	
+   		
+        <!--  script divers -->
+        {% block global_script_divers %}
+        {% endblock %}                
+        
+        <!--  script Js core -->
+        {% block global_script_js %}{% endblock %}        
+        
+        <!--  script Css core -->
+        {% block global_script_css %}{% endblock %}
+        
+    </head>
+    <body>
+    
+    	<div id="global-layout" >
+    		{% block global_layout %}{% endblock %}
+	    </div>
+
+	    <div id="global-flash">
+			{% block global_flashes %}
+					{#
+					{{ session_flash() }}
+					{% set options_flash = {'action':'renderdialog','type': ['permission','notice', 'success', 'warning'], 'dialog-name': 'symfony-layout-flash' } %}
+					{{ renderJquery('SESSION', 'flash', options_flash )|raw }} 	   
+					#}					
+					{{ session_flash_frontoffice() }}
+					{% set options_flash = {'action':'renderfancybox','type': ['permission','notice', 'success', 'warning'], 'dialog-name': 'confirm-popup' } %}
+					{{ renderJquery('SESSION', 'flash', options_flash )|raw }} 	
+			{% endblock %}
+		</div>
+					    
+		{% if is_granted('ROLE_USER') %}
+		<searchlucene>			
+				<div id="pi_page_bar_toggler"  class="menu-xp" ></div>
+				<div id="pi_media_bar_toggler" class="menu-xp org-tree-page" ></div>	
+									
+				{% set theme = getParameter('pi_app_admin.admin.context_menu_theme') %}
+				{% set options_contextmenu = {'id': '.menu-xp', 'theme': theme, 'menu': 'admin', 'options': {
+							'shadow':'true',
+							'shadowOpacity':'.4',
+							'shadowColor':'#000',
+							'shadowOffset':'13',
+					    	'shadowWidthAdjust':'-3',
+					    	'shadowHeightAdjust':'-3'
+				} } %}
+				{{ renderJquery('MENU', 'context-menu', options_contextmenu )|raw }}			
+				
+				{% set options_chartpage = {"action":"renderByClick", "id":".org-chart-page", "menu":"page"} %} 
+	 			{{ getService('pi_app_admin.manager.tree').run('organigram', 'Rubrique~org-chart-page', app.request.getLocale(), options_chartpage)|raw }}
+	 			
+				{{ renderJquery('TOOL', 'widgetadmin')|raw }}
+				
+				{% set options_veneer = {'id': '.veneer_blocks_widgets'} %}
+				{{ renderJquery('TOOL', 'veneer', options_veneer )|raw }}
+		</searchlucene>
+		{% endif %}		
+		
+		{#
+		{% set is_google_analytic = getParameter('pi_app_admin.page.google_analytic') %}
+		{% if is_google_analytic %}
+			{% set tracker  = getParameter('pi_app_admin.page.google_analytic_tracker') %}
+			{% set template = getParameter('pi_app_admin.page.google_analytic_template') %}
+			{% include template with {'trackerKey':tracker} %}
+		{% endif %}
+		#}
+		
+		{% javascripts
+            'js/libs/xtcore.js'
+            'js/scriptXiti.js'
+			'js/scriptFunct.js'
+            'js/scriptInit.js'
+        filter='yui_js' output='js/compiled/main.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+						
+    </body>
+</html>

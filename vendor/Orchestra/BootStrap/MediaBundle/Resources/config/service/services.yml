@@ -1,0 +1,12 @@
+parameters:
+    bootstrap.media.event_subscriber.media.class: BootStrap\MediaBundle\EventSubscriber\EventSubscriberMedia
+    
+services:
+    #
+    # configuration of the event subscriber of entities
+    #         
+    bootstrap_media.event_subscriber.media:
+        class: %bootstrap.media.event_subscriber.media.class%
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_subscriber }

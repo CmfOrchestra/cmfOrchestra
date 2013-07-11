@@ -1,0 +1,4 @@
+security:
+    acl:
+        connection: default # any name configured in doctrine.dbal section
+

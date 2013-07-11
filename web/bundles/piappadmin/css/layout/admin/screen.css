@@ -163,7 +163,6 @@ ul  {
 #content-table	{
 	width: 100%;
 	font-size: 0px;
-	line-height: 0px;
 	}
 #content-table th.sized	{
 	height: 15px;
@@ -179,7 +178,7 @@ ul  {
 
 #content-table-inner	{
 	font-size: 12px;
-	line-height: 12px;
+	/*line-height: 12px;*/
 	padding: 0px 0 20px 0;
 	}
 #tbl-border-top	{
@@ -201,7 +200,7 @@ ul  {
 	
 /* content --------------------------------------------------------------- */	
 #table-content	{
-	line-height: 16px;
+	/*line-height: 16px;*/
 	margin: 0 10px 10px 10px;
 	min-height: 400px;
 }
@@ -247,7 +246,7 @@ height:15px;
 	position:fixed;
 	z-index:9999;
 	width:100%;
-	border-bottom: 7px solid #B5AD86;
+	border-bottom: 7px solid rgb(95, 84, 31);
 }
 
 #paging-table {
@@ -310,6 +309,7 @@ a.action-slider span{
 	color: #272727;
 	padding: 6px 8px 4px 12px;
 	height: 18px;
+	line-height: 16px;
 }
 a.action-slider.activated	{
 	background: url(../../../images/table/dropdown_actions.png) no-repeat 0 -30px;
@@ -343,6 +343,7 @@ a.action-delete	{
 	margin: 0 auto;
 	padding: 10px 0 5px 45px;
 	width: 63px;
+	line-height: 16px;
 	
 	-webkit-transition: background 0.5s linear;
 	-moz-transition: background 0.5s linear;
@@ -1231,17 +1232,3 @@ span.connexion-my-account:hover,
 span.connexion-login-logout:hover{
 	color: #238bdb;
 	}
-	
-/*  FLASH ----------------------------------------------- */
-.fancybox-wrap .tt-grey{
-  background-color: #424242;
-  line-height: 45px;
-  padding-left:10px;
-}
-.fancybox-wrap .tt-grey *{
-    color:#fff;
-}
-
-.fancybox-wrap p{
-    padding: 7px;
-}

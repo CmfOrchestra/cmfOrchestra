@@ -1,0 +1,207 @@
+<!doctype html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if IE 7]>    <html class="no-js lt-ie9 ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9 ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+	<head>
+	  	<meta charset="utf-8">
+	  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	  	<title>Mappy Shopping</title>
+	  	<meta name="description" content=""/>
+
+	 	<!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+	  	<link rel="shortcut icon" href="favicon.jpg" >
+
+	  	
+		<style> 
+		<!--
+
+			/* Structure générale */
+			.header {
+				height: 200px;
+			}
+			.logoSpace {
+				width: 366px;
+				border-bottom: 1px solid #d6d6d6;
+			}
+			/* Espace Carte */
+			.mapSpace {
+				height: 70px;
+			}
+			.map {
+				background-image: url(img/mapp.fake2.jpg);
+			}
+			/* Navigation du site */
+			.siteNav {
+				height:100px;
+				padding: 15px;
+				text-align: center;
+			}
+			.siteNav ul {
+				display: inline-block;
+				width: 309px;
+				height: 100%;
+			}
+			.siteNav li {
+				width: 103px;
+				height: 100%;
+				white-space: nowrap;
+				background: transparent url(img/nav.site.round.blue.png) no-repeat center top;
+			}
+			.siteNav li.currentPage {
+				position: relative;
+				background: transparent url(img/nav.site.round.green.png) no-repeat center top;
+			}
+			.siteNav li.currentPage a {
+				cursor: default;
+			}
+			.siteNav li.currentPage a:hover {
+				text-decoration: none;
+			}
+			.siteNav li.currentPage .currentArrow {
+				width: 100%;
+				height: 14px;
+				position: absolute;
+				bottom: -16px;
+				left: 0px;
+				background: transparent url(img/nav.site.current.arrow.png) no-repeat center bottom;
+			}
+			.siteNav a {
+				display: block;
+				width: 100%;
+				padding-top:75px;
+				font-size: 16px;
+				color: #898989;
+			}
+			.knurItem {
+				background: transparent url(img/nav.site.icon.knur.png) no-repeat center 21px;
+			}
+			.flagItem {
+				background: transparent url(img/nav.site.icon.flag.png) no-repeat center 22px;
+			}
+			.shopItem {
+				background: transparent url(img/nav.site.icon.shop.png) no-repeat center 23px;
+			}
+			
+			.errorSection {
+				padding: 30px 20px 30px 30px;
+			}
+			.errorSection .tt14 {
+				margin-bottom: 25px;
+			}
+			.errorSpace {
+				font-size: 15px;
+				border-bottom: 1px solid #dfdfdf;
+				margin-bottom: 20px;
+			}
+			.errorMsg {
+				margin: 0 0 20px;
+			}
+			.errorSignature {
+				color: #68d419;
+				font-weight: bold;
+				margin: 0 0 30px;
+			}
+			.errorLink {
+				background: transparent url(img/error.link.home.ico.png) no-repeat left center;
+			}
+			.errorLink a {
+				display: inline-block;
+				min-height: 14px;
+				margin-left: 25px;
+				font-size: 13px;
+				font-weight: bold;
+				color: #00346b;
+				border-bottom: 1px solid #00346b;
+			}
+			.errorLink a:hover {
+				text-decoration: none;
+			}
+			.errorNavigators {
+				margin: 30px 0 30px;
+			}
+			.errorNavigators a {
+				text-decoration: none;
+			}
+			.errorNavigators img {
+				display: inline-block;
+				margin-right: 20px;
+			}	  	
+		-->
+	    </style>
+	    
+	</head>
+	<body>
+		<div class="pageSite cf">
+			<div class="leftCol fleft">
+                <header class="header">
+                    <h1 class="logoSpace">
+                        <img class="centerBlock" src="/bundles/piappadmin/images/logo/logo-orchestra-white.png" alt="Orchestra" />
+                    </h1>
+                </header>
+			</div>
+			<div class="vOmbre"></div>
+			<div class="rightCol">
+				<section class="mapSpace"></section>
+				<section class="errorSection">
+					<div class="errorSpace">
+					
+						{% if not isNav %}
+						<p class="errorMsg">
+							{% if locale == "en_EN" or (locale == "en") %}
+							Sorry, the Orchestra site is not compatible with the version of the browser you use.<br />
+							To enjoy the best possible experience, please download the latest version<br />
+							and use the following browsers:
+							{% else %}
+							Nous sommes désolés, le site Orchestra n'est pas compatible avec la version du navigateur que vous utilisez.<br />
+							Pour profiter d'une expérience de navigation optimale, nous vous invitons à téléchager et utiliser la dernière<br />
+							version des navigateurs suivants :
+							{% endif %}
+						</p>
+						<div class="errorNavigators">
+							<a href="http://windows.microsoft.com/fr-fr/internet-explorer/products/ie/home" target="_blank">
+								<img src="/bundles/piappadmin/images/nonav/navigators/error.link.ie.png" />
+							</a>
+							<a href="http://www.mozilla.org/fr/firefox/" target="_blank">
+								<img src="/bundles/piappadmin/images/nonav/navigators/error.link.ff.png" />
+							</a>
+							<a href="http://www.google.com/chrome?hl=fr" target="_blank">
+								<img src="/bundles/piappadmin/images/nonav/navigators/error.link.ch.png" />
+							</a>
+							<a href="http://www.apple.com/fr/safari/" target="_blank">
+								<img src="/bundles/piappadmin/images/nonav/navigators/error.link.sa.png" />
+							</a>
+						</div>						
+						{% endif %}
+						
+						{% if not isJs %}
+						<p class="errorMsg">
+							{% if locale == "en_EN" or (locale == "en") %}
+							Sorry, the Orchestra website is not compatible if JavaScript is not enabled in your browser.<br />
+							{% else %}
+							Nous sommes désolés, le site Orchestra n'est pas compatible si JavaScript n'est pas activé dans votre navigateur.<br />
+							{% endif %}
+						</p>
+						{% endif %}
+						
+						{% if not isCookies %}
+						<p class="errorMsg">
+							{% if locale == "en_EN" or (locale == "en") %}
+							Sorry, the Orchestra site is not compliant if your browser cookies are not enabled.<br />
+							{% else %}
+							Nous sommes désolés, le site Orchestra n'est pas compatible si les Cookies de votre navigateur ne sont pas activé.<br />
+							{% endif %}
+						</p>
+						{% endif %}						
+
+					</div>
+					<div class="errorLink">
+						<a href="/">Revenir à la page d'acceuil</a>
+					</div>
+				</section>
+			</div>
+		</div>
+	</body>
+</html>

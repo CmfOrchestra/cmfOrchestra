@@ -1,2 +1,0 @@
-php app/console pi:database:backup C:\xampp\htdocs\symf_project\app\Backup /doctrine_backup_database-symfproject_pouet.sql
-php app/console pi:database:restore C:\xampp\htdocs\symf_project\app\Backup /doctrine_backup_database-symfproject_2012-03-12-10-08-31.sql

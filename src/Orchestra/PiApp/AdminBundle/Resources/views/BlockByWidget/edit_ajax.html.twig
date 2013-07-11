@@ -1,8 +1,0 @@
-{% initJquery 'FORM:prototype-bytab' %}
-{% extends "PiAppTemplateBundle::Template\\Layout\\layout-ajax.html.twig" %}
-
-{% block global_layout %}
-
-	{% include 'PiAppAdminBundle:BlockByWidget:edit_view.html.twig' with {'edit_form':edit_form, 'delete_form':delete_form, 'NoLayout':NoLayout, 'entity':entity} %}
-
-{% endblock %}

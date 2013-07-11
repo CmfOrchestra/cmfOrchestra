@@ -1,0 +1,9 @@
+{% stylesheet getParameter('pi_app_admin.admin.grid_show_css') %}
+{% stylesheet getParameter('pi_app_admin.admin.theme_css')~":prepend" %}
+{% extends "PiAppTemplateBundle::Template\\Layout\\layout-ajax.html.twig" %}
+
+{% block global_layout %}
+
+	{% include 'PiAppGedmoBundle:Content:show_view.html.twig' with {'NoLayout':NoLayout, 'entity':entity, 'category':category} %}
+
+{% endblock %}

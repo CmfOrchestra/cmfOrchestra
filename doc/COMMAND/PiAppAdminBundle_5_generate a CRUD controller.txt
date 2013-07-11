@@ -1,1 +1,0 @@
-php app/console generate:doctrine:crud --entity=PiAppAdminBundle:Rubriques

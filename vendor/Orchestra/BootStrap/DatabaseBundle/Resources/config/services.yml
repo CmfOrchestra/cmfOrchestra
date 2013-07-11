@@ -1,0 +1,10 @@
+parameters:
+    bootstrap.database.factory.class: BootStrap\DatabaseBundle\Manager\DatabaseFactory
+
+services:
+    #
+    # configuration of the service allowing to backup and restore database
+    # 
+    bootstrap.database.factory:
+        class: %bootstrap.database.factory.class%
+        arguments: ['@service_container']

@@ -321,6 +321,7 @@ div.swatch-selected {
 	border-bottom:1px solid white;
 }
 .context-menu-theme-pi2 .context-menu-item {
+	color: black;
 	text-align:left;
 	font-family:arial;
 	font-size:11px;

@@ -1,0 +1,142 @@
+{{ "{% initJquery 'GRID:grid-table' %}" }}
+{{ "{% if NoLayout %}" }}
+	{{ "{% stylesheet 'bundles/piappadmin/css/layout/admin/screen.css' %}" }}
+	{{ "{% javascript 'bundles/piappadmin/js/jquery/custom_jquery.js' %}" }}
+	{{ "{% set layout_nav = 'PiAppTemplateBundle::Template\\\\Layout\\\\layout-ajax.html.twig' %}" }}
+{{ "{% else %}" }}
+	{{ "{% set layout_nav = app.request.attributes.get('orchestra-layout') %}" }}
+{{ "{% endif %}" }}	
+{{ "{% extends layout_nav %}" }}
+
+{{ '{% block title %}' }}
+	<h1>{{ entity }}</h1>
+{{ '{% endblock %}' }}
+ 
+{{ '{% block content %}' }}
+
+	{% if 'new' in actions %}
+	{{ "{% if NoLayout == false %}" }}
+	<!--  start actions-box ............................................... -->
+	<div id="actions-box">
+		<!-- <a href="" class="action-slider"><span>{{ "{{ 'pi.grid.action.title'|trans }}" }}</span></a> -->
+		<!-- <div id="actions-box-slider"> -->
+			<a href="{{ "{{ path('"~ route_name_prefix ~"_new', {'NoLayout':NoLayout, 'category':category}) }}" }}" class="action-edit" title="{{ "{{ 'pi.grid.action.create'|trans }}" }}">{{ "{{ 'pi.grid.action.create'|trans }}" }}</a>
+		<!-- </div> -->
+		<div class="clear"></div>
+	</div>
+	<!-- end actions-box........... -->
+	{{ "{% endif %}" }}
+	{% endif %}
+
+	<table id="grid_{{ entity|lower|replace({"\\": '_'}) }}" class="grid" >
+	    <thead>
+	        <tr>
+
+	        {%- for field, metadata in fields %}
+	        
+	        	{%- if field in ['position'] %}
+	        	
+	            <th class="position" >{{ field|capitalize }}</th>
+	            	
+	            {%- else %}
+	            
+	            <th>{{ field|capitalize }}</th>
+	            	
+	            {%- endif %}
+	            
+	        {%- endfor %}
+	        
+	            <th><a href="javascript:void(0);" title="Actions">Actions</a></th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	    {{ '{% set num_line = 0 %}' }}
+	    {{ '{% for entity in entities %}' }}
+	        <tr {{ '{% if(num_line == 0) %}class="odd"{% endif %}' }}  {{ "id='{{ entity.position }}_row_{{ entity.id }}'"}}  >
+	        
+		{%- set is_position = "" -%}
+		{%- set value_id_position = "1" -%}
+	    {%- for field, metadata in fields %}
+	        {%- if loop.first and ('show' in actions) %}
+	
+	            <td><a href="{{ "{{ path('"~ route_name_prefix ~"_show', { 'id': entity.id, 'NoLayout': NoLayout, 'category':category }) }}" }}" title="">{{ '{{ entity.'~ field|replace({'_': ''}) ~' }}' }}</a></td>
+	
+	        {%- elseif metadata.type in ['date', 'datetime'] %}
+	
+	            <td>{{ '{% if entity.'~ field|replace({'_': ''}) ~' %}{{ entity.'~ field|replace({'_': ''}) ~'|date(\'Y-m-d\') }}{% endif%}' }}</td>
+	
+			{%- elseif field in ['enabled'] %}
+	
+	            <td class="enabled" >{{ '{{ entity.'~ field ~'}}' }}</td>
+	
+			{%- elseif field in ['position'] %}
+			
+				{%- set is_position = "'1':'Position'," -%}
+				{%- set value_id_position = "2" -%}
+				
+				<td class="position" >{{ '{{ entity.'~ field ~'}}' }}</td>
+	
+	        {%- else %}
+	
+	            <td>
+	            	{{ '{{ entity.'~ field|replace({'_': ''}) ~'|truncateText(55)|raw }}' }}
+	            </td>
+	
+	        {%- endif %}
+	
+	        {%- if loop.last %}
+	
+				<td>
+				
+	        	{%- include "views/others/actions.html.twig" %}
+
+				</td>
+	
+	        {%- endif %}
+	    {%- endfor %}
+	
+	        </tr>
+	        {{ "{% if num_line == 0 %}" }} 
+	        	{{ "{% set num_line = 1 %}" }}
+	        {{ "{% else %}" }}
+	        	{{ "{% set num_line = 0 %}" }}
+	        {{ "{% endif %}" }}	
+	                
+	    {{ "{% endfor %}" }}
+	    </tbody>
+	</table>
+
+	{{ "{% set options_gridtabale = {'grid-name': 'grid_"~ entity|lower|replace({"\\": '_'}) ~"', 'grid-type':'simple', 
+			'grid-paginate':'true',
+			'grid-LengthMenu':25,
+			'grid-filters-select': ['0','1'],
+			'grid-filters': { 
+					"~ is_position ~"
+					'"~ value_id_position ~"':'Identifiant',
+				},
+			'grid-sorting': { 
+					'0':'asc',
+				},
+			'grid-visible': {
+				'0':'true',
+				'1':'false',
+				},						
+			'grid-actions': { 
+					'rows_position': {'route':'admin_gedmo_"~ entity|lower|replace({"\\": '_'}) ~"_position_ajax',},
+					'select_all': {'sButtonText':'pi.grid.action.select_all'},
+					'select_none': {'sButtonText':'pi.grid.action.select_none'},
+					'rows_enabled': {'sButtonText':'pi.grid.action.row_enabled', 'route':'admin_gedmo_"~ entity|lower|replace({"\\": '_'}) ~"_enabledentity_ajax',},
+					'rows_disable': {'sButtonText':'pi.grid.action.row_disable', 'route':'admin_gedmo_"~ entity|lower|replace({"\\": '_'}) ~"_disablentity_ajax'},
+					'rows_archive': {'sButtonText':'pi.grid.action.row_archive', 'route':'admin_gedmo_"~ entity|lower|replace({"\\": '_'}) ~"_archiventity_ajax'},
+					'rows_delete': {'sButtonText':'pi.grid.action.row_delete', 'route':'admin_gedmo_"~ entity|lower|replace({"\\": '_'}) ~"_deletentity_ajax'},
+					'copy': {'sButtonText':'pi.grid.action.copy'},
+					'print': {'sButtonText':'pi.grid.action.print'},
+					'export_pdf': {'sButtonText':'pi.grid.action.export'},				
+					'export_csv': {'sButtonText':'pi.grid.action.export'},
+					'export_xls': {'sButtonText':'pi.grid.action.export'},					
+				}		
+			} 			
+	%}" }}
+	{{ "{{ renderJquery('GRID', 'grid-table', options_gridtabale )|raw }}" }}	
+
+{{ '{% endblock %}' }}

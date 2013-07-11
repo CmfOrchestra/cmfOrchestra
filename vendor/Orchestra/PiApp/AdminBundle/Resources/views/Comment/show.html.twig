@@ -1,0 +1,73 @@
+	<h1>Comment</h1>
+	
+	<table class="record_properties">
+	    <tbody>
+	        <tr>
+	            <th>Id</th>
+	            <td>{{ entity.id }}</td>
+	        </tr>
+	        <tr>
+	            <th>User</th>
+	            <td>{{ entity.user }}</td>
+	        </tr>
+	        <tr>
+	            <th>Comment</th>
+	            <td>{{ entity.comment }}</td>
+	        </tr>
+	        <tr>
+	            <th>Email</th>
+	            <td>{{ entity.email }}</td>
+	        </tr>
+	        <tr>
+	            <th>Approved</th>
+	            <td>{{ entity.approved }}</td>
+	        </tr>
+	        <tr>
+	            <th>Created_at</th>
+	            <td>{{ entity.createdat|date('Y-m-d H:i:s') }}</td>
+	        </tr>
+	        <tr>
+	            <th>Updated_at</th>
+	            <td>{{ entity.updatedat|date('Y-m-d H:i:s') }}</td>
+	        </tr>
+	        <tr>
+	            <th>Archive_at</th>
+	            <td>{{ entity.archiveat|date('Y-m-d H:i:s') }}</td>
+	        </tr>
+	        <tr>
+	            <th>{{ 'pi.grid.action.active'|trans }}</th>
+	            <td>{{ entity.enabled }}</td>
+	        </tr>
+	    </tbody>
+	</table>
+
+	{% if is_granted('ROLE_ALLOWED_TO_SWITCH') %}
+	<ul class="ui-widget-header">
+	    <li>
+	        <form action="{{ path('admin_comment') }}" method="post">
+	            <button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
+	        </form>	        
+	    </li>
+	    <li>
+	        <form action="{{ path('admin_comment_edit', { 'id': entity.id }) }}" method="post">
+	            <button type="submit">{{ 'pi.grid.action.update'|trans }}</button>
+	        </form>	        
+	    </li>
+	    {% if is_granted('ROLE_ADMIN') %}
+	    <li>
+	        <form action="{{ path('admin_comment_delete', { 'id': entity.id }) }}" method="post">
+	            {{ form_widget(delete_form) }}
+	            <button type="submit">{{ 'pi.grid.action.delete'|trans }}</button>
+	        </form>
+	    </li>
+	    {% endif %}
+	</ul>
+	
+	<script type="text/javascript">
+	//<![CDATA[
+		$(document).ready(function() {
+			$("button[type='submit']").button();
+		});
+	//]]>
+	</script>
+	{% endif %}

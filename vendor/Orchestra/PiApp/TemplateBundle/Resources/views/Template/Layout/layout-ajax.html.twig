@@ -1,0 +1,92 @@
+{% set get_admin_ajax_table	= app.request.query.get('AdminAjaxTable') %}
+{% set get_admin_ajax_form  = app.request.query.get('AdminAjaxForm') %}
+{% set get_admin_ajax_show  = app.request.query.get('AdminAjaxShow') %}
+{% if (get_admin_ajax_table is not empty) and (get_admin_ajax_form is not empty) and (get_admin_ajax_show is not empty) %}
+		{% CMFjavascripts 'empty' %}
+		{% CMFstylesheets 'empty' %}
+		  
+		{% if (get_admin_ajax_table == 1) %}
+			{% initJquery 'GRID:grid-table' %}
+		{% endif %}
+		
+		{% if (get_admin_ajax_form == 1) %}
+			{%  initJquery 'FORM:prototype-bytab' %}
+		{% endif %}
+		
+		{% if (get_admin_ajax_show == 1) %}
+			{% stylesheet getParameter('pi_app_admin.admin.grid_show_css') %}
+		{% endif %}
+{% else %}
+	{% from getParameter('pi_app_admin.layout.template.flash') import session_flash %}
+	{% from getParameter('pi_app_admin.layout.template.flash') import session_flash_frontoffice %}
+	{% initJquery 'SESSION:flash:fancybox' %}
+	{% initJquery 'TOOL:languagechoice' %}
+	<!--  Css core -->
+	{% stylesheet "bundles/piappadmin/css/layout/screen-layout-ajax.css:prepend" %}
+	{% stylesheet getParameter('pi_app_admin.admin.theme_css')~":prepend" %}
+	<!--  Js core -->
+   	{% javascript "bundles/piappadmin/js/ui/jquery-ui-1.10.3.custom.min.js:prepend" %}
+	{% javascript "bundles/piappadmin/js/jquery/jquery-migrate-1.2.1.min.js:prepend" %}
+   	{% javascript "bundles/piappadmin/js/jquery/jquery-2.0.2.min.js:prepend" %}
+{% endif %}	
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>{% block global_title %}{% endblock %}</title>
+        
+        <!--  Meta core -->
+        {% block global_meta %}{% endblock %}        
+        
+        <!--  Css core -->
+		{% CMFstylesheets 'file' %}      
+        
+        <!--  Js core -->
+		{% CMFjavascripts 'file' %}       
+        
+        <!--  script Js core -->
+        {% block global_script_js %}{% endblock %}        
+        
+        <!--  script Css core -->
+        {% block global_script_css %}{% endblock %}
+        
+        <!--  script divers -->
+        {% block global_script_divers %}{% endblock %}
+        
+    </head>
+    <body>
+    	<div id="global_layout">
+			{% if (get_admin_ajax_table is empty) and (get_admin_ajax_form is empty) and (get_admin_ajax_show is empty) %}
+	    		{% set options_languagechoice = {'class': 'ajax-language-choice', 'img-arrow': 'lang_arrow_blue.png'} %}
+				{{ renderJquery('TOOL', 'languagechoice', options_languagechoice )|raw }}
+				<script type="text/javascript">
+				//<![CDATA[
+					jQuery(document).ready(function() {
+						$(".ajax-language-choice").draggable();
+					});
+				//]]>
+				</script>
+			{% endif %}
+			
+    		{% block global_layout %}{% endblock %}
+    		{% block content %}{% endblock %}
+	    </div>
+	    
+		{% if (get_admin_ajax_table is empty) and (get_admin_ajax_form is empty) and (get_admin_ajax_show is empty) %}
+		    <div id="global_layout-flexcroll-vscroller"><div class="flexcroll-scrollbar"></div></div>
+			{% if is_granted('ROLE_USER') %}
+			    <div id="global-flash">
+					{% block global_flashes %}
+						{#
+						{{ session_flash() }}
+						{% set options_flash = {'action':'renderdialog','type': ['notice', 'success', 'warning'], 'dialog-name': 'symfony-layout-flash' } %}
+						{{ renderJquery('SESSION', 'flash', options_flash )|raw }} 	   
+						#}					
+						{{ session_flash_frontoffice() }}
+						{% set options_flash = {'action':'renderfancybox','type': ['notice', 'success', 'warning'], 'dialog-name': 'confirm-popup' } %}
+						{{ renderJquery('SESSION', 'flash', options_flash )|raw }} 	    
+					{% endblock %}
+				</div>
+			{% endif %}  
+		{% endif %}
+    </body>
+</html>	

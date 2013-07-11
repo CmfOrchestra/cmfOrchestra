@@ -1,0 +1,374 @@
+# CONTEXT MENU
+pi.contextmenu.go_homepage: انتقل إلى موقع
+pi.contextmenu.go_admin: انتقل إلى إدارة
+pi.contextmenu.page.organigram: مخطط الصفحات
+pi.contextmenu.page.tree: شجرة الصفحات
+pi.contextmenu.page.structure: عرض هيكل الصفحة
+pi.contextmenu.widget.add:  إضافة القطعة
+pi.contextmenu.page.refresh: تحديث الصفحة
+pi.contextmenu.page.add: إضافة صفحة
+pi.contextmenu.page.update: تحرير الصفحة
+pi.contextmenu.page.indexation: فهرسة الصفحة
+pi.contextmenu.page.desindexation: إزالة فهرسة الصفحة
+pi.contextmenu.image.view: مشاهد
+pi.contextmenu.disconnection: خروج
+
+# COMMUN
+pi.title: العنوان
+pi.register: تسجيل
+pi.move-up : تحريك لأعلى 
+pi.move-down : تحريك لأسفل
+pi.show : عرض
+pi.add : أضف
+pi.edit : حرر
+pi.update : حَدِّث
+pi.delete : احذف
+pi.create : أنشئ
+pi.save : احفظ
+pi.refresh : تحديث
+pi.admin : إداري
+pi.allwidgets : جميع القطع
+pi.readmore: اقرأ المزيد...
+pi.form : استمارة
+pi.result: نتيجة %s 
+pi.result_plural: النتائج %s
+
+# Page accueil
+pi.welcome.title: أهلاً بك في Orchestra!
+
+#wizard
+pi.wizard.intro: انقر لتحديد كل الصفحات التابعة لمركز المطلوبة
+
+# grid
+pi.grid.action.title: أعمال
+pi.grid.action.show: عرض
+pi.grid.action.edit: حرر
+pi.grid.action.update: حَدِّث
+pi.grid.action.save: احفظ
+pi.grid.action.delete: احذف
+pi.grid.action.create: أنشئ
+pi.grid.action.validate:  التحقق من صحة
+pi.grid.action.back-to-the-list: العودة إلى القائمة
+pi.grid.action.add-tab: إضافة التبويب
+pi.grid.action.copy: نسخ إلى الحافظة
+pi.grid.action.print: طباعة الجدول
+pi.grid.action.export: صَدِّر
+pi.grid.action.search: ابحث
+pi.grid.action.first: الأولى
+pi.grid.action.previous: السابقة
+pi.grid.action.next: التالية
+pi.grid.action.last: آخر
+pi.grid.action.lenghtmenu: عرض سجلات لكل صفحة _MENU_
+pi.grid.action.info: عرض _START_ ل_END_ من السجلات _TOTAL_
+pi.grid.action.info.empty: إظهار 0 إلى 0 من 0 السجلات
+pi.grid.action.info.filtered: (تصفية من السجلات _MAX_ مجموع)
+pi.grid.action.waiting: يرجى الانتظار أثناء تحميل الجدول
+pi.grid.action.activation: تفعيل
+pi.grid.action.active: نشط
+pi.grid.action.row_enabled: مُفَعَّل
+pi.grid.action.row_disable: عَطِّل
+pi.grid.action.row_delete: احذف
+pi.grid.action.row_archive: الأرشيف
+pi.grid.action.select:  مجموعه
+pi.grid.action.select_all: اختر كل
+pi.grid.action.select_none: ألغ  كل
+
+pi.grid.action.enabled_paiementstatus.sButtonText:  تمكين الدفع
+pi.grid.action.enabled_paiementstatus.questionTitle: تفعيل الدفع لأحد أعضاء
+pi.grid.action.enabled_paiementstatus.questionText: هل أنت متأكد من أنك تريد تمكين الدفع (ق) عضو 
+
+pi.grid.action.disable_paiementstatus.sButtonText:  تعطيل الدفع
+pi.grid.action.disable_paiementstatus.questionTitle:  تعطيل دفع مشارك
+pi.grid.action.disable_paiementstatus.questionText:  هل أنت متأكد من أنك تريد تعطيل الدفع (ق) عضو 
+
+#form
+pi.form.tab.box.close: إغلاق
+pi.form.tab.box.title: إضافة التبويب
+pi.form.tab.box.click: انقر لإضافة علامة تبويب جديدة!
+pi.form.tab.box.add: أضف
+pi.form.tab.box.cancel: إلغاء
+pi.form.title.default.create: إنشاء استمارة
+pi.form.title.default.update: تحديث استمارة
+
+pi.form.label.date.publication: تاريخ النشر
+pi.form.label.date.creation: تاريخ الإنشاء
+pi.form.label.date.updating: تاريخ التحديث
+pi.form.label.date.archivage: تاريخ الأرشيف
+pi.form.label.date.expired: تاريخ الانتهاء
+pi.form.label.date.start: تاريخ بدء
+pi.form.label.date.end:  نهاية التاريخ
+
+pi.form.label.media.picture: الصورة
+pi.form.label.media.file: ملف
+pi.form.label.media.download: تحميل
+
+pi.form.label.field.other: أخرى
+pi.form.label.field.or: أو
+pi.form.label.field.yes:  نعم
+pi.form.label.field.no: لا
+pi.form.label.field.perhaps: ربما
+pi.form.label.field.potential: المحتملة
+
+pi.form.label.field.enabled: تمكين
+pi.form.label.field.language: اللغة
+pi.form.label.field.category: الفئة
+pi.form.label.field.title: لقب
+pi.form.label.field.subtitle: العنوان الفرعي
+pi.form.label.field.description: الوصف
+pi.form.label.field.content: محتوى
+pi.form.label.field.content.detail: المحتوى التفصيل
+pi.form.label.field.website: الموقع
+pi.form.label.field.url: رابط
+pi.form.label.field.blank: رابط HTML فارغة
+pi.form.label.field.choice: الاختيار
+pi.form.label.field.author: كاتب
+pi.form.label.field.user: مستخدم
+
+pi.form.label.field.civility: كياسة
+pi.form.label.field.civility.type.mr: السيد
+pi.form.label.field.civility.type.mme:  السيدة
+pi.form.label.field.civility.type.mlle: ملكة جمال
+
+pi.form.label.field.profile: الملف الشخصي
+pi.form.label.field.profile.type.fournisseur: مقدم
+pi.form.label.field.profile.type.fournisseur.tic: ICT مقدم
+pi.form.label.field.profile.type.user: العضو
+pi.form.label.field.profile.type.user.tic: ICT العضو
+pi.form.label.field.profile.type.cadre: Excecutive
+pi.form.label.field.profile.type.cadre.salarie: Excecutive employee
+pi.form.label.field.profile.type.salarie: Employee
+pi.form.label.field.profile.type.autoentrepreneur: Auto-entrepreneur
+pi.form.label.field.profile.type.other.adherent.individual: Other individual members
+
+pi.form.label.field.name: الاسم
+pi.form.label.field.nickname: كنية
+pi.form.label.field.sponsor:  الراعي
+
+pi.form.label.field.meta_title: العنوان الفوقية
+pi.form.label.field.meta_keywords: الكلمات الرئيسية ميتا
+pi.form.label.field.meta_description: الوصف ميتا
+
+pi.form.label.field.adress.main: العنوان
+pi.form.label.field.adress.coordinates: الإحداثيات
+pi.form.label.field.adress.phone:  الهاتف
+pi.form.label.field.adress.fax: فاكس
+pi.form.label.field.adress.cp: الرمز البريدي
+pi.form.label.field.adress.city:  المدينة
+pi.form.label.field.adress.country:  البلد
+pi.form.label.field.adress.location: الموقع
+
+pi.form.label.field.email:  البريد الإلكتروني
+pi.form.label.field.email.perso: البريد الإلكتروني الشخصية
+pi.form.label.field.email.subject:  موضوع
+pi.form.label.field.email.body: الجسم
+pi.form.label.field.email.cc:  نسخة
+pi.form.label.field.email.bcc: مخفية
+
+pi.form.label.field.employment.job: شركة
+pi.form.label.field.employment.company: عمل
+pi.form.label.field.employment.activity: نشاط
+pi.form.label.field.employment.engineering: هندسة
+
+pi.form.label.field.corporation.name: اسم الشركة
+pi.form.label.field.corporation.name.commercial:  اسم الشركة التجاري
+
+pi.form.label.field.corporation.activity: نشاط
+pi.form.label.field.corporation.detailactivity: تفاصيل النشاط
+pi.form.label.field.corporation.activity.tic: ICT
+pi.form.label.field.corporation.activity.admin:  إدارة / مراجعة الحسابات / استشارات
+pi.form.label.field.corporation.activity.aero: الفضاء
+pi.form.label.field.corporation.activity.agro:  أطعمة
+pi.form.label.field.corporation.activity.bank: بنوك / مالية
+pi.form.label.field.corporation.activity.biens:  السلع الاستهلاكية
+pi.form.label.field.corporation.activity.chimie:  المنتجات الكيميائية / فارما / التكنولوجيا الحيوية
+pi.form.label.field.corporation.activity.com: الاتصالات / وسائل الإعلام
+pi.form.label.field.corporation.activity.divert: ترفيه
+pi.form.label.field.corporation.activity.env: البيئة
+pi.form.label.field.corporation.activity.fab: تصنيع المنتجات
+pi.form.label.field.corporation.activity.elect: إلكترونيات
+pi.form.label.field.corporation.activity.indus.def:  الصناعة الدفاع / النقل الجوي
+pi.form.label.field.corporation.activity.auto: سيارات
+pi.form.label.field.corporation.activity.distrib:  توزيع
+pi.form.label.field.corporation.activity.loisir: أوقات الفراغ / السياحة
+pi.form.label.field.corporation.activity.assur: تأمين
+pi.form.label.field.corporation.activity.sante:  الصحة / المستشفيات
+pi.form.label.field.corporation.activity.educ: التعليم
+pi.form.label.field.corporation.activity.ing: الهندسة
+pi.form.label.field.corporation.activity.asso: النقابي
+pi.form.label.field.corporation.activity.indus:  الصناعة
+pi.form.label.field.corporation.activity.energie:  الطاقة
+pi.form.label.field.corporation.activity.public: القطاع العام
+pi.form.label.field.corporation.activity.rd: R & D
+pi.form.label.field.corporation.activity.btp: BTP
+pi.form.label.field.corporation.activity.service: فني صيانة
+pi.form.label.field.corporation.activity.rh: الموارد البشرية
+pi.form.label.field.corporation.activity.service.pro: خدمات رجال أعمال
+pi.form.label.field.corporation.activity.techno: تكنولوجيا
+pi.form.label.field.corporation.activity.trans:  النقل والخدمات اللوجستية
+
+pi.form.label.field.corporation.engineering: الهندسة
+pi.form.label.field.corporation.engineering.telecom:  اتصالات
+pi.form.label.field.corporation.engineering.info.service: خدمات الكمبيوتر
+pi.form.label.field.corporation.engineering.rh: الموارد البشرية
+pi.form.label.field.corporation.engineering.ingenierie.savoirs: هندسة المعرفة
+pi.form.label.field.corporation.engineering.infra: البنية التحتية والشبكات
+pi.form.label.field.corporation.engineering.info.tech: المتاجرة والمعلومات التقنية
+pi.form.label.field.corporation.engineering.info.gestion:  إدارة المعلومات
+pi.form.label.field.corporation.engineering.form: بحوث التدريب والتطوير
+pi.form.label.field.corporation.engineering.finance:  تمويل
+pi.form.label.field.corporation.engineering.entreprise.tic: ICT  تكنولوجيا المعلومات والاتصالات
+pi.form.label.field.corporation.engineering.editeur: برامج تحرير
+pi.form.label.field.corporation.engineering.dev.web: الشبكة العالمية للتنمية
+pi.form.label.field.corporation.engineering.multimedia: محتوى الوسائط المتعددة
+pi.form.label.field.corporation.engineering.materiel.constr.dest: منتج وموزع للمعدات
+pi.form.label.field.corporation.engineering.conseil: مجلس
+
+pi.form.label.field.corporation.legalform: الشكل القانوني
+pi.form.label.field.corporation.legalform.type.scop: أو ما شابه ذلك SCOP
+pi.form.label.field.corporation.legalform.type.syndicat: الاتحاد
+pi.form.label.field.corporation.legalform.type.sa: SA
+pi.form.label.field.corporation.legalform.type.sarl: SARL
+pi.form.label.field.corporation.legalform.type.sas: SAS
+pi.form.label.field.corporation.legalform.type.etabl.public: المؤسسة العامة
+pi.form.label.field.corporation.legalform.type.entr.indiv:  ملكية فردية
+pi.form.label.field.corporation.legalform.type.assoc: جمعية
+
+pi.form.label.field.corporation.effectif.national: الفعال الوطنية
+pi.form.label.field.corporation.effectif.regional: إقليمي فعال
+pi.form.label.field.corporation.code.naf:  قانون NAF
+pi.form.label.field.corporation.siret: SIRET
+pi.form.label.field.corporation.ca.national: دوران الوطنية 
+pi.form.label.field.corporation.argument.commercial: سيطة
+pi.form.label.field.corporation.expertise:  الخبرة
+pi.form.label.field.corporation.speaker: سماعات
+
+pi.form.label.field.corporation.origin.contact:  أصل اتصال
+pi.form.label.field.corporation.origin.contact.type.campagne:  حملة العضوية
+pi.form.label.field.corporation.origin.contact.type.spontane: الاتصال التلقائي
+pi.form.label.field.corporation.origin.contact.type.historique: التاريخ
+pi.form.label.field.corporation.origin.contact.type.motivation: نقش الدافع إلى لجنة
+pi.form.label.field.corporation.origin.contact.type.sponsor: الرعاية
+pi.form.label.field.corporation.origin.contact.type.partenaire: الشريك
+pi.form.label.field.corporation.origin.contact.type.visiteur:  ضيف
+pi.form.label.field.corporation.origin.contact.type.visiteur.event:  ضيف الحدث
+pi.form.label.field.corporation.origin.contact.sponsor:  أصل الراعي اتصال
+
+pi.form.label.field.social.facebook: Facebook
+pi.form.label.field.social.googleplus: GooglePlus
+pi.form.label.field.social.twitter:  Twitter
+pi.form.label.field.social.linkedin: LinkedIn
+pi.form.label.field.social.viadeo: Viadeo
+
+pi.form.label.field.scoopit.id: scoop-it دخول
+pi.form.label.field.scoopit.format:  تنسيق
+pi.form.label.field.scoopit.format.full.image: الصورة الكاملة
+pi.form.label.field.scoopit.format.with.description:  مع الوصف
+pi.form.label.field.scoopit.number: عدد المجارف
+pi.form.label.field.scoopit.title:  عنوان
+pi.form.label.field.scoopit.mode:  المتزلج
+pi.form.label.field.scoopit.mode.dynamic: الحيوي
+pi.form.label.field.scoopit.mode.static:  ثابت
+pi.form.label.field.scoopit.speed:  سرعة
+pi.form.label.field.scoopit.width: العرض
+
+pi.form.label.field.price:  السعر
+pi.form.label.field.paiement: الدفع
+pi.form.label.field.paiement.type.1: دفع
+pi.form.label.field.paiement.type.0: مجاني
+pi.form.label.field.modepaiement: الدفع
+pi.form.label.field.modepaiement.type.1:  باي بال
+pi.form.label.field.modepaiement.type.2: في موقع
+pi.form.label.field.modepaiement.type.3: عن طريق الشيكات
+
+pi.form.label.select.choose.option: اختر خيارا
+pi.form.label.select.choose.options: الاختيار خيارات
+pi.form.label.select.choose.type: اختيار نوع
+pi.form.label.select.choose.category: اختر فئة
+pi.form.label.select.choose.template: اختيار قالب
+pi.form.label.select.choose.block: اختيار كتلة
+pi.form.label.select.choose.content: اختيار المحتوى
+pi.form.label.select.choose.snippet: اختيار قصاصة
+pi.form.label.select.choose.typologie: اختيار التصني
+pi.form.label.select.choose.activity: اختر أي نشاط
+pi.form.label.select.choose.civility:  اختيار الكياسة
+pi.form.label.select.choose.profile:  اختيار الملف
+
+# Footer
+pi.footer.copyright: حق النشر
+
+# session flash
+pi.session.flash.title: رسالة تأكيد
+pi.session.flash.form.errors: خطأ عند التحقق من صحة النموذج
+pi.session.flash.welcom: أهلا وسهلا! كان الدخول الخاص بك بنجاح.
+pi.session.flash.right.undelete:  ليس لديك إذن لحذف! يرجى الاتصال بالمسؤول.
+pi.session.flash.right.delete: لقد نجحت في إزالة الخانات!
+pi.session.flash.wrong.undelete: وكان غير قادر على إكمال الحذف بنجاح! يرجى الاتصال بالمسؤول
+pi.session.flash.right.unupdate:  ليس لديك إذن لتحديث! يرجى الاتصال بالمسؤول.
+pi.session.flash.right.update: تم تحديث المعلومات!
+pi.session.flash.right.uncreate:  ليس لديك إذن لإنشاء! يرجى الاتصال بالمسؤول.
+pi.session.flash.right.create: تم إنشاء عنصر جديد!
+pi.session.flash.right.anonymous: كمستخدم مجهول،  ليس لديك حقوق حذف.
+pi.session.flash.right.homepage.undelete: ليس لديك إذن لحذف الصفحة الرئيسية!
+pi.session.flash.right.homepage.notchange:  ليس لديك إذن لتحديث اسم المسار من الصفحة الرئيسية
+pi.session.flash.right.page.management_by_user_only: ليس لديك إذن لإدارة هذه الصفحة!
+pi.session.flash.page.slug.exist: عنوان الموقع {{ url }} موجود مسبقا! 
+pi.session.flash.page.notexist: أنت لم تطلب صفحة موجودة!
+pi.session.flash.page.notpermission: ليس لديك إذن لعرض هذه الصفحة!
+pi.session.flash.layout.notexist : التخطيط الذي حددته غير موجود!
+pi.session.flash.rolecache.created: تم إنشاء ملف الميراث في ذاكرة التخزين المؤقت
+
+# ENTITY :: PAGE
+pi.page.translation.title: ترجمات الصفحة
+pi.page.translation.prototype-tab-title: ترادكشن
+pi.page.block.title: كتلة الصفحة
+pi.page.widget.title: كتلة القطعة
+pi.page.cssjs.title: Css/Js صفحة
+pi.page.index.title: الصفحة قائمة
+
+pi.page.Draft: مسودة
+pi.page.Reviewed: علق عليها
+pi.page.Published: نشرت
+pi.page.Hidden: مخفي
+pi.page.Trash: سلة المهملات
+pi.page.Refused: رفض
+pi.page.All: كل
+
+pi.page.Reference: مرجع
+pi.page.Traduction: ترجمة
+pi.page.Default: الافتراضي
+
+pi.page.indexation.success: صفحة مفهرسة بنجاح!
+pi.page.indexation.delete.success: تمت إزالة صفحة بنجاح!
+
+pi.page.update: تحديث الصفحة
+pi.page.create: إنشاء صفحة
+
+pi.page.form.rubrique: القسم
+pi.page.form.layout: تخطيط
+pi.page.form.page_css:  المغلق الصفحة
+pi.page.form.page_js: شبيبة الصفحة
+pi.page.form.keywords: تلميحات
+pi.page.form.meta_content_type: محتوى ميتا نوع
+pi.page.form.cacheable: المحتوى الثابت؟
+pi.page.form.public: الزوار-مستقلة المحتوى؟
+pi.page.form.lifetime: العمر الكاش
+pi.page.form.route_name: (page_my_test:الصفحة رقم (مثلا
+pi.page.form.url: عنوان مشترك لجميع صفحات ترجمة
+pi.page.form.status: الحالة
+pi.page.form.secure: تأمين وصول
+pi.page.form.heritage: التراث
+pi.page.form.indexable: فهرسة
+pi.page.form.tags: الكلمات
+pi.page.form.breadcrumb: التفصيلي
+pi.page.form.slug: سبيكة
+pi.page.form.field.cacheable: Returns a 304 "not modified" status, when the page has not changed since last visit.
+pi.page.form.field.public: Allows proxies to cache the same content for different visitors.
+pi.page.form.field.lifetime: Sets the full content page caching during the specified lifetime. Leave blank to not cache.
+
+# ENTITY :: WIDGET
+pi.widget.translation.title: ترجمات القطعة
+pi.snippet.translation.title: ترجمات مقتطف
+
+pi.widget.ajaxaction.widget_action_delete: هل أنت متأكد أنك تريد حذف القطعة؟
+pi.widget.ajaxaction.widget_action_move_up: هل أنت متأكد أنك تريد الارتقاء في القطعة؟
+pi.widget.ajaxaction.widget_action_move_down: هل أنت متأكد أنك تريد نقل إلى أسفل القطعة؟

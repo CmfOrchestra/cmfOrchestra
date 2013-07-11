@@ -1,0 +1,333 @@
+@import "../global.css";
+@import "form.css";
+@import "fancybox.css";
+
+/*
+ * DataTables framework
+ */
+div.dataTables_wrapper {
+	background-color: #424242;
+        color: #FFF;
+        position: relative;
+}
+div.dataTables_wrapper label{
+        color: #FFF;
+        font-weight: bold;
+        font-size: 13px;
+}
+div.dataTables_wrapper .DTTT_container{
+    margin-top: 12px;
+    margin-left: 5px;
+}
+div.dataTables_wrapper .DTTT_container img{
+    margin-left: 2px;
+}
+div.dataTables_length {
+	float: left;
+}
+
+div.dataTables_filter {
+	float: right;
+}
+
+div.dataTables_info {
+	padding: 9px 6px 6px 6px;
+	float: left;
+}
+
+div.dataTables_paginate {
+	float: right;
+}
+
+div.dataTables_length,
+div.dataTables_filter,
+div.dataTables_paginate {
+	padding: 10px;
+}
+div.dataTables_filter{
+    margin-right: 25px;
+    margin-top: 3px;
+}
+div.dataTables_filter input{
+    width: 170px;
+}
+
+/* Self clearing - http://www.webtoolkit.info/css-clearfix.html */
+.dataTables_wrapper:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+ 
+html[xmlns] .dataTables_wrapper {
+	display: block;
+}
+ 
+* html .dataTables_wrapper {
+	height: 1%;
+}
+
+
+/*
+ * Table styles
+ */
+table.dataTable{
+	width: 100%;
+	clear: both;
+}
+
+table.dataTable td,
+table.dataTable th {
+	padding: 5px;
+	border: 1px solid #fff;
+        color: #424242;
+}
+table.dataTable td a,
+table.dataTable th a {
+    color: #424242;
+}
+.dataTables_wrapper select{
+    margin-bottom: 0;
+    padding: 0;
+    width: 58px;
+}
+.dataTables_wrapper input{
+    margin-bottom: 0;
+    padding: 0;
+}
+/* Header cells */
+table.dataTable thead th {
+	text-align: center;
+	background: #dbdbdb;
+}
+
+/* Body cells */
+table.dataTable tbody th {
+	text-align: left;
+	background: #91c5d4;
+}
+	
+table.dataTable tbody td {
+	text-align: center;
+	background: #f0f0f0;
+}
+		
+table.dataTable tbody tr.odd td { 
+	background: #dbdbdb;
+}
+table.dataTable tr.DTTT_selected td{
+    background-color:#bababa !important; 
+}
+
+/* Footer cells */	
+table.dataTabletfoot th {
+	background: #b0cc7f;
+	text-align: left;
+}
+	
+table.dataTable tfoot td {
+	background: #d7e1c5;
+	text-align: center;
+	font-weight: bold;
+}
+
+
+/*
+ * Pagination
+ */
+
+.dataTables_paginate a{
+    display: block;
+    background-color: #FFF;
+    padding: 6px;
+    margin: 1px;
+    float: left;
+    color: #424242;
+    font-weight: bold;
+    cursor: pointer;
+}
+.dataTables_paginate .ui-state-disabled{
+    background-color: #7b7b7b;
+    cursor:default;
+}
+
+a.paginate_button,
+a.paginate_active {
+	display: inline-block;
+	background-color: #608995;
+	padding: 2px 6px;
+	margin-left: 2px;
+	cursor: pointer;
+	*cursor: hand;
+}
+
+a.paginate_active {
+	background-color: transparent;
+	border: 1px solid black;
+}
+
+a.paginate_button_disabled {
+	color: #3d6672;
+}
+.paging_full_numbers a:active {
+	outline: none
+}
+.paging_full_numbers a:hover {
+	text-decoration: none;
+}
+
+div.dataTables_paginate span>a {
+	width: 15px;
+	text-align: center;
+}
+
+
+/*
+ * Sorting
+ */
+.DataTables_sort_wrapper{
+    padding-right:20px; 
+    position: relative;
+}
+table.dataTable thead th .ui-icon-triangle-1-s{
+	background: url('../img/sort_asc.png') no-repeat right center;
+        height: 7px;
+        width: 8px;
+        position:absolute;
+        right:0px;
+        margin-top: 4px;
+}
+
+table.dataTable thead th .ui-icon-triangle-1-n{
+	background: url('../img/sort_desc.png') no-repeat right center;
+        height: 7px;
+        width: 8px;
+        position:absolute;
+        right:0px;
+        margin-top: 5px;
+}
+
+table.dataTable thead th .ui-icon-carat-2-n-s{
+	background: url('../img/sort_both.png') no-repeat right center;
+        height: 16px;
+        width: 8px;
+        position:absolute;
+        right:0px;
+}
+
+/* number elements visible */
+.dataTables_length{
+    margin:4px 0 4px 0; 
+}
+
+.info-tooltip{
+    display: inline-block;
+}
+.icon-edit{
+   background: url('../img/edit.png') no-repeat;
+   width: 28px;
+   height: 28px;
+}
+.icon-show{
+   background: url('../img/show.png') no-repeat;
+   width: 28px;
+   height: 28px;
+}
+.icon-preview{
+   background: url('../img/preview.png') no-repeat;
+   width: 28px;
+   height: 28px;
+}
+
+.column-filter-widgets{
+    background-color: #dbdbdb;
+    width:100%;
+}
+.column-filter-widget{
+    float: left;
+    padding: 10px 5px;
+}
+.filter-term{
+    display: block;
+    color:#FFF;
+    padding:2px 5px;
+    margin: 5px 0;
+    background-color:#424242; 
+}
+.filter-term:hover{
+    color:#FFF;
+    text-decoration: line-through;
+}
+
+.ColVis {
+    position: absolute;
+    right: 6px;
+    top: 8px;
+    width: 24px;
+    height: 24px;
+}
+
+
+/*
+ * ColVis
+ */
+.ColVis_collection .ColVis_Button{
+    float:left;
+    background: none;
+    color: #666;
+    outline: 0;
+    border: 0; 
+    text-align: left;
+    margin: 5px 0;
+    width: 130px;
+}
+.ColVis_collection .ColVis_Button .ColVis_title a{
+    text-decoration: none;
+    color: #666;
+}
+.ColVis_collection .ColVis_Button .ColVis_radio{
+    padding-right: 5px;
+}
+.ColVis_collection .ColVis_Button .ColVis_radio input{
+    margin: 0;
+}
+.ColVis_collection .ColVis_Button.ColVis_Restore{
+    text-decoration: underline; 
+}
+
+.dataTables_processing{
+    display: block;
+    width: 200px;
+    height: 37px;
+    background-color: #dbdbdb;
+    position:absolute;
+    margin-top: 7px;
+    left:42%;
+    color: #424242;
+    text-align: center;
+    padding-left: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+
+    -moz-box-shadow: 0px 0px 9px #000000;
+    -webkit-box-shadow: 0px 0px 9px #000000;
+    box-shadow: 0px 0px 9px #000000;
+
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#ffffff', endColorstr = '#dbdbdb');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr = '#ffffff', endColorstr = '#dbdbdb')";
+    background-image: -moz-linear-gradient(top, #ffffff, #dbdbdb);
+    background-image: -ms-linear-gradient(top, #ffffff, #dbdbdb);
+    background-image: -o-linear-gradient(top, #ffffff, #dbdbdb);
+    background-image: -webkit-gradient(linear, center top, center bottom, from(#ffffff), to(#dbdbdb));
+    background-image: -webkit-linear-gradient(top, #ffffff, #dbdbdb);
+    background-image: linear-gradient(top, #ffffff, #dbdbdb);
+}
+
+/* OPTIONAL SET VENEER */
+.ui-veneer .ui-veneer-header:hover {
+    background: rgb(168, 166, 166); /* #5B3C11 */
+}

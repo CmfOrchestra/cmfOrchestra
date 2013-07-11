@@ -1,0 +1,15 @@
+{% initJquery 'TOOL:widgetimport' %}
+{% extends "PiAppTemplateBundle::Template\\Layout\\layout-ajax.html.twig" %}
+
+{% block global_layout %}
+
+	{% set options_widgetimport = {
+		 				'action':'widgetimport',
+		 				'menu': 'widgetimport',
+		 				'template': 'default.html.twig',
+		 				'locale': app.request.locale,
+		 				}
+	%}
+	{{ renderJquery('TOOL', 'widgetimport', options_widgetimport)|raw }}
+	
+{% endblock %}

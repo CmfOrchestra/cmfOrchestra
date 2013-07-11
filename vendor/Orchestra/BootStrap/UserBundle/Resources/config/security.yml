@@ -1,0 +1,73 @@
+security:
+
+    access_denied_url: /unauthorized
+    
+    access_decision_manager:
+        # Strategy can be: affirmative, unanimous or consensus
+        strategy: unanimous
+        
+    encoders:
+        BootStrap\UserBundle\Entity\User: sha512 # sha512 plaintext
+
+    firewalls:
+        #
+        # By specifying form_login, you have told the Symfony2 framework that any time  
+        # a request is made to this firewall that leads to the user needing to authenticate himself, 
+        # the user will be redirected to a form where he will be able to enter his credentials.
+        #
+        
+        # defaut login area for standard users   
+        main:
+            pattern: .*
+            form_login:
+                provider: fos_userbundle
+                login_path: /login
+                use_forward: false
+                check_path: /login_check
+                failure_path: null
+                remember_me: true
+                #default_target_path: /home
+            remember_me:
+                key:      %secret%
+                key:      "%secret%"
+                lifetime: 86400 # 1 jour en secondes
+                path:     /
+                domain:   ~ # Prend la valeur par défaut du domaine courant depuis $_SERVER
+            logout:
+                path: /logout
+                target: /
+            anonymous: true
+        # -> end custom configuration  
+        
+        secured_area:
+            pattern: ^/front/secured/
+            form_login:
+                provider: fos_userbundle
+                login_path: /front/secured/login
+                check_path: /front/secured/login_check
+                #default_target_path: /home
+            logout:
+                path: /front/secured/logout
+                target: /
+            anonymous: true
+        # -> end custom configuration          
+                
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        login:
+            pattern:  ^/demo/secured/login$
+            security: false
+
+#        secured_area:
+#            pattern:    ^/demo/secured/
+#            form_login:
+#                check_path: /demo/secured/login_check
+#                login_path: /demo/secured/login
+#            logout:
+#                path:   /demo/secured/logout
+#                target: /demo/
+            #anonymous: ~
+            #http_basic:
+            #    realm: "Secured Demo Area"

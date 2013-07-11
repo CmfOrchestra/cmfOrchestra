@@ -1,1 +1,0 @@
-php app/console doctrine:mapping:convert xml ./src/PiApp/AdminBundle/Resources/config/doctrine/metadata/orm --from-database --force

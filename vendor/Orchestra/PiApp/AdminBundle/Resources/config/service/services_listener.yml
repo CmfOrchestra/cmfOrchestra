@@ -1,0 +1,104 @@
+parameters:
+    piapp.admin.listener.login.class: PiApp\AdminBundle\EventListener\LoginListener
+    piapp.admin.listener.logout.class: PiApp\AdminBundle\EventListener\LogoutListener
+    
+    piapp.admin.listener.postload.class: PiApp\AdminBundle\EventListener\PostLoadListener
+    piapp.admin.listener.loadclassmetadata.class: PiApp\AdminBundle\EventListener\loadClassMetadataListener
+    piapp.admin.listener.onflush.class: PiApp\AdminBundle\EventListener\OnFlushListener
+    piapp.admin.listener.preremove.class: PiApp\AdminBundle\EventListener\PreRemoveListener
+    piapp.admin.listener.postremove.class: PiApp\AdminBundle\EventListener\PostRemoveListener
+    piapp.admin.listener.prepersist.class: PiApp\AdminBundle\EventListener\PrePersistListener
+    piapp.admin.listener.postpersist.class: PiApp\AdminBundle\EventListener\PostPersistListener
+    piapp.admin.listener.preupdate.class: PiApp\AdminBundle\EventListener\PreUpdateListener
+    piapp.admin.listener.postupdate.class: PiApp\AdminBundle\EventListener\PostUpdateListener
+    piapp.admin.listener.schema.class: PiApp\AdminBundle\EventListener\SchemaListener
+    piapp.admin.listener.request.class: PiApp\AdminBundle\EventListener\RequestListener
+    
+    piapp.admin.lib.browscap.class: PiApp\AdminBundle\Lib\Browscap
+    piapp.admin.lib.mobiledetect.class: PiApp\AdminBundle\Lib\MobileDetect
+
+services:
+    pi_app_admin.lib.browscap:
+        class: %piapp.admin.lib.browscap.class%
+        arguments: ["%kernel.cache_dir%"] 
+        
+    pi_app_admin.lib.mobiledetect:
+        class: %piapp.admin.lib.mobiledetect.class%
+             
+    pi_app_admin.request_listener:
+        class: %piapp.admin.listener.request.class%
+        arguments: [@service_container, @pi_app_admin.lib.browscap, @pi_app_admin.lib.mobiledetect]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 65 }
+            
+    pi_app_admin.user.login_listener:
+        class: %piapp.admin.listener.login.class%
+        arguments: [@router, @security.context, @event_dispatcher, @doctrine, @service_container]
+        tags:
+            - { name: kernel.event_listener, event: security.interactive_login }
+            
+    pi_app_admin.logout_listener:
+        class: %piapp.admin.listener.logout.class%
+        arguments: [@router, @service_container]
+        tags:
+            - { name: kernel.event_listener, event: kernel.response }    
+            
+    pi_app_admin.postload_listener:
+        class: %piapp.admin.listener.postload.class%
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_listener, event: postLoad, connexion: default }
+
+#    pi_app_admin.loadclassmetadata_listener:
+#        class: %piapp.admin.listener.loadclassmetadata.class%
+#        arguments: [@service_container]
+#        tags:
+#            - { name: doctrine.event_listener, event: loadClassMetadata, connexion: default }
+
+#    pi_app_admin.onflush_listener:
+#        class: %piapp.admin.listener.onflush.class%
+#        arguments: [@service_container]
+#        tags:
+#            - { name: doctrine.event_listener, event: onFlush, connexion: default }
+
+    pi_app_admin.preremove_listener:
+        class: %piapp.admin.listener.preremove.class%
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_listener, event: preRemove, connexion: default }
+
+    pi_app_admin.postremove_listener:
+        class: %piapp.admin.listener.postremove.class%
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_listener, event: postRemove, connexion: default }
+
+    pi_app_admin.schema_listener:
+        class: %piapp.admin.listener.schema.class%
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_listener, event: postGenerateSchema, connexion: default }
+
+    pi_app_admin.prepersist_listener:
+        class: %piapp.admin.listener.prepersist.class%
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_listener, event: prePersist, connexion: default }   
+            
+    pi_app_admin.postpersist_listener:
+        class: %piapp.admin.listener.postpersist.class%
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_listener, event: postPersist, connexion: default }
+
+    pi_app_admin.preupdate_listener:
+        class: %piapp.admin.listener.preupdate.class%
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_listener, event: preUpdate, connexion: default } 
+
+    pi_app_admin.postupdate_listener:
+        class: %piapp.admin.listener.postupdate.class%
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_listener, event: postUpdate, connexion: default }

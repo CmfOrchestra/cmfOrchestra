@@ -1,0 +1,305 @@
+/*******************************************************
+ * Development by
+ * <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+ *******************************************************/
+
+.myform{
+	/* max-width: 595px; */
+}
+.myform img{
+	max-width: 300px;
+	height:auto;
+}
+.myform fieldset{
+	margin: 0;
+	padding: 4%;
+	background: #f0f0f0;
+	border: 2px solid #d0d0d0;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	-moz-box-shadow: 6px 6px 6px #ddd;
+	-webkit-box-shadow: 6px 6px 6px #ddd;
+	box-shadow: 6px 6px 6px #ddd;
+}
+/* deb SBLA */
+.myform fieldset.no-accordion{
+	float:left;
+	width:46%;
+	margin-bottom:10px;
+	padding:2%;
+}
+.myform .accordion-form{
+	float:right;
+	margin-bottom:10px;
+	width:47%;
+}
+.myform fieldset.accordion{
+	height:16px;
+	padding:4%;
+	overflow:hidden;
+	margin-bottom:20px;
+}
+.myform fieldset.accordion > div{
+	display: none;
+}
+.myform fieldset.accordion.open{
+	height:auto;
+}
+.myform fieldset.accordion.open > div{
+	display: block;
+}
+.myform fieldset.accordion.open a:first-child{
+	display:block;
+	margin-bottom:20px;
+}
+/* fin SBLA */
+.myform .clearfix label {
+	width: 320px;
+	clear: both;
+}
+.myform .clearfix > label {
+	display: block;
+	font: bold 1.2em arial,verdana,tahoma,sans-serif;
+	text-shadow: 2px 2px 2px #ccc;
+	color: #000;
+	clear: left;
+}
+.clearfix {
+	margin-bottom: 11px;
+}
+.myform span.help-block {
+	background-color: #FFFACD;
+	font-style: italic;
+}
+/* APPLIES THE STYLE TO EACH FORM ELEMENT */
+.myform input[type=text],
+.myform input[type=number],
+.myform input[type=email],
+.myform textarea,
+.myform select {
+	width: 320px;
+	font: normal 1.1em arial,verdana,tahoma,sans-serif;
+	color: #666;
+	padding: 5px 8px;
+	background: #f2f2f2;
+	border: 1px solid #d0d0d0;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px; 
+	-moz-box-shadow: 4px 4px 4px #ddd;
+	-webkit-box-shadow: 4px 4px 4px #ddd;
+	box-shadow: 4px 4px 4px #ddd;	
+}
+.myform .time select{
+	width: 75px;
+}
+.myform textarea{
+	height: 71px;
+}
+.myform p{
+	margin-top: 11px;
+	margin-bottom: 11px;
+}
+.myform textarea.pi_editor{
+	width: 400px;
+	height: 320px;
+}
+/* CHANGE THE STYLE WHEN THE FORM ELEMENT IS CLICKED */
+.myform input:focus, .myform select:focus, .myform textarea:focus {
+	background: #fff;
+	border: 1px solid #ddd;
+	-moz-box-shadow: 2px 1px 1px #ddd;
+	-webkit-box-shadow: 2px 1px 1px #ddd;
+	box-shadow: 2px 1px 1px #ddd;
+	outline: none;
+}
+/* OPTIONAL SET ATTRIBUTES FOR THE CHOICE RADIO LIST */
+.myform .choice ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	width: 520px;
+}
+.myform .choice li {
+	float: left;
+	margin-right: 11px;
+	/*width: 131px;*/
+	width: 40%;
+	margin-bottom: 11px;
+	list-style-type: none;
+	line-height: 18px;
+	padding: 0 0 0 12px;
+}
+/* OPTIONAL SET ATTRIBUTES FOR WIJMO AND UI ADJUSTMENT * SUPPR-SBLA-20121220
+.myform .wijmo-wijradio .ui-state-default {
+	background: #fff url(images/ui-bg_highlight-soft_15_9eca38_1x100_50.png) 50% 50% repeat-x;	
+	border: 1px solid #ddd;
+}
+
+.myform .wijmo-checkbox-box {
+	border: 1px solid #ddd;
+}
+.myform .wijmo-checkbox label {
+	cursor: pointer;
+	z-index: 0;
+	padding: 0 0 0 0;
+	outline: none;
+	margin-left: 23px;
+}
+*/
+.myform .wijmo-wijinput{
+	border: 0;
+}
+.myform .wijmo-wijradio .ui-state-default {
+	background: #fff url(images/ui-bg_highlight-soft_15_9eca38_1x100_50.png) 50% 50% repeat-x;	
+	border: 1px solid #ddd;
+}
+.myform .wijmo-wijradio .ui-state-default.ui-state-active {
+	-moz-box-shadow: inset 1px 1px 0 rgba(255,255,255,0.15);
+    -webkit-box-shadow: inset 1px 1px 0 rgba(255,255,255,0.15);
+    box-shadow: inset 1px 1px 0 rgba(255,255,255,0.15);
+    border: 1px solid transparent;
+    background: #606154 url(images/ui-bg_highlight-soft_15_333333_1x100.png) top repeat-x;
+    font-weight: normal;
+    color: #fafafa;
+}
+.ui-icon-radio-off
+{
+    background-position: -80px -144px;
+}
+
+
+/* OPTIONAL SET ATTRIBUTES FOR THE ERRORS AND HELPS */
+.myform span.help-inline {
+	position: absolute;
+	font: bold 0.8em arial,verdana,tahoma,sans-serif;
+	text-shadow: none;
+	color: #000;
+	margin: -5px 0 0 15px;
+	padding: 10px 15px;
+	background: #ffff80;
+	border: 2px solid #f7de35;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+	border-radius: 20px;  
+	-moz-box-shadow: 4px 4px 4px #ddd;
+	-webkit-box-shadow: 4px 4px 4px #ddd;
+	box-shadow: 4px 4px 4px #ddd; 	
+	z-index: 9999999;
+}
+.myform .choice span.help-inline {
+	position: absolute;
+	font: bold 0.8em arial,verdana,tahoma,sans-serif;
+	text-shadow: none;
+	color: #000;
+	margin: -10px 0 0 15px;
+	padding: 10px 15px;
+	background: #ffff80;
+	border: 2px solid #f7de35;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+	border-radius: 20px;  
+	-moz-box-shadow: 4px 4px 4px #ddd;
+	-webkit-box-shadow: 4px 4px 4px #ddd;
+	box-shadow: 4px 4px 4px #ddd; 	
+}
+/* OPTIONAL SET ATTRIBUTES FOR THE ERRORS DIALOG */
+#symfony-form-errors span.ui-icon {
+	margin-bottom: -7px;
+}
+#symfony-form-errors p {
+	margin-bottom: 17px;
+}
+/* OPTIONAL SET ATTRIBUTES FOR THE TABS DIALOG */
+#dialog label, #dialog input,
+.dialog_form label, .dialog_form input
+{
+	display: block;
+}
+#dialog label, .dialog_form label
+{
+	margin-top: 0.5em;
+}
+#dialog input, #dialog textarea,
+.dialog_form input, .dialog_form textarea 
+{
+	width: 95%;
+}
+.dialog_form textarea 
+{
+	height: 71px;
+}
+#tabs
+{
+	margin-top: 1em;
+}
+#tabs li .ui-icon-close
+{
+	float: left;
+	margin: 0.4em 0.2em 0 0;
+	cursor: pointer;
+}
+#add_tab
+{
+	cursor: pointer;
+}
+/* OPTIONAL SET ATTRIBUTES FOR THE BUTTON */
+.myform p {
+	text-align: center;
+	clear:both;		/* SBLA */
+}
+.myform input.ui-button {
+	padding: .5em 0em;
+	margin-bottom: 11px;
+	width: 110px;
+}
+.myform .ui-button-text-only .ui-button-text {
+	padding: .4em 0em;
+	margin-bottom: 11px;
+	width: 110px;
+}
+/* OPTIONAL SET ATTRIBUTES FOR THE FOOTER BUTTON */
+ul.ui-widget-header {
+    -moz-box-shadow: inset 1px 1px 0 rgba(255,255,255,0.05);
+    -webkit-box-shadow: inset 1px 1px 0 rgba(255,255,255,0.05);
+    box-shadow: inset 1px 1px 0 rgba(255,255,255,0.05);
+    border: 1px solid #404040;
+    background-color: #242122;
+    border: 1px solid #d0d0d0;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; 
+    -moz-box-shadow: 4px 4px 4px #ddd;
+    -webkit-box-shadow: 4px 4px 4px #ddd;
+    box-shadow: 4px 4px 4px #ddd;       
+    font-weight: normal;
+    color: #fafafa;
+    margin:0;   
+}
+ul.ui-widget-header {
+    border: solid 1px #aaa;
+    text-align: center;
+    white-space: nowrap;
+    letter-spacing: 35px;
+    line-height: 12px;
+    overflow: hidden;
+    width: 100%;
+}
+ul.ui-widget-header li {
+    display: inline-block;
+    letter-spacing: normal;
+    font-size: normal;
+    white-space: normal;
+    text-align: normal;
+    vertical-align: middle;
+    margin: 10px;
+}
+ul.ui-widget-header li {
+    *display: inline;
+    *margin: 0 20px 0 20px;
+}
+/* CHECKBOX */
+.icheckbox_square-blue{
+    margin-bottom: 11px;
+}

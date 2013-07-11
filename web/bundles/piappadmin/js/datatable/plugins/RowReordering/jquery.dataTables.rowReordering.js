@@ -68,18 +68,9 @@
             var tr = $("#" + id);
             var iCurrentPosition = oTable.fnGetData(tr[0], properties.iIndexColumn);
             var iNewPosition = -1; // fnGetStartPosition(sSelector);
-            
             var sDirection;
             var trPrevious = tr.prev(sSelector);
-            
-            ////////    update line by me /////////////////////
-            var tmp 	= -1;
-            var tmp_id  = trPrevious.attr('id');
-            if(tmp_id != undefined)
-            	tmp = trPrevious.attr('id').search("group-id");
-            //////////////////////////////////////////////////
-            
-            if ( (trPrevious.length > 0) && (tmp != 0)) {
+            if (trPrevious.length > 0) {
                 iNewPosition = parseInt(oTable.fnGetData(trPrevious[0], properties.iIndexColumn));
                 if (iNewPosition < iCurrentPosition) {
                     iNewPosition = iNewPosition + 1;
@@ -92,7 +83,6 @@
                         iNewPosition = iNewPosition - 1;
                 }
             }
-            
             if (iNewPosition < iCurrentPosition)
                 sDirection = "back";
             else
@@ -198,7 +188,6 @@
                     var tbody = $(this);
                     var sSelector = "tbody tr";
                     var sGroup = "";
-                    
                     if (properties.bGroupingUsed) {
                         sGroup = $(ui.item).attr(properties.sDataGroupAttribute);
 						if(sGroup==null || sGroup==undefined){
@@ -207,7 +196,7 @@
 						}
                         sSelector = "tbody tr[" + properties.sDataGroupAttribute + " ='" + sGroup + "']";
                     }
-                    
+
                     var oState = fnGetState(sSelector, ui.item.context.id);
 					if(oState.iNewPosition == -1)
 					{

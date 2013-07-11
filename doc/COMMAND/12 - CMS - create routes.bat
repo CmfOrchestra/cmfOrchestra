@@ -1,1 +1,0 @@
-php app/console sonata:page:update-core-routes

@@ -1,0 +1,46 @@
+{% stylesheet getParameter('pi_app_admin.admin.theme_css')~":prepend" %}
+{% initJquery 'TOOL:tabs' %}
+{% initJquery 'GRID:grid-table' %}
+{% extends app.request.attributes.get('orchestra-layout') %}
+
+{% block title %}
+	<h1>{{ 'pi.page.index.title'|trans }}</h1>
+{% endblock %}
+ 
+{% block content %}
+
+	{% set options_tabs = 
+		{
+			'id': 'tab', 
+			'vertical' : true,
+			'tabs-urls': { 
+				'0': { 'route_name':'admin_pagebytrans_wizard', 'title':'pi.page.All', 'params':{'status':'all'} },
+				'1': { 'route_name':'admin_pagebytrans_wizard', 'title':'pi.page.Draft', 'params':{'status':'draft'} }, 
+				'2': { 'route_name':'admin_pagebytrans_wizard', 'title':'pi.page.Reviewed', 'params':{'status':'reviewed'} },
+				'3': { 'route_name':'admin_pagebytrans_wizard', 'title':'pi.page.Published', 'params':{'status':'published'} },
+				'4': { 'route_name':'admin_pagebytrans_wizard', 'title':'pi.page.Hidden', 'params':{'status':'hidden'} },
+				'5': { 'route_name':'admin_pagebytrans_wizard', 'title':'pi.page.Trash', 'params':{'status':'trash'} },
+				'6': { 'route_name':'admin_pagebytrans_wizard', 'title':'pi.page.Refused', 'params':{'status':'refused'} },
+			}
+		} 
+	%}
+	{{ renderJquery('TOOL', 'tabs', options_tabs )|raw }}	
+	
+	<style>
+		.ui-widget-content {
+		border: 0px solid #e3e3e3;
+		background: #fff url('') 50% 50% repeat-x;
+		}
+  </style>
+  
+	<!--  start actions-box ............................................... -->
+	<div id="actions-box">
+		<a href="" class="action-slider"><span>{{ 'pi.grid.action.title'|trans }}</span></a>
+		<div id="actions-box-slider">
+			<a href="{{ path('admin_pagebytrans_new') }}" class="action-edit">{{ 'pi.grid.action.create'|trans }}</a>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!-- end actions-box........... -->
+		
+{% endblock %}

@@ -1,0 +1,26 @@
+				    {% for entity in entities %}
+
+						{% if entity.page.getId() is defined %}
+							{% set keywords = entity.page.getTranslationByLocale(lang).getMetaKeywords() %}
+							{% set route 	= entity.page.getRouteName() %}
+							{% set url	 	= url(route) %}
+						{% else %}
+							{% set keywords = getParameter('pi_app_admin.layout.meta.author') %}
+							{% set url	 = "#" %}
+						{% endif %}				    
+					    <section class="bloc_news">
+					    	<a href="{{ url }}" style="text-decoration:none;" >
+		                        <p>
+									{{ entity.translate(locale).getContent()|lower|limite('0', 210)|replace({"<p>": "", "</p>": ""})|raw }}
+		                        </p>
+							</a>
+	                        <span class="highlight">
+				        	  {% if entity.publishedat %}
+				        	  	{{ entity.publishedat|date('Y/m/d') }}
+				        	  {% else %}
+				        	  	{% if entity.createdat %}{{ entity.createdat|date('Y/m/d') }}{% endif%}
+				        	  {% endif%}
+	                        </span>
+	                    </section>
+
+				    {% endfor %}

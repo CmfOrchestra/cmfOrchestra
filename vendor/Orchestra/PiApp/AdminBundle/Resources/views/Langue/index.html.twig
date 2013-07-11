@@ -1,0 +1,74 @@
+{% initJquery 'GRID:grid-table' %}
+{% stylesheet getParameter('pi_app_admin.admin.theme_css')~":prepend" %}
+{% set NoLayout	= app.request.query.get('NoLayout') %}
+{% if NoLayout %}
+	{% stylesheet 'bundles/piappadmin/css/layout/admin/screen.css' %}
+	{% javascript 'bundles/piappadmin/js/jquery/custom_jquery.js' %}
+	{% set layout_nav = 'PiAppTemplateBundle::Template\\Layout\\layout-ajax.html.twig' %}
+{% else %}
+	{% set layout_nav = app.request.attributes.get('orchestra-layout') %}
+{% endif %}	
+{% extends layout_nav %}
+
+{% block title %}
+	<h1>Langue list</h1>
+{% endblock %}
+ 
+{% block content %}
+
+	<!--  start actions-box ............................................... -->
+	<a href="{{ path('admin_langue_new') }}" class="btn-on" style="margin:5px">{{ 'pi.grid.action.create'|trans }}</a>
+	<!-- end actions-box........... -->
+	
+	<table id="grid" >
+	    <thead>
+	        <tr>
+	            <th><a href="">Id</a></th>
+	            <th><a href="">Label</a></th>
+	            <th><a href="">Enabled</a></th>
+	            <th><a href="">Actions</a></th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	    {% set num_line = 0 %}
+	    {% for entity in entities %}
+	        <tr {% if(num_line == 0) %}class="odd"{% endif %} id="{{ entity.id }}"  >
+	            <td><a href="{{ path('admin_langue_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+	            <td>{{ entity.label }}</td>
+	            <td class="enabled" >{{ entity.enabled }}</td>
+	            <td>
+					<a href="{{ path('admin_langue_show', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.show'|trans }}" class="icon-show info-tooltip">&nbsp;</a>
+					<a href="{{ path('admin_langue_edit', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.edit'|trans }}" class="icon-edit info-tooltip">&nbsp;</a>
+	            </td>
+	        </tr>
+	        {% if num_line == 0 %} 
+	        	{% set num_line = 1 %} 
+	        {% else %}
+	        	{% set num_line = 0 %}
+	        {% endif %}	        
+	    {% endfor %}
+	    </tbody>
+	</table>
+	
+	<!--  start actions-box ............................................... -->
+	<a href="{{ path('admin_langue_new') }}" class="btn-on" style="margin:5px">{{ 'pi.grid.action.create'|trans }}</a>
+	<!-- end actions-box........... -->	
+	
+	{% set options_gridtabale = {'grid-name': 'grid', 'grid-type':'simple', 
+		'grid-filters': {
+				'1':'Identifiant',
+			},
+		'grid-sorting': { 
+				'1':'desc',
+			},	
+		'grid-actions': {
+				'rows_enabled': {'sButtonText':'pi.grid.action.row_enabled', 'route':'admin_langue_enabledentity_ajax',},
+				'rows_disable': {'sButtonText':'pi.grid.action.row_disable', 'route':'admin_langue_disablentity_ajax'},
+				'select_all': {'sButtonText':'pi.grid.action.select_all'},
+				'select_none': {'sButtonText':'pi.grid.action.select_none'},
+			}				
+		}
+	%}
+	{{ renderJquery('GRID', 'grid-table', options_gridtabale )|raw }}	
+	
+{% endblock %}

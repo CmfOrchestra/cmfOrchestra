@@ -1,1 +1,0 @@
-php app/console doctrine:generate:form PiAppAdminBundle:Users

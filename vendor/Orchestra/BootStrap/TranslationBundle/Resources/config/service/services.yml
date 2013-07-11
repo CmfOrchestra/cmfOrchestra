@@ -1,0 +1,47 @@
+parameters:
+    bootstrap.EntitiesContainer.listener.class: BootStrap\TranslationBundle\EventListener\EntitiesContainer
+
+    bootstrap.translation.event_subscriber.position.class: BootStrap\TranslationBundle\EventSubscriber\EventSubscriberPosition
+    
+    bootstrap.RouteTranslator.factory.class: BootStrap\TranslationBundle\Route\RouteTranslatorFactory
+    bootstrap.Role.factory.class: BootStrap\TranslationBundle\Route\RoleFactory
+    bootstrap.route_loader.class: BootStrap\TranslationBundle\Route\RouteLoader
+    bootstrap.route_cache.class: BootStrap\TranslationBundle\Route\CacheRoute
+    
+services:
+    #
+    # configuration of the event subscriber of entities
+    #         
+    bootstrap_translation.event_subscriber.position:
+        class: %bootstrap.translation.event_subscriber.position.class%
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_subscriber }  
+            
+    #
+    # configuration of the persist Entities container
+    # 
+    bootstrap.EntitiesContainer.listener:
+        class: %bootstrap.EntitiesContainer.listener.class%
+        arguments: ['@service_container']   
+        
+    #
+    # configuration of the route manager
+    # 
+    bootstrap.RouteTranslator.factory:
+        class: %bootstrap.RouteTranslator.factory.class%
+        arguments: ['@service_container']
+    
+    bootstrap.Role.factory:
+        class: %bootstrap.Role.factory.class%
+        arguments: ['@service_container']     
+        
+    bootstrap.route_loader:
+        class: %bootstrap.route_loader.class%
+        arguments: ['@service_container']       
+        tags:
+            - { name: routing.loader }
+            
+    bootstrap.route_cache:
+        class: %bootstrap.route_cache.class%
+        arguments: ['@service_container']                                        

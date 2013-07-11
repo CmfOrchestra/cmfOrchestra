@@ -1,0 +1,90 @@
+{% stylesheet "bundles/piappadmin/css/layout/pi/pi-orchestra.css" %}
+{% extends "PiAppTemplateBundle::Template\\Layout\\layout-global.html.twig" %}
+
+{% block global_title %}{{ parent() }}{% endblock %}
+
+{% block global_meta %}{{ parent() }}{% endblock %}
+
+{% block global_script_divers %}
+		{{ parent() }}
+		
+		<script type="text/javascript">
+		//<![CDATA[			
+			$(document).ready(function(){
+				$(".main-content").animate({top:0},1500,function(){
+					Move();
+				});
+			});
+			function Move() {
+			   $("#moving_arrow").animate({top:"45px"},1000, function(){
+				$(this).css({"top":"0px","display":"none"}).fadeIn(2000);
+			   });
+			   setTimeout("Move()",10000);
+			}           
+		//]]>
+		</script> 
+{% endblock %}
+
+{% block global_layout %}
+
+    	<div class="main-content" >
+			<h1>Orchestra - Content Management Framework</h1>
+			<a href="{{ path('home_page') }}"><img class="logo" src="{{ asset('bundles/piappadmin/css/layout/pi/orchestra/logo.png') }}" title="Logo Orchestra" alt="Logo Orchestra" /></a>
+			<a class="githublink" href="" title="Fork me on GitHub">Fork me on GitHub</a>
+			<div class="leftcontent content">
+				<div class="firststyle">
+					<h2 class="orchestra-title">Orchestra ?</h2>
+				</div>
+				<p>Symfony 2 is the best framework made for PHP...really, it's the most powerfull framework...but symfony 2 is not simple to use...Try to install FOSuser, sonata bundle should be a nightmare for a developper....</p>
+				<p>The purpose of orchestra is to simplify the developper's work.</p>
+				<p>Symfony allow you to speed up the creation and maintenance of your PHP web applications*1, Orchestra allow you to start quickly your developpement.</p>
+				<p>In fact we did not reinvent the wheel, we just choose the best bundle made for Symfony.</p>
+				<p>Our modest contribution to symfony 2 is our ocAppAdminBundle  and our wondefull BootStrap.</p>
+			</div>
+			<div class="rightcontent content">
+				<div class="firststyle">
+					<h2>Want to play with us ?</h2>
+				</div>
+				<div class="box">
+					<p>Get Orchestra on</p>
+					<div>
+						<a href="https://github.com/CmfOrchestra/cmfOrchestra" target="_blank" title="GitHub">
+							GitHub
+							<span id="moving_arrow"><!-- --></span>
+						</a>
+					</div>
+				</div>
+				<div class="firststyle">
+					<h3>Orchestra Choose for you</h3>
+				</div>
+				<p>FOSUserBundle, SonataMediaBundle, etc...</p>
+			</div>
+			<div class="clearer"><!-- --></div>
+			<div class="leftcontent content">
+				<div class="firststyle">
+					<h3>Why use Orchestra ?</h3>
+				</div>
+				<p>Orchestra is not just the description you just read above. It also allows you to create your own CMS. It's a CMF easy to use, build your own template (layout), add your own custom block with your own logic, build all the widget you need. That it what Orcherstra is made for.</p>
+			</div>
+			<div class="rightcontent content">
+				<div class="secondstyle">
+					<h3>About Novedia</h3>
+				</div>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec placerat adipiscing malesuada. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam erat volutpat.</p>
+				<a class="contact" href="" title="Contact Us">Contact Us</a>
+			</div>
+			
+			<div class="clearer"><!-- --></div>
+			{% block content %}{% endblock %}	            
+			<div class="clearer"><!-- --></div>
+			
+			<div class="footer">
+				{% include "BootStrapUserBundle::connexion.html.twig" %}
+				<p>
+					<a href="{{ path('pi_layout_choisir_langue', {'langue' : 'fr_FR'}) }}" title="">FR</a> | <a href="{{ path('pi_layout_choisir_langue', {'langue' : 'en_GB'}) }}" title="">EN</a> | <a href="{{ path('pi_layout_choisir_langue', {'langue' : 'ar_SA'}) }}" title="">AR</a> | - All rights reserved
+				</p>
+				{#<p><a href="{{ path('pi_layout_choisir_langue', {'langue' : 'fr'}) }}" title="">FR</a> | {{ app.request.locale }}</p>#}
+			</div>
+		</div>
+				     
+{% endblock %}

@@ -1,0 +1,87 @@
+	<!--  start actions-box ............................................... -->
+	<div id="actions-box">
+		<a href="{{ path('admin_gedmo_slider_new', {'NoLayout':NoLayout, 'category':category}) }}" class="action-edit">{{ 'pi.grid.action.create'|trans }}</a>
+		<div class="clear"></div>
+	</div>
+	<!-- end actions-box........... -->
+	
+	<table id="grid_slider" class="grid" >
+	    <thead>
+	        <tr>	  
+	            <th><a>Id</a></th>	        
+	            <th><a>Category</a></th>	        
+	            <th><a>Title</a></th>	        
+	            <th><a>Subtitle</a></th>
+	            <th><a>Published_at</a></th>	        
+	            <th class="position" ><a>Position</a></th>
+	            <th><a>Enabled</a></th>	        
+	            <th><a>Actions</a></th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	    {% set num_line = 0 %}
+	    {% for entity in entities %}
+	        <tr {% if(num_line == 0) %}class="odd"{% endif %} id="{{ entity.position }}_row_{{ entity.id }}"  >
+	            <td><a href="{{ path('admin_gedmo_slider_show', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category }) }}">{{ entity.id }}</a></td>
+	            <td>
+	            {{ entity.category|limite("0", 55)|raw }}
+	            </td>	
+	            <td>
+	            	{% set url = "#" %}
+                    {% if entity.page.getId() is defined %}
+	                	{%  set url = path_url(entity.page.getRouteName(), {'locale':app.request.locale, 'slug':entity.slug}) %}
+	                {% endif %}        
+	                <a href="{{ url }}" target="_blank" title="{{ url }}" class="info-tooltip" >
+						{{ entity.title|limite("0", 55)|raw }}
+	            	</a>  
+	            </td>
+	            <td>{{ entity.subtitle}}</td>	            
+	            <td>{% if entity.publishedat %}{{ entity.publishedat|date('Y-m-d') }}{% endif%}</td>
+	        	<td  class="position" >{{ entity.position }}</td>	
+	            <td class="enabled">{{ entity.enabled }}</td>	
+				<td>
+					<a href="{{ path('admin_gedmo_slider_show', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category }) }}" title="{{ 'pi.grid.action.show'|trans }}" class="icon-3 info-tooltip" >&nbsp;</a>
+					<a href="{{ path('admin_gedmo_slider_edit', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category }) }}" title="{{ 'pi.grid.action.edit'|trans }}" class="icon-1 info-tooltip" >&nbsp;</a>
+				</td>	
+	        </tr>
+	        {% if num_line == 0 %} 
+	        	{% set num_line = 1 %}
+	        {% else %}
+	        	{% set num_line = 0 %}
+	        {% endif %}	
+	                
+	    {% endfor %}
+	    </tbody>
+	</table>
+
+	{% set options_gridtabale = {'grid-name': 'grid_slider', 'grid-type':'simple', 
+		'grid-paginate':'false',
+		'grid-filters': {
+				'1':'Position',
+				'2':'Identifiant',
+				'3':'Category',
+				'4':'Title',
+				'5':'Subtitle',
+				'6':'Position',
+				'7':'Date Publish',
+				'8':'Enable' 
+			},
+		'grid-sorting': { 
+				'1':'desc',
+			},
+		'grid-visible': {
+				'0':'true',
+				'1':'false',
+			},					
+		'grid-actions': {
+				'rows_grouping': {'columnIndex':2, 'Collapsible':'true', 'HideColumn':'true', 'SortDirection':'desc'},
+				'rows_position': {'route':'admin_gedmo_slider_position_ajax',},
+				'rows_enabled': {'sButtonText':'pi.grid.action.row_enabled', 'route':'admin_gedmo_slider_enabledentity_ajax',},
+				'rows_disable': {'sButtonText':'pi.grid.action.row_disable', 'route':'admin_gedmo_slider_disablentity_ajax'},
+				'rows_delete': {'sButtonText':'pi.grid.action.row_delete', 'route':'admin_gedmo_slider_deletentity_ajax'},
+				'select_all': {'sButtonText':'pi.grid.action.select_all'},
+				'select_none': {'sButtonText':'pi.grid.action.select_none'},
+			}				
+		} 
+	%}
+	{{ renderJquery('GRID', 'grid-table', options_gridtabale )|raw }}	

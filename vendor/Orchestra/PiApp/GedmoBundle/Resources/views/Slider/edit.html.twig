@@ -1,0 +1,12 @@
+{%  initJquery 'FORM:prototype-bytab' %}
+{% extends app.request.attributes.get('orchestra-layout') %}
+
+{% block title %}
+	<h1>Slider</h1>
+{% endblock %}
+ 
+{% block content %}
+
+	{% include 'PiAppGedmoBundle:Slider:edit_view.html.twig' with {'NoLayout':NoLayout, 'edit_form':edit_form, 'category':category} %}
+
+{% endblock %}		

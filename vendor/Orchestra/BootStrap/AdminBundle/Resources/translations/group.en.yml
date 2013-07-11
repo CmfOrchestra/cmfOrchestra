@@ -1,0 +1,6 @@
+# Help
+help: Help
+help.group.name: Help text
+
+# fields
+field.group.name : Name

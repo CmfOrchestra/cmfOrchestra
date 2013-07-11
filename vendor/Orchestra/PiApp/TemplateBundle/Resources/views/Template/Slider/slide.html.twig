@@ -1,0 +1,38 @@
+		{% block body %}
+		<div id="{{ id }}">
+			<ul class="slides">
+			{{ slides.boucle|raw }}
+			</ul
+		</div>
+		{% endblock %}        
+			
+		{% block boucle %}
+				{% if slide.media.image.id is defined %}
+                   	{% set url = media_url(slide.media.image.id, 'reference', true, slide.media.getUpdatedAt(), 'slide_') %}
+                {% else %}
+                   	{% set url = "" %}
+                {% endif %}
+                    
+                {% if slide.translate(locale).getDescriptifLeft() is empty %}
+	                <li class="navSlider-slide {{ slide.CssClass }}" style="{% if url is not emmpty %}background: url('{{ url }}') no-repeat;{% endif %}">
+	                        <h1>{{ slide.translate(locale).getTitle()|replace({'<p>': '', '</p>': ''})|raw }} / <span class="subtitle">{{ slide.subtitle|replace({'<p>': '', '</p>': ''})|raw }}</span></h1>
+	                        <p>{{ slide.translate(locale).getDescriptifRight()|replace({'<p>': '', '</p>': ''})|raw }}</p>
+	                        {% if slide.page.getId() is defined %}
+	                        	{% set Title	= slide.page.getTranslationByLocale(locale).getMetaTitle() %}
+	                        	<a href="{{ path(slide.page.getRouteName()) }}" class="{{ slide.pagecssclass }}" title="{{ Title }}">{{ slide.translate(locale).getPagetitle()|replace({'<p>': '', '</p>': ''})|raw }}</a>
+	                        {% endif %}
+	                </li>            
+                {% else %}
+					<li class="navSlider-slide {{ slide.CssClass }}" style="{% if url is not emmpty %}background: url('{{ url }}') no-repeat;{% endif %}">
+	                    <h1>{{ slide.translate(locale).getTitle()|replace({'<p>': '', '</p>': ''})|raw }} / <span class="subtitle">{{ slide.subtitle|replace({'<p>': '', '</p>': ''})|raw }}</span></h1>
+	                    <p>{{ slide.translate(locale).getDescriptifLeft()|replace({'<p>': '', '</p>': ''})|raw }}</p>
+	                        {% if slide.page.getId() is defined %}
+	                        	{% set Title	= slide.page.getTranslationByLocale(locale).getMetaTitle() %}
+	                        	<a href="{{ path(slide.page.getRouteName()) }}" class="{{ slide.pagecssclass }}" title="{{ Title }}">{{ slide.translate(locale).getPagetitle()|replace({'<p>': '', '</p>': ''})|raw }}</a>
+	                        {% endif %}			                    	        	                
+	                </li>
+                {% endif %}
+		  {% endblock %}              
+		                
+		                
+		                              

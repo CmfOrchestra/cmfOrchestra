@@ -1,0 +1,66 @@
+##
+## FOSUserBundle configuration
+##
+#fos_user:
+#    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+#    firewall_name: main
+#    user_class: BootStrap\UserBundle\Entity\User
+#    use_listener:           true
+#    use_username_form_type: true
+#    model_manager_name:     null  # change it to the name of your entity/document manager if you don't want to use the default one.
+#    from_email:
+#        address:       orchestra@gmail.com
+#        sender_name:   Admin    
+#    profile:
+#        form:
+#            type:               fos_user_profile
+#            name:               fos_user_profile_form
+#            validation_groups:  [Profile]
+#    change_password:
+#        form:
+#            type:               fos_user_change_password
+#            name:               fos_user_change_password_form
+#            validation_groups:  [ChangePassword]
+#    registration:
+#        confirmation:
+#            from_email: # Use this node only if you don't want the global email address for the confirmation email
+#                address:        orchestra@gmail.com
+#                sender_name:    commercial
+#            enabled:    true # change to true for required email confirmation
+#            #template:   FOSUserBundle:Registration:email.txt.twig
+#        #email:
+#            template:   FOSUserBundle:Registration:registration.email.twig
+#        form:
+#            type:               bootstrap_user_registration
+#            name:               fos_user_registration_form
+#            validation_groups:  [Registration]
+#    resetting:
+#        token_ttl: 86400
+#        email:
+#            from_email: # Use this node only if you don't want the global email address for the resetting email
+#                address:        orchestra@gmail.com
+#                sender_name:    admin
+#            template:   FOSUserBundle:Resetting:email.txt.twig
+#        form:
+#            type:               fos_user_resetting
+#            name:               fos_user_resetting_form
+#            validation_groups:  [ResetPassword]            
+#    service:
+#        mailer:                 fos_user.mailer.default
+#        email_canonicalizer:    fos_user.util.canonicalizer.default
+#        username_canonicalizer: fos_user.util.canonicalizer.default
+#        user_manager:           fos_user.user_manager.default
+#    template:
+#        engine: twig
+#    group:
+#        group_class: BootStrap\UserBundle\Entity\Group
+#        group_manager:  fos_user.group_manager.default
+#        form:
+#            type:               fos_user_group
+#            name:               fos_user_group_form
+#            validation_groups:  [Registration]
+#            
+##
+## routing configuration
+##        
+#be_simple_i18n_routing: ~

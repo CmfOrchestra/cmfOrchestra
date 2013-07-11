@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="pi_layout_choisir_langue" pattern="/local/{langue}">
+        <default key="_controller">PiAppAdminBundle:Frontend:setLocal</default>
+    </route>  
+
+    <route id="admin_homepage" pattern="/home" >
+        <default key="_controller">PiAppAdminBundle:Frontend:index</default>
+    </route>
+    
+    <route id="public_refresh_page" pattern="/refresh-page">
+        <default key="_controller">PiAppAdminBundle:Frontend:refreshpage</default>
+        <requirement key="_method">get|post</requirement>
+    </route>
+    
+    <route id="public_indexation_page" pattern="/indexation-page/{action}">
+        <default key="_controller">PiAppAdminBundle:Frontend:indexation</default>
+        <requirement key="action">archiving||delete</requirement>
+        <requirement key="_method">get|post</requirement>
+    </route>    
+
+    <route id="public_urlmanagement_page" pattern="/urlmanagement-page">
+        <default key="_controller">PiAppAdminBundle:Frontend:urlmanagement</default>
+        <requirement key="_method">get|post</requirement>
+    </route>
+    
+    <route id="public_importmanagement_widget" pattern="/importmanagement-page">
+        <default key="_controller">PiAppAdminBundle:Frontend:importmanagement</default>
+        <requirement key="_method">get|post</requirement>
+    </route>
+
+    <route id="public_head_file" pattern="/{filetype}/{file}">
+        <default key="_controller">PiAppAdminBundle:Frontend:contentfile</default>
+        <requirement key="filetype">css|js</requirement>
+        <requirement key="_method">GET</requirement>
+    </route>  
+ 
+    <route id="public_chained" pattern="/chained">
+        <default key="_controller">PiAppAdminBundle:Frontend:chained</default>
+        <requirement key="_method">get|post</requirement>
+    </route> 
+   
+</routes>

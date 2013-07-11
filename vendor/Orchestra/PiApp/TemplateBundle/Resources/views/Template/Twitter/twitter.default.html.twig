@@ -1,0 +1,82 @@
+{% block twitter %}
+<script type="text/javascript">
+$(document).ready(function(){
+    window.lastDate =  new Date($('article>div>span.highlight').first().attr('title'));
+    setTimeout(function(){refreshTweets()}, 1000);
+
+})
+	
+function refreshTweets(){
+    $.getJSON("{{ jsonUrl }}", function(data){
+    	var items = new Array(); // future container for tweets
+
+        var reverse = data{% if order == "desc" %}.reverse(){% endif %}; // inversion of the data to get the last tweet as the topmost display and such (or not)
+
+        $.each(reverse, function(index, field){
+            //console.log('field.created_at',field.created_at);			//ATTENTION twitter.created_at = "Mon Sep 24 08:28:20 +0000 2012"
+			var t = field.created_at.split(' ');
+			var year = t.pop();
+			t.splice(3,0,year);
+			curDate = new Date( t.join(' ') );
+            curDate = curDate.toISOString();
+
+            var text_modif = '';
+             
+            if(typeof(field.text)!='undefined'){               
+            	text_modif = field.text.replace(/((ftp|http|https?):\/\/([-\w\.]+)+(:\d+)?(\/([\w/_\.-]*(\?\S+)?)?)?)/gm,'<a href="$1" target="_blank" class="twit-color">$1</a>');
+                text_modif = text_modif.parseHashtag();
+                text_modif = text_modif.replace(/@(\w+)/gm,'<a class="twit-color" href="http://twitter.com/$1" target="_blank">@$1</a>');
+            }
+            var item = $('<div class="info_tweet" id="twitt-'+field.id+'" />').html('<img alt="" src="'+field.user.profile_image_url+'"><p><span>Par '+field.user.screen_name+'</span>'+
+                                                            text_modif+'<div class="timeAgo" title="'+curDate+'"><span class="tgris">'+curDate+'</span></div><p/>');
+            items.push(item)
+        });
+
+        // parsing of the items array and attachment of the newly generated elements
+        $.each(items, function(key, val){
+            if(!$('#'+val.attr('id')).length){
+                $('#novContent-scroll').prepend(val);
+            }
+        });
+
+        jQuery(document).trigger('load');
+    });
+
+    setTimeout(function(){
+    	refreshTweets();							    
+    } , {{ refreshInterval }});					    
+	}
+
+    String.prototype.parseHashtag = function() {
+        return this.replace(/[#]+[A-Za-z0-9-àáâãäåçèéêëìíîïðòóôõöùúûüýÿ_]+/g, function(t) {
+            var tag = t;
+            return '<a class="twit-color" href="http://search.twitter.com/search?q='+tag+'" target="_blank">'+tag+'</a>';
+        });
+    };
+
+    jQuery(document).ready(function() {
+		jQuery(document).live('load', function(){
+				jQuery('.timeAgo').timeago();
+		})	
+	});    
+</script>
+{% endblock %}
+
+{% block blog %} 
+	<div id="novContent-scroll-flexcroll-vscroller"><div class="flexcroll-scrollbar"></div></div>
+	<div id="novContent-scroll" class="flexcroll">
+		{% if entities_rss is defined %}
+		    {% for entity in entities_rss %}
+		        <div class="MSG">
+		            {{entity.image|raw}}
+		            <p>
+		                <span class="title indicator">{{ entity.title|raw }}</span>
+		                <span>Par {{ entity.auteur|raw }}</span>
+		                {{ entity.content|limite('0', 100)|replace({"<p>": "", "</p>": ""})|raw }}
+		                <span class="time">{{ entity.getPublishedAt|date('d/m/Y H:i') }}</span>
+		            </p>
+		        </div>        
+		    {% endfor %}
+		{% endif %}
+	</div>
+{% endblock %}

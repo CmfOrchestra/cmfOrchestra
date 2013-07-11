@@ -1,0 +1,72 @@
+	<!-- Begin tag markup -->
+	<div id="tabs">
+		<ul>
+			<li><a href="#tabs-1">{{ 'pi.page.translation.title'|trans }}</a></li>
+		</ul>
+
+		{% form_theme edit_form getParameter('pi_app_admin.layout.template.form') %}
+		<form class="myform" action="{{ path('admin_pagebytrans_update', { 'id': entity.id, 'NoLayout': NoLayout }) }}" method="post" {{ form_enctype(edit_form) }} novalidate>
+			<div id="tabs-1">
+				    {{ form_widget(edit_form) }} 
+			</div>
+		    <p>
+		        <input id="add_tab" type="button" value="{{ 'pi.grid.action.add-tab'|trans }}" />
+		        <button type="submit">{{ 'pi.grid.action.save'|trans }}</button>
+		    </p>
+		</form>
+
+	</div>
+	<!-- End tag markup -->
+	
+	{% set options = {'prototype-name': ['translations'], 'prototype-tab-title': 'pi.page.translation.prototype-tab-title'|trans } %}
+	{{ renderJquery('FORM', 'prototype-bytab', options )|raw }}
+	
+	<ul class="ui-widget-header">
+	    <li>
+	        <form action="{{ path('admin_pagebytrans') }}" method="post">
+	            <button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
+	        </form>
+	    </li>
+	    <li>
+	        <form action="{{ path('admin_pagebytrans_delete', { 'id': entity.id }) }}" method="post">
+	            {{ form_widget(delete_form) }}
+	            <button type="submit">{{ 'pi.grid.action.delete'|trans }}</button>
+	        </form>
+	    </li>
+	</ul>
+	
+	<script type="text/javascript">
+	// <![CDATA[
+	$('ul.ui-widget-header').ready(function(){		
+		var allListElements = new Array();		
+		$("select[id$='_heritage']").each(function(index) {
+			allListElements[index] = $(this).parents('.clearfix'); 
+			allListElements[index].hide();
+		});
+		
+		$("input[id$='_secure']").change(function () {
+			console.log($(this).parent());
+			if($(this).is(':checked')){
+				$("select[id$='_heritage']").each(function(index) {
+					$(this).parents('.no-accordion').find(allListElements[index]).show();
+				});
+			}else{
+				$("select[id$='_heritage']").each(function(index) {
+					$(this).parents('.no-accordion').find(allListElements[index]).hide();
+				});
+			}
+       	});
+
+		$("input[id$='_secure']").live('ifChecked', function(event){
+			$("select[id$='_heritage']").each(function(index) {
+				$(this).parents('.no-accordion').find(allListElements[index]).show();
+			});
+		});
+		$("input[id$='_secure']").live('ifUnchecked', function(event){
+			$("select[id$='_heritage']").each(function(index) {
+				$(this).parents('.no-accordion').find(allListElements[index]).hide();
+			});
+		});
+	});
+	// ]]>
+	</script>

@@ -1,6 +1,6 @@
 /*
  * File:        ColumnFilterWidgets.js
- * Version:     1.0.2
+ * Version:     1.0.3
  * Description: Controls for filtering based on unique column values in DataTables
  * Author:      Dylan Kuhn (www.cyberhobo.net)
  * Language:    Javascript
@@ -53,9 +53,8 @@
 		var asResultData = new Array();
 		
 		for (var i=0,c=aiRows.length; i<c; i++) {
-			iRow = aiRows[i];
-			var aData = this.fnGetData(iRow);
-			var sValue = aData[iColumn];
+			var iRow = aiRows[i];
+			var sValue = this.fnGetData(iRow, iColumn);
 			
 			// ignore empty values?
 			if (bIgnoreEmpty == true && sValue.length == 0) continue;
@@ -110,12 +109,11 @@
 
 		// Add a widget for each visible and filtered column
 		$.each( oDataTableSettings.aoColumns, function ( i, oColumn ) {
-			var $columnTh = $( oColumn.nTh );
 			var $WidgetElem = $( '<div class="column-filter-widget"></div>' );
 			if ( sExcludeList.indexOf( '|' + i + '|' ) < 0 ) {
 				me.aoWidgets.push( new ColumnFilterWidget( $WidgetElem, oDataTableSettings, i, me ) );
+				me.$MenuContainer.append( $WidgetElem );
 			}
-			me.$MenuContainer.append( $WidgetElem );
 		} );
 		if ( me.$TermContainer ) {
 			me.$WidgetContainer.append( me.$MenuContainer );

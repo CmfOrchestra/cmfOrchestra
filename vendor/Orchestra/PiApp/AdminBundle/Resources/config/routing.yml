@@ -1,0 +1,73 @@
+#
+#   import routes from a controller directory
+#
+annotation_admin:
+    resource: "@PiAppAdminBundle/Controller"
+    type: annotation
+
+#
+#   Import Default routing files
+#
+piapp_gedmo:
+    resource: "@PiAppGedmoBundle/Resources/config/routing.yml"
+    prefix: /
+    
+piapp_layout:
+    resource: "@PiAppAdminBundle/Resources/config/routing/layout.xml"
+    prefix: /admin/layout
+    
+piapp_rubrique:
+    resource: "@PiAppAdminBundle/Resources/config/routing/rubrique.xml"
+    prefix: /admin/rubrique
+        
+piapp_pagebytrans:
+    resource: "@PiAppAdminBundle/Resources/config/routing/pagebytrans.xml"
+    prefix: /admin/pagebytrans
+    
+piapp_pagebyblock:
+    resource: "@PiAppAdminBundle/Resources/config/routing/pagebyblock.xml"
+    prefix: /admin/pagebyblock 
+    
+piapp_pagecssjs:
+    resource: "@PiAppAdminBundle/Resources/config/routing/pagecssjs.xml"
+    prefix: /admin/pagecssjs
+    
+piapp_translationpage:
+    resource: "@PiAppAdminBundle/Resources/config/routing/translationpage.xml"
+    prefix: /admin/transpage    
+    
+piapp_blockbyWidget:
+    resource: "@PiAppAdminBundle/Resources/config/routing/blockbywidget.xml"
+    prefix: /admin/blockbywidget
+    
+piapp_widget:
+    resource: "@PiAppAdminBundle/Resources/config/routing/widget.xml"
+    prefix: /admin/widget 
+    
+piapp_snippet:
+    resource: "@PiAppAdminBundle/Resources/config/routing/snippet.xml"
+    prefix: /admin/snippet    
+    
+piapp_translationwidget:
+    resource: "@PiAppAdminBundle/Resources/config/routing/translationwidget.xml"
+    prefix: /admin/transwidget                
+            
+piapp_tag:
+    resource: "@PiAppAdminBundle/Resources/config/routing/tag.xml"
+    prefix: /admin/tag   
+            
+piapp_keyword:
+    resource: "@PiAppAdminBundle/Resources/config/routing/keyword.xml"
+    prefix: /admin/keyword  
+    
+piapp_langue:
+    resource: "@PiAppAdminBundle/Resources/config/routing/langue.xml"
+    prefix: /admin/langue   
+    
+piapp_comment:
+    resource: "@PiAppAdminBundle/Resources/config/routing/comment.xml"
+    prefix: /admin/comment
+    
+piapp_public:
+    resource: "@PiAppAdminBundle/Resources/config/routing/public.xml"
+    prefix: /

@@ -23,8 +23,3 @@
 	-o-transition: background 0.5s linear;
 	transition: background 0.5s linear;
 }
-
-
-.ui-veneer .ui-veneer-header:hover {
-	background: #614E1A; /* #5B3C11 */
-}

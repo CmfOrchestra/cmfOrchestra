@@ -1,0 +1,77 @@
+{% stylesheet getParameter('pi_app_admin.admin.grid_show_css') %}
+{% stylesheet getParameter('pi_app_admin.admin.theme_css')~":prepend" %}
+
+{% extends app.request.attributes.get('orchestra-layout') %}
+
+{% block title %}
+{% endblock %}
+ 
+{% block content %}
+	<table class="grid">
+		<caption>Css/Js</caption>
+	    <tbody>
+	        <tr>
+	            <th>Id</th>
+	            <td>{{ entity.id }}</td>
+	        </tr>
+	        <tr>
+	            <th>Cacheable</th>
+	            <td>{{ entity.cacheable }}</td>
+	        </tr>
+	        <tr>
+	            <th>Public</th>
+	            <td>{{ entity.public }}</td>
+	        </tr>
+	        <tr>
+	            <th>Lifetime</th>
+	            <td>{{ entity.lifetime }}</td>
+	        </tr>
+	        <tr>
+	            <th>Route_name</th>
+	            <td>{{ entity.routename }}</td>
+	        </tr>
+	        <tr>
+	            <th>Url</th>
+	            <td>{{ entity.url }}</td>
+	        </tr>
+	        <tr>
+	            <th>Meta_content_type</th>
+	            <td>{{ entity.metacontenttype }}</td>
+	        </tr>
+	        <tr>
+	            <th>{{ 'pi.grid.action.active'|trans }}</th>
+	            <td>{{ entity.enabled }}</td>
+	        </tr>
+	    </tbody>
+	</table>
+
+	{% if is_granted('ROLE_ALLOWED_TO_SWITCH') %}
+	<ul class="ui-widget-header">
+	    <li>
+	        <form action="{{ path('admin_pagecssjs') }}" method="post">
+	            <button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
+	        </form>	        
+	    </li>
+	    <li>
+	        <form action="{{ path('admin_pagecssjs_edit', { 'id': entity.id }) }}" method="post">
+	            <button type="submit">{{ 'pi.grid.action.update'|trans }}</button>
+	        </form>	        
+	    </li>
+	    <li>
+	        <form action="{{ path('admin_pagecssjs_delete', { 'id': entity.id }) }}" method="post">
+	            {{ form_widget(delete_form) }}
+	            <button type="submit">{{ 'pi.grid.action.delete'|trans }}</button>
+	        </form>
+	    </li>
+	</ul>
+	
+	<script type="text/javascript">
+	//<![CDATA[
+		$(document).ready(function() {
+			$("button[type='submit']").button();
+		});
+	//]]>
+	</script>	
+	{% endif %}
+	
+{% endblock %}

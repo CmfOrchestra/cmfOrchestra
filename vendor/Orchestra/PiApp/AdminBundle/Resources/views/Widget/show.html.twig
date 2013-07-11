@@ -1,0 +1,97 @@
+{% initJquery 'GRID:grid-table' %}
+{% stylesheet getParameter('pi_app_admin.admin.grid_index_css') %}
+{% stylesheet getParameter('pi_app_admin.admin.theme_css')~":prepend" %}
+
+{% if NoLayout %}
+	{% set layout_nav = 'PiAppTemplateBundle::Template\\Layout\\layout-ajax.html.twig' %}
+{% else %}
+	{% set layout_nav = app.request.attributes.get('orchestra-layout') %}
+{% endif %}	
+{% extends layout_nav %}
+
+{% block title %}
+{% endblock %}
+ 
+{% block content %}
+	<table class="grid">
+		<caption>Translation de widget</caption>
+	    <tbody>
+	        <tr>
+	            <th>Id</th>
+	            <td>{{ entity.id }}</td>
+	        </tr>
+	        <tr>
+	            <th>Plugin</th>
+	            <td>{{ entity.plugin }}</td>
+	        </tr>
+	        <tr>
+	            <th>Action</th>
+	            <td>{{ entity.action }}</td>
+	        </tr>
+	        <tr>
+	            <th>Configcssclass</th>
+	            <td>{{ entity.configCssClass }}</td>
+	        </tr>
+	        <tr>
+	            <th>Configxml</th>
+	            <td>
+	            	{{ entity.configXml }}
+	            	<br /><br />
+	            	{{ entity.configXml|XmlString2array|print_r }}
+	            </td>
+	        </tr>
+	        <tr>
+	            <th>Position</th>
+	            <td>{{ entity.position }}</td>
+	        </tr>
+	        <tr>
+	            <th>Created_at</th>
+	            <td>{{ entity.createdat|date('Y-m-d H:i:s') }}</td>
+	        </tr>
+	        <tr>
+	            <th>Updated_at</th>
+	            <td>{{ entity.updatedat|date('Y-m-d H:i:s') }}</td>
+	        </tr>
+	        <tr>
+	            <th>Archive_at</th>
+	            <td>{{ entity.archiveat|date('Y-m-d H:i:s') }}</td>
+	        </tr>
+	        <tr>
+	            <th>{{ 'pi.grid.action.active'|trans }}</th>
+	            <td>{{ entity.enabled }}</td>
+	        </tr>
+	    </tbody>
+	</table>
+	
+	{% if is_granted('ROLE_ALLOWED_TO_SWITCH') %}
+	<ul class="ui-widget-header">
+	    <li>
+	        <form action="{{ path('admin_blockbywidget_show', { 'id': entity.getBlock().getId(), 'NoLayout': NoLayout }) }}" method="post">
+	            <button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
+	        </form>	
+	    </li>
+	    <li>
+	        <form action="{{ path('admin_widget_edit', { 'id': entity.id, 'NoLayout': NoLayout }) }}" method="post">
+	            <button type="submit">{{ 'pi.grid.action.update'|trans }}</button>
+	        </form>		        
+	    </li>
+	    <li>
+	        <form action="{{ path('admin_widget_delete', { 'id': entity.id, 'NoLayout': NoLayout }) }}" method="post">
+	            {{ form_widget(delete_form) }}
+	            <button type="submit">{{ 'pi.grid.action.delete'|trans }}</button>
+	        </form>
+	    </li>
+	</ul>
+	
+	{% render "PiAppAdminBundle:TranslationWidget:index" with {'widget': entity.id, 'NoLayout': NoLayout} %}
+	
+	<script type="text/javascript">
+	//<![CDATA[
+		$(document).ready(function() {
+			$("button[type='submit']").button();
+		});
+	//]]>
+	</script>
+	{% endif %}
+		
+{% endblock %}	

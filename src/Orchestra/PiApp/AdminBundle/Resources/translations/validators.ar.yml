@@ -1,9 +1,0 @@
-erreur.nom.minlength: يجب أن يكون الاسم على الأقل {{ limit }} حروف
-erreur.slug.minlength: يجب أن يكون اسم سبيكة على الأقل {{ limit }} حروف
-
-erreur.langstatus.notblank: يجب إدخال حالة اللغة
-erreur.status.notblank: يجب إدخال حالة
-erreur.typology.notblank: يجب إدخال التصنيف
-erreur.slug.notblank: يجب إدخال حالة السبيكة
-erreur.title.notblank: يجب إدخال عنوان
-erreur.metacontenttype.notblank: يجب إدخال نوع المحتوى
