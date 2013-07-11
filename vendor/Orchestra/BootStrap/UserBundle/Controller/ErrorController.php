@@ -30,14 +30,14 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
  */
 class ErrorController extends BaseController
 {
-	/**
-	 * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
-	 * @Template()
-	 */
-	public function unauthorizedAction()
-	{
-		$requiredRoles = $this->container->getParameter('security.role_hierarchy.roles');
-		
-		return array('requiredRoles' => $requiredRoles);
-	}	
+    /**
+     * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
+     * @Template()
+     */
+    public function unauthorizedAction()
+    {
+        $requiredRoles = $this->container->getParameter('security.role_hierarchy.roles');
+        
+        return array('requiredRoles' => $requiredRoles);
+    }    
 }

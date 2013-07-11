@@ -58,7 +58,7 @@ class Media extends BaseMedia
      */
     public function __toString()
     {
-    	return (string) $this->getId();
+        return (string) $this->getId();
     }
         
     /**
@@ -68,11 +68,11 @@ class Media extends BaseMedia
      */
     public function setHeritage( array $heritage)
     {
-    	$this->heritage = array();
+        $this->heritage = array();
     
-    	foreach ($heritage as $role) {
-    		$this->addRoleInHeritage($role);
-    	}
+        foreach ($heritage as $role) {
+            $this->addRoleInHeritage($role);
+        }
     }
     
     /**
@@ -82,7 +82,7 @@ class Media extends BaseMedia
      */
     public function getHeritage()
     {
-    	return $this->heritage;
+        return $this->heritage;
     }
     
     /**
@@ -92,10 +92,10 @@ class Media extends BaseMedia
      */
     public function addRoleInHeritage($role)
     {
-    	$role = strtoupper($role);
+        $role = strtoupper($role);
     
-    	if (!in_array($role, $this->heritage, true)) {
-    		$this->heritage[] = $role;
-    	}
+        if (!in_array($role, $this->heritage, true)) {
+            $this->heritage[] = $role;
+        }
     }    
 }

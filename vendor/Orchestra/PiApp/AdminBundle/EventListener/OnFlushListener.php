@@ -28,47 +28,47 @@ use PiApp\AdminBundle\EventListener\CoreListener;
  */
 class OnFlushListener extends CoreListener
 {
-	/**
-	 * Constructs a new instance of SecurityListener.
-	 *
-	 * @param ContainerInterface        $container
-	 */
-	public function __construct(ContainerInterface $container)
-	{
-		parent::__construct($container);
-	}
-		
-	/**
-	 * OnFlush is a very powerful event. It is called inside EntityManager#flush() after 
-	 * the changes to all the managed entities and their associations have been computed.
-	 * This means, the onFlush event has access to the sets of:
-	 *  	Entities scheduled for insert
-	 *		Entities scheduled for update
-	 *		Entities scheduled for removal
-	 *		Collections scheduled for update
-	 *		Collections scheduled for removal
-	 *
-	 * @param \Doctrine\ORM\Event\LifecycleEventArgs $eventArgs
-	 *
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 */	
+    /**
+     * Constructs a new instance of SecurityListener.
+     *
+     * @param ContainerInterface        $container
+     */
+    public function __construct(ContainerInterface $container)
+    {
+        parent::__construct($container);
+    }
+        
+    /**
+     * OnFlush is a very powerful event. It is called inside EntityManager#flush() after 
+     * the changes to all the managed entities and their associations have been computed.
+     * This means, the onFlush event has access to the sets of:
+     *      Entities scheduled for insert
+     *        Entities scheduled for update
+     *        Entities scheduled for removal
+     *        Collections scheduled for update
+     *        Collections scheduled for removal
+     *
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $eventArgs
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */    
     public function onFlush(OnFlushEventArgs  $eventArgs)
     {
-        $entityManager 	= $eventArgs->getEntityManager();
-        $uow 			= $entityManager->getUnitOfWork();
+        $entityManager     = $eventArgs->getEntityManager();
+        $uow             = $entityManager->getUnitOfWork();
         
         
         
-/*     	foreach ($uow->getScheduledEntityInsertions() AS $entity) {
-    		// we persist the values of the entity
-    		$class = $entityManager->getClassMetadata(get_class($entity));
-    		$entityManager->getUnitOfWork()->recomputeSingleEntityChangeSet($class, $entity);
+/*         foreach ($uow->getScheduledEntityInsertions() AS $entity) {
+            // we persist the values of the entity
+            $class = $entityManager->getClassMetadata(get_class($entity));
+            $entityManager->getUnitOfWork()->recomputeSingleEntityChangeSet($class, $entity);
         }
 
         foreach ($uow->getScheduledEntityUpdates() AS $entity) {
-        	// we persist the values of the entity
-        	$class = $entityManager->getClassMetadata(get_class($entity));
-        	$entityManager->getUnitOfWork()->recomputeSingleEntityChangeSet($class, $entity);
+            // we persist the values of the entity
+            $class = $entityManager->getClassMetadata(get_class($entity));
+            $entityManager->getUnitOfWork()->recomputeSingleEntityChangeSet($class, $entity);
         }
 
         foreach ($uow->getScheduledEntityDeletions() AS $entity) {

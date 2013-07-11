@@ -35,29 +35,29 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  */
 class Content extends AbstractDefault 
 {
-	/**
-	 * List of al translatable fields
-	 * 
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_fields	= array('content', 'descriptif');
+    /**
+     * List of al translatable fields
+     * 
+     * @var array
+     * @access  protected
+     */
+    protected $_fields    = array('content', 'descriptif');
 
-	/**
-	 * Name of the Translation Entity
-	 * 
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\ContentTranslation';
-	
-	/**
-	 * @var \Doctrine\Common\Collections\ArrayCollection
-	 *
-	 * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\ContentTranslation", mappedBy="object", cascade={"persist", "remove"})
-	 */
-	protected $translations;	
-	
+    /**
+     * Name of the Translation Entity
+     * 
+     * @var array
+     * @access  protected
+     */
+    protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\ContentTranslation';
+    
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\ContentTranslation", mappedBy="object", cascade={"persist", "remove"})
+     */
+    protected $translations;    
+    
     /**
      * @var bigint
      * 
@@ -118,7 +118,7 @@ class Content extends AbstractDefault
      */    
     public function __construct()
     {
-    	parent::__construct();
+        parent::__construct();
     }    
     
     /**
@@ -130,10 +130,10 @@ class Content extends AbstractDefault
      */    
     public function __toString()
     {
-    	return (string) $this->getCategory() . " > " .$this->getDescriptif ();
+        return (string) $this->getCategory() . " > " .$this->getDescriptif ();
     }    
     
-	/**
+    /**
      * @ORM\PrePersist
      * @ORM\preUpdate
      */
@@ -158,7 +158,7 @@ class Content extends AbstractDefault
      */
     public function setPagecssclass($className)
     {
-    	$this->pagecssclass = $className;
+        $this->pagecssclass = $className;
     }
     
     /**
@@ -168,7 +168,7 @@ class Content extends AbstractDefault
      */
     public function getPagecssclass()
     {
-    	return $this->pagecssclass;
+        return $this->pagecssclass;
     }    
     
     /**
@@ -178,8 +178,8 @@ class Content extends AbstractDefault
      */
     public function setCategory($category)
     {
-    	$this->category = $category;
-    	return $this;
+        $this->category = $category;
+        return $this;
     }
     
     /**
@@ -189,7 +189,7 @@ class Content extends AbstractDefault
      */
     public function getCategory()
     {
-    	return $this->category;
+        return $this->category;
     } 
 
     /**
@@ -199,7 +199,7 @@ class Content extends AbstractDefault
      */
     public function setDescriptif ($descriptif)
     {
-    	$this->descriptif = $descriptif;
+        $this->descriptif = $descriptif;
     }
     
     /**
@@ -209,7 +209,7 @@ class Content extends AbstractDefault
      */
     public function getDescriptif ()
     {
-    	return $this->descriptif;
+        return $this->descriptif;
     }    
 
     /**
@@ -219,7 +219,7 @@ class Content extends AbstractDefault
      */
     public function getContent()
     {
-    	return $this->content;
+        return $this->content;
     }   
 
     /**
@@ -229,7 +229,7 @@ class Content extends AbstractDefault
      */
     public function setContent($text)
     {
-    	$this->content = $text;
+        $this->content = $text;
     }
     
     /**
@@ -239,8 +239,8 @@ class Content extends AbstractDefault
      */
     public function setPageurl($pageurl)
     {
-    	$this->pageurl = $pageurl;
-    	return $this;
+        $this->pageurl = $pageurl;
+        return $this;
     }
     
     /**
@@ -250,7 +250,7 @@ class Content extends AbstractDefault
      */
     public function getPageurl()
     {
-    	return $this->pageurl;
+        return $this->pageurl;
     }   
 
     /**
@@ -260,7 +260,7 @@ class Content extends AbstractDefault
      */
     public function setUrl($url)
     {
-    	$this->url = $url;
+        $this->url = $url;
     }
     
     /**
@@ -270,7 +270,7 @@ class Content extends AbstractDefault
      */
     public function getUrl()
     {
-    	return $this->url;
+        return $this->url;
     }    
 
 }

@@ -32,44 +32,44 @@ class TranslationCssJsPageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-	        ->add('enabled', 'checkbox', array(
-        			'data'  => true,
-        			'label'	=> 'pi.form.label.field.enabled',
-        	))
-        	->add('langCode', 'entity', array(
-					'class' => 'PiAppAdminBundle:Langue',
-        			'query_builder' => function(EntityRepository $er) {
-        				return $er->createQueryBuilder('k')
-        				->select('k')
-        				->where('k.enabled = :enabled')
-        				->orderBy('k.label', 'ASC')
-        				->setParameter('enabled', 1);
-        			},
-        			"label"	=> "pi.form.label.field.language",
-        			"attr" => array(
-        					"class"=>"pi_simpleselect",
-        			),        	
-        	))
-        	->add('langStatus', 'choice', array(
-        			'choices'   => TranslationPageRepository::getAvailableLangStatus(),
-        			'required'  => true,
-        			'multiple'	=> false,
-        			'expanded' => true,
-        			"attr" => array(
-        					"class"=>"greyarrow",
-        			),
-        	))
-        	->add('status', 'choice', array(
-        			'choices'   => TranslationPageRepository::getAvailableStatus(),
-        			'required'  => true,
-        			'multiple'	=> false,
-        			'expanded' => true,
-        	))
-        	
+            ->add('enabled', 'checkbox', array(
+                    'data'  => true,
+                    'label'    => 'pi.form.label.field.enabled',
+            ))
+            ->add('langCode', 'entity', array(
+                    'class' => 'PiAppAdminBundle:Langue',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->createQueryBuilder('k')
+                        ->select('k')
+                        ->where('k.enabled = :enabled')
+                        ->orderBy('k.label', 'ASC')
+                        ->setParameter('enabled', 1);
+                    },
+                    "label"    => "pi.form.label.field.language",
+                    "attr" => array(
+                            "class"=>"pi_simpleselect",
+                    ),            
+            ))
+            ->add('langStatus', 'choice', array(
+                    'choices'   => TranslationPageRepository::getAvailableLangStatus(),
+                    'required'  => true,
+                    'multiple'    => false,
+                    'expanded' => true,
+                    "attr" => array(
+                            "class"=>"greyarrow",
+                    ),
+            ))
+            ->add('status', 'choice', array(
+                    'choices'   => TranslationPageRepository::getAvailableStatus(),
+                    'required'  => true,
+                    'multiple'    => false,
+                    'expanded' => true,
+            ))
+            
             ->add('texte', 'textarea', array(
-            		"attr" => array(
-            				"class"	=>"pi_editor",
-            		),
+                    "attr" => array(
+                            "class"    =>"pi_editor",
+                    ),
             ))
         ;
     }
@@ -81,8 +81,8 @@ class TranslationCssJsPageType extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-    	$resolver->setDefaults(array(
-    			'data_class' => 'PiApp\AdminBundle\Entity\TranslationPage',
-    	));
+        $resolver->setDefaults(array(
+                'data_class' => 'PiApp\AdminBundle\Entity\TranslationPage',
+        ));
     }    
 }

@@ -22,17 +22,17 @@ namespace PiApp\AdminBundle\Twig\Node;
  */
 class JavascriptsNode extends \Twig_Node
 {
-	/**
-     * @param 	\Twig_NodeInterface 	$value
-     * @param 	\Twig_Node_Expression 	$order
-     * @param 	integer 				$lineno
-     * @param 	string 					$tag (optional)
-     * @return 	void
+    /**
+     * @param     \Twig_NodeInterface     $value
+     * @param     \Twig_Node_Expression     $order
+     * @param     integer                 $lineno
+     * @param     string                     $tag (optional)
+     * @return     void
      */
     public function __construct($extensionName, \Twig_NodeInterface $value, $lineno, $tag = null)
     {
-    	$this->extensionName = $extensionName;
-    	
+        $this->extensionName = $extensionName;
+        
         //parent::__construct(array(), array(), $lineno, $tag);
         parent::__construct(array('value' => $value), array(), $lineno, $tag);
     }
@@ -46,10 +46,10 @@ class JavascriptsNode extends \Twig_Node
         $compiler->addDebugInfo($this);
 
         $compiler
-	        ->write(sprintf("echo \$this->env->getExtension('%s')->renderScript(", $this->extensionName))
-	        ->subcompile($this->getNode('value'))
-	        //->raw(', ')
-	        //->subcompile($this->getNode('order'))
-	        ->raw(");\n");
+            ->write(sprintf("echo \$this->env->getExtension('%s')->renderScript(", $this->extensionName))
+            ->subcompile($this->getNode('value'))
+            //->raw(', ')
+            //->subcompile($this->getNode('order'))
+            ->raw(");\n");
     }
 }

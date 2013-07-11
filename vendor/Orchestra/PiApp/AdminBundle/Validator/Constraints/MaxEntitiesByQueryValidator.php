@@ -33,28 +33,28 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class MaxEntitiesByQueryValidator extends ConstraintValidator
 {
-	/**
-	 * @var \Symfony\Component\DependencyInjection\ContainerInterface
-	 */
-	protected $container;
-	
-	/**
-	 * Constructor.
-	 *
-	 * @param ContainerInterface $container The service container
-	 */
-	public function __construct(ContainerInterface $container)
-	{
-		$this->container = $container;
-	}
+    /**
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */
+    protected $container;
+    
+    /**
+     * Constructor.
+     *
+     * @param ContainerInterface $container The service container
+     */
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
     
     public function isValid($value, Constraint $constraint) 
     {
-    	$em 		= $this->container->get('doctrine')->getEntityManager();
-    	
+        $em         = $this->container->get('doctrine')->getEntityManager();
+        
         // try to get one entity that matches the constraint
-        $entities	= $em->getRepository($constraint->entity)->findBy(json_decode(str_replace("'",'"',$constraint->field), true));
-        $max		= $constraint->max;
+        $entities    = $em->getRepository($constraint->entity)->findBy(json_decode(str_replace("'",'"',$constraint->field), true));
+        $max        = $constraint->max;
         
         // if there is already an entity
         if ( ($entities != null) && !empty($value) && (count($entities) > $max) ){

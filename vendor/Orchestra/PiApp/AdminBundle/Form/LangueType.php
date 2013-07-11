@@ -25,50 +25,50 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class LangueType extends AbstractType
 {
-	/**
-	 * @var string
-	 */
-	protected $_locale;
-	
-	/**
-	 * @var string
-	 */
-	protected $_isEdit;	
-	
-	/**
-	 * Constructor.
-	 *
-	 * @param \Doctrine\ORM\EntityManager $em
-	 * @param string	$locale
-	 * @return void
-	 */
-	public function __construct($locale, $isEdit = false)
-	{
-		$this->_locale	= $locale;
-		$this->_isEdit	= $isEdit;
-	}
-		
+    /**
+     * @var string
+     */
+    protected $_locale;
+    
+    /**
+     * @var string
+     */
+    protected $_isEdit;    
+    
+    /**
+     * Constructor.
+     *
+     * @param \Doctrine\ORM\EntityManager $em
+     * @param string    $locale
+     * @return void
+     */
+    public function __construct($locale, $isEdit = false)
+    {
+        $this->_locale    = $locale;
+        $this->_isEdit    = $isEdit;
+    }
+        
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-    	if ($this->_isEdit)
-    		$read_only = true;
-    	else
-    		$read_only = false;
-    	    	
+        if ($this->_isEdit)
+            $read_only = true;
+        else
+            $read_only = false;
+                
         $builder
-        	->add('enabled', 'checkbox', array(
-            		'data'  => true,
- 					'label'	=> 'pi.form.label.field.enabled',
+            ->add('enabled', 'checkbox', array(
+                    'data'  => true,
+                     'label'    => 'pi.form.label.field.enabled',
             ))
             ->add('id', 'choice', array(
-            		'choices'   => \PiApp\AdminBundle\Util\PiStringManager::allLocales($this->_locale), //array('fr_FR'=>'fr', 'en_GB'=>'en'),
-            		'multiple'	=> false,
-            		'required'  => true,
-            		'empty_value' => 'pi.form.label.select.choose.option',
-            		"attr" => array(
-            				"class"=>"pi_simpleselect",
-            		),
-            		'read_only'	=> $read_only,
+                    'choices'   => \PiApp\AdminBundle\Util\PiStringManager::allLocales($this->_locale), //array('fr_FR'=>'fr', 'en_GB'=>'en'),
+                    'multiple'    => false,
+                    'required'  => true,
+                    'empty_value' => 'pi.form.label.select.choose.option',
+                    "attr" => array(
+                            "class"=>"pi_simpleselect",
+                    ),
+                    'read_only'    => $read_only,
             ))
             ->add('label')
         ;

@@ -121,9 +121,9 @@ class Block
     
     public function __construct()
     {
-    	$this->widgets = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->widgets = new \Doctrine\Common\Collections\ArrayCollection();
     
-    	$this->setEnabled(true);
+        $this->setEnabled(true);
     }    
 
     /**
@@ -134,7 +134,7 @@ class Block
      *
      */
     public function __toString() {
-    	return (string) $this->name;
+        return (string) $this->name;
     }
 
     /**
@@ -295,7 +295,7 @@ class Block
      */
     public function addWidget(\PiApp\AdminBundle\Entity\Widget $widgets)
     {
-    	$this->widgets->add($widgets);
+        $this->widgets->add($widgets);
         $widgets->setBlock($this);
     }
 
@@ -316,7 +316,7 @@ class Block
      */
     public function setCreatedAt($createdAt)
     {
-    	$this->created_at = $createdAt;
+        $this->created_at = $createdAt;
     }
     
     /**
@@ -326,7 +326,7 @@ class Block
      */
     public function getCreatedAt()
     {
-    	return $this->created_at;
+        return $this->created_at;
     }
     
     /**
@@ -336,7 +336,7 @@ class Block
      */
     public function setUpdatedAt($updatedAt)
     {
-    	$this->updated_at = $updatedAt;
+        $this->updated_at = $updatedAt;
     }
     
     /**
@@ -346,7 +346,7 @@ class Block
      */
     public function getUpdatedAt()
     {
-    	return $this->updated_at;
+        return $this->updated_at;
     }
     
     /**
@@ -356,7 +356,7 @@ class Block
      */
     public function setArchiveAt($archiveAt)
     {
-    	$this->archive_at = $archiveAt;
+        $this->archive_at = $archiveAt;
     }
     
     /**
@@ -366,7 +366,7 @@ class Block
      */
     public function getArchiveAt()
     {
-    	return $this->archive_at;
+        return $this->archive_at;
     }    
     
     /**
@@ -376,7 +376,7 @@ class Block
      */
     public function setEnabled($enabled)
     {
-    	$this->enabled = $enabled;
+        $this->enabled = $enabled;
     }
     
     /**
@@ -386,7 +386,7 @@ class Block
      */
     public function getEnabled()
     {
-    	return $this->enabled;
+        return $this->enabled;
     }   
 
     /**
@@ -396,8 +396,8 @@ class Block
      */
     public function setArchived($archived)
     {
-    	$this->archived = $archived;
-    	return $this;
+        $this->archived = $archived;
+        return $this;
     }
     
     /**
@@ -407,7 +407,7 @@ class Block
      */
     public function getArchived()
     {
-    	return $this->archived;
+        return $this->archived;
     }    
     
 }

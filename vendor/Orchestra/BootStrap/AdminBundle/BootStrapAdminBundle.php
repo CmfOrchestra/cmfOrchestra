@@ -26,35 +26,35 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 class BootStrapAdminBundle extends Bundle
 {
-	/**
-	 * Builds the bundle.
-	 *
-	 * It is only ever called once when the cache is empty.
-	 *
-	 * This method can be overridden to register compilation passes,
-	 * other extensions, ...
-	 *
-	 * @param ContainerBuilder $container A ContainerBuilder instance
-	 */
-	public function build(ContainerBuilder $container)
-	{
-		parent::build($container);
-		//print_r('PiApptest1');
-	}
-	
-	/**
-	 * Boots the Bundle.
-	 */
-	public function boot()
-	{
-		//print_r('PiApptest2');
-	}
-	
-	/**
-	 * Shutdowns the Bundle.
-	 */
-	public function shutdown()
-	{
-	}
-	
+    /**
+     * Builds the bundle.
+     *
+     * It is only ever called once when the cache is empty.
+     *
+     * This method can be overridden to register compilation passes,
+     * other extensions, ...
+     *
+     * @param ContainerBuilder $container A ContainerBuilder instance
+     */
+    public function build(ContainerBuilder $container)
+    {
+        parent::build($container);
+        //print_r('PiApptest1');
+    }
+    
+    /**
+     * Boots the Bundle.
+     */
+    public function boot()
+    {
+        //print_r('PiApptest2');
+    }
+    
+    /**
+     * Shutdowns the Bundle.
+     */
+    public function shutdown()
+    {
+    }
+    
 }

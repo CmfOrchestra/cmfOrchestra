@@ -19,8 +19,8 @@ class CacheClientStatsCommand extends ContainerAwareCommand
    /**
     * Configure the CLI task
     * 
-	* <code>
-    * 	php app/console cacheclient:stats
+    * <code>
+    *     php app/console cacheclient:stats
     *   php app/console help cacheclient:stats
     *   php app/console cacheclient:stats --debug
     * </code>

@@ -27,12 +27,12 @@ use PiApp\AdminBundle\Entity\Layout;
  */
 class LayoutsFixtures extends AbstractFixture implements OrderedFixtureInterface
 {
-	/**
-	 * Load language fixtures
-	 *
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 * @since 2011-12-28
-	 */
+    /**
+     * Load language fixtures
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @since 2011-12-28
+     */
     public function load(ObjectManager $manager)
     {
         $field1 = new Layout();
@@ -67,15 +67,15 @@ class LayoutsFixtures extends AbstractFixture implements OrderedFixtureInterface
         $field6->setFileMobile('Default');
         $field6->setConfigXml('<?xml version="1.0"?>
 <config>
-	<blocks>
-		<name>pc_header</name>
-		<name>pc_menuwrapper</name>
-		<name>content</name>
-		<name>pc_footer</name>
-		<name>mobile_novHeader</name>
-		<name>mobile_content</name>
-		<name>mobile_novFooter</name>
-	</blocks>
+    <blocks>
+        <name>pc_header</name>
+        <name>pc_menuwrapper</name>
+        <name>content</name>
+        <name>pc_footer</name>
+        <name>mobile_novHeader</name>
+        <name>mobile_content</name>
+        <name>mobile_novFooter</name>
+    </blocks>
 </config>');
         $field6->setEnabled(true);
         $manager->persist($field6);
@@ -86,15 +86,15 @@ class LayoutsFixtures extends AbstractFixture implements OrderedFixtureInterface
         $field7->setFileMobile('Default');
         $field7->setConfigXml('<?xml version="1.0"?>
 <config>
-	<blocks>
-		<name>pc_header</name>
-		<name>pc_menuwrapper</name>
-		<name>content</name>
-		<name>pc_footer</name>
-		<name>mobile_novHeader</name>
-		<name>mobile_content</name>
-		<name>mobile_novFooter</name>
-	</blocks>
+    <blocks>
+        <name>pc_header</name>
+        <name>pc_menuwrapper</name>
+        <name>content</name>
+        <name>pc_footer</name>
+        <name>mobile_novHeader</name>
+        <name>mobile_content</name>
+        <name>mobile_novFooter</name>
+    </blocks>
 </config>');
         $field7->setEnabled(true);
         $manager->persist($field7);   
@@ -105,15 +105,15 @@ class LayoutsFixtures extends AbstractFixture implements OrderedFixtureInterface
         $field8->setFileMobile('Default');
         $field8->setConfigXml('<?xml version="1.0"?>
 <config>
-	<blocks>
-		<name>pc_header</name>
-		<name>pc_menuwrapper</name>
-		<name>content</name>
-		<name>pc_footer</name>
-		<name>mobile_novHeader</name>
-		<name>mobile_content</name>
-		<name>mobile_novFooter</name>
-	</blocks>
+    <blocks>
+        <name>pc_header</name>
+        <name>pc_menuwrapper</name>
+        <name>content</name>
+        <name>pc_footer</name>
+        <name>mobile_novHeader</name>
+        <name>mobile_content</name>
+        <name>mobile_novFooter</name>
+    </blocks>
 </config>');
         $field8->setEnabled(true);
         $manager->persist($field8);      
@@ -124,15 +124,15 @@ class LayoutsFixtures extends AbstractFixture implements OrderedFixtureInterface
         $field9->setFileMobile('Default');
         $field9->setConfigXml('<?xml version="1.0"?>
 <config>
-	<blocks>
-		<name>pc_header</name>
-		<name>pc_menuwrapper</name>
-		<name>content</name>
-		<name>pc_footer</name>
-		<name>mobile_novHeader</name>
-		<name>mobile_content</name>
-		<name>mobile_novFooter</name>
-	</blocks>
+    <blocks>
+        <name>pc_header</name>
+        <name>pc_menuwrapper</name>
+        <name>content</name>
+        <name>pc_footer</name>
+        <name>mobile_novHeader</name>
+        <name>mobile_content</name>
+        <name>mobile_novFooter</name>
+    </blocks>
 </config>');
         $field9->setEnabled(true);
         $manager->persist($field9);  
@@ -143,15 +143,15 @@ class LayoutsFixtures extends AbstractFixture implements OrderedFixtureInterface
         $field10->setFileMobile('Default');
         $field10->setConfigXml('<?xml version="1.0"?>
 <config>
-	<blocks>
-		<name>pc_header</name>
-		<name>pc_menuwrapper</name>
-		<name>content</name>
-		<name>pc_footer</name>
-		<name>mobile_novHeader</name>
-		<name>mobile_content</name>
-		<name>mobile_novFooter</name>
-	</blocks>
+    <blocks>
+        <name>pc_header</name>
+        <name>pc_menuwrapper</name>
+        <name>content</name>
+        <name>pc_footer</name>
+        <name>mobile_novHeader</name>
+        <name>mobile_content</name>
+        <name>mobile_novFooter</name>
+    </blocks>
 </config>');
         $field10->setEnabled(true);
         $manager->persist($field10);  
@@ -162,16 +162,16 @@ class LayoutsFixtures extends AbstractFixture implements OrderedFixtureInterface
         $field11->setFileMobile('Default');
         $field11->setConfigXml('<?xml version="1.0"?>
 <config>
-	<blocks>
-		<name>pc_header</name>
-		<name>pc_menuwrapper</name>
-		<name>content_secondaire</name>
-		<name>content</name>
-		<name>pc_footer</name>
-		<name>mobile_novHeader</name>
-		<name>mobile_content</name>
-		<name>mobile_novFooter</name>
-	</blocks>
+    <blocks>
+        <name>pc_header</name>
+        <name>pc_menuwrapper</name>
+        <name>content_secondaire</name>
+        <name>content</name>
+        <name>pc_footer</name>
+        <name>mobile_novHeader</name>
+        <name>mobile_content</name>
+        <name>mobile_novFooter</name>
+    </blocks>
 </config>');
         $field11->setEnabled(true);
         $manager->persist($field11);       
@@ -182,16 +182,16 @@ class LayoutsFixtures extends AbstractFixture implements OrderedFixtureInterface
         $field12->setFileMobile('Default');
         $field12->setConfigXml('<?xml version="1.0"?>
 <config>
-	<blocks>
-		<name>pc_header</name>
-		<name>pc_menuwrapper</name>
-		<name>content</name>
-		<name>content_secondaire</name>
-		<name>pc_footer</name>
-		<name>mobile_novHeader</name>
-		<name>mobile_content</name>
-		<name>mobile_novFooter</name>
-	</blocks>
+    <blocks>
+        <name>pc_header</name>
+        <name>pc_menuwrapper</name>
+        <name>content</name>
+        <name>content_secondaire</name>
+        <name>pc_footer</name>
+        <name>mobile_novHeader</name>
+        <name>mobile_content</name>
+        <name>mobile_novFooter</name>
+    </blocks>
 </config>');
         $field12->setEnabled(true);
         $manager->persist($field12);      
@@ -202,16 +202,16 @@ class LayoutsFixtures extends AbstractFixture implements OrderedFixtureInterface
         $field13->setFileMobile('Default');
         $field13->setConfigXml('<?xml version="1.0"?>
 <config>
-	<blocks>
-		<name>pc_header</name>
-		<name>pc_menuwrapper</name>
-		<name>content</name>
+    <blocks>
+        <name>pc_header</name>
+        <name>pc_menuwrapper</name>
+        <name>content</name>
         <name>content_secondaire</name>
-		<name>pc_footer</name>
-		<name>mobile_novHeader</name>
-		<name>mobile_content</name>
-		<name>mobile_novFooter</name>
-	</blocks>
+        <name>pc_footer</name>
+        <name>mobile_novHeader</name>
+        <name>mobile_content</name>
+        <name>mobile_novFooter</name>
+    </blocks>
 </config>');
         $field13->setEnabled(true);
         $manager->persist($field13);    
@@ -222,15 +222,15 @@ class LayoutsFixtures extends AbstractFixture implements OrderedFixtureInterface
         $field14->setFileMobile('Default');
         $field14->setConfigXml('<?xml version="1.0"?>
 <config>
-	<blocks>
-		<name>pc_header</name>
-		<name>pc_menuwrapper</name>
-		<name>content</name>
-		<name>pc_footer</name>
-		<name>mobile_novHeader</name>
-		<name>mobile_content</name>
-		<name>mobile_novFooter</name>
-	</blocks>
+    <blocks>
+        <name>pc_header</name>
+        <name>pc_menuwrapper</name>
+        <name>content</name>
+        <name>pc_footer</name>
+        <name>mobile_novHeader</name>
+        <name>mobile_content</name>
+        <name>mobile_novFooter</name>
+    </blocks>
 </config>');
         $field14->setEnabled(true);
         $manager->persist($field14);   
@@ -241,14 +241,14 @@ class LayoutsFixtures extends AbstractFixture implements OrderedFixtureInterface
         $field15->setFileMobile('Default');
         $field15->setConfigXml('<?xml version="1.0"?>
 <config>
-	<blocks>
-		<name>pc_header</name>
-		<name>pc_menuwrapper</name>
-		<name>content</name>
-		<name>mobile_novHeader</name>
-		<name>mobile_content</name>
-		<name>mobile_novFooter</name>
-	</blocks>
+    <blocks>
+        <name>pc_header</name>
+        <name>pc_menuwrapper</name>
+        <name>content</name>
+        <name>mobile_novHeader</name>
+        <name>mobile_content</name>
+        <name>mobile_novFooter</name>
+    </blocks>
 </config>');
         $field15->setEnabled(true);
         $manager->persist($field15);     
@@ -259,15 +259,15 @@ class LayoutsFixtures extends AbstractFixture implements OrderedFixtureInterface
         $field16->setFileMobile('Default');
         $field16->setConfigXml('<?xml version="1.0"?>
 <config>
-	<blocks>
-		<name>pc_header</name>
-		<name>pc_menuwrapper</name>
-		<name>content</name>
-		<name>pc_footer</name>
-		<name>mobile_novHeader</name>
-		<name>mobile_content</name>
-		<name>mobile_novFooter</name>
-	</blocks>
+    <blocks>
+        <name>pc_header</name>
+        <name>pc_menuwrapper</name>
+        <name>content</name>
+        <name>pc_footer</name>
+        <name>mobile_novHeader</name>
+        <name>mobile_content</name>
+        <name>mobile_novFooter</name>
+    </blocks>
 </config>');
         $field16->setEnabled(true);
         $manager->persist($field16);        
@@ -301,7 +301,7 @@ class LayoutsFixtures extends AbstractFixture implements OrderedFixtureInterface
      */
     public function getOrder()
     {
-    	// The order in which fixtures will be loaded
-    	return 2;
+        // The order in which fixtures will be loaded
+        return 2;
     }    
 }

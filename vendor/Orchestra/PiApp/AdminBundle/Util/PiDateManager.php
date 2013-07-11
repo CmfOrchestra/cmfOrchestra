@@ -18,8 +18,8 @@ use PiApp\AdminBundle\Builder\PiDateManagerBuilderInterface;
  * Description of date manager
  *
  * <code>
- * 	$dateFormatter	= $container->get('pi_app_admin.date_manager');
- *  $result			= $dateFormatter->parse('December 20, 2011', 'en_GB'); // obtains a datetime instance
+ *     $dateFormatter    = $container->get('pi_app_admin.date_manager');
+ *  $result            = $dateFormatter->parse('December 20, 2011', 'en_GB'); // obtains a datetime instance
  *  echo $dateFormatter->format($result, 'long', 'none', 'fr'); // echoes : "20 décembre 2011"
  * </code>
  * 
@@ -77,13 +77,13 @@ class PiDateManager implements PiDateManagerBuilderInterface
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function format($date, $dateType = 'medium', $timeType = 'none', $locale = null, $pattern = null)
-    {	
-    	if (is_string($date))
-    		$date = intval($date);
-    	
-    	if (version_compare(\PHP_VERSION, '5.3.4', '<') && !is_int($date) && is_object($date)) {
-    		$date = $date->getTimestamp();
-    	}
+    {    
+        if (is_string($date))
+            $date = intval($date);
+        
+        if (version_compare(\PHP_VERSION, '5.3.4', '<') && !is_int($date) && is_object($date)) {
+            $date = $date->getTimestamp();
+        }
         $dateFormater = \IntlDateFormatter::create($locale ?: \Locale::getDefault(), $this->formats[$dateType], $this->formats[$timeType], date_default_timezone_get(), null, $pattern);
         return $dateFormater->format($date);
     }
@@ -101,38 +101,38 @@ class PiDateManager implements PiDateManagerBuilderInterface
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function parseTimestamp($date, $locale = null) {
-    	if ($date == 'now'){
-    		$result = new \DateTime();
-    		return $result->getTimestamp();
-    	} else {
-	        // try time default formats
-	        foreach ($this->formats as $timeFormat) {
-	            // try date default formats
-	            foreach($this->formats as $dateFormat) {
-	                $dateFormater = \IntlDateFormatter::create($locale ?: \Locale::getDefault(), $dateFormat, $timeFormat, date_default_timezone_get());
-	                $timestamp = $dateFormater->parse($date);
-	                
-	                if ($dateFormater->getErrorCode() == 0) {
-	                    return $timestamp;
-	                }
-	            }
-	        }
-	        
-	        // try other custom formats
-	        $formats = array(
-	            'MMMM yyyy', // november 2011 - nov. 2011
-	        );
-	        foreach($formats as $format) {
-	            $dateFormater = \IntlDateFormatter::create($locale ?: \Locale::getDefault(), $this->formats['none'], $this->formats['none'],  date_default_timezone_get(), \IntlDateFormatter::GREGORIAN, $format);
-	            $timestamp = $dateFormater->parse($date);
-	            
-	            if ($dateFormater->getErrorCode() == 0) {
-	                return $timestamp;
-	            }
-	        }
-	        
-	        throw new \Exception('"'.$date.'" could not be converted to \DateTime');
-    	}
+        if ($date == 'now'){
+            $result = new \DateTime();
+            return $result->getTimestamp();
+        } else {
+            // try time default formats
+            foreach ($this->formats as $timeFormat) {
+                // try date default formats
+                foreach($this->formats as $dateFormat) {
+                    $dateFormater = \IntlDateFormatter::create($locale ?: \Locale::getDefault(), $dateFormat, $timeFormat, date_default_timezone_get());
+                    $timestamp = $dateFormater->parse($date);
+                    
+                    if ($dateFormater->getErrorCode() == 0) {
+                        return $timestamp;
+                    }
+                }
+            }
+            
+            // try other custom formats
+            $formats = array(
+                'MMMM yyyy', // november 2011 - nov. 2011
+            );
+            foreach($formats as $format) {
+                $dateFormater = \IntlDateFormatter::create($locale ?: \Locale::getDefault(), $this->formats['none'], $this->formats['none'],  date_default_timezone_get(), \IntlDateFormatter::GREGORIAN, $format);
+                $timestamp = $dateFormater->parse($date);
+                
+                if ($dateFormater->getErrorCode() == 0) {
+                    return $timestamp;
+                }
+            }
+            
+            throw new \Exception('"'.$date.'" could not be converted to \DateTime');
+        }
     }
     
     /**
@@ -148,41 +148,41 @@ class PiDateManager implements PiDateManagerBuilderInterface
      */
     public function relative_time($when, $from = null)
     {
-    	fallback($from, time());
+        fallback($from, time());
     
-    	$time = (is_numeric($when)) ? $when : strtotime($when) ;
+        $time = (is_numeric($when)) ? $when : strtotime($when) ;
     
-    	$difference = $from - $time;
+        $difference = $from - $time;
     
-    	if ($difference < 0) {
-    		$word = "from now";
-    		$difference = -$difference;
-    	} elseif ($difference > 0)
-    	$word = "ago";
-    	else
-    		return "just now";
+        if ($difference < 0) {
+            $word = "from now";
+            $difference = -$difference;
+        } elseif ($difference > 0)
+        $word = "ago";
+        else
+            return "just now";
     
-    	$units = array("second"     => 1,
-    			"minute"     => 60,
-    			"hour"       => 60 * 60,
-    			"day"        => 60 * 60 * 24,
-    			"week"       => 60 * 60 * 24 * 7,
-    			"month"      => 60 * 60 * 24 * 30,
-    			"year"       => 60 * 60 * 24 * 365,
-    			"decade"     => 60 * 60 * 24 * 365 * 10,
-    			"century"    => 60 * 60 * 24 * 365 * 100,
-    			"millennium" => 60 * 60 * 24 * 365 * 1000);
+        $units = array("second"     => 1,
+                "minute"     => 60,
+                "hour"       => 60 * 60,
+                "day"        => 60 * 60 * 24,
+                "week"       => 60 * 60 * 24 * 7,
+                "month"      => 60 * 60 * 24 * 30,
+                "year"       => 60 * 60 * 24 * 365,
+                "decade"     => 60 * 60 * 24 * 365 * 10,
+                "century"    => 60 * 60 * 24 * 365 * 100,
+                "millennium" => 60 * 60 * 24 * 365 * 1000);
     
-    	$possible_units = array();
-    	foreach ($units as $name => $val)
-    		if (($name == "week" and $difference >= ($val * 2)) or # Only say "weeks" after two have passed.
-    				($name != "week" and $difference >= $val))
-    		$unit = $possible_units[] = $name;
+        $possible_units = array();
+        foreach ($units as $name => $val)
+            if (($name == "week" and $difference >= ($val * 2)) or # Only say "weeks" after two have passed.
+                    ($name != "week" and $difference >= $val))
+            $unit = $possible_units[] = $name;
     
-    	$precision = (int) in_array("year", $possible_units);
-    	$amount = round($difference / $units[$unit], $precision);
+        $precision = (int) in_array("year", $possible_units);
+        $amount = round($difference / $units[$unit], $precision);
     
-    	return $amount." ".pluralize($unit, $amount)." ".$word;
+        return $amount." ".pluralize($unit, $amount)." ".$word;
     } 
     
     /**
@@ -197,12 +197,12 @@ class PiDateManager implements PiDateManagerBuilderInterface
      */
     public function allMonths($locale)
     {
-    	$month_name = array();
-    	for($i=1;$i<=12;$i++){
-    		if ($i<=9) $key = '0'.$i; else $key = $i;
-    		$month_name[$key] = $this->format(new \DateTime(date( 'Y-m-d', mktime(0, 0, 0, $i))), 'long','medium', $locale, 'MMMM');
-    	}
-    	return	$month_name;
+        $month_name = array();
+        for($i=1;$i<=12;$i++){
+            if ($i<=9) $key = '0'.$i; else $key = $i;
+            $month_name[$key] = $this->format(new \DateTime(date( 'Y-m-d', mktime(0, 0, 0, $i))), 'long','medium', $locale, 'MMMM');
+        }
+        return    $month_name;
     } 
     
     /**
@@ -217,12 +217,12 @@ class PiDateManager implements PiDateManagerBuilderInterface
      */
     public function allDays($locale)
     {
-    	$day_name = array();
-    	for($i=1;$i<=7;$i++){
-    		if ($i<=9) $key = '0'.$i; else $key = $i;
-    		$day_name[$key] = $this->format(new \DateTime( date('Y-m-d', strtotime("+$i day", strtotime("2013-02-17")))), 'long','medium', $locale, 'EEEE');
-    	}
-    	return	$day_name;
+        $day_name = array();
+        for($i=1;$i<=7;$i++){
+            if ($i<=9) $key = '0'.$i; else $key = $i;
+            $day_name[$key] = $this->format(new \DateTime( date('Y-m-d', strtotime("+$i day", strtotime("2013-02-17")))), 'long','medium', $locale, 'EEEE');
+        }
+        return    $day_name;
     }    
     
     /**
@@ -231,9 +231,9 @@ class PiDateManager implements PiDateManagerBuilderInterface
      * @param string $year
      * @param string $month
      * @param string $day
-     * @param string $order		['last','next']
-     * @param string $number	
-     * @param string $type		['year','month','day']
+     * @param string $order        ['last','next']
+     * @param string $number    
+     * @param string $type        ['year','month','day']
      * @param string $format
      * @access public
      * @return array
@@ -243,23 +243,23 @@ class PiDateManager implements PiDateManagerBuilderInterface
      */
     public function nextOrLastList($year, $month, $day, $order, $number, $type = 'month', $format = 'Y-m-d')
     {
-    	$month 		= str_replace(array('00','01','02','03','04','05','06','07','08','09'),array('0','1','2','3','4','5','6','7','8','9'),$month);
-    	$day 		= str_replace(array('00','01','02','03','04','05','06','07','08','09'),array('0','1','2','3','4','5','6','7','8','9'),$day);
-    	$date 		= "{$year}-{$month}-{$day}";
-    	
-        $first  	= strtotime($date);
-    	$results 	= array();
-    	
-    	if ($order == 'next'){
-    		for ($i = 0; $i < $number; $i++) {
-    			array_push($results, date($format, strtotime("+$i $type", $first)));
-    		}
-    	} else {
-    		for ($i = $number-1; $i >= 0; $i--) {
-    			array_push($results, date($format, strtotime("-$i $type", $first)));
-    		}
-    	}
-    	return $results;
+        $month         = str_replace(array('00','01','02','03','04','05','06','07','08','09'),array('0','1','2','3','4','5','6','7','8','9'),$month);
+        $day         = str_replace(array('00','01','02','03','04','05','06','07','08','09'),array('0','1','2','3','4','5','6','7','8','9'),$day);
+        $date         = "{$year}-{$month}-{$day}";
+        
+        $first      = strtotime($date);
+        $results     = array();
+        
+        if ($order == 'next'){
+            for ($i = 0; $i < $number; $i++) {
+                array_push($results, date($format, strtotime("+$i $type", $first)));
+            }
+        } else {
+            for ($i = $number-1; $i >= 0; $i--) {
+                array_push($results, date($format, strtotime("-$i $type", $first)));
+            }
+        }
+        return $results;
     }    
 
     /**
@@ -274,37 +274,37 @@ class PiDateManager implements PiDateManagerBuilderInterface
      */
     public function createdAgoFilter(\DateTime $dateTime)
     {
-    	$delta = time() - $dateTime->getTimestamp();
-    	if ($delta < 0)
-    		//throw new \Exception("createdAgo is unable to handle dates in the future");
-    		return '';
+        $delta = time() - $dateTime->getTimestamp();
+        if ($delta < 0)
+            //throw new \Exception("createdAgo is unable to handle dates in the future");
+            return '';
     
-    	$duration = "";
-    	if ($delta < 60)
-    	{
-    		// Seconds
-    		$time = $delta;
-    		$duration = $time . " second" . (($time === 0 || $time > 1) ? "s" : "") . " ago";
-    	}
-    	else if ($delta < 3600)
-    	{
-    		// Mins
-    		$time = floor($delta / 60);
-    		$duration = $time . " minute" . (($time > 1) ? "s" : "") . " ago";
-    	}
-    	else if ($delta < 86400)
-    	{
-    		// Hours
-    		$time = floor($delta / 3600);
-    		$duration = $time . " hour" . (($time > 1) ? "s" : "") . " ago";
-    	}
-    	else
-    	{
-    		// Days
-    		$time = floor($delta / 86400);
-    		$duration = $time . " day" . (($time > 1) ? "s" : "") . " ago";
-    	}
+        $duration = "";
+        if ($delta < 60)
+        {
+            // Seconds
+            $time = $delta;
+            $duration = $time . " second" . (($time === 0 || $time > 1) ? "s" : "") . " ago";
+        }
+        else if ($delta < 3600)
+        {
+            // Mins
+            $time = floor($delta / 60);
+            $duration = $time . " minute" . (($time > 1) ? "s" : "") . " ago";
+        }
+        else if ($delta < 86400)
+        {
+            // Hours
+            $time = floor($delta / 3600);
+            $duration = $time . " hour" . (($time > 1) ? "s" : "") . " ago";
+        }
+        else
+        {
+            // Days
+            $time = floor($delta / 86400);
+            $duration = $time . " day" . (($time > 1) ? "s" : "") . " ago";
+        }
     
-    	return $duration;
+        return $duration;
     }    
 }

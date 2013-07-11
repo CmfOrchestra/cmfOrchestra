@@ -16,8 +16,8 @@ namespace PiApp\AdminBundle\Manager\SearchLucene;
 /**
  * Analyzer removes all accents and round the string lowercase.
  *
- * @uses	\Zend_Search_Lucene_Exception
- * @uses	\Zend_Search_Lucene_Analysis_Token
+ * @uses    \Zend_Search_Lucene_Exception
+ * @uses    \Zend_Search_Lucene_Analysis_Token
  * @category   Admin_Managers
  * @package    Search
  * @subpackage Indexation
@@ -133,7 +133,7 @@ class Analyzer_Accent extends \Zend_Search_Lucene_Analysis_Analyzer
      */
     public function addFilter(\Zend_Search_Lucene_Analysis_TokenFilter $filter)
     {
-    	$this->_filters[] = $filter;
+        $this->_filters[] = $filter;
     }
     
     /**
@@ -144,20 +144,20 @@ class Analyzer_Accent extends \Zend_Search_Lucene_Analysis_Analyzer
      */
     public function normalize(\Zend_Search_Lucene_Analysis_Token $token)
     {
-    	foreach ($this->_filters as $filter) {
-    		$token = $filter->normalize($token);
+        foreach ($this->_filters as $filter) {
+            $token = $filter->normalize($token);
     
-    		// resulting token can be null if the filter removes it
-    		if ($token === null) {
-    			return null;
-    		}
-    	}
+            // resulting token can be null if the filter removes it
+            if ($token === null) {
+                return null;
+            }
+        }
     
-    	return $token;
+        return $token;
     } 
     
     private function deleteAccent($str)
     {
-    	return iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $str);
+        return iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $str);
     }           
 }

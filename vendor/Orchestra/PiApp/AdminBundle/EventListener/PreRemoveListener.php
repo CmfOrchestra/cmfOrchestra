@@ -30,38 +30,38 @@ use PiApp\AdminBundle\EventListener\CoreListener;
  */
 class PreRemoveListener extends CoreListener
 {
-	/**
-	 * Constructs a new instance of SecurityListener.
-	 * 
-	 * @param ContainerInterface        $container
-	 */
-	public function __construct(ContainerInterface $container)
-	{
-		parent::__construct($container);
-	}
-		
-	/**
-	 * Method which will be called when the event is thrown.
-	 *
-	 *
-	 * @param \Doctrine\ORM\Event\LifecycleEventArgs $eventArgs
-	 *
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 */	
+    /**
+     * Constructs a new instance of SecurityListener.
+     * 
+     * @param ContainerInterface        $container
+     */
+    public function __construct(ContainerInterface $container)
+    {
+        parent::__construct($container);
+    }
+        
+    /**
+     * Method which will be called when the event is thrown.
+     *
+     *
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $eventArgs
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */    
     public function PreRemove(LifecycleEventArgs $eventArgs)
     {
-    	// we set the pre remove management
-    	// BE CAREFUL !!! this method has to be used in the last of your LifecycleEvent management.
-    	$this->_preRemove($eventArgs);
+        // we set the pre remove management
+        // BE CAREFUL !!! this method has to be used in the last of your LifecycleEvent management.
+        $this->_preRemove($eventArgs);
 
-    	// Method which will be called when we try to delete the home page.
-    	$this->_Undelete_HomePage($eventArgs);    	
-    	
-    	// Method which will be called when we delete all caches of the page and the row in relation with the pi_routing table.
-    	$this->_Delete_Permission_Page_ByUser($eventArgs);
-    	
-    	// we set the PostPersist search lucene management
-    	$this->_Search_lucene($eventArgs, 'delete');
+        // Method which will be called when we try to delete the home page.
+        $this->_Undelete_HomePage($eventArgs);        
+        
+        // Method which will be called when we delete all caches of the page and the row in relation with the pi_routing table.
+        $this->_Delete_Permission_Page_ByUser($eventArgs);
+        
+        // we set the PostPersist search lucene management
+        $this->_Search_lucene($eventArgs, 'delete');
     }  
     
 }

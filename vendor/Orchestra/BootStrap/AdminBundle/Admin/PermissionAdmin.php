@@ -32,11 +32,11 @@ use FOS\UserBundle\Model\UserManagerInterface;
  */
 class PermissionAdmin extends Admin
 {
-	protected $translationDomain = 'permission';
-	
-	protected $baseRoutePattern		= '/permission';
-	
-	
+    protected $translationDomain = 'permission';
+    
+    protected $baseRoutePattern        = '/permission';
+    
+    
     protected $formOptions = array(
         'validation_groups' => 'admin'
     );
@@ -48,12 +48,12 @@ class PermissionAdmin extends Admin
      */    
     protected function configureShowField(ShowMapper $showMapper)
     {
-    	$showMapper
+        $showMapper
             ->add('name')
             ->add('comment')
             ->add('enabled')
             ->add('id')
-    	;
+        ;
     }
         
     /**
@@ -66,12 +66,12 @@ class PermissionAdmin extends Admin
             ->add('comment')
             ->add('enabled')
             ->add('_action', 'actions', array( 'actions' => array(  
-					 'edit'   => array(),
-	            	 'view'   => array(),
-	            	 'delete' => array(),
-	            	 // autre action specifique ::: 'unpublish' => array('template' => 'MyBundle:Admin:action_unpublish.html.twig'),
-	            	))
-	            );
+                     'edit'   => array(),
+                     'view'   => array(),
+                     'delete' => array(),
+                     // autre action specifique ::: 'unpublish' => array('template' => 'MyBundle:Admin:action_unpublish.html.twig'),
+                    ))
+                );
     }
 
     /**
@@ -93,7 +93,7 @@ class PermissionAdmin extends Admin
     {
         $formMapper
             ->with('General')
-	            ->add('enabled', null, array('required' => false))
+                ->add('enabled', null, array('required' => false))
                 ->add('name')
             ->end()
             ->with('Groups')
@@ -109,13 +109,13 @@ class PermissionAdmin extends Admin
      */
     public function validate(ErrorElement $errorElement, $object)
     {
-    	$errorElement
-    	->with('name')
-    	->assertNotNull()
-    	->assertNotBlank()
-    	->assertMaxLength(array('limit' => 35))
-    	->end()
-    	;
+        $errorElement
+        ->with('name')
+        ->assertNotNull()
+        ->assertNotBlank()
+        ->assertMaxLength(array('limit' => 35))
+        ->end()
+        ;
     } 
     
 }

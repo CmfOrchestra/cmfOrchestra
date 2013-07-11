@@ -33,16 +33,16 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class RoutesType extends AbstractType
 {
-	/**
-	 * @var \Symfony\Component\DependencyInjection\ContainerInterface
-	 */
-	private $container;
+    /**
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */
+    private $container;
 
-	/**
-	 * Constructor.
-	 *
-	 * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
-	 */	
+    /**
+     * Constructor.
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     */    
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
@@ -53,7 +53,7 @@ class RoutesType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-    	parent::buildForm($builder, $options);
+        parent::buildForm($builder, $options);
     }
     
     /**
@@ -61,10 +61,10 @@ class RoutesType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-    	parent::buildView($view, $form, $options);
+        parent::buildView($view, $form, $options);
     
-    	$attr = $view->vars['attr'];
-    	$view->vars['attr'] = $attr;
+        $attr = $view->vars['attr'];
+        $view->vars['attr'] = $attr;
     }    
 
     /**
@@ -72,25 +72,25 @@ class RoutesType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-    	parent::setDefaultOptions($resolver);
-        	
+        parent::setDefaultOptions($resolver);
+            
         $routeCollection = $this->container->get('router')->getRouteCollection();
-    	$routes = array();
-    	foreach ($routeCollection->all() as $name => $route) {
-    		$routes[$name] = $name; // $route->compile();
-    	}
-    	krsort($routes);
+        $routes = array();
+        foreach ($routeCollection->all() as $name => $route) {
+            $routes[$name] = $name; // $route->compile();
+        }
+        krsort($routes);
         
-    	$resolver->setDefaults(array(
-    			'choices' => function (Options $options, $parentChoices) use ($routes) {
-    				return empty($parentChoices) ? $routes : array();
-    			},
-    	));
+        $resolver->setDefaults(array(
+                'choices' => function (Options $options, $parentChoices) use ($routes) {
+                    return empty($parentChoices) ? $routes : array();
+                },
+        ));
     }
     
     public function getParent()
     {
-    	return 'choice';
+        return 'choice';
     }    
     
     /**
@@ -98,6 +98,6 @@ class RoutesType extends AbstractType
      */
     public function getName()
     {
-    	return 'bootstrap_routes';
+        return 'bootstrap_routes';
     }    
 }

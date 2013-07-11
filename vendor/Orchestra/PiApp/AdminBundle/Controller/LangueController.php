@@ -39,22 +39,22 @@ use PiApp\AdminBundle\Form\LangueType;
  */
 class LangueController extends abstractController
 {
-	protected $_entityName = "PiAppAdminBundle:Langue";
-	
+    protected $_entityName = "PiAppAdminBundle:Langue";
+    
     /**
      * Lists all Langue entities.
      * 
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function indexAction()
     {
-        $em 		= $this->getDoctrine()->getEntityManager();
-        $locale		= $this->container->get('request')->getLocale();
-        $entities 	= $em->getRepository("PiAppAdminBundle:Langue")->findAllByEntity($locale, 'object', false);        
+        $em         = $this->getDoctrine()->getEntityManager();
+        $locale        = $this->container->get('request')->getLocale();
+        $entities     = $em->getRepository("PiAppAdminBundle:Langue")->findAllByEntity($locale, 'object', false);        
         
         return $this->render('PiAppAdminBundle:Langue:index.html.twig', array(
             'entities' => $entities,
@@ -73,34 +73,34 @@ class LangueController extends abstractController
      */
     public function enabledajaxAction()
     {
-    	$request = $this->container->get('request');
-    	$em		 = $this->getDoctrine()->getEntityManager();
-    	
-    	if ($request->isXmlHttpRequest()){
-    		$data		= $request->get('data', null);
-    		foreach ($data as $key => $id) {
-    			$entity = $em->getRepository($this->_entityName)->find($id);
-    			$entity->setEnabled(true);
-    			
-    			$em->persist($entity);
-    			$em->flush();
-    		}
-    		$em->clear();
+        $request = $this->container->get('request');
+        $em         = $this->getDoctrine()->getEntityManager();
+        
+        if ($request->isXmlHttpRequest()){
+            $data        = $request->get('data', null);
+            foreach ($data as $key => $id) {
+                $entity = $em->getRepository($this->_entityName)->find($id);
+                $entity->setEnabled(true);
+                
+                $em->persist($entity);
+                $em->flush();
+            }
+            $em->clear();
 
-    		// we disable all flash message
-    		$this->container->get('session')->clearFlashes();
-    		
-    		$tab= array();
-    		$tab['id'] = '-1';
-    		$tab['error'] = '';
-    		$tab['fieldErrors'] = '';
-    		$tab['data'] = '';
-    		 
-    		$response = new Response(json_encode($tab));
-    		$response->headers->set('Content-Type', 'application/json');
-    		return $response;    		
-    	}else
-    		throw ControllerException::callAjaxOnlySupported('enabledajax'); 
+            // we disable all flash message
+            $this->container->get('session')->clearFlashes();
+            
+            $tab= array();
+            $tab['id'] = '-1';
+            $tab['error'] = '';
+            $tab['fieldErrors'] = '';
+            $tab['data'] = '';
+             
+            $response = new Response(json_encode($tab));
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;            
+        }else
+            throw ControllerException::callAjaxOnlySupported('enabledajax'); 
     }
     
     /**
@@ -115,34 +115,34 @@ class LangueController extends abstractController
      */
     public function disableajaxAction()
     {
-    	$request = $this->container->get('request');
-    	$em		 = $this->getDoctrine()->getEntityManager();
-    	
-    	if ($request->isXmlHttpRequest()){
-    		$data		= $request->get('data', null);
-    		foreach ($data as $key => $id) {
-    			$entity = $em->getRepository($this->_entityName)->find($id);
-    			$entity->setEnabled(false);
-    			
-    			$em->persist($entity);
-    			$em->flush();
-    		}
-    		$em->clear();
-    		
-    		// we disable all flash message
-    		$this->container->get('session')->clearFlashes();
-    		
-    		$tab= array();
-    		$tab['id'] = '-1';
-    		$tab['error'] = '';
-    		$tab['fieldErrors'] = '';
-    		$tab['data'] = '';
-    		 
-    		$response = new Response(json_encode($tab));
-    		$response->headers->set('Content-Type', 'application/json');
-    		return $response;    		
-    	}else
-    		throw ControllerException::callAjaxOnlySupported('disableajax'); 
+        $request = $this->container->get('request');
+        $em         = $this->getDoctrine()->getEntityManager();
+        
+        if ($request->isXmlHttpRequest()){
+            $data        = $request->get('data', null);
+            foreach ($data as $key => $id) {
+                $entity = $em->getRepository($this->_entityName)->find($id);
+                $entity->setEnabled(false);
+                
+                $em->persist($entity);
+                $em->flush();
+            }
+            $em->clear();
+            
+            // we disable all flash message
+            $this->container->get('session')->clearFlashes();
+            
+            $tab= array();
+            $tab['id'] = '-1';
+            $tab['error'] = '';
+            $tab['fieldErrors'] = '';
+            $tab['data'] = '';
+             
+            $response = new Response(json_encode($tab));
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;            
+        }else
+            throw ControllerException::callAjaxOnlySupported('disableajax'); 
     }
     
     /**
@@ -151,13 +151,13 @@ class LangueController extends abstractController
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function showAction($id)
     {
-        $em 	= $this->getDoctrine()->getEntityManager();
-        $locale	= $this->container->get('request')->getLocale();
+        $em     = $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppAdminBundle:Langue")->findOneByEntity($locale, $id, 'object');        
 
         if (!$entity) {
@@ -165,16 +165,16 @@ class LangueController extends abstractController
         }
         $deleteForm = $this->createDeleteForm($id);
         
-        $locale_id 		= explode('_', strtolower($entity->getId()));
+        $locale_id         = explode('_', strtolower($entity->getId()));
         if (count($locale_id)==2)
-        	$locale_id = $locale_id[1];
+            $locale_id = $locale_id[1];
         else
-        	$locale_id = strtolower($entity->getId());
+            $locale_id = strtolower($entity->getId());
         
         return $this->render('PiAppAdminBundle:Langue:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
-        	'locale_id'	  => $locale_id,
+            'locale_id'      => $locale_id,
         ));
     }
 
@@ -184,13 +184,13 @@ class LangueController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function newAction()
     {
         $entity = new Langue();
-        $locale	= $this->container->get('request')->getLocale();
+        $locale    = $this->container->get('request')->getLocale();
         $form   = $this->createForm(new LangueType($locale), $entity, array('show_legend' => false));
 
         return $this->render('PiAppAdminBundle:Langue:new.html.twig', array(
@@ -205,13 +205,13 @@ class LangueController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function createAction()
     {
-    	$em 	= $this->getDoctrine()->getEntityManager();
-    	$locale	= $this->container->get('request')->getLocale();
+        $em     = $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
         $entity = new Langue();
         
         $request = $this->getRequest();
@@ -239,18 +239,18 @@ class LangueController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function editAction($id)
     {
-        $em 	= $this->getDoctrine()->getEntityManager();
-        $locale	= $this->container->get('request')->getLocale();
+        $em     = $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppAdminBundle:Langue")->findOneByEntity($locale, $id, 'object');
 
         if (!$entity) {
-        	$entity = $em->getRepository("PiAppAdminBundle:Langue")->find($id);
-        	$entity->addTranslation(new LangueTranslation($locale));
+            $entity = $em->getRepository("PiAppAdminBundle:Langue")->find($id);
+            $entity->addTranslation(new LangueTranslation($locale));
         }        
 
         $editForm = $this->createForm(new LangueType($locale, true), $entity, array('show_legend' => false));
@@ -269,17 +269,17 @@ class LangueController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function updateAction($id)
     {
-        $em		= $this->getDoctrine()->getEntityManager();
-        $locale	= $this->container->get('request')->getLocale();
+        $em        = $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppAdminBundle:Langue")->findOneByEntity($locale, $id, 'object');
         
         if (!$entity) {
-        	$entity = $em->getRepository("PiAppAdminBundle:Langue")->find($id);
+            $entity = $em->getRepository("PiAppAdminBundle:Langue")->find($id);
         }        
 
         $editForm   = $this->createForm(new LangueType($locale, true), $entity);
@@ -287,7 +287,7 @@ class LangueController extends abstractController
 
         $editForm->bind($request = $this->getRequest(), $entity);
         if ($editForm->isValid()) {
-        	$entity->setTranslatableLocale($locale);
+            $entity->setTranslatableLocale($locale);
             $em->persist($entity);
             $em->flush();
 
@@ -307,8 +307,8 @@ class LangueController extends abstractController
      * @Secure(roles="ROLE_ADMIN")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function deleteAction($id)
     {
@@ -326,10 +326,10 @@ class LangueController extends abstractController
             }
 
             try {
-            	$em->remove($entity);
-            	$em->flush();
+                $em->remove($entity);
+                $em->flush();
             } catch (\Exception $e) {
-            	$this->container->get('request')->getSession()->getFlashBag()->add('notice', 'pi.session.flash.wrong.undelete');
+                $this->container->get('request')->getSession()->getFlashBag()->add('notice', 'pi.session.flash.wrong.undelete');
             }
         }
 

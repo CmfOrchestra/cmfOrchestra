@@ -33,50 +33,50 @@ use BeSimple\I18nRoutingBundle\Routing\Translator\DoctrineDBALTranslator;
  */
 abstract class AbstractFactory
 {
-	/**
-	 * @var \Symfony\Component\DependencyInjection\ContainerInterface
-	 */
-	private $_container;
-	
-	/**
-	 * @var \Doctrine\DBAL\Connection
-	 */
-	private $_connection;
-	
-	/**
-	 * @var \Doctrine\ORM\EntityManager
-	 */
-	private $_em;	
+    /**
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */
+    private $_container;
     
-	/**
-	 * @var \BootStrap\UserBundle\Manager\Route\DoctrineRoute
-	 */	
-	private $_DoctrineRoute;
-	
-	/**
-	 * @var \BeSimple\I18nRoutingBundle\Routing\Translator\DoctrineDBALTranslator
-	 */
-	private $_DoctrineTranslator;	
-	
-	/**
-	 * @var \BeSimple\I18nRoutingBundle\Routing\Router
-	 */
-	private $_RouterTranslator;
-		
-	/**
-	 * Constructor.
-	 *
-	 * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
-	 */
-	public function __construct(ContainerInterface $container)
-	{
-		$this->_container = $container;
-		
-		//$services_list =  $this->container->getServiceIds();
-		//print_r('<PRE>');
-		//print_r(var_dump($services_list));
-		//print_r('</PRE>');
-    	
+    /**
+     * @var \Doctrine\DBAL\Connection
+     */
+    private $_connection;
+    
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    private $_em;    
+    
+    /**
+     * @var \BootStrap\UserBundle\Manager\Route\DoctrineRoute
+     */    
+    private $_DoctrineRoute;
+    
+    /**
+     * @var \BeSimple\I18nRoutingBundle\Routing\Translator\DoctrineDBALTranslator
+     */
+    private $_DoctrineTranslator;    
+    
+    /**
+     * @var \BeSimple\I18nRoutingBundle\Routing\Router
+     */
+    private $_RouterTranslator;
+        
+    /**
+     * Constructor.
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     */
+    public function __construct(ContainerInterface $container)
+    {
+        $this->_container = $container;
+        
+        //$services_list =  $this->container->getServiceIds();
+        //print_r('<PRE>');
+        //print_r(var_dump($services_list));
+        //print_r('</PRE>');
+        
     }
 
     /**
@@ -90,7 +90,7 @@ abstract class AbstractFactory
      */
     private function setConnection()
     {
-    	$this->_connection = $this->getContainer()->get('doctrine.dbal.default_connection');
+        $this->_connection = $this->getContainer()->get('doctrine.dbal.default_connection');
     }
     
     /**
@@ -104,13 +104,13 @@ abstract class AbstractFactory
      */
     protected function getConnection()
     {
-    	if (empty($this->_connection))
-    		$this->setConnection();
+        if (empty($this->_connection))
+            $this->setConnection();
     
-    	if ($this->_connection instanceof Connection)
-    		return $this->_connection;
-    	else
-    		throw TranslationException::serviceNotSupported();
+        if ($this->_connection instanceof Connection)
+            return $this->_connection;
+        else
+            throw TranslationException::serviceNotSupported();
     }
     
     /**
@@ -124,7 +124,7 @@ abstract class AbstractFactory
      */
     protected function getDatabasePlatform()
     {
-    	return $this->getConnection()->getDatabasePlatform();
+        return $this->getConnection()->getDatabasePlatform();
     }    
     
     /**
@@ -138,7 +138,7 @@ abstract class AbstractFactory
      */
     private function setEntityManager()
     {
-    	$this->_em = $this->getContainer()->get('doctrine.orm.default_entity_manager');
+        $this->_em = $this->getContainer()->get('doctrine.orm.default_entity_manager');
     }
     
     /**
@@ -152,13 +152,13 @@ abstract class AbstractFactory
      */
     protected function getEntityManager()
     {
-    	if (empty($this->_em))
-    		$this->setEntityManager();
+        if (empty($this->_em))
+            $this->setEntityManager();
     
-    	if ($this->_em instanceof EntityManager)
-    		return $this->_em;
-    	else
-    		throw TranslationException::serviceNotSupported();
+        if ($this->_em instanceof EntityManager)
+            return $this->_em;
+        else
+            throw TranslationException::serviceNotSupported();
     } 
 
     /**
@@ -171,7 +171,7 @@ abstract class AbstractFactory
      */
     protected function getContainer()
     {
-    	return $this->_container;
+        return $this->_container;
     } 
 
     /**
@@ -185,7 +185,7 @@ abstract class AbstractFactory
      */
     private function setDoctrineTranslator()
     {
-    	$this->_DoctrineTranslator = $this->getContainer()->get('i18n_routing.translator');
+        $this->_DoctrineTranslator = $this->getContainer()->get('i18n_routing.translator');
     }
     
     /**
@@ -199,13 +199,13 @@ abstract class AbstractFactory
      */
     protected function getDoctrineTranslator()
     {
-    	if (empty($this->_DoctrineTranslator))
-    		$this->setDoctrineTranslator();
+        if (empty($this->_DoctrineTranslator))
+            $this->setDoctrineTranslator();
     
-    	if ($this->_DoctrineTranslator instanceof DoctrineDBALTranslator)
-    		return $this->_DoctrineTranslator;
-    	else
-    		throw TranslationException::serviceNotSupported();
+        if ($this->_DoctrineTranslator instanceof DoctrineDBALTranslator)
+            return $this->_DoctrineTranslator;
+        else
+            throw TranslationException::serviceNotSupported();
     }
     
     /**
@@ -219,9 +219,9 @@ abstract class AbstractFactory
      */
     private function setDoctrineRoute()
     {
-    	//$cache = $this->getContainer()->get('router.cache_warmer');
-    	$cache = new ArrayCache;
-    	$this->_DoctrineRoute = new DoctrineRoute($this->getConnection(), $cache, true);
+        //$cache = $this->getContainer()->get('router.cache_warmer');
+        $cache = new ArrayCache;
+        $this->_DoctrineRoute = new DoctrineRoute($this->getConnection(), $cache, true);
     }
     
     /**
@@ -235,13 +235,13 @@ abstract class AbstractFactory
      */
     protected function getDoctrineRoute()
     {
-    	if (empty($this->_DoctrineRoute))
-    		$this->setDoctrineRoute();
+        if (empty($this->_DoctrineRoute))
+            $this->setDoctrineRoute();
     
-    	if ($this->_DoctrineRoute instanceof DoctrineRoute)
-    		return $this->_DoctrineRoute;
-    	else
-    		throw TranslationException::serviceNotSupported();
+        if ($this->_DoctrineRoute instanceof DoctrineRoute)
+            return $this->_DoctrineRoute;
+        else
+            throw TranslationException::serviceNotSupported();
     }    
     
     /**
@@ -255,7 +255,7 @@ abstract class AbstractFactory
      */
     private function setRouterTranslator()
     {
-    	$this->_RouterTranslator = $this->getContainer()->get('be_simple_i18n_routing.router');
+        $this->_RouterTranslator = $this->getContainer()->get('be_simple_i18n_routing.router');
     }
     
     /**
@@ -269,13 +269,13 @@ abstract class AbstractFactory
      */
     protected function getRouterTranslator()
     {
-    	if (empty($this->_RouterTranslator))
-    		$this->setRouterTranslator();
+        if (empty($this->_RouterTranslator))
+            $this->setRouterTranslator();
     
-    	if ($this->_RouterTranslator instanceof Router)
-    		return $this->_RouterTranslator;
-    	else
-    		throw TranslationException::serviceNotSupported();
+        if ($this->_RouterTranslator instanceof Router)
+            return $this->_RouterTranslator;
+        else
+            throw TranslationException::serviceNotSupported();
     }   
 
     /**
@@ -288,7 +288,7 @@ abstract class AbstractFactory
      */
     protected function getToken()
     {
-    	return  $this->_container->get('security.context')->getToken();
+        return  $this->_container->get('security.context')->getToken();
     } 
     
     /**
@@ -301,35 +301,35 @@ abstract class AbstractFactory
      */
     protected function isUsernamePasswordToken()
     {
-    	if ($this->getToken() instanceof \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken)
-    		return true;
-    	else
-    		return false;
+        if ($this->getToken() instanceof \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken)
+            return true;
+        else
+            return false;
     }    
 
     /**
      * Return the user permissions.
      *
-     * @return array	user permissions
+     * @return array    user permissions
      * @access protected
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     protected function getUserPermissions()
     {
-    	return $this->getToken()->getUser()->getPermissions();
+        return $this->getToken()->getUser()->getPermissions();
     }
     
     /**
      * Return the user roles.
      *
-     * @return array	user roles
+     * @return array    user roles
      * @access protected
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     protected function getUserRoles()
     {
-    	return $this->getToken()->getUser()->getRoles();
+        return $this->getToken()->getUser()->getRoles();
     }    
 }

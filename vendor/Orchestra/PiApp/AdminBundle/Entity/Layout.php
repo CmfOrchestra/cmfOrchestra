@@ -125,8 +125,8 @@ class Layout
     
     public function __construct()
     {
-    	$this->pages	= new \Doctrine\Common\Collections\ArrayCollection();
-    	$this->setEnabled(true);
+        $this->pages    = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->setEnabled(true);
     }    
 
     /**
@@ -137,7 +137,7 @@ class Layout
      *
      */
     public function __toString() {
-    	return (string) $this->name;
+        return (string) $this->name;
     }
 
     /**
@@ -157,30 +157,30 @@ class Layout
      */
     public function setPages(\Doctrine\Common\Collections\ArrayCollection $pages)
     {
-    	$this->pages = $pages;
+        $this->pages = $pages;
     }
         
     /**
      * Add a translation to the collection of related Page
      *
-     * @param \PiApp\AdminBundle\Entity\TranslationPage	$page
+     * @param \PiApp\AdminBundle\Entity\TranslationPage    $page
      */
     public function addPage(\PiApp\AdminBundle\Entity\Page $page)
     {
-      	$this->pages->add($page);
-       	$page->setLayout($this);
+          $this->pages->add($page);
+           $page->setLayout($this);
     }
     
     /**
      * Remove a translation from the collection of related Page
      *
-     * @param  \PiApp\AdminBundle\Entity\TranslationPage	$page
+     * @param  \PiApp\AdminBundle\Entity\TranslationPage    $page
      */
     public function removePage(\PiApp\AdminBundle\Entity\Page $page)
     {
-    	//if ($this->translations->contains($translation)) {
-    		$this->pages->removeElement($page);
-    	//}
+        //if ($this->translations->contains($translation)) {
+            $this->pages->removeElement($page);
+        //}
     }    
 
     /**
@@ -240,7 +240,7 @@ class Layout
      */
     public function setFileMobile($fileMobile)
     {
-    	$this->fileMobile = $fileMobile;
+        $this->fileMobile = $fileMobile;
     }
     
     /**
@@ -250,7 +250,7 @@ class Layout
      */
     public function getFileMobile()
     {
-    	return $this->fileMobile;
+        return $this->fileMobile;
     }    
 
     /**
@@ -280,7 +280,7 @@ class Layout
      */
     public function setCreatedAt($createdAt)
     {
-    	$this->created_at = $createdAt;
+        $this->created_at = $createdAt;
     }
     
     /**
@@ -290,7 +290,7 @@ class Layout
      */
     public function getCreatedAt()
     {
-    	return $this->created_at;
+        return $this->created_at;
     }
     
     /**
@@ -300,7 +300,7 @@ class Layout
      */
     public function setUpdatedAt($updatedAt)
     {
-    	$this->updated_at = $updatedAt;
+        $this->updated_at = $updatedAt;
     }
     
     /**
@@ -310,7 +310,7 @@ class Layout
      */
     public function getUpdatedAt()
     {
-    	return $this->updated_at;
+        return $this->updated_at;
     }
     
     /**
@@ -320,7 +320,7 @@ class Layout
      */
     public function setArchiveAt($archiveAt)
     {
-    	$this->archive_at = $archiveAt;
+        $this->archive_at = $archiveAt;
     }
     
     /**
@@ -330,7 +330,7 @@ class Layout
      */
     public function getArchiveAt()
     {
-    	return $this->archive_at;
+        return $this->archive_at;
     }
     
     
@@ -341,7 +341,7 @@ class Layout
      */
     public function setEnabled($enabled)
     {
-    	$this->enabled = $enabled;
+        $this->enabled = $enabled;
     }
     
     /**
@@ -351,7 +351,7 @@ class Layout
      */
     public function getEnabled()
     {
-    	return $this->enabled;
+        return $this->enabled;
     } 
     
     /**
@@ -361,8 +361,8 @@ class Layout
      */
     public function setArchived($archived)
     {
-    	$this->archived = $archived;
-    	return $this;
+        $this->archived = $archived;
+        return $this;
     }
     
     /**
@@ -372,6 +372,6 @@ class Layout
      */
     public function getArchived()
     {
-    	return $this->archived;
+        return $this->archived;
     }    
 }

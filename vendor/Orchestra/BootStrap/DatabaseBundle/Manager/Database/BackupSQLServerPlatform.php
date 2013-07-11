@@ -27,17 +27,17 @@ use BootStrap\DatabaseBundle\Manager\Database\AbstractManager;
  */
 class BackupSQLServerPlatform extends AbstractManager
 {
-	/**
-	 * Constructor.
-	 *
-	 * @param \Doctrine\DBAL\Connection $connection
-	 * @param \Symfony\Component\DependencyInjection\ContainerInterface;
-	 * 
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 */
+    /**
+     * Constructor.
+     *
+     * @param \Doctrine\DBAL\Connection $connection
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface;
+     * 
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
     public function __construct(Connection $connection, ContainerInterface $container)
     {
-    	parent::__construct($connection, $container);
+        parent::__construct($connection, $container);
     }
     
     /**
@@ -53,28 +53,28 @@ class BackupSQLServerPlatform extends AbstractManager
      */
     public function run(OutputInterface $output, Array $options = null)
     {
-    	$this->setOutputWriter($output);
-    	$this->setDatabase($this->getConnection()->getDatabase());
-    	$this->setPath($options);
+        $this->setOutputWriter($output);
+        $this->setDatabase($this->getConnection()->getDatabase());
+        $this->setPath($options);
     
-    	// we print the start of the file
-    	$this->_setHead();
-    	// we print all select of all table of the database.
-    	$list_tables = $this->getSchemaManager()->listTableNames();
-    	foreach($list_tables as $k_table => $table){
-    		$this->_writeSelectTable($table);
-    	}
-    	// we print the end of the file
-    	$this->_setFooter();
+        // we print the start of the file
+        $this->_setHead();
+        // we print all select of all table of the database.
+        $list_tables = $this->getSchemaManager()->listTableNames();
+        foreach($list_tables as $k_table => $table){
+            $this->_writeSelectTable($table);
+        }
+        // we print the end of the file
+        $this->_setFooter();
     
-    	try {
-    		file_put_contents($this->getPath(), $this->contentFile);
-    		$this->getOutputWriter()->writeln(sprintf('<comment>></comment> <info>Backup of the databasewas successfully created in "%s".</info>', $this->getPath()));
-    	} catch (\Exception $e) {
-    		$this->getOutputWriter()->writeln(sprintf('<comment>></comment> <info>Backup of the database failed with the file "%s".</info>', $options['filename']));
-    	}
+        try {
+            file_put_contents($this->getPath(), $this->contentFile);
+            $this->getOutputWriter()->writeln(sprintf('<comment>></comment> <info>Backup of the databasewas successfully created in "%s".</info>', $this->getPath()));
+        } catch (\Exception $e) {
+            $this->getOutputWriter()->writeln(sprintf('<comment>></comment> <info>Backup of the database failed with the file "%s".</info>', $options['filename']));
+        }
     
-    	return $this->getOutputWriter();
+        return $this->getOutputWriter();
     }    
     
     /**
@@ -87,17 +87,17 @@ class BackupSQLServerPlatform extends AbstractManager
      * @since 2012-06-28
      */
     protected function disableForeignKeys(){
-//     	// we print all select of all table of the database.
-//     	$list_tables = $this->getSchemaManager()->listTableNames();
-    	
-//     	// we print all alter table of all table of the database.
-//     	foreach($list_tables as $k_table => $tableName){
-//     		$this->contentFile  .= sprintf("ALTER TABLE  %s NOCHECK CONSTRAINT All \n", $tableName );
-//     	}
-    	
-    	$this->contentFile  .= sprintf("USE CopyOfAdventureWorks; \r\n");
-    	$this->contentFile  .= sprintf("EXEC sp_MSforeachtable @command1=\"ALTER TABLE ? NOCHECK CONSTRAINT ALL\" \r\n");
-    	$this->contentFile  .= sprintf("GO \r\n");
+//         // we print all select of all table of the database.
+//         $list_tables = $this->getSchemaManager()->listTableNames();
+        
+//         // we print all alter table of all table of the database.
+//         foreach($list_tables as $k_table => $tableName){
+//             $this->contentFile  .= sprintf("ALTER TABLE  %s NOCHECK CONSTRAINT All \n", $tableName );
+//         }
+        
+        $this->contentFile  .= sprintf("USE CopyOfAdventureWorks; \r\n");
+        $this->contentFile  .= sprintf("EXEC sp_MSforeachtable @command1=\"ALTER TABLE ? NOCHECK CONSTRAINT ALL\" \r\n");
+        $this->contentFile  .= sprintf("GO \r\n");
     }
     
     /**
@@ -110,17 +110,17 @@ class BackupSQLServerPlatform extends AbstractManager
      * @since 2012-06-28
      */
     protected function EnabledForeignKeys(){
-//     	// we print all select of all table of the database.
-//     	$list_tables = $this->getSchemaManager()->listTableNames();
-    	 
-//     	// we print all alter table of all table of the database.
-//     	foreach($list_tables as $k_table => $tableName){
-//     		$this->contentFile  .= sprintf("ALTER TABLE  %s CHECK CONSTRAINT All \n", $tableName );
-//     	}
+//         // we print all select of all table of the database.
+//         $list_tables = $this->getSchemaManager()->listTableNames();
+         
+//         // we print all alter table of all table of the database.
+//         foreach($list_tables as $k_table => $tableName){
+//             $this->contentFile  .= sprintf("ALTER TABLE  %s CHECK CONSTRAINT All \n", $tableName );
+//         }
 
-    	$this->contentFile  .= sprintf("USE CopyOfAdventureWorks; \r\n");
-    	$this->contentFile  .= sprintf("EXEC sp_MSforeachtable @command1=\"ALTER TABLE ? CHECK CONSTRAINT ALL\" \r\n");
-    	$this->contentFile  .= sprintf("GO \r\n");   	    	
+        $this->contentFile  .= sprintf("USE CopyOfAdventureWorks; \r\n");
+        $this->contentFile  .= sprintf("EXEC sp_MSforeachtable @command1=\"ALTER TABLE ? CHECK CONSTRAINT ALL\" \r\n");
+        $this->contentFile  .= sprintf("GO \r\n");               
     }
 
 }

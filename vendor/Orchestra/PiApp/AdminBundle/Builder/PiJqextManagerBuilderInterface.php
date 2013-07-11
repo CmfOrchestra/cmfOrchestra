@@ -22,5 +22,5 @@ namespace PiApp\AdminBundle\Builder;
  */
 interface PiJqextManagerBuilderInterface
 {
-	public function renderSource($id, $lang = '', $params = null);
+    public function renderSource($id, $lang = '', $params = null);
 }

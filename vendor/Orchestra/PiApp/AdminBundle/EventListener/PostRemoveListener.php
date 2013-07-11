@@ -30,31 +30,31 @@ use PiApp\AdminBundle\EventListener\CoreListener;
  */
 class PostRemoveListener extends CoreListener
 { 
-	/**
-	 * Constructs a new instance of SecurityListener.
-	 *
-	 * @param ContainerInterface        $container
-	 */
-	public function __construct(ContainerInterface $container)
-	{
-		parent::__construct($container);
-	}
-		
-	/**
-	 * Methos which will be called when the event is thrown.
-	 *
-	 *
-	 * @param \Doctrine\ORM\Event\LifecycleEventArgs $eventArgs
-	 *
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 */	
+    /**
+     * Constructs a new instance of SecurityListener.
+     *
+     * @param ContainerInterface        $container
+     */
+    public function __construct(ContainerInterface $container)
+    {
+        parent::__construct($container);
+    }
+        
+    /**
+     * Methos which will be called when the event is thrown.
+     *
+     *
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $eventArgs
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */    
     public function postRemove(LifecycleEventArgs $eventArgs)
     {
-    	// we set the postRemove heritage roles management
-    	$this->_Heritage_roles($eventArgs);
-    	
-    	// we set the postRemove Cache Url Generator management
-    	$this->_updateCacheUrlGenerator($eventArgs);    	
+        // we set the postRemove heritage roles management
+        $this->_Heritage_roles($eventArgs);
+        
+        // we set the postRemove Cache Url Generator management
+        $this->_updateCacheUrlGenerator($eventArgs);        
     }
     
 }

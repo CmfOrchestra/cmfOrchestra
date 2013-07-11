@@ -272,7 +272,7 @@ class Contact extends AbstractDefault
      */
     public function __construct()
     {
-    	parent::__construct();
+        parent::__construct();
     }
     
     /**
@@ -284,7 +284,7 @@ class Contact extends AbstractDefault
      */
     public function __toString()
     {
-    	return (string) $this->getTitle();
+        return (string) $this->getTitle();
     }
     
     /**
@@ -293,7 +293,7 @@ class Contact extends AbstractDefault
      */
     public function setUpdatedValue()
     {
-    	 
+         
     }    
     
     /**
@@ -313,8 +313,8 @@ class Contact extends AbstractDefault
      */
     public function setCategory($category)
     {
-    	$this->category = $category;
-    	return $this;
+        $this->category = $category;
+        return $this;
     }
     
     /**
@@ -324,7 +324,7 @@ class Contact extends AbstractDefault
      */
     public function getCategory()
     {
-    	return $this->category;
+        return $this->category;
     }    
     
     /**
@@ -334,8 +334,8 @@ class Contact extends AbstractDefault
      */
     public function setAds(\PiApp\GedmoBundle\Entity\Ads $Ads)
     {
-    	$this->ads = $Ads;
-    	return $this;
+        $this->ads = $Ads;
+        return $this;
     }
     
     /**
@@ -345,7 +345,7 @@ class Contact extends AbstractDefault
      */
     public function getAds()
     {
-    	return $this->ads;
+        return $this->ads;
     }    
     
     /**
@@ -355,8 +355,8 @@ class Contact extends AbstractDefault
      */
     public function setName($name)
     {
-    	$this->name = $name;
-    	return $this;
+        $this->name = $name;
+        return $this;
     }
     
     /**
@@ -366,7 +366,7 @@ class Contact extends AbstractDefault
      */
     public function getName()
     {
-    	return $this->name;
+        return $this->name;
     }
 
     /**
@@ -376,8 +376,8 @@ class Contact extends AbstractDefault
      */
     public function setNickname($nickname)
     {
-    	$this->nickname = $nickname;
-    	return $this;
+        $this->nickname = $nickname;
+        return $this;
     }
     
     /**
@@ -387,7 +387,7 @@ class Contact extends AbstractDefault
      */
     public function getNickname()
     {
-    	return $this->nickname;
+        return $this->nickname;
     }    
     
     /**
@@ -419,7 +419,7 @@ class Contact extends AbstractDefault
      */
     public function setDescriptif ($descriptif)
     {
-    	$this->descriptif = $descriptif;
+        $this->descriptif = $descriptif;
     }
     
     /**
@@ -429,7 +429,7 @@ class Contact extends AbstractDefault
      */
     public function getDescriptif ()
     {
-    	return $this->descriptif;
+        return $this->descriptif;
     }    
 
     /**
@@ -440,8 +440,8 @@ class Contact extends AbstractDefault
      */
     public function setAddress($address)
     {
-    	$this->address = $address;
-    	return $this;
+        $this->address = $address;
+        return $this;
     }
     
     /**
@@ -451,7 +451,7 @@ class Contact extends AbstractDefault
      */
     public function getAddress()
     {
-    	return $this->address;
+        return $this->address;
     }
     
     /**
@@ -462,8 +462,8 @@ class Contact extends AbstractDefault
      */
     public function setAddress1($address)
     {
-    	$this->address1 = $address;
-    	return $this;
+        $this->address1 = $address;
+        return $this;
     }
     
     /**
@@ -473,7 +473,7 @@ class Contact extends AbstractDefault
      */
     public function getAddress1()
     {
-    	return $this->address1;
+        return $this->address1;
     }    
     
     /**
@@ -484,8 +484,8 @@ class Contact extends AbstractDefault
      */
     public function setAddress2($address)
     {
-    	$this->address2 = $address;
-    	return $this;
+        $this->address2 = $address;
+        return $this;
     }
     
     /**
@@ -495,7 +495,7 @@ class Contact extends AbstractDefault
      */
     public function getAddress2()
     {
-    	return $this->address2;
+        return $this->address2;
     }    
     
     /**
@@ -506,8 +506,8 @@ class Contact extends AbstractDefault
      */
     public function setAddress3($address)
     {
-    	$this->address3 = $address;
-    	return $this;
+        $this->address3 = $address;
+        return $this;
     }
     
     /**
@@ -517,7 +517,7 @@ class Contact extends AbstractDefault
      */
     public function getAddress3()
     {
-    	return $this->address3;
+        return $this->address3;
     }    
     
     /**
@@ -528,8 +528,8 @@ class Contact extends AbstractDefault
      */
     public function setCp($cp)
     {
-    	$this->cp = $cp;
-    	return $this;
+        $this->cp = $cp;
+        return $this;
     }
     
     /**
@@ -539,7 +539,7 @@ class Contact extends AbstractDefault
      */
     public function getCp()
     {
-    	return $this->cp;
+        return $this->cp;
     }    
     
     /**
@@ -550,8 +550,8 @@ class Contact extends AbstractDefault
      */
     public function setCity($city)
     {
-    	$this->city = $city;
-    	return $this;
+        $this->city = $city;
+        return $this;
     }
     
     /**
@@ -561,7 +561,7 @@ class Contact extends AbstractDefault
      */
     public function getCity()
     {
-    	return $this->city;
+        return $this->city;
     }    
     
     /**
@@ -571,7 +571,7 @@ class Contact extends AbstractDefault
      */
     public function getCountry()
     {
-    	return $this->country;
+        return $this->country;
     }
     
     /**
@@ -581,8 +581,8 @@ class Contact extends AbstractDefault
      */
     public function setCountry($country)
     {
-    	$this->country = $country;
-    	return $this;
+        $this->country = $country;
+        return $this;
     }    
         
     /**
@@ -615,8 +615,8 @@ class Contact extends AbstractDefault
      */
     public function setMobile($mobile)
     {
-    	$this->mobile = $mobile;
-    	return $this;
+        $this->mobile = $mobile;
+        return $this;
     }
     
     /**
@@ -626,7 +626,7 @@ class Contact extends AbstractDefault
      */
     public function getMobile()
     {
-    	return $this->mobile;
+        return $this->mobile;
     }    
 
     /**
@@ -659,8 +659,8 @@ class Contact extends AbstractDefault
      */
     public function setEmail($email)
     {
-    	$this->email = $email;
-    	return $this;
+        $this->email = $email;
+        return $this;
     }    
     
     /**
@@ -670,7 +670,7 @@ class Contact extends AbstractDefault
      */
     public function getEmail()
     {
-    	return $this->email;
+        return $this->email;
     }    
 
     /**
@@ -681,8 +681,8 @@ class Contact extends AbstractDefault
      */
     public function setEmailSubject($email_subject)
     {
-    	$this->email_subject = $email_subject;
-    	return $this;
+        $this->email_subject = $email_subject;
+        return $this;
     }
     
     /**
@@ -692,7 +692,7 @@ class Contact extends AbstractDefault
      */
     public function getEmailSubject()
     {
-    	return $this->email_subject;
+        return $this->email_subject;
     }
     
     /**
@@ -703,8 +703,8 @@ class Contact extends AbstractDefault
      */
     public function setEmailBody($email_body)
     {
-    	$this->email_body = $email_body;
-    	return $this;
+        $this->email_body = $email_body;
+        return $this;
     }
     
     /**
@@ -714,7 +714,7 @@ class Contact extends AbstractDefault
      */
     public function getEmailBody()
     {
-    	return $this->email_body;
+        return $this->email_body;
     }  
 
     /**
@@ -725,8 +725,8 @@ class Contact extends AbstractDefault
      */
     public function setEmailCc($email_cc)
     {
-    	$this->email_cc = $email_cc;
-    	return $this;
+        $this->email_cc = $email_cc;
+        return $this;
     }
     
     /**
@@ -736,7 +736,7 @@ class Contact extends AbstractDefault
      */
     public function getEmailCc()
     {
-    	return $this->email_cc;
+        return $this->email_cc;
     } 
 
     /**
@@ -747,8 +747,8 @@ class Contact extends AbstractDefault
      */
     public function setEmailBcc($email_bcc)
     {
-    	$this->email_bcc = $email_bcc;
-    	return $this;
+        $this->email_bcc = $email_bcc;
+        return $this;
     }
     
     /**
@@ -758,7 +758,7 @@ class Contact extends AbstractDefault
      */
     public function getEmailBcc()
     {
-    	return $this->email_bcc;
+        return $this->email_bcc;
     }    
         
     /**
@@ -812,13 +812,13 @@ class Contact extends AbstractDefault
      */
     public function setMedia($media)
     {
-    	//     	if (($media instanceof \PiApp\GedmoBundle\Entity\Media) && ($media->getImage()->getName() == ""))
-    		// 	    	$this->media = null;
-    		//     	else{
-    		//     		$this->media = $media;
-    		//     	}
-    	$this->media = $media;
-    	return $this;
+        //         if (($media instanceof \PiApp\GedmoBundle\Entity\Media) && ($media->getImage()->getName() == ""))
+            //             $this->media = null;
+            //         else{
+            //             $this->media = $media;
+            //         }
+        $this->media = $media;
+        return $this;
     }
     
     /**
@@ -828,7 +828,7 @@ class Contact extends AbstractDefault
      */
     public function getMedia()
     {
-    	return $this->media;
+        return $this->media;
     }
     
     /**
@@ -838,13 +838,13 @@ class Contact extends AbstractDefault
      */
     public function setMedia1($media)
     {
-    	//     	if (($media instanceof \PiApp\GedmoBundle\Entity\Media) && ($media->getImage()->getName() == ""))
-    		// 	    	$this->media1 = null;
-    		//     	else{
-    		//     		$this->media1 = $media;
-    		//     	}
-    	$this->media1 = $media;
-    	return $this;
+        //         if (($media instanceof \PiApp\GedmoBundle\Entity\Media) && ($media->getImage()->getName() == ""))
+            //             $this->media1 = null;
+            //         else{
+            //             $this->media1 = $media;
+            //         }
+        $this->media1 = $media;
+        return $this;
     }
     
     /**
@@ -854,7 +854,7 @@ class Contact extends AbstractDefault
      */
     public function getMedia1()
     {
-    	return $this->media1;
+        return $this->media1;
     }
     
     /**
@@ -865,8 +865,8 @@ class Contact extends AbstractDefault
      */
     public function setCoordinates($Coordinates)
     {
-    	$this->coordinates = $Coordinates;
-    	return $this;
+        $this->coordinates = $Coordinates;
+        return $this;
     }
     
     /**
@@ -876,7 +876,7 @@ class Contact extends AbstractDefault
      */
     public function getCoordinates()
     {
-    	return $this->coordinates;
+        return $this->coordinates;
     }
 
 }

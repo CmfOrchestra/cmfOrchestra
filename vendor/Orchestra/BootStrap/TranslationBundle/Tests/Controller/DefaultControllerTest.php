@@ -39,28 +39,28 @@ class DefaultControllerTest extends WebTestCase
      */
     public function testCommandeRoute()
     {
-    	//$container = $this->getApplication()->getKernel()->getContainer();
-    	
-    	$kernel = $this->createKernel();
-    	$kernel->boot();
-    	
-    	$application 	= new Application($kernel);
-		$application->add(new RoutesCommand($kernel));
-		
-		//-----we initialize command value-----
-		$command 		= $application->find('orchestra:database:routes:parse');  //   --env=test
-		$commandTester 	= new CommandTester($command);
-		//-----we executes the command-----
-		$commandTester->execute(
-				array(
-						'command' 	=> $command->getName(),
-						//'arg1'		=> 'val1',
-						//'arg2'		=> 'val2'
-				)
-		);
-		
-		$this->assertRegExp('/END/', $commandTester->getDisplay());
-		
-		return true;
+        //$container = $this->getApplication()->getKernel()->getContainer();
+        
+        $kernel = $this->createKernel();
+        $kernel->boot();
+        
+        $application     = new Application($kernel);
+        $application->add(new RoutesCommand($kernel));
+        
+        //-----we initialize command value-----
+        $command         = $application->find('orchestra:database:routes:parse');  //   --env=test
+        $commandTester     = new CommandTester($command);
+        //-----we executes the command-----
+        $commandTester->execute(
+                array(
+                        'command'     => $command->getName(),
+                        //'arg1'        => 'val1',
+                        //'arg2'        => 'val2'
+                )
+        );
+        
+        $this->assertRegExp('/END/', $commandTester->getDisplay());
+        
+        return true;
     }    
 }

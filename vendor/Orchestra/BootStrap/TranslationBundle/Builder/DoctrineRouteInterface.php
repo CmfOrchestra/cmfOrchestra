@@ -22,8 +22,8 @@ namespace BootStrap\TranslationBundle\Builder;
  */
 interface DoctrineRouteInterface
 {
-	public function getAllRouteValues();
-	public function getAllRouteNames();
-	public function getRoute($route);
-	public function addRoute($route, $id, array $locales, array $defaults = array(), array $requirements = array());
+    public function getAllRouteValues();
+    public function getAllRouteNames();
+    public function getRoute($route);
+    public function addRoute($route, $id, array $locales, array $defaults = array(), array $requirements = array());
 }

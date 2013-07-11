@@ -38,29 +38,29 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  */
 class Individual extends AbstractDefault 
 {
-	/**
-	 * List of al translatable fields
-	 * 
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_fields	= array('DetailActivity', 'ArgumentActivity');
+    /**
+     * List of al translatable fields
+     * 
+     * @var array
+     * @access  protected
+     */
+    protected $_fields    = array('DetailActivity', 'ArgumentActivity');
 
-	/**
-	 * Name of the Translation Entity
-	 * 
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\IndividualTranslation';
-	
-	/**
-	 * @var \Doctrine\Common\Collections\ArrayCollection
-	 *
-	 * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\IndividualTranslation", mappedBy="object", cascade={"persist", "remove"})
-	 */
-	protected $translations;	
-	
+    /**
+     * Name of the Translation Entity
+     * 
+     * @var array
+     * @access  protected
+     */
+    protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\IndividualTranslation';
+    
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\IndividualTranslation", mappedBy="object", cascade={"persist", "remove"})
+     */
+    protected $translations;    
+    
     /**
      * @var bigint
      * 
@@ -333,7 +333,7 @@ class Individual extends AbstractDefault
      */    
     public function __construct()
     {
-    	parent::__construct();
+        parent::__construct();
     }    
     
     /**
@@ -345,10 +345,10 @@ class Individual extends AbstractDefault
      */    
     public function __toString()
     {
-    	return (string) $this->getNickname() . ' ' . $this->getName();
+        return (string) $this->getNickname() . ' ' . $this->getName();
     }    
     
-	/**
+    /**
      * @ORM\PrePersist
      * @ORM\preUpdate
      */
@@ -373,7 +373,7 @@ class Individual extends AbstractDefault
      */
     public function setUser($user)
     {
-    	$this->user = $user;
+        $this->user = $user;
     }
     
     /**
@@ -383,7 +383,7 @@ class Individual extends AbstractDefault
      */
     public function getUser()
     {
-    	return $this->user;
+        return $this->user;
     }    
     
     /**
@@ -393,8 +393,8 @@ class Individual extends AbstractDefault
      */
     public function setPageurl($pageurl)
     {
-    	$this->pageurl = $pageurl;
-    	return $this;
+        $this->pageurl = $pageurl;
+        return $this;
     }
     
     /**
@@ -404,7 +404,7 @@ class Individual extends AbstractDefault
      */
     public function getPageurl()
     {
-    	return $this->pageurl;
+        return $this->pageurl;
     }    
 
     /**
@@ -414,8 +414,8 @@ class Individual extends AbstractDefault
      */
     public function setUrl($url)
     {
-    	$this->url = $url;
-    	return $this;
+        $this->url = $url;
+        return $this;
     }
     
     /**
@@ -425,7 +425,7 @@ class Individual extends AbstractDefault
      */
     public function getUrl()
     {
-    	return $this->url;
+        return $this->url;
     }
 
     /**
@@ -435,8 +435,8 @@ class Individual extends AbstractDefault
      */
     public function setMedia($media)
     {
-    	$this->media = $media;    	
-    	return $this;
+        $this->media = $media;        
+        return $this;
     }
     
     /**
@@ -446,7 +446,7 @@ class Individual extends AbstractDefault
      */
     public function getMedia()
     {
-    	return $this->media;
+        return $this->media;
     }    
 
     /**
@@ -456,7 +456,7 @@ class Individual extends AbstractDefault
      */
     public function setHighlighted($highlighted)
     {
-    	$this->highlighted = $highlighted;
+        $this->highlighted = $highlighted;
     }
     
     /**
@@ -466,7 +466,7 @@ class Individual extends AbstractDefault
      */
     public function getHighlighted()
     {
-    	return $this->highlighted;
+        return $this->highlighted;
     }   
     
     /**
@@ -557,8 +557,8 @@ class Individual extends AbstractDefault
      */
     public function setEmail($Email)
     {
-    	$this->Email = $Email;
-    	return $this;
+        $this->Email = $Email;
+        return $this;
     }    
     
     /**
@@ -568,7 +568,7 @@ class Individual extends AbstractDefault
      */
     public function getEmail()
     {
-    	return $this->Email;
+        return $this->Email;
     }    
     
     /**
@@ -579,8 +579,8 @@ class Individual extends AbstractDefault
      */
     public function setEmailPerso($EmailPerso)
     {
-    	$this->EmailPerso = $EmailPerso;
-    	return $this;
+        $this->EmailPerso = $EmailPerso;
+        return $this;
     }    
     
     /**
@@ -590,7 +590,7 @@ class Individual extends AbstractDefault
      */
     public function getEmailPerso()
     {
-    	return $this->EmailPerso;
+        return $this->EmailPerso;
     }    
     
     /**
@@ -620,7 +620,7 @@ class Individual extends AbstractDefault
      */
     public function setCP($CP)
     {
-    	$this->CP = $CP;
+        $this->CP = $CP;
     }
     
     /**
@@ -630,7 +630,7 @@ class Individual extends AbstractDefault
      */
     public function getCP()
     {
-    	return $this->CP;
+        return $this->CP;
     }   
     
     /**
@@ -720,7 +720,7 @@ class Individual extends AbstractDefault
      */
     public function setEffectif ($Effectif)
     {
-    	$this->Effectif = $Effectif;
+        $this->Effectif = $Effectif;
     }
     
     /**
@@ -730,7 +730,7 @@ class Individual extends AbstractDefault
      */
     public function getEffectif ()
     {
-    	return $this->Effectif;
+        return $this->Effectif;
     }   
         
     /**
@@ -861,8 +861,8 @@ class Individual extends AbstractDefault
      */
     public function setOriginContact($OriginContact)
     {
-    	$this->OriginContact = $OriginContact;
-    	return $this;
+        $this->OriginContact = $OriginContact;
+        return $this;
     }
     
     /**
@@ -872,7 +872,7 @@ class Individual extends AbstractDefault
      */
     public function getOriginContact()
     {
-    	return $this->OriginContact;
+        return $this->OriginContact;
     }
     
     /**
@@ -883,8 +883,8 @@ class Individual extends AbstractDefault
      */
     public function setOriginContactOther($OriginContactOther)
     {
-    	$this->OriginContactOther = $OriginContactOther;
-    	return $this;
+        $this->OriginContactOther = $OriginContactOther;
+        return $this;
     }
     
     /**
@@ -894,7 +894,7 @@ class Individual extends AbstractDefault
      */
     public function getOriginContactOther()
     {
-    	return $this->OriginContactOther;
+        return $this->OriginContactOther;
     }
     
     /**
@@ -905,8 +905,8 @@ class Individual extends AbstractDefault
      */
     public function setOriginContactSponsor($OriginContactSponsor)
     {
-    	$this->OriginContactSponsor = $OriginContactSponsor;
-    	return $this;
+        $this->OriginContactSponsor = $OriginContactSponsor;
+        return $this;
     }
     
     /**
@@ -916,7 +916,7 @@ class Individual extends AbstractDefault
      */
     public function getOriginContactSponsor()
     {
-    	return $this->OriginContactSponsor;
+        return $this->OriginContactSponsor;
     }
     
     /**
@@ -927,8 +927,8 @@ class Individual extends AbstractDefault
      */
     public function setFacebook($Facebook)
     {
-    	$this->Facebook = $Facebook;
-    	return $this;
+        $this->Facebook = $Facebook;
+        return $this;
     }
     
     /**
@@ -938,7 +938,7 @@ class Individual extends AbstractDefault
      */
     public function getFacebook()
     {
-    	return $this->Facebook;
+        return $this->Facebook;
     }   
     
     /**
@@ -949,8 +949,8 @@ class Individual extends AbstractDefault
      */
     public function setGooglePlus($GooglePlus)
     {
-    	$this->GooglePlus = $GooglePlus;
-    	return $this;
+        $this->GooglePlus = $GooglePlus;
+        return $this;
     }
     
     /**
@@ -960,7 +960,7 @@ class Individual extends AbstractDefault
      */
     public function getGooglePlus()
     {
-    	return $this->GooglePlus;
+        return $this->GooglePlus;
     }   
     
     /**
@@ -971,8 +971,8 @@ class Individual extends AbstractDefault
      */
     public function setTwitter($Twitter)
     {
-    	$this->Twitter = $Twitter;
-    	return $this;
+        $this->Twitter = $Twitter;
+        return $this;
     }
     
     /**
@@ -982,7 +982,7 @@ class Individual extends AbstractDefault
      */
     public function getTwitter()
     {
-    	return $this->Twitter;
+        return $this->Twitter;
     }   
     
     /**
@@ -993,8 +993,8 @@ class Individual extends AbstractDefault
      */
     public function setLinkedIn($LinkedIn)
     {
-    	$this->LinkedIn = $LinkedIn;
-    	return $this;
+        $this->LinkedIn = $LinkedIn;
+        return $this;
     }
     
     /**
@@ -1004,7 +1004,7 @@ class Individual extends AbstractDefault
      */
     public function getLinkedIn()
     {
-    	return $this->LinkedIn;
+        return $this->LinkedIn;
     }   
     
     /**
@@ -1015,8 +1015,8 @@ class Individual extends AbstractDefault
      */
     public function setViadeo($Viadeo)
     {
-    	$this->Viadeo = $Viadeo;
-    	return $this;
+        $this->Viadeo = $Viadeo;
+        return $this;
     }
     
     /**
@@ -1026,7 +1026,7 @@ class Individual extends AbstractDefault
      */
     public function getViadeo()
     {
-    	return $this->Viadeo;
+        return $this->Viadeo;
     }   
     
     /**
@@ -1037,8 +1037,8 @@ class Individual extends AbstractDefault
      */
     public function setPaymentstatus($paymentstatus)
     {
-    	$this->paymentstatus = $paymentstatus;
-    	return $this;
+        $this->paymentstatus = $paymentstatus;
+        return $this;
     }
     
     /**
@@ -1048,6 +1048,6 @@ class Individual extends AbstractDefault
      */
     public function getPaymentstatus()
     {
-    	return $this->paymentstatus;
+        return $this->paymentstatus;
     }
 }

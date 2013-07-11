@@ -28,24 +28,24 @@ use BootStrap\TranslationBundle\Repository\TreeRepository;
  */
 class RubriqueRepository extends TreeRepository
 {
-	/**
-	 * Return all Rubrique.
-	 *
-	 * @return \PiApp\AdminBundle\Entity\Rubrique
-	 * @access public
-	 *
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 * @since 2012-01-23
-	 */
-	public function getAllPageRubrique()
-	{
-		$query = $this->createQueryBuilder('r')
-	            		->select('r')
-	            		->where('r.enabled = :enabled')
-	            		->orderBy('r.lft', 'ASC')
-	            		->setParameter('enabled', 1);
-		//return $query->getQuery()->setMaxResults(1)->getArrayResult();
-	
-		return $query;
-	}	
+    /**
+     * Return all Rubrique.
+     *
+     * @return \PiApp\AdminBundle\Entity\Rubrique
+     * @access public
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @since 2012-01-23
+     */
+    public function getAllPageRubrique()
+    {
+        $query = $this->createQueryBuilder('r')
+                        ->select('r')
+                        ->where('r.enabled = :enabled')
+                        ->orderBy('r.lft', 'ASC')
+                        ->setParameter('enabled', 1);
+        //return $query->getQuery()->setMaxResults(1)->getArrayResult();
+    
+        return $query;
+    }    
 }

@@ -37,25 +37,25 @@ use PiApp\AdminBundle\Form\CommentType;
  */
 class CommentController extends abstractController
 {
-	protected $_entityName = "PiAppAdminBundle:Comment";
-	
+    protected $_entityName = "PiAppAdminBundle:Comment";
+    
     /**
      * Lists all Comment entities.
      * 
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function indexAction($page)
     {
         $em = $this->getDoctrine()->getEntityManager();
 
         if (is_null($page))
-        	$entities = $em->getRepository('PiAppAdminBundle:Comment')->findAll();
+            $entities = $em->getRepository('PiAppAdminBundle:Comment')->findAll();
         else
-        	$entities = $em->getRepository('PiAppAdminBundle:Comment')->findBy(array('pageTranslation'=>$page));        
+            $entities = $em->getRepository('PiAppAdminBundle:Comment')->findBy(array('pageTranslation'=>$page));        
 
         return $this->render('PiAppAdminBundle:Comment:index.html.twig', array(
             'entities' => $entities
@@ -74,7 +74,7 @@ class CommentController extends abstractController
      */
     public function enabledajaxAction()
     {
-    	return parent::enabledajaxAction();
+        return parent::enabledajaxAction();
     }
     
     /**
@@ -89,7 +89,7 @@ class CommentController extends abstractController
      */
     public function disableajaxAction()
     {
-    	return parent::disableajaxAction();
+        return parent::disableajaxAction();
     }
     
     /**
@@ -104,7 +104,7 @@ class CommentController extends abstractController
      */
     public function positionajaxAction()
     {
-    	return parent::positionajaxAction();
+        return parent::positionajaxAction();
     }    
     
     /**
@@ -113,8 +113,8 @@ class CommentController extends abstractController
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function showAction($id)
     {
@@ -141,8 +141,8 @@ class CommentController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function newAction()
     {
@@ -161,8 +161,8 @@ class CommentController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function createAction()
     {
@@ -192,8 +192,8 @@ class CommentController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function editAction($id)
     {
@@ -221,8 +221,8 @@ class CommentController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function updateAction($id)
     {
@@ -261,8 +261,8 @@ class CommentController extends abstractController
      * @Secure(roles="ROLE_SUPER_ADMIN")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function deleteAction($id)
     {

@@ -22,9 +22,9 @@ namespace PiApp\AdminBundle\Builder;
  */
 interface PiWidgetManagerBuilderInterface
 {
-	public function exec($id, $lang = "");
-	public function render($lang = '');
-	public function renderSource($id, $lang = '', $params = null);
-	public function setScript();
-	public function setInit();
+    public function exec($id, $lang = "");
+    public function render($lang = '');
+    public function renderSource($id, $lang = '', $params = null);
+    public function setScript();
+    public function setInit();
 }

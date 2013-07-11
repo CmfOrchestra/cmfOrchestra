@@ -28,47 +28,47 @@ use BootStrap\TranslationBundle\Repository\TranslationRepository;
  */
 class UserRepository extends TranslationRepository
 {
-	/**
-	 * Gets all entities by one category.
-	 *
-	 * @return array\entity
-	 * @access public
-	 *
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 * @since 2012-03-15
-	 */
-	public function getAllByParams($category = '', $MaxResults = null, $ORDER_PublishDate = '', $ORDER_Position = '', $enabled = true, $is_home_page = true)
-	{
-		$em = $this->createQueryBuilder('a')
-			->select('a')
-			->leftJoin('a.individual', 'i')
-			->leftJoin('a.corporation', 'c');
-	
-		if ($enabled)
-			$em->andWhere('a.enabled = 1');
-		
-		if ($is_home_page){
-			$orModule = $em->expr()->orx();
-			$orModule->add($em->expr()->eq('i.highlighted', 1));
-			$orModule->add($em->expr()->eq('c.highlighted', 1));
-			$em->andWhere($orModule);
-		}
+    /**
+     * Gets all entities by one category.
+     *
+     * @return array\entity
+     * @access public
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @since 2012-03-15
+     */
+    public function getAllByParams($category = '', $MaxResults = null, $ORDER_PublishDate = '', $ORDER_Position = '', $enabled = true, $is_home_page = true)
+    {
+        $em = $this->createQueryBuilder('a')
+            ->select('a')
+            ->leftJoin('a.individual', 'i')
+            ->leftJoin('a.corporation', 'c');
+    
+        if ($enabled)
+            $em->andWhere('a.enabled = 1');
+        
+        if ($is_home_page){
+            $orModule = $em->expr()->orx();
+            $orModule->add($em->expr()->eq('i.highlighted', 1));
+            $orModule->add($em->expr()->eq('c.highlighted', 1));
+            $em->andWhere($orModule);
+        }
 
-		if (!empty($ORDER_PublishDate) && !empty($ORDER_Position)){
-			$em
-			->orderBy('a.created_at', $ORDER_PublishDate)
-			->addOrderBy('a.position', $ORDER_Position);
-		}elseif (!empty($ORDER_PublishDate) && empty($ORDER_Position)){
-			$em
-			->orderBy('a.created_at', $ORDER_PublishDate);
-		}elseif (empty($ORDER_PublishDate) && !empty($ORDER_Position)){
-			$em
-			->orderBy('a.position', $ORDER_Position);
-		}
-	
-		if (!is_null($MaxResults))
-			$em->setMaxResults($MaxResults);
-	
-		return $em;
-	}	
+        if (!empty($ORDER_PublishDate) && !empty($ORDER_Position)){
+            $em
+            ->orderBy('a.created_at', $ORDER_PublishDate)
+            ->addOrderBy('a.position', $ORDER_Position);
+        }elseif (!empty($ORDER_PublishDate) && empty($ORDER_Position)){
+            $em
+            ->orderBy('a.created_at', $ORDER_PublishDate);
+        }elseif (empty($ORDER_PublishDate) && !empty($ORDER_Position)){
+            $em
+            ->orderBy('a.position', $ORDER_Position);
+        }
+    
+        if (!is_null($MaxResults))
+            $em->setMaxResults($MaxResults);
+    
+        return $em;
+    }    
 }

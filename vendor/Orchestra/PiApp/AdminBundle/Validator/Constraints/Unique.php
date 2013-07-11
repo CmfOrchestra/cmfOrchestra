@@ -38,7 +38,7 @@ class Unique extends Constraint
     
     public function requiredOptions()
     {
-    	return array('entity', 'property');
+        return array('entity', 'property');
     }
    
 }

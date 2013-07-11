@@ -39,21 +39,21 @@ use PiApp\GedmoBundle\Entity\Translation\PressreleaseTranslation;
  */
 class PressreleaseController extends abstractController
 {
-	protected $_entityName = "PiAppGedmoBundle:Pressrelease";
+    protected $_entityName = "PiAppGedmoBundle:Pressrelease";
 
-	/**
+    /**
      * Enabled Pressrelease entities.
      *
      * @Route("/admin/gedmo/pressrelease/enabled", name="admin_gedmo_pressrelease_enabledentity_ajax")
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *     
      * @access  public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function enabledajaxAction()
     {
-    	return parent::enabledajaxAction();
+        return parent::enabledajaxAction();
     }
 
     /**
@@ -61,44 +61,44 @@ class PressreleaseController extends abstractController
      * 
      * @Route("/admin/gedmo/pressrelease/disable", name="admin_gedmo_pressrelease_disablentity_ajax")
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *     
      * @access  public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function disableajaxAction()
     {
-		return parent::disableajaxAction();
+        return parent::disableajaxAction();
     } 
 
-	/**
+    /**
      * Change the position of a Pressrelease entity.
      *
      * @Route("/admin/gedmo/pressrelease/position", name="admin_gedmo_pressrelease_position_ajax")
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *     
      * @access  public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function positionajaxAction()
     {
-    	return parent::positionajaxAction();
+        return parent::positionajaxAction();
     }   
 
-	/**
+    /**
      * Delete a Pressrelease entity.
      *
      * @Route("/admin/gedmo/pressrelease/delete", name="admin_gedmo_pressrelease_deletentity_ajax")
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *     
      * @access  public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function deleteajaxAction()
     {
-    	return parent::deletajaxAction();
+        return parent::deletajaxAction();
     }   
     
     /**
@@ -113,30 +113,30 @@ class PressreleaseController extends abstractController
      */
     public function archiveajaxAction()
     {
-    	return parent::archiveajaxAction();
+        return parent::archiveajaxAction();
     }
         
     /**
      * Lists all Pressrelease entities.
      *
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
      */
     public function indexAction()
     {
-    	$em			= $this->getDoctrine()->getEntityManager();
-    	$locale		= $this->container->get('request')->getLocale();
-        $entities	= $em->getRepository("PiAppGedmoBundle:Pressrelease")->findAllByEntity($locale, 'object');        
+        $em            = $this->getDoctrine()->getEntityManager();
+        $locale        = $this->container->get('request')->getLocale();
+        $entities    = $em->getRepository("PiAppGedmoBundle:Pressrelease")->findAllByEntity($locale, 'object');        
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-        if (!$NoLayout) 	$template = "index.html.twig"; else $template = "index.html.twig";
+        if (!$NoLayout)     $template = "index.html.twig"; else $template = "index.html.twig";
 
         return $this->render("PiAppGedmoBundle:Pressrelease:$template", array(
             'entities' => $entities,
-            'NoLayout'	=> $NoLayout,
+            'NoLayout'    => $NoLayout,
         ));
     }
 
@@ -144,19 +144,19 @@ class PressreleaseController extends abstractController
      * Finds and displays a Pressrelease entity.
      *
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function showAction($id)
     {
-        $em 	= $this->getDoctrine()->getEntityManager();
-        $locale	= $this->container->get('request')->getLocale();
+        $em     = $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppGedmoBundle:Pressrelease")->findOneByEntity($locale, $id, 'object');
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-        if (!$NoLayout) 	$template = "show.html.twig"; else $template = "show.html.twig";        
+        if (!$NoLayout)     $template = "show.html.twig"; else $template = "show.html.twig";        
 
         if (!$entity) {
             throw ControllerException::NotFoundException('Pressrelease');
@@ -166,7 +166,7 @@ class PressreleaseController extends abstractController
 
         return $this->render("PiAppGedmoBundle:Pressrelease:$template", array(
             'entity'      => $entity,
-            'NoLayout'	  => $NoLayout,
+            'NoLayout'      => $NoLayout,
             'delete_form' => $deleteForm->createView(),
 
         ));
@@ -176,19 +176,19 @@ class PressreleaseController extends abstractController
      * Displays a form to create a new Pressrelease entity.
      *
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function newAction()
     {
-    	$em 	= $this->getDoctrine()->getEntityManager();
-    	$entity = new Pressrelease();
+        $em     = $this->getDoctrine()->getEntityManager();
+        $entity = new Pressrelease();
         $form   = $this->createForm(new PressreleaseType($em, $this->container), $entity, array('show_legend' => false));
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-        if (!$NoLayout)	$template = "new.html.twig";  else 	$template = "new.html.twig";        
+        if (!$NoLayout)    $template = "new.html.twig";  else     $template = "new.html.twig";        
 
         return $this->render("PiAppGedmoBundle:Pressrelease:$template", array(
             'entity' => $entity,
@@ -203,16 +203,16 @@ class PressreleaseController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      *
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
      */
     public function createAction()
     {
-        $em 	= $this->getDoctrine()->getEntityManager();
-        $locale	= $this->container->get('request')->getLocale();
+        $em     = $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-        if (!$NoLayout)	$template = "new.html.twig";  else 	$template = "new.html.twig";        
+        if (!$NoLayout)    $template = "new.html.twig";  else     $template = "new.html.twig";        
     
         $entity  = new Pressrelease();
         $request = $this->getRequest();
@@ -239,23 +239,23 @@ class PressreleaseController extends abstractController
      * Displays a form to edit an existing Pressrelease entity.
      *
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function editAction($id)
     {
-        $em 	= $this->getDoctrine()->getEntityManager();
-    	$locale	= $this->container->get('request')->getLocale();
+        $em     = $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppGedmoBundle:Pressrelease")->findOneByEntity($locale, $id, 'object');
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-        if (!$NoLayout)	$template = "edit.html.twig";  else	$template = "edit.html.twig";        
+        if (!$NoLayout)    $template = "edit.html.twig";  else    $template = "edit.html.twig";        
 
         if (!$entity) {
-        	$entity = $em->getRepository("PiAppGedmoBundle:Pressrelease")->find($id);
-        	$entity->addTranslation(new PressreleaseTranslation($locale));            
+            $entity = $em->getRepository("PiAppGedmoBundle:Pressrelease")->find($id);
+            $entity->addTranslation(new PressreleaseTranslation($locale));            
         }
 
         $editForm   = $this->createForm(new PressreleaseType($em, $this->container), $entity, array('show_legend' => false));
@@ -265,7 +265,7 @@ class PressreleaseController extends abstractController
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'NoLayout' 	  => $NoLayout,
+            'NoLayout'       => $NoLayout,
         ));
     }
 
@@ -273,22 +273,22 @@ class PressreleaseController extends abstractController
      * Edits an existing Pressrelease entity.
      *
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
      */
     public function updateAction($id)
     {
-        $em 	= $this->getDoctrine()->getEntityManager();
-    	$locale	= $this->container->get('request')->getLocale();
+        $em     = $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppGedmoBundle:Pressrelease")->findOneByEntity($locale, $id, "object"); 
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-        if (!$NoLayout)	$template = "edit.html.twig";  else	$template = "edit.html.twig";        
+        if (!$NoLayout)    $template = "edit.html.twig";  else    $template = "edit.html.twig";        
 
         if (!$entity) {
-        	$entity = $em->getRepository("PiAppGedmoBundle:Pressrelease")->find($id);
+            $entity = $em->getRepository("PiAppGedmoBundle:Pressrelease")->find($id);
         }
 
         $editForm   = $this->createForm(new PressreleaseType($em, $this->container), $entity, array('show_legend' => false));
@@ -307,7 +307,7 @@ class PressreleaseController extends abstractController
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'NoLayout' 	  => $NoLayout,
+            'NoLayout'       => $NoLayout,
         ));
     }
 
@@ -315,35 +315,35 @@ class PressreleaseController extends abstractController
      * Deletes a Pressrelease entity.
      *
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *     
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
      */
     public function deleteAction($id)
     {
-        $em 	 = $this->getDoctrine()->getEntityManager();
-	    $locale	 = $this->container->get('request')->getLocale();
-	    
-	    $NoLayout   = $this->container->get('request')->query->get('NoLayout');	    
+        $em      = $this->getDoctrine()->getEntityManager();
+        $locale     = $this->container->get('request')->getLocale();
+        
+        $NoLayout   = $this->container->get('request')->query->get('NoLayout');        
     
-        $form 	 = $this->createDeleteForm($id);
+        $form      = $this->createDeleteForm($id);
         $request = $this->getRequest();
 
         $form->bind($request);
 
         if ($form->isValid()) {
-    	    $entity = $em->getRepository("PiAppGedmoBundle:Pressrelease")->findOneByEntity($locale, $id, 'object');
+            $entity = $em->getRepository("PiAppGedmoBundle:Pressrelease")->findOneByEntity($locale, $id, 'object');
 
             if (!$entity) {
                 throw ControllerException::NotFoundException('Pressrelease');
             }
 
-        	try {
-            	$em->remove($entity);
-            	$em->flush();
+            try {
+                $em->remove($entity);
+                $em->flush();
             } catch (\Exception $e) {
-            	$this->container->get('request')->getSession()->getFlashBag()->add('notice', 'pi.session.flash.wrong.undelete');
+                $this->container->get('request')->getSession()->getFlashBag()->add('notice', 'pi.session.flash.wrong.undelete');
             }
         }
 
@@ -364,54 +364,54 @@ class PressreleaseController extends abstractController
      * @Cache(maxage="86400")
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @access	public
+     * @access    public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com> 
      */
     public function _template_showAction($id, $template = '_tmp_show.html.twig', $lang = "")
     {
-    	$em 	= $this->getDoctrine()->getEntityManager();
-    	
-    	if (empty($lang))
-    		$lang	= $this->container->get('request')->getLocale();
-    		
-    	$entity = $em->getRepository("PiAppGedmoBundle:Pressrelease")->findOneByEntity($lang, $id, 'object', false);
-    	
-    	if (!$entity) {
-    		throw ControllerException::NotFoundException('Pressrelease');
-    	}
-    	
-    	if (method_exists($entity, "getTemplate") && $entity->getTemplate() != "")
-    		$template = $entity->getTemplate();     	
+        $em     = $this->getDoctrine()->getEntityManager();
+        
+        if (empty($lang))
+            $lang    = $this->container->get('request')->getLocale();
+            
+        $entity = $em->getRepository("PiAppGedmoBundle:Pressrelease")->findOneByEntity($lang, $id, 'object', false);
+        
+        if (!$entity) {
+            throw ControllerException::NotFoundException('Pressrelease');
+        }
+        
+        if (method_exists($entity, "getTemplate") && $entity->getTemplate() != "")
+            $template = $entity->getTemplate();         
     
-    	return $this->render("PiAppGedmoBundle:Pressrelease:$template", array(
-    			'entity'	=> $entity,
-    			'locale'	=> $lang,
-    	));
+        return $this->render("PiAppGedmoBundle:Pressrelease:$template", array(
+                'entity'    => $entity,
+                'locale'    => $lang,
+        ));
     }
 
-	/**
+    /**
      * Template : Finds and displays a list of Pressrelease entity.
      * 
      * @Cache(maxage="86400")
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @access	public
+     * @access    public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com> 
      */
     public function _template_listAction($category = '', $MaxResults = null, $template = '_tmp_list.html.twig', $order = 'DESC', $lang = "")
     {
-    	$em 		= $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getEntityManager();
 
-    	if (empty($lang))
-    		$lang	= $this->container->get('request')->getLocale();
-    		
-    	$query		= $em->getRepository("PiAppGedmoBundle:Pressrelease")->getAllByCategory($category, $MaxResults, $order)->getQuery();
+        if (empty($lang))
+            $lang    = $this->container->get('request')->getLocale();
+            
+        $query        = $em->getRepository("PiAppGedmoBundle:Pressrelease")->getAllByCategory($category, $MaxResults, $order)->getQuery();
         $entities   = $em->getRepository("PiAppGedmoBundle:Pressrelease")->findTranslationsByQuery($lang, $query, 'object', false);                   
 
         return $this->render("PiAppGedmoBundle:Pressrelease:$template", array(
             'entities' => $entities,
-            'cat'	   => ucfirst($category),
-        	'locale'   => $lang,
+            'cat'       => ucfirst($category),
+            'locale'   => $lang,
         ));
     }     
     
@@ -424,30 +424,30 @@ class PressreleaseController extends abstractController
      */
     public function _template_archiveAction($category = '', $MaxResults = null, $template = '_tmp_list.html.twig', $order = 'DESC', $lang = "")
     {
-    	$em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getEntityManager();
     
-    	if (empty($lang))
-    		$lang   = $this->container->get('request')->getLocale();
+        if (empty($lang))
+            $lang   = $this->container->get('request')->getLocale();
     
-    	$query      = $em->getRepository("PiAppGedmoBundle:Pressrelease")->getAllByCategory($category, $MaxResults, $order)->getQuery();
-    	$entities   = $em->getRepository("PiAppGedmoBundle:Pressrelease")->findTranslationsByQuery($lang, $query, 'object', false);
+        $query      = $em->getRepository("PiAppGedmoBundle:Pressrelease")->getAllByCategory($category, $MaxResults, $order)->getQuery();
+        $entities   = $em->getRepository("PiAppGedmoBundle:Pressrelease")->findTranslationsByQuery($lang, $query, 'object', false);
     
-    	foreach($entities as $key => $entity){
-    		$year   = $entity->getPublishedAt()->format('Y');
-    		$month  = $entity->getPublishedAt()->format('m');
+        foreach($entities as $key => $entity){
+            $year   = $entity->getPublishedAt()->format('Y');
+            $month  = $entity->getPublishedAt()->format('m');
     
-    		$date   = new \DateTime($year.'-'.$month);
-    		$date   = $this->container->get('pi_app_admin.date_manager')->format($date, 'long', 'medium', $lang, 'MMMM YYYY');
+            $date   = new \DateTime($year.'-'.$month);
+            $date   = $this->container->get('pi_app_admin.date_manager')->format($date, 'long', 'medium', $lang, 'MMMM YYYY');
     
-    		$archive[$year][$date][] =  $entity;
-    	}
+            $archive[$year][$date][] =  $entity;
+        }
     
-    	return $this->render("PiAppGedmoBundle:Pressrelease:$template", array(
-    			'archive' => $archive,
-    			'cat'      => ucfirst($category),
-    			'locale'   => $lang,
-    			'lang'     => $lang,
-    	));
+        return $this->render("PiAppGedmoBundle:Pressrelease:$template", array(
+                'archive' => $archive,
+                'cat'      => ucfirst($category),
+                'locale'   => $lang,
+                'lang'     => $lang,
+        ));
     }    
     
 }

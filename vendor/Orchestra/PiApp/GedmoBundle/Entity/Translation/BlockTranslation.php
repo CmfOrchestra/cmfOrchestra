@@ -26,27 +26,27 @@ use BootStrap\TranslationBundle\Model\AbstractTranslationEntity;
  */
 class BlockTranslation extends AbstractTranslationEntity
 {
-	/**
-	 * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Block", inversedBy="translations")
-	 * @ORM\JoinColumn(name="object_id", referencedColumnName="id", onDelete="CASCADE")
-	 */
-	protected $object;
-	
-	/**
-	 * Convinient constructor
-	 *
-	 * @param string $locale
-	 * @param string $field
-	 * @param string $value
-	 */
-	public function __construct($locale = null, $field = null, $value = null)
-	{
-		if (!is_null($locale))
-			$this->setLocale($locale);
-		if (!is_null($field))
-			$this->setField($field);
-		if (!is_null($value))
-			$this->setContent($value);
-	}	
-		
+    /**
+     * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Block", inversedBy="translations")
+     * @ORM\JoinColumn(name="object_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    protected $object;
+    
+    /**
+     * Convinient constructor
+     *
+     * @param string $locale
+     * @param string $field
+     * @param string $value
+     */
+    public function __construct($locale = null, $field = null, $value = null)
+    {
+        if (!is_null($locale))
+            $this->setLocale($locale);
+        if (!is_null($field))
+            $this->setField($field);
+        if (!is_null($value))
+            $this->setContent($value);
+    }    
+        
 }

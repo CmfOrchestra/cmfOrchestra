@@ -39,7 +39,7 @@ use PiApp\GedmoBundle\Entity\Translation\SliderTranslation;
  */
 class SliderController extends abstractController
 {
-	protected $_entityName = "PiAppGedmoBundle:Slider";
+    protected $_entityName = "PiAppGedmoBundle:Slider";
 
     /**
      * Enabled Slider entities.
@@ -53,7 +53,7 @@ class SliderController extends abstractController
      */
     public function enabledajaxAction()
     {
-    	return parent::enabledajaxAction();
+        return parent::enabledajaxAction();
     }
     
     /**
@@ -68,7 +68,7 @@ class SliderController extends abstractController
      */
     public function disableajaxAction()
     {
-    	return parent::disableajaxAction();
+        return parent::disableajaxAction();
     }
     
     /**
@@ -83,7 +83,7 @@ class SliderController extends abstractController
      */
     public function positionajaxAction()
     {
-    	return parent::positionajaxAction();
+        return parent::positionajaxAction();
     }    
     
     /**
@@ -98,7 +98,7 @@ class SliderController extends abstractController
      */
     public function deleteajaxAction()
     {
-    	return parent::deletajaxAction();
+        return parent::deletajaxAction();
     }   
 
     /**
@@ -113,55 +113,55 @@ class SliderController extends abstractController
      */
     public function archiveajaxAction()
     {
-    	return parent::archiveajaxAction();
+        return parent::archiveajaxAction();
     }    
 
     /**
      * Lists all Slider entities.
      *
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
-     * @access	public
+     * @access    public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function indexAction()
     {
-    	$em 		= $this->getDoctrine()->getEntityManager();
-    	$locale		= $this->container->get('request')->getLocale();
-    	 
-    	$category   = $this->container->get('request')->query->get('category');
-    	$NoLayout   = $this->container->get('request')->query->get('NoLayout');
-    	if (!$NoLayout) 	$template = "index.html.twig"; else $template = "index_ajax.html.twig";
+        $em         = $this->getDoctrine()->getEntityManager();
+        $locale        = $this->container->get('request')->getLocale();
+         
+        $category   = $this->container->get('request')->query->get('category');
+        $NoLayout   = $this->container->get('request')->query->get('NoLayout');
+        if (!$NoLayout)     $template = "index.html.twig"; else $template = "index_ajax.html.twig";
     
-    	if ($NoLayout){
-    		//$entities 	= $em->getRepository("PiAppGedmoBundle:Slider")->getAllEnableByCatAndByPosition($locale, $category, 'object');
-    		$query		= $em->getRepository("PiAppGedmoBundle:Slider")->getAllByCategory($category, null, '', 'ASC', false)->getQuery();
-    		$entities   = $em->getRepository("PiAppGedmoBundle:Slider")->findTranslationsByQuery($locale, $query, 'object', false);
-    	}else
-    		$entities	= $em->getRepository("PiAppGedmoBundle:Slider")->findAllByEntity($locale, 'object');    	
+        if ($NoLayout){
+            //$entities     = $em->getRepository("PiAppGedmoBundle:Slider")->getAllEnableByCatAndByPosition($locale, $category, 'object');
+            $query        = $em->getRepository("PiAppGedmoBundle:Slider")->getAllByCategory($category, null, '', 'ASC', false)->getQuery();
+            $entities   = $em->getRepository("PiAppGedmoBundle:Slider")->findTranslationsByQuery($locale, $query, 'object', false);
+        }else
+            $entities    = $em->getRepository("PiAppGedmoBundle:Slider")->findAllByEntity($locale, 'object');        
     
-    	return $this->render("PiAppGedmoBundle:Slider:$template", array(
-    			'entities' => $entities,
-    			'NoLayout' => $NoLayout,
-    			'category' => $category,
-    	));
+        return $this->render("PiAppGedmoBundle:Slider:$template", array(
+                'entities' => $entities,
+                'NoLayout' => $NoLayout,
+                'category' => $category,
+        ));
     }
     
     /**
      * Finds and displays a Slider entity.
      *
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function showAction($id)
     {
-        $em 	= $this->getDoctrine()->getEntityManager();
-        $locale	= $this->container->get('request')->getLocale();
+        $em     = $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppGedmoBundle:Slider")->findOneByEntity($locale, $id, 'object');
         
         $category   = $this->container->get('request')->query->get('category');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-        if (!$NoLayout) 	$template = "show.html.twig"; else $template = "show_ajax.html.twig";
+        if (!$NoLayout)     $template = "show.html.twig"; else $template = "show_ajax.html.twig";
 
         if (!$entity) {
             throw ControllerException::NotFoundException('Slider');
@@ -172,8 +172,8 @@ class SliderController extends abstractController
         return $this->render("PiAppGedmoBundle:Slider:$template", array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
-        	'NoLayout'	  => $NoLayout,
-        	'category'	  => $category,
+            'NoLayout'      => $NoLayout,
+            'category'      => $category,
         ));
     }
 
@@ -181,31 +181,31 @@ class SliderController extends abstractController
      * Displays a form to create a new Slider entity.
      *
      * @Secure(roles="ROLE_USER")
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function newAction()
     {
-    	$locale	= $this->container->get('request')->getLocale();
-    	$em 	= $this->getDoctrine()->getEntityManager();
-    	$entity = new Slider();
-    	
+        $locale    = $this->container->get('request')->getLocale();
+        $em     = $this->getDoctrine()->getEntityManager();
+        $entity = new Slider();
+        
         $category   = $this->container->get('request')->query->get('category', '');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-        if (!$NoLayout)	$template = "new.html.twig";  else 	$template = "new_ajax.html.twig";
+        if (!$NoLayout)    $template = "new.html.twig";  else     $template = "new_ajax.html.twig";
         
         $entity_cat = $em->getRepository("PiAppGedmoBundle:Category")->find($category);
         if ( !empty($category) && ($entity_cat instanceof \PiApp\GedmoBundle\Entity\Category))
-        	$entity->setCategory($entity_cat);
+            $entity->setCategory($entity_cat);
         elseif (!empty($category))
-        	$entity->setCategory($category);
+            $entity->setCategory($category);
         
         $form   = $this->createForm(new SliderType($em, $locale, $this->container), $entity, array('show_legend' => false));
         return $this->render("PiAppGedmoBundle:Slider:$template", array(
-            'entity' 	=> $entity,
-            'form'   	=> $form->createView(),
-        	'NoLayout' 	=> $NoLayout,
-        	'category'	=> $category,
+            'entity'     => $entity,
+            'form'       => $form->createView(),
+            'NoLayout'     => $NoLayout,
+            'category'    => $category,
         ));
     }
 
@@ -213,17 +213,17 @@ class SliderController extends abstractController
      * Creates a new Slider entity.
      *
      * @Secure(roles="ROLE_USER")
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
      */
     public function createAction()
     {
-        $em 	= $this->getDoctrine()->getEntityManager();
-        $locale	= $this->container->get('request')->getLocale();
+        $em     = $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
         
         $category   = $this->container->get('request')->query->get('category');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-        if (!$NoLayout)	$template = "new.html.twig";  else 	$template = "new_ajax.html.twig";
+        if (!$NoLayout)    $template = "new.html.twig";  else     $template = "new_ajax.html.twig";
     
         $entity  = new Slider();
         $request = $this->getRequest();
@@ -239,10 +239,10 @@ class SliderController extends abstractController
         }
 
         return $this->render("PiAppGedmoBundle:Slider:$template", array(
-            'entity' 	=> $entity,
-            'form'   	=> $form->createView(),
-        	'NoLayout'  => $NoLayout,
-        	'category'	=> $category,
+            'entity'     => $entity,
+            'form'       => $form->createView(),
+            'NoLayout'  => $NoLayout,
+            'category'    => $category,
         ));
     }
 
@@ -250,22 +250,22 @@ class SliderController extends abstractController
      * Displays a form to edit an existing Slider entity.
      *
      * @Secure(roles="ROLE_USER")
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function editAction($id)
     {
-        $em 	= $this->getDoctrine()->getEntityManager();
-    	$locale	= $this->container->get('request')->getLocale();
+        $em     = $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppGedmoBundle:Slider")->findOneByEntity($locale, $id, 'object');      
 
         $category   = $this->container->get('request')->query->get('category');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-        if (!$NoLayout) 	$template = "edit.html.twig"; else $template = "edit_ajax.html.twig";
+        if (!$NoLayout)     $template = "edit.html.twig"; else $template = "edit_ajax.html.twig";
         
         if (!$entity) {
-        	$entity = $em->getRepository("PiAppGedmoBundle:Slider")->find($id);
-        	$entity->addTranslation(new SliderTranslation($locale));            
+            $entity = $em->getRepository("PiAppGedmoBundle:Slider")->find($id);
+            $entity->addTranslation(new SliderTranslation($locale));            
         }
 
         $editForm   = $this->createForm(new SliderType($em, $locale, $this->container), $entity, array('show_legend' => false));
@@ -275,8 +275,8 @@ class SliderController extends abstractController
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        	'NoLayout'	  => $NoLayout,      
-        	'category'	  => $category,
+            'NoLayout'      => $NoLayout,      
+            'category'      => $category,
         ));
     }
 
@@ -284,21 +284,21 @@ class SliderController extends abstractController
      * Edits an existing Slider entity.
      *
      * @Secure(roles="ROLE_USER")
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
      */
     public function updateAction($id)
     {
-        $em 	= $this->getDoctrine()->getEntityManager();
-    	$locale	= $this->container->get('request')->getLocale();
+        $em     = $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppGedmoBundle:Slider")->findOneByEntity($locale, $id, "object"); 
         
         $category   = $this->container->get('request')->query->get('category');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-        if (!$NoLayout) 	$template = "edit.html.twig"; else $template = "edit_ajax.html.twig";
+        if (!$NoLayout)     $template = "edit.html.twig"; else $template = "edit_ajax.html.twig";
 
         if (!$entity) {
-        	$entity = $em->getRepository("PiAppGedmoBundle:Slider")->find($id);
+            $entity = $em->getRepository("PiAppGedmoBundle:Slider")->find($id);
         }
 
         $editForm   = $this->createForm(new SliderType($em, $locale, $this->container), $entity, array('show_legend' => false));
@@ -317,8 +317,8 @@ class SliderController extends abstractController
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        	'NoLayout'	  => $NoLayout,
-        	'category'	  => $category,
+            'NoLayout'      => $NoLayout,
+            'category'      => $category,
         ));
     }
 
@@ -326,34 +326,34 @@ class SliderController extends abstractController
      * Deletes a Slider entity.
      *
      * @Secure(roles="ROLE_USER")
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
      */
     public function deleteAction($id)
     {
-        $em 	 = $this->getDoctrine()->getEntityManager();
-	    $locale	 = $this->container->get('request')->getLocale();
-	    
-	    $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-	    $category   = $this->container->get('request')->query->get('category');
+        $em      = $this->getDoctrine()->getEntityManager();
+        $locale     = $this->container->get('request')->getLocale();
+        
+        $NoLayout   = $this->container->get('request')->query->get('NoLayout');
+        $category   = $this->container->get('request')->query->get('category');
     
-        $form 	 = $this->createDeleteForm($id);
+        $form      = $this->createDeleteForm($id);
         $request = $this->getRequest();
 
         $form->bind($request);
 
         if ($form->isValid()) {
-    	    $entity = $em->getRepository("PiAppGedmoBundle:Slider")->findOneByEntity($locale, $id, 'object');
+            $entity = $em->getRepository("PiAppGedmoBundle:Slider")->findOneByEntity($locale, $id, 'object');
 
             if (!$entity) {
                 throw ControllerException::NotFoundException('Slider');
             }
 
-        	try {
-            	$em->remove($entity);
-            	$em->flush();
+            try {
+                $em->remove($entity);
+                $em->flush();
             } catch (\Exception $e) {
-            	$this->container->get('request')->getSession()->getFlashBag()->add('notice', 'pi.session.flash.wrong.undelete');
+                $this->container->get('request')->getSession()->getFlashBag()->add('notice', 'pi.session.flash.wrong.undelete');
             }
         }
 

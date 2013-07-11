@@ -119,7 +119,7 @@ class Role
      *
      */
     public function __toString() {
-    	return (string) $this->label;
+        return (string) $this->label;
     }    
     
     /**
@@ -202,7 +202,7 @@ class Role
         $this->heritage = array();
         
         foreach ($heritage as $role) {
-        	$this->addRoleInHeritage($role);
+            $this->addRoleInHeritage($role);
         }        
     }
 
@@ -213,12 +213,12 @@ class Role
      */
     public function getHeritage()
     {
-    	$roles = $this->heritage;
+        $roles = $this->heritage;
     
-    	// we need to make sure to have at least one role
-    	$roles[] = RoleRepository::ShowDefaultRole();
+        // we need to make sure to have at least one role
+        $roles[] = RoleRepository::ShowDefaultRole();
     
-    	return array_unique($roles);
+        return array_unique($roles);
     }
     
     /**
@@ -228,11 +228,11 @@ class Role
      */
     public function addRoleInHeritage($role)
     {
-    	$role = strtoupper($role);
+        $role = strtoupper($role);
     
-    	if (!in_array($role, $this->heritage, true)) {
-    		$this->heritage[] = $role;
-    	}
+        if (!in_array($role, $this->heritage, true)) {
+            $this->heritage[] = $role;
+        }
     }    
 
     /**
@@ -278,7 +278,7 @@ class Role
     /**
      * Set layout
      *
-     * @param \PiApp\AdminBundle\Entity\Layout	$layout
+     * @param \PiApp\AdminBundle\Entity\Layout    $layout
      */
     public function setLayout(\PiApp\AdminBundle\Entity\Layout $layout)
     {

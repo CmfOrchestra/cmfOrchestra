@@ -22,9 +22,9 @@ namespace BootStrap\DatabaseBundle\Manager\Database;
  */
 class OutputWriter
 {
-	/**
-	 * @var \Closure
-	 */	
+    /**
+     * @var \Closure
+     */    
     private $closure;
 
     /**

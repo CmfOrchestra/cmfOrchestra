@@ -49,7 +49,7 @@ class ResettingController extends ContainerAware
         $routereset = $request->get('pagename');
         
         if (empty($template))
-        	$template = 'PiAppTemplateBundle:Template\\Login\\Resetting:request.html.twig';
+            $template = 'PiAppTemplateBundle:Template\\Login\\Resetting:request.html.twig';
 
         $user = $this->container->get('fos_user.user_manager')->findUserByUsernameOrEmail($username);
 
@@ -68,9 +68,9 @@ class ResettingController extends ContainerAware
         $this->container->get('fos_user.user_manager')->updateUser($user);
 
         try {
-        	return $this->container->get('templating')->renderResponse('PiAppTemplateBundle:Template\\Login\\Resetting:request.html.twig', array('success' => true));
+            return $this->container->get('templating')->renderResponse('PiAppTemplateBundle:Template\\Login\\Resetting:request.html.twig', array('success' => true));
         } catch (\Exception $e) {
-        	$response 	= new RedirectResponse($this->container->get('router')->generate('fos_user_resetting_check_email'));
+            $response     = new RedirectResponse($this->container->get('router')->generate('fos_user_resetting_check_email'));
         }
         
         return $response->getContent();
@@ -81,14 +81,14 @@ class ResettingController extends ContainerAware
      */
     public function sendResettingEmailMessage(UserInterface $user, $route_reset_connexion)
     {
-    	$url 	  = $this->container->get('bootstrap.RouteTranslator.factory')->getRoute($route_reset_connexion, array('token' => $user->getConfirmationToken()));
-    	$html_url = 'http://'.$this->container->get('request')->getHttpHost() . $this->container->get('request')->getBasePath().$url;
-    	$html_url = "<a href='$html_url'>" . $html_url . "</a>";
-    	$rendered = $this->container->get('templating')->render('PiAppTemplateBundle:Template\\Login\\Resetting:email.txt.twig', array(
-    			'user' 				=> $user,
-    			'confirmationUrl' 	=> $html_url,
-    	));
-    	$this->container->get("pi_app_admin.mailer_manager")->send("administrator@gmail.com", $user->getEmail(), "Changement de mot de passe", $rendered);
+        $url       = $this->container->get('bootstrap.RouteTranslator.factory')->getRoute($route_reset_connexion, array('token' => $user->getConfirmationToken()));
+        $html_url = 'http://'.$this->container->get('request')->getHttpHost() . $this->container->get('request')->getBasePath().$url;
+        $html_url = "<a href='$html_url'>" . $html_url . "</a>";
+        $rendered = $this->container->get('templating')->render('PiAppTemplateBundle:Template\\Login\\Resetting:email.txt.twig', array(
+                'user'                 => $user,
+                'confirmationUrl'     => $html_url,
+        ));
+        $this->container->get("pi_app_admin.mailer_manager")->send("administrator@gmail.com", $user->getEmail(), "Changement de mot de passe", $rendered);
     }    
 
     /**

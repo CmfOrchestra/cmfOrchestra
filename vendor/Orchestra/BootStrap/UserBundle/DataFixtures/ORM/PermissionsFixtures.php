@@ -27,12 +27,12 @@ use BootStrap\UserBundle\Entity\Permission;
  */
 class PermissionsFixtures extends AbstractFixture implements OrderedFixtureInterface
 {
-	/**
-	 * Load user fixtures
-	 *
+    /**
+     * Load user fixtures
+     *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2011-12-28
-	 */	
+     */    
     public function load(ObjectManager $manager)
     {
         $field1 = new Permission();
@@ -104,7 +104,7 @@ class PermissionsFixtures extends AbstractFixture implements OrderedFixtureInter
      */
     public function getOrder()
     {
-    	// The order in which fixtures will be loaded
-    	return 1;
+        // The order in which fixtures will be loaded
+        return 1;
     }
 }

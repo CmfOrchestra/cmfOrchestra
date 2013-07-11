@@ -21,9 +21,9 @@ namespace PiApp\AdminBundle\Builder;
  */
 interface PiRestManagerInterface
 {
-	public function setUrl ($pUrl);
-	public function get ($pGetParams = array());
-	public function post ($pGetParams = array(), $pPostParams=array());
-	public function put ($pGetParams = array(), $pContent = null);
-	public function delete ($pGetParams = array(), $pContent = null);
+    public function setUrl ($pUrl);
+    public function get ($pGetParams = array());
+    public function post ($pGetParams = array(), $pPostParams=array());
+    public function put ($pGetParams = array(), $pContent = null);
+    public function delete ($pGetParams = array(), $pContent = null);
 }

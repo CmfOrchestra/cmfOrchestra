@@ -26,20 +26,20 @@ use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
  */
 abstract class AbstractTranslationEntity extends AbstractPersonalTranslation 
 {
-	/**
-	 * @var datetime $created_at
-	 *
-	 * @ORM\Column(name="created_at", type="datetime", nullable=false)
-	 */
-	protected $created_at;
-		
-	/**
-	 * @var datetime $updated_at
-	 *
-	 * @ORM\Column(name="updated_at", type="datetime", nullable=true)
-	 */
-	protected $updated_at;
-	
+    /**
+     * @var datetime $created_at
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     */
+    protected $created_at;
+        
+    /**
+     * @var datetime $updated_at
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    protected $updated_at;
+    
     /**
      * @var array
      * @ORM\Column(name="secure_roles", type="array", nullable=true)
@@ -53,8 +53,8 @@ abstract class AbstractTranslationEntity extends AbstractPersonalTranslation
      */
     public function setCreatedAt($createdAt)
     {
-    	$this->created_at = $createdAt;
-    	return $this;
+        $this->created_at = $createdAt;
+        return $this;
     }
     
     /**
@@ -64,7 +64,7 @@ abstract class AbstractTranslationEntity extends AbstractPersonalTranslation
      */
     public function getCreatedAt()
     {
-    	return $this->created_at;
+        return $this->created_at;
     }
     
     /**
@@ -74,8 +74,8 @@ abstract class AbstractTranslationEntity extends AbstractPersonalTranslation
      */
     public function setUpdatedAt($updatedAt)
     {
-    	$this->updated_at = $updatedAt;
-    	return $this;
+        $this->updated_at = $updatedAt;
+        return $this;
     }
     
     /**
@@ -85,7 +85,7 @@ abstract class AbstractTranslationEntity extends AbstractPersonalTranslation
      */
     public function getUpdatedAt()
     {
-    	return $this->updated_at;
+        return $this->updated_at;
     }
         
     /**
@@ -95,11 +95,11 @@ abstract class AbstractTranslationEntity extends AbstractPersonalTranslation
      */
     public function setHeritage( array $heritage)
     {
-    	$this->heritage = array();
+        $this->heritage = array();
     
-    	foreach ($heritage as $role) {
-    		$this->addRoleInHeritage($role);
-    	}
+        foreach ($heritage as $role) {
+            $this->addRoleInHeritage($role);
+        }
     }
     
     /**
@@ -109,7 +109,7 @@ abstract class AbstractTranslationEntity extends AbstractPersonalTranslation
      */
     public function getHeritage()
     {
-    	return $this->heritage;
+        return $this->heritage;
     }
     
     /**
@@ -119,11 +119,11 @@ abstract class AbstractTranslationEntity extends AbstractPersonalTranslation
      */
     public function addRoleInHeritage($role)
     {
-    	$role = strtoupper($role);
+        $role = strtoupper($role);
     
-    	if (!in_array($role, $this->heritage, true)) {
-    		$this->heritage[] = $role;
-    	}
+        if (!in_array($role, $this->heritage, true)) {
+            $this->heritage[] = $role;
+        }
     }    
     
 }

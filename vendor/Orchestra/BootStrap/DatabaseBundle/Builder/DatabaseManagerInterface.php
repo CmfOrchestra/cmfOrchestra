@@ -24,5 +24,5 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 interface DatabaseManagerInterface
 {
-	 public function run(OutputInterface $output, Array $options = null);
+     public function run(OutputInterface $output, Array $options = null);
 }

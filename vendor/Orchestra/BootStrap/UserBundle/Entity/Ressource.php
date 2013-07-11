@@ -93,13 +93,13 @@ class Ressource
 
     public function __construct()
     {
-    	$this->setCreatedAt(new \DateTime());
-    	$this->setUpdatedAt(new \DateTime());
+        $this->setCreatedAt(new \DateTime());
+        $this->setUpdatedAt(new \DateTime());
     }
     
     public function __toString()
     {
-    	return (string) $this->getName();
+        return (string) $this->getName();
     }    
     
     /**
@@ -107,8 +107,8 @@ class Ressource
      */
     public function setCreatedValue()
     {
-    	$this->setCreatedAt(new \DateTime());
-    	$this->setUpdatedAt(new \DateTime());
+        $this->setCreatedAt(new \DateTime());
+        $this->setUpdatedAt(new \DateTime());
     }    
     
     /**
@@ -116,7 +116,7 @@ class Ressource
      */
     public function setUpdatedValue()
     {
-    	$this->setUpdatedAt(new \DateTime());
+        $this->setUpdatedAt(new \DateTime());
     }
     
     /**
@@ -136,7 +136,7 @@ class Ressource
      */
     public function setRouteName($routeName)
     {
-    	$this->route_name = $routeName;
+        $this->route_name = $routeName;
     }
     
     /**
@@ -146,7 +146,7 @@ class Ressource
      */
     public function getRouteName()
     {
-    	return $this->route_name;
+        return $this->route_name;
     }
     
     /**
@@ -156,7 +156,7 @@ class Ressource
      */
     public function setSlug($slug)
     {
-    	$this->slug = $this->slugify($slug);
+        $this->slug = $this->slugify($slug);
     }
     
     /**
@@ -166,7 +166,7 @@ class Ressource
      */
     public function getSlug()
     {
-    	return $this->slug;
+        return $this->slug;
     }
     
     /**
@@ -176,7 +176,7 @@ class Ressource
      */
     public function setUrl($url)
     {
-    	$this->url = $url;
+        $this->url = $url;
     }
     
     /**
@@ -186,7 +186,7 @@ class Ressource
      */
     public function getUrl()
     {
-    	return $this->url;
+        return $this->url;
     }
     
     /**

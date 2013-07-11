@@ -106,15 +106,15 @@ class TranslationWidget
     
     public function __construct()
     {
-    	$this->setEnabled(true);
-    	
-    	//$this->setCreatedAt(new \DateTime());
-    	//$this->setUpdatedAt(new \DateTime());
+        $this->setEnabled(true);
+        
+        //$this->setCreatedAt(new \DateTime());
+        //$this->setUpdatedAt(new \DateTime());
     }   
     
     public function __toString()
     {
-    	return (string) $this->id;
+        return (string) $this->id;
     }    
 
 //     /**
@@ -122,8 +122,8 @@ class TranslationWidget
 //      */
 //     public function setCreatedValue()
 //     {
-//     	$this->setCreatedAt(new \DateTime());
-//     	$this->setUpdatedAt(new \DateTime());
+//         $this->setCreatedAt(new \DateTime());
+//         $this->setUpdatedAt(new \DateTime());
 //     }
     
 //     /**
@@ -131,7 +131,7 @@ class TranslationWidget
 //      */
 //     public function setUpdatedValue()
 //     {
-//     	$this->setUpdatedAt(new \DateTime());
+//         $this->setUpdatedAt(new \DateTime());
 //     }   
  
     /**
@@ -311,8 +311,8 @@ class TranslationWidget
      */
     public function setArchived($archived)
     {
-    	$this->archived = $archived;
-    	return $this;
+        $this->archived = $archived;
+        return $this;
     }
     
     /**
@@ -322,6 +322,6 @@ class TranslationWidget
      */
     public function getArchived()
     {
-    	return $this->archived;
+        return $this->archived;
     }    
 }

@@ -152,11 +152,11 @@ class Widget
 
     public function __construct()
     {
-    	$this->translations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->translations = new \Doctrine\Common\Collections\ArrayCollection();
     
-    	$this->setEnabled(true);
-    	$this->setConfigXml(PiWidgetExtension::getDefaultConfigXml());
-    	$this->setLifetime('84600');
+        $this->setEnabled(true);
+        $this->setConfigXml(PiWidgetExtension::getDefaultConfigXml());
+        $this->setLifetime('84600');
     }
 
     /**
@@ -167,7 +167,7 @@ class Widget
      *
      */
     public function __toString() {
-    	return (string) $this->id;
+        return (string) $this->id;
     }
 
     /**
@@ -267,7 +267,7 @@ class Widget
      */
     public function setCacheable($cacheable)
     {
-    	$this->cacheable = $cacheable;
+        $this->cacheable = $cacheable;
     }
     
     /**
@@ -277,7 +277,7 @@ class Widget
      */
     public function getCacheable()
     {
-    	return $this->cacheable;
+        return $this->cacheable;
     }
     
     /**
@@ -287,7 +287,7 @@ class Widget
      */
     public function setPublic($public)
     {
-    	$this->public = $public;
+        $this->public = $public;
     }
     
     /**
@@ -297,7 +297,7 @@ class Widget
      */
     public function getPublic()
     {
-    	return $this->public;
+        return $this->public;
     }
     
     /**
@@ -307,7 +307,7 @@ class Widget
      */
     public function setLifetime($lifetime)
     {
-    	$this->lifetime = $lifetime;
+        $this->lifetime = $lifetime;
     }
     
     /**
@@ -317,7 +317,7 @@ class Widget
      */
     public function getLifetime()
     {
-    	return $this->lifetime;
+        return $this->lifetime;
     }
     
 
@@ -368,7 +368,7 @@ class Widget
      */
     public function setTranslations(\Doctrine\Common\Collections\ArrayCollection $translations)
     {
-    	$this->translations = $translations;
+        $this->translations = $translations;
     }    
 
     /**
@@ -399,7 +399,7 @@ class Widget
      */
     public function setCreatedAt($createdAt)
     {
-    	$this->created_at = $createdAt;
+        $this->created_at = $createdAt;
     }
     
     /**
@@ -409,7 +409,7 @@ class Widget
      */
     public function getCreatedAt()
     {
-    	return $this->created_at;
+        return $this->created_at;
     }
     
     /**
@@ -419,7 +419,7 @@ class Widget
      */
     public function setUpdatedAt($updatedAt)
     {
-    	$this->updated_at = $updatedAt;
+        $this->updated_at = $updatedAt;
     }
     
     /**
@@ -429,7 +429,7 @@ class Widget
      */
     public function getUpdatedAt()
     {
-    	return $this->updated_at;
+        return $this->updated_at;
     }
     
     /**
@@ -439,7 +439,7 @@ class Widget
      */
     public function setArchiveAt($archiveAt)
     {
-    	$this->archive_at = $archiveAt;
+        $this->archive_at = $archiveAt;
     }
     
     /**
@@ -449,7 +449,7 @@ class Widget
      */
     public function getArchiveAt()
     {
-    	return $this->archive_at;
+        return $this->archive_at;
     }
     
     
@@ -460,7 +460,7 @@ class Widget
      */
     public function setEnabled($enabled)
     {
-    	$this->enabled = $enabled;
+        $this->enabled = $enabled;
     }
     
     /**
@@ -470,7 +470,7 @@ class Widget
      */
     public function getEnabled()
     {
-    	return $this->enabled;
+        return $this->enabled;
     }    
     
     /**
@@ -480,8 +480,8 @@ class Widget
      */
     public function setArchived($archived)
     {
-    	$this->archived = $archived;
-    	return $this;
+        $this->archived = $archived;
+        return $this;
     }
     
     /**
@@ -491,6 +491,6 @@ class Widget
      */
     public function getArchived()
     {
-    	return $this->archived;
+        return $this->archived;
     }    
 }

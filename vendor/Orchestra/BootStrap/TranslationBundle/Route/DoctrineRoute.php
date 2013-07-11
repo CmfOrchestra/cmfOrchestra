@@ -70,7 +70,7 @@ class DoctrineRoute implements DoctrineRouteInterface
      */
     public function getConnection()
     {
-   		return $this->connection;
+           return $this->connection;
     }   
     
     /**
@@ -84,16 +84,16 @@ class DoctrineRoute implements DoctrineRouteInterface
      */    
     public function getAllRouteValues()
     {
-        $all_route_names	= $this->getAllRouteNames();
+        $all_route_names    = $this->getAllRouteNames();
         
         if (is_null($all_route_names)){
-        	return null;
+            return null;
         } else {
-	        $routes = array();
-	        foreach($all_route_names as $key => $route){
-	        	 $routes[] = $this->getRoute($route);
-	        }
-	        return $routes;
+            $routes = array();
+            foreach($all_route_names as $key => $route){
+                 $routes[] = $this->getRoute($route);
+            }
+            return $routes;
         }
     }
     
@@ -108,18 +108,18 @@ class DoctrineRoute implements DoctrineRouteInterface
      */    
     public function getAllRouteNames()
     {
-    	$cache_all_routes	= $this->cache->fetch('pi_all_routes');
-    	
-    	if (!$cache_all_routes){
-    		return null;
-    	}else
-    		return $cache_all_routes;
+        $cache_all_routes    = $this->cache->fetch('pi_all_routes');
+        
+        if (!$cache_all_routes){
+            return null;
+        }else
+            return $cache_all_routes;
     }    
     
     /**
      * Return all information of a route name which are save in the cache otherwise in the database.
      *
-	 * @param string  $route         The route name
+     * @param string  $route         The route name
      * @return array
      * @access public
      * 
@@ -131,9 +131,9 @@ class DoctrineRoute implements DoctrineRouteInterface
         // values can potentially be large, so we hash them and prevent collisions
         $hashKey         = sha1($route);
         $cacheKey        = "pi_route__" . $hashKey;
-        $RouteValues	 = $this->cache->fetch($cacheKey);
+        $RouteValues     = $this->cache->fetch($cacheKey);
         if ($RouteValues && isset($RouteValues[$hashKey])) {
-        	//print_r($RouteValues[$hashKey]);exit;
+            //print_r($RouteValues[$hashKey]);exit;
             return $RouteValues[$hashKey];
         }
 
@@ -141,14 +141,14 @@ class DoctrineRoute implements DoctrineRouteInterface
         if ($RouteValues = $this->connection->fetchColumn("SELECT id FROM pi_routing WHERE route = ?", array($route))) {
             return $RouteValues;
         }else 
-        	return null;
+            return null;
     }
 
     /**
      * Translate using Doctrine DBAL and a cache layer around it.
      *
      * @param string  $route        The route name
-     * @param array	  $fieldEntity  All fields information
+     * @param array      $fieldEntity  All fields information
      * @param array   $locales      An array with keys locales and values patterns
      * @param array   $defaults     An array of default parameter values
      * @param array   $requirements An array of requirements for parameters (regexes)
@@ -162,26 +162,26 @@ class DoctrineRoute implements DoctrineRouteInterface
     {
         if (is_array($fieldEntity)) {
             if ( ( $fieldEntity['locales'] != json_encode($locales) ) || ( $fieldEntity['requirements'] != json_encode($requirements) ) ) {
-            	
-//             	print_r($fieldEntity['id']);print_r(' - ');
-//             	print_r($route);print_r(' - ');           	
-//             	print_r($fieldEntity['locales']);print_r(' - ');
-//             	print_r(json_encode($locales));print_r(' - ');
-            	
-	            $this->connection->update('pi_routing', array(
-	                'locales' 		=> json_encode($locales),
-	                'defaults' 		=> json_encode($defaults),
-	            	'requirements' 	=> json_encode($requirements),
-	            ), array('id' => $fieldEntity['id']));
-	            
-	            //print_r('<br />');
+                
+//                 print_r($fieldEntity['id']);print_r(' - ');
+//                 print_r($route);print_r(' - ');               
+//                 print_r($fieldEntity['locales']);print_r(' - ');
+//                 print_r(json_encode($locales));print_r(' - ');
+                
+                $this->connection->update('pi_routing', array(
+                    'locales'         => json_encode($locales),
+                    'defaults'         => json_encode($defaults),
+                    'requirements'     => json_encode($requirements),
+                ), array('id' => $fieldEntity['id']));
+                
+                //print_r('<br />');
             }
         } else {
             $this->connection->insert('pi_routing', array(
-                'route'  		=> $route,
-                'locales' 		=> json_encode($locales),
-                'defaults' 		=> json_encode($defaults),
-            	'requirements' 	=> json_encode($requirements),
+                'route'          => $route,
+                'locales'         => json_encode($locales),
+                'defaults'         => json_encode($defaults),
+                'requirements'     => json_encode($requirements),
             ));
             
             //print_r($route);
@@ -190,24 +190,24 @@ class DoctrineRoute implements DoctrineRouteInterface
         
         // prime the cache!
         if ($this->primeCache) {
-            $hashKey  		= sha1($route);
-            $cacheKey 		= "pi_route__" . $hashKey;
-            $RouteValues 	= $this->cache->fetch($cacheKey);
+            $hashKey          = sha1($route);
+            $cacheKey         = "pi_route__" . $hashKey;
+            $RouteValues     = $this->cache->fetch($cacheKey);
             if (!$RouteValues) {
                 $RouteValues = array();
             }
-            $RouteValues[$hashKey]['route'] 		= $route;
-            $RouteValues[$hashKey]['locales'] 		= $locales;
-            $RouteValues[$hashKey]['defaults'] 		= $defaults;
-            $RouteValues[$hashKey]['requirements'] 	= $requirements;
+            $RouteValues[$hashKey]['route']         = $route;
+            $RouteValues[$hashKey]['locales']         = $locales;
+            $RouteValues[$hashKey]['defaults']         = $defaults;
+            $RouteValues[$hashKey]['requirements']     = $requirements;
             $this->cache->save($cacheKey, $RouteValues);
             
             // we save the route name in the global cache values
-            $cache_all_routes	= $this->cache->fetch('pi_all_routes');
+            $cache_all_routes    = $this->cache->fetch('pi_all_routes');
             if (!$cache_all_routes) {
-         	   $cache_all_routes = array();
-        	}
-            $cache_all_routes[]	= $route;
+                $cache_all_routes = array();
+            }
+            $cache_all_routes[]    = $route;
             $this->cache->save('pi_all_routes', $cache_all_routes, 0);
         }
     }

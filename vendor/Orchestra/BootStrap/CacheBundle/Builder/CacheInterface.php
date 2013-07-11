@@ -13,9 +13,9 @@ use BootStrap\CacheBundle\Builder\CacheClientInterface;
  */
 interface CacheInterface
 {
-	public function __construct( CacheClientInterface $client = null );
-	public function get( $key );
-	public function set( $key, $value, $ttl );
-	public function isSafe();
-	public function clear($key);
+    public function __construct( CacheClientInterface $client = null );
+    public function get( $key );
+    public function set( $key, $value, $ttl );
+    public function isSafe();
+    public function clear($key);
 }

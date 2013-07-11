@@ -22,10 +22,10 @@ namespace BootStrap\TranslationBundle\Builder;
  */
 interface RouteTranslatorFactoryInterface
 {
-	public function getRefererRoute($langue = '', $options = null);
-	public function getLocaleRoute($langue = '', $options = null);
-	public function getRoute($route_name = null, $params = null);
-	public function getMatchParamOfRoute($param = null, $langue = '');
-	public function addAllRoutePageCollections();
-	public function getGenerate($name, array $locales, array $defaults = array(), array $requirements = array(), array $options = array());
+    public function getRefererRoute($langue = '', $options = null);
+    public function getLocaleRoute($langue = '', $options = null);
+    public function getRoute($route_name = null, $params = null);
+    public function getMatchParamOfRoute($param = null, $langue = '');
+    public function addAllRoutePageCollections();
+    public function getGenerate($name, array $locales, array $defaults = array(), array $requirements = array(), array $options = array());
 }

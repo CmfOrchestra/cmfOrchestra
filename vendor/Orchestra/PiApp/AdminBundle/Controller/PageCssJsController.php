@@ -38,16 +38,16 @@ use PiApp\AdminBundle\Form\PageCssJsType as PageType;
  */
 class PageCssJsController extends abstractController
 {
-	protected $_entityName = "PiAppAdminBundle:Page";
-	
+    protected $_entityName = "PiAppAdminBundle:Page";
+    
     /**
      * Lists all Page entities.
      * 
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function indexAction()
     {
@@ -72,7 +72,7 @@ class PageCssJsController extends abstractController
      */
     public function enabledajaxAction()
     {
-    	return parent::enabledajaxAction();
+        return parent::enabledajaxAction();
     }
     
     /**
@@ -87,7 +87,7 @@ class PageCssJsController extends abstractController
      */
     public function disableajaxAction()
     {
-    	return parent::disableajaxAction();
+        return parent::disableajaxAction();
     }
 
     /**
@@ -96,12 +96,12 @@ class PageCssJsController extends abstractController
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function showAction($id)
     {
-        $em 	= $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getEntityManager();
         $entity = $em->getRepository('PiAppAdminBundle:Page')->find($id);
 
         if (!$entity) {
@@ -123,8 +123,8 @@ class PageCssJsController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function newAction()
     {
@@ -144,8 +144,8 @@ class PageCssJsController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function createAction()
     {
@@ -155,24 +155,24 @@ class PageCssJsController extends abstractController
         $form->bind($request);
 
         if ('POST' === $request->getMethod()) {
-	        if ($form->isValid()) {
-	            $em = $this->getDoctrine()->getEntityManager();
-	
-	            // On persiste tous les translations d'une page.
-	            foreach($entity->getTranslations() as $translationPage) {
-	            	$entity->addTranslation($translationPage);
-	            }
-	            $em->persist($entity);
-	            $em->flush();
-	
-	            return $this->redirect($this->generateUrl('admin_pagecssjs_show', array('id' => $entity->getId())));
-	            
-	        }
-	
-	        return $this->render('PiAppAdminBundle:PageCssJs:new.html.twig', array(
-	            'entity' => $entity,
-	            'form'   => $form->createView()
-	        ));
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getEntityManager();
+    
+                // On persiste tous les translations d'une page.
+                foreach($entity->getTranslations() as $translationPage) {
+                    $entity->addTranslation($translationPage);
+                }
+                $em->persist($entity);
+                $em->flush();
+    
+                return $this->redirect($this->generateUrl('admin_pagecssjs_show', array('id' => $entity->getId())));
+                
+            }
+    
+            return $this->render('PiAppAdminBundle:PageCssJs:new.html.twig', array(
+                'entity' => $entity,
+                'form'   => $form->createView()
+            ));
         }
         
         return array('form' => $form->createView());
@@ -184,8 +184,8 @@ class PageCssJsController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function editAction($id)
     {
@@ -213,8 +213,8 @@ class PageCssJsController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function updateAction($id)
     {
@@ -236,7 +236,7 @@ class PageCssJsController extends abstractController
         if ($editForm->isValid()) {
             // On persiste tous les translations d'une page.
             foreach($entity->getTranslations() as $translationPage) {
-            	$entity->addTranslation($translationPage);
+                $entity->addTranslation($translationPage);
             }
             $em->persist($entity);
             $em->flush();
@@ -257,8 +257,8 @@ class PageCssJsController extends abstractController
      * @Secure(roles="ROLE_SUPER_ADMIN")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function deleteAction($id)
     {

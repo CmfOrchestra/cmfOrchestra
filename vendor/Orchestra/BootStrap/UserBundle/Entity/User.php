@@ -30,8 +30,8 @@ use BootStrap\UserBundle\Repository\PermissionRepository;
  */
 class User extends BaseUser
 {
-	const ROLE_DEFAULT = 'ROLE_ALLOWED_TO_SWITCH';
-	
+    const ROLE_DEFAULT = 'ROLE_ALLOWED_TO_SWITCH';
+    
     /**
      * @var bigint $id
      * 
@@ -39,44 +39,44 @@ class User extends BaseUser
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-	protected $id;
-	
-	/**
-	 * @var string $name
-	 *
-	 * @ORM\Column(name="name", type="string", nullable = true)
-	 */
-	protected $name;
-		
-	/**
-	 * @var string $nickname
-	 *
-	 * @ORM\Column(name="nickname", type="string", nullable = true)
-	 */
-	protected $nickname;	
-	
-	/**
-	 * @var array of \Doctrine\Common\Collections\ArrayCollection newsletters
-	 *
-	 * @ORM\ManyToMany(targetEntity="PiApp\GedmoBundle\Entity\Newsletter", mappedBy="users")
-	 */
-	protected $newsletters;
-	
-	/**
-	 * @var \Doctrine\Common\Collections\ArrayCollection
-	 *
-	 * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Ads", mappedBy="user", cascade={"all"})
-	 */
-	protected $ads;  
+    protected $id;
+    
+    /**
+     * @var string $name
+     *
+     * @ORM\Column(name="name", type="string", nullable = true)
+     */
+    protected $name;
+        
+    /**
+     * @var string $nickname
+     *
+     * @ORM\Column(name="nickname", type="string", nullable = true)
+     */
+    protected $nickname;    
+    
+    /**
+     * @var array of \Doctrine\Common\Collections\ArrayCollection newsletters
+     *
+     * @ORM\ManyToMany(targetEntity="PiApp\GedmoBundle\Entity\Newsletter", mappedBy="users")
+     */
+    protected $newsletters;
+    
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Ads", mappedBy="user", cascade={"all"})
+     */
+    protected $ads;  
 
-	/**
-	 * @var array of \Doctrine\Common\Collections\ArrayCollection $rssneeds
-	 *
-	 * @ORM\ManyToMany(targetEntity="PiApp\GedmoBundle\Entity\Rss", mappedBy="users")
-	 */
-	protected $rssneeds;	
+    /**
+     * @var array of \Doctrine\Common\Collections\ArrayCollection $rssneeds
+     *
+     * @ORM\ManyToMany(targetEntity="PiApp\GedmoBundle\Entity\Rss", mappedBy="users")
+     */
+    protected $rssneeds;    
 
- 	/**
+     /**
      * @ORM\ManyToMany(targetEntity="BootStrap\UserBundle\Entity\Group")
      * @ORM\JoinTable(name="fos_user_group",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
@@ -133,14 +133,14 @@ class User extends BaseUser
 
     public function __construct()
     {
-    	parent::__construct();
-    	
-    	$this->groups		= new \Doctrine\Common\Collections\ArrayCollection();
-    	$this->newsletters	= new \Doctrine\Common\Collections\ArrayCollection();
-    	$this->typocommissions	= new \Doctrine\Common\Collections\ArrayCollection();
-    	$this->events	= new \Doctrine\Common\Collections\ArrayCollection();      
-    	$this->rssneeds		= new \Doctrine\Common\Collections\ArrayCollection();
-		$this->ads	 	 = new \Doctrine\Common\Collections\ArrayCollection();
+        parent::__construct();
+        
+        $this->groups        = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->newsletters    = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->typocommissions    = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->events    = new \Doctrine\Common\Collections\ArrayCollection();      
+        $this->rssneeds        = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->ads          = new \Doctrine\Common\Collections\ArrayCollection();
     }    
     
     /**
@@ -151,7 +151,7 @@ class User extends BaseUser
      *
      */
     public function __toString() {
-    	return (string) $this->username;
+        return (string) $this->username;
     }    
 
     /**
@@ -202,7 +202,7 @@ class User extends BaseUser
      */
     public function addAds(\PiApp\GedmoBundle\Entity\Ads $ads)
     {
-    	$this->ads[] = $ads;
+        $this->ads[] = $ads;
     }
     
     /**
@@ -212,9 +212,9 @@ class User extends BaseUser
      */
     public function getAds()
     {
-    	return $this->ads;
+        return $this->ads;
     }
-	
+    
     /**
      * Get groups
      *
@@ -232,11 +232,11 @@ class User extends BaseUser
      */
     public function setPermissions(array $permissions)
     {
-    	$this->permissions = array();
+        $this->permissions = array();
     
-    	foreach ($permissions as $permission) {
-    		$this->addPermission($permission);
-    	}
+        foreach ($permissions as $permission) {
+            $this->addPermission($permission);
+        }
     }
     
     /**
@@ -246,12 +246,12 @@ class User extends BaseUser
      */
     public function getPermissions()
     {
-    	$permissions = $this->permissions;
+        $permissions = $this->permissions;
     
-    	// we need to make sure to have at least one role
-    	$permissions[] = PermissionRepository::ShowDefaultPermission();
+        // we need to make sure to have at least one role
+        $permissions[] = PermissionRepository::ShowDefaultPermission();
     
-    	return array_unique($permissions);
+        return array_unique($permissions);
     }   
 
     /**
@@ -261,11 +261,11 @@ class User extends BaseUser
      */
     public function addPermission($permission)
     {
-    	$permission = strtoupper($permission);
+        $permission = strtoupper($permission);
     
-    	if (!in_array($permission, $this->permissions, true)) {
-    		$this->permissions[] = $permission;
-    	}
+        if (!in_array($permission, $this->permissions, true)) {
+            $this->permissions[] = $permission;
+        }
     }  
 
     /**
@@ -275,14 +275,14 @@ class User extends BaseUser
      */
     public function addRole($role)
     {
-    	$role = strtoupper($role);
-    	if ($role === static::ROLE_DEFAULT) {
-    		return;
-    	}
+        $role = strtoupper($role);
+        if ($role === static::ROLE_DEFAULT) {
+            return;
+        }
     
-    	if (!in_array($role, $this->roles, true)) {
-    		$this->roles[] = $role;
-    	}
+        if (!in_array($role, $this->roles, true)) {
+            $this->roles[] = $role;
+        }
     }
 
     /**
@@ -294,16 +294,16 @@ class User extends BaseUser
      */
     public function getRoles()
     {
-    	$roles = $this->roles;
+        $roles = $this->roles;
     
-    	foreach ($this->getGroups() as $group) {
-    		$roles = array_merge($roles, $group->getRoles());
-    	}
-    	
-    	// we need to make sure to have at least one role
-    	$roles[] = static::ROLE_DEFAULT;
-    	
-    	return array_unique($roles);
+        foreach ($this->getGroups() as $group) {
+            $roles = array_merge($roles, $group->getRoles());
+        }
+        
+        // we need to make sure to have at least one role
+        $roles[] = static::ROLE_DEFAULT;
+        
+        return array_unique($roles);
     }    
 
     /**
@@ -333,7 +333,7 @@ class User extends BaseUser
      */
     public function getNewsletters()
     {
-    	return $this->newsletters;
+        return $this->newsletters;
     }
     
     /**
@@ -343,7 +343,7 @@ class User extends BaseUser
      */
     public function getRssneeds()
     {
-    	return $this->rssneeds;
+        return $this->rssneeds;
     }    
     
     /**
@@ -353,7 +353,7 @@ class User extends BaseUser
      */
     public function getCorporation()
     {
-    	return $this->corporation;
+        return $this->corporation;
     }   
 
     /**
@@ -363,7 +363,7 @@ class User extends BaseUser
      */
     public function getIndividual()
     {
-    	return $this->individual;
+        return $this->individual;
     }    
     
     /**
@@ -373,7 +373,7 @@ class User extends BaseUser
      */
     public function setName($name)
     {
-    	$this->name = $name;
+        $this->name = $name;
     }
     
     /**
@@ -383,7 +383,7 @@ class User extends BaseUser
      */
     public function getName()
     {
-    	return $this->name;
+        return $this->name;
     }
     
     /**
@@ -393,7 +393,7 @@ class User extends BaseUser
      */
     public function setNickname($nickname)
     {
-    	$this->nickname = $nickname;
+        $this->nickname = $nickname;
     }
     
     /**
@@ -403,7 +403,7 @@ class User extends BaseUser
      */
     public function getNickname()
     {
-    	return $this->nickname;
+        return $this->nickname;
     }
     
     /**
@@ -413,8 +413,8 @@ class User extends BaseUser
      */
     public function setCreatedAt($createdAt)
     {
-    	$this->created_at = $createdAt;
-    	return $this;
+        $this->created_at = $createdAt;
+        return $this;
     }
     
     /**
@@ -424,7 +424,7 @@ class User extends BaseUser
      */
     public function getCreatedAt()
     {
-    	return $this->created_at;
+        return $this->created_at;
     }    
     
 

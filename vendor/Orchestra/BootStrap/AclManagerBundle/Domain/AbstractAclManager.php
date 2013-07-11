@@ -50,7 +50,7 @@ abstract class AbstractAclManager implements AclManagerInterface
      */
     protected function getSecurityContext()
     {
-    	return $this->securityContext;
+        return $this->securityContext;
     }    
 
     /**

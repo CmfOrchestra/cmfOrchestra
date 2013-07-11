@@ -13,9 +13,9 @@
 namespace BootStrap\AdminBundle\DependencyInjection;
 
 use Symfony\Component\HttpKernel\DependencyInjection\Extension,
-	Symfony\Component\DependencyInjection\ContainerBuilder,
-	Symfony\Component\DependencyInjection\Loader,
-	Symfony\Component\Config\FileLocator;
+    Symfony\Component\DependencyInjection\ContainerBuilder,
+    Symfony\Component\DependencyInjection\Loader,
+    Symfony\Component\Config\FileLocator;
 
 /**
  * This is the class that loads and manages your bundle configuration

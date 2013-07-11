@@ -22,6 +22,6 @@ namespace PiApp\AdminBundle\Builder;
  */
 interface PiSliderManagerBuilderInterface
 {
-	public function renderSource($id, $lang = '', $params = null);
-	public function getSlider($locale, $entity, $category, $template, $parameters = null);
+    public function renderSource($id, $lang = '', $params = null);
+    public function getSlider($locale, $entity, $category, $template, $parameters = null);
 }

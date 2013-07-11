@@ -35,29 +35,29 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  */
 class Slider extends AbstractDefault 
 {
-	/**
-	 * List of al translatable fields
-	 * 
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_fields	= array('title', 'subtitle','descriptifleft', 'descriptifright', 'pagetitle', 'slug', 'meta_keywords', 'meta_description');
+    /**
+     * List of al translatable fields
+     * 
+     * @var array
+     * @access  protected
+     */
+    protected $_fields    = array('title', 'subtitle','descriptifleft', 'descriptifright', 'pagetitle', 'slug', 'meta_keywords', 'meta_description');
 
-	/**
-	 * Name of the Translation Entity
-	 * 
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\SliderTranslation';
-	
-	/**
-	 * @var \Doctrine\Common\Collections\ArrayCollection
-	 *
-	 * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\SliderTranslation", mappedBy="object", cascade={"persist", "remove"})
-	 */
-	protected $translations;	
-	
+    /**
+     * Name of the Translation Entity
+     * 
+     * @var array
+     * @access  protected
+     */
+    protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\SliderTranslation';
+    
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\SliderTranslation", mappedBy="object", cascade={"persist", "remove"})
+     */
+    protected $translations;    
+    
     /**
      * @var bigint
      * 
@@ -174,11 +174,11 @@ class Slider extends AbstractDefault
 
     //
     // * @Assert\File(
-    //		*     maxSize = "10M",
-    //		*     mimeTypes = {
-    //	"image/gif","image/jpeg","image/png"},
-    //	*     mimeTypesMessage = "Please upload a valid image"
-    //	* )
+    //        *     maxSize = "10M",
+    //        *     mimeTypes = {
+    //    "image/gif","image/jpeg","image/png"},
+    //    *     mimeTypesMessage = "Please upload a valid image"
+    //    * )
     
     
     /**
@@ -186,7 +186,7 @@ class Slider extends AbstractDefault
      */    
     public function __construct()
     {
-    	parent::__construct();
+        parent::__construct();
     }    
     
     /**
@@ -198,10 +198,10 @@ class Slider extends AbstractDefault
      */    
     public function __toString()
     {
-    	return (string) $this->getTitle();
+        return (string) $this->getTitle();
     }    
     
-	/**
+    /**
      * @ORM\PrePersist
      * @ORM\preUpdate
      */
@@ -226,7 +226,7 @@ class Slider extends AbstractDefault
      */
     public function setPage($page)
     {
-    	$this->page = $page;
+        $this->page = $page;
     }
     
     /**
@@ -236,7 +236,7 @@ class Slider extends AbstractDefault
      */
     public function getPage()
     {
-    	return $this->page;
+        return $this->page;
     }    
     
     /**
@@ -246,7 +246,7 @@ class Slider extends AbstractDefault
      */
     public function setPagetitle($title)
     {
-    	$this->pagetitle = $title;
+        $this->pagetitle = $title;
     }
     
     /**
@@ -256,7 +256,7 @@ class Slider extends AbstractDefault
      */
     public function getPagetitle()
     {
-    	return $this->pagetitle;
+        return $this->pagetitle;
     }
     
     /**
@@ -266,7 +266,7 @@ class Slider extends AbstractDefault
      */
     public function setPagecssclass($className)
     {
-    	$this->pagecssclass = $className;
+        $this->pagecssclass = $className;
     }    
     
     /**
@@ -276,7 +276,7 @@ class Slider extends AbstractDefault
      */
     public function getPagecssclass()
     {
-    	return $this->pagecssclass;
+        return $this->pagecssclass;
     }    
     
     /**
@@ -286,8 +286,8 @@ class Slider extends AbstractDefault
      */
     public function setCategory($category)
     {
-    	$this->category = $category;
-    	return $this;
+        $this->category = $category;
+        return $this;
     }
     
     /**
@@ -297,7 +297,7 @@ class Slider extends AbstractDefault
      */
     public function getCategory()
     {
-    	return $this->category;
+        return $this->category;
     } 
     
     /**
@@ -307,7 +307,7 @@ class Slider extends AbstractDefault
      */
     public function setCssClass($CssClass)
     {
-    	$this->CssClass = $CssClass;
+        $this->CssClass = $CssClass;
     }
     
     /**
@@ -317,7 +317,7 @@ class Slider extends AbstractDefault
      */
     public function getCssClass()
     {
-    	return $this->CssClass;
+        return $this->CssClass;
     }    
         
     /**
@@ -338,7 +338,7 @@ class Slider extends AbstractDefault
      */
     public function getTitle()
     {
-    	return $this->title;
+        return $this->title;
     }
         
     /**
@@ -358,7 +358,7 @@ class Slider extends AbstractDefault
      */
     public function setSubtitle($title)
     {
-    	$this->subtitle = $title;
+        $this->subtitle = $title;
     }
    
     
@@ -369,7 +369,7 @@ class Slider extends AbstractDefault
      */
     public function setDescriptifleft($descriptif)
     {
-    	$this->descriptifleft = $descriptif;
+        $this->descriptifleft = $descriptif;
     }
     
     /**
@@ -379,7 +379,7 @@ class Slider extends AbstractDefault
      */
     public function getDescriptifleft()
     {
-    	return $this->descriptifleft;
+        return $this->descriptifleft;
     }    
 
     /**
@@ -389,7 +389,7 @@ class Slider extends AbstractDefault
      */
     public function setDescriptifright($descriptif)
     {
-    	$this->descriptifright = $descriptif;
+        $this->descriptifright = $descriptif;
     }
     
     /**
@@ -399,7 +399,7 @@ class Slider extends AbstractDefault
      */
     public function getDescriptifright()
     {
-    	return $this->descriptifright;
+        return $this->descriptifright;
     }
     
     /**
@@ -409,8 +409,8 @@ class Slider extends AbstractDefault
      */
     public function setMedia($media)
     {
-    	$this->media = $media;    	
-    	return $this;
+        $this->media = $media;        
+        return $this;
     }
     
     /**
@@ -420,7 +420,7 @@ class Slider extends AbstractDefault
      */
     public function getMedia()
     {
-    	return $this->media;
+        return $this->media;
     } 
     
     /**
@@ -430,7 +430,7 @@ class Slider extends AbstractDefault
      */
     public function getSlug()
     {
-    	return $this->slug;
+        return $this->slug;
     }
     
     /**
@@ -440,7 +440,7 @@ class Slider extends AbstractDefault
      */
     public function setMetaKeywords($metaKeywords)
     {
-    	$this->meta_keywords = $metaKeywords;
+        $this->meta_keywords = $metaKeywords;
     }
     
     /**
@@ -450,7 +450,7 @@ class Slider extends AbstractDefault
      */
     public function getMetaKeywords()
     {
-    	return $this->meta_keywords;
+        return $this->meta_keywords;
     }
     
     /**
@@ -460,7 +460,7 @@ class Slider extends AbstractDefault
      */
     public function setMetaDescription($metaDescription)
     {
-    	$this->meta_description = $metaDescription;
+        $this->meta_description = $metaDescription;
     }
     
     /**
@@ -470,7 +470,7 @@ class Slider extends AbstractDefault
      */
     public function getMetaDescription()
     {
-    	return $this->meta_description;
+        return $this->meta_description;
     }    
 
 }

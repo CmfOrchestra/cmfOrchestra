@@ -253,22 +253,22 @@ class TranslationPage
 
     public function __construct()
     {
-    	$this->tags 				= new \Doctrine\Common\Collections\ArrayCollection();
-    	$this->comments 			= new \Doctrine\Common\Collections\ArrayCollection();
-    	$this->historical_status 	= new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tags                 = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->comments             = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->historical_status     = new \Doctrine\Common\Collections\ArrayCollection();
     
-    	$this->setEnabled(true);
-    	//$this->setCreatedAt(new \DateTime());
-    	//$this->setUpdatedAt(new \DateTime());
+        $this->setEnabled(true);
+        //$this->setCreatedAt(new \DateTime());
+        //$this->setUpdatedAt(new \DateTime());
     
     }
     
     public function __toString()
     {
-    	$meta_title = $this->getMetaTitle();
-    	if (!empty($meta_title))
-    		$meta_title = ' ('.$meta_title.')';
-    	return (string) $this->getId() . '. ' . $this->getSlug() . $meta_title;
+        $meta_title = $this->getMetaTitle();
+        if (!empty($meta_title))
+            $meta_title = ' ('.$meta_title.')';
+        return (string) $this->getId() . '. ' . $this->getSlug() . $meta_title;
     }    
 
 //     /**
@@ -276,8 +276,8 @@ class TranslationPage
 //      */
 //     public function setCreatedValue()
 //     {
-//     	$this->setCreatedAt(new \DateTime());
-//     	$this->setUpdatedAt(new \DateTime());
+//         $this->setCreatedAt(new \DateTime());
+//         $this->setUpdatedAt(new \DateTime());
 //     }
     
 //     /**
@@ -285,36 +285,36 @@ class TranslationPage
 //      */
 //     public function setUpdatedValue()
 //     {
-//     	$this->setUpdatedAt(new \DateTime());
+//         $this->setUpdatedAt(new \DateTime());
 //     }
     
     public function slugify($text)
     {
-    	// replace non letter or digits by -
-    	//$text = preg_replace('#[^\\pL\d]+#u', '-', $text);
-    	$text = preg_replace('#[^\\pL\/\d]+#u', '-', $text);
+        // replace non letter or digits by -
+        //$text = preg_replace('#[^\\pL\d]+#u', '-', $text);
+        $text = preg_replace('#[^\\pL\/\d]+#u', '-', $text);
 
-    	// delete all accent
-    	$translit = array('Á'=>'A','À'=>'A','Â'=>'A','Ä'=>'A','Ã'=>'A','Å'=>'A','Ç'=>'C','É'=>'E','È'=>'E','Ê'=>'E','Ë'=>'E','Í'=>'I','Ï'=>'I','Î'=>'I','Ì'=>'I','Ñ'=>'N','Ó'=>'O','Ò'=>'O','Ô'=>'O','Ö'=>'O','Õ'=>'O','Ú'=>'U','Ù'=>'U','Û'=>'U','Ü'=>'U','Ý'=>'Y','á'=>'a','à'=>'a','â'=>'a','ä'=>'a','ã'=>'a','å'=>'a','ç'=>'c','é'=>'e','è'=>'e','ê'=>'e','ë'=>'e','í'=>'i','ì'=>'i','î'=>'i','ï'=>'i','ñ'=>'n','ó'=>'o','ò'=>'o','ô'=>'o','ö'=>'o','õ'=>'o','ú'=>'u','ù'=>'u','û'=>'u','ü'=>'u','ý'=>'y','ÿ'=>'y');
-    	$text 	  = strtr($text, $translit);
-    	
-    	// trim
-    	$text = trim($text, '-');
+        // delete all accent
+        $translit = array('Á'=>'A','À'=>'A','Â'=>'A','Ä'=>'A','Ã'=>'A','Å'=>'A','Ç'=>'C','É'=>'E','È'=>'E','Ê'=>'E','Ë'=>'E','Í'=>'I','Ï'=>'I','Î'=>'I','Ì'=>'I','Ñ'=>'N','Ó'=>'O','Ò'=>'O','Ô'=>'O','Ö'=>'O','Õ'=>'O','Ú'=>'U','Ù'=>'U','Û'=>'U','Ü'=>'U','Ý'=>'Y','á'=>'a','à'=>'a','â'=>'a','ä'=>'a','ã'=>'a','å'=>'a','ç'=>'c','é'=>'e','è'=>'e','ê'=>'e','ë'=>'e','í'=>'i','ì'=>'i','î'=>'i','ï'=>'i','ñ'=>'n','ó'=>'o','ò'=>'o','ô'=>'o','ö'=>'o','õ'=>'o','ú'=>'u','ù'=>'u','û'=>'u','ü'=>'u','ý'=>'y','ÿ'=>'y');
+        $text       = strtr($text, $translit);
+        
+        // trim
+        $text = trim($text, '-');
     
-    	// transliterate
-    	if (function_exists('iconv'))
-    		$text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+        // transliterate
+        if (function_exists('iconv'))
+            $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
     
-    	// lowercase
-    	$text = strtolower($text);
+        // lowercase
+        $text = strtolower($text);
     
-    	// remove unwanted characters
-    	//$text = preg_replace('#[^-\w]+#', '', $text);
+        // remove unwanted characters
+        //$text = preg_replace('#[^-\w]+#', '', $text);
     
-    	if (empty($text))
-    		return '';
-    	else
-    		return $text;
+        if (empty($text))
+            return '';
+        else
+            return $text;
     }    
     
     /**
@@ -415,11 +415,11 @@ class TranslationPage
      */
     public function setHeritage( array $heritage)
     {
-    	$this->heritage = array();
+        $this->heritage = array();
     
-    	foreach ($heritage as $role) {
-    		$this->addRoleInHeritage($role);
-    	}
+        foreach ($heritage as $role) {
+            $this->addRoleInHeritage($role);
+        }
     }
     
     /**
@@ -429,7 +429,7 @@ class TranslationPage
      */
     public function getHeritage()
     {
-    	return $this->heritage;
+        return $this->heritage;
     }    
     
     /**
@@ -439,11 +439,11 @@ class TranslationPage
      */
     public function addRoleInHeritage($role)
     {
-    	$role = strtoupper($role);
+        $role = strtoupper($role);
     
-    	if (!in_array($role, $this->heritage, true)) {
-    		$this->heritage[] = $role;
-    	}
+        if (!in_array($role, $this->heritage, true)) {
+            $this->heritage[] = $role;
+        }
     }    
 
     /**
@@ -493,7 +493,7 @@ class TranslationPage
      */
     public function setMetaTitle($metaTitle)
     {
-    	$this->meta_title = $metaTitle;
+        $this->meta_title = $metaTitle;
     }
     
     /**
@@ -503,7 +503,7 @@ class TranslationPage
      */
     public function getMetaTitle()
     {
-    	return $this->meta_title;
+        return $this->meta_title;
     }    
 
     /**
@@ -694,7 +694,7 @@ class TranslationPage
      */
     public function setPage($page)
     {
-    	$this->page = $page;
+        $this->page = $page;
     }
     
     /**
@@ -704,7 +704,7 @@ class TranslationPage
      */
     public function getPage()
     {
-    	return $this->page;
+        return $this->page;
     }
     
     /**
@@ -714,12 +714,12 @@ class TranslationPage
      */
     public function addTag(\PiApp\AdminBundle\Entity\Tag $tag)
     {
-    	$this->tags[] = $tag;
+        $this->tags[] = $tag;
     }
     
     public function setTags($tags)
     {
-    	$this->tags = $tags;
+        $this->tags = $tags;
     }
     
     /**
@@ -729,7 +729,7 @@ class TranslationPage
      */
     public function removeTag(\PiApp\AdminBundle\Entity\Tag $tag)
     {
-    	return $this->tags->removeElement($tag);
+        return $this->tags->removeElement($tag);
     }
     
     /**
@@ -739,7 +739,7 @@ class TranslationPage
      */
     public function getTags()
     {
-    	return $this->tags;
+        return $this->tags;
     }
     
     /**
@@ -749,7 +749,7 @@ class TranslationPage
      */
     public function addComment(\PiApp\AdminBundle\Entity\Comment $comments)
     {
-    	$this->comments[] = $comments;
+        $this->comments[] = $comments;
     }
     
     /**
@@ -759,7 +759,7 @@ class TranslationPage
      */
     public function getComments()
     {
-    	return $this->comments;
+        return $this->comments;
     }
     
     /**
@@ -769,7 +769,7 @@ class TranslationPage
      */
     public function setLangCode(\PiApp\AdminBundle\Entity\Langue $langCode)
     {
-    	$this->langCode = $langCode;
+        $this->langCode = $langCode;
     }
     
     /**
@@ -779,7 +779,7 @@ class TranslationPage
      */
     public function getLangCode()
     {
-    	return $this->langCode;
+        return $this->langCode;
     }
     
     /**
@@ -789,7 +789,7 @@ class TranslationPage
      */
     public function addHistoricalStatus(\PiApp\AdminBundle\Entity\HistoricalStatus $historicalStatus)
     {
-    	$this->historical_status[] = $historicalStatus;
+        $this->historical_status[] = $historicalStatus;
     }
     
     /**
@@ -799,7 +799,7 @@ class TranslationPage
      */
     public function getHistoricalStatus()
     {
-    	return $this->historical_status;
+        return $this->historical_status;
     }    
 
     /**
@@ -909,8 +909,8 @@ class TranslationPage
      */
     public function setArchived($archived)
     {
-    	$this->archived = $archived;
-    	return $this;
+        $this->archived = $archived;
+        return $this;
     }
     
     /**
@@ -920,7 +920,7 @@ class TranslationPage
      */
     public function getArchived()
     {
-    	return $this->archived;
+        return $this->archived;
     }    
 
 }

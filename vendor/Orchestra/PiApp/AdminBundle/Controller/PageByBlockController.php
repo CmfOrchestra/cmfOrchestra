@@ -38,16 +38,16 @@ use PiApp\AdminBundle\Form\PageByBlockType as PageType;
  */
 class PageByBlockController extends abstractController
 {
-	protected $_entityName = "PiAppAdminBundle:Page";
-	
+    protected $_entityName = "PiAppAdminBundle:Page";
+    
     /**
      * Lists all Page entities.
      * 
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function indexAction()
     {
@@ -72,7 +72,7 @@ class PageByBlockController extends abstractController
      */
     public function enabledajaxAction()
     {
-    	return parent::enabledajaxAction();
+        return parent::enabledajaxAction();
     }
     
     /**
@@ -87,7 +87,7 @@ class PageByBlockController extends abstractController
      */
     public function disableajaxAction()
     {
-    	return parent::disableajaxAction();
+        return parent::disableajaxAction();
     }
     
     /**
@@ -96,12 +96,12 @@ class PageByBlockController extends abstractController
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function showAction($id)
     {
-        $em 		= $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getEntityManager();
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
 
         $entity = $em->getRepository('PiAppAdminBundle:Page')->find($id);
@@ -115,7 +115,7 @@ class PageByBlockController extends abstractController
         return $this->render('PiAppAdminBundle:PageByBlock:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
-        	'NoLayout' 	  => $NoLayout,
+            'NoLayout'       => $NoLayout,
         ));
     }
 
@@ -125,8 +125,8 @@ class PageByBlockController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function newAction()
     {
@@ -151,12 +151,12 @@ class PageByBlockController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function createAction()
     {
-        $User 	 = $this->get('security.context')->getToken()->getUser();
+        $User      = $this->get('security.context')->getToken()->getUser();
         $entity  = new Page();
         $entity->setMetaContentType(PageRepository::TYPE_TEXT_HTML);
         $entity->setUser($User);
@@ -165,24 +165,24 @@ class PageByBlockController extends abstractController
         $form->bind($request);        
 
         if ('POST' === $request->getMethod()) {
-	        if ($form->isValid()) {
-	            $em = $this->getDoctrine()->getEntityManager();
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getEntityManager();
 
-	            // On persiste tous les blocks d'une page.
-            	foreach($entity->getBlocks() as $block) {
-	            	$entity->addBlock($block);
-    	        }
-	            $em->persist($entity);
-	            $em->flush();
-	
-	            return $this->redirect($this->generateUrl('admin_pagebyblock_show', array('id' => $entity->getId())));
-	            
-	        }
-	
-	        return $this->render('PiAppAdminBundle:PageByBlock:new.html.twig', array(
-	            'entity' => $entity,
-	            'form'   => $form->createView()
-	        ));
+                // On persiste tous les blocks d'une page.
+                foreach($entity->getBlocks() as $block) {
+                    $entity->addBlock($block);
+                }
+                $em->persist($entity);
+                $em->flush();
+    
+                return $this->redirect($this->generateUrl('admin_pagebyblock_show', array('id' => $entity->getId())));
+                
+            }
+    
+            return $this->render('PiAppAdminBundle:PageByBlock:new.html.twig', array(
+                'entity' => $entity,
+                'form'   => $form->createView()
+            ));
         }
         
         return array('form' => $form->createView());
@@ -194,13 +194,13 @@ class PageByBlockController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function editAction($id)
     {
-    	$User 	= $this->get('security.context')->getToken()->getUser();
-        $em 	= $this->getDoctrine()->getEntityManager();
+        $User     = $this->get('security.context')->getToken()->getUser();
+        $em     = $this->getDoctrine()->getEntityManager();
         $entity = $em->getRepository('PiAppAdminBundle:Page')->find($id);
 
         if (!$entity) {
@@ -223,13 +223,13 @@ class PageByBlockController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function updateAction($id)
     {
-    	$User 	= $this->get('security.context')->getToken()->getUser();
-        $em 	= $this->getDoctrine()->getEntityManager();
+        $User     = $this->get('security.context')->getToken()->getUser();
+        $em     = $this->getDoctrine()->getEntityManager();
         $entity = $em->getRepository('PiAppAdminBundle:Page')->find($id);
 
         if (!$entity) {
@@ -246,7 +246,7 @@ class PageByBlockController extends abstractController
         if ($editForm->isValid()) {
             // On persiste tous les blocks d'une page.
             foreach($entity->getBlocks() as $block) {
-            	$entity->addBlock($block);
+                $entity->addBlock($block);
             }
             $em->persist($entity);
             $em->flush();
@@ -267,8 +267,8 @@ class PageByBlockController extends abstractController
      * @Secure(roles="ROLE_SUPER_ADMIN")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function deleteAction($id)
     {

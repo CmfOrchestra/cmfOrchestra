@@ -15,7 +15,9 @@
 	<div id="symfony-layout-flash" title="{{ 'pi.session.flash.title' | trans }}">
         {% for type in types %}
 				{% for flashMessage in app.session.flashbag.get(type)|php_funct('array_unique') %}
-				    {{ _self.flash(type, flashMessage) | raw }}	
+				    {% if is_granted("ROLE_USER") or (type != 'notice') %}
+				        {{ _self.flash(type, flashMessage) | raw }}
+				    {% endif %}	
 				{% endfor %}
          {% endfor %} 
 	</div>
@@ -33,7 +35,9 @@
 				</header>			
                 {% for type in types %}
                     {% for flashMessage in app.session.flashbag.get(type)|php_funct('array_unique') %}
-					    {{ _self.flash(type, flashMessage) | raw }}	
+                        {% if is_granted("ROLE_USER") or (type != 'permission') %}
+					        {{ _self.flash(type, flashMessage) | raw }}
+					    {% endif %}
 					{% endfor %}
                 {% endfor %}            	
 			</section>

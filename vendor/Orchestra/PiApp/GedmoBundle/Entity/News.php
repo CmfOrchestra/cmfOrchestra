@@ -35,29 +35,29 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  */
 class News extends AbstractDefault 
 {
-	/**
-	 * List of al translatable fields
-	 * 
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_fields	= array('title', 'descriptif', 'content', 'contentdetail', 'slug', 'meta_keywords', 'meta_description');
+    /**
+     * List of al translatable fields
+     * 
+     * @var array
+     * @access  protected
+     */
+    protected $_fields    = array('title', 'descriptif', 'content', 'contentdetail', 'slug', 'meta_keywords', 'meta_description');
 
-	/**
-	 * Name of the Translation Entity
-	 * 
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\NewsTranslation';
-	
-	/**
-	 * @var \Doctrine\Common\Collections\ArrayCollection
-	 *
-	 * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\NewsTranslation", mappedBy="object", cascade={"persist", "remove"})
-	 */
-	protected $translations;	
-	
+    /**
+     * Name of the Translation Entity
+     * 
+     * @var array
+     * @access  protected
+     */
+    protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\NewsTranslation';
+    
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\NewsTranslation", mappedBy="object", cascade={"persist", "remove"})
+     */
+    protected $translations;    
+    
     /**
      * @var bigint
      * 
@@ -127,11 +127,11 @@ class News extends AbstractDefault
 
     //
     // * @Assert\File(
-    //		*     maxSize = "10M",
-    //		*     mimeTypes = {
-    //	"image/gif","image/jpeg","image/png"},
-    	//	*     mimeTypesMessage = "Please upload a valid image"
-    	//	* )    
+    //        *     maxSize = "10M",
+    //        *     mimeTypes = {
+    //    "image/gif","image/jpeg","image/png"},
+        //    *     mimeTypesMessage = "Please upload a valid image"
+        //    * )    
     
     /**
      * @var \PiApp\GedmoBundle\Entity\Media $media
@@ -171,7 +171,7 @@ class News extends AbstractDefault
      */    
     public function __construct()
     {
-    	parent::__construct();
+        parent::__construct();
     }    
     
     /**
@@ -183,10 +183,10 @@ class News extends AbstractDefault
      */    
     public function __toString()
     {
-    	return (string) 'Actu : ' . $this->getTitle();
+        return (string) 'Actu : ' . $this->getTitle();
     }    
     
-	/**
+    /**
      * @ORM\PrePersist
      * @ORM\preUpdate
      */
@@ -211,8 +211,8 @@ class News extends AbstractDefault
      */
     public function setPage($page)
     {
-    	$this->page = $page;
-    	return $this;
+        $this->page = $page;
+        return $this;
     }
     
     /**
@@ -222,7 +222,7 @@ class News extends AbstractDefault
      */
     public function getPage()
     {
-    	return $this->page;
+        return $this->page;
     } 
 
     /**
@@ -232,8 +232,8 @@ class News extends AbstractDefault
      */
     public function setPagedetail($page)
     {
-    	$this->pagedetail = $page;
-    	return $this;
+        $this->pagedetail = $page;
+        return $this;
     }
     
     /**
@@ -243,7 +243,7 @@ class News extends AbstractDefault
      */
     public function getPagedetail()
     {
-    	return $this->pagedetail;
+        return $this->pagedetail;
     }    
 
     /**
@@ -274,8 +274,8 @@ class News extends AbstractDefault
      */
     public function setDescriptif ($descriptif)
     {
-    	$this->descriptif = $descriptif;
-    	return $this;
+        $this->descriptif = $descriptif;
+        return $this;
     }
     
     /**
@@ -285,7 +285,7 @@ class News extends AbstractDefault
      */
     public function getDescriptif ()
     {
-    	return $this->descriptif;
+        return $this->descriptif;
     }    
 
     /**
@@ -316,8 +316,8 @@ class News extends AbstractDefault
      */
     public function setContentdetail($contentdetail)
     {
-    	$this->contentdetail = $contentdetail;
-    	return $this;
+        $this->contentdetail = $contentdetail;
+        return $this;
     }
     
     /**
@@ -327,7 +327,7 @@ class News extends AbstractDefault
      */
     public function getContentdetail()
     {
-    	return $this->contentdetail;
+        return $this->contentdetail;
     }    
     
     /**
@@ -337,13 +337,13 @@ class News extends AbstractDefault
      */
     public function setMedia($media)
     {
-//     	if (($media instanceof \PiApp\GedmoBundle\Entity\Media) && ($media->getImage()->getName() == ""))
-// 	    	$this->media = null;
-//     	else{
-//     		$this->media = $media;
-//     	}
-    	$this->media = $media;
-    	return $this;
+//         if (($media instanceof \PiApp\GedmoBundle\Entity\Media) && ($media->getImage()->getName() == ""))
+//             $this->media = null;
+//         else{
+//             $this->media = $media;
+//         }
+        $this->media = $media;
+        return $this;
     }
     
     /**
@@ -353,7 +353,7 @@ class News extends AbstractDefault
      */
     public function getMedia()
     {
-    	return $this->media;
+        return $this->media;
     }  
     
     /**
@@ -363,7 +363,7 @@ class News extends AbstractDefault
      */    
     public function getSlug()
     {
-    	return $this->slug;
+        return $this->slug;
     }
 
     /**
@@ -373,7 +373,7 @@ class News extends AbstractDefault
      */
     public function setMetaKeywords($metaKeywords)
     {
-    	$this->meta_keywords = $metaKeywords;
+        $this->meta_keywords = $metaKeywords;
     }
     
     /**
@@ -383,7 +383,7 @@ class News extends AbstractDefault
      */
     public function getMetaKeywords()
     {
-    	return $this->meta_keywords;
+        return $this->meta_keywords;
     }
     
     /**
@@ -393,7 +393,7 @@ class News extends AbstractDefault
      */
     public function setMetaDescription($metaDescription)
     {
-    	$this->meta_description = $metaDescription;
+        $this->meta_description = $metaDescription;
     }
     
     /**
@@ -403,7 +403,7 @@ class News extends AbstractDefault
      */
     public function getMetaDescription()
     {
-    	return $this->meta_description;
+        return $this->meta_description;
     }    
 
 }

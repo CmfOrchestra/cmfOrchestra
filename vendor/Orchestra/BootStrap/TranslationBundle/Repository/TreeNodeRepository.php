@@ -33,7 +33,7 @@ class TreeNodeRepository extends EntityRepository
      */
     public function getClassName()
     {
-    	return $this->getEntityName();
+        return $this->getEntityName();
     }    
     
     /**

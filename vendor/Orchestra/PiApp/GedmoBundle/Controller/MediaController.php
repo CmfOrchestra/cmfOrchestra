@@ -39,21 +39,21 @@ use PiApp\GedmoBundle\Entity\Translation\MediaTranslation;
  */
 class MediaController extends abstractController
 {
-	protected $_entityName = "PiAppGedmoBundle:Media";
+    protected $_entityName = "PiAppGedmoBundle:Media";
 
-	/**
+    /**
      * Enabled Media entities.
      *
      * @Route("/admin/gedmo/media/enabled", name="admin_gedmo_media_enabledentity_ajax")
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *     
      * @access  public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function enabledajaxAction()
     {
-    	return parent::enabledajaxAction();
+        return parent::enabledajaxAction();
     }
 
     /**
@@ -61,29 +61,29 @@ class MediaController extends abstractController
      * 
      * @Route("/admin/gedmo/media/disable", name="admin_gedmo_media_disablentity_ajax")
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *     
      * @access  public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function disableajaxAction()
     {
-		return parent::disableajaxAction();
+        return parent::disableajaxAction();
     } 
 
-	/**
+    /**
      * Position Media entities.
      *
      * @Route("/admin/gedmo/media/position", name="admin_gedmo_media_position_ajax")
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *     
      * @access  public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function positionajaxAction()
     {
-    	return parent::positionajaxAction();
+        return parent::positionajaxAction();
     }    
     
     /**
@@ -98,7 +98,7 @@ class MediaController extends abstractController
      */
     public function deleteajaxAction()
     {
-    	return parent::deletajaxAction();
+        return parent::deletajaxAction();
     }    
     
     /**
@@ -113,7 +113,7 @@ class MediaController extends abstractController
      */
     public function archiveajaxAction()
     {
-    	return parent::archiveajaxAction();
+        return parent::archiveajaxAction();
     }    
 
     /**
@@ -122,71 +122,76 @@ class MediaController extends abstractController
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @access	public
+     * @access    public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function indexAction()
     {
-    	$em 		= $this->getDoctrine()->getEntityManager();
-    	$locale		= $this->container->get('request')->getLocale();
-    
-    	$NoLayout   = $this->container->get('request')->query->get('NoLayout');
-    	if (!$NoLayout) 	$template = "index.html.twig"; else $template = "index.html.twig";
-    
-    	$category   = $this->container->get('request')->query->get('category');
-    	if (is_array($category) && isset($category['__isInitialized__']))
-    		$category = $category['__isInitialized__'];
-    
-   		$query				= $em->getRepository("PiAppGedmoBundle:Media")->getAllByCategory($category, null, '', 'ASC', false);
-   		$query
-   		->leftJoin('a.image', 'm');
-   		
-   		$is_Server_side = false;
-   		
-   		if ($request->isXmlHttpRequest() && $is_Server_side) {
-           $aColumns	= array('a.position','a.id','a.status','m.name','a.published_at','a.enabled');
+        $request = $this->container->get('request');
+        $em  = $this->getDoctrine()->getEntityManager();
+        $locale = $this->container->get('request')->getLocale();
+        
+        $NoLayout   = $this->container->get('request')->query->get('NoLayout');
+        if (!$NoLayout)     $template = "index.html.twig"; else $template = "index.html.twig";
+        
+        $category   = $this->container->get('request')->query->get('category');
+        if (is_array($category) && isset($category['__isInitialized__'])) {
+            $category = $category['__isInitialized__'];
+        }
+
+        $query                = $em->getRepository("PiAppGedmoBundle:Media")->getAllByCategory($category, null, '', 'ASC', false);
+        $query->leftJoin('a.image', 'm');
+        
+        $is_Server_side = true;
+        
+        if ($request->isXmlHttpRequest() && $is_Server_side) {
+           $aColumns    = array('a.position','a.id','a.status','m.name','a.published_at','a.enabled');
            $q1 = clone $query;
            $q2 = clone $query;
-           $result	= $this->createAjaxQuery('select',$aColumns, $q1, 'a');
-           $total	= $this->createAjaxQuery('count',$aColumns, $q2, 'a');
- 
+           $result    = $this->createAjaxQuery('select',$aColumns, $q1, 'a');
+           $total    = $this->createAjaxQuery('count',$aColumns, $q2, 'a');
+        
            $output = array(
                "sEcho" => intval($request->get('sEcho')),
                 "iTotalRecords" => $total,
                 "iTotalDisplayRecords" => $total,
                 "aaData" => array()
            );
-
+        
            foreach ($result as $e) {
               $row = array();
               $row[] = $e->getPosition();
               $row[] = $e->getId();
               
-              if(is_object($e->getCategory()))
-              	$row[] = $e->getCategory()->getName();
-              else
-              	$row[] = "";
+              if (is_object($e->getCategory())) {
+                  $row[] = $e->getCategory()->getName();
+              } else {
+                  $row[] = "";
+              }
               
               $row[] = $e->getStatus();
               
               if (is_object($e->getImage())) {
-              	$row[] = $e->getImage()->getName();
+                  $row[] = $e->getImage()->getName();
               } else {
-              	$row[] = "";
+                  $row[] = "";
               }
+        
+              $UrlPicture = $this->container->get('pi_app_admin.twig.extension.route')->getMediaUrlFunction($e->getImage(), 'reference', true, $e->getUpdatedAt(), 'gedmo_media_');
+              $row[] = '<a href="#" title=\'<img width="450px" src="'.$UrlPicture.'">\' class="info-tooltip"><img width="20px" src="'.$UrlPicture.'"></a>';
               
               if (is_object($e->getUpdatedAt())) {
-              	$row[] = $e->getUpdatedAt()->format('d-m-Y');
+                  $row[] = $e->getUpdatedAt()->format('d-m-Y');
               } else {
-              	$row[] = "";
+                  $row[] = "";
               }
               // create enabled/disabled buttons
-              $Urlenabled 	= $this->container->get('templating.helper.assets')->getUrl("bundles/piappadmin/images/grid/button-green.png");
-              $Urldisabled 	= $this->container->get('templating.helper.assets')->getUrl("bundles/piappadmin/images/grid/button-red.png");
+              $Urlenabled     = $this->container->get('templating.helper.assets')->getUrl("bundles/piappadmin/images/grid/button-green.png");
+              $Urldisabled     = $this->container->get('templating.helper.assets')->getUrl("bundles/piappadmin/images/grid/button-red.png");
               if ($e->getEnabled()) {
-              	$row[] = '<img width="17px" src="'.$Urlenabled.'">';
+                  $row[] = '<img width="17px" src="'.$Urlenabled.'">';
               } else {
-              	$row[] = '<img width="17px" src="'.$Urldisabled.'">';
+                  $row[] = '<img width="17px" src="'.$Urldisabled.'">';
               }
               // create action links
               //$route_path_show = $this->container->get('pi_app_admin.twig.extension.route')->getUrlByRouteFunction('admin_gedmo_media_show', array('id'=>$e->getId(), 'NoLayout'=>$NoLayout, 'category'=>$category));
@@ -201,43 +206,45 @@ class MediaController extends abstractController
             $response->headers->set('Content-Type', 'application/json');
             
             return $response;
-   		}
-   		
-		if (!$is_Server_side) {
-  			$entities   = $em->getRepository("PiAppGedmoBundle:Media")->findTranslationsByQuery($locale, $query->getQuery(), 'object', false);
-		} else {
-			$entities   = null;
-		}
-	    
-	   	return $this->render("PiAppGedmoBundle:Media:$template", array(
-			'isServerSide' => $is_Server_side,
-			'entities' => $entities,
-			'NoLayout'	=> $NoLayout,
-			'category' => $category,
-	 	));
+        }
+        
+        if (!$is_Server_side) {
+           $entities   = $em->getRepository("PiAppGedmoBundle:Media")->findTranslationsByQuery($locale, $query->getQuery(), 'object', false);
+        } else {
+           $entities   = null;
+        }
+        
+        //print_r(count($entities));exit;
+        
+        return $this->render("PiAppGedmoBundle:Media:$template", array(
+        'isServerSide' => $is_Server_side,
+        'entities' => $entities,
+        'NoLayout'    => $NoLayout,
+        'category' => $category,
+        ));
     }
     
     /**
      * Finds and displays a Media entity.
      *
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function showAction($id)
     {
-        $em 	= $this->getDoctrine()->getEntityManager();
-        $locale	= $this->container->get('request')->getLocale();
+        $em     = $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppGedmoBundle:Media")->findOneByEntity($locale, $id, 'object');
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-        if (!$NoLayout) 	$template = "show.html.twig"; else $template = "show.html.twig";
+        if (!$NoLayout)     $template = "show.html.twig"; else $template = "show.html.twig";
 
         $category   = $this->container->get('request')->query->get('category');
         if (is_array($category) && isset($category['__isInitialized__']))
-        	$category = $category['__isInitialized__'];
+            $category = $category['__isInitialized__'];
 
         if (!$entity) {
             throw ControllerException::NotFoundException('Media');
@@ -247,8 +254,8 @@ class MediaController extends abstractController
 
         return $this->render("PiAppGedmoBundle:Media:$template", array(
             'entity'      => $entity,
-            'NoLayout'	  => $NoLayout,
-        	'category'	  => $category,
+            'NoLayout'      => $NoLayout,
+            'category'      => $category,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -259,32 +266,32 @@ class MediaController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @access	public
+     * @access    public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function newAction()
     {
-    	$em 	= $this->getDoctrine()->getEntityManager();
-    	$locale	= $this->container->get('request')->getLocale();
-    	$status = $this->container->get('request')->query->get('status');
-    	$entity = new Media();
-    	$entity->setStatus($status);
-    	$form   = $this->createForm(new MediaType($this->container, $em, $status), $entity, array('show_legend' => false));
+        $em     = $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
+        $status = $this->container->get('request')->query->get('status');
+        $entity = new Media();
+        $entity->setStatus($status);
+        $form   = $this->createForm(new MediaType($this->container, $em, $status), $entity, array('show_legend' => false));
     
-    	$NoLayout   = $this->container->get('request')->query->get('NoLayout');
-    	if (!$NoLayout)	$template = "new.html.twig";  else 	$template = "new.html.twig";
-    	
-    	$category   = $this->container->get('request')->query->get('category');
-    	if (is_array($category) && isset($category['__isInitialized__']))
-    		$category = $category['__isInitialized__'];
+        $NoLayout   = $this->container->get('request')->query->get('NoLayout');
+        if (!$NoLayout)    $template = "new.html.twig";  else     $template = "new.html.twig";
+        
+        $category   = $this->container->get('request')->query->get('category');
+        if (is_array($category) && isset($category['__isInitialized__']))
+            $category = $category['__isInitialized__'];
     
-    	return $this->render("PiAppGedmoBundle:Media:$template", array(
-    			'entity' => $entity,
-    			'form'   => $form->createView(),
-    			'NoLayout'  => $NoLayout,
-    			'category'	  => $category,
-    			'status'	=> $status,
-    	));
+        return $this->render("PiAppGedmoBundle:Media:$template", array(
+                'entity' => $entity,
+                'form'   => $form->createView(),
+                'NoLayout'  => $NoLayout,
+                'category'      => $category,
+                'status'    => $status,
+        ));
     }
     
     /**
@@ -293,70 +300,70 @@ class MediaController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @access	public
+     * @access    public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function createAction()
     {
-    	$em 	= $this->getDoctrine()->getEntityManager();
-    	$locale	= $this->container->get('request')->getLocale();
-    	$status = $this->container->get('request')->query->get('status');
+        $em     = $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
+        $status = $this->container->get('request')->query->get('status');
     
-    	$NoLayout   = $this->container->get('request')->query->get('NoLayout');
-    	if (!$NoLayout)	$template = "new.html.twig";  else 	$template = "new.html.twig";
-    	
-    	$category   = $this->container->get('request')->query->get('category');
-    	if (is_array($category) && isset($category['__isInitialized__']))
-    		$category = $category['__isInitialized__'];
+        $NoLayout   = $this->container->get('request')->query->get('NoLayout');
+        if (!$NoLayout)    $template = "new.html.twig";  else     $template = "new.html.twig";
+        
+        $category   = $this->container->get('request')->query->get('category');
+        if (is_array($category) && isset($category['__isInitialized__']))
+            $category = $category['__isInitialized__'];
     
-    	$entity  = new Media();
-    	$entity->setStatus($status);
-    	$request = $this->getRequest();
-    	$form    = $this->createForm(new MediaType($this->container, $em, $status), $entity, array('show_legend' => false));
-    	$form->bind($request);
+        $entity  = new Media();
+        $entity->setStatus($status);
+        $request = $this->getRequest();
+        $form    = $this->createForm(new MediaType($this->container, $em, $status), $entity, array('show_legend' => false));
+        $form->bind($request);
     
-    	if ($form->isValid()) {
-    		$entity->setTranslatableLocale($locale);
-    		$em->persist($entity);
-    		$em->flush();
-    		return $this->redirect($this->generateUrl('admin_gedmo_media_show', array('id' => $entity->getId(), 'NoLayout' => $NoLayout, 'category' => $category)));
-    	}
+        if ($form->isValid()) {
+            $entity->setTranslatableLocale($locale);
+            $em->persist($entity);
+            $em->flush();
+            return $this->redirect($this->generateUrl('admin_gedmo_media_show', array('id' => $entity->getId(), 'NoLayout' => $NoLayout, 'category' => $category)));
+        }
     
-    	return $this->render("PiAppGedmoBundle:Media:$template", array(
-    			'entity' 	=> $entity,
-    			'form'   	=> $form->createView(),
-    			'NoLayout'  => $NoLayout,
-    			'category'	  => $category,
-    			'status'	=> $status,
-    	));
+        return $this->render("PiAppGedmoBundle:Media:$template", array(
+                'entity'     => $entity,
+                'form'       => $form->createView(),
+                'NoLayout'  => $NoLayout,
+                'category'      => $category,
+                'status'    => $status,
+        ));
     }    
 
     /**
      * Displays a form to edit an existing Media entity.
      *
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function editAction($id)
     {
-        $em 	= $this->getDoctrine()->getEntityManager();
-    	$locale	= $this->container->get('request')->getLocale();
+        $em     = $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppGedmoBundle:Media")->findOneByEntity($locale, $id, 'object');
         
-        $status	    = $this->container->get('request')->query->get('status');
+        $status        = $this->container->get('request')->query->get('status');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-        if (!$NoLayout)	$template = "edit.html.twig";  else	$template = "edit.html.twig";
+        if (!$NoLayout)    $template = "edit.html.twig";  else    $template = "edit.html.twig";
 
         $category   = $this->container->get('request')->query->get('category');
         if (is_array($category) && isset($category['__isInitialized__']))
-        	$category = $category['__isInitialized__'];
+            $category = $category['__isInitialized__'];
 
         if (!$entity) {
-        	$entity = $em->getRepository("PiAppGedmoBundle:Media")->find($id);
-        	$entity->addTranslation(new MediaTranslation($locale));            
+            $entity = $em->getRepository("PiAppGedmoBundle:Media")->find($id);
+            $entity->addTranslation(new MediaTranslation($locale));            
         }
 
         $editForm   = $this->createForm(new MediaType($this->container, $em, $status), $entity, array('show_legend' => false));
@@ -366,9 +373,9 @@ class MediaController extends abstractController
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'NoLayout' 	  => $NoLayout,
-        	'category'	  => $category,
-        	'status'	  => $status,
+            'NoLayout'       => $NoLayout,
+            'category'      => $category,
+            'status'      => $status,
         ));
     }
 
@@ -376,27 +383,27 @@ class MediaController extends abstractController
      * Edits an existing Media entity.
      *
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
      */
     public function updateAction($id)
     {
-        $em 	= $this->getDoctrine()->getEntityManager();
-    	$locale	= $this->container->get('request')->getLocale();
+        $em     = $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppGedmoBundle:Media")->findOneByEntity($locale, $id, "object"); 
         
-        $status	    = $this->container->get('request')->query->get('status');
+        $status        = $this->container->get('request')->query->get('status');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-        if (!$NoLayout)	$template = "edit.html.twig";  else	$template = "edit.html.twig";
+        if (!$NoLayout)    $template = "edit.html.twig";  else    $template = "edit.html.twig";
 
         $category   = $this->container->get('request')->query->get('category');
         if (is_array($category) && isset($category['__isInitialized__']))
-        	$category = $category['__isInitialized__'];
+            $category = $category['__isInitialized__'];
 
         if (!$entity) {
-        	$entity = $em->getRepository("PiAppGedmoBundle:Media")->find($id);
+            $entity = $em->getRepository("PiAppGedmoBundle:Media")->find($id);
         }
 
         $editForm   = $this->createForm(new MediaType($this->container, $em, $status), $entity, array('show_legend' => false));
@@ -415,8 +422,8 @@ class MediaController extends abstractController
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'NoLayout' 	  => $NoLayout,
-        	'status'	=> $status,
+            'NoLayout'       => $NoLayout,
+            'status'    => $status,
         ));
     }
 
@@ -424,36 +431,36 @@ class MediaController extends abstractController
      * Deletes a Media entity.
      *
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *     
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
      */
     public function deleteAction($id)
     {
-        $em 	 = $this->getDoctrine()->getEntityManager();
-	    $locale	 = $this->container->get('request')->getLocale();
-	    
-	    $NoLayout   = $this->container->get('request')->query->get('NoLayout');	   
-	    $category   = $this->container->get('request')->query->get('category');
+        $em      = $this->getDoctrine()->getEntityManager();
+        $locale     = $this->container->get('request')->getLocale();
+        
+        $NoLayout   = $this->container->get('request')->query->get('NoLayout');       
+        $category   = $this->container->get('request')->query->get('category');
     
-        $form 	 = $this->createDeleteForm($id);
+        $form      = $this->createDeleteForm($id);
         $request = $this->getRequest();
 
         $form->bind($request);
 
         if ($form->isValid()) {
-    	    $entity = $em->getRepository("PiAppGedmoBundle:Media")->findOneByEntity($locale, $id, 'object');
+            $entity = $em->getRepository("PiAppGedmoBundle:Media")->findOneByEntity($locale, $id, 'object');
 
             if (!$entity) {
                 throw ControllerException::NotFoundException('Media');
             }
 
-        	try {
-            	$em->remove($entity);
-            	$em->flush();
+            try {
+                $em->remove($entity);
+                $em->flush();
             } catch (\Exception $e) {
-            	$this->container->get('request')->getSession()->getFlashBag()->add('notice', 'pi.session.flash.wrong.undelete');
+                $this->container->get('request')->getSession()->getFlashBag()->add('notice', 'pi.session.flash.wrong.undelete');
             }
         }
 
@@ -474,53 +481,53 @@ class MediaController extends abstractController
      * @Cache(maxage="86400")
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @access	public
+     * @access    public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com> 
      */
     public function _template_showAction($id, $template = '_tmp_show.html.twig', $lang = "")
     {
-    	$em 	= $this->getDoctrine()->getEntityManager();
-    	
-    	if (empty($lang))
-    		$lang	= $this->container->get('request')->getLocale();
-    	
-    	$entity = $em->getRepository("PiAppGedmoBundle:Media")->findOneByEntity($lang, $id, 'object', false);
-    	
-    	if (!$entity) {
-    		throw ControllerException::NotFoundException('Media');
-    	}
+        $em     = $this->getDoctrine()->getEntityManager();
+        
+        if (empty($lang))
+            $lang    = $this->container->get('request')->getLocale();
+        
+        $entity = $em->getRepository("PiAppGedmoBundle:Media")->findOneByEntity($lang, $id, 'object', false);
+        
+        if (!$entity) {
+            throw ControllerException::NotFoundException('Media');
+        }
     
-    	return $this->render("PiAppGedmoBundle:Media:$template", array(
-    			'entity'      => $entity,
-    			'locale'   => $lang,
-    			'lang'	   => $lang,
-    	));
+        return $this->render("PiAppGedmoBundle:Media:$template", array(
+                'entity'      => $entity,
+                'locale'   => $lang,
+                'lang'       => $lang,
+        ));
     }
 
-	/**
+    /**
      * Template : Finds and displays a list of Media entity.
      * 
      * @Cache(maxage="86400")
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @access	public
+     * @access    public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com> 
      */
     public function _template_listAction($category = '', $MaxResults = null, $template = '_tmp_list.html.twig', $order = 'DESC', $lang = "")
     {
-    	$em 		= $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getEntityManager();
 
-    	if (empty($lang))
-    		$lang	= $this->container->get('request')->getLocale();
-    	
-    	$query		= $em->getRepository("PiAppGedmoBundle:Media")->getAllByCategory($category, $MaxResults, '', $order)->getQuery();
+        if (empty($lang))
+            $lang    = $this->container->get('request')->getLocale();
+        
+        $query        = $em->getRepository("PiAppGedmoBundle:Media")->getAllByCategory($category, $MaxResults, '', $order)->getQuery();
         $entities   = $em->getRepository("PiAppGedmoBundle:Media")->findTranslationsByQuery($lang, $query, 'object', false);                   
 
         return $this->render("PiAppGedmoBundle:Media:$template", array(
             'entities' => $entities,
-            'cat'	   => ucfirst($category),
-        	'locale'   => $lang,
-        	'lang'	   => $lang,
+            'cat'       => ucfirst($category),
+            'locale'   => $lang,
+            'lang'       => $lang,
         ));
     }     
     

@@ -35,29 +35,29 @@ use BootStrap\TranslationBundle\Model\AbstractTranslation;
  */
 class Langue extends AbstractTranslation
 {
-	/**
-	 * List of al translatable fields
-	 *
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_fields	= array('label');
-	
-	/**
-	 * Name of the Translation Entity
-	 *
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_translationClass = 'PiApp\AdminBundle\Entity\Translation\LangueTranslation';
-	
-	/**
-	 * @var \Doctrine\Common\Collections\ArrayCollection
-	 *
-	 * @ORM\OneToMany(targetEntity="PiApp\AdminBundle\Entity\Translation\LangueTranslation", mappedBy="object", cascade={"persist", "remove"})
-	 */
-	protected $translations;
-		
+    /**
+     * List of al translatable fields
+     *
+     * @var array
+     * @access  protected
+     */
+    protected $_fields    = array('label');
+    
+    /**
+     * Name of the Translation Entity
+     *
+     * @var array
+     * @access  protected
+     */
+    protected $_translationClass = 'PiApp\AdminBundle\Entity\Translation\LangueTranslation';
+    
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="PiApp\AdminBundle\Entity\Translation\LangueTranslation", mappedBy="object", cascade={"persist", "remove"})
+     */
+    protected $translations;
+        
     /**
      * @var string $id
      *
@@ -111,8 +111,8 @@ class Langue extends AbstractTranslation
 
     public function __construct()
     {
-    	parent::__construct();    	
-    	$this->setEnabled(true);
+        parent::__construct();        
+        $this->setEnabled(true);
     }    
     
     /**
@@ -123,7 +123,7 @@ class Langue extends AbstractTranslation
      *
      */
     public function __toString() {
-    	return (string) $this->label;
+        return (string) $this->label;
     }
 
     /**
@@ -143,7 +143,7 @@ class Langue extends AbstractTranslation
      */
     public function setId($id)
     {
-    	$this->id = $id;
+        $this->id = $id;
     }    
 
     /**
@@ -173,7 +173,7 @@ class Langue extends AbstractTranslation
      */
     public function setCreatedAt($createdAt)
     {
-    	$this->created_at = $createdAt;
+        $this->created_at = $createdAt;
     }
     
     /**
@@ -183,7 +183,7 @@ class Langue extends AbstractTranslation
      */
     public function getCreatedAt()
     {
-    	return $this->created_at;
+        return $this->created_at;
     }
     
     /**
@@ -193,7 +193,7 @@ class Langue extends AbstractTranslation
      */
     public function setUpdatedAt($updatedAt)
     {
-    	$this->updated_at = $updatedAt;
+        $this->updated_at = $updatedAt;
     }
     
     /**
@@ -203,7 +203,7 @@ class Langue extends AbstractTranslation
      */
     public function getUpdatedAt()
     {
-    	return $this->updated_at;
+        return $this->updated_at;
     }
     
     /**
@@ -213,7 +213,7 @@ class Langue extends AbstractTranslation
      */
     public function setArchiveAt($archiveAt)
     {
-    	$this->archive_at = $archiveAt;
+        $this->archive_at = $archiveAt;
     }
     
     /**
@@ -223,7 +223,7 @@ class Langue extends AbstractTranslation
      */
     public function getArchiveAt()
     {
-    	return $this->archive_at;
+        return $this->archive_at;
     }    
     
     /**
@@ -233,7 +233,7 @@ class Langue extends AbstractTranslation
      */
     public function setEnabled($enabled)
     {
-    	$this->enabled = $enabled;
+        $this->enabled = $enabled;
     }
     
     /**
@@ -243,7 +243,7 @@ class Langue extends AbstractTranslation
      */
     public function getEnabled()
     {
-    	return $this->enabled;
+        return $this->enabled;
     } 
     
     /**
@@ -253,8 +253,8 @@ class Langue extends AbstractTranslation
      */
     public function setArchived($archived)
     {
-    	$this->archived = $archived;
-    	return $this;
+        $this->archived = $archived;
+        return $this;
     }
     
     /**
@@ -264,7 +264,7 @@ class Langue extends AbstractTranslation
      */
     public function getArchived()
     {
-    	return $this->archived;
+        return $this->archived;
     }    
     
 }

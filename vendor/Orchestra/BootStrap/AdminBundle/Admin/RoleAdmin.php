@@ -32,11 +32,11 @@ use FOS\UserBundle\Model\UserManagerInterface;
  */
 class RoleAdmin extends Admin
 {
-	protected $translationDomain = 'role';
-	
-	protected $baseRoutePattern		= '/role';
-	
-	
+    protected $translationDomain = 'role';
+    
+    protected $baseRoutePattern        = '/role';
+    
+    
     protected $formOptions = array(
         'validation_groups' => 'admin'
     );
@@ -48,7 +48,7 @@ class RoleAdmin extends Admin
      */    
     protected function configureShowField(ShowMapper $showMapper)
     {
-    	$showMapper
+        $showMapper
             ->add('label')
             ->add('name')
             ->add('comment')
@@ -57,7 +57,7 @@ class RoleAdmin extends Admin
             ->add('layout')
             ->add('enabled')
             ->add('id')
-    	;
+        ;
     }
 
     /**
@@ -71,12 +71,12 @@ class RoleAdmin extends Admin
             ->add('comment')
             ->add('enabled')
             ->add('_action', 'actions', array( 'actions' => array(  
-					 'edit'   => array(),
-	            	 'view'   => array(),
-	            	 'delete' => array(),
-	            	 // autre action specifique ::: 'unpublish' => array('template' => 'MyBundle:Admin:action_unpublish.html.twig'),
-	            	))
-	            );
+                     'edit'   => array(),
+                     'view'   => array(),
+                     'delete' => array(),
+                     // autre action specifique ::: 'unpublish' => array('template' => 'MyBundle:Admin:action_unpublish.html.twig'),
+                    ))
+                );
     }
 
     /**
@@ -99,7 +99,7 @@ class RoleAdmin extends Admin
     {
         $formMapper
             ->with('General')
-            	->add('enabled', null, array('required' => false))
+                ->add('enabled', null, array('required' => false))
                 ->add('label')
                 ->add('name')
             ->end()
@@ -110,8 +110,8 @@ class RoleAdmin extends Admin
                 ->add('heritage', 'bootstrap_security_roles', array( 'multiple' => true, 'required' => false))
             ->end()
             ->with('Redirection')
-            	->add('route_name', 'bootstrap_routes', array( 'multiple' => false, 'required' => false))
-            	->add('layout', null, array('required' => false))
+                ->add('route_name', 'bootstrap_routes', array( 'multiple' => false, 'required' => false))
+                ->add('layout', null, array('required' => false))
             ->end()            
         ;
     }
@@ -123,13 +123,13 @@ class RoleAdmin extends Admin
      */
     public function validate(ErrorElement $errorElement, $object)
     {
-    	$errorElement
-    	->with('name')
-    	->assertNotNull()
-    	->assertNotBlank()
-    	->assertMaxLength(array('limit' => 35))
-    	->end()
-    	;
+        $errorElement
+        ->with('name')
+        ->assertNotNull()
+        ->assertNotBlank()
+        ->assertMaxLength(array('limit' => 35))
+        ->end()
+        ;
     }
     
 }

@@ -22,20 +22,20 @@ namespace PiApp\AdminBundle\Builder;
  */
 interface PiFileManagerBuilderInterface
 {
-	public static function getFileContent($path);
-	public static function getFileExtension($filename);
-	public static function getFileName($path);
-	public static function GlobFiles($dirRegex, $options = null);
-	public static function getFilesByType($path, $type = false, $appendPath = false, $includeExtension = true);
-	public static function ListFiles($dir, $type = false);
-	public static function directoryScan($dir, $onlyfiles = false, $onlyDir = false, $fullpath = false, $ignorDirName = array());
-	public function getContentCodeFile($file_code);
-	public static function mkdirr($pathname, $mode = null);
-	public static function rmdirr($dir);
-	public static function delete($path);
-	public static function save($path, $content= '');
-	public static function readfileChunked ($filename, $retbytes=false);
-	public static function getFile($file, $cacheTime, $mime=null, $name=null);
-	public static function getMimeContentType($fileName);
-	public static function urlPathEncode($value);
+    public static function getFileContent($path);
+    public static function getFileExtension($filename);
+    public static function getFileName($path);
+    public static function GlobFiles($dirRegex, $options = null);
+    public static function getFilesByType($path, $type = false, $appendPath = false, $includeExtension = true);
+    public static function ListFiles($dir, $type = false);
+    public static function directoryScan($dir, $onlyfiles = false, $onlyDir = false, $fullpath = false, $ignorDirName = array());
+    public function getContentCodeFile($file_code);
+    public static function mkdirr($pathname, $mode = null);
+    public static function rmdirr($dir);
+    public static function delete($path);
+    public static function save($path, $content= '');
+    public static function readfileChunked ($filename, $retbytes=false);
+    public static function getFile($file, $cacheTime, $mime=null, $name=null);
+    public static function getMimeContentType($fileName);
+    public static function urlPathEncode($value);
 }

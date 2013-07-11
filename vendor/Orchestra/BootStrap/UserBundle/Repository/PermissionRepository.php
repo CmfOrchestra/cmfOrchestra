@@ -28,37 +28,37 @@ use BootStrap\TranslationBundle\Repository\TranslationRepository;
  */
 class PermissionRepository extends TranslationRepository
 {
-	const PERMISSION_DEFAULT 		= 'VIEW';
+    const PERMISSION_DEFAULT         = 'VIEW';
 
-	/**
-	 * Return the default role value
-	 *
-	 * @return string
-	 * @static
+    /**
+     * Return the default role value
+     *
+     * @return string
+     * @static
 
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 * @since 2011-12-28
-	 */
-	public static function ShowDefaultPermission()
-	{
-		return self::PERMISSION_DEFAULT;
-	}
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @since 2011-12-28
+     */
+    public static function ShowDefaultPermission()
+    {
+        return self::PERMISSION_DEFAULT;
+    }
 
-	/**
-	 * Return the default permissions available
-	 *
-	 * @return Doctrine\ORM\Query
-	 * 
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 * @since 2012-01-04
-	 */
-	public function getAvailablePermissions()
-	{
-		$query = $this->createQueryBuilder('p')
-		->select('p.name')
-		->where('p.enabled = :enabled')
-		->setParameter('enabled', 1);
-		
-		return $query->getQuery()->getResult();		
-	}	
+    /**
+     * Return the default permissions available
+     *
+     * @return Doctrine\ORM\Query
+     * 
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @since 2012-01-04
+     */
+    public function getAvailablePermissions()
+    {
+        $query = $this->createQueryBuilder('p')
+        ->select('p.name')
+        ->where('p.enabled = :enabled')
+        ->setParameter('enabled', 1);
+        
+        return $query->getQuery()->getResult();        
+    }    
 }

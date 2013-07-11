@@ -35,29 +35,29 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  */
 class Ads extends AbstractDefault 
 {
-	/**
-	 * List of al translatable fields
-	 * 
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_fields	= array('title',  'content', 'slug', 'meta_keywords', 'meta_description');
+    /**
+     * List of al translatable fields
+     * 
+     * @var array
+     * @access  protected
+     */
+    protected $_fields    = array('title',  'content', 'slug', 'meta_keywords', 'meta_description');
 
-	/**
-	 * Name of the Translation Entity
-	 * 
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\AdsTranslation';
-	
-	/**
-	 * @var \Doctrine\Common\Collections\ArrayCollection
-	 *
-	 * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\AdsTranslation", mappedBy="object", cascade={"persist", "remove"})
-	 */
-	protected $translations;	
-	
+    /**
+     * Name of the Translation Entity
+     * 
+     * @var array
+     * @access  protected
+     */
+    protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\AdsTranslation';
+    
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\AdsTranslation", mappedBy="object", cascade={"persist", "remove"})
+     */
+    protected $translations;    
+    
     /**
      * @var bigint
      * 
@@ -171,10 +171,10 @@ class Ads extends AbstractDefault
      */    
     public function __construct()
     {
-    	parent::__construct();
-    	
-    	$this->tags 		= new \Doctrine\Common\Collections\ArrayCollection();
-    	$this->responses 	= new \Doctrine\Common\Collections\ArrayCollection();
+        parent::__construct();
+        
+        $this->tags         = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->responses     = new \Doctrine\Common\Collections\ArrayCollection();
     }    
     
     /**
@@ -186,10 +186,10 @@ class Ads extends AbstractDefault
      */    
     public function __toString()
     {
-    	return (string) $this->getTitle();
+        return (string) $this->getTitle();
     }    
     
-	/**
+    /**
      * @ORM\PrePersist
      * @ORM\preUpdate
      */
@@ -214,7 +214,7 @@ class Ads extends AbstractDefault
      */
     public function setUser($user)
     {
-    	$this->user = $user;
+        $this->user = $user;
     }
     
     /**
@@ -224,7 +224,7 @@ class Ads extends AbstractDefault
      */
     public function getUser()
     {
-    	return $this->user;
+        return $this->user;
     }    
     
     /**
@@ -234,8 +234,8 @@ class Ads extends AbstractDefault
      */
     public function setStatus($status)
     {
-    	$this->status = $status;
-    	return $this;
+        $this->status = $status;
+        return $this;
     }
     
     /**
@@ -245,7 +245,7 @@ class Ads extends AbstractDefault
      */
     public function getStatus()
     {
-    	return $this->status;
+        return $this->status;
     }
     
     /**
@@ -255,8 +255,8 @@ class Ads extends AbstractDefault
      */
     public function setTypology($typology)
     {
-    	$this->typology = $typology;
-    	return $this;
+        $this->typology = $typology;
+        return $this;
     }
     
     /**
@@ -266,7 +266,7 @@ class Ads extends AbstractDefault
      */
     public function getTypology()
     {
-    	return $this->typology;
+        return $this->typology;
     }    
         
     /**
@@ -276,8 +276,8 @@ class Ads extends AbstractDefault
      */
     public function setTitle($title)
     {
-    	$this->title = $title;
-    	return $this;
+        $this->title = $title;
+        return $this;
     }
         
     /**
@@ -287,7 +287,7 @@ class Ads extends AbstractDefault
      */
     public function getTitle()
     {
-    	return $this->title;
+        return $this->title;
     }
     
     /**
@@ -297,7 +297,7 @@ class Ads extends AbstractDefault
      */
     public function getContent()
     {
-    	return $this->content;
+        return $this->content;
     }
     
     /**
@@ -307,8 +307,8 @@ class Ads extends AbstractDefault
      */
     public function setContent($text)
     {
-    	$this->content = $text;
-    	return $this;
+        $this->content = $text;
+        return $this;
     }
     
     /**
@@ -318,7 +318,7 @@ class Ads extends AbstractDefault
      */
     public function getAuthor()
     {
-    	return $this->author;
+        return $this->author;
     }
     
     /**
@@ -328,8 +328,8 @@ class Ads extends AbstractDefault
      */
     public function setAuthor($author)
     {
-    	$this->author = $author;
-    	return $this;
+        $this->author = $author;
+        return $this;
     }    
  
     /**
@@ -339,8 +339,8 @@ class Ads extends AbstractDefault
      */
     public function setMedia($media)
     {
-    	$this->media = $media;    	
-    	return $this;
+        $this->media = $media;        
+        return $this;
     }
     
     /**
@@ -350,7 +350,7 @@ class Ads extends AbstractDefault
      */
     public function getMedia()
     {
-    	return $this->media;
+        return $this->media;
     }    
     
     /**
@@ -360,7 +360,7 @@ class Ads extends AbstractDefault
      */
     public function getResponses()
     {
-    	return $this->responses;
+        return $this->responses;
     }    
 
     /**
@@ -380,12 +380,12 @@ class Ads extends AbstractDefault
      */
     public function addTag(\PiApp\AdminBundle\Entity\Tag $tags)
     {
-    	$this->tags[] = $tags;
+        $this->tags[] = $tags;
     }
     
     public function setTags($tags)
     {
-    	$this->tags = $tags;
+        $this->tags = $tags;
     }
     
     /**
@@ -395,7 +395,7 @@ class Ads extends AbstractDefault
      */
     public function getTags()
     {
-    	return $this->tags;
+        return $this->tags;
     }    
     
     /**
@@ -405,7 +405,7 @@ class Ads extends AbstractDefault
      */
     public function getSlug()
     {
-    	return $this->slug;
+        return $this->slug;
     }
     
     
@@ -416,7 +416,7 @@ class Ads extends AbstractDefault
      */
     public function setMetaKeywords($metaKeywords)
     {
-    	$this->meta_keywords = $metaKeywords;
+        $this->meta_keywords = $metaKeywords;
     }
     
     /**
@@ -426,7 +426,7 @@ class Ads extends AbstractDefault
      */
     public function getMetaKeywords()
     {
-    	return $this->meta_keywords;
+        return $this->meta_keywords;
     }
     
     /**
@@ -436,7 +436,7 @@ class Ads extends AbstractDefault
      */
     public function setMetaDescription($metaDescription)
     {
-    	$this->meta_description = $metaDescription;
+        $this->meta_description = $metaDescription;
     }
     
     /**
@@ -446,7 +446,7 @@ class Ads extends AbstractDefault
      */
     public function getMetaDescription()
     {
-    	return $this->meta_description;
+        return $this->meta_description;
     }
         
 }

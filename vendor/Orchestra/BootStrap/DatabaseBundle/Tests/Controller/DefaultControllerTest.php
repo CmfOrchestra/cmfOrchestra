@@ -39,28 +39,28 @@ class DefaultControllerTest extends WebTestCase
      */
     public function testCommandeBackup()
     {
-    	//$container = $this->getApplication()->getKernel()->getContainer();
-    	
-    	$kernel = $this->createKernel();
-    	$kernel->boot();
-    	
-    	$application 	= new Application($kernel);
-		$application->add(new RoutesCommand($kernel));
-		
-		//-----we initialize command value-----
-		$command 		= $application->find('orchestra:database:backup');  //   --env=test
-		$commandTester 	= new CommandTester($command);
-		//-----we executes the command-----
-		$commandTester->execute(
-				array(
-						'command' 	=> $command->getName(),
-						'path'		=> 'app\cache\Backup',
-				)
-		);
-		
-		$this->assertRegExp('/END/', $commandTester->getDisplay());
-		
-		return true;
+        //$container = $this->getApplication()->getKernel()->getContainer();
+        
+        $kernel = $this->createKernel();
+        $kernel->boot();
+        
+        $application     = new Application($kernel);
+        $application->add(new RoutesCommand($kernel));
+        
+        //-----we initialize command value-----
+        $command         = $application->find('orchestra:database:backup');  //   --env=test
+        $commandTester     = new CommandTester($command);
+        //-----we executes the command-----
+        $commandTester->execute(
+                array(
+                        'command'     => $command->getName(),
+                        'path'        => 'app\cache\Backup',
+                )
+        );
+        
+        $this->assertRegExp('/END/', $commandTester->getDisplay());
+        
+        return true;
     }    
     
     /**
@@ -74,28 +74,28 @@ class DefaultControllerTest extends WebTestCase
      */
     public function testCommandeRestore()
     {
-    	//$container = $this->getApplication()->getKernel()->getContainer();
-    	 
-    	$kernel = $this->createKernel();
-    	$kernel->boot();
-    	 
-    	$application 	= new Application($kernel);
-    	$application->add(new RoutesCommand($kernel));
+        //$container = $this->getApplication()->getKernel()->getContainer();
+         
+        $kernel = $this->createKernel();
+        $kernel->boot();
+         
+        $application     = new Application($kernel);
+        $application->add(new RoutesCommand($kernel));
     
-    	//-----we initialize command value-----
-    	$command 		= $application->find('orchestra:database:restore');  //   --env=test
-    	$commandTester 	= new CommandTester($command);
-    	//-----we executes the command-----
-    	$commandTester->execute(
-    			array(
-    					'command' 	=> $command->getName(),
-						'path'		=> 'app\cache\Backup',
-						'filename'	=> 'doctrine_backup_database-symflamelee_rec_2013-04-04-18-40-23.sql'
-    			)
-    	);
+        //-----we initialize command value-----
+        $command         = $application->find('orchestra:database:restore');  //   --env=test
+        $commandTester     = new CommandTester($command);
+        //-----we executes the command-----
+        $commandTester->execute(
+                array(
+                        'command'     => $command->getName(),
+                        'path'        => 'app\cache\Backup',
+                        'filename'    => 'doctrine_backup_database-symflamelee_rec_2013-04-04-18-40-23.sql'
+                )
+        );
     
-    	$this->assertRegExp('/END/', $commandTester->getDisplay());
+        $this->assertRegExp('/END/', $commandTester->getDisplay());
     
-    	return true;
+        return true;
     }    
 }

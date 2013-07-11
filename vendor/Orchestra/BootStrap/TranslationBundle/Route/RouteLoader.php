@@ -29,31 +29,31 @@ use Symfony\Component\Routing\Matcher\Dumper\ApacheMatcherDumper;
  */
 class RouteLoader implements LoaderInterface
 {
-	/**
-	 * @var \Symfony\Component\DependencyInjection\ContainerInterface
-	 */
-	private $container;
-	
-	/**
-	 * @var \Symfony\Component\Routing\RouteCollection
-	 */	
-	private $collection;
-	
-	/**
-	 * @var array
-	 */
-	private $routes = array();
-	
     /**
-	 * Constructor.
-	 *
-	 * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
-	 */
-	public function __construct(ContainerInterface $container)
-	{
-        $this->container    		= $container;
-        $this->collection   		= new RouteCollection();
-        $this->routes  				= $container->get('bootstrap.RouteTranslator.factory')->addAllRoutePageCollections();
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */
+    private $container;
+    
+    /**
+     * @var \Symfony\Component\Routing\RouteCollection
+     */    
+    private $collection;
+    
+    /**
+     * @var array
+     */
+    private $routes = array();
+    
+    /**
+     * Constructor.
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     */
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container            = $container;
+        $this->collection           = new RouteCollection();
+        $this->routes                  = $container->get('bootstrap.RouteTranslator.factory')->addAllRoutePageCollections();
     }
     
     /**
@@ -67,17 +67,17 @@ class RouteLoader implements LoaderInterface
      */ 
     public function load($resource, $type = null)
     {
-    	
-    	// we add all routes in the route collection
-    	if (is_array($this->routes)){
-	        foreach ($this->routes as $key => $route_values) {
-				$this->addRouteCollections($route_values['route'], $route_values['locales'], $route_values['defaults'], $route_values['requirements'], array());
-	        }
+        
+        // we add all routes in the route collection
+        if (is_array($this->routes)){
+            foreach ($this->routes as $key => $route_values) {
+                $this->addRouteCollections($route_values['route'], $route_values['locales'], $route_values['defaults'], $route_values['requirements'], array());
+            }
 //          print_r('<pre>');
 //          print_r(var_dump($this->collection->all()));
 //          print_r('</pre>');
 //          exit;
-    	}
+        }
 
         // we dump all routes in the cache UrlGenerator
         //$dumper = new ApacheMatcherDumper($this->collection);
@@ -97,7 +97,7 @@ class RouteLoader implements LoaderInterface
      *     </route>
      *         
      *     <route id="page_metiers_conseil_marketing_strategie" >
-     * 		   <locale key="en">/business/consulting</locale>
+     *            <locale key="en">/business/consulting</locale>
      *         <locale key="fr">/business/conseil</locale>
      *         <default key="_controller">PiAppAdminBundle:Frontend:page</default>
      *         <requirement key="_method">get|post</requirement>
@@ -123,22 +123,22 @@ class RouteLoader implements LoaderInterface
      */ 
     private function addRouteCollections($name, array $locales, array $defaults = array(), array $requirements = array(), array $options = array())
     {
-    	$locales = array_unique($locales);
-    	
-    	foreach ($locales as $locale => $pattern) {
-    		if (count($locales) >=2){
-    			$defaults['_locale'] = $locale;
-    			$locale = '.'.$locale;
-    		}else
-    			$locale = '';
+        $locales = array_unique($locales);
+        
+        foreach ($locales as $locale => $pattern) {
+            if (count($locales) >=2){
+                $defaults['_locale'] = $locale;
+                $locale = '.'.$locale;
+            }else
+                $locale = '';
     
-    		$this->collection->add($name.$locale, new Route($pattern, $defaults, $requirements, $options));
-    	}
+            $this->collection->add($name.$locale, new Route($pattern, $defaults, $requirements, $options));
+        }
     } 
 
     public function supports($resource, $type = null)
     {
-    	return 'extra' === $type;
+        return 'extra' === $type;
     }
     
     public function getResolver()
@@ -147,6 +147,6 @@ class RouteLoader implements LoaderInterface
     
     public function setResolver(LoaderResolverInterface $resolver)
     {
-    	// irrelevant to us, since we don't need a resolver
+        // irrelevant to us, since we don't need a resolver
     }    
 }

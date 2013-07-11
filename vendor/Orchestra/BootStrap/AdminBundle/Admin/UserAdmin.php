@@ -32,11 +32,11 @@ use FOS\UserBundle\Model\UserManagerInterface;
  */
 class UserAdmin extends Admin
 {
-	protected $translationDomain = 'user';
-	
-	protected $baseRoutePattern		= '/user';
-	
-	
+    protected $translationDomain = 'user';
+    
+    protected $baseRoutePattern        = '/user';
+    
+    
     protected $formOptions = array(
         'validation_groups' => 'admin'
     );
@@ -48,15 +48,15 @@ class UserAdmin extends Admin
      */    
     protected function configureShowField(ShowMapper $showMapper)
     {
-    	$showMapper
-    		->add('groups')
+        $showMapper
+            ->add('groups')
             ->add('username')
             ->add('email')
             ->add('enabled')
             ->add('locked')
             ->add('createdAt')
             ->add('id')
-    	;
+        ;
     }
         
     /**
@@ -65,7 +65,7 @@ class UserAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-        	->add('groups')
+            ->add('groups')
             ->addIdentifier('username')
             ->add('email')
             ->add('langCode')
@@ -74,12 +74,12 @@ class UserAdmin extends Admin
             ->add('locked')
             
             ->add('_action', 'actions', array( 'actions' => array(  
-					 'edit'   => array(),
-	            	 'view'   => array(),
-	            	 'delete' => array(),
-	            	 // autre action specifique ::: 'unpublish' => array('template' => 'MyBundle:Admin:action_unpublish.html.twig'),
-	            	))
-	            );
+                     'edit'   => array(),
+                     'view'   => array(),
+                     'delete' => array(),
+                     // autre action specifique ::: 'unpublish' => array('template' => 'MyBundle:Admin:action_unpublish.html.twig'),
+                    ))
+                );
     }
 
     /**
@@ -88,7 +88,7 @@ class UserAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $filterMapper)
     {
         $filterMapper
-        	->add('groups')
+            ->add('groups')
             ->add('username')
             ->add('locked')
             ->add('email')
@@ -104,17 +104,17 @@ class UserAdmin extends Admin
         $formMapper
             ->with('General')
                 ->add('enabled', null, array('required' => false))
-            	->add('langCode', 'entity',array(
-						'class' => 'PiAppAdminBundle:Langue',
-            			'query_builder' => function($er) {
-            				return $er->createQueryBuilder('k')
-            				->select('k')
-            				->where('k.enabled = :enabled')
-            				->orderBy('k.label', 'ASC')
-            				->setParameter('enabled', 1);
-            			},
-	        			"label"	=> "Language",
-	        	))
+                ->add('langCode', 'entity',array(
+                        'class' => 'PiAppAdminBundle:Langue',
+                        'query_builder' => function($er) {
+                            return $er->createQueryBuilder('k')
+                            ->select('k')
+                            ->where('k.enabled = :enabled')
+                            ->orderBy('k.label', 'ASC')
+                            ->setParameter('enabled', 1);
+                        },
+                        "label"    => "Language",
+                ))
                 ->add('username')
                 ->add('email')
                 ->add('plainPassword', 'text', array('required' => false))
@@ -145,15 +145,15 @@ class UserAdmin extends Admin
      */
     public function validate(ErrorElement $errorElement, $object)
     {
-    	$errorElement
-    	->with('username')
-	    	->assertNotNull()
-	    	->assertNotBlank()
-	    	->assertMaxLength(array('limit' => 35))
-    	->end()
-    	->with('plainPassword')
-    	->end()    	
-    	;
+        $errorElement
+        ->with('username')
+            ->assertNotNull()
+            ->assertNotBlank()
+            ->assertMaxLength(array('limit' => 35))
+        ->end()
+        ->with('plainPassword')
+        ->end()        
+        ;
     }    
 
     /**

@@ -89,9 +89,9 @@ abstract class AbstractDefault extends AbstractTranslation
      */    
     public function __construct()
     {
-    	parent::__construct();
-    	
-    	$this->setEnabled(true);
+        parent::__construct();
+        
+        $this->setEnabled(true);
     }    
 
     /**
@@ -101,8 +101,8 @@ abstract class AbstractDefault extends AbstractTranslation
      */
     public function setCreatedAt($createdAt)
     {
-    	$this->created_at = $createdAt;
-    	return $this;
+        $this->created_at = $createdAt;
+        return $this;
     }
     
     /**
@@ -112,7 +112,7 @@ abstract class AbstractDefault extends AbstractTranslation
      */
     public function getCreatedAt()
     {
-    	return $this->created_at;
+        return $this->created_at;
     }
     
     /**
@@ -122,8 +122,8 @@ abstract class AbstractDefault extends AbstractTranslation
      */
     public function setUpdatedAt($updatedAt)
     {
-    	$this->updated_at = $updatedAt;
-    	return $this;
+        $this->updated_at = $updatedAt;
+        return $this;
     }
     
     /**
@@ -133,7 +133,7 @@ abstract class AbstractDefault extends AbstractTranslation
      */
     public function getUpdatedAt()
     {
-    	return $this->updated_at;
+        return $this->updated_at;
     }
     
     /**
@@ -143,8 +143,8 @@ abstract class AbstractDefault extends AbstractTranslation
      */
     public function setPublishedAt($publishedAt)
     {
-    	$this->published_at = $publishedAt;
-    	return $this;
+        $this->published_at = $publishedAt;
+        return $this;
     }
     
     /**
@@ -154,7 +154,7 @@ abstract class AbstractDefault extends AbstractTranslation
      */
     public function getPublishedAt()
     {
-    	return $this->published_at;
+        return $this->published_at;
     }
     
     /**
@@ -164,8 +164,8 @@ abstract class AbstractDefault extends AbstractTranslation
      */
     public function setArchiveAt($archiveAt)
     {
-    	$this->archive_at = $archiveAt;
-    	return $this;
+        $this->archive_at = $archiveAt;
+        return $this;
     }
     
     /**
@@ -175,7 +175,7 @@ abstract class AbstractDefault extends AbstractTranslation
      */
     public function getArchiveAt()
     {
-    	return $this->archive_at;
+        return $this->archive_at;
     }
     
     /**
@@ -185,8 +185,8 @@ abstract class AbstractDefault extends AbstractTranslation
      */
     public function setEnabled($enabled)
     {
-    	$this->enabled = $enabled;
-    	return $this;
+        $this->enabled = $enabled;
+        return $this;
     }
     
     /**
@@ -196,7 +196,7 @@ abstract class AbstractDefault extends AbstractTranslation
      */
     public function getEnabled()
     {
-    	return $this->enabled;
+        return $this->enabled;
     }   
     
     /**
@@ -206,8 +206,8 @@ abstract class AbstractDefault extends AbstractTranslation
      */
     public function setArchived($archived)
     {
-    	$this->archived = $archived;
-    	return $this;
+        $this->archived = $archived;
+        return $this;
     }
     
     /**
@@ -217,7 +217,7 @@ abstract class AbstractDefault extends AbstractTranslation
      */
     public function getArchived()
     {
-    	return $this->archived;
+        return $this->archived;
     }    
 
     /**
@@ -227,8 +227,8 @@ abstract class AbstractDefault extends AbstractTranslation
      */
     public function setPosition($position)
     {
-    	$this->position = $position;
-    	//return $this;
+        $this->position = $position;
+        //return $this;
     }
     
     /**
@@ -238,7 +238,7 @@ abstract class AbstractDefault extends AbstractTranslation
      */
     public function getPosition()
     {
-    	return $this->position;
+        return $this->position;
     }    
     
     /**
@@ -248,11 +248,11 @@ abstract class AbstractDefault extends AbstractTranslation
      */
     public function setHeritage( array $heritage)
     {
-    	$this->heritage = array();
+        $this->heritage = array();
     
-    	foreach ($heritage as $role) {
-    		$this->addRoleInHeritage($role);
-    	}
+        foreach ($heritage as $role) {
+            $this->addRoleInHeritage($role);
+        }
     }
     
     /**
@@ -262,7 +262,7 @@ abstract class AbstractDefault extends AbstractTranslation
      */
     public function getHeritage()
     {
-    	return $this->heritage;
+        return $this->heritage;
     }
     
     /**
@@ -272,11 +272,11 @@ abstract class AbstractDefault extends AbstractTranslation
      */
     public function addRoleInHeritage($role)
     {
-    	$role = strtoupper($role);
+        $role = strtoupper($role);
     
-    	if (!in_array($role, $this->heritage, true)) {
-    		$this->heritage[] = $role;
-    	}
+        if (!in_array($role, $this->heritage, true)) {
+            $this->heritage[] = $role;
+        }
     }    
     
 }

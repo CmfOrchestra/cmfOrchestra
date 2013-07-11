@@ -37,32 +37,32 @@ use PiApp\AdminBundle\Form\WidgetByTransType;
  */
 class WidgetController extends abstractController
 {
-	protected $_entityName = "PiAppAdminBundle:Widget";
-	
+    protected $_entityName = "PiAppAdminBundle:Widget";
+    
     /**
      * Lists all Widget entities.
      * 
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function indexAction($block, $NoLayout = '')
     {
         $em = $this->getDoctrine()->getEntityManager();
         
         if (is_null($block))
-        	$entities = $em->getRepository('PiAppAdminBundle:Widget')->findAll(array('position'=> "ASC"));
+            $entities = $em->getRepository('PiAppAdminBundle:Widget')->findAll(array('position'=> "ASC"));
         else
-        	$entities = $em->getRepository('PiAppAdminBundle:Widget')->findBy(array('block'=>$block), array('position'=> "ASC"));
+            $entities = $em->getRepository('PiAppAdminBundle:Widget')->findBy(array('block'=>$block), array('position'=> "ASC"));
         
         if (empty($NoLayout))
-        	$NoLayout   = $this->container->get('request')->query->get('NoLayout');
+            $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         
         return $this->render('PiAppAdminBundle:Widget:index.html.twig', array(
             'entities' => $entities,
-        	'NoLayout' => $NoLayout,
+            'NoLayout' => $NoLayout,
         ));
     }
     
@@ -78,7 +78,7 @@ class WidgetController extends abstractController
      */
     public function enabledajaxAction()
     {
-    	return parent::enabledajaxAction();
+        return parent::enabledajaxAction();
     }
     
     /**
@@ -93,7 +93,7 @@ class WidgetController extends abstractController
      */
     public function disableajaxAction()
     {
-    	return parent::disableajaxAction();
+        return parent::disableajaxAction();
     }
     
     /**
@@ -108,7 +108,7 @@ class WidgetController extends abstractController
      */
     public function positionajaxAction()
     {
-    	return parent::positionajaxAction();
+        return parent::positionajaxAction();
     }    
 
     /**
@@ -117,8 +117,8 @@ class WidgetController extends abstractController
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function showAction($id)
     {
@@ -128,7 +128,7 @@ class WidgetController extends abstractController
         $entity = $em->getRepository('PiAppAdminBundle:Widget')->find($id);
 
         if (!$entity) {
-        	throw ControllerException::NotFoundException('Widget');
+            throw ControllerException::NotFoundException('Widget');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -136,7 +136,7 @@ class WidgetController extends abstractController
         return $this->render('PiAppAdminBundle:Widget:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
-        	'NoLayout' 	  => $NoLayout,
+            'NoLayout'       => $NoLayout,
         ));
     }
 
@@ -146,20 +146,20 @@ class WidgetController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function newAction()
     {
-    	$NoLayout   = $this->container->get('request')->query->get('NoLayout');
-    	
+        $NoLayout   = $this->container->get('request')->query->get('NoLayout');
+        
         $entity = new Widget();
         $form   = $this->createForm(new WidgetByTransType($this->container), $entity, array('show_legend' => false));
 
         return $this->render('PiAppAdminBundle:Widget:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        	'NoLayout' 	  => $NoLayout,
+            'NoLayout'       => $NoLayout,
         ));
     }
 
@@ -169,12 +169,12 @@ class WidgetController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function createAction()
     {
-    	$NoLayout   = $this->container->get('request')->query->get('NoLayout');
+        $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         $entity  = new Widget();
         $request = $this->getRequest();
         $form    = $this->createForm(new WidgetByTransType($this->container), $entity, array('show_legend' => false));
@@ -185,7 +185,7 @@ class WidgetController extends abstractController
             
             // On persiste tous les translations d'une page.
             foreach($entity->getTranslations() as $translationPage) {
-            	$entity->addTranslation($translationPage);
+                $entity->addTranslation($translationPage);
             }
                         
             $em->persist($entity);
@@ -198,7 +198,7 @@ class WidgetController extends abstractController
         return $this->render('PiAppAdminBundle:Widget:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        	'NoLayout' 	  => $NoLayout,
+            'NoLayout'       => $NoLayout,
         ));
     }
 
@@ -208,32 +208,32 @@ class WidgetController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function editAction($id)
     {
-        $em 	= $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getEntityManager();
         $entity = $em->getRepository('PiAppAdminBundle:Widget')->find($id);
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if (!$NoLayout)
-        	$template = "edit.html.twig";
+            $template = "edit.html.twig";
         else
-        	$template = "edit_ajax.html.twig";        
+            $template = "edit_ajax.html.twig";        
 
         if (!$entity) {
             throw ControllerException::NotFoundException('Widget');
         }
         
-        $editForm 	= $this->createForm(new WidgetByTransType($this->container), $entity, array('show_legend' => false));
+        $editForm     = $this->createForm(new WidgetByTransType($this->container), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render("PiAppAdminBundle:Widget:$template", array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        	'NoLayout' 	  => $NoLayout,
+            'NoLayout'       => $NoLayout,
         ));
     }
 
@@ -243,19 +243,19 @@ class WidgetController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function updateAction($id)
     {
-        $em 	= $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getEntityManager();
         $entity = $em->getRepository('PiAppAdminBundle:Widget')->find($id);
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if (!$NoLayout)
-        	$template = "edit.html.twig";
+            $template = "edit.html.twig";
         else
-        	$template = "edit_ajax.html.twig";        
+            $template = "edit_ajax.html.twig";        
 
         if (!$entity) {
             throw ControllerException::NotFoundException('Widget');
@@ -269,10 +269,10 @@ class WidgetController extends abstractController
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
-        	// On persiste tous les translations d'une page.
-        	foreach($entity->getTranslations() as $translationPage) {
-        		$entity->addTranslation($translationPage);
-        	}
+            // On persiste tous les translations d'une page.
+            foreach($entity->getTranslations() as $translationPage) {
+                $entity->addTranslation($translationPage);
+            }
             $em->persist($entity);
             $em->flush();
             
@@ -283,7 +283,7 @@ class WidgetController extends abstractController
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        	'NoLayout' 	  => $NoLayout,
+            'NoLayout'       => $NoLayout,
         ));
     }
 
@@ -293,12 +293,12 @@ class WidgetController extends abstractController
      * @Secure(roles="ROLE_SUPER_ADMIN")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function deleteAction($id)
     {
-    	$NoLayout   = $this->container->get('request')->query->get('NoLayout');
+        $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
 
@@ -323,10 +323,10 @@ class WidgetController extends abstractController
 
     private function createDeleteForm($id)
     {
-    	return $this->createFormBuilder(array('id' => $id))
-    	->add('id', 'hidden')
-    	->getForm()
-    	;
+        return $this->createFormBuilder(array('id' => $id))
+        ->add('id', 'hidden')
+        ->getForm()
+        ;
     }    
     
     /**
@@ -335,35 +335,35 @@ class WidgetController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function deleteajaxAction()
     {
-    	$request = $this->container->get('request');
-    	$em 	 = $this->getDoctrine()->getEntityManager();
-    	
-    	if ($request->isXmlHttpRequest()){
+        $request = $this->container->get('request');
+        $em      = $this->getDoctrine()->getEntityManager();
+        
+        if ($request->isXmlHttpRequest()){
 
-	   		if ($request->query->has('id'))	$id	= $request->query->get('id');	else	$id	= null;
-	   		
-	   		if (!is_null($id)){
-		   		$entity = $em->getRepository('PiAppAdminBundle:Widget')->find($id);
-		   		
-		   		if ($entity) {
-		   			$em->remove($entity);
-		   			$em->flush();
-		   		}
-    		}
-    		
-    		// we return the desired url
-    		$values[0]['request'] = true;
-    		 
-    		$response = new Response(json_encode($values));
-    		$response->headers->set('Content-Type', 'application/json');
-    		return $response;    		
-    	}else
-    		throw ControllerException::callAjaxOnlySupported('deleteajax');
+               if ($request->query->has('id'))    $id    = $request->query->get('id');    else    $id    = null;
+               
+               if (!is_null($id)){
+                   $entity = $em->getRepository('PiAppAdminBundle:Widget')->find($id);
+                   
+                   if ($entity) {
+                       $em->remove($entity);
+                       $em->flush();
+                   }
+            }
+            
+            // we return the desired url
+            $values[0]['request'] = true;
+             
+            $response = new Response(json_encode($values));
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;            
+        }else
+            throw ControllerException::callAjaxOnlySupported('deleteajax');
     }
     
     /**
@@ -377,49 +377,49 @@ class WidgetController extends abstractController
      */
     public function movewidgetajaxAction()
     {
-    	$request = $this->container->get('request');
-    	$em 	 = $this->getDoctrine()->getEntityManager();
-    		
-    	if ($request->isXmlHttpRequest()){
+        $request = $this->container->get('request');
+        $em      = $this->getDoctrine()->getEntityManager();
+            
+        if ($request->isXmlHttpRequest()){
     
-    		if ($request->query->has('id_start_block'))	$id_start_block	= $request->query->get('id_start_block');	else	$id_start_block = null;
-    		if ($request->query->has('id_end_block'))	$id_end_block	= $request->query->get('id_end_block');		else	$id_end_block 	= null;
-    		if ($request->query->has('id_widget'))		$id_widget		= $request->query->get('id_widget');		else	$id_widget 		= null;
-    			
-    		if (!is_null($id_start_block) && !is_null($id_end_block)){
-    			$entity_end_block = $em->getRepository('PiAppAdminBundle:Block')->find($id_end_block);
-    			$entity_widget	  = $em->getRepository('PiAppAdminBundle:Widget')->find($id_widget);
+            if ($request->query->has('id_start_block'))    $id_start_block    = $request->query->get('id_start_block');    else    $id_start_block = null;
+            if ($request->query->has('id_end_block'))    $id_end_block    = $request->query->get('id_end_block');        else    $id_end_block     = null;
+            if ($request->query->has('id_widget'))        $id_widget        = $request->query->get('id_widget');        else    $id_widget         = null;
+                
+            if (!is_null($id_start_block) && !is_null($id_end_block)){
+                $entity_end_block = $em->getRepository('PiAppAdminBundle:Block')->find($id_end_block);
+                $entity_widget      = $em->getRepository('PiAppAdminBundle:Widget')->find($id_widget);
     
-    			$all_widget_block = $entity_end_block->getWidgets();
+                $all_widget_block = $entity_end_block->getWidgets();
     
-    			foreach($all_widget_block as $key => $widget){
-    				$old_pos = $widget->getPosition();
-    				if ($old_pos != null)
-    					$new_pos = $old_pos +1;
-    				else
-    					$new_pos = 1;
+                foreach($all_widget_block as $key => $widget){
+                    $old_pos = $widget->getPosition();
+                    if ($old_pos != null)
+                        $new_pos = $old_pos +1;
+                    else
+                        $new_pos = 1;
     
-    				$widget->setPosition($new_pos);
-    				$em->persist($widget);
-    				//$em->flush();
-    			}
+                    $widget->setPosition($new_pos);
+                    $em->persist($widget);
+                    //$em->flush();
+                }
     
-    			$entity_widget->setBlock($entity_end_block);
-    			$entity_widget->setPosition("1");
-    			$entity_widget->setEnabled(true);
-    			$em->persist($entity_widget);
+                $entity_widget->setBlock($entity_end_block);
+                $entity_widget->setPosition("1");
+                $entity_widget->setEnabled(true);
+                $em->persist($entity_widget);
     
-    			$em->flush();
-    		}
+                $em->flush();
+            }
 
-    		// we return the desired url
-    		$values[0]['request'] = true;
-    		
-    		$response = new Response(json_encode($values));
-    		$response->headers->set('Content-Type', 'application/json');
-    		return $response;    		
-    	}else
-    		throw ControllerException::callAjaxOnlySupported('movewidgetajax');
+            // we return the desired url
+            $values[0]['request'] = true;
+            
+            $response = new Response(json_encode($values));
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;            
+        }else
+            throw ControllerException::callAjaxOnlySupported('movewidgetajax');
     }
     
     /**
@@ -433,67 +433,67 @@ class WidgetController extends abstractController
      */
     public function moveajaxAction()
     {
-    	$request = $this->container->get('request');
-    	$em 	 = $this->getDoctrine()->getEntityManager();
+        $request = $this->container->get('request');
+        $em      = $this->getDoctrine()->getEntityManager();
     
-    	if ($request->isXmlHttpRequest()){
+        if ($request->isXmlHttpRequest()){
     
-    		if ($request->query->has('id'))		$id		= $request->query->get('id');	else	$id		= null;
-    		if ($request->query->has('type'))	$type	= $request->query->get('type');	else	$type	= null;
-    		 
-    		if (!is_null($id) && !is_null($type) && in_array($type, array('up', 'down')) ){
-    			$entity_widget		= $em->getRepository('PiAppAdminBundle:Widget')->find($id);
-    			$entity_block 		= $entity_widget->getBlock();
-    			$entity_widget_pos  = $entity_widget->getPosition();
-    			$break 				= false;
-    			
-    			if (is_null($entity_widget_pos)){
-    				$entity_widget_pos = 1;
-    				$entity_widget->setPosition($entity_widget_pos);
-    				$em->persist($entity_widget);
-    				$em->flush();
-    			}
+            if ($request->query->has('id'))        $id        = $request->query->get('id');    else    $id        = null;
+            if ($request->query->has('type'))    $type    = $request->query->get('type');    else    $type    = null;
+             
+            if (!is_null($id) && !is_null($type) && in_array($type, array('up', 'down')) ){
+                $entity_widget        = $em->getRepository('PiAppAdminBundle:Widget')->find($id);
+                $entity_block         = $entity_widget->getBlock();
+                $entity_widget_pos  = $entity_widget->getPosition();
+                $break                 = false;
+                
+                if (is_null($entity_widget_pos)){
+                    $entity_widget_pos = 1;
+                    $entity_widget->setPosition($entity_widget_pos);
+                    $em->persist($entity_widget);
+                    $em->flush();
+                }
 
-    			if ($type == 'up'){
-    				$all_widget_block 	= $em->getRepository('PiAppAdminBundle:Widget')->getAllWidgetsByBlock($entity_block->getId(), "DESC")->getResult(); //$entity_block->getWidgets();
-	    			foreach($all_widget_block as $key => $widget){
-	    				$widg_pos = $widget->getPosition();
-	    				if (!$break && ($widg_pos < $entity_widget_pos) ){
-	    					$widget->setPosition($entity_widget_pos);
-	    					$em->persist($widget);
-	    					
-	    					$entity_widget->setPosition($widg_pos);
-	    					$em->persist($entity_widget);
-	    					$em->flush();
-	    					$break= true;
-	    				}
-	    			}
-	    		}
-	    		elseif ($type == 'down'){
-	    			$all_widget_block 	= $em->getRepository('PiAppAdminBundle:Widget')->getAllWidgetsByBlock($entity_block->getId(), "ASC")->getResult(); //$entity_block->getWidgets();
-	    			foreach($all_widget_block as $key => $widget){
-	    				$widg_pos = $widget->getPosition();
-	    				if (!$break && ($widg_pos > $entity_widget_pos) ){
-	    					$widget->setPosition($entity_widget_pos);
-	    					$em->persist($widget);
-	    		
-	    					$entity_widget->setPosition($widg_pos);
-	    					$em->persist($entity_widget);
-	    					$em->flush();
-	    					$break= true;
-	    				}
-	    			}
-	    		}	    		
-	    		
-    		}
-    		// we return the desired url
-    		$values[0]['request'] = true;
-    		
-    		$response = new Response(json_encode($values));
-    		$response->headers->set('Content-Type', 'application/json');
-    		return $response;
-    	}else
-    		throw ControllerException::callAjaxOnlySupported('moveajax');
+                if ($type == 'up'){
+                    $all_widget_block     = $em->getRepository('PiAppAdminBundle:Widget')->getAllWidgetsByBlock($entity_block->getId(), "DESC")->getResult(); //$entity_block->getWidgets();
+                    foreach($all_widget_block as $key => $widget){
+                        $widg_pos = $widget->getPosition();
+                        if (!$break && ($widg_pos < $entity_widget_pos) ){
+                            $widget->setPosition($entity_widget_pos);
+                            $em->persist($widget);
+                            
+                            $entity_widget->setPosition($widg_pos);
+                            $em->persist($entity_widget);
+                            $em->flush();
+                            $break= true;
+                        }
+                    }
+                }
+                elseif ($type == 'down'){
+                    $all_widget_block     = $em->getRepository('PiAppAdminBundle:Widget')->getAllWidgetsByBlock($entity_block->getId(), "ASC")->getResult(); //$entity_block->getWidgets();
+                    foreach($all_widget_block as $key => $widget){
+                        $widg_pos = $widget->getPosition();
+                        if (!$break && ($widg_pos > $entity_widget_pos) ){
+                            $widget->setPosition($entity_widget_pos);
+                            $em->persist($widget);
+                
+                            $entity_widget->setPosition($widg_pos);
+                            $em->persist($entity_widget);
+                            $em->flush();
+                            $break= true;
+                        }
+                    }
+                }                
+                
+            }
+            // we return the desired url
+            $values[0]['request'] = true;
+            
+            $response = new Response(json_encode($values));
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }else
+            throw ControllerException::callAjaxOnlySupported('moveajax');
     }
     
 }

@@ -39,21 +39,21 @@ use PiApp\GedmoBundle\Entity\Translation\RssTranslation;
  */
 class RssController extends abstractController
 {
-	protected $_entityName = "PiAppGedmoBundle:Rss";
+    protected $_entityName = "PiAppGedmoBundle:Rss";
 
-	/**
+    /**
      * Enabled Rss entities.
      *
      * @Route("/admin/gedmo/rss/enabled", name="admin_gedmo_rss_enabledentity_ajax")
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *     
      * @access  public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function enabledajaxAction()
     {
-    	return parent::enabledajaxAction();
+        return parent::enabledajaxAction();
     }
 
     /**
@@ -61,44 +61,44 @@ class RssController extends abstractController
      * 
      * @Route("/admin/gedmo/rss/disable", name="admin_gedmo_rss_disablentity_ajax")
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *     
      * @access  public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function disableajaxAction()
     {
-		return parent::disableajaxAction();
+        return parent::disableajaxAction();
     } 
 
-	/**
+    /**
      * Change the position of a Rss entity.
      *
      * @Route("/admin/gedmo/rss/position", name="admin_gedmo_rss_position_ajax")
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *     
      * @access  public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function positionajaxAction()
     {
-    	return parent::positionajaxAction();
+        return parent::positionajaxAction();
     }   
 
-	/**
+    /**
      * Delete a Rss entity.
      *
      * @Route("/admin/gedmo/rss/delete", name="admin_gedmo_rss_deletentity_ajax")
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *     
      * @access  public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function deleteajaxAction()
     {
-    	return parent::deletajaxAction();
+        return parent::deletajaxAction();
     }   
     
     /**
@@ -113,38 +113,38 @@ class RssController extends abstractController
      */
     public function archiveajaxAction()
     {
-    	return parent::archiveajaxAction();
+        return parent::archiveajaxAction();
     }
         
     /**
      * Lists all Rss entities.
      *
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
      */
     public function indexAction()
     {
-    	$em			= $this->getDoctrine()->getEntityManager();
-    	$locale		= $this->container->get('request')->getLocale();
+        $em            = $this->getDoctrine()->getEntityManager();
+        $locale        = $this->container->get('request')->getLocale();
         
         $category   = $this->container->get('request')->query->get('category');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-        if (!$NoLayout) 	$template = "index.html.twig"; else $template = "index.html.twig";
+        if (!$NoLayout)     $template = "index.html.twig"; else $template = "index.html.twig";
         
-    	if ($NoLayout){
-    		//$entities 	= $em->getRepository("PiAppGedmoBundle:Rss")->getAllEnableByCatAndByPosition($locale, $category, 'object');
-    		$query		= $em->getRepository("PiAppGedmoBundle:Rss")->getAllByCategory($category, null, '', 'ASC', false)->getQuery();
-    		$entities   = $em->getRepository("PiAppGedmoBundle:Rss")->findTranslationsByQuery($locale, $query, 'object', false);
-    	}else
-    		$entities	= $em->getRepository("PiAppGedmoBundle:Rss")->findAllByEntity($locale, 'object');    	
+        if ($NoLayout){
+            //$entities     = $em->getRepository("PiAppGedmoBundle:Rss")->getAllEnableByCatAndByPosition($locale, $category, 'object');
+            $query        = $em->getRepository("PiAppGedmoBundle:Rss")->getAllByCategory($category, null, '', 'ASC', false)->getQuery();
+            $entities   = $em->getRepository("PiAppGedmoBundle:Rss")->findTranslationsByQuery($locale, $query, 'object', false);
+        }else
+            $entities    = $em->getRepository("PiAppGedmoBundle:Rss")->findAllByEntity($locale, 'object');        
 
         return $this->render("PiAppGedmoBundle:Rss:$template", array(
-            'entities'	=> $entities,
-            'NoLayout'	=> $NoLayout,
-            'category'	=> $category,
+            'entities'    => $entities,
+            'NoLayout'    => $NoLayout,
+            'category'    => $category,
         ));
     }
 
@@ -152,20 +152,20 @@ class RssController extends abstractController
      * Finds and displays a Rss entity.
      *
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function showAction($id)
     {
-        $em 		= $this->getDoctrine()->getEntityManager();
-        $locale		= $this->container->get('request')->getLocale();
-        $entity 	= $em->getRepository("PiAppGedmoBundle:Rss")->findOneByEntity($locale, $id, 'object');
+        $em         = $this->getDoctrine()->getEntityManager();
+        $locale        = $this->container->get('request')->getLocale();
+        $entity     = $em->getRepository("PiAppGedmoBundle:Rss")->findOneByEntity($locale, $id, 'object');
         
         $category   = $this->container->get('request')->query->get('category');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-        if (!$NoLayout) 	$template = "show.html.twig"; else $template = "show.html.twig";        
+        if (!$NoLayout)     $template = "show.html.twig"; else $template = "show.html.twig";        
 
         if (!$entity) {
             throw ControllerException::NotFoundException('Rss');
@@ -175,8 +175,8 @@ class RssController extends abstractController
 
         return $this->render("PiAppGedmoBundle:Rss:$template", array(
             'entity'      => $entity,
-            'NoLayout'	  => $NoLayout,
-            'category'	  => $category,
+            'NoLayout'      => $NoLayout,
+            'category'      => $category,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -185,32 +185,32 @@ class RssController extends abstractController
      * Displays a form to create a new Rss entity.
      *
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function newAction()
     {
-    	$em 		= $this->getDoctrine()->getEntityManager();
-    	$entity 	= new Rss();
-        $form   	= $this->createForm(new RssType($em, $this->container), $entity, array('show_legend' => false));
+        $em         = $this->getDoctrine()->getEntityManager();
+        $entity     = new Rss();
+        $form       = $this->createForm(new RssType($em, $this->container), $entity, array('show_legend' => false));
         
         $category   = $this->container->get('request')->query->get('category', '');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-        if (!$NoLayout)	$template = "new.html.twig";  else 	$template = "new.html.twig";   
+        if (!$NoLayout)    $template = "new.html.twig";  else     $template = "new.html.twig";   
         
         $entity_cat = $em->getRepository("PiAppGedmoBundle:Category")->find($category);
         if ( !empty($category) && ($entity_cat instanceof \PiApp\GedmoBundle\Entity\Category))
-        	$entity->setCategory($entity_cat);
+            $entity->setCategory($entity_cat);
         elseif (!empty($category))
-        	$entity->setCategory($category);  
+            $entity->setCategory($category);  
 
         return $this->render("PiAppGedmoBundle:Rss:$template", array(
-            'entity' 	=> $entity,
-            'form'   	=> $form->createView(),
+            'entity'     => $entity,
+            'form'       => $form->createView(),
             'NoLayout'  => $NoLayout,
-            'category'	=> $category,
+            'category'    => $category,
         ));
     }
 
@@ -220,21 +220,21 @@ class RssController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      *
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
      */
     public function createAction()
     {
-        $em 		= $this->getDoctrine()->getEntityManager();
-        $locale		= $this->container->get('request')->getLocale();
+        $em         = $this->getDoctrine()->getEntityManager();
+        $locale        = $this->container->get('request')->getLocale();
         
         $category   = $this->container->get('request')->query->get('category');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-        if (!$NoLayout)	$template = "new.html.twig";  else 	$template = "new.html.twig";        
+        if (!$NoLayout)    $template = "new.html.twig";  else     $template = "new.html.twig";        
     
-        $entity 	= new Rss();
-        $request 	= $this->getRequest();
-        $form    	= $this->createForm(new RssType($em, $this->container), $entity, array('show_legend' => false));
+        $entity     = new Rss();
+        $request     = $this->getRequest();
+        $form        = $this->createForm(new RssType($em, $this->container), $entity, array('show_legend' => false));
         $form->bind($request);
 
         if ($form->isValid()) {
@@ -247,10 +247,10 @@ class RssController extends abstractController
         }
 
         return $this->render("PiAppGedmoBundle:Rss:$template", array(
-            'entity' 	=> $entity,
-            'form'   	=> $form->createView(),
+            'entity'     => $entity,
+            'form'       => $form->createView(),
             'NoLayout'  => $NoLayout,
-            'category'	=> $category,
+            'category'    => $category,
         ));
     }
 
@@ -258,24 +258,24 @@ class RssController extends abstractController
      * Displays a form to edit an existing Rss entity.
      *
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function editAction($id)
     {
-        $em 		= $this->getDoctrine()->getEntityManager();
-    	$locale		= $this->container->get('request')->getLocale();
-        $entity 	= $em->getRepository("PiAppGedmoBundle:Rss")->findOneByEntity($locale, $id, 'object');
+        $em         = $this->getDoctrine()->getEntityManager();
+        $locale        = $this->container->get('request')->getLocale();
+        $entity     = $em->getRepository("PiAppGedmoBundle:Rss")->findOneByEntity($locale, $id, 'object');
         
         $category   = $this->container->get('request')->query->get('category');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-        if (!$NoLayout)	$template = "edit.html.twig";  else	$template = "edit.html.twig";        
+        if (!$NoLayout)    $template = "edit.html.twig";  else    $template = "edit.html.twig";        
 
         if (!$entity) {
-        	$entity = $em->getRepository("PiAppGedmoBundle:Rss")->find($id);
-        	$entity->addTranslation(new RssTranslation($locale));            
+            $entity = $em->getRepository("PiAppGedmoBundle:Rss")->find($id);
+            $entity->addTranslation(new RssTranslation($locale));            
         }
 
         $editForm   = $this->createForm(new RssType($em, $this->container), $entity, array('show_legend' => false));
@@ -285,8 +285,8 @@ class RssController extends abstractController
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'NoLayout' 	  => $NoLayout,
-            'category'	  => $category,
+            'NoLayout'       => $NoLayout,
+            'category'      => $category,
         ));
     }
 
@@ -294,23 +294,23 @@ class RssController extends abstractController
      * Edits an existing Rss entity.
      *
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
      */
     public function updateAction($id)
     {
-        $em 		= $this->getDoctrine()->getEntityManager();
-    	$locale		= $this->container->get('request')->getLocale();
-        $entity 	= $em->getRepository("PiAppGedmoBundle:Rss")->findOneByEntity($locale, $id, "object"); 
+        $em         = $this->getDoctrine()->getEntityManager();
+        $locale        = $this->container->get('request')->getLocale();
+        $entity     = $em->getRepository("PiAppGedmoBundle:Rss")->findOneByEntity($locale, $id, "object"); 
         
         $category   = $this->container->get('request')->query->get('category');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-        if (!$NoLayout)	$template = "edit.html.twig";  else	$template = "edit.html.twig";        
+        if (!$NoLayout)    $template = "edit.html.twig";  else    $template = "edit.html.twig";        
 
         if (!$entity) {
-        	$entity = $em->getRepository("PiAppGedmoBundle:Rss")->find($id);
+            $entity = $em->getRepository("PiAppGedmoBundle:Rss")->find($id);
         }
 
         $editForm   = $this->createForm(new RssType($em, $this->container), $entity, array('show_legend' => false));
@@ -329,8 +329,8 @@ class RssController extends abstractController
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'NoLayout' 	  => $NoLayout,
-            'category'	  => $category,
+            'NoLayout'       => $NoLayout,
+            'category'      => $category,
         ));
     }
 
@@ -338,36 +338,36 @@ class RssController extends abstractController
      * Deletes a Rss entity.
      *
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *     
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
      */
     public function deleteAction($id)
     {
-        $em 	 	= $this->getDoctrine()->getEntityManager();
-	    $locale	 	= $this->container->get('request')->getLocale();
-	    
-	    $NoLayout   = $this->container->get('request')->query->get('NoLayout');	    
-	    $category   = $this->container->get('request')->query->get('category');
+        $em          = $this->getDoctrine()->getEntityManager();
+        $locale         = $this->container->get('request')->getLocale();
+        
+        $NoLayout   = $this->container->get('request')->query->get('NoLayout');        
+        $category   = $this->container->get('request')->query->get('category');
     
-        $form 	 	= $this->createDeleteForm($id);
-        $request 	= $this->getRequest();
+        $form          = $this->createDeleteForm($id);
+        $request     = $this->getRequest();
 
         $form->bind($request);
 
         if ($form->isValid()) {
-    	    $entity = $em->getRepository("PiAppGedmoBundle:Rss")->findOneByEntity($locale, $id, 'object');
+            $entity = $em->getRepository("PiAppGedmoBundle:Rss")->findOneByEntity($locale, $id, 'object');
 
             if (!$entity) {
                 throw ControllerException::NotFoundException('Rss');
             }
 
-        	try {
-            	$em->remove($entity);
-            	$em->flush();
+            try {
+                $em->remove($entity);
+                $em->flush();
             } catch (\Exception $e) {
-            	$this->container->get('request')->getSession()->getFlashBag()->add('notice', 'pi.session.flash.wrong.undelete');
+                $this->container->get('request')->getSession()->getFlashBag()->add('notice', 'pi.session.flash.wrong.undelete');
             }
         }
 
@@ -388,55 +388,55 @@ class RssController extends abstractController
      * @Cache(maxage="86400")
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @access	public
+     * @access    public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com> 
      */
     public function _template_showAction($id, $template = '_tmp_show.html.twig', $lang = "")
     {
-    	$em 	= $this->getDoctrine()->getEntityManager();
-    	
-    	if (empty($lang))
-    		$lang	= $this->container->get('request')->getLocale();
-    		
-    	$entity = $em->getRepository("PiAppGedmoBundle:Rss")->findOneByEntity($lang, $id, 'object', false);
-    	
-    	if (!$entity) {
-    		throw ControllerException::NotFoundException('Rss');
-    	}
-    	
-    	if (method_exists($entity, "getTemplate") && $entity->getTemplate() != "")
-    		$template = $entity->getTemplate();     	
+        $em     = $this->getDoctrine()->getEntityManager();
+        
+        if (empty($lang))
+            $lang    = $this->container->get('request')->getLocale();
+            
+        $entity = $em->getRepository("PiAppGedmoBundle:Rss")->findOneByEntity($lang, $id, 'object', false);
+        
+        if (!$entity) {
+            throw ControllerException::NotFoundException('Rss');
+        }
+        
+        if (method_exists($entity, "getTemplate") && $entity->getTemplate() != "")
+            $template = $entity->getTemplate();         
     
-    	return $this->render("PiAppGedmoBundle:Rss:$template", array(
-    			'entity'	=> $entity,
-    			'locale'	=> $lang,
-    	));
+        return $this->render("PiAppGedmoBundle:Rss:$template", array(
+                'entity'    => $entity,
+                'locale'    => $lang,
+        ));
     }
 
-	/**
+    /**
      * Template : Finds and displays a list of Rss entity.
      * 
      * @Cache(maxage="86400")
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @access	public
+     * @access    public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com> 
      */
     public function _template_listAction($category = '', $MaxResults = null, $template = '_tmp_list.html.twig', $order = 'DESC', $lang = "")
     {
-    	$em 		= $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getEntityManager();
 
-    	if (empty($lang))
-    		$lang	= $this->container->get('request')->getLocale();
-    		
-    	$query		= $em->getRepository("PiAppGedmoBundle:Rss")->getAllByCategory($category, $MaxResults, $order)->getQuery();
+        if (empty($lang))
+            $lang    = $this->container->get('request')->getLocale();
+            
+        $query        = $em->getRepository("PiAppGedmoBundle:Rss")->getAllByCategory($category, $MaxResults, $order)->getQuery();
         $entities   = $em->getRepository("PiAppGedmoBundle:Rss")->findTranslationsByQuery($lang, $query, 'object', false);                   
 
         return $this->render("PiAppGedmoBundle:Rss:$template", array(
             'entities' => $entities,
-            'cat'	   => ucfirst($category),
-        	'locale'   => $lang,
+            'cat'       => ucfirst($category),
+            'locale'   => $lang,
         ));
     }     
-	
+    
 }

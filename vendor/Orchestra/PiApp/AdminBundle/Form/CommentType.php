@@ -28,53 +28,53 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        	->add('enabled', 'checkbox', array(
-        		'data'  => true,
-        		'label'	=> 'pi.form.label.field.enabled',
-        	))
+            ->add('enabled', 'checkbox', array(
+                'data'  => true,
+                'label'    => 'pi.form.label.field.enabled',
+            ))
             ->add('user')
             ->add('comment')
             ->add('email')
             ->add('approved')
             ->add('created_at', 'date', array(
-	        		'widget' => 'single_text', // choice, text, single_text
-	        		'input' => 'datetime',
-	        		'format' => 'MM/dd/yyyy',
-	        		'empty_value' => array('year' => 'Année', 'month' => 'Mois', 'day' => 'Jour'),
-	        		//'pattern' => "{{ day }}/{{ month }}/{{ year }}",
-	        		//'data_timezone' => "Europe/Paris",
-	        		//'user_timezone' => "Europe/Paris",
-	        		"attr" => array(
-	        				"class"=>"pi_datepicker",
-	        		),
-            		'label'	=> 'pi.form.label.date.creation',
-	        ))
+                    'widget' => 'single_text', // choice, text, single_text
+                    'input' => 'datetime',
+                    'format' => 'MM/dd/yyyy',
+                    'empty_value' => array('year' => 'Année', 'month' => 'Mois', 'day' => 'Jour'),
+                    //'pattern' => "{{ day }}/{{ month }}/{{ year }}",
+                    //'data_timezone' => "Europe/Paris",
+                    //'user_timezone' => "Europe/Paris",
+                    "attr" => array(
+                            "class"=>"pi_datepicker",
+                    ),
+                    'label'    => 'pi.form.label.date.creation',
+            ))
             ->add('updated_at', 'date', array(
-	        		'widget' => 'single_text', // choice, text, single_text
-	        		'input' => 'datetime',
-	        		'format' => 'MM/dd/yyyy',
-	        		'empty_value' => array('year' => 'Année', 'month' => 'Mois', 'day' => 'Jour'),
-	        		//'pattern' => "{{ day }}/{{ month }}/{{ year }}",
-	        		//'data_timezone' => "Europe/Paris",
-	        		//'user_timezone' => "Europe/Paris",
-	        		"attr" => array(
-	        				"class"=>"pi_datepicker",
-	        		),
-            		'label'	=> 'pi.form.label.date.updating',
-	        ))
+                    'widget' => 'single_text', // choice, text, single_text
+                    'input' => 'datetime',
+                    'format' => 'MM/dd/yyyy',
+                    'empty_value' => array('year' => 'Année', 'month' => 'Mois', 'day' => 'Jour'),
+                    //'pattern' => "{{ day }}/{{ month }}/{{ year }}",
+                    //'data_timezone' => "Europe/Paris",
+                    //'user_timezone' => "Europe/Paris",
+                    "attr" => array(
+                            "class"=>"pi_datepicker",
+                    ),
+                    'label'    => 'pi.form.label.date.updating',
+            ))
             ->add('archive_at', 'date', array(
-	        		'widget' => 'single_text', // choice, text, single_text
-	        		'input' => 'datetime',
-	        		'format' => 'MM/dd/yyyy',
-	        		'empty_value' => array('year' => 'Année', 'month' => 'Mois', 'day' => 'Jour'),
-	        		//'pattern' => "{{ day }}/{{ month }}/{{ year }}",
-	        		//'data_timezone' => "Europe/Paris",
-	        		//'user_timezone' => "Europe/Paris",
-	        		"attr" => array(
-	        				"class"=>"pi_datepicker",
-	        		),
-            		'label'	=> 'pi.form.label.date.archivage',
-	        ))
+                    'widget' => 'single_text', // choice, text, single_text
+                    'input' => 'datetime',
+                    'format' => 'MM/dd/yyyy',
+                    'empty_value' => array('year' => 'Année', 'month' => 'Mois', 'day' => 'Jour'),
+                    //'pattern' => "{{ day }}/{{ month }}/{{ year }}",
+                    //'data_timezone' => "Europe/Paris",
+                    //'user_timezone' => "Europe/Paris",
+                    "attr" => array(
+                            "class"=>"pi_datepicker",
+                    ),
+                    'label'    => 'pi.form.label.date.archivage',
+            ))
             ->add('pageTranslation')
         ;
     }

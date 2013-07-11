@@ -29,40 +29,40 @@ use PiApp\AdminBundle\EventListener\CoreListener;
  */
 class PrePersistListener extends CoreListener
 {
-	/**
-	 * Constructs a new instance of SecurityListener.
-	 *
-	 * @param ContainerInterface        $container
-	 */
-	public function __construct(ContainerInterface $container)
-	{
-		parent::__construct($container);
-	}
-		
-	/**
-	 * Methos which will be called when the event is thrown.
-	 *
-	 * @param \Doctrine\ORM\Event\LifecycleEventArgs $eventArgs
-	 *
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 */	
+    /**
+     * Constructs a new instance of SecurityListener.
+     *
+     * @param ContainerInterface        $container
+     */
+    public function __construct(ContainerInterface $container)
+    {
+        parent::__construct($container);
+    }
+        
+    /**
+     * Methos which will be called when the event is thrown.
+     *
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $eventArgs
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */    
     public function PrePersist(LifecycleEventArgs $eventArgs)
     {
-    	// we set the PrePersist layout management
-    	$this->_Layout($eventArgs);
-    	
-    	// we set the PrePersist widget management
-    	//$this->_widgetListener($eventArgs);
-    	
-    	// Method which will be called when we check if the url of the page does not already exist.
-    	$this->_single_SlugByPage($eventArgs);    	
-    	
-    	// Method which will be called when we detach the permission of Persist a page.
-    	$this->_Persist_Permission_Page_ByUser($eventArgs);
-    	
-    	// we set the PrePersist management
-    	// BE CAREFUL !!! this method has to be used in the last of your LifecycleEvent management.
-    	$this->_prePersist($eventArgs);
+        // we set the PrePersist layout management
+        $this->_Layout($eventArgs);
+        
+        // we set the PrePersist widget management
+        //$this->_widgetListener($eventArgs);
+        
+        // Method which will be called when we check if the url of the page does not already exist.
+        $this->_single_SlugByPage($eventArgs);        
+        
+        // Method which will be called when we detach the permission of Persist a page.
+        $this->_Persist_Permission_Page_ByUser($eventArgs);
+        
+        // we set the PrePersist management
+        // BE CAREFUL !!! this method has to be used in the last of your LifecycleEvent management.
+        $this->_prePersist($eventArgs);
     }
     
 }

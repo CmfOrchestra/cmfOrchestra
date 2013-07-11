@@ -36,29 +36,29 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  */
 class Partner extends AbstractDefault 
 {
-	/**
-	 * List of al translatable fields
-	 * 
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_fields	= array('title', 'subtitle', 'descriptif', 'content');
+    /**
+     * List of al translatable fields
+     * 
+     * @var array
+     * @access  protected
+     */
+    protected $_fields    = array('title', 'subtitle', 'descriptif', 'content');
 
-	/**
-	 * Name of the Translation Entity
-	 * 
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\PartnerTranslation';
-	
-	/**
-	 * @var \Doctrine\Common\Collections\ArrayCollection
-	 *
-	 * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\PartnerTranslation", mappedBy="object", cascade={"persist", "remove"})
-	 */
-	protected $translations;	
-	
+    /**
+     * Name of the Translation Entity
+     * 
+     * @var array
+     * @access  protected
+     */
+    protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\PartnerTranslation';
+    
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\PartnerTranslation", mappedBy="object", cascade={"persist", "remove"})
+     */
+    protected $translations;    
+    
     /**
      * @var bigint
      * 
@@ -160,9 +160,9 @@ class Partner extends AbstractDefault
      */    
     public function __construct()
     {
-    	parent::__construct();
-    	
-    	$this->events	= new \Doctrine\Common\Collections\ArrayCollection();
+        parent::__construct();
+        
+        $this->events    = new \Doctrine\Common\Collections\ArrayCollection();
     }    
     
     /**
@@ -174,7 +174,7 @@ class Partner extends AbstractDefault
      */    
     public function __toString()
     {
-    	return (string) $this->getTitle();
+        return (string) $this->getTitle();
     }   
 
     /**
@@ -202,8 +202,8 @@ class Partner extends AbstractDefault
      */
     public function setCategory($category)
     {
-    	$this->category = $category;
-    	return $this;
+        $this->category = $category;
+        return $this;
     }
     
     /**
@@ -213,7 +213,7 @@ class Partner extends AbstractDefault
      */
     public function getCategory()
     {
-    	return $this->category;
+        return $this->category;
     } 
 
     /**
@@ -263,7 +263,7 @@ class Partner extends AbstractDefault
      */
     public function setDescriptif ($descriptif)
     {
-    	$this->descriptif = $descriptif;
+        $this->descriptif = $descriptif;
     }
     
     /**
@@ -273,7 +273,7 @@ class Partner extends AbstractDefault
      */
     public function getDescriptif ()
     {
-    	return $this->descriptif;
+        return $this->descriptif;
     }    
 
     /**
@@ -303,8 +303,8 @@ class Partner extends AbstractDefault
      */
     public function setPageurl($pageurl)
     {
-    	$this->pageurl = $pageurl;
-    	return $this;
+        $this->pageurl = $pageurl;
+        return $this;
     }
     
     /**
@@ -314,7 +314,7 @@ class Partner extends AbstractDefault
      */
     public function getPageurl()
     {
-    	return $this->pageurl;
+        return $this->pageurl;
     }
     
     /**
@@ -324,8 +324,8 @@ class Partner extends AbstractDefault
      */
     public function setUrl($url)
     {
-    	$this->url = $url;
-    	return $this;
+        $this->url = $url;
+        return $this;
     }
     
     /**
@@ -335,7 +335,7 @@ class Partner extends AbstractDefault
      */
     public function getUrl()
     {
-    	return $this->url;
+        return $this->url;
     }
     
     /**
@@ -345,8 +345,8 @@ class Partner extends AbstractDefault
      */
     public function setMedia($media)
     {
-    	$this->media = $media;
-    	return $this;
+        $this->media = $media;
+        return $this;
     }
     
     /**
@@ -356,7 +356,7 @@ class Partner extends AbstractDefault
      */
     public function getMedia()
     {
-    	return $this->media;
+        return $this->media;
     }  
 
     /**
@@ -366,7 +366,7 @@ class Partner extends AbstractDefault
      */
     public function setHighlighted1($highlighted)
     {
-    	$this->highlighted1 = $highlighted;
+        $this->highlighted1 = $highlighted;
     }
     
     /**
@@ -376,7 +376,7 @@ class Partner extends AbstractDefault
      */
     public function getHighlighted1()
     {
-    	return $this->highlighted1;
+        return $this->highlighted1;
     }    
     
     /**
@@ -386,7 +386,7 @@ class Partner extends AbstractDefault
      */
     public function setHighlighted2($highlighted)
     {
-    	$this->highlighted2 = $highlighted;
+        $this->highlighted2 = $highlighted;
     }
     
     /**
@@ -396,7 +396,7 @@ class Partner extends AbstractDefault
      */
     public function getHighlighted2()
     {
-    	return $this->highlighted2;
+        return $this->highlighted2;
     }    
     
     /**
@@ -406,7 +406,7 @@ class Partner extends AbstractDefault
      */
     public function setHighlighted3($highlighted)
     {
-    	$this->highlighted3 = $highlighted;
+        $this->highlighted3 = $highlighted;
     }
     
     /**
@@ -416,7 +416,7 @@ class Partner extends AbstractDefault
      */
     public function getHighlighted3()
     {
-    	return $this->highlighted3;
+        return $this->highlighted3;
     }    
     
     

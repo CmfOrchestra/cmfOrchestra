@@ -168,7 +168,7 @@ class Rubrique
     
     public function __toString()
     {
-    	return (string) $this->getTitre();
+        return (string) $this->getTitre();
     }  
 
 //     /**
@@ -176,8 +176,8 @@ class Rubrique
 //      */
 //     public function setCreatedValue()
 //     {
-//     	$this->setCreatedAt(new \DateTime());
-//     	$this->setUpdatedAt(new \DateTime());
+//         $this->setCreatedAt(new \DateTime());
+//         $this->setUpdatedAt(new \DateTime());
 //     }
     
 //     /**
@@ -185,7 +185,7 @@ class Rubrique
 //      */
 //     public function setUpdatedValue()
 //     {
-//     	$this->setUpdatedAt(new \DateTime());
+//         $this->setUpdatedAt(new \DateTime());
 //     }    
     
     /**
@@ -285,7 +285,7 @@ class Rubrique
      */
     public function setParent(\PiApp\AdminBundle\Entity\Rubrique $parent)
     {
-       	$this->parent = $parent;
+           $this->parent = $parent;
     }
 
     /**
@@ -305,7 +305,7 @@ class Rubrique
      */
     public function setTreeParents(array $parents)
     {
-    	$this->parents_tree = $parents;
+        $this->parents_tree = $parents;
     }
     
     /**
@@ -315,55 +315,55 @@ class Rubrique
      */
     public function getTreeParents()
     {
-    	if (!$this->parents_tree) {
+        if (!$this->parents_tree) {
     
-    		$page = $this;
-    		$parents = array();
+            $page = $this;
+            $parents = array();
     
-    		while ($page->getParent()) {
-    			$page = $page->getParent();
-    			$parents[] = $page;
-    		}
+            while ($page->getParent()) {
+                $page = $page->getParent();
+                $parents[] = $page;
+            }
     
-    		$this->setTreeParents(array_reverse($parents));
-    	}
+            $this->setTreeParents(array_reverse($parents));
+        }
     
-    	return $this->parents_tree;
+        return $this->parents_tree;
     }  
 
     public function getRoot()
     {
-    	return $this->root;
+        return $this->root;
     }
     
     public function getLevel()
     {
-    	return $this->level;
+        return $this->level;
     }
 
     public function getLeft()
     {
-    	return $this->lft;
+        return $this->lft;
     }
     
     public function getRight()
     {
-    	return $this->rgt;
+        return $this->rgt;
     }    
 
     /**
      * Add keywords
      *
-     * @param \PiApp\AdminBundle\Entity\KeyWord	$keywords
+     * @param \PiApp\AdminBundle\Entity\KeyWord    $keywords
      */
     public function addKeyWord(\PiApp\AdminBundle\Entity\KeyWord $keywords)
     {
-    	$this->keywords[] = $keywords;
+        $this->keywords[] = $keywords;
     }
     
     public function setKeyWords($keywords)
     {
-    	$this->keywords = $keywords;
+        $this->keywords = $keywords;
     }
     
     /**
@@ -373,7 +373,7 @@ class Rubrique
      */
     public function getKeywords()
     {
-    	return $this->keywords;
+        return $this->keywords;
     }
 
     /**
@@ -383,7 +383,7 @@ class Rubrique
      */
     public function setLft($lft)
     {
-    	$this->lft = $lft;
+        $this->lft = $lft;
     }
     
     /**
@@ -393,7 +393,7 @@ class Rubrique
      */
     public function getLft()
     {
-    	return $this->lft;
+        return $this->lft;
     }
     
     /**
@@ -403,7 +403,7 @@ class Rubrique
      */
     public function setLvl($lvl)
     {
-    	$this->lvl = $lvl;
+        $this->lvl = $lvl;
     }
     
     /**
@@ -413,7 +413,7 @@ class Rubrique
      */
     public function getLvl()
     {
-    	return $this->lvl;
+        return $this->lvl;
     }
     
     /**
@@ -423,7 +423,7 @@ class Rubrique
      */
     public function setRgt($rgt)
     {
-    	$this->rgt = $rgt;
+        $this->rgt = $rgt;
     }
     
     /**
@@ -433,7 +433,7 @@ class Rubrique
      */
     public function getRgt()
     {
-    	return $this->rgt;
+        return $this->rgt;
     }
     
     /**
@@ -443,7 +443,7 @@ class Rubrique
      */
     public function setRoot($root)
     {
-    	$this->root = $root;
+        $this->root = $root;
     }    
     
     /**
@@ -453,7 +453,7 @@ class Rubrique
      */
     public function setCreatedAt($createdAt)
     {
-    	$this->created_at = $createdAt;
+        $this->created_at = $createdAt;
     }
     
     /**
@@ -463,7 +463,7 @@ class Rubrique
      */
     public function getCreatedAt()
     {
-    	return $this->created_at;
+        return $this->created_at;
     }
     
     /**
@@ -473,7 +473,7 @@ class Rubrique
      */
     public function setUpdatedAt($updatedAt)
     {
-    	$this->updated_at = $updatedAt;
+        $this->updated_at = $updatedAt;
     }
     
     /**
@@ -483,7 +483,7 @@ class Rubrique
      */
     public function getUpdatedAt()
     {
-    	return $this->updated_at;
+        return $this->updated_at;
     }
     
     /**
@@ -493,7 +493,7 @@ class Rubrique
      */
     public function setArchiveAt($archiveAt)
     {
-    	$this->archive_at = $archiveAt;
+        $this->archive_at = $archiveAt;
     }
     
     /**
@@ -503,7 +503,7 @@ class Rubrique
      */
     public function getArchiveAt()
     {
-    	return $this->archive_at;
+        return $this->archive_at;
     }
     
     
@@ -514,7 +514,7 @@ class Rubrique
      */
     public function setEnabled($enabled)
     {
-    	$this->enabled = $enabled;
+        $this->enabled = $enabled;
     }
     
     /**
@@ -524,7 +524,7 @@ class Rubrique
      */
     public function getEnabled()
     {
-    	return $this->enabled;
+        return $this->enabled;
     }  
 
     /**
@@ -534,8 +534,8 @@ class Rubrique
      */
     public function setArchived($archived)
     {
-    	$this->archived = $archived;
-    	return $this;
+        $this->archived = $archived;
+        return $this;
     }
     
     /**
@@ -545,7 +545,7 @@ class Rubrique
      */
     public function getArchived()
     {
-    	return $this->archived;
+        return $this->archived;
     }    
 
 }

@@ -32,11 +32,11 @@ use FOS\UserBundle\Model\UserManagerInterface;
  */
 class HistoricalPageAdmin extends Admin
 {
-	protected $translationDomain = 'historicalpage';
-	
-	protected $baseRoutePattern		= '/historicalpage';
-	
-	
+    protected $translationDomain = 'historicalpage';
+    
+    protected $baseRoutePattern        = '/historicalpage';
+    
+    
     protected $formOptions = array(
         'validation_groups' => 'admin'
     );
@@ -48,13 +48,13 @@ class HistoricalPageAdmin extends Admin
      */    
     protected function configureShowField(ShowMapper $showMapper)
     {
-    	$showMapper
+        $showMapper
             ->add('status')
             ->add('pageTranslation')
             ->add('comment')
             ->add('enabled')
             ->add('id')
-    	;
+        ;
     }
         
     /**
@@ -68,12 +68,12 @@ class HistoricalPageAdmin extends Admin
             ->add('comment')
             ->add('enabled')
             ->add('_action', 'actions', array( 'actions' => array(  
-					 'edit'   => array(),
-	            	 'view'   => array(),
-	            	 'delete' => array(),
-	            	 // autre action specifique ::: 'unpublish' => array('template' => 'MyBundle:Admin:action_unpublish.html.twig'),
-	            	))
-	            );
+                     'edit'   => array(),
+                     'view'   => array(),
+                     'delete' => array(),
+                     // autre action specifique ::: 'unpublish' => array('template' => 'MyBundle:Admin:action_unpublish.html.twig'),
+                    ))
+                );
     }
 
     /**
@@ -97,11 +97,11 @@ class HistoricalPageAdmin extends Admin
     {
         $formMapper
             ->with('General')
-            	->add('enabled', null, array('required' => false))
+                ->add('enabled', null, array('required' => false))
                 ->add('status')
             ->end()
             ->with('Groups')
-            	->add('pageTranslation')
+                ->add('pageTranslation')
                 ->add('comment')
             ->end()
         ;

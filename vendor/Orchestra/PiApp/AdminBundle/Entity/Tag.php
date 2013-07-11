@@ -36,29 +36,29 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class Tag extends AbstractTranslation
 {
-	/**
-	 * List of al translatable fields
-	 *
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_fields	= array('groupname', 'name');
-	
-	/**
-	 * Name of the Translation Entity
-	 *
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_translationClass = 'PiApp\AdminBundle\Entity\Translation\TagTranslation';
-	
-	/**
-	 * @var \Doctrine\Common\Collections\ArrayCollection
-	 *
-	 * @ORM\OneToMany(targetEntity="PiApp\AdminBundle\Entity\Translation\TagTranslation", mappedBy="object", cascade={"persist", "remove"})
-	 */
-	protected $translations;
-	
+    /**
+     * List of al translatable fields
+     *
+     * @var array
+     * @access  protected
+     */
+    protected $_fields    = array('groupname', 'name');
+    
+    /**
+     * Name of the Translation Entity
+     *
+     * @var array
+     * @access  protected
+     */
+    protected $_translationClass = 'PiApp\AdminBundle\Entity\Translation\TagTranslation';
+    
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="PiApp\AdminBundle\Entity\Translation\TagTranslation", mappedBy="object", cascade={"persist", "remove"})
+     */
+    protected $translations;
+    
     /**
      * @var bigint $id
      * 
@@ -158,9 +158,9 @@ class Tag extends AbstractTranslation
      */    
     public function __construct()
     {
-    	parent::__construct();
-    	
-    	$this->setEnabled(true);
+        parent::__construct();
+        
+        $this->setEnabled(true);
     }    
 
     /**
@@ -171,7 +171,7 @@ class Tag extends AbstractTranslation
      *
      */
     public function __toString() {
-    	return (string) $this->name;
+        return (string) $this->name;
     }
     
     /**
@@ -180,14 +180,14 @@ class Tag extends AbstractTranslation
      */
     public function setUpdatedValue()
     {
-    	$other  = $this->getGroupnameother();
-    	//print_r($other);exit;
-    	if (!empty($other)){
-    		$this->setGroupname($other);
-    		$this->setGroupnameother('');
-    		$this->translate($this->locale)->setGroupname($other);
-    		$this->translate($this->locale)->setGroupnameother('');
-    	}
+        $other  = $this->getGroupnameother();
+        //print_r($other);exit;
+        if (!empty($other)){
+            $this->setGroupname($other);
+            $this->setGroupnameother('');
+            $this->translate($this->locale)->setGroupname($other);
+            $this->translate($this->locale)->setGroupnameother('');
+        }
     } 
 
     /**
@@ -227,7 +227,7 @@ class Tag extends AbstractTranslation
      */
     public function setGroupnameother($groupnameother)
     {
-    	$this->groupnameother = $groupnameother;
+        $this->groupnameother = $groupnameother;
     }
     
     /**
@@ -237,7 +237,7 @@ class Tag extends AbstractTranslation
      */
     public function getGroupnameother()
     {
-    	return $this->groupnameother;
+        return $this->groupnameother;
     }    
 
     /**
@@ -327,7 +327,7 @@ class Tag extends AbstractTranslation
      */
     public function setCreatedAt($createdAt)
     {
-    	$this->created_at = $createdAt;
+        $this->created_at = $createdAt;
     }
     
     /**
@@ -337,7 +337,7 @@ class Tag extends AbstractTranslation
      */
     public function getCreatedAt()
     {
-    	return $this->created_at;
+        return $this->created_at;
     }
     
     /**
@@ -347,7 +347,7 @@ class Tag extends AbstractTranslation
      */
     public function setUpdatedAt($updatedAt)
     {
-    	$this->updated_at = $updatedAt;
+        $this->updated_at = $updatedAt;
     }
     
     /**
@@ -357,7 +357,7 @@ class Tag extends AbstractTranslation
      */
     public function getUpdatedAt()
     {
-    	return $this->updated_at;
+        return $this->updated_at;
     }
     
     /**
@@ -367,7 +367,7 @@ class Tag extends AbstractTranslation
      */
     public function setArchiveAt($archiveAt)
     {
-    	$this->archive_at = $archiveAt;
+        $this->archive_at = $archiveAt;
     }
     
     /**
@@ -377,7 +377,7 @@ class Tag extends AbstractTranslation
      */
     public function getArchiveAt()
     {
-    	return $this->archive_at;
+        return $this->archive_at;
     }
     
     
@@ -388,7 +388,7 @@ class Tag extends AbstractTranslation
      */
     public function setEnabled($enabled)
     {
-    	$this->enabled = $enabled;
+        $this->enabled = $enabled;
     }
     
     /**
@@ -398,7 +398,7 @@ class Tag extends AbstractTranslation
      */
     public function getEnabled()
     {
-    	return $this->enabled;
+        return $this->enabled;
     }   
 
     /**
@@ -408,8 +408,8 @@ class Tag extends AbstractTranslation
      */
     public function setArchived($archived)
     {
-    	$this->archived = $archived;
-    	return $this;
+        $this->archived = $archived;
+        return $this;
     }
     
     /**
@@ -419,7 +419,7 @@ class Tag extends AbstractTranslation
      */
     public function getArchived()
     {
-    	return $this->archived;
+        return $this->archived;
     }    
     
     /**
@@ -429,11 +429,11 @@ class Tag extends AbstractTranslation
      */
     public function setWeight( array $weights)
     {
-    	$this->weight = array();
+        $this->weight = array();
     
-    	foreach ($weights as $key => $value) {
-    		$this->addWeight($key, $value);
-    	}
+        foreach ($weights as $key => $value) {
+            $this->addWeight($key, $value);
+        }
     }
     
     /**
@@ -443,13 +443,13 @@ class Tag extends AbstractTranslation
      */
     public function getWeight($key = "")
     {
-    	if (!empty($key)){
-    		if ($this->weight && array_key_exists($key, $this->weight))
-    			return $this->weight[ $key ];
-    		else
-    			return 0;
-    	}else
-    		return $this->weight;
+        if (!empty($key)){
+            if ($this->weight && array_key_exists($key, $this->weight))
+                return $this->weight[ $key ];
+            else
+                return 0;
+        }else
+            return $this->weight;
     }
     
     /**
@@ -459,7 +459,7 @@ class Tag extends AbstractTranslation
      */
     public function addWeight($key, $value)
     {
-   		$this->weight[ $key ] = $value;
+           $this->weight[ $key ] = $value;
     } 
 
     /**
@@ -469,15 +469,15 @@ class Tag extends AbstractTranslation
      */
     public function incrementWeight($key)
     {
-    	if (!$this->weight) {
-			$this->addWeight($key, 1);
-		}
-		else {
-			if (array_key_exists($key, $this->weight)) {
-				$this->addWeight($key, $this->weight[$key] + 1);
-			}else 
-				$this->addWeight($key, 1);
-		}
+        if (!$this->weight) {
+            $this->addWeight($key, 1);
+        }
+        else {
+            if (array_key_exists($key, $this->weight)) {
+                $this->addWeight($key, $this->weight[$key] + 1);
+            }else 
+                $this->addWeight($key, 1);
+        }
     } 
 
     /**
@@ -487,12 +487,12 @@ class Tag extends AbstractTranslation
      */
     public function decrementWeight($key)
     {
-   		if ($this->weight && array_key_exists($key, $this->weight)) {
-   			if ($this->weight[$key] > 1)
-   				$this->addWeight($key, $this->weight[$key] - 1);
-   			else
-   				unset($this->weight[$key]);
-   		}
+           if ($this->weight && array_key_exists($key, $this->weight)) {
+               if ($this->weight[$key] > 1)
+                   $this->addWeight($key, $this->weight[$key] - 1);
+               else
+                   unset($this->weight[$key]);
+           }
     }
         
 }

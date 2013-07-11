@@ -27,23 +27,23 @@ class ErrorTypeFormTypeExtension extends AbstractTypeExtension
     public function __construct(array $options){
         $this->error_type = $options['error_type'];
     }
-	public function buildForm(FormBuilderInterface $builder, array $options)
-	{
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
         $builder->setAttribute('error_type', $options['error_type']);
-	}
-	
-	public function buildView(FormView $view, FormInterface $form, array $options)
-	{
-	    $view->set('error_type', $form->getAttribute('error_type'));
-	}
+    }
+    
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $view->set('error_type', $form->getAttribute('error_type'));
+    }
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-    	$resolver->setDefaults(array(
+        $resolver->setDefaults(array(
             'error_type' => $this->error_type,
         ));
     }    
-	public function getExtendedType()
-	{
-		return 'form';
-	}
+    public function getExtendedType()
+    {
+        return 'form';
+    }
 }

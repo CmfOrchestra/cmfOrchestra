@@ -124,16 +124,16 @@ class Comment
     
     public function __construct()
     {
-    	//$this->setCreatedAt(new \DateTime());
-    	//$this->setUpdatedAt(new \DateTime());
+        //$this->setCreatedAt(new \DateTime());
+        //$this->setUpdatedAt(new \DateTime());
     
-    	$this->setApproved(true);
-    	$this->setEnabled(true);
+        $this->setApproved(true);
+        $this->setEnabled(true);
     }
     
     public function __toString()
     {
-    	return (string) $this->getUser();
+        return (string) $this->getUser();
     }    
     
 //     /**
@@ -141,8 +141,8 @@ class Comment
 //      */
 //     public function setCreatedValue()
 //     {
-//     	$this->setCreatedAt(new \DateTime());
-//     	$this->setUpdatedAt(new \DateTime());
+//         $this->setCreatedAt(new \DateTime());
+//         $this->setUpdatedAt(new \DateTime());
 //     }
         
 //     /**
@@ -150,7 +150,7 @@ class Comment
 //      */
 //     public function setUpdatedValue()
 //     {
-//     	$this->setUpdatedAt(new \DateTime());
+//         $this->setUpdatedAt(new \DateTime());
 //     }
     
     /**
@@ -270,7 +270,7 @@ class Comment
      */
     public function setCreatedAt($createdAt)
     {
-    	$this->created_at = $createdAt;
+        $this->created_at = $createdAt;
     }
     
     /**
@@ -280,7 +280,7 @@ class Comment
      */
     public function getCreatedAt()
     {
-    	return $this->created_at;
+        return $this->created_at;
     }
     
     /**
@@ -290,7 +290,7 @@ class Comment
      */
     public function setUpdatedAt($updatedAt)
     {
-    	$this->updated_at = $updatedAt;
+        $this->updated_at = $updatedAt;
     }
     
     /**
@@ -300,7 +300,7 @@ class Comment
      */
     public function getUpdatedAt()
     {
-    	return $this->updated_at;
+        return $this->updated_at;
     }
     
     /**
@@ -310,7 +310,7 @@ class Comment
      */
     public function setArchiveAt($archiveAt)
     {
-    	$this->archive_at = $archiveAt;
+        $this->archive_at = $archiveAt;
     }
     
     /**
@@ -320,7 +320,7 @@ class Comment
      */
     public function getArchiveAt()
     {
-    	return $this->archive_at;
+        return $this->archive_at;
     }    
     
     /**
@@ -330,7 +330,7 @@ class Comment
      */
     public function setEnabled($enabled)
     {
-    	$this->enabled = $enabled;
+        $this->enabled = $enabled;
     }
     
     /**
@@ -340,7 +340,7 @@ class Comment
      */
     public function getEnabled()
     {
-    	return $this->enabled;
+        return $this->enabled;
     } 
     
     /**
@@ -350,8 +350,8 @@ class Comment
      */
     public function setArchived($archived)
     {
-    	$this->archived = $archived;
-    	return $this;
+        $this->archived = $archived;
+        return $this;
     }
     
     /**
@@ -361,7 +361,7 @@ class Comment
      */
     public function getArchived()
     {
-    	return $this->archived;
+        return $this->archived;
     }    
 
     /**
@@ -371,7 +371,7 @@ class Comment
      */
     public function setPosition($position)
     {
-    	$this->position = $position;
+        $this->position = $position;
     }
     
     /**
@@ -381,6 +381,6 @@ class Comment
      */
     public function getPosition()
     {
-    	return $this->position;
+        return $this->position;
     } 
 }

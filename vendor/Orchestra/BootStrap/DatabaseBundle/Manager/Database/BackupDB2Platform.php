@@ -27,17 +27,17 @@ use BootStrap\DatabaseBundle\Manager\Database\AbstractManager;
  */
 class BackupDB2Platform extends AbstractManager
 {
-	/**
-	 * Constructor.
-	 *
-	 * @param \Doctrine\DBAL\Connection $connection
-	 * @param \Symfony\Component\DependencyInjection\ContainerInterface;
-	 * 
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 */
+    /**
+     * Constructor.
+     *
+     * @param \Doctrine\DBAL\Connection $connection
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface;
+     * 
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
     public function __construct(Connection $connection, ContainerInterface $container)
     {
-    	parent::__construct($connection, $container);
+        parent::__construct($connection, $container);
     }
     
     /**
@@ -50,7 +50,7 @@ class BackupDB2Platform extends AbstractManager
      * @since 2012-06-28
      */
     protected function disableForeignKeys(){
-    	
+        
     }
     
     /**
@@ -63,7 +63,7 @@ class BackupDB2Platform extends AbstractManager
      * @since 2012-06-28
      */
     protected function EnabledForeignKeys(){
-    	
+        
     }
 
 }

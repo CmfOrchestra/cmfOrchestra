@@ -23,19 +23,19 @@ namespace BootStrap\DatabaseBundle\Exception;
 class DatabaseException extends \Exception
 {
 
-	public static function serviceNotSupported()
+    public static function serviceNotSupported()
     {
         return new self("The  database service selected is not yet supported.");
     }
     
     public static function databasePlatformNotSupported()
     {
-    	return new self("The database platform selected for this DBAL connection is not yet supported.");
+        return new self("The database platform selected for this DBAL connection is not yet supported.");
     } 
 
     public static function notSupported($method)
     {
-    	return new self("Operation '$method' is not supported by platform.");
+        return new self("Operation '$method' is not supported by platform.");
     }    
 
 }

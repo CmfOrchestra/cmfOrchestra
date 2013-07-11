@@ -37,25 +37,25 @@ use PiApp\AdminBundle\Form\TranslationPageType;
  */
 class TranslationPageController extends abstractController
 {
-	protected $_entityName = "PiAppAdminBundle:TranslationPage";
-	
+    protected $_entityName = "PiAppAdminBundle:TranslationPage";
+    
     /**
      * Lists all TranslationPage entities.
      * 
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function indexAction($page)
     {
         $em = $this->getDoctrine()->getEntityManager();
 
         if (is_null($page))
-        	$entities = $em->getRepository('PiAppAdminBundle:TranslationPage')->findAll();
+            $entities = $em->getRepository('PiAppAdminBundle:TranslationPage')->findAll();
         else
-        	$entities = $em->getRepository('PiAppAdminBundle:TranslationPage')->findBy(array('page'=>$page));        
+            $entities = $em->getRepository('PiAppAdminBundle:TranslationPage')->findBy(array('page'=>$page));        
 
         return $this->render('PiAppAdminBundle:TranslationPage:index.html.twig', array(
             'entities' => $entities
@@ -74,7 +74,7 @@ class TranslationPageController extends abstractController
      */
     public function enabledajaxAction()
     {
-    	return parent::enabledajaxAction();
+        return parent::enabledajaxAction();
     }
     
     /**
@@ -89,7 +89,7 @@ class TranslationPageController extends abstractController
      */
     public function disableajaxAction()
     {
-    	return parent::disableajaxAction();
+        return parent::disableajaxAction();
     }
 
     /**
@@ -98,8 +98,8 @@ class TranslationPageController extends abstractController
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function showAction($id)
     {
@@ -125,13 +125,13 @@ class TranslationPageController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function newAction()
     {
         $entity = new TranslationPage();
-        $locale	= $this->container->get('request')->getLocale();
+        $locale    = $this->container->get('request')->getLocale();
         $form   = $this->createForm(new TranslationPageType($locale, $this->container), $entity, array('show_legend' => false));
 
         return $this->render('PiAppAdminBundle:TranslationPage:new.html.twig', array(
@@ -146,12 +146,12 @@ class TranslationPageController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function createAction()
     {
-    	$locale	 = $this->container->get('request')->getLocale();
+        $locale     = $this->container->get('request')->getLocale();
         $entity  = new TranslationPage();
         $request = $this->getRequest();
         $form    = $this->createForm(new TranslationPageType($locale, $this->container), $entity, array('show_legend' => false));
@@ -178,20 +178,20 @@ class TranslationPageController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function editAction($id)
     {
-        $em 	= $this->getDoctrine()->getEntityManager();
-        $locale	= $this->container->get('request')->getLocale();
+        $em     = $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository('PiAppAdminBundle:TranslationPage')->find($id);
 
         if (!$entity) {
             throw ControllerException::NotFoundException('TranslationPage');
         }
 
-        $editForm 	= $this->createForm(new TranslationPageType($locale, $this->container), $entity, array('show_legend' => false));
+        $editForm     = $this->createForm(new TranslationPageType($locale, $this->container), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('PiAppAdminBundle:TranslationPage:edit.html.twig', array(
@@ -207,13 +207,13 @@ class TranslationPageController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function updateAction($id)
     {
-        $em 	= $this->getDoctrine()->getEntityManager();
-        $locale	= $this->container->get('request')->getLocale();
+        $em     = $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository('PiAppAdminBundle:TranslationPage')->find($id);
 
         if (!$entity) {
@@ -245,8 +245,8 @@ class TranslationPageController extends abstractController
      * @Secure(roles="ROLE_SUPER_ADMIN")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function deleteAction($id)
     {

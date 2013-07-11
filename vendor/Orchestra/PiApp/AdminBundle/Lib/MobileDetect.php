@@ -559,7 +559,7 @@ protected $scriptVersion = '2.6.1';
             }
         }
 
-	    return false;
+        return false;
 
     }
 

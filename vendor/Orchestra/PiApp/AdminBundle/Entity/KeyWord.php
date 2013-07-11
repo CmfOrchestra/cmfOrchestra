@@ -102,7 +102,7 @@ class KeyWord
      */    
     public function __construct()
     {
-    	$this->setEnabled(true);
+        $this->setEnabled(true);
     }    
 
     /**
@@ -113,7 +113,7 @@ class KeyWord
      *
      */
     public function __toString() {
-    	return (string) $this->getGroupname() . ' :: '. $this->getName();
+        return (string) $this->getGroupname() . ' :: '. $this->getName();
     }
     
     /**
@@ -122,11 +122,11 @@ class KeyWord
      */
     public function setUpdatedValue()
     {
-    	$other  = $this->getGroupnameother();
-    	if (!empty($other)){
-    		$this->setGroupname($other);
-    		$this->setGroupnameother('');
-    	}
+        $other  = $this->getGroupnameother();
+        if (!empty($other)){
+            $this->setGroupname($other);
+            $this->setGroupnameother('');
+        }
     }    
 
     /**
@@ -166,7 +166,7 @@ class KeyWord
      */
     public function setGroupnameother($groupnameother)
     {
-    	$this->groupnameother = $groupnameother;
+        $this->groupnameother = $groupnameother;
     }
     
     /**
@@ -176,7 +176,7 @@ class KeyWord
      */
     public function getGroupnameother()
     {
-    	return $this->groupnameother;
+        return $this->groupnameother;
     }    
 
     /**
@@ -206,7 +206,7 @@ class KeyWord
      */
     public function setCreatedAt($createdAt)
     {
-    	$this->created_at = $createdAt;
+        $this->created_at = $createdAt;
     }
     
     /**
@@ -216,7 +216,7 @@ class KeyWord
      */
     public function getCreatedAt()
     {
-    	return $this->created_at;
+        return $this->created_at;
     }
     
     /**
@@ -226,7 +226,7 @@ class KeyWord
      */
     public function setUpdatedAt($updatedAt)
     {
-    	$this->updated_at = $updatedAt;
+        $this->updated_at = $updatedAt;
     }
     
     /**
@@ -236,7 +236,7 @@ class KeyWord
      */
     public function getUpdatedAt()
     {
-    	return $this->updated_at;
+        return $this->updated_at;
     }
     
     /**
@@ -246,7 +246,7 @@ class KeyWord
      */
     public function setArchiveAt($archiveAt)
     {
-    	$this->archive_at = $archiveAt;
+        $this->archive_at = $archiveAt;
     }
     
     /**
@@ -256,7 +256,7 @@ class KeyWord
      */
     public function getArchiveAt()
     {
-    	return $this->archive_at;
+        return $this->archive_at;
     }
     
     
@@ -267,7 +267,7 @@ class KeyWord
      */
     public function setEnabled($enabled)
     {
-    	$this->enabled = $enabled;
+        $this->enabled = $enabled;
     }
     
     /**
@@ -277,7 +277,7 @@ class KeyWord
      */
     public function getEnabled()
     {
-    	return $this->enabled;
+        return $this->enabled;
     } 
     
     /**
@@ -287,8 +287,8 @@ class KeyWord
      */
     public function setArchived($archived)
     {
-    	$this->archived = $archived;
-    	return $this;
+        $this->archived = $archived;
+        return $this;
     }
     
     /**
@@ -298,6 +298,6 @@ class KeyWord
      */
     public function getArchived()
     {
-    	return $this->archived;
+        return $this->archived;
     }
 }

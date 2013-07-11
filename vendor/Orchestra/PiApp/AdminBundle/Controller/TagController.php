@@ -38,22 +38,22 @@ use PiApp\AdminBundle\Form\TagType;
  */
 class TagController extends abstractController
 {
-	protected $_entityName = "PiAppAdminBundle:Tag";
-	
+    protected $_entityName = "PiAppAdminBundle:Tag";
+    
     /**
      * Lists all Tag entities.
      * 
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function indexAction()
     {
-    	$em 		= $this->getDoctrine()->getEntityManager();
-    	$locale		= $this->container->get('request')->getLocale();
-        $entities 	= $em->getRepository("PiAppAdminBundle:Tag")->findAllByEntity($locale, 'object');      
+        $em         = $this->getDoctrine()->getEntityManager();
+        $locale        = $this->container->get('request')->getLocale();
+        $entities     = $em->getRepository("PiAppAdminBundle:Tag")->findAllByEntity($locale, 'object');      
 
         return $this->render('PiAppAdminBundle:Tag:index.html.twig', array(
             'entities' => $entities
@@ -72,7 +72,7 @@ class TagController extends abstractController
      */
     public function enabledajaxAction()
     {
-    	return parent::enabledajaxAction();
+        return parent::enabledajaxAction();
     }
     
     /**
@@ -87,7 +87,7 @@ class TagController extends abstractController
      */
     public function disableajaxAction()
     {
-    	return parent::disableajaxAction();
+        return parent::disableajaxAction();
     }
 
     /**
@@ -96,13 +96,13 @@ class TagController extends abstractController
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function showAction($id)
     {
-        $em 	= $this->getDoctrine()->getEntityManager();
-        $locale	= $this->container->get('request')->getLocale();
+        $em     = $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppAdminBundle:Tag")->findOneByEntity($locale, $id, 'object');        
 
         if (!$entity) {
@@ -124,14 +124,14 @@ class TagController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function newAction()
     {
-    	$em 	= $this->getDoctrine()->getEntityManager();
-    	$locale	= $this->container->get('request')->getLocale();
-    	
+        $em     = $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
+        
         $entity = new Tag();
         $form   = $this->createForm(new TagType($em, $locale), $entity, array('show_legend' => false));
 
@@ -147,14 +147,14 @@ class TagController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function createAction()
     {
-    	$em		 = $this->getDoctrine()->getEntityManager();
-    	$locale	= $this->container->get('request')->getLocale();
-    	
+        $em         = $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
+        
         $entity  = new Tag();
         $request = $this->getRequest();
         $form    = $this->createForm(new TagType($em, $locale), $entity, array('show_legend' => false));
@@ -180,21 +180,21 @@ class TagController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function editAction($id)
     {
-        $em 	= $this->getDoctrine()->getEntityManager();
-        $locale	= $this->container->get('request')->getLocale();
+        $em     = $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppAdminBundle:Tag")->findOneByEntity($locale, $id, 'object');
 
         if (!$entity) {
-        	$entity = $em->getRepository("PiAppAdminBundle:Tag")->find($id);
-        	$entity->addTranslation(new TagTranslation($locale));            
+            $entity = $em->getRepository("PiAppAdminBundle:Tag")->find($id);
+            $entity->addTranslation(new TagTranslation($locale));            
         }
 
-        $editForm 	= $this->createForm(new TagType($em, $locale), $entity, array('show_legend' => false));
+        $editForm     = $this->createForm(new TagType($em, $locale), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('PiAppAdminBundle:Tag:edit.html.twig', array(
@@ -210,13 +210,13 @@ class TagController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function updateAction($id)
     {
-        $em		= $this->getDoctrine()->getEntityManager();
-        $locale	= $this->container->get('request')->getLocale();
+        $em        = $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppAdminBundle:Tag")->findOneByEntity($locale, $id, 'object');
 
         if (!$entity) {
@@ -232,10 +232,10 @@ class TagController extends abstractController
             
             $other  = $entity->getGroupnameother();
             if (!empty($other)){
-            	$entity->setGroupname($other);
-            	$entity->setGroupnameother('');
-            	$entity->translate($locale)->setGroupname($other);
-            	$entity->translate($locale)->setGroupnameother('');
+                $entity->setGroupname($other);
+                $entity->setGroupnameother('');
+                $entity->translate($locale)->setGroupname($other);
+                $entity->translate($locale)->setGroupnameother('');
             }          
             
             $em->persist($entity);
@@ -257,8 +257,8 @@ class TagController extends abstractController
      * @Secure(roles="ROLE_SUPER_ADMIN")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function deleteAction($id)
     {
@@ -276,10 +276,10 @@ class TagController extends abstractController
             }
 
             try {
-            	$em->remove($entity);
-            	$em->flush();
+                $em->remove($entity);
+                $em->flush();
             } catch (\Exception $e) {
-            	$this->container->get('request')->getSession()->getFlashBag()->add('notice', 'pi.session.flash.wrong.undelete');
+                $this->container->get('request')->getSession()->getFlashBag()->add('notice', 'pi.session.flash.wrong.undelete');
             }
         }
 

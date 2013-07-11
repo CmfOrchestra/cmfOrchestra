@@ -26,50 +26,50 @@ use Doctrine\ORM\EntityManager;
  */
 class KeyWordType extends AbstractType
 {
-	/**
-	 * @var \Doctrine\ORM\EntityManager
-	 */
-	protected $_em;
-	
-	
-	/**
-	 * Constructor.
-	 *
-	 * @param \Doctrine\ORM\EntityManager $em
-	 * @return void
-	 */
-	public function __construct(EntityManager $em)
-	{
-		$this->_em = $em;
-	}	
-		
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    protected $_em;
+    
+    
+    /**
+     * Constructor.
+     *
+     * @param \Doctrine\ORM\EntityManager $em
+     * @return void
+     */
+    public function __construct(EntityManager $em)
+    {
+        $this->_em = $em;
+    }    
+        
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-    	$choiceList = $this->_em->getRepository("PiAppAdminBundle:KeyWord")->getArrayAllGroupName();
-    	if (!isset($choiceList) || !count($choiceList))
-    		$choiceList = array();
-    	    	
+        $choiceList = $this->_em->getRepository("PiAppAdminBundle:KeyWord")->getArrayAllGroupName();
+        if (!isset($choiceList) || !count($choiceList))
+            $choiceList = array();
+                
         $builder
-        	->add('enabled', 'checkbox', array(
-            		'data'  => true,
- 					'label'	=> 'pi.form.label.field.enabled',
+            ->add('enabled', 'checkbox', array(
+                    'data'  => true,
+                     'label'    => 'pi.form.label.field.enabled',
             ))
             ->add('groupname', 'choice', array(
-            		'choices'   => $choiceList,
-            		'multiple'	=> false,
-            		'required'  => false,
-            		'empty_value' => 'pi.form.label.select.choose.option',
-            		"attr" => array(
-            				"class"=>"pi_simpleselect",
-            		),
+                    'choices'   => $choiceList,
+                    'multiple'    => false,
+                    'required'  => false,
+                    'empty_value' => 'pi.form.label.select.choose.option',
+                    "attr" => array(
+                            "class"=>"pi_simpleselect",
+                    ),
             ))
             ->add('groupnameother', 'text', array(
-            		"label" 	=> "pi.form.label.field.or",
-            		'required'  => false,
+                    "label"     => "pi.form.label.field.or",
+                    'required'  => false,
             ))            
             ->add('name', 'text', array(
- 				'label' => "pi.form.label.field.name"
- 			))
+                 'label' => "pi.form.label.field.name"
+             ))
         ;
     }
 
@@ -80,8 +80,8 @@ class KeyWordType extends AbstractType
     
     public function getDefaultOptions(array $options)
     {
-    	return array(
-    			'data_class' => 'PiApp\AdminBundle\Entity\KeyWord', // Ni de modifier la classe ici.
-    	);
+        return array(
+                'data_class' => 'PiApp\AdminBundle\Entity\KeyWord', // Ni de modifier la classe ici.
+        );
     }    
 }

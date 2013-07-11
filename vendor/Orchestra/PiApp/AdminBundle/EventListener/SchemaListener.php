@@ -30,24 +30,24 @@ use PiApp\AdminBundle\EventListener\CoreListener;
  */
 class SchemaListener extends CoreListener
 {
-	/**
-	 * Constructs a new instance of SecurityListener.
-	 *
-	 * @param ContainerInterface        $container
-	 */
-	public function __construct(ContainerInterface $container)
-	{
-		parent::__construct($container);
-	}
-		
-	/**
-	 * Methos which will be called when the event is thrown.
-	 *
-	 *
-	 * @param \Doctrine\ORM\Event\GenerateSchemaEventArgs $eventArgs
-	 *
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 */	
+    /**
+     * Constructs a new instance of SecurityListener.
+     *
+     * @param ContainerInterface        $container
+     */
+    public function __construct(ContainerInterface $container)
+    {
+        parent::__construct($container);
+    }
+        
+    /**
+     * Methos which will be called when the event is thrown.
+     *
+     *
+     * @param \Doctrine\ORM\Event\GenerateSchemaEventArgs $eventArgs
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */    
     public function postGenerateSchema(GenerateSchemaEventArgs $eventArgs)
     {
         $this->_addRoutingTable($eventArgs);

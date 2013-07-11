@@ -22,6 +22,6 @@ namespace BootStrap\DatabaseBundle\Builder;
  */
 interface DatabaseFactoryInterface
 {
-	public function getBackupFactory();
-	public function getRestoreFactory();
+    public function getBackupFactory();
+    public function getRestoreFactory();
 }

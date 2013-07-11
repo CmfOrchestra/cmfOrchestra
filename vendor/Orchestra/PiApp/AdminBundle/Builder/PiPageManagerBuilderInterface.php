@@ -22,19 +22,19 @@ namespace PiApp\AdminBundle\Builder;
  */
 interface PiPageManagerBuilderInterface
 {
-	public function setPageById($idPage);
-	public function setPageByParams($url, $slug, $isSetPage = false);
-	public function setPageByRoute($route = '', $isSetPage = false);
-	
-	public function render($lang = '', $isSetPage = false);
-	public function renderSource($id, $lang = '', $params = null);	
-	
-	public function getChildrenHierarchyRub();
-	public function setTreeWithPages($htmlTree);
-	public function setHomePage($htmlTree);
-	public function setNode($htmlTree);
-	
-	public function cacheRefresh();
-	public function getUrlByType($type, $entity = null);
-	public function cacheTreeChartPageRefresh();
+    public function setPageById($idPage);
+    public function setPageByParams($url, $slug, $isSetPage = false);
+    public function setPageByRoute($route = '', $isSetPage = false);
+    
+    public function render($lang = '', $isSetPage = false);
+    public function renderSource($id, $lang = '', $params = null);    
+    
+    public function getChildrenHierarchyRub();
+    public function setTreeWithPages($htmlTree);
+    public function setHomePage($htmlTree);
+    public function setNode($htmlTree);
+    
+    public function cacheRefresh();
+    public function getUrlByType($type, $entity = null);
+    public function cacheTreeChartPageRefresh();
 }

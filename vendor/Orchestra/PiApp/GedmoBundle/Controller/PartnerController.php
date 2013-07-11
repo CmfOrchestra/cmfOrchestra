@@ -39,21 +39,21 @@ use PiApp\GedmoBundle\Entity\Translation\PartnerTranslation;
  */
 class PartnerController extends abstractController
 {
-	protected $_entityName = "PiAppGedmoBundle:Partner";
+    protected $_entityName = "PiAppGedmoBundle:Partner";
 
-	/**
+    /**
      * Enabled Partner entities.
      *
      * @Route("/admin/gedmo/partenaires/enabled", name="admin_gedmo_partner_enabledentity_ajax")
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *     
      * @access  public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function enabledajaxAction()
     {
-    	return parent::enabledajaxAction();
+        return parent::enabledajaxAction();
     }
 
     /**
@@ -61,44 +61,44 @@ class PartnerController extends abstractController
      * 
      * @Route("/admin/gedmo/partenaires/disable", name="admin_gedmo_partner_disablentity_ajax")
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *     
      * @access  public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function disableajaxAction()
     {
-		return parent::disableajaxAction();
+        return parent::disableajaxAction();
     } 
 
-	/**
+    /**
      * Change the position of a Partner entity.
      *
      * @Route("/admin/gedmo/partenaires/position", name="admin_gedmo_partner_position_ajax")
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *     
      * @access  public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function positionajaxAction()
     {
-    	return parent::positionajaxAction();
+        return parent::positionajaxAction();
     }   
 
-	/**
+    /**
      * Delete a Partner entity.
      *
      * @Route("/admin/gedmo/partenaires/delete", name="admin_gedmo_partner_deletentity_ajax")
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *     
      * @access  public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function deleteajaxAction()
     {
-    	return parent::deletajaxAction();
+        return parent::deletajaxAction();
     }   
     
     /**
@@ -113,38 +113,38 @@ class PartnerController extends abstractController
      */
     public function archiveajaxAction()
     {
-    	return parent::archiveajaxAction();
+        return parent::archiveajaxAction();
     }
         
     /**
      * Lists all Partner entities.
      *
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
      */
     public function indexAction()
     {
-        $em			= $this->getDoctrine()->getEntityManager();
-        $locale		= $this->container->get('request')->getLocale();
+        $em            = $this->getDoctrine()->getEntityManager();
+        $locale        = $this->container->get('request')->getLocale();
         
         $category   = $this->container->get('request')->query->get('category');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-        if (!$NoLayout) 	$template = "index.html.twig"; else $template = "index.html.twig";
+        if (!$NoLayout)     $template = "index.html.twig"; else $template = "index.html.twig";
         
         if ($NoLayout){
-        	//$entities 	= $em->getRepository("PiAppGedmoBundle:Partner")->getAllEnableByCatAndByPosition($locale, $category, 'object');
-        	$query		= $em->getRepository("PiAppGedmoBundle:Partner")->getAllByCategory($category, null, '', 'ASC', false)->getQuery();
-        	$entities   = $em->getRepository("PiAppGedmoBundle:Partner")->findTranslationsByQuery($locale, $query, 'object', false);
+            //$entities     = $em->getRepository("PiAppGedmoBundle:Partner")->getAllEnableByCatAndByPosition($locale, $category, 'object');
+            $query        = $em->getRepository("PiAppGedmoBundle:Partner")->getAllByCategory($category, null, '', 'ASC', false)->getQuery();
+            $entities   = $em->getRepository("PiAppGedmoBundle:Partner")->findTranslationsByQuery($locale, $query, 'object', false);
         }else
-        	$entities	= $em->getRepository("PiAppGedmoBundle:Partner")->findAllByEntity($locale, 'object');        
+            $entities    = $em->getRepository("PiAppGedmoBundle:Partner")->findAllByEntity($locale, 'object');        
 
         return $this->render("PiAppGedmoBundle:Partner:$template", array(
             'entities' => $entities,
-            'NoLayout'	=> $NoLayout,
-            'category'	=> $category,          
+            'NoLayout'    => $NoLayout,
+            'category'    => $category,          
         ));
     }
 
@@ -152,20 +152,20 @@ class PartnerController extends abstractController
      * Finds and displays a Partner entity.
      *
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function showAction($id)
     {
-        $em 	= $this->getDoctrine()->getEntityManager();
-        $locale	= $this->container->get('request')->getLocale();
+        $em     = $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppGedmoBundle:Partner")->findOneByEntity($locale, $id, 'object');
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         $category   = $this->container->get('request')->query->get('category');
-        if (!$NoLayout) 	$template = "show.html.twig"; else $template = "show.html.twig";        
+        if (!$NoLayout)     $template = "show.html.twig"; else $template = "show.html.twig";        
 
         if (!$entity) {
             throw ControllerException::NotFoundException('Partner');
@@ -175,9 +175,9 @@ class PartnerController extends abstractController
 
         return $this->render("PiAppGedmoBundle:Partner:$template", array(
             'entity'      => $entity,
-            'NoLayout'	  => $NoLayout,
+            'NoLayout'      => $NoLayout,
             'delete_form' => $deleteForm->createView(),
-            'category'	=> $category,   
+            'category'    => $category,   
         ));
     }
 
@@ -185,26 +185,26 @@ class PartnerController extends abstractController
      * Displays a form to create a new Partner entity.
      *
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function newAction()
     {
-    	$em 	= $this->getDoctrine()->getEntityManager();
-    	$entity = new Partner();
+        $em     = $this->getDoctrine()->getEntityManager();
+        $entity = new Partner();
         $form   = $this->createForm(new PartnerType($em, $this->container), $entity, array('show_legend' => false));
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         $category   = $this->container->get('request')->query->get('category');
-        if (!$NoLayout)	$template = "new.html.twig";  else 	$template = "new.html.twig";        
+        if (!$NoLayout)    $template = "new.html.twig";  else     $template = "new.html.twig";        
 
         return $this->render("PiAppGedmoBundle:Partner:$template", array(
             'entity' => $entity,
             'form'   => $form->createView(),
             'NoLayout'  => $NoLayout,
-            'category'	=> $category,             
+            'category'    => $category,             
         ));
     }
 
@@ -214,17 +214,17 @@ class PartnerController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      *
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
      */
     public function createAction()
     {
-        $em 	= $this->getDoctrine()->getEntityManager();
-        $locale	= $this->container->get('request')->getLocale();
+        $em     = $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         $category   = $this->container->get('request')->query->get('category');
-        if (!$NoLayout)	$template = "new.html.twig";  else 	$template = "new.html.twig";        
+        if (!$NoLayout)    $template = "new.html.twig";  else     $template = "new.html.twig";        
     
         $entity  = new Partner();
         $request = $this->getRequest();
@@ -244,7 +244,7 @@ class PartnerController extends abstractController
             'entity' => $entity,
             'form'   => $form->createView(),
             'NoLayout'  => $NoLayout,
-            'category'	=> $category,             
+            'category'    => $category,             
         ));
     }
 
@@ -252,24 +252,24 @@ class PartnerController extends abstractController
      * Displays a form to edit an existing Partner entity.
      *
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>    
      */
     public function editAction($id)
     {
-        $em 	= $this->getDoctrine()->getEntityManager();
-    	$locale	= $this->container->get('request')->getLocale();
+        $em     = $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppGedmoBundle:Partner")->findOneByEntity($locale, $id, 'object');
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         $category   = $this->container->get('request')->query->get('category');
-        if (!$NoLayout)	$template = "edit.html.twig";  else	$template = "edit.html.twig";        
+        if (!$NoLayout)    $template = "edit.html.twig";  else    $template = "edit.html.twig";        
 
         if (!$entity) {
-        	$entity = $em->getRepository("PiAppGedmoBundle:Partner")->find($id);
-        	$entity->addTranslation(new PartnerTranslation($locale));            
+            $entity = $em->getRepository("PiAppGedmoBundle:Partner")->find($id);
+            $entity->addTranslation(new PartnerTranslation($locale));            
         }
 
         $editForm   = $this->createForm(new PartnerType($em, $this->container), $entity, array('show_legend' => false));
@@ -279,8 +279,8 @@ class PartnerController extends abstractController
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'NoLayout' 	  => $NoLayout,
-            'category'	=> $category,             
+            'NoLayout'       => $NoLayout,
+            'category'    => $category,             
         ));
     }
 
@@ -288,23 +288,23 @@ class PartnerController extends abstractController
      * Edits an existing Partner entity.
      *
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
      */
     public function updateAction($id)
     {
-        $em 	= $this->getDoctrine()->getEntityManager();
-    	$locale	= $this->container->get('request')->getLocale();
+        $em     = $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppGedmoBundle:Partner")->findOneByEntity($locale, $id, "object"); 
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         $category   = $this->container->get('request')->query->get('category');
-        if (!$NoLayout)	$template = "edit.html.twig";  else	$template = "edit.html.twig";        
+        if (!$NoLayout)    $template = "edit.html.twig";  else    $template = "edit.html.twig";        
 
         if (!$entity) {
-        	$entity = $em->getRepository("PiAppGedmoBundle:Partner")->find($id);
+            $entity = $em->getRepository("PiAppGedmoBundle:Partner")->find($id);
         }
 
         $editForm   = $this->createForm(new PartnerType($em, $this->container), $entity, array('show_legend' => false));
@@ -323,8 +323,8 @@ class PartnerController extends abstractController
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'NoLayout' 	  => $NoLayout,
-            'category'	=> $category,             
+            'NoLayout'       => $NoLayout,
+            'category'    => $category,             
         ));
     }
 
@@ -332,36 +332,36 @@ class PartnerController extends abstractController
      * Deletes a Partner entity.
      *
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *     
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>     
      */
     public function deleteAction($id)
     {
-        $em 	 = $this->getDoctrine()->getEntityManager();
-	    $locale	 = $this->container->get('request')->getLocale();
-	    
-	    $NoLayout   = $this->container->get('request')->query->get('NoLayout');	
-      	$category   = $this->container->get('request')->query->get('category');
+        $em      = $this->getDoctrine()->getEntityManager();
+        $locale     = $this->container->get('request')->getLocale();
+        
+        $NoLayout   = $this->container->get('request')->query->get('NoLayout');    
+          $category   = $this->container->get('request')->query->get('category');
     
-        $form 	 = $this->createDeleteForm($id);
+        $form      = $this->createDeleteForm($id);
         $request = $this->getRequest();
 
         $form->bind($request);
 
         if ($form->isValid()) {
-    	    $entity = $em->getRepository("PiAppGedmoBundle:Partner")->findOneByEntity($locale, $id, 'object');
+            $entity = $em->getRepository("PiAppGedmoBundle:Partner")->findOneByEntity($locale, $id, 'object');
 
             if (!$entity) {
                 throw ControllerException::NotFoundException('Partner');
             }
 
-        	try {
-            	$em->remove($entity);
-            	$em->flush();
+            try {
+                $em->remove($entity);
+                $em->flush();
             } catch (\Exception $e) {
-            	$this->container->get('request')->getSession()->getFlashBag()->add('notice', 'pi.session.flash.wrong.undelete');
+                $this->container->get('request')->getSession()->getFlashBag()->add('notice', 'pi.session.flash.wrong.undelete');
             }
         }
 
@@ -382,77 +382,77 @@ class PartnerController extends abstractController
      * @Cache(maxage="86400")
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @access	public
+     * @access    public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com> 
      */
     public function _template_showAction($id, $template = '_tmp_show.html.twig', $lang = "")
     {
-    	$em 	= $this->getDoctrine()->getEntityManager();
-    	
-    	if (empty($lang))
-    		$lang	= $this->container->get('request')->getLocale();
-    		
-    	$entity = $em->getRepository("PiAppGedmoBundle:Partner")->findOneByEntity($lang, $id, 'object', false);
-    	
-    	if (!$entity) {
-    		throw ControllerException::NotFoundException('Partner');
-    	}
-    	
-    	if (method_exists($entity, "getTemplate") && $entity->getTemplate() != "")
-    		$template = $entity->getTemplate();     	
+        $em     = $this->getDoctrine()->getEntityManager();
+        
+        if (empty($lang))
+            $lang    = $this->container->get('request')->getLocale();
+            
+        $entity = $em->getRepository("PiAppGedmoBundle:Partner")->findOneByEntity($lang, $id, 'object', false);
+        
+        if (!$entity) {
+            throw ControllerException::NotFoundException('Partner');
+        }
+        
+        if (method_exists($entity, "getTemplate") && $entity->getTemplate() != "")
+            $template = $entity->getTemplate();         
     
-    	return $this->render("PiAppGedmoBundle:Partner:$template", array(
-    			'entity'	=> $entity,
-    			'locale'	=> $lang,
-    	));
+        return $this->render("PiAppGedmoBundle:Partner:$template", array(
+                'entity'    => $entity,
+                'locale'    => $lang,
+        ));
     }
 
-	/**
+    /**
      * Template : Finds and displays a list of Partner entity.
      * 
      * @Cache(maxage="86400")
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @access	public
+     * @access    public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com> 
      */
     public function _template_listAction($category = '', $MaxResults = null, $template = '_tmp_list.html.twig', $order = 'DESC', $lang = "", $type='')
     {
-    	$em 		= $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getEntityManager();
 
-    	if (empty($lang))
-    		$lang	= $this->container->get('request')->getLocale();
-    		
-    	if (empty($type)){
-    		$query		= $em->getRepository("PiAppGedmoBundle:Partner")->getAllByCategory($category, $MaxResults, '', $order)->getQuery();
-        	$entities   = $em->getRepository("PiAppGedmoBundle:Partner")->findTranslationsByQuery($lang, $query, 'object', false);
-       	}elseif ($type == 'archive'){
-       		$query			= $em->getRepository("PiAppGedmoBundle:Partner")->getAllByCategory($category, $MaxResults, '', $order)->getQuery();
-        	$entities_all   = $em->getRepository("PiAppGedmoBundle:Partner")->findTranslationsByQuery($lang, $query, 'object', false);
-        	
-        	$entities = array();
-        	foreach($entities_all as $key => $entity){
-        		$cat = $entity->getCategory();
-        		if ($cat instanceof \PiApp\GedmoBundle\Entity\Category){
-        			$entities[ $cat->getPosition() ]['partner'][] = $entity;
-        			$entities[ $cat->getPosition() ]['name']	  = $cat->getName();
-        		}
-        	}
-        	
-        	ksort($entities);
-        	
-    	}elseif ($type == 'highlighted1'){
-    		$entities	= $em->getRepository("PiAppGedmoBundle:Partner")->findBy(array('highlighted1'=>true, 'enabled'=>true), array('title'=>$order), $MaxResults);
-    	}elseif ($type == 'highlighted2'){
-    		$entities	= $em->getRepository("PiAppGedmoBundle:Partner")->findBy(array('highlighted2'=>true, 'enabled'=>true), array('title'=>$order), $MaxResults);
-    	}elseif ($type == 'highlighted3'){
-    		$entities	= $em->getRepository("PiAppGedmoBundle:Partner")->findBy(array('highlighted3'=>true, 'enabled'=>true), array('title'=>$order), $MaxResults);
-    	}         
+        if (empty($lang))
+            $lang    = $this->container->get('request')->getLocale();
+            
+        if (empty($type)){
+            $query        = $em->getRepository("PiAppGedmoBundle:Partner")->getAllByCategory($category, $MaxResults, '', $order)->getQuery();
+            $entities   = $em->getRepository("PiAppGedmoBundle:Partner")->findTranslationsByQuery($lang, $query, 'object', false);
+           }elseif ($type == 'archive'){
+               $query            = $em->getRepository("PiAppGedmoBundle:Partner")->getAllByCategory($category, $MaxResults, '', $order)->getQuery();
+            $entities_all   = $em->getRepository("PiAppGedmoBundle:Partner")->findTranslationsByQuery($lang, $query, 'object', false);
+            
+            $entities = array();
+            foreach($entities_all as $key => $entity){
+                $cat = $entity->getCategory();
+                if ($cat instanceof \PiApp\GedmoBundle\Entity\Category){
+                    $entities[ $cat->getPosition() ]['partner'][] = $entity;
+                    $entities[ $cat->getPosition() ]['name']      = $cat->getName();
+                }
+            }
+            
+            ksort($entities);
+            
+        }elseif ($type == 'highlighted1'){
+            $entities    = $em->getRepository("PiAppGedmoBundle:Partner")->findBy(array('highlighted1'=>true, 'enabled'=>true), array('title'=>$order), $MaxResults);
+        }elseif ($type == 'highlighted2'){
+            $entities    = $em->getRepository("PiAppGedmoBundle:Partner")->findBy(array('highlighted2'=>true, 'enabled'=>true), array('title'=>$order), $MaxResults);
+        }elseif ($type == 'highlighted3'){
+            $entities    = $em->getRepository("PiAppGedmoBundle:Partner")->findBy(array('highlighted3'=>true, 'enabled'=>true), array('title'=>$order), $MaxResults);
+        }         
 
         return $this->render("PiAppGedmoBundle:Partner:$template", array(
             'entities' => $entities,
-            'cat'	   => ucfirst($category),
-        	'locale'   => $lang,
+            'cat'       => ucfirst($category),
+            'locale'   => $lang,
         ));
     }     
     
@@ -462,24 +462,24 @@ class PartnerController extends abstractController
      * @Cache(maxage="86400")
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @access	public
+     * @access    public
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function _template_annuaireAction($template = '_tmp_list.html.twig', $order = 'DESC', $lang = "")
     {
-    	$em 		= $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getEntityManager();
     
-    	if (empty($lang))
-    		$lang	= $this->container->get('request')->getLocale();
+        if (empty($lang))
+            $lang    = $this->container->get('request')->getLocale();
     
-    	$adh_fixe	= $em->getRepository("PiAppGedmoBundle:Partner")->findBy(array('highlighted1'=>true, 'enabled'=>true), array('title'=>$order), 4);
-    	$adh_alea	= $em->getRepository("PiAppGedmoBundle:Partner")->findBy(array('highlighted2'=>true, 'enabled'=>true), array('title'=>$order), 12);
-    	
-    	return $this->render("PiAppGedmoBundle:Partner:$template", array(
-    			'adh_fixe' => $adh_fixe,
-    			'adh_alea' => $adh_alea,
-    			'locale'   => $lang,
-    	));
+        $adh_fixe    = $em->getRepository("PiAppGedmoBundle:Partner")->findBy(array('highlighted1'=>true, 'enabled'=>true), array('title'=>$order), 4);
+        $adh_alea    = $em->getRepository("PiAppGedmoBundle:Partner")->findBy(array('highlighted2'=>true, 'enabled'=>true), array('title'=>$order), 12);
+        
+        return $this->render("PiAppGedmoBundle:Partner:$template", array(
+                'adh_fixe' => $adh_fixe,
+                'adh_alea' => $adh_alea,
+                'locale'   => $lang,
+        ));
     }    
     
 }

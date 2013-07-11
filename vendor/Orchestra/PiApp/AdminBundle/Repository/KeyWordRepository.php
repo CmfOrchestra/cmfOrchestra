@@ -28,55 +28,55 @@ use BootStrap\TranslationBundle\Repository\TranslationRepository;
  */
 class KeyWordRepository extends TranslationRepository
 {
-	/**
-	 * Return all keyword.
-	 *
-	 * @return \PiApp\AdminBundle\Entity\Page
-	 * @access public
-	 *
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 * @since 2012-01-23
-	 */
-	public function getAllPageKeyWords()
-	{
-		$query = $this->createQueryBuilder('k')
-		->select('k')
-		->where('k.enabled = :enabled')
-		->orderBy('k.groupname', 'ASC')
-		->setParameter('enabled', 1);
-		//return $query->getQuery()->setMaxResults(1)->getArrayResult();
-	
-		return $query;
-	}	
-	
-	/**
-	 * Gets all groupname of key word.
-	 *
-	 * @return array
-	 * @access public
-	 *
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 * @since 2012-03-28
-	 */
-	public function getArrayAllGroupName()
-	{
-		$query = $this->createQueryBuilder('k')
-		->select('k.groupname')
-		->where('k.enabled = :enabled')
-		->setParameters(array(
-				'enabled'	=> 1,
-		));
-		//return $query->getQuery()->setMaxResults(1)->getArrayResult();
-	
-		$result = array();
-		$data	= $query->getQuery()->getArrayResult();
-		if ($data && is_array($data) && count($data)) {
-			foreach ($data as $row) {
-				if (!empty($row['groupname']))
-					$result[ $row['groupname'] ] = $row['groupname'];
-			}
-		}
-		return $result;
-	}
-	
+    /**
+     * Return all keyword.
+     *
+     * @return \PiApp\AdminBundle\Entity\Page
+     * @access public
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @since 2012-01-23
+     */
+    public function getAllPageKeyWords()
+    {
+        $query = $this->createQueryBuilder('k')
+        ->select('k')
+        ->where('k.enabled = :enabled')
+        ->orderBy('k.groupname', 'ASC')
+        ->setParameter('enabled', 1);
+        //return $query->getQuery()->setMaxResults(1)->getArrayResult();
+    
+        return $query;
+    }    
+    
+    /**
+     * Gets all groupname of key word.
+     *
+     * @return array
+     * @access public
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @since 2012-03-28
+     */
+    public function getArrayAllGroupName()
+    {
+        $query = $this->createQueryBuilder('k')
+        ->select('k.groupname')
+        ->where('k.enabled = :enabled')
+        ->setParameters(array(
+                'enabled'    => 1,
+        ));
+        //return $query->getQuery()->setMaxResults(1)->getArrayResult();
+    
+        $result = array();
+        $data    = $query->getQuery()->getArrayResult();
+        if ($data && is_array($data) && count($data)) {
+            foreach ($data as $row) {
+                if (!empty($row['groupname']))
+                    $result[ $row['groupname'] ] = $row['groupname'];
+            }
+        }
+        return $result;
+    }
+    
 }

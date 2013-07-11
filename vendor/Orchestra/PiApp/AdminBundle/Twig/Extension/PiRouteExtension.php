@@ -49,16 +49,16 @@ class PiRouteExtension extends \Twig_Extension
      */
     public function getName()
     {
-    	return 'admin_route_extension';
+        return 'admin_route_extension';
     }    
 
     /**
      * Returns a list of functions to add to the existing list.
      *
-	 * <code>
-	 *  {{ media_url(id, 'default_small') }}
-	 * </code>
-	 * 
+     * <code>
+     *  {{ media_url(id, 'default_small') }}
+     * </code>
+     * 
      * @return array An array of functions
      * @access public
      *
@@ -67,9 +67,9 @@ class PiRouteExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'media_url'			=> new \Twig_Function_Method($this, 'getMediaUrlFunction'),
-        	'path_url' 			=> new \Twig_Function_Method($this, 'getUrlByRouteFunction'),
-        	'match_url' 		=> new \Twig_Function_Method($this, 'getMatchUrlFunction'),
+            'media_url'            => new \Twig_Function_Method($this, 'getMediaUrlFunction'),
+            'path_url'             => new \Twig_Function_Method($this, 'getUrlByRouteFunction'),
+            'match_url'         => new \Twig_Function_Method($this, 'getMatchUrlFunction'),
         );
     }
     
@@ -81,7 +81,7 @@ class PiRouteExtension extends \Twig_Extension
      * Return the url of a media (and put the result in cache).
      *
      * @param string $id
-     * @param string $format		["default_small", "default_big", "reference"]
+     * @param string $format        ["default_small", "default_big", "reference"]
      * @param string $cachable
      *
      * @return string
@@ -89,33 +89,33 @@ class PiRouteExtension extends \Twig_Extension
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
-    public function getMediaUrlFunction($id, $format = "default_small", $cachable = true, $modifdate = false, $pattern = "media_")
+    public function getMediaUrlFunction($id, $format = "small", $cachable = true, $modifdate = false, $pattern = "media_")
     {
-    	if ($modifdate)
-    		$timestamp = $modifdate->getTimestamp();
-    	else
-    		$timestamp = 0;    	
-    	
-    	try {
-    		if (!$cachable){
-    			$url_public_media = $this->container->get('sonata.media.twig.extension')->path($id, $format);
-    		} else {
-    			$dossier = $this->container->getParameter("kernel.root_dir")."/cache/media/";
-    			if (!is_dir($dossier)){
-    				mkdir($dossier);
-    			}
-    			$this->container->get("pi_filecache")->getClient()->setPath($dossier);
-    			if (!$this->container->get("pi_filecache")->get($format.$pattern.$id.'_'.$timestamp)){
-    				$url_public_media = $this->container->get('sonata.media.twig.extension')->path($id, $format);
-    				$this->container->get("pi_filecache")->set($format.$pattern.$id.'_'.$timestamp,$url_public_media);
-    			} else {
-    				$url_public_media = $this->container->get("pi_filecache")->get($format.$pattern.$id.'_'.$timestamp);
-    			}    			 
-    		}    		
-    	} catch (\Exception $e) {
-    		$url_public_media = "";
-    	}
-   		return $url_public_media;
+        if ($modifdate)
+            $timestamp = $modifdate->getTimestamp();
+        else
+            $timestamp = 0;        
+        
+        try {
+            if (!$cachable){
+                $url_public_media = $this->container->get('sonata.media.twig.extension')->path($id, $format);
+            } else {
+                $dossier = $this->container->getParameter("kernel.root_dir")."/cache/media/";
+                if (!is_dir($dossier)){
+                    mkdir($dossier);
+                }
+                $this->container->get("pi_filecache")->getClient()->setPath($dossier);
+                if (!$this->container->get("pi_filecache")->get($format.$pattern.$id.'_'.$timestamp)){
+                    $url_public_media = $this->container->get('sonata.media.twig.extension')->path($id, $format);
+                    $this->container->get("pi_filecache")->set($format.$pattern.$id.'_'.$timestamp,$url_public_media);
+                } else {
+                    $url_public_media = $this->container->get("pi_filecache")->get($format.$pattern.$id.'_'.$timestamp);
+                }                 
+            }            
+        } catch (\Exception $e) {
+            $url_public_media = "";
+        }
+           return $url_public_media;
     }
    
     
@@ -132,12 +132,12 @@ class PiRouteExtension extends \Twig_Extension
      */
     public function getUrlByRouteFunction($routeName, $params = null)
     {
-    	try {
-    		$url_route = $this->container->get('bootstrap.RouteTranslator.factory')->getRoute($routeName, $params);
-    	} catch (\Exception $e) {
-    		$url_route = "";
-    	}
-   		return $url_route;
+        try {
+            $url_route = $this->container->get('bootstrap.RouteTranslator.factory')->getRoute($routeName, $params);
+        } catch (\Exception $e) {
+            $url_route = "";
+        }
+           return $url_route;
     }
     
     /**
@@ -153,11 +153,11 @@ class PiRouteExtension extends \Twig_Extension
      */
     public function getMatchUrlFunction($pathInfo)
     {
-    	try {
-    		$match	= $this->container->get('be_simple_i18n_routing.router')->match($pathInfo);
-    	} catch (\Exception $e) {
-    		$match	= array();
-    	}
-   		return $match;
+        try {
+            $match    = $this->container->get('be_simple_i18n_routing.router')->match($pathInfo);
+        } catch (\Exception $e) {
+            $match    = array();
+        }
+           return $match;
     }    
 }

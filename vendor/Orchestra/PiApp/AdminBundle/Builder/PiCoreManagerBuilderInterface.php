@@ -26,24 +26,24 @@ use PiApp\AdminBundle\Entity\TranslationWidget;
  */
 interface PiCoreManagerBuilderInterface
 {
-	public function run($tag, $id, $lang, $params = null);
-	public function render($lang = '');
-	public function renderSource($id, $lang = '', $params = null);
-	public function cacheRefreshByname($name);
-	
-	public function getPageById($idpage);
-	public function getBlocksByPageId($idpage);
-	public function getWidgetById($idWidget);
-	public function getBlockById($idBlock);
-	public function getTranslationByPageId($idpage);
-	public function getTranslationByWidgetId($idwidget, $lang = '');
-	public function getResponseByIdAndType($type, $id);
-	public function getCurrentPage();
-	public function setCurrentPage(Page $page = null);
-	public function setCurrentWidget(Widget $widget = null);
-	public function getCurrentWidget();
-	public function getCurrentTransWidget();
-	public function setCurrentTransWidget(TranslationWidget $transWidget = null);
-	public function parseTemplateParam($RenderResponseParam);
-	public function getScript($script, $type = 'string');
+    public function run($tag, $id, $lang, $params = null);
+    public function render($lang = '');
+    public function renderSource($id, $lang = '', $params = null);
+    public function cacheRefreshByname($name);
+    
+    public function getPageById($idpage);
+    public function getBlocksByPageId($idpage);
+    public function getWidgetById($idWidget);
+    public function getBlockById($idBlock);
+    public function getTranslationByPageId($idpage);
+    public function getTranslationByWidgetId($idwidget, $lang = '');
+    public function getResponseByIdAndType($type, $id);
+    public function getCurrentPage();
+    public function setCurrentPage(Page $page = null);
+    public function setCurrentWidget(Widget $widget = null);
+    public function getCurrentWidget();
+    public function getCurrentTransWidget();
+    public function setCurrentTransWidget(TranslationWidget $transWidget = null);
+    public function parseTemplateParam($RenderResponseParam);
+    public function getScript($script, $type = 'string');
 }

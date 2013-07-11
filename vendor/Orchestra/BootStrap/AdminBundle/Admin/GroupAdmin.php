@@ -30,13 +30,13 @@ use Sonata\AdminBundle\Validator\ErrorElement;
  */
 class GroupAdmin extends Admin
 {
-	protected $translationDomain	= 'group';
-	
-	protected $baseRoutePattern		= '/group';
+    protected $translationDomain    = 'group';
+    
+    protected $baseRoutePattern        = '/group';
 
-	/**
-	 * {@inheritdoc}
-	 */	
+    /**
+     * {@inheritdoc}
+     */    
     public function getNewInstance()
     {
         $class = $this->getClass();
@@ -49,11 +49,11 @@ class GroupAdmin extends Admin
      */    
     protected function configureShowField(ShowMapper $showMapper)
     {
-    	$showMapper
-    	->add('name')
-    	->with('Roles')
-    		->add('roles', 'array')
-    	->end();
+        $showMapper
+        ->add('name')
+        ->with('Roles')
+            ->add('roles', 'array')
+        ->end();
     }
         
     /**
@@ -65,12 +65,12 @@ class GroupAdmin extends Admin
             ->addIdentifier('name')
             ->add('roles')            
             ->add('_action', 'actions', array( 'actions' => array(  
-					 'edit'   => array(),
-	            	 'view'   => array(),
-	            	 'delete' => array(),
-	            	 // autre action specifique ::: 'unpublish' => array('template' => 'MyBundle:Admin:action_unpublish.html.twig'),
-	            	))
-	            );
+                     'edit'   => array(),
+                     'view'   => array(),
+                     'delete' => array(),
+                     // autre action specifique ::: 'unpublish' => array('template' => 'MyBundle:Admin:action_unpublish.html.twig'),
+                    ))
+                );
     }
 
     /**
@@ -94,7 +94,7 @@ class GroupAdmin extends Admin
             
             // you can define help messages like this
             ->setHelps(array(
-            		'roles' => $this->trans('help.group.name')
+                    'roles' => $this->trans('help.group.name')
             ));            
         ;
     }    
@@ -108,8 +108,8 @@ class GroupAdmin extends Admin
     {
         $errorElement
             ->with('name')
-            	->assertNotNull()
-            	->assertNotBlank()
+                ->assertNotNull()
+                ->assertNotBlank()
                 ->assertMaxLength(array('limit' => 25))
             ->end()
         ;

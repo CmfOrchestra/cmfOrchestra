@@ -38,7 +38,7 @@ class HelpFieldTypeExtension extends AbstractTypeExtension
     }
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-    	$resolver->setDefaults(array(
+        $resolver->setDefaults(array(
             'help_inline' => null,
             'help_block' => null,
             'help_label' => null,

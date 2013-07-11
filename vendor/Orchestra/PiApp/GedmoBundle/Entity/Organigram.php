@@ -36,29 +36,29 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  */
 class Organigram extends AbstractDefault 
 {
-	/**
-	 * List of al translatable fields
-	 * 
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_fields	= array('slug', 'title', 'content', 'descriptif', 'question');
+    /**
+     * List of al translatable fields
+     * 
+     * @var array
+     * @access  protected
+     */
+    protected $_fields    = array('slug', 'title', 'content', 'descriptif', 'question');
 
-	/**
-	 * Name of the Translation Entity
-	 * 
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\OrganigramTranslation';	
-	
-	/**
-	 * @var \Doctrine\Common\Collections\ArrayCollection
-	 *
-	 * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\OrganigramTranslation", mappedBy="object", cascade={"persist", "remove"})
-	 */
-	protected $translations;	
-	
+    /**
+     * Name of the Translation Entity
+     * 
+     * @var array
+     * @access  protected
+     */
+    protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\OrganigramTranslation';    
+    
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\OrganigramTranslation", mappedBy="object", cascade={"persist", "remove"})
+     */
+    protected $translations;    
+    
     /**
      * @var bigint
      * 
@@ -143,28 +143,28 @@ class Organigram extends AbstractDefault
      */    
     public function __construct()
     {
-    	parent::__construct();
-    	
-    	$this->childrens = new \Doctrine\Common\Collections\ArrayCollection();
-    	$this->setEnabled(true);    	
+        parent::__construct();
+        
+        $this->childrens = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->setEnabled(true);        
     }    
     
     public function __toString()
     {
-    	return (string) $this->getTitle() . ' - ' . $this->getQuestion();
+        return (string) $this->getTitle() . ' - ' . $this->getQuestion();
     }    
     
-	/**
+    /**
      * @ORM\PrePersist
      * @ORM\preUpdate
      */
     public function setUpdatedValue()
     {
-    	$other  = $this->getCategoryother();
-    	if (!empty($other)){
-    		$this->setCategory($other);
-    		$this->setCategoryother('');
-    	}
+        $other  = $this->getCategoryother();
+        if (!empty($other)){
+            $this->setCategory($other);
+            $this->setCategoryother('');
+        }
     }  
     
     /**
@@ -179,17 +179,17 @@ class Organigram extends AbstractDefault
     
     public function getSlug()
     {
-    	return $this->slug;
+        return $this->slug;
     }    
     
     /**
      * Set page
      *
-     * @param \PiApp\AdminBundle\Entity\Page	$page
+     * @param \PiApp\AdminBundle\Entity\Page    $page
      */
     public function setPage($page)
     {
-    	$this->page = $page;
+        $this->page = $page;
     }
     
     /**
@@ -199,7 +199,7 @@ class Organigram extends AbstractDefault
      */
     public function getPage()
     {
-    	return $this->page;
+        return $this->page;
     }    
     
     /**
@@ -209,7 +209,7 @@ class Organigram extends AbstractDefault
      */
     public function setCategory($category)
     {
-   		$this->category = $category;
+           $this->category = $category;
     }
     
     /**
@@ -219,7 +219,7 @@ class Organigram extends AbstractDefault
      */
     public function getCategory()
     {
-    	return $this->category;
+        return $this->category;
     }
     
     /**
@@ -229,7 +229,7 @@ class Organigram extends AbstractDefault
      */
     public function setCategoryother($category)
     {
-   		$this->categoryother = $category;
+           $this->categoryother = $category;
     }
     
     /**
@@ -239,7 +239,7 @@ class Organigram extends AbstractDefault
      */
     public function getCategoryother()
     {
-    	return $this->categoryother;
+        return $this->categoryother;
     }    
 
     /**
@@ -269,7 +269,7 @@ class Organigram extends AbstractDefault
      */
     public function setDescriptif ($descriptif)
     {
-    	$this->descriptif = $descriptif;
+        $this->descriptif = $descriptif;
     }
     
     /**
@@ -279,7 +279,7 @@ class Organigram extends AbstractDefault
      */
     public function getDescriptif ()
     {
-    	return $this->descriptif;
+        return $this->descriptif;
     }    
     
     /**
@@ -289,7 +289,7 @@ class Organigram extends AbstractDefault
      */
     public function setContent($content)
     {
-    	$this->content = $content;
+        $this->content = $content;
     }
     
     /**
@@ -299,7 +299,7 @@ class Organigram extends AbstractDefault
      */
     public function getContent()
     {
-    	return $this->content;
+        return $this->content;
     } 
 
     /**
@@ -309,7 +309,7 @@ class Organigram extends AbstractDefault
      */
     public function setQuestion($question)
     {
-    	$this->question = $question;
+        $this->question = $question;
     }
     
     /**
@@ -319,7 +319,7 @@ class Organigram extends AbstractDefault
      */
     public function getQuestion()
     {
-    	return $this->question;
+        return $this->question;
     }    
     
     /**
@@ -329,8 +329,8 @@ class Organigram extends AbstractDefault
      */
     public function setMedia($media)
     {
-    	$this->media = $media;    	
-    	return $this;
+        $this->media = $media;        
+        return $this;
     }
     
     /**
@@ -340,7 +340,7 @@ class Organigram extends AbstractDefault
      */
     public function getMedia()
     {
-    	return $this->media;
+        return $this->media;
     } 
     
     /*******************************************************************************************************
@@ -403,17 +403,17 @@ class Organigram extends AbstractDefault
      */
     public function getChildrens()
     {
-    	return $this->childrens;
+        return $this->childrens;
     }
     
     /**
      * Set parent
      *
-     * @param \PiApp\GedmoBundle\Entity\Organigram	$parent
+     * @param \PiApp\GedmoBundle\Entity\Organigram    $parent
      */
     public function setParent(\PiApp\GedmoBundle\Entity\Organigram $parent)
     {
-    	$this->parent = $parent;
+        $this->parent = $parent;
     }
     
     /**
@@ -423,7 +423,7 @@ class Organigram extends AbstractDefault
      */
     public function getParent()
     {
-    	return $this->parent;
+        return $this->parent;
     }
     
     /**
@@ -433,7 +433,7 @@ class Organigram extends AbstractDefault
      */
     public function setTreeParents(array $parents)
     {
-    	$this->parents_tree = $parents;
+        $this->parents_tree = $parents;
     }
     
     /**
@@ -443,20 +443,20 @@ class Organigram extends AbstractDefault
      */
     public function getTreeParents()
     {
-    	if (!$this->parents_tree) {
+        if (!$this->parents_tree) {
     
-    		$page = $this;
-    		$parents = array();
+            $page = $this;
+            $parents = array();
     
-    		while ($page->getParent()) {
-    			$page = $page->getParent();
-    			$parents[] = $page;
-    		}
+            while ($page->getParent()) {
+                $page = $page->getParent();
+                $parents[] = $page;
+            }
     
-    		$this->setTreeParents(array_reverse($parents));
-    	}
+            $this->setTreeParents(array_reverse($parents));
+        }
     
-    	return $this->parents_tree;
+        return $this->parents_tree;
     }
     
     /**
@@ -466,7 +466,7 @@ class Organigram extends AbstractDefault
      */
     public function getRoot()
     {
-    	return $this->root;
+        return $this->root;
     }
     
     /**
@@ -476,7 +476,7 @@ class Organigram extends AbstractDefault
      */
     public function getLevel()
     {
-    	return $this->level;
+        return $this->level;
     }
     
     /**
@@ -486,7 +486,7 @@ class Organigram extends AbstractDefault
      */
     public function getLeft()
     {
-    	return $this->lft;
+        return $this->lft;
     }
     
     /**
@@ -496,7 +496,7 @@ class Organigram extends AbstractDefault
      */
     public function getRight()
     {
-    	return $this->rgt;
+        return $this->rgt;
     }
     
     /**
@@ -506,7 +506,7 @@ class Organigram extends AbstractDefault
      */
     public function setLft($lft)
     {
-    	$this->lft = $lft;
+        $this->lft = $lft;
     }
     
     /**
@@ -516,7 +516,7 @@ class Organigram extends AbstractDefault
      */
     public function getLft()
     {
-    	return $this->lft;
+        return $this->lft;
     }
     
     /**
@@ -526,7 +526,7 @@ class Organigram extends AbstractDefault
      */
     public function setLvl($lvl)
     {
-    	$this->lvl = $lvl;
+        $this->lvl = $lvl;
     }
     
     /**
@@ -536,7 +536,7 @@ class Organigram extends AbstractDefault
      */
     public function getLvl()
     {
-    	return $this->lvl;
+        return $this->lvl;
     }
     
     /**
@@ -546,7 +546,7 @@ class Organigram extends AbstractDefault
      */
     public function setRgt($rgt)
     {
-    	$this->rgt = $rgt;
+        $this->rgt = $rgt;
     }
     
     /**
@@ -556,7 +556,7 @@ class Organigram extends AbstractDefault
      */
     public function getRgt()
     {
-    	return $this->rgt;
+        return $this->rgt;
     } 
     
 }

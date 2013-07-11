@@ -57,10 +57,10 @@ class Group extends BaseGroup
 
      public function __construct($name, $roles = array())
      {
-     	parent::__construct($name, $roles);
-     	
-     	$this->setCreatedAt(new \DateTime());
-     	$this->setUpdatedAt(new \DateTime());
+         parent::__construct($name, $roles);
+         
+         $this->setCreatedAt(new \DateTime());
+         $this->setUpdatedAt(new \DateTime());
      }
      
     /**
@@ -71,7 +71,7 @@ class Group extends BaseGroup
      * 
      */    
     public function __toString() {
-    	return (string) $this->name;
+        return (string) $this->name;
     }
 
     /**
@@ -79,8 +79,8 @@ class Group extends BaseGroup
      */
     public function setCreatedValue()
     {
-    	$this->setCreatedAt(new \DateTime());
-    	$this->setUpdatedAt(new \DateTime());
+        $this->setCreatedAt(new \DateTime());
+        $this->setUpdatedAt(new \DateTime());
     }
     
     /**
@@ -88,7 +88,7 @@ class Group extends BaseGroup
      */
     public function setUpdatedValue()
     {
-    	$this->setUpdatedAt(new \DateTime());
+        $this->setUpdatedAt(new \DateTime());
     } 
 
     /**
@@ -98,7 +98,7 @@ class Group extends BaseGroup
      */
     public function getId()
     {
-    	return $this->id;
+        return $this->id;
     }    
     
     /**
@@ -108,7 +108,7 @@ class Group extends BaseGroup
      */
     public function setCreatedAt($createdAt)
     {
-    	$this->created_at = $createdAt;
+        $this->created_at = $createdAt;
     }
     
     /**
@@ -118,7 +118,7 @@ class Group extends BaseGroup
      */
     public function getCreatedAt()
     {
-    	return $this->created_at;
+        return $this->created_at;
     }
     
     /**
@@ -128,7 +128,7 @@ class Group extends BaseGroup
      */
     public function setUpdatedAt($updatedAt)
     {
-    	$this->updated_at = $updatedAt;
+        $this->updated_at = $updatedAt;
     }
     
     /**
@@ -138,7 +138,7 @@ class Group extends BaseGroup
      */
     public function getUpdatedAt()
     {
-    	return $this->updated_at;
+        return $this->updated_at;
     }
 
     /**

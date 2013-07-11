@@ -27,23 +27,23 @@ use BootStrap\UserBundle\Entity\Group;
  */
 class GroupsFixtures extends AbstractFixture implements OrderedFixtureInterface
 {
-	/**
-	 * Load group fixtures
-	 *
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 * @since 2011-12-28
-	 */	
+    /**
+     * Load group fixtures
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @since 2011-12-28
+     */    
     public function load(ObjectManager $manager)
     {
 
-    	$field0 = new Group('Groupe Subscriber', array('ROLE_SUBSCRIBER'));
-    	$field0->setEnabled(true);
-    	$manager->persist($field0);
-    	
-    	$field0_bis = new Group('Groupe Member', array('ROLE_MEMBER'));
-    	$field0_bis->setEnabled(true);
-    	$manager->persist($field0_bis);    	
-    	    	
+        $field0 = new Group('Groupe Subscriber', array('ROLE_SUBSCRIBER'));
+        $field0->setEnabled(true);
+        $manager->persist($field0);
+        
+        $field0_bis = new Group('Groupe Member', array('ROLE_MEMBER'));
+        $field0_bis->setEnabled(true);
+        $manager->persist($field0_bis);        
+                
         $field1 = new Group('Groupe User', array('ROLE_USER'));
         $field1->setEnabled(true);
         $manager->persist($field1);
@@ -89,7 +89,7 @@ class GroupsFixtures extends AbstractFixture implements OrderedFixtureInterface
      */
     public function getOrder()
     {
-    	// The order in which fixtures will be loaded
-    	return 1;
+        // The order in which fixtures will be loaded
+        return 1;
     }
 }

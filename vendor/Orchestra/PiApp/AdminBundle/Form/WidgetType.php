@@ -30,40 +30,40 @@ class WidgetType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-	        $builder
+            $builder
             ->add('enabled', 'checkbox', array(
-        			//'data'  => true,
-        			'label'	=> 'pi.form.label.field.enabled',
-        	))
+                    //'data'  => true,
+                    'label'    => 'pi.form.label.field.enabled',
+            ))
 //             ->add('cacheable', 'checkbox', array(
-//             		'label'     => 'Static Content?',
-//             		'required'  => false,
-//             		'help_block' => 'Returns a 304 "not modified" status, when the template has not changed since last visit.'
+//                     'label'     => 'Static Content?',
+//                     'required'  => false,
+//                     'help_block' => 'Returns a 304 "not modified" status, when the template has not changed since last visit.'
 //             ))
 //             ->add('public', 'checkbox', array(
-//             		'label'     => 'Visitor-independant content?',
-//             		'required'  => false,
-//             		'help_block' => 'Allows proxies to cache the same content for different visitors.'
+//                     'label'     => 'Visitor-independant content?',
+//                     'required'  => false,
+//                     'help_block' => 'Allows proxies to cache the same content for different visitors.'
 //             ))
 //             ->add('lifetime', 'number', array(
-//             		'label'     => 'Cache Lifetime',
-//             		'required'  => false,
-//             		'help_block' => 'Does a full content caching during the specified lifetime. Leave empty for no cache.',
-//             		'data'		=> '84600',
+//                     'label'     => 'Cache Lifetime',
+//                     'required'  => false,
+//                     'help_block' => 'Does a full content caching during the specified lifetime. Leave empty for no cache.',
+//                     'data'        => '84600',
 //             ))
-        	->add('plugin', 'choice', array(
-            		'choices'   => PiWidgetExtension::getAvailableWidgetPlugins(),
-            		'required'  => true,
-            		'multiple'	=> false,
-            		'expanded'  => false,
-//         			"attr" => array(
-//         					"class"=>"pi_simpleselect",
-//         			),        			
+            ->add('plugin', 'choice', array(
+                    'choices'   => PiWidgetExtension::getAvailableWidgetPlugins(),
+                    'required'  => true,
+                    'multiple'    => false,
+                    'expanded'  => false,
+//                     "attr" => array(
+//                             "class"=>"pi_simpleselect",
+//                     ),                    
             ))
             ->add('action')
             ->add('configCssClass')
             ->add('configXml', 'textarea', array(
-            		//'data'  => PiWidgetExtension::getDefaultConfigXml(),
+                    //'data'  => PiWidgetExtension::getDefaultConfigXml(),
             ))
             ->add('position')
         ;
@@ -76,8 +76,8 @@ class WidgetType extends AbstractType
     
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-    	$resolver->setDefaults(array(
-    			'data_class' => 'PiApp\AdminBundle\Entity\Widget',
-    	));
+        $resolver->setDefaults(array(
+                'data_class' => 'PiApp\AdminBundle\Entity\Widget',
+        ));
     }    
 }

@@ -31,10 +31,10 @@ class PiTwigCache
      */
     protected $twig_environment = null;
     
-	/**
-	 * @var \Symfony\Component\DependencyInjection\ContainerInterface
-	 */
-	protected $container;  
+    /**
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */
+    protected $container;  
 
     /**
      *
@@ -43,7 +43,7 @@ class PiTwigCache
     public function __construct(\Twig_Environment $twig_environment, ContainerInterface $container)
     {
         $this->twig_environment = $twig_environment;
-        $this->container		= $container;
+        $this->container        = $container;
     }
 
     /**
@@ -85,7 +85,7 @@ class PiTwigCache
         
         $isMemCacheEnable = $this->container->getParameter("pi_app_admin.page.memcache_enable");
         if ($isMemCacheEnable && $this->container->has("pi_memcache")){
-        	$this->container->get("pi_memcache")->clear($name);
+            $this->container->get("pi_memcache")->clear($name);
         }
     }
     
@@ -110,16 +110,16 @@ class PiTwigCache
         // OR MemCache service doesn't exist
         // OR the content name isn't register in the memcache 
         if ( !$isMemCacheEnable || !$this->container->has("pi_memcache") || ($this->container->has("pi_memcache") && !$this->container->get("pi_memcache")->get($name)) ){
-        	//$response->setContent($this->getTwigEnvironment()->loadTemplate($name)->render($parameters));
-        	$response = $this->container->get('pi_app_admin.templating')->renderResponse($name, $parameters, $response);
-        	
-        	// if the memcache service does exist, we register the content page in the memcache
-        	if ($isMemCacheEnable){
-        		//$source =  $this->getTwigEnvironment()->getLoader()->getSource($name);
-       			$this->container->get("pi_memcache")->set($name, $response);
-        	}
+            //$response->setContent($this->getTwigEnvironment()->loadTemplate($name)->render($parameters));
+            $response = $this->container->get('pi_app_admin.templating')->renderResponse($name, $parameters, $response);
+            
+            // if the memcache service does exist, we register the content page in the memcache
+            if ($isMemCacheEnable){
+                //$source =  $this->getTwigEnvironment()->getLoader()->getSource($name);
+                   $this->container->get("pi_memcache")->set($name, $response);
+            }
         }elseif ($isMemCacheEnable){
-        	$response = $this->container->get("pi_memcache")->get($name);
+            $response = $this->container->get("pi_memcache")->get($name);
         }
                 
         return $response;
@@ -135,10 +135,10 @@ class PiTwigCache
      */
     protected function isUsernamePasswordToken()
     {
-    	if ($this->container->get('security.context')->getToken() instanceof \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken)
-    		return true;
-    	else
-    		return false;
+        if ($this->container->get('security.context')->getToken() instanceof \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken)
+            return true;
+        else
+            return false;
     }    
      
 }

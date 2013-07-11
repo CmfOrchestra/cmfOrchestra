@@ -62,10 +62,10 @@ class Repository implements RepositoryBuilderInterface
      */
     public function getRepository($nameEntity = '' )
     {
-    	if (!empty($nameEntity))
-    		return $this->getEntityManager()->getRepository('BootStrapUserBundle:' . ucfirst($nameEntity));
-    	else 
-    		throw new \Doctrine\ORM\EntityNotFoundException(); 
+        if (!empty($nameEntity))
+            return $this->getEntityManager()->getRepository('BootStrapUserBundle:' . ucfirst($nameEntity));
+        else 
+            throw new \Doctrine\ORM\EntityNotFoundException(); 
     }    
 
     /**
@@ -107,10 +107,10 @@ class Repository implements RepositoryBuilderInterface
      */
     public function findOneById($id, $nameEntity = '')
     {
-    	if (!empty($id) && !empty($nameEntity))
-        	return $this->getRepository($nameEntity)->findOneById($id);
-    	else
-    		return null;
+        if (!empty($id) && !empty($nameEntity))
+            return $this->getRepository($nameEntity)->findOneById($id);
+        else
+            return null;
     }
     
     /**
@@ -121,10 +121,10 @@ class Repository implements RepositoryBuilderInterface
      */
     public function findAll($nameEntity = '')
     {
-    	if (!empty($id) && !empty($nameEntity))
-        	return $this->getRepository($nameEntity)->findAll();
-    	else
-    		return null;
+        if (!empty($id) && !empty($nameEntity))
+            return $this->getRepository($nameEntity)->findAll();
+        else
+            return null;
     }
     
     /**
@@ -135,10 +135,10 @@ class Repository implements RepositoryBuilderInterface
      */
     public function findAllEnabled($nameEntity = '')
     {
-    	if (!empty($nameEntity))
-    		return $this->getRepository($nameEntity)->findByEnabled(true);
-    	else
-    		return null;
+        if (!empty($nameEntity))
+            return $this->getRepository($nameEntity)->findByEnabled(true);
+        else
+            return null;
     }    
 
 }

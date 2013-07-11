@@ -20,7 +20,7 @@ use Sensio\Bundle\GeneratorBundle\Command\GenerateDoctrineCrudCommand as BaseGen
  * Command CRUD.
  *
  * <code>
- * 		php app/console orchestra:generate:crud
+ *         php app/console orchestra:generate:crud
  * </code>
  * 
  * @category   BootStrap_Command
@@ -30,34 +30,34 @@ use Sensio\Bundle\GeneratorBundle\Command\GenerateDoctrineCrudCommand as BaseGen
  */
 class DoctrineCrudCommand extends BaseGenerator
 {
-	/**
-	 * @var \PiApp\AdminBundle\Util\PiLogManager
-	 */
-	private $_logger;
-	
-	/**
-	 * Constructor.
-	 *
-	 * @param	$kernel	HttpKernelInterface A HttpKernelInterface instance
-	 * @access	public
-	 * @author	Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 */
-	public function __construct($kernel = null)
-	{
-		parent::__construct();
-	
-		//-----we initialize the container-----
-		if (is_object($kernel) && method_exists($kernel, 'getContainer'))
-			$this->setContainer($kernel->getContainer());
-	}
+    /**
+     * @var \PiApp\AdminBundle\Util\PiLogManager
+     */
+    private $_logger;
+    
+    /**
+     * Constructor.
+     *
+     * @param    $kernel    HttpKernelInterface A HttpKernelInterface instance
+     * @access    public
+     * @author    Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function __construct($kernel = null)
+    {
+        parent::__construct();
+    
+        //-----we initialize the container-----
+        if (is_object($kernel) && method_exists($kernel, 'getContainer'))
+            $this->setContainer($kernel->getContainer());
+    }
 
-	/**
-	 * configure the command.
-	 *
-	 * @return void
-	 * @access protected
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 */	
+    /**
+     * configure the command.
+     *
+     * @return void
+     * @access protected
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */    
     protected function configure()
     {
         parent::configure();

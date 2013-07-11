@@ -81,7 +81,7 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
      * @return
      */
     public function postPersist(EventArgs $eventArgs)
-    {    	
+    {        
     }
     
     /**
@@ -98,7 +98,7 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
      */
     public function preUpdate(EventArgs $eventArgs)
     {
-    	$this->_MediaGedmo($eventArgs);   
+        $this->_MediaGedmo($eventArgs);   
     }
     
     /**
@@ -107,7 +107,7 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
      */
     public function prePersist(EventArgs $eventArgs)
     {
-    	$this->_MediaGedmo($eventArgs);
+        $this->_MediaGedmo($eventArgs);
     }    
     
     /**
@@ -123,44 +123,44 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
      */
     private function _MediaGedmo($eventArgs)
     {
-        $entity			= $eventArgs->getEntity();
-    	$entityManager 	= $eventArgs->getEntityManager();
-    	
-    	if ( $this->isUsernamePasswordToken() && ($entity instanceof \Proxies\__CG__\PiApp\GedmoBundle\Entity\Media) && !$this->isRestrictionByRole($entity) && ($entity->getMediadelete() == true) )
-    	{
-    		try {
-    			$entity_table = $this->getOwningTable($eventArgs, $entity);
-    			$query = "UPDATE $entity_table mytable SET mytable.media = null WHERE mytable.id = ?";
-    			$this->_connexion($eventArgs)->executeUpdate($query, array($entity->getId()));
-    			
-    			$this->_container()->get('sonata.media.provider.image')->preRemove($entity->getImage());
-    			$this->_connexion($eventArgs)->delete($this->getOwningTable($eventArgs, $entity->getImage()), array('id'=>$entity->getImage()->getId()));
-    			$this->_container()->get('sonata.media.provider.image')->postRemove($entity->getImage());    			
-    		} catch (\Exception $e) {
-    		}
-    		
-    		$entity->setImage(null);
-    	} 
-    	
-    	// we clean the filename.
-    	if ( $this->isUsernamePasswordToken() && ($entity instanceof \Proxies\__CG__\BootStrap\MediaBundle\Entity\Media) ){
-    		$entity->setName($this->_cleanName($entity->getName()));
-    	}    	
+        $entity            = $eventArgs->getEntity();
+        $entityManager     = $eventArgs->getEntityManager();
+        
+        if ( $this->isUsernamePasswordToken() && ($entity instanceof \Proxies\__CG__\PiApp\GedmoBundle\Entity\Media) && !$this->isRestrictionByRole($entity) && ($entity->getMediadelete() == true) )
+        {
+            try {
+                $entity_table = $this->getOwningTable($eventArgs, $entity);
+                $query = "UPDATE $entity_table mytable SET mytable.media = null WHERE mytable.id = ?";
+                $this->_connexion($eventArgs)->executeUpdate($query, array($entity->getId()));
+                
+                $this->_container()->get('sonata.media.provider.image')->preRemove($entity->getImage());
+                $this->_connexion($eventArgs)->delete($this->getOwningTable($eventArgs, $entity->getImage()), array('id'=>$entity->getImage()->getId()));
+                $this->_container()->get('sonata.media.provider.image')->postRemove($entity->getImage());                
+            } catch (\Exception $e) {
+            }
+            
+            $entity->setImage(null);
+        } 
+        
+        // we clean the filename.
+        if ( $this->isUsernamePasswordToken() && ($entity instanceof \Proxies\__CG__\BootStrap\MediaBundle\Entity\Media) ){
+            $entity->setName($this->_cleanName($entity->getName()));
+        }        
     }
 
     /**
      * We return the clean of a string.
      *
-     * @param	string	$string
-     * @return 	string	name
+     * @param    string    $string
+     * @return     string    name
      * @access private
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     private function _cleanName($string){
-    	$string = \PiApp\AdminBundle\Util\PiStringManager::minusculesSansAccents($string);
-    	$string = \PiApp\AdminBundle\Util\PiStringManager::cleanFilename($string);
-    	 
-    	return $string;
+        $string = \PiApp\AdminBundle\Util\PiStringManager::minusculesSansAccents($string);
+        $string = \PiApp\AdminBundle\Util\PiStringManager::cleanFilename($string);
+         
+        return $string;
     }    
 }

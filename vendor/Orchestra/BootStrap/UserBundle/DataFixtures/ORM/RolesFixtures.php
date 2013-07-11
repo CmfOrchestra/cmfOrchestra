@@ -27,37 +27,37 @@ use BootStrap\UserBundle\Entity\Role;
  */
 class RolesFixtures extends AbstractFixture implements OrderedFixtureInterface
 {
-	/**
-	 * Load user fixtures
-	 *
+    /**
+     * Load user fixtures
+     *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2011-12-28
-	 */	
+     */    
     public function load(ObjectManager $manager)
     {
-    	$field0 = new Role();
-    	$field0->setLabel('Default');
-    	$field0->setName('ROLE_ALLOWED_TO_SWITCH');
-    	$field0->setComment('Utilisateur disposant du droit par default');
-    	$field0->setEnabled(true);
-    	$manager->persist($field0);
-    	
-    	$field1 = new Role();
-    	$field1->setLabel('Subscriber');
-    	$field1->setName('ROLE_SUBSCRIBER');
-    	$field1->setComment('Utilisateur enregistré sur le site.');
-    	$field1->setEnabled(true);
-    	$field1->setHeritage(array('ROLE_ALLOWED_TO_SWITCH'));
-    	$manager->persist($field1);
+        $field0 = new Role();
+        $field0->setLabel('Default');
+        $field0->setName('ROLE_ALLOWED_TO_SWITCH');
+        $field0->setComment('Utilisateur disposant du droit par default');
+        $field0->setEnabled(true);
+        $manager->persist($field0);
+        
+        $field1 = new Role();
+        $field1->setLabel('Subscriber');
+        $field1->setName('ROLE_SUBSCRIBER');
+        $field1->setComment('Utilisateur enregistré sur le site.');
+        $field1->setEnabled(true);
+        $field1->setHeritage(array('ROLE_ALLOWED_TO_SWITCH'));
+        $manager->persist($field1);
 
-    	$field2 = new Role();
-    	$field2->setLabel('Member');
-    	$field2->setName('ROLE_MEMBER');
-    	$field2->setComment('Utilisateur enregistré sur le site et identifié comme membre.');
-    	$field2->setEnabled(true);
-    	$field2->setHeritage(array('ROLE_SUBSCRIBER', 'ROLE_ALLOWED_TO_SWITCH'));
-    	$manager->persist($field2);    	
-    	    	
+        $field2 = new Role();
+        $field2->setLabel('Member');
+        $field2->setName('ROLE_MEMBER');
+        $field2->setComment('Utilisateur enregistré sur le site et identifié comme membre.');
+        $field2->setEnabled(true);
+        $field2->setHeritage(array('ROLE_SUBSCRIBER', 'ROLE_ALLOWED_TO_SWITCH'));
+        $manager->persist($field2);        
+                
         $field3 = new Role();
         $field3->setLabel('User');
         $field3->setName('ROLE_USER');
@@ -148,7 +148,7 @@ class RolesFixtures extends AbstractFixture implements OrderedFixtureInterface
      */
     public function getOrder()
     {
-    	// The order in which fixtures will be loaded
-    	return 1;
+        // The order in which fixtures will be loaded
+        return 1;
     }
 }

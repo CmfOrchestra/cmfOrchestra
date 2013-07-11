@@ -28,64 +28,64 @@ use BootStrap\TranslationBundle\Repository\TranslationRepository;
  */
 class TranslationWidgetRepository extends TranslationRepository
 {
-	/**
-	 * Return a translation widget by the widget params
-	 *
-	 * @param int		$enabled	
-	 * @param string	$plugin		plugin name of the widget
-	 * @param string	$action		action name of the widget
-	 * @param string	$lang		langue of the translation needed.
-	 *
-	 * @return \PiApp\AdminBundle\Entity\Page
-	 * @access public
-	 *
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 * @since 2012-01-23
-	 */
-	public function getTranslationByParams($enabled, $plugin, $action, $lang)
-	{
-		$query = $this->createQueryBuilder('t')
-		->select('t, w')
-		->leftJoin('t.widget', 'w')
-		->where('t.enabled = :enabled')
-		->andWhere('w.plugin = :plugin')
-		->andWhere('w.action = :action')
-		->andWhere('t.langCode = :lang')
-		->setParameters(array(
-				'enabled'	=> $enabled,
-				'plugin'	=> strtolower($plugin),
-				'action'	=> strtolower($action),
-				'lang'		=> $lang,
-		));
-		return $query->getQuery()->getOneOrNullResult();
-	}
-	
-	/**
-	 * Return a translation widget by id and lang widget
-	 *
-	 * @param int		$idWidget	id widget
-	 * @param string	$lang		langue of the translation needed.
-	 *
-	 * @return \PiApp\AdminBundle\Entity\Page
-	 * @access public
-	 *
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 * @since 2012-01-23
-	 */
-	public function getTranslationById($idWidget, $lang)
-	{
-		$query = $this->createQueryBuilder('t')
-		->select('t, w')
-		->leftJoin('t.widget', 'w')
-		->where('t.enabled = :enabled')
-		->andWhere('w.id = :widgetID')
-		->andWhere('t.langCode = :lang')
-		->setParameters(array(
-				'enabled'	=> 1,
-				'widgetID'	=> (int) $idWidget,
-				'lang'		=> $lang,
-		));
-		return $query->getQuery()->getOneOrNullResult();
-	}
-	
+    /**
+     * Return a translation widget by the widget params
+     *
+     * @param int        $enabled    
+     * @param string    $plugin        plugin name of the widget
+     * @param string    $action        action name of the widget
+     * @param string    $lang        langue of the translation needed.
+     *
+     * @return \PiApp\AdminBundle\Entity\Page
+     * @access public
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @since 2012-01-23
+     */
+    public function getTranslationByParams($enabled, $plugin, $action, $lang)
+    {
+        $query = $this->createQueryBuilder('t')
+        ->select('t, w')
+        ->leftJoin('t.widget', 'w')
+        ->where('t.enabled = :enabled')
+        ->andWhere('w.plugin = :plugin')
+        ->andWhere('w.action = :action')
+        ->andWhere('t.langCode = :lang')
+        ->setParameters(array(
+                'enabled'    => $enabled,
+                'plugin'    => strtolower($plugin),
+                'action'    => strtolower($action),
+                'lang'        => $lang,
+        ));
+        return $query->getQuery()->getOneOrNullResult();
+    }
+    
+    /**
+     * Return a translation widget by id and lang widget
+     *
+     * @param int        $idWidget    id widget
+     * @param string    $lang        langue of the translation needed.
+     *
+     * @return \PiApp\AdminBundle\Entity\Page
+     * @access public
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @since 2012-01-23
+     */
+    public function getTranslationById($idWidget, $lang)
+    {
+        $query = $this->createQueryBuilder('t')
+        ->select('t, w')
+        ->leftJoin('t.widget', 'w')
+        ->where('t.enabled = :enabled')
+        ->andWhere('w.id = :widgetID')
+        ->andWhere('t.langCode = :lang')
+        ->setParameters(array(
+                'enabled'    => 1,
+                'widgetID'    => (int) $idWidget,
+                'lang'        => $lang,
+        ));
+        return $query->getQuery()->getOneOrNullResult();
+    }
+    
 }

@@ -36,12 +36,12 @@ class ClientIpVoter implements VoterInterface
 
     function vote(TokenInterface $token, $object, array $attributes)
     {
-    	//$roles_user		= $this->container->get('security.context')->getToken()->getUser()->getRoles();
-    	$getClientIp	= $this->container->get('request')->getClientIp();
-    	
+        //$roles_user        = $this->container->get('security.context')->getToken()->getUser()->getRoles();
+        $getClientIp    = $this->container->get('request')->getClientIp();
+        
         if ( !in_array($getClientIp, $this->blacklistedIp) && !in_array('IS_AUTHENTICATED_ANONYMOUSLY', $attributes) )
-        	return VoterInterface::ACCESS_DENIED;
+            return VoterInterface::ACCESS_DENIED;
         else
-        	return VoterInterface::ACCESS_ABSTAIN;
+            return VoterInterface::ACCESS_ABSTAIN;
     }
 }

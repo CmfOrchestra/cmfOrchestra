@@ -38,20 +38,20 @@ use PiApp\AdminBundle\Form\PageByTransType as PageType;
  */
 class PageByTransController extends abstractController
 {
-	protected $_entityName = "PiAppAdminBundle:Page";
-	
+    protected $_entityName = "PiAppAdminBundle:Page";
+    
     /**
      * Lists all Page entities.
      * 
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function indexAction()
     {
-        $em 	  = $this->getDoctrine()->getEntityManager();
+        $em       = $this->getDoctrine()->getEntityManager();
         $entities = $em->getRepository('PiAppAdminBundle:Page')->getAllPageHtml()->getQuery()->getResult();
         
         return $this->render('PiAppAdminBundle:PageByTrans:index.html.twig', array(
@@ -71,7 +71,7 @@ class PageByTransController extends abstractController
      */
     public function enabledajaxAction()
     {
-    	return parent::enabledajaxAction();
+        return parent::enabledajaxAction();
     }
     
     /**
@@ -86,7 +86,7 @@ class PageByTransController extends abstractController
      */
     public function disableajaxAction()
     {
-    	return parent::disableajaxAction();
+        return parent::disableajaxAction();
     }
     
     /**
@@ -101,7 +101,7 @@ class PageByTransController extends abstractController
      */
     public function deleteajaxAction()
     {
-    	return parent::deletajaxAction();
+        return parent::deletajaxAction();
     }    
     
     /**
@@ -110,34 +110,34 @@ class PageByTransController extends abstractController
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function wizardAction($status)
     {
-    	$locale		= $this->container->get('request')->getLocale();
-    	$em 		= $this->getDoctrine()->getEntityManager();
-    	$token 		= $this->get('security.context')->getToken();
-    	
-   		$idUser		= $token->getUser()->getId();
-   		$RolesUser 	= $token->getUser()->getRoles();
+        $locale        = $this->container->get('request')->getLocale();
+        $em         = $this->getDoctrine()->getEntityManager();
+        $token         = $this->get('security.context')->getToken();
+        
+           $idUser        = $token->getUser()->getId();
+           $RolesUser     = $token->getUser()->getRoles();
 
-    	if (in_array('ROLE_ADMIN', $RolesUser) || in_array('ROLE_SUPER_ADMIN', $RolesUser) || in_array('ROLE_CONTENT_MANAGER', $RolesUser)){
-	    	if ($status != "all")
-	    		$entities = $em->getRepository('PiAppAdminBundle:Page')->getAllPageByStatus($locale, $status)->getQuery()->getResult();
-	    	else
-	    		$entities = $em->getRepository('PiAppAdminBundle:Page')->getAllPageHtml()->getQuery()->getResult();
-    	} else {
-    		if ($status != "all")
-    			$entities = $em->getRepository('PiAppAdminBundle:Page')->getAllPageByStatus($locale, $status, $idUser)->getQuery()->getResult();
-    		else
-    			$entities = $em->getRepository('PiAppAdminBundle:Page')->getAllPageHtml($idUser)->getQuery()->getResult();
-    	}
+        if (in_array('ROLE_ADMIN', $RolesUser) || in_array('ROLE_SUPER_ADMIN', $RolesUser) || in_array('ROLE_CONTENT_MANAGER', $RolesUser)){
+            if ($status != "all")
+                $entities = $em->getRepository('PiAppAdminBundle:Page')->getAllPageByStatus($locale, $status)->getQuery()->getResult();
+            else
+                $entities = $em->getRepository('PiAppAdminBundle:Page')->getAllPageHtml()->getQuery()->getResult();
+        } else {
+            if ($status != "all")
+                $entities = $em->getRepository('PiAppAdminBundle:Page')->getAllPageByStatus($locale, $status, $idUser)->getQuery()->getResult();
+            else
+                $entities = $em->getRepository('PiAppAdminBundle:Page')->getAllPageHtml($idUser)->getQuery()->getResult();
+        }
     
-    	return $this->render('PiAppAdminBundle:PageByTrans:wizard.html.twig', array(
-    			'entities'  => $entities,
-    			'id_grid'	=> 'grid_' . $status,
-    	));
+        return $this->render('PiAppAdminBundle:PageByTrans:wizard.html.twig', array(
+                'entities'  => $entities,
+                'id_grid'    => 'grid_' . $status,
+        ));
     }
 
     /**
@@ -146,19 +146,19 @@ class PageByTransController extends abstractController
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function showAction($id)
     {
-        $em 	= $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getEntityManager();
         $entity = $em->getRepository('PiAppAdminBundle:Page')->find($id);
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if (!$NoLayout)
-        	$template = "show.html.twig";
+            $template = "show.html.twig";
         else
-        	$template = "show_ajax.html.twig";        
+            $template = "show_ajax.html.twig";        
 
         if (!$entity) {
             throw ControllerException::NotFoundException('Page');
@@ -169,7 +169,7 @@ class PageByTransController extends abstractController
         return $this->render("PiAppAdminBundle:PageByTrans:$template", array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
-        	'NoLayout' 	  => $NoLayout,        		
+            'NoLayout'       => $NoLayout,                
         ));
     }
 
@@ -179,23 +179,23 @@ class PageByTransController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function newAction()
     {
-    	$locale	= $this->container->get('request')->getLocale();
-    	$User   = $this->get('security.context')->getToken()->getUser();
-    	$entity = new Page();
+        $locale    = $this->container->get('request')->getLocale();
+        $User   = $this->get('security.context')->getToken()->getUser();
+        $entity = new Page();
         $entity->setMetaContentType(PageRepository::TYPE_TEXT_HTML);
         $entity->setUser($User);
         $form   = $this->createForm(new PageType($locale, $User->getRoles(), $this->container), $entity, array('show_legend' => false));
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if (!$NoLayout)
-        	$template = "new.html.twig";
+            $template = "new.html.twig";
         else
-        	$template = "new_ajax.html.twig";        
+            $template = "new_ajax.html.twig";        
         
         //$form->remove('page_css');
         //$form->remove('page_js');
@@ -203,7 +203,7 @@ class PageByTransController extends abstractController
         return $this->render("PiAppAdminBundle:PageByTrans:$template", array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        	'NoLayout' 	  => $NoLayout,        		
+            'NoLayout'       => $NoLayout,                
         ));
     }
 
@@ -213,13 +213,13 @@ class PageByTransController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function createAction()
     {
-    	$locale	 = $this->container->get('request')->getLocale();
-    	$User 	 = $this->get('security.context')->getToken()->getUser();
+        $locale     = $this->container->get('request')->getLocale();
+        $User      = $this->get('security.context')->getToken()->getUser();
         $entity  = new Page();
         $entity->setMetaContentType(PageRepository::TYPE_TEXT_HTML);
         $entity->setUser($User);
@@ -229,29 +229,29 @@ class PageByTransController extends abstractController
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if (!$NoLayout)
-        	$template = "new.html.twig";
+            $template = "new.html.twig";
         else
-        	$template = "new_ajax.html.twig";        
+            $template = "new_ajax.html.twig";        
 
         if ('POST' === $request->getMethod()) {
-	        if ($form->isValid()) {
-	            $em = $this->getDoctrine()->getEntityManager();
-	
-	            // We persist all page translations
-	            foreach($entity->getTranslations() as $translationPage) {
-	            	$entity->addTranslation($translationPage);
-	            }	            
-	            $em->persist($entity);
-	            $em->flush();
-	
-	            return $this->redirect($this->generateUrl('admin_pagebytrans_show', array('id' => $entity->getId(), 'NoLayout' => $NoLayout)));	            
-	        }
-	
-	        return $this->render("PiAppAdminBundle:PageByTrans:$template", array(
-	            'entity' => $entity,
-	            'form'   => $form->createView(),
-	        	'NoLayout' 	  => $NoLayout,	        		
-	        ));
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getEntityManager();
+    
+                // We persist all page translations
+                foreach($entity->getTranslations() as $translationPage) {
+                    $entity->addTranslation($translationPage);
+                }                
+                $em->persist($entity);
+                $em->flush();
+    
+                return $this->redirect($this->generateUrl('admin_pagebytrans_show', array('id' => $entity->getId(), 'NoLayout' => $NoLayout)));                
+            }
+    
+            return $this->render("PiAppAdminBundle:PageByTrans:$template", array(
+                'entity' => $entity,
+                'form'   => $form->createView(),
+                'NoLayout'       => $NoLayout,                    
+            ));
         }
         
         return array('form' => $form->createView());
@@ -263,21 +263,21 @@ class PageByTransController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function editAction($id)
     {
-    	$locale	= $this->container->get('request')->getLocale();
-    	$User 	= $this->get('security.context')->getToken()->getUser();
-        $em 	= $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
+        $User     = $this->get('security.context')->getToken()->getUser();
+        $em     = $this->getDoctrine()->getEntityManager();
         $entity = $em->getRepository('PiAppAdminBundle:Page')->find($id);
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if (!$NoLayout)
-        	$template = "edit.html.twig";
+            $template = "edit.html.twig";
         else
-        	$template = "edit_ajax.html.twig";        
+            $template = "edit_ajax.html.twig";        
 
         if (!$entity) {
             throw ControllerException::NotFoundException('Page');
@@ -290,7 +290,7 @@ class PageByTransController extends abstractController
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        	'NoLayout' 	  => $NoLayout,        		
+            'NoLayout'       => $NoLayout,                
         ));
     }
 
@@ -300,55 +300,55 @@ class PageByTransController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function updateAction($id)
     {
-    	$locale	= $this->container->get('request')->getLocale();
-    	$User 	= $this->get('security.context')->getToken()->getUser();
-        $em 	= $this->getDoctrine()->getEntityManager();
+        $locale    = $this->container->get('request')->getLocale();
+        $User     = $this->get('security.context')->getToken()->getUser();
+        $em     = $this->getDoctrine()->getEntityManager();
         $entity = $em->getRepository('PiAppAdminBundle:Page')->find($id);
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if (!$NoLayout)
-        	$template = "edit.html.twig";
+            $template = "edit.html.twig";
         else
-        	$template = "edit_ajax.html.twig";        
+            $template = "edit_ajax.html.twig";        
         
         if (!$entity) {
             throw ControllerException::NotFoundException('Page');
         }
         if ($this->container->get('security.context')->isGranted("ROLE_SUPER_ADMIN")) {
-        	$originalTranslations = array();
-        	// Create an array of the current Widget objects in the database
-        	foreach ($entity->getTranslations() as $Translation) {
-        		$originalTranslations[] = $Translation;
-        	}
+            $originalTranslations = array();
+            // Create an array of the current Widget objects in the database
+            foreach ($entity->getTranslations() as $Translation) {
+                $originalTranslations[] = $Translation;
+            }
         }        
         $editForm   = $this->createForm(new PageType($locale, $User->getRoles(), $this->container), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
         $editForm->bind($this->getRequest());
         
         if ($editForm->isValid()) {
-        	if ($this->container->get('security.context')->isGranted("ROLE_SUPER_ADMIN")) {
-        		// filter $originalWidgets to contain tags no longer present
-        		foreach ($entity->getTranslations() as $Translation) {
-        			foreach ($originalTranslations as $key => $toDel) {
-        				if ($toDel->getId() === $Translation->getId()) {
-        					unset($originalTranslations[$key]);
-        				}
-        			}
-        		}
-        		// remove the relationship between the Translation and the page
-        		foreach ($originalTranslations as $Translation) {
-        			$Translation->setPage(null);
-        			$em->remove($Translation);
-        		}
-        	}        	
+            if ($this->container->get('security.context')->isGranted("ROLE_SUPER_ADMIN")) {
+                // filter $originalWidgets to contain tags no longer present
+                foreach ($entity->getTranslations() as $Translation) {
+                    foreach ($originalTranslations as $key => $toDel) {
+                        if ($toDel->getId() === $Translation->getId()) {
+                            unset($originalTranslations[$key]);
+                        }
+                    }
+                }
+                // remove the relationship between the Translation and the page
+                foreach ($originalTranslations as $Translation) {
+                    $Translation->setPage(null);
+                    $em->remove($Translation);
+                }
+            }            
             // We persist all page translations
             foreach($entity->getTranslations() as $translationPage) {
-            	$entity->addTranslation($translationPage);
+                $entity->addTranslation($translationPage);
             }
             $em->persist($entity);
             $em->flush();
@@ -360,7 +360,7 @@ class PageByTransController extends abstractController
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        	'NoLayout' 	  => $NoLayout,        		
+            'NoLayout'       => $NoLayout,                
         ));
     }
 
@@ -370,8 +370,8 @@ class PageByTransController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function deleteAction($id)
     {
@@ -389,10 +389,10 @@ class PageByTransController extends abstractController
             }
            
             try {
-            	$em->remove($entity);
-            	$em->flush();
+                $em->remove($entity);
+                $em->flush();
             } catch (\Exception $e) {
-            	$this->container->get('request')->getSession()->getFlashBag()->add('notice', 'pi.session.flash.wrong.undelete');
+                $this->container->get('request')->getSession()->getFlashBag()->add('notice', 'pi.session.flash.wrong.undelete');
             }            
         }
 

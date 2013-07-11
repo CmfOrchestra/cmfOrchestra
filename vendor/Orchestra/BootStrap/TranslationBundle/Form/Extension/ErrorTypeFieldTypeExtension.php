@@ -23,26 +23,26 @@ use Symfony\Component\OptionsResolver\Options;
  
 class ErrorTypeFieldTypeExtension extends AbstractTypeExtension
 {
-	public function buildForm(FormBuilderInterface $builder, array $options)
-	{
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
         $builder->setAttribute('field_error_type', $options['field_error_type']);
         $builder->setAttribute('error_delay', $options['error_delay']);
-	}
-	
-	public function buildView(FormView $view, FormInterface $form, array $options)
-	{
-	    $view->set('field_error_type', $form->getAttribute('field_error_type'));
-	    $view->set('error_delay', $form->getAttribute('error_delay'));
-	}
+    }
+    
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $view->set('field_error_type', $form->getAttribute('field_error_type'));
+        $view->set('error_delay', $form->getAttribute('error_delay'));
+    }
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-    	$resolver->setDefaults(array(
+        $resolver->setDefaults(array(
             'field_error_type' => false,
             'error_delay'=>false
         ));
     }
-	public function getExtendedType()
-	{
-		return 'field';
-	}
+    public function getExtendedType()
+    {
+        return 'field';
+    }
 }

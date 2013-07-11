@@ -28,31 +28,31 @@ use BootStrap\TranslationBundle\Repository\TranslationRepository;
  */
 class CorporationRepository extends TranslationRepository
 {
-	/**
-	 * Gets the profil of a user.
-	 *
-	 * @return array\entity
-	 * @access public
-	 *
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 * @since 2013-01-11
-	 */	
-	public function findOneByUser($user_id, $locale, $result = "object", $INNER_JOIN = false)
-	{
-		$em = $this->getEntityManager()->createQueryBuilder()
-		->select('a')
-		->from($this->_entityName,'a')
-		->leftJoin('a.user', 'u')
-		->where('a.archived = 0')
-		->andWhere('a.enabled = :enabled')
-		->andWhere('a.user = :userID')
-		->andwhere('u.enabled = :enabled')
-		->setParameters(array(
-				'enabled'	=> 1,
-				'userID'	=> $user_id,
-		));
-		$query = $this->setTranslatableHints($em->getQuery(), $locale, $INNER_JOIN);
-	
-		return $query->getOneOrNullResult();
-	}	
+    /**
+     * Gets the profil of a user.
+     *
+     * @return array\entity
+     * @access public
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @since 2013-01-11
+     */    
+    public function findOneByUser($user_id, $locale, $result = "object", $INNER_JOIN = false)
+    {
+        $em = $this->getEntityManager()->createQueryBuilder()
+        ->select('a')
+        ->from($this->_entityName,'a')
+        ->leftJoin('a.user', 'u')
+        ->where('a.archived = 0')
+        ->andWhere('a.enabled = :enabled')
+        ->andWhere('a.user = :userID')
+        ->andwhere('u.enabled = :enabled')
+        ->setParameters(array(
+                'enabled'    => 1,
+                'userID'    => $user_id,
+        ));
+        $query = $this->setTranslatableHints($em->getQuery(), $locale, $INNER_JOIN);
+    
+        return $query->getOneOrNullResult();
+    }    
 }

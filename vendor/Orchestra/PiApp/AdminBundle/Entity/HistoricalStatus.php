@@ -131,7 +131,7 @@ class HistoricalStatus
      */
     public function setPageTranslation(\PiApp\AdminBundle\Entity\TranslationPage $pageTranslation)
     {
-    	$this->pageTranslation = $pageTranslation;
+        $this->pageTranslation = $pageTranslation;
     }
     
     /**
@@ -141,7 +141,7 @@ class HistoricalStatus
      */
     public function getPageTranslation()
     {
-    	return $this->pageTranslation;
+        return $this->pageTranslation;
     }    
 
     /**

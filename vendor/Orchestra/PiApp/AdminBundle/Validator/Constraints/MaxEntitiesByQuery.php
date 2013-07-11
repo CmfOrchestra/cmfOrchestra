@@ -39,7 +39,7 @@ class MaxEntitiesByQuery extends Constraint
     
     public function requiredOptions()
     {
-    	return array('entity', 'field', 'max', 'message');
+        return array('entity', 'field', 'max', 'message');
     }
    
 }

@@ -29,28 +29,28 @@ use PiApp\AdminBundle\EventListener\CoreListener;
  */
 class loadClassMetadataListener extends CoreListener
 {
-	/**
-	 * Constructs a new instance of SecurityListener.
-	 *
-	 * @param ContainerInterface        $container
-	 */
-	public function __construct(ContainerInterface $container)
-	{
-		parent::__construct($container);
-	}
-		
-	/**
-	 * Methos which will be called when the event is thrown.
-	 *
-	 *
-	 * @param \Doctrine\ORM\Event\LifecycleEventArgs $eventArgs
-	 *
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 */	
+    /**
+     * Constructs a new instance of SecurityListener.
+     *
+     * @param ContainerInterface        $container
+     */
+    public function __construct(ContainerInterface $container)
+    {
+        parent::__construct($container);
+    }
+        
+    /**
+     * Methos which will be called when the event is thrown.
+     *
+     *
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $eventArgs
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */    
     public function loadClassMetadata(LifecycleEventArgs $eventArgs)
     {
-//		exemple :
-//     	$classMetadata = $eventArgs->getClassMetadata();
+//        exemple :
+//         $classMetadata = $eventArgs->getClassMetadata();
 //         $fieldMapping = array(
 //             'fieldName' => 'about',
 //             'type' => 'string',

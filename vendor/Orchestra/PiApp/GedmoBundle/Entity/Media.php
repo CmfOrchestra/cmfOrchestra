@@ -35,29 +35,29 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  */
 class Media extends AbstractDefault 
 {
-	/**
-	 * List of al translatable fields
-	 *
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_fields	= array('title');
-	
-	/**
-	 * Name of the Translation Entity
-	 *
-	 * @var array
-	 * @access  protected
-	*/
-	protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\MediaTranslation';
-	
-	/**
-	 * @var \Doctrine\Common\Collections\ArrayCollection
-	 *
-	 * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\MediaTranslation", mappedBy="object", cascade={"persist", "remove"})
-	 */
-	protected $translations;
-		
+    /**
+     * List of al translatable fields
+     *
+     * @var array
+     * @access  protected
+     */
+    protected $_fields    = array('title');
+    
+    /**
+     * Name of the Translation Entity
+     *
+     * @var array
+     * @access  protected
+    */
+    protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\MediaTranslation';
+    
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\MediaTranslation", mappedBy="object", cascade={"persist", "remove"})
+     */
+    protected $translations;
+        
     /**
      * @var bigint
      * 
@@ -213,7 +213,7 @@ class Media extends AbstractDefault
      */    
     public function __construct()
     {
-    	parent::__construct();
+        parent::__construct();
     }    
     
     /**
@@ -225,10 +225,10 @@ class Media extends AbstractDefault
      */    
     public function __toString()
     {
-    	return (string) $this->getCategory() . " > " .$this->getTitle();
+        return (string) $this->getCategory() . " > " .$this->getTitle();
     }   
     
-	/**
+    /**
      * @ORM\PrePersist
      * @ORM\preUpdate
      */
@@ -253,9 +253,9 @@ class Media extends AbstractDefault
      */
     public function setCategory($category)
     {
-    	
-    	$this->category = $category;
-    	return $this;
+        
+        $this->category = $category;
+        return $this;
     }
     
     /**
@@ -265,7 +265,7 @@ class Media extends AbstractDefault
      */
     public function getCategory()
     {
-    	return $this->category;
+        return $this->category;
     }     
     
     /**
@@ -275,8 +275,8 @@ class Media extends AbstractDefault
      */
     public function setStatus($status)
     {
-    	$this->status = $status;
-    	return $this;
+        $this->status = $status;
+        return $this;
     }
     
     /**
@@ -286,7 +286,7 @@ class Media extends AbstractDefault
      */
     public function getStatus()
     {
-    	return $this->status;
+        return $this->status;
     }    
     
     /**
@@ -296,8 +296,8 @@ class Media extends AbstractDefault
      */
     public function setTitle($title)
     {
-    	$this->title = $title;
-    	return $this;
+        $this->title = $title;
+        return $this;
     }
     
     /**
@@ -307,7 +307,7 @@ class Media extends AbstractDefault
      */
     public function getTitle()
     {
-    	return $this->title;
+        return $this->title;
     }   
 
     /**
@@ -317,7 +317,7 @@ class Media extends AbstractDefault
      */
     public function setUrl($url)
     {
-    	$this->url = $url;
+        $this->url = $url;
     }
     
     /**
@@ -327,7 +327,7 @@ class Media extends AbstractDefault
      */
     public function getUrl()
     {
-    	return $this->url;
+        return $this->url;
     }
 
     /**
@@ -337,8 +337,8 @@ class Media extends AbstractDefault
      */
     public function setImage($image)
     {
-    	$this->image 	= $image;
-    	return $this;
+        $this->image     = $image;
+        return $this;
     }
     
     /**
@@ -348,7 +348,7 @@ class Media extends AbstractDefault
      */
     public function getImage()
     {
-    	return $this->image;
+        return $this->image;
     }    
     
     /**
@@ -358,8 +358,8 @@ class Media extends AbstractDefault
      */
     public function setMediadelete($mediadelete)
     {
-    	$this->mediadelete = $mediadelete;
-    	return $this;
+        $this->mediadelete = $mediadelete;
+        return $this;
     }
     
     /**
@@ -369,7 +369,7 @@ class Media extends AbstractDefault
      */
     public function getMediadelete()
     {
-    	return $this->mediadelete;
+        return $this->mediadelete;
     }  
 
     
@@ -380,75 +380,75 @@ class Media extends AbstractDefault
      */
     public function getIndividual()
     {
-    	return $this->individual;
+        return $this->individual;
     }
     public function getCorporation()
     {
-    	return $this->corporation;
+        return $this->corporation;
     }
     public function getCorporation2()
     {
-    	return $this->corporation2;
+        return $this->corporation2;
     }
     public function getNewsletter()
     {
-    	return $this->newsletter;
+        return $this->newsletter;
     }
     public function getRss()
     {
-    	return $this->rss;
+        return $this->rss;
     }
     public function getAds()
     {
-    	return $this->ads;
+        return $this->ads;
     }    
     public function getPartner()
     {
-    	return $this->partner;
+        return $this->partner;
     }    
     public function getPressrelease()
     {
-    	return $this->pressrelease;
+        return $this->pressrelease;
     }    
     public function getNews()
     {
-    	return $this->news;
+        return $this->news;
     }    
     public function getContact1()
     {
-    	return $this->contact1;
+        return $this->contact1;
     }
     public function getContact2()
     {
-    	return $this->contact2;
+        return $this->contact2;
     }    
     public function getMenu()
     {
-    	return $this->menu;
+        return $this->menu;
     }
     public function getSlider()
     {
-    	return $this->slider;
+        return $this->slider;
     }
     public function getBlock()
     {
-    	return $this->block;
+        return $this->block;
     }
     public function getBlock2()
     {
-    	return $this->block2;
+        return $this->block2;
     }    
     public function getOrganigram()
     {
-    	return $this->organigram;
+        return $this->organigram;
     }       
     public function getEntitycategory()
     {
-    	return $this->entitycategory;
+        return $this->entitycategory;
     }
     public function getTeam()
     {
-    	return $this->team;
+        return $this->team;
     }
     
     /**
@@ -458,7 +458,7 @@ class Media extends AbstractDefault
      */
     public function setTem(\PiApp\GedmoBundle\Entity\Team $team)
     {
-    	$this->team = $team;
+        $this->team = $team;
     }    
     
     /**
@@ -468,7 +468,7 @@ class Media extends AbstractDefault
      */
     public function setEntitycategory(\PiApp\GedmoBundle\Entity\Category $category)
     {
-    	$this->entitycategory = $category;
+        $this->entitycategory = $category;
     }   
   
     /**
@@ -498,7 +498,7 @@ class Media extends AbstractDefault
      */
     public function setCorporation2(\PiApp\GedmoBundle\Entity\Corporation $corporation)
     {
-    	$this->corporation2 = $corporation;
+        $this->corporation2 = $corporation;
     }    
 
     /**
@@ -618,7 +618,7 @@ class Media extends AbstractDefault
      */
     public function setBlock2(\PiApp\GedmoBundle\Entity\Block $block)
     {
-    	$this->block2 = $block;
+        $this->block2 = $block;
     }    
 
     /**

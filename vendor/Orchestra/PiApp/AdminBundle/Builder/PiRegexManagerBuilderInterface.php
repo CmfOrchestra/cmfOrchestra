@@ -22,15 +22,15 @@ namespace PiApp\AdminBundle\Builder;
  */
 interface PiRegexManagerBuilderInterface
 {
-	public static function stripTrailingSlash($string);
-	public static function replaceTag($tag, $replacement, $content, $attributes = null);
-	public static function simplifyDatetime($string);
-	public static function isDateTime($_string);
-	public static function isMd5($_string);
-	public static function findinside($start, $end, $string);
-	public static function verifByRegularExpression($chaine, $typeExpression = "no");
-	public static function searchIdByTag($chaine,$balise);
-	public static function searchLinkByParam($chaine,$balise);
-	public static function deleteDisplayNoneTag($w_var, $tag, $replaceTerm = '');
-	public static function hex2rgb($color);
+    public static function stripTrailingSlash($string);
+    public static function replaceTag($tag, $replacement, $content, $attributes = null);
+    public static function simplifyDatetime($string);
+    public static function isDateTime($_string);
+    public static function isMd5($_string);
+    public static function findinside($start, $end, $string);
+    public static function verifByRegularExpression($chaine, $typeExpression = "no");
+    public static function searchIdByTag($chaine,$balise);
+    public static function searchLinkByParam($chaine,$balise);
+    public static function deleteDisplayNoneTag($w_var, $tag, $replaceTerm = '');
+    public static function hex2rgb($color);
 }

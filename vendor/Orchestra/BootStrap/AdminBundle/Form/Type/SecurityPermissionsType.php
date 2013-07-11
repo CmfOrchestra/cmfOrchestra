@@ -33,16 +33,16 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class SecurityPermissionsType extends AbstractType
 {
-	/**
-	 * @var \Symfony\Component\DependencyInjection\ContainerInterface
-	 */
-	private $container;
+    /**
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */
+    private $container;
 
-	/**
-	 * Constructor.
-	 *
-	 * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
-	 */	
+    /**
+     * Constructor.
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     */    
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
@@ -53,7 +53,7 @@ class SecurityPermissionsType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-    	parent::buildForm($builder, $options);
+        parent::buildForm($builder, $options);
     }
     
     /**
@@ -61,10 +61,10 @@ class SecurityPermissionsType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-    	parent::buildView($view, $form, $options);
+        parent::buildView($view, $form, $options);
     
-    	$attr = $view->vars['attr'];
-    	$view->vars['attr'] = $attr;
+        $attr = $view->vars['attr'];
+        $view->vars['attr'] = $attr;
     }    
 
     /**
@@ -72,28 +72,28 @@ class SecurityPermissionsType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-    	parent::setDefaultOptions($resolver);
+        parent::setDefaultOptions($resolver);
 
         $permissions = array();
-        	
-       	//$query = $this->pool->getContainer()->get('bootstrap.user.repository')->findAllEnabled('permission');
-       	$query = $this->container->get('bootstrap.user.repository')->getRepository('permission')->getAvailablePermissions();
+            
+           //$query = $this->pool->getContainer()->get('bootstrap.user.repository')->findAllEnabled('permission');
+           $query = $this->container->get('bootstrap.user.repository')->getRepository('permission')->getAvailablePermissions();
         foreach ($query as $field => $value) {
            if (isset($value['name']) && !isset($permission[ $value['name'] ])) {
                $permissions[ $value['name'] ] = $value['name'];
            }
         }
-       	
+           
         $resolver->setDefaults(array(
-        		'choices' => function (Options $options, $parentChoices) use ($permissions) {
-        			return empty($parentChoices) ? $permissions : array();
-        		},
-		));
+                'choices' => function (Options $options, $parentChoices) use ($permissions) {
+                    return empty($parentChoices) ? $permissions : array();
+                },
+        ));
     }
     
     public function getParent()
     {
-    	return 'choice';
+        return 'choice';
     }    
     
     /**
@@ -101,6 +101,6 @@ class SecurityPermissionsType extends AbstractType
      */
     public function getName()
     {
-    	return 'bootstrap_security_permissions';
+        return 'bootstrap_security_permissions';
     }    
 }

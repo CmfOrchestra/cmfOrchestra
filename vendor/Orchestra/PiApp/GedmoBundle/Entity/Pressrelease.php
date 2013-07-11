@@ -35,29 +35,29 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  */
 class Pressrelease extends AbstractDefault
 {
-	/**
-	 * List of al translatable fields
-	 *
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_fields	= array('title', 'pressemedia');
-	
-	/**
-	 * Name of the Translation Entity
-	 *
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\PressreleaseTranslation';	
-	
-	/**
-	 * @var \Doctrine\Common\Collections\ArrayCollection
-	 *
-	 * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\PressreleaseTranslation", mappedBy="object", cascade={"persist", "remove"})
-	 */
-	protected $translations;
-		
+    /**
+     * List of al translatable fields
+     *
+     * @var array
+     * @access  protected
+     */
+    protected $_fields    = array('title', 'pressemedia');
+    
+    /**
+     * Name of the Translation Entity
+     *
+     * @var array
+     * @access  protected
+     */
+    protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\PressreleaseTranslation';    
+    
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\PressreleaseTranslation", mappedBy="object", cascade={"persist", "remove"})
+     */
+    protected $translations;
+        
     /**
      * @var bigint
      * 
@@ -126,12 +126,12 @@ class Pressrelease extends AbstractDefault
      */    
     public function __construct()
     {
-    	parent::__construct();
+        parent::__construct();
     }    
     
     public function __toString()
     {
-    	return (string) $this->getTitle();
+        return (string) $this->getTitle();
     }    
     
     /**
@@ -159,8 +159,8 @@ class Pressrelease extends AbstractDefault
      */
     public function setCategory($category)
     {
-    	$this->category = $category;
-    	return $this;
+        $this->category = $category;
+        return $this;
     }
     
     /**
@@ -170,7 +170,7 @@ class Pressrelease extends AbstractDefault
      */
     public function getCategory()
     {
-    	return $this->category;
+        return $this->category;
     } 
         
     /**
@@ -200,7 +200,7 @@ class Pressrelease extends AbstractDefault
      */
     public function setPressmedia($pressmedia)
     {
-    	$this->pressmedia = $pressmedia;
+        $this->pressmedia = $pressmedia;
     }
     
     /**
@@ -210,7 +210,7 @@ class Pressrelease extends AbstractDefault
      */
     public function getPressmedia()
     {
-    	return $this->pressmedia;
+        return $this->pressmedia;
     }    
 
     /**
@@ -220,7 +220,7 @@ class Pressrelease extends AbstractDefault
      */
     public function getAuthor()
     {
-    	return $this->author;
+        return $this->author;
     }
     
     /**
@@ -230,8 +230,8 @@ class Pressrelease extends AbstractDefault
      */
     public function setAuthor($author)
     {
-    	$this->author = $author;
-    	return $this;
+        $this->author = $author;
+        return $this;
     }
         
     /**
@@ -241,8 +241,8 @@ class Pressrelease extends AbstractDefault
      */
     public function setPageurl($pageurl)
     {
-    	$this->pageurl = $pageurl;
-    	return $this;
+        $this->pageurl = $pageurl;
+        return $this;
     }
     
     /**
@@ -252,7 +252,7 @@ class Pressrelease extends AbstractDefault
      */
     public function getPageurl()
     {
-    	return $this->pageurl;
+        return $this->pageurl;
     }    
 
     /**
@@ -262,8 +262,8 @@ class Pressrelease extends AbstractDefault
      */
     public function setUrl($url)
     {
-    	$this->url = $url;
-    	return $this;
+        $this->url = $url;
+        return $this;
     }
     
     /**
@@ -273,7 +273,7 @@ class Pressrelease extends AbstractDefault
      */
     public function getUrl()
     {
-    	return $this->url;
+        return $this->url;
     }
 
     /**
@@ -283,8 +283,8 @@ class Pressrelease extends AbstractDefault
      */
     public function setMedia($media)
     {
-    	$this->media = $media;    	
-    	return $this;
+        $this->media = $media;        
+        return $this;
     }
     
     /**
@@ -294,7 +294,7 @@ class Pressrelease extends AbstractDefault
      */
     public function getMedia()
     {
-    	return $this->media;
+        return $this->media;
     }    
 
 }

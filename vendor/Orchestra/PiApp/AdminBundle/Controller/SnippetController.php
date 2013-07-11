@@ -37,22 +37,22 @@ use PiApp\AdminBundle\Form\WidgetByTransType;
  */
 class SnippetController extends abstractController
 {
-	protected $_entityName = "PiAppAdminBundle:Widget";
-	
+    protected $_entityName = "PiAppAdminBundle:Widget";
+    
     /**
      * Lists all Widget entities.
      * 
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function indexAction()
     {
-        $em 		= $this->getDoctrine()->getEntityManager();
-       	$entities	= $em->getRepository('PiAppAdminBundle:Widget')->findBy(array('block'=>null));
-       	
+        $em         = $this->getDoctrine()->getEntityManager();
+           $entities    = $em->getRepository('PiAppAdminBundle:Widget')->findBy(array('block'=>null));
+           
         return $this->render('PiAppAdminBundle:Snippet:index.html.twig', array(
             'entities' => $entities
         ));
@@ -70,7 +70,7 @@ class SnippetController extends abstractController
      */
     public function enabledajaxAction()
     {
-    	return parent::enabledajaxAction();
+        return parent::enabledajaxAction();
     }
     
     /**
@@ -85,7 +85,7 @@ class SnippetController extends abstractController
      */
     public function disableajaxAction()
     {
-    	return parent::disableajaxAction();
+        return parent::disableajaxAction();
     }
 
     /**
@@ -94,16 +94,16 @@ class SnippetController extends abstractController
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function showAction($id)
     {
-        $em 	= $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getEntityManager();
         $entity = $em->getRepository('PiAppAdminBundle:Widget')->find($id);
 
         if (!$entity) {
-        	throw ControllerException::NotFoundException('Widget');
+            throw ControllerException::NotFoundException('Widget');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -121,8 +121,8 @@ class SnippetController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function newAction()
     {
@@ -141,8 +141,8 @@ class SnippetController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function createAction()
     {
@@ -156,7 +156,7 @@ class SnippetController extends abstractController
             
             // On persiste tous les translations d'une page.
             foreach($entity->getTranslations() as $translationPage) {
-            	$entity->addTranslation($translationPage);
+                $entity->addTranslation($translationPage);
             }
                         
             $em->persist($entity);
@@ -177,8 +177,8 @@ class SnippetController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function editAction($id)
     {
@@ -190,7 +190,7 @@ class SnippetController extends abstractController
             throw ControllerException::NotFoundException('Widget');
         }
 
-        $editForm 	= $this->createForm(new WidgetByTransType($this->container), $entity, array('show_legend' => false));
+        $editForm     = $this->createForm(new WidgetByTransType($this->container), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('PiAppAdminBundle:Snippet:edit.html.twig', array(
@@ -206,8 +206,8 @@ class SnippetController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function updateAction($id)
     {
@@ -227,10 +227,10 @@ class SnippetController extends abstractController
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
-        	// On persiste tous les translations d'une page.
-        	foreach($entity->getTranslations() as $translationPage) {
-        		$entity->addTranslation($translationPage);
-        	}
+            // On persiste tous les translations d'une page.
+            foreach($entity->getTranslations() as $translationPage) {
+                $entity->addTranslation($translationPage);
+            }
             $em->persist($entity);
             $em->flush();
 
@@ -250,8 +250,8 @@ class SnippetController extends abstractController
      * @Secure(roles="ROLE_SUPER_ADMIN")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function deleteAction($id)
     {

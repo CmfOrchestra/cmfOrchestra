@@ -27,12 +27,12 @@ use PiApp\AdminBundle\Entity\Langue;
  */
 class LanguesFixtures extends AbstractFixture implements OrderedFixtureInterface
 {
-	/**
-	 * Load language fixtures
-	 *
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 * @since 2011-12-28
-	 */
+    /**
+     * Load language fixtures
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @since 2011-12-28
+     */
     public function load(ObjectManager $manager)
     {
         $field1 = new Langue();
@@ -81,7 +81,7 @@ class LanguesFixtures extends AbstractFixture implements OrderedFixtureInterface
      */
     public function getOrder()
     {
-    	// The order in which fixtures will be loaded
-    	return 1;
+        // The order in which fixtures will be loaded
+        return 1;
     }    
 }

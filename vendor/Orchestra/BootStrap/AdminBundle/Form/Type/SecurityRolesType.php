@@ -33,16 +33,16 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class SecurityRolesType extends AbstractType
 {
-	/**
-	 * @var \Symfony\Component\DependencyInjection\ContainerInterface
-	 */
-	private $container;
+    /**
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */
+    private $container;
 
-	/**
-	 * Constructor.
-	 *
-	 * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
-	 */	
+    /**
+     * Constructor.
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     */    
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
@@ -53,7 +53,7 @@ class SecurityRolesType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-    	parent::buildForm($builder, $options);
+        parent::buildForm($builder, $options);
     }    
     
     /**
@@ -61,10 +61,10 @@ class SecurityRolesType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-    	parent::buildView($view, $form, $options);
+        parent::buildView($view, $form, $options);
     
-    	$attr = $view->vars['attr'];
-    	$view->vars['attr'] = $attr;
+        $attr = $view->vars['attr'];
+        $view->vars['attr'] = $attr;
     }
         
     /**
@@ -72,33 +72,33 @@ class SecurityRolesType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-    	parent::setDefaultOptions($resolver);
+        parent::setDefaultOptions($resolver);
     
-    	$roles = array();
-    	// get roles from the service container
-    	foreach ($this->container->getParameter('security.role_hierarchy.roles') as $name => $rolesHierarchy)
-    	{
-    		if ($this->container->get('security.context')->isGranted($name)) {
-    			$roles[$name] = $name . ': ' . implode(', ', $rolesHierarchy);
+        $roles = array();
+        // get roles from the service container
+        foreach ($this->container->getParameter('security.role_hierarchy.roles') as $name => $rolesHierarchy)
+        {
+            if ($this->container->get('security.context')->isGranted($name)) {
+                $roles[$name] = $name . ': ' . implode(', ', $rolesHierarchy);
     
-    			foreach ($rolesHierarchy as $role) {
-    				if (!isset($roles[$role])) {
-    					$roles[$role] = $role;
-    				}
-    			}
-    		}
-    	}
-    	
-    	$resolver->setDefaults(array(
-    			'choices' => function (Options $options, $parentChoices) use ($roles) {
-    				return empty($parentChoices) ? $roles : array();
-    			},
-    	));
+                foreach ($rolesHierarchy as $role) {
+                    if (!isset($roles[$role])) {
+                        $roles[$role] = $role;
+                    }
+                }
+            }
+        }
+        
+        $resolver->setDefaults(array(
+                'choices' => function (Options $options, $parentChoices) use ($roles) {
+                    return empty($parentChoices) ? $roles : array();
+                },
+        ));
     }   
 
     public function getParent()
     {
-    	return 'choice';
+        return 'choice';
     }    
     
     /**
@@ -106,6 +106,6 @@ class SecurityRolesType extends AbstractType
      */
     public function getName()
     {
-    	return 'bootstrap_security_roles';
+        return 'bootstrap_security_roles';
     }    
 }

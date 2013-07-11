@@ -34,28 +34,28 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class UniqueValidator extends ConstraintValidator
 {
-	/**
-	 * @var \Symfony\Component\DependencyInjection\ContainerInterface
-	 */
-	protected $container;
-	
-	/**
-	 * Constructor.
-	 *
-	 * @param ContainerInterface $container The service container
-	 */
-	public function __construct(ContainerInterface $container)
-	{
-		$this->container = $container;
-	}
+    /**
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */
+    protected $container;
+    
+    /**
+     * Constructor.
+     *
+     * @param ContainerInterface $container The service container
+     */
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
     
     public function isValid($value, Constraint $constraint) 
     {
-    	// if the config autorize that the page slug is not unique.
-    	$is_unique_slug = $this->container->getParameter('pi_app_admin.page.single_slug');
-    	if (!$is_unique_slug)
-    		return true;
-    	
+        // if the config autorize that the page slug is not unique.
+        $is_unique_slug = $this->container->getParameter('pi_app_admin.page.single_slug');
+        if (!$is_unique_slug)
+            return true;
+        
         // try to get one entity that matches the constraint
         $entity = $this->container->get('pi_app_admin.repository')->getRepository($constraint->entity)
                 ->findBy(array($constraint->property => $value));

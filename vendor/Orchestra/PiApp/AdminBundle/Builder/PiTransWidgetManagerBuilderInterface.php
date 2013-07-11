@@ -22,5 +22,5 @@ namespace PiApp\AdminBundle\Builder;
  */
 interface PiTransWidgetManagerBuilderInterface
 {
-	public function renderSource($id, $lang = '', $params = null);
+    public function renderSource($id, $lang = '', $params = null);
 }

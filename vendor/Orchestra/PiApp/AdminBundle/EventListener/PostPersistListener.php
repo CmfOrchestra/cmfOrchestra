@@ -29,44 +29,44 @@ use PiApp\AdminBundle\EventListener\CoreListener;
  */
 class PostPersistListener extends CoreListener
 {
-	/**
-	 * Constructs a new instance of SecurityListener.
-	 *
-	 * @param ContainerInterface        $container
-	 */
-	public function __construct(ContainerInterface $container)
-	{
-		parent::__construct($container);
-	}
-		
-	/**
-	 * Methos which will be called when the event is thrown.
-	 *
-	 *
-	 * @param \Doctrine\ORM\Event\LifecycleEventArgs $eventArgs
-	 *
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 */	
+    /**
+     * Constructs a new instance of SecurityListener.
+     *
+     * @param ContainerInterface        $container
+     */
+    public function __construct(ContainerInterface $container)
+    {
+        parent::__construct($container);
+    }
+        
+    /**
+     * Methos which will be called when the event is thrown.
+     *
+     *
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $eventArgs
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */    
     public function postPersist(LifecycleEventArgs $eventArgs)
     {
-    	// we set the PostPersist heritage roles management
-    	$this->_Heritage_roles($eventArgs);
-    	
-    	// we set the PostPersist block page management
-    	$this->_Create_Block_Page($eventArgs);
-    	
-    	// Method which will be called when we remove twig cached file of Page, Widget and translationWidget template.
-    	// it takes too many resource
-    	//$this->_TwigCache($eventArgs);    	
-    	
-    	// we set the PostPersist Cache Url Generator management
-    	$this->_updateCacheUrlGenerator($eventArgs);
-    	
-    	// we set the PostPersist search lucene management
-    	$this->_Search_lucene($eventArgs, 'insert');    	
-    	
-    	// we persist all entities in the $this->persistUpdates array;
-    	$this->_persistEntities($eventArgs);   	
+        // we set the PostPersist heritage roles management
+        $this->_Heritage_roles($eventArgs);
+        
+        // we set the PostPersist block page management
+        $this->_Create_Block_Page($eventArgs);
+        
+        // Method which will be called when we remove twig cached file of Page, Widget and translationWidget template.
+        // it takes too many resource
+        //$this->_TwigCache($eventArgs);        
+        
+        // we set the PostPersist Cache Url Generator management
+        $this->_updateCacheUrlGenerator($eventArgs);
+        
+        // we set the PostPersist search lucene management
+        $this->_Search_lucene($eventArgs, 'insert');        
+        
+        // we persist all entities in the $this->persistUpdates array;
+        $this->_persistEntities($eventArgs);       
     }
     
 }

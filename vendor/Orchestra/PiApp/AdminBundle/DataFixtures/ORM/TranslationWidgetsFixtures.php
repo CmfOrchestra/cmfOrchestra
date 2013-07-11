@@ -27,21 +27,21 @@ use PiApp\AdminBundle\Entity\TranslationWidget;
  */
 class TranslationWidgetsFixtures extends AbstractFixture implements OrderedFixtureInterface
 {
-	/**
-	 * Load language fixtures
-	 *
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 * @since 2012-01-23
-	 */
+    /**
+     * Load language fixtures
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @since 2012-01-23
+     */
     public function load(ObjectManager $manager)
     {
-    	$field2 = new TranslationWidget();
-    	$field2->setLangCode($this->getReference('lang-ar'));
-    	$field2->setWidget($this->getReference('widget-error'));
-    	$field2->setContent("القطعة غير موجودة!");
-    	$field2->setEnabled(true);
-    	$manager->persist($field2);
-    	    	
+        $field2 = new TranslationWidget();
+        $field2->setLangCode($this->getReference('lang-ar'));
+        $field2->setWidget($this->getReference('widget-error'));
+        $field2->setContent("القطعة غير موجودة!");
+        $field2->setEnabled(true);
+        $manager->persist($field2);
+                
         $field3 = new TranslationWidget();
         $field3->setLangCode($this->getReference('lang-fr'));
         $field3->setWidget($this->getReference('widget-error'));
@@ -73,7 +73,7 @@ class TranslationWidgetsFixtures extends AbstractFixture implements OrderedFixtu
      */
     public function getOrder()
     {
-    	// The order in which fixtures will be loaded
-    	return 4;
+        // The order in which fixtures will be loaded
+        return 4;
     }    
 }

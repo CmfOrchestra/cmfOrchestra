@@ -24,21 +24,21 @@ use PiApp\AdminBundle\Twig\Node\StyleSheetNode;
  */
 class StyleSheetTokenParser extends \Twig_TokenParser
 {
-	/**
-	 * @var string $extensionName
-	 */
-	protected $extensionName;
-	
-	/**
-	 * Constructor.
-	 *
-	 * @param string $extensionName The extension name
-	 */
-	public function __construct($extensionName)
-	{
-		$this->extensionName = $extensionName;
-	}
-		
+    /**
+     * @var string $extensionName
+     */
+    protected $extensionName;
+    
+    /**
+     * Constructor.
+     *
+     * @param string $extensionName The extension name
+     */
+    public function __construct($extensionName)
+    {
+        $this->extensionName = $extensionName;
+    }
+        
     /**
      * Parses a token and returns a node.
      *

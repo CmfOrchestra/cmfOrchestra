@@ -27,17 +27,17 @@ use BootStrap\DatabaseBundle\Manager\Database\AbstractManager;
  */
 class BackupOraclePlatform extends AbstractManager
 {
-	/**
-	 * Constructor.
-	 *
-	 * @param \Doctrine\DBAL\Connection $connection
-	 * @param \Symfony\Component\DependencyInjection\ContainerInterface;
-	 * 
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 */
+    /**
+     * Constructor.
+     *
+     * @param \Doctrine\DBAL\Connection $connection
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface;
+     * 
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
     public function __construct(Connection $connection, ContainerInterface $container)
     {
-    	parent::__construct($connection, $container);
+        parent::__construct($connection, $container);
     }
     
     /**
@@ -53,28 +53,28 @@ class BackupOraclePlatform extends AbstractManager
      */
     public function run(OutputInterface $output, Array $options = null)
     {
-    	$this->setOutputWriter($output);
-    	$this->setDatabase($this->getConnection()->getDatabase());
-    	$this->setPath($options);
+        $this->setOutputWriter($output);
+        $this->setDatabase($this->getConnection()->getDatabase());
+        $this->setPath($options);
     
-    	// we print the start of the file
-    	$this->_setHead();
-    	// we print all select of all table of the database.
-    	$list_tables = $this->getSchemaManager()->listTableNames();
-    	foreach($list_tables as $k_table => $table){
-    		$this->_writeSelectTable($table);
-    	}
-    	// we print the end of the file
-    	$this->_setFooter();
+        // we print the start of the file
+        $this->_setHead();
+        // we print all select of all table of the database.
+        $list_tables = $this->getSchemaManager()->listTableNames();
+        foreach($list_tables as $k_table => $table){
+            $this->_writeSelectTable($table);
+        }
+        // we print the end of the file
+        $this->_setFooter();
     
-    	try {
-    		file_put_contents($this->getPath(), $this->contentFile);
-    		$this->getOutputWriter()->writeln(sprintf('<comment>></comment> <info>Backup of the databasewas successfully created in "%s".</info>', $this->getPath()));
-    	} catch (\Exception $e) {
-    		$this->getOutputWriter()->writeln(sprintf('<comment>></comment> <info>Backup of the database failed with the file "%s".</info>', $options['filename']));
-    	}
+        try {
+            file_put_contents($this->getPath(), $this->contentFile);
+            $this->getOutputWriter()->writeln(sprintf('<comment>></comment> <info>Backup of the databasewas successfully created in "%s".</info>', $this->getPath()));
+        } catch (\Exception $e) {
+            $this->getOutputWriter()->writeln(sprintf('<comment>></comment> <info>Backup of the database failed with the file "%s".</info>', $options['filename']));
+        }
     
-    	return $this->getOutputWriter();
+        return $this->getOutputWriter();
     }    
     
     /**
@@ -87,18 +87,18 @@ class BackupOraclePlatform extends AbstractManager
      * @since 2012-06-28
      */
     protected function disableForeignKeys(){
-    	$this->contentFile  .= sprintf("BEGIN \r\n");
-    	$this->contentFile  .= sprintf("  FOR c IN \r\n");
-    	$this->contentFile  .= sprintf("  (SELECT c.owner, c.table_name, c.constraint_name \r\n");
-    	$this->contentFile  .= sprintf("   FROM user_constraints c, user_tables t \r\n");
-    	$this->contentFile  .= sprintf("   WHERE c.table_name = t.table_name \r\n");
-    	$this->contentFile  .= sprintf("   AND c.status = 'ENABLED' \r\n");
-    	$this->contentFile  .= sprintf("   ORDER BY c.constraint_type DESC) \r\n");
-    	$this->contentFile  .= sprintf("  LOOP \r\n");
-    	$this->contentFile  .= sprintf("    dbms_utility.exec_ddl_statement('alter table \"' || c.owner || '\".\"' || c.table_name || '\" disable constraint ' || c.constraint_name); \r\n");
-    	$this->contentFile  .= sprintf("  END LOOP; \r\n");
-    	$this->contentFile  .= sprintf("END; \r\n");
-    	$this->contentFile  .= sprintf("/ \r\n");
+        $this->contentFile  .= sprintf("BEGIN \r\n");
+        $this->contentFile  .= sprintf("  FOR c IN \r\n");
+        $this->contentFile  .= sprintf("  (SELECT c.owner, c.table_name, c.constraint_name \r\n");
+        $this->contentFile  .= sprintf("   FROM user_constraints c, user_tables t \r\n");
+        $this->contentFile  .= sprintf("   WHERE c.table_name = t.table_name \r\n");
+        $this->contentFile  .= sprintf("   AND c.status = 'ENABLED' \r\n");
+        $this->contentFile  .= sprintf("   ORDER BY c.constraint_type DESC) \r\n");
+        $this->contentFile  .= sprintf("  LOOP \r\n");
+        $this->contentFile  .= sprintf("    dbms_utility.exec_ddl_statement('alter table \"' || c.owner || '\".\"' || c.table_name || '\" disable constraint ' || c.constraint_name); \r\n");
+        $this->contentFile  .= sprintf("  END LOOP; \r\n");
+        $this->contentFile  .= sprintf("END; \r\n");
+        $this->contentFile  .= sprintf("/ \r\n");
     }
     
     /**
@@ -111,18 +111,18 @@ class BackupOraclePlatform extends AbstractManager
      * @since 2012-06-28
      */
     protected function EnabledForeignKeys(){
-    	$this->contentFile  .= sprintf("BEGIN \r\n");
-    	$this->contentFile  .= sprintf("  FOR c IN \r\n");
-    	$this->contentFile  .= sprintf("  (SELECT c.owner, c.table_name, c.constraint_name \r\n");
-    	$this->contentFile  .= sprintf("   FROM user_constraints c, user_tables t \r\n");
-    	$this->contentFile  .= sprintf("   WHERE c.table_name = t.table_name \r\n");
-    	$this->contentFile  .= sprintf("   AND c.status = 'DISABLED' \r\n");
-    	$this->contentFile  .= sprintf("   ORDER BY c.constraint_type) \r\n");
-    	$this->contentFile  .= sprintf("  LOOP \r\n");
-    	$this->contentFile  .= sprintf("    dbms_utility.exec_ddl_statement('alter table \"' || c.owner || '\".\"' || c.table_name || '\" disable constraint ' || c.constraint_name); \r\n");
-    	$this->contentFile  .= sprintf("  END LOOP; \r\n");
-    	$this->contentFile  .= sprintf("END; \r\n");
-    	$this->contentFile  .= sprintf("/ \r\n");
+        $this->contentFile  .= sprintf("BEGIN \r\n");
+        $this->contentFile  .= sprintf("  FOR c IN \r\n");
+        $this->contentFile  .= sprintf("  (SELECT c.owner, c.table_name, c.constraint_name \r\n");
+        $this->contentFile  .= sprintf("   FROM user_constraints c, user_tables t \r\n");
+        $this->contentFile  .= sprintf("   WHERE c.table_name = t.table_name \r\n");
+        $this->contentFile  .= sprintf("   AND c.status = 'DISABLED' \r\n");
+        $this->contentFile  .= sprintf("   ORDER BY c.constraint_type) \r\n");
+        $this->contentFile  .= sprintf("  LOOP \r\n");
+        $this->contentFile  .= sprintf("    dbms_utility.exec_ddl_statement('alter table \"' || c.owner || '\".\"' || c.table_name || '\" disable constraint ' || c.constraint_name); \r\n");
+        $this->contentFile  .= sprintf("  END LOOP; \r\n");
+        $this->contentFile  .= sprintf("END; \r\n");
+        $this->contentFile  .= sprintf("/ \r\n");
     }
 
 }

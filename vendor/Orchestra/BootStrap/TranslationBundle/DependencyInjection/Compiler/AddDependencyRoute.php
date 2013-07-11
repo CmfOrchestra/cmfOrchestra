@@ -30,6 +30,6 @@ class AddDependencyRoute implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-    	$routeLoader = $container->getDefinition('bootstrap.route_loader');
+        $routeLoader = $container->getDefinition('bootstrap.route_loader');
     }
 }

@@ -118,7 +118,7 @@ class Team extends AbstractDefault
      */
     public function __construct()
     {
-    	parent::__construct();
+        parent::__construct();
     }
     
     /**
@@ -130,7 +130,7 @@ class Team extends AbstractDefault
      */
     public function __toString()
     {
-    	return (string) $this->getName() . ' ' . $this->getNickname();
+        return (string) $this->getName() . ' ' . $this->getNickname();
     }
     
     /**
@@ -139,7 +139,7 @@ class Team extends AbstractDefault
      */
     public function setUpdatedValue()
     {
-    	 
+         
     }    
     
     /**
@@ -159,8 +159,8 @@ class Team extends AbstractDefault
      */
     public function setCategory($category)
     {
-    	$this->category = $category;
-    	return $this;
+        $this->category = $category;
+        return $this;
     }
     
     /**
@@ -170,7 +170,7 @@ class Team extends AbstractDefault
      */
     public function getCategory()
     {
-    	return $this->category;
+        return $this->category;
     }    
     
     /**
@@ -180,8 +180,8 @@ class Team extends AbstractDefault
      */
     public function setName($name)
     {
-    	$this->name = $name;
-    	return $this;
+        $this->name = $name;
+        return $this;
     }
     
     /**
@@ -191,7 +191,7 @@ class Team extends AbstractDefault
      */
     public function getName()
     {
-    	return $this->name;
+        return $this->name;
     }
 
     /**
@@ -201,8 +201,8 @@ class Team extends AbstractDefault
      */
     public function setNickname($nickname)
     {
-    	$this->nickname = $nickname;
-    	return $this;
+        $this->nickname = $nickname;
+        return $this;
     }
     
     /**
@@ -212,7 +212,7 @@ class Team extends AbstractDefault
      */
     public function getNickname()
     {
-    	return $this->nickname;
+        return $this->nickname;
     }    
     
     /**
@@ -243,8 +243,8 @@ class Team extends AbstractDefault
      */
     public function setEmail($email)
     {
-    	$this->email = $email;
-    	return $this;
+        $this->email = $email;
+        return $this;
     }    
     
     /**
@@ -254,7 +254,7 @@ class Team extends AbstractDefault
      */
     public function getEmail()
     {
-    	return $this->email;
+        return $this->email;
     }    
     
     /**
@@ -264,8 +264,8 @@ class Team extends AbstractDefault
      */
     public function setMedia($media)
     {
-    	$this->media = $media;
-    	return $this;
+        $this->media = $media;
+        return $this;
     }
     
     /**
@@ -275,7 +275,7 @@ class Team extends AbstractDefault
      */
     public function getMedia()
     {
-    	return $this->media;
+        return $this->media;
     }    
 
 }

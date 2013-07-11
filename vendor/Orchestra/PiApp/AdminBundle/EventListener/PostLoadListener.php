@@ -29,29 +29,29 @@ use PiApp\AdminBundle\EventListener\CoreListener;
  */
 class PostLoadListener extends CoreListener
 {
-	/**
-	 * Constructs a new instance of SecurityListener.
-	 *
-	 * @param ContainerInterface        $container
-	 */
-	public function __construct(ContainerInterface $container)
-	{
-		parent::__construct($container);
-	}
-		
-	/**
-	 * Methos which will be called when the event is thrown.
-	 *
-	 *
-	 * @param \Doctrine\ORM\Event\LifecycleEventArgs $eventArgs
-	 *
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 */	
+    /**
+     * Constructs a new instance of SecurityListener.
+     *
+     * @param ContainerInterface        $container
+     */
+    public function __construct(ContainerInterface $container)
+    {
+        parent::__construct($container);
+    }
+        
+    /**
+     * Methos which will be called when the event is thrown.
+     *
+     *
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $eventArgs
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */    
     public function postLoad(LifecycleEventArgs $eventArgs)
     {
-    	// get the order entity
-        $entity 		= $eventArgs->getEntity();
-        $entityManager 	= $eventArgs->getEntityManager();
+        // get the order entity
+        $entity         = $eventArgs->getEntity();
+        $entityManager     = $eventArgs->getEntityManager();
 
         /*
         // we persist the values of the entity

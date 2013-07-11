@@ -29,37 +29,37 @@ use BootStrap\DatabaseBundle\Exception\DatabaseException;
  */
 abstract class AbstractManager implements DatabaseManagerInterface
 {
-	/**
-	 * SQL Delimitor of the end of a new line.
-	 */
-	const DELIMITOR_END_SQL_LINE = "  \n  ";
-	
-	/**
-	 * Delimitor of the strat of a comment line.
-	 */
-	const DELIMITOR_START_COMMENT_LINE = "### COMMENT ###";	
-	
-	/**
-	 * OutputWriter instance for writing output during backup
-	 *
-	 * @var \Symfony\Component\Console\Output\OutputInterface
-	 */
-	private $outputWriter;
-	
-	/**
-	 * @var string content file of the backup.
-	 */
-	protected $contentFile = '';
-	
-		
-	/**
-	 * @var \Symfony\Component\DependencyInjection\ContainerInterface
-	 */
-	private $container;
-		
-	/**
-	 * @var \Doctrine\DBAL\Connection
-	 */
+    /**
+     * SQL Delimitor of the end of a new line.
+     */
+    const DELIMITOR_END_SQL_LINE = "  \n  ";
+    
+    /**
+     * Delimitor of the strat of a comment line.
+     */
+    const DELIMITOR_START_COMMENT_LINE = "### COMMENT ###";    
+    
+    /**
+     * OutputWriter instance for writing output during backup
+     *
+     * @var \Symfony\Component\Console\Output\OutputInterface
+     */
+    private $outputWriter;
+    
+    /**
+     * @var string content file of the backup.
+     */
+    protected $contentFile = '';
+    
+        
+    /**
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */
+    private $container;
+        
+    /**
+     * @var \Doctrine\DBAL\Connection
+     */
     private $connection;
 
     /**
@@ -72,16 +72,16 @@ abstract class AbstractManager implements DatabaseManagerInterface
      */
     private $path = '';    
     
-	/**
-	 * Constructor.
-	 *
-	 * @param \Doctrine\DBAL\Connection $connection
-	 * 
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 */
+    /**
+     * Constructor.
+     *
+     * @param \Doctrine\DBAL\Connection $connection
+     * 
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
     public function __construct(Connection $connection, ContainerInterface $container)
     {
-    	$this->container = $container;    	
+        $this->container = $container;        
         $this->setConnection($connection);
     }
 
@@ -97,7 +97,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      * @since 2012-02-03
      */
     public function run(OutputInterface $output, Array $options = null){
-    	throw DatabaseException::notSupported(__METHOD__);
+        throw DatabaseException::notSupported(__METHOD__);
     }
     
     /**
@@ -110,7 +110,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      * @since 2012-06-28
      */
     protected function disableForeignKeys(){
-    	throw DatabaseException::notSupported(__METHOD__);
+        throw DatabaseException::notSupported(__METHOD__);
     }
     
     /**
@@ -123,7 +123,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      * @since 2012-06-28
      */
     protected function EnabledForeignKeys(){
-    	throw DatabaseException::notSupported(__METHOD__);
+        throw DatabaseException::notSupported(__METHOD__);
     }   
 
     /**
@@ -137,13 +137,13 @@ abstract class AbstractManager implements DatabaseManagerInterface
      */
     protected function _setHead()
     {
-    	$this->contentFile  .= sprintf("###################################### \r\n");
-    	$this->contentFile  .= sprintf("### Doctrine Backup File Generated on %s \r\n", date('Y-m-d H:m:s'));
-    	$this->contentFile  .= sprintf("### Backup DATABASE %s \r\n", $this->getDatabase() );
-    	$this->contentFile  .= sprintf("###################################### \r\n");
-    	$this->disableForeignKeys();
+        $this->contentFile  .= sprintf("###################################### \r\n");
+        $this->contentFile  .= sprintf("### Doctrine Backup File Generated on %s \r\n", date('Y-m-d H:m:s'));
+        $this->contentFile  .= sprintf("### Backup DATABASE %s \r\n", $this->getDatabase() );
+        $this->contentFile  .= sprintf("###################################### \r\n");
+        $this->disableForeignKeys();
     
-    	$this->getOutputWriter()->writeln(sprintf('Writing head file information to "<info>%s</info>" ABOUT THE database %s \n', $this->getPath(), $this->getDatabase()));
+        $this->getOutputWriter()->writeln(sprintf('Writing head file information to "<info>%s</info>" ABOUT THE database %s \n', $this->getPath(), $this->getDatabase()));
     }
     
     /**
@@ -157,14 +157,14 @@ abstract class AbstractManager implements DatabaseManagerInterface
      */
     protected function _setFooter()
     {
-    	$this->EnabledForeignKeys();
-    	$this->getOutputWriter()->writeln(sprintf('Writing footer file information to "<info>%s</info>" ABOUT THE database %s \n', $this->getPath(), $this->getDatabase()));
+        $this->EnabledForeignKeys();
+        $this->getOutputWriter()->writeln(sprintf('Writing footer file information to "<info>%s</info>" ABOUT THE database %s \n', $this->getPath(), $this->getDatabase()));
     }
     
     /**
      * Execute the drop database command
      *
-     * @return string		status of the executed command
+     * @return string        status of the executed command
      * @access protected
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
@@ -172,13 +172,13 @@ abstract class AbstractManager implements DatabaseManagerInterface
      */
     protected function _executeDropDatabase()
     {
-    	return exec(sprintf('php app/console doctrine:database:drop --force'));
+        return exec(sprintf('php app/console doctrine:database:drop --force'));
     } 
 
     /**
      * Execute the create database command
      *
-     * @return string		status of the executed command
+     * @return string        status of the executed command
      * @access protected
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
@@ -186,13 +186,13 @@ abstract class AbstractManager implements DatabaseManagerInterface
      */
     protected function _executeCreateDatabase()
     {
-    	return exec(sprintf('php app/console doctrine:database:create'));
+        return exec(sprintf('php app/console doctrine:database:create'));
     }  
 
     /**
      * Execute the create table command
      *
-     * @return string		status of the executed command
+     * @return string        status of the executed command
      * @access protected
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
@@ -200,7 +200,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      */
     protected function _executeCreateTable()
     {
-    	return exec(sprintf('php app/console doctrine:schema:create'));
+        return exec(sprintf('php app/console doctrine:schema:create'));
     }    
     
     /**
@@ -214,86 +214,86 @@ abstract class AbstractManager implements DatabaseManagerInterface
      */
     protected function _writeSelectTable($tableName)
     {
-    	// Gets all columns of the table.
-    	$colomns = $this->getColumns($tableName);
-    	
-    	// Gets all rows of a the table.
-    	$query	= $this->createQueryBuilder('u')
-    	->select('*')
-    	->from($tableName, 'u');
-    	$rows = $query->execute()->fetchAll(); //$rows = $this->getConnection()->executeQuery($query->getSQL())->fetchAll();
+        // Gets all columns of the table.
+        $colomns = $this->getColumns($tableName);
+        
+        // Gets all rows of a the table.
+        $query    = $this->createQueryBuilder('u')
+        ->select('*')
+        ->from($tableName, 'u');
+        $rows = $query->execute()->fetchAll(); //$rows = $this->getConnection()->executeQuery($query->getSQL())->fetchAll();
     
-    	// Register all insert result query
-    	foreach($rows as $key => $row){
-    		//Applies the addslashes callback to the elements of the given arrays
-    		$row = array_map('addslashes', $row);
-    		
-   			$all_values = null;
-   			$all_colName= null;
-    		foreach($colomns as $col => $col_obj){
-    			$col_details   = $col_obj->toArray();
-    			$colName	   = $col_details['name'];
-    			$all_colName[] = $col_details['name'];
-    			$type		   = $col_details['type'];
-    			
-    			if (isset($row[$colName])){
-    				$row[$colName] = str_replace("\n", '\n', $row[$colName]);
-    				$row[$colName] = str_replace("\r", '\r', $row[$colName]);
-	    			switch (true) {
-	    				case ( ($type instanceof \Doctrine\DBAL\Types\StringType) 
-	    						|| ($type instanceof \Doctrine\DBAL\Types\TextType)
-	    						|| ($type instanceof \Doctrine\DBAL\Types\ArrayType)
-	    					) :
-	    					if (!empty($row[$colName]))
-								$all_values[] =  "'" .$row[$colName] . "'";
-	    					else
-	    						$all_values[] =  'NULL';
-	    					break;
-	    				case ( ($type instanceof \Doctrine\DBAL\Types\DateTimeType)
-	    						|| ($type instanceof \Doctrine\DBAL\Types\DateTimeTzType)
-	    						|| ($type instanceof \Doctrine\DBAL\Types\DateType)
-	    						|| ($type instanceof \Doctrine\DBAL\Types\TimeType)
-	    					) :
-	    					if (!empty($row[$colName]))
-								$all_values[] =  "'" .$row[$colName] . "'";
-	    					else
-	    						$all_values[] =  'NULL';
-	    					break;
-	    				case (($type instanceof \Doctrine\DBAL\Types\BigIntType) 
-	    						|| ($type instanceof \Doctrine\DBAL\Types\SmallIntType)
-	    						|| ($type instanceof \Doctrine\DBAL\Types\IntegerType)
-	    						|| ($type instanceof \Doctrine\DBAL\Types\FloatType)
-	    						|| ($type instanceof \Doctrine\DBAL\Types\DecimalType)
-	    					) :
-	    					if (!empty($row[$colName]))
-	    						$all_values[] =  $row[$colName];
-	    					else
-	    						$all_values[] =  'NULL';
-	    					break;
-	    				case ($type instanceof \Doctrine\DBAL\Types\BooleanType) :
-	    					if (!empty($row[$colName]))
-	    						$all_values[] =  $row[$colName];
-	    					else
-	    						$all_values[] =  '0';
-	    					break;
-	    				case (is_numeric($row[$colName])) :
-	    					if (!empty($row[$colName]))
-	    						$all_values[] =  $row[$colName];
-	    					else
-	    						$all_values[] =  'NULL';
-	    					break;
-	    				default :
-	    					$all_values[] =  "'" .$row[$colName] . "'";
-	    					break;
-	    			}
-    			}
-    		}
-    		$this->contentFile  .= sprintf("INSERT INTO %s (`%s`) VALUES(%s); \r\n", $tableName,  implode("`, `", $all_colName), implode(", ", $all_values));
-    	}
-    	
-    	$this->contentFile  .= sprintf("\r\n");
-    	
-    	$this->getOutputWriter()->writeln(sprintf('Writing select lines of the table ', $tableName));
+        // Register all insert result query
+        foreach($rows as $key => $row){
+            //Applies the addslashes callback to the elements of the given arrays
+            $row = array_map('addslashes', $row);
+            
+               $all_values = null;
+               $all_colName= null;
+            foreach($colomns as $col => $col_obj){
+                $col_details   = $col_obj->toArray();
+                $colName       = $col_details['name'];
+                $all_colName[] = $col_details['name'];
+                $type           = $col_details['type'];
+                
+                if (isset($row[$colName])){
+                    $row[$colName] = str_replace("\n", '\n', $row[$colName]);
+                    $row[$colName] = str_replace("\r", '\r', $row[$colName]);
+                    switch (true) {
+                        case ( ($type instanceof \Doctrine\DBAL\Types\StringType) 
+                                || ($type instanceof \Doctrine\DBAL\Types\TextType)
+                                || ($type instanceof \Doctrine\DBAL\Types\ArrayType)
+                            ) :
+                            if (!empty($row[$colName]))
+                                $all_values[] =  "'" .$row[$colName] . "'";
+                            else
+                                $all_values[] =  'NULL';
+                            break;
+                        case ( ($type instanceof \Doctrine\DBAL\Types\DateTimeType)
+                                || ($type instanceof \Doctrine\DBAL\Types\DateTimeTzType)
+                                || ($type instanceof \Doctrine\DBAL\Types\DateType)
+                                || ($type instanceof \Doctrine\DBAL\Types\TimeType)
+                            ) :
+                            if (!empty($row[$colName]))
+                                $all_values[] =  "'" .$row[$colName] . "'";
+                            else
+                                $all_values[] =  'NULL';
+                            break;
+                        case (($type instanceof \Doctrine\DBAL\Types\BigIntType) 
+                                || ($type instanceof \Doctrine\DBAL\Types\SmallIntType)
+                                || ($type instanceof \Doctrine\DBAL\Types\IntegerType)
+                                || ($type instanceof \Doctrine\DBAL\Types\FloatType)
+                                || ($type instanceof \Doctrine\DBAL\Types\DecimalType)
+                            ) :
+                            if (!empty($row[$colName]))
+                                $all_values[] =  $row[$colName];
+                            else
+                                $all_values[] =  'NULL';
+                            break;
+                        case ($type instanceof \Doctrine\DBAL\Types\BooleanType) :
+                            if (!empty($row[$colName]))
+                                $all_values[] =  $row[$colName];
+                            else
+                                $all_values[] =  '0';
+                            break;
+                        case (is_numeric($row[$colName])) :
+                            if (!empty($row[$colName]))
+                                $all_values[] =  $row[$colName];
+                            else
+                                $all_values[] =  'NULL';
+                            break;
+                        default :
+                            $all_values[] =  "'" .$row[$colName] . "'";
+                            break;
+                    }
+                }
+            }
+            $this->contentFile  .= sprintf("INSERT INTO %s (`%s`) VALUES(%s); \r\n", $tableName,  implode("`, `", $all_colName), implode(", ", $all_values));
+        }
+        
+        $this->contentFile  .= sprintf("\r\n");
+        
+        $this->getOutputWriter()->writeln(sprintf('Writing select lines of the table ', $tableName));
     }
     
     /**
@@ -307,7 +307,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      */
     protected function getContainer()
     {
-    	return $this->container;
+        return $this->container;
     }    
 
     /**
@@ -337,7 +337,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      */
     protected function setOutputWriter(OutputInterface $output)
     {
-    	$this->outputWriter = $output;
+        $this->outputWriter = $output;
     } 
 
     /**
@@ -351,7 +351,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      */
     protected function getOutputWriter()
     {
-    	return $this->outputWriter;
+        return $this->outputWriter;
     }    
 
     /**
@@ -371,7 +371,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
     /**
      * Sets the database value.
      * 
-     * @param string $database	Database name
+     * @param string $database    Database name
      * @return void
      * @access protected
      *
@@ -380,7 +380,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      */    
     protected function setDatabase($database)
     {
-    	$this->databaseName = $database;
+        $this->databaseName = $database;
     }   
 
     /**
@@ -394,7 +394,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      */    
     protected function getDatabase()
     {
-    	return $this->databaseName;
+        return $this->databaseName;
     }    
     
     /**
@@ -408,7 +408,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      */
     protected function getDatabasePlatform()
     {
-    	return $this->getConnection()->getDatabasePlatform();
+        return $this->getConnection()->getDatabasePlatform();
     }   
 
     /**
@@ -422,7 +422,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      */
     protected function getSchemaManager()
     {
-    	return $this->getConnection()->getSchemaManager();
+        return $this->getConnection()->getSchemaManager();
     }   
 
     /**
@@ -436,7 +436,7 @@ abstract class AbstractManager implements DatabaseManagerInterface
      */
     protected function createQueryBuilder()
     {
-    	return $this->getConnection()->createQueryBuilder();
+        return $this->getConnection()->createQueryBuilder();
     }   
     
     /**
@@ -451,20 +451,20 @@ abstract class AbstractManager implements DatabaseManagerInterface
      */
     protected function setPath(Array $options = null)
     {
-    	if ( isset($options['path']) && !empty($options['path']) )
-    		$path = $options['path'];
-    	else
-    		$path = $this->getContainer()->get('kernel')->getRootDir() . '\cache\Backup';
-    	
-    	if ( isset($options['filename']) && !empty($options['filename']) )
-    		$filename = '/' . $options['filename'];
-    	else
-    		$filename = '/doctrine_backup_database-' . $this->getDatabase() . '_' . date('Y-m-d-H-i-s') . '.sql';
-    	
-    	if (is_dir($path)) {
-    		$this->path = realpath($path);
-    		$this->path = $this->path . $filename;
-    	}
+        if ( isset($options['path']) && !empty($options['path']) )
+            $path = $options['path'];
+        else
+            $path = $this->getContainer()->get('kernel')->getRootDir() . '\cache\Backup';
+        
+        if ( isset($options['filename']) && !empty($options['filename']) )
+            $filename = '/' . $options['filename'];
+        else
+            $filename = '/doctrine_backup_database-' . $this->getDatabase() . '_' . date('Y-m-d-H-i-s') . '.sql';
+        
+        if (is_dir($path)) {
+            $this->path = realpath($path);
+            $this->path = $this->path . $filename;
+        }
     }
 
     /**
@@ -478,14 +478,14 @@ abstract class AbstractManager implements DatabaseManagerInterface
      */
     protected function getPath()
     {
-    	return $this->path;
+        return $this->path;
     } 
 
     /**
      * Gets all details of a table.
      *
      * @access protected
-     * @param  string		$nameTable		Nom de la table.
+     * @param  string        $nameTable        Nom de la table.
      * @return \Doctrine\DBAL\Schema\Table
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
@@ -493,30 +493,30 @@ abstract class AbstractManager implements DatabaseManagerInterface
      */
     protected function getTableDetails($nameTable)
     {
-    	return $this->getSchemaManager()->listTableDetails($nameTable);
+        return $this->getSchemaManager()->listTableDetails($nameTable);
     }
     
     /**
      * Gets all indexes of a table.
      *
      * @access protected
-     * @param  string		$nameTable		Nom de la table.
-     * @return array		les clés primaires de la table.
+     * @param  string        $nameTable        Nom de la table.
+     * @return array        les clés primaires de la table.
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-06-29
      */
     protected function getIndexes($nameTable)
     {
-    	$listTableDetails = $this->getSchemaManager()->listTableDetails($nameTable);
-    	return $listTableDetails->getIndexes();
+        $listTableDetails = $this->getSchemaManager()->listTableDetails($nameTable);
+        return $listTableDetails->getIndexes();
     }
     
     /**
      * Gets all Foreign Keys of a table.
      *
      * @access protected
-     * @param  string		$nameTable		Nom de la table.
+     * @param  string        $nameTable        Nom de la table.
      * @return \Doctrine\DBAL\Schema\ForeignKeyConstraint|array
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
@@ -524,15 +524,15 @@ abstract class AbstractManager implements DatabaseManagerInterface
      */
     protected function getForeignKeys($nameTable)
     {
-    	$listTableDetails = $this->getSchemaManager()->listTableDetails($nameTable);
-    	return $listTableDetails->getForeignKeys();
+        $listTableDetails = $this->getSchemaManager()->listTableDetails($nameTable);
+        return $listTableDetails->getForeignKeys();
     }
     
     /**
      * Gets all columns of a table.
      *
      * @access protected
-     * @param  string		$nameTable
+     * @param  string        $nameTable
      * @return \Doctrine\DBAL\Schema\Column|array
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
@@ -540,8 +540,8 @@ abstract class AbstractManager implements DatabaseManagerInterface
      */
     protected function getColumns($nameTable)
     {
-    	$listTableDetails = $this->getSchemaManager()->listTableDetails($nameTable);
-    	return $listTableDetails->getColumns();
+        $listTableDetails = $this->getSchemaManager()->listTableDetails($nameTable);
+        return $listTableDetails->getColumns();
     }    
 
 

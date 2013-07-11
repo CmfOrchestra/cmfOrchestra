@@ -28,51 +28,51 @@ use Doctrine\ORM\EntityRepository;
  */
 class WordTranslateType extends AbstractType
 {
-	/**
-	 * @var \Doctrine\ORM\EntityManager
-	 */
-	protected $_em;
-	
-	/**
-	 * @var \Symfony\Component\DependencyInjection\ContainerInterface
-	 */
-	protected $_container;	
-	
-	/**
-	 * @var string
-	 */
-	protected $_locale;	
-	
-	/**
-	 * Constructor.
-	 *
-	 * @param \Doctrine\ORM\EntityManager $em
-	 * @param string	$locale
-	 * @return void
-	 */
-	public function __construct(EntityManager $em, $locale, ContainerInterface $container)
-	{
-		$this->_em 			= $em;
-		$this->_locale		= $locale;
-		$this->_container 	= $container;
-	}
-		
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    protected $_em;
+    
+    /**
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */
+    protected $_container;    
+    
+    /**
+     * @var string
+     */
+    protected $_locale;    
+    
+    /**
+     * Constructor.
+     *
+     * @param \Doctrine\ORM\EntityManager $em
+     * @param string    $locale
+     * @return void
+     */
+    public function __construct(EntityManager $em, $locale, ContainerInterface $container)
+    {
+        $this->_em             = $em;
+        $this->_locale        = $locale;
+        $this->_container     = $container;
+    }
+        
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-    	$builder 	
-		 		->add('keyword', 'text', array(
- 						'read_only'  => true,
- 				)) 	
- 				->add('label', 'textarea', array(
- 						'required'  => false,
- 						"attr" => array(
- 								"class"	=>"pi_editor_simple",
- 						),
- 						'label'	=> "pi.form.label.field.content",
- 						"label_attr" => array(
- 								"class"=>"block_collection",
- 						),
- 				))			
+        $builder     
+                 ->add('keyword', 'text', array(
+                         'read_only'  => true,
+                 ))     
+                 ->add('label', 'textarea', array(
+                         'required'  => false,
+                         "attr" => array(
+                                 "class"    =>"pi_editor_simple",
+                         ),
+                         'label'    => "pi.form.label.field.content",
+                         "label_attr" => array(
+                                 "class"=>"block_collection",
+                         ),
+                 ))            
         ;
     }
 

@@ -27,12 +27,12 @@ use PiApp\AdminBundle\Entity\Widget;
  */
 class WidgetsFixtures extends AbstractFixture implements OrderedFixtureInterface
 {
-	/**
-	 * Load language fixtures
-	 *
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 * @since 2012-01-23
-	 */
+    /**
+     * Load language fixtures
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @since 2012-01-23
+     */
     public function load(ObjectManager $manager)
     {
         $field1 = new Widget();
@@ -60,7 +60,7 @@ class WidgetsFixtures extends AbstractFixture implements OrderedFixtureInterface
      */
     public function getOrder()
     {
-    	// The order in which fixtures will be loaded
-    	return 3;
+        // The order in which fixtures will be loaded
+        return 3;
     }    
 }

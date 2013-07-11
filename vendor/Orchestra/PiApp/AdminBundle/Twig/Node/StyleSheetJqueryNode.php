@@ -22,21 +22,21 @@ namespace PiApp\AdminBundle\Twig\Node;
  */
 class StyleSheetJqueryNode extends \Twig_Node
 {
-	/**
-	 * @var string $extensionName
-	 */
-	protected $extensionName;
-		
     /**
-     * @param 	\Twig_NodeInterface 	$value
-     * @param 	integer 							$lineno
-     * @param 	string 								$tag (optional)
-     * @return 	void
+     * @var string $extensionName
+     */
+    protected $extensionName;
+        
+    /**
+     * @param     \Twig_NodeInterface     $value
+     * @param     integer                             $lineno
+     * @param     string                                 $tag (optional)
+     * @return     void
      */
     public function __construct($extensionName, \Twig_NodeInterface $value, $lineno, $tag = null)
     {
-    	$this->extensionName = $extensionName;
-    	
+        $this->extensionName = $extensionName;
+        
         parent::__construct(array('value' => $value), array(), $lineno, $tag);
     }
 

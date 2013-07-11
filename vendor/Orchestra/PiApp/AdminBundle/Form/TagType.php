@@ -26,51 +26,51 @@ use Doctrine\ORM\EntityManager;
  */
 class TagType extends AbstractType
 {
-	/**
-	 * @var \Doctrine\ORM\EntityManager
-	 */
-	protected $_em;
-	
-	
-	/**
-	 * Constructor.
-	 *
-	 * @param \Doctrine\ORM\EntityManager $em
-	 * @return void
-	 */
-	public function __construct(EntityManager $em, $locale)
-	{
-		$this->_em 	  = $em;
-		$this->_locale = $locale;
-	}	
-		
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    protected $_em;
+    
+    
+    /**
+     * Constructor.
+     *
+     * @param \Doctrine\ORM\EntityManager $em
+     * @return void
+     */
+    public function __construct(EntityManager $em, $locale)
+    {
+        $this->_em       = $em;
+        $this->_locale = $locale;
+    }    
+        
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-    	$choiceList = $this->_em->getRepository("PiAppAdminBundle:Tag")->getArrayAllGroupName($this->_locale);
-    	if (!isset($choiceList) || !count($choiceList))
-    		$choiceList = array();
-    	    	
+        $choiceList = $this->_em->getRepository("PiAppAdminBundle:Tag")->getArrayAllGroupName($this->_locale);
+        if (!isset($choiceList) || !count($choiceList))
+            $choiceList = array();
+                
         $builder
             ->add('enabled', 'checkbox', array(
-        			'data'  => true,
-        			'label'	=> 'pi.form.label.field.enabled',
-        	))
+                    'data'  => true,
+                    'label'    => 'pi.form.label.field.enabled',
+            ))
             ->add('groupname', 'choice', array(
-            		'choices'   => $choiceList,
-            		'multiple'	=> false,
-            		'required'  => false,
-            		'empty_value' => 'Choose a type',
-            		"attr" => array(
-            				"class"=>"pi_simpleselect",
-            		),
+                    'choices'   => $choiceList,
+                    'multiple'    => false,
+                    'required'  => false,
+                    'empty_value' => 'Choose a type',
+                    "attr" => array(
+                            "class"=>"pi_simpleselect",
+                    ),
             ))
             ->add('groupnameother', 'text', array(
-            		"label" 	=> "pi.form.label.field.or",
-            		'required'  => false,
+                    "label"     => "pi.form.label.field.or",
+                    'required'  => false,
             ))
             ->add('name', 'text', array(
- 				'label' => "pi.form.label.field.name"
- 			))
+                 'label' => "pi.form.label.field.name"
+             ))
             ->add('color')
             ->add('Hicolor')
         ;

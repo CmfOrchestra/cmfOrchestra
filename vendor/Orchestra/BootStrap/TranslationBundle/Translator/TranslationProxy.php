@@ -35,7 +35,7 @@ class TranslationProxy
      *
      * @param   Object      $translatable   object to translate
      * @param   string      $locale         translation name
-     * @param   array       $fields		    object $fields to translate
+     * @param   array       $fields            object $fields to translate
      * @param   string      $class          translation entity|document class
      * @param   Collection  $coll           translations collection
      */
@@ -43,7 +43,7 @@ class TranslationProxy
     {
         $this->translatable = $translatable;
         $this->locale       = $locale;
-        $this->fields	    = $fields;
+        $this->fields        = $fields;
         $this->class        = $class;
         $this->coll         = $coll;
 

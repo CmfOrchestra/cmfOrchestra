@@ -23,24 +23,24 @@ namespace BootStrap\TranslatorBundle\Exception;
 class ControllerException extends \Exception
 {
 
-	public static function NotFoundException($entity)
+    public static function NotFoundException($entity)
     {
         return new self(sprintf('Unable to find %s entity.', $entity));
     }
     
     public static function NotFoundOptionException($option)
     {
-    	return new self(sprintf('Unable to find %s option.', $option));
+        return new self(sprintf('Unable to find %s option.', $option));
     }    
     
     public static function callMethodNotSupported($method)
     {
-    	return new self(sprintf('Method %s doesn\'t call correctly.', $method));
+        return new self(sprintf('Method %s doesn\'t call correctly.', $method));
     }   
 
     public static function callAjaxOnlySupported($method)
     {
-    	return new self(sprintf('The method %s can be called only in ajax..', $method));
+        return new self(sprintf('The method %s can be called only in ajax..', $method));
     }    
 
 }

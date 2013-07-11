@@ -35,29 +35,29 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  */
 class Block extends AbstractDefault 
 {
-	/**
-	 * List of al translatable fields
-	 * 
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_fields	= array('title', 'descriptif', 'content', 'url_title');
+    /**
+     * List of al translatable fields
+     * 
+     * @var array
+     * @access  protected
+     */
+    protected $_fields    = array('title', 'descriptif', 'content', 'url_title');
 
-	/**
-	 * Name of the Translation Entity
-	 * 
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\BlockTranslation';
-	
-	/**
-	 * @var \Doctrine\Common\Collections\ArrayCollection
-	 *
-	 * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\BlockTranslation", mappedBy="object", cascade={"persist", "remove"})
-	 */
-	protected $translations;	
-	
+    /**
+     * Name of the Translation Entity
+     * 
+     * @var array
+     * @access  protected
+     */
+    protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\BlockTranslation';
+    
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\BlockTranslation", mappedBy="object", cascade={"persist", "remove"})
+     */
+    protected $translations;    
+    
     /**
      * @var bigint
      * 
@@ -149,7 +149,7 @@ class Block extends AbstractDefault
      */    
     public function __construct()
     {
-    	parent::__construct();
+        parent::__construct();
     }    
     
     /**
@@ -161,10 +161,10 @@ class Block extends AbstractDefault
      */    
     public function __toString()
     {
-    	return (string) $this->getCategory() . " > " .$this->getTitle();
+        return (string) $this->getCategory() . " > " .$this->getTitle();
     }    
     
-	/**
+    /**
      * @ORM\PrePersist
      * @ORM\preUpdate
      */
@@ -189,8 +189,8 @@ class Block extends AbstractDefault
      */
     public function setCategory($category)
     {
-    	$this->category = $category;
-    	return $this;
+        $this->category = $category;
+        return $this;
     }
     
     /**
@@ -200,7 +200,7 @@ class Block extends AbstractDefault
      */
     public function getCategory()
     {
-    	return $this->category;
+        return $this->category;
     } 
     
     /**
@@ -210,8 +210,8 @@ class Block extends AbstractDefault
      */
     public function setTitle($title)
     {
-    	$this->title = $title;
-    	return $this;
+        $this->title = $title;
+        return $this;
     }
     
     /**
@@ -221,7 +221,7 @@ class Block extends AbstractDefault
      */
     public function getTitle()
     {
-    	return $this->title;
+        return $this->title;
     }   
 
     /**
@@ -231,8 +231,8 @@ class Block extends AbstractDefault
      */
     public function setDescriptif ($descriptif)
     {
-    	$this->descriptif = $descriptif;
-    	return $this;
+        $this->descriptif = $descriptif;
+        return $this;
     }
     
     /**
@@ -242,7 +242,7 @@ class Block extends AbstractDefault
      */
     public function getDescriptif ()
     {
-    	return $this->descriptif;
+        return $this->descriptif;
     }    
 
     /**
@@ -252,7 +252,7 @@ class Block extends AbstractDefault
      */
     public function getContent()
     {
-    	return $this->content;
+        return $this->content;
     }   
 
     /**
@@ -262,8 +262,8 @@ class Block extends AbstractDefault
      */
     public function setContent($text)
     {
-    	$this->content = $text;
-    	return $this;
+        $this->content = $text;
+        return $this;
     }
     
     /**
@@ -273,7 +273,7 @@ class Block extends AbstractDefault
      */
     public function getAuthor()
     {
-    	return $this->author;
+        return $this->author;
     }
     
     /**
@@ -294,8 +294,8 @@ class Block extends AbstractDefault
      */
     public function setPageurl($pageurl)
     {
-    	$this->pageurl = $pageurl;
-    	return $this;
+        $this->pageurl = $pageurl;
+        return $this;
     }
     
     /**
@@ -305,7 +305,7 @@ class Block extends AbstractDefault
      */
     public function getPageurl()
     {
-    	return $this->pageurl;
+        return $this->pageurl;
     }    
 
     /**
@@ -315,8 +315,8 @@ class Block extends AbstractDefault
      */
     public function setUrl($url)
     {
-    	$this->url = $url;
-    	return $this;
+        $this->url = $url;
+        return $this;
     }
     
     /**
@@ -326,7 +326,7 @@ class Block extends AbstractDefault
      */
     public function getUrl()
     {
-    	return $this->url;
+        return $this->url;
     }
     
     /**
@@ -337,8 +337,8 @@ class Block extends AbstractDefault
      */
     public function setUrlTitle($urlTitle)
     {
-    	$this->url_title = $urlTitle;
-    	return $this;
+        $this->url_title = $urlTitle;
+        return $this;
     }
     
     /**
@@ -348,7 +348,7 @@ class Block extends AbstractDefault
      */
     public function getUrlTitle()
     {
-    	return $this->url_title;
+        return $this->url_title;
     }    
 
     /**
@@ -358,8 +358,8 @@ class Block extends AbstractDefault
      */
     public function setMedia($media)
     {
-    	$this->media = $media;    	
-    	return $this;
+        $this->media = $media;        
+        return $this;
     }
     
     /**
@@ -369,7 +369,7 @@ class Block extends AbstractDefault
      */
     public function getMedia()
     {
-    	return $this->media;
+        return $this->media;
     }    
     
     /**
@@ -379,8 +379,8 @@ class Block extends AbstractDefault
      */
     public function setMedia1($media)
     {
-    	$this->media1 = $media;
-    	return $this;
+        $this->media1 = $media;
+        return $this;
     }
     
     /**
@@ -390,7 +390,7 @@ class Block extends AbstractDefault
      */
     public function getMedia1()
     {
-    	return $this->media1;
+        return $this->media1;
     }    
 
 }

@@ -25,38 +25,38 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 class PiAppTemplateBundle extends Bundle
 {
 
-	/**
-	 * Builds the bundle.
-	 *
-	 * It is only ever called once when the cache is empty.
-	 *
-	 * This method can be overridden to register compilation passes,
-	 * other extensions, ...
-	 *
-	 * @param ContainerBuilder $container A ContainerBuilder instance
-	 * 
-	 * @author <etienne de Longeaux> <etienne.delongeaux@gmail.com>
-	 */
-	public function build(ContainerBuilder $container)
-	{
-		parent::build($container);
-	}
-	
-	/**
-	 * 
-	 * Boots the Bundle.
-	 * 
-	 * @author <etienne de Longeaux> <etienne.delongeaux@gmail.com>
-	 */
-	public function boot()
-	{
-	}
-	
-	/**
-	 * Shutdowns the Bundle.
-	 */
-	public function shutdown()
-	{
-	}	
-	
+    /**
+     * Builds the bundle.
+     *
+     * It is only ever called once when the cache is empty.
+     *
+     * This method can be overridden to register compilation passes,
+     * other extensions, ...
+     *
+     * @param ContainerBuilder $container A ContainerBuilder instance
+     * 
+     * @author <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     */
+    public function build(ContainerBuilder $container)
+    {
+        parent::build($container);
+    }
+    
+    /**
+     * 
+     * Boots the Bundle.
+     * 
+     * @author <etienne de Longeaux> <etienne.delongeaux@gmail.com>
+     */
+    public function boot()
+    {
+    }
+    
+    /**
+     * Shutdowns the Bundle.
+     */
+    public function shutdown()
+    {
+    }    
+    
 }

@@ -23,7 +23,8 @@
 	            <th>Categorie</th>         
 	            <th>Type</th>	            
 	            <th>Titre</th>	            
-	            <th>Date</th>	            
+	            <th>Date</th>	
+	            <th>Image</th>            
 	            <th>Actif</th>	        	
 	            <th>Modifier</th>
 	        </tr>
@@ -47,7 +48,14 @@
 		            	{% elseif entity.image.name is defined %}
 		            	{{ entity.image.name|raw }}
 		            	{% endif %}
-		            </td>	
+		            </td>
+					<td>
+					    {% if entity.image.id is defined %}
+						<a href="#" title="{{ media_url(entity.image, 'reference', true, entity.getUpdatedAt(), 'gedmo_media_') }}" class="info-tooltip" >
+						<img width="50px" src="{{ media_url(entity.image, 'reference', true, entity.getUpdatedAt(), 'gedmo_media_') }}" alt="Photo"/>
+						</a>
+						{% endif %}
+					</td>	
 		            <td>{% if entity.publishedat %}{{ entity.publishedat|date('Y-m-d') }}{% endif%}</td>	
 		            <td class="enabled" >{{ entity.enabled}}</td>	
 					<td>
@@ -78,12 +86,13 @@
 		</div>
 		<div class="clear"></div>
 	</div>
-	<!-- end actions-box........... -->
+	<!-- end actions-box........... -->	
 	
 	{% set options_gridtabale = {'grid-name': 'grid_media', 'grid-type':'simple', 
 			'grid-server-side': isServerSide,
+			'grid-LengthMenu':25,
 			'grid-paginate':'true',
-			'grid-filters-select': ['0','1','2','3','4','5','6','7'],
+			'grid-filters-select': ['0','1','2','3','4','5','6','7','8'],
 			'grid-filters-active':'true',
 			'grid-filters': { 
 					'4':'Type',

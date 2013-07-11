@@ -35,29 +35,29 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  */
 class Category extends AbstractDefault
 {
-	/**
-	 * List of al translatable fields
-	 *
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_fields	= array('name', 'subtitle', 'descriptif');
-	
-	/**
-	 * Name of the Translation Entity
-	 *
-	 * @var array
-	 * @access  protected
-	*/
-	protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\CategoryTranslation';
-	
-	/**
-	 * @var \Doctrine\Common\Collections\ArrayCollection
-	 *
-	 * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\CategoryTranslation", mappedBy="object", cascade={"persist", "remove"})
-	 */
-	protected $translations;
-		
+    /**
+     * List of al translatable fields
+     *
+     * @var array
+     * @access  protected
+     */
+    protected $_fields    = array('name', 'subtitle', 'descriptif');
+    
+    /**
+     * Name of the Translation Entity
+     *
+     * @var array
+     * @access  protected
+    */
+    protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\CategoryTranslation';
+    
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\CategoryTranslation", mappedBy="object", cascade={"persist", "remove"})
+     */
+    protected $translations;
+        
     /**
      * @var bigint
      * 
@@ -175,18 +175,18 @@ class Category extends AbstractDefault
     
     public function __construct()
     {
-    	parent::__construct();
-    	
-        $this->items_contact 	 = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->items_block 		 = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->items_media 		 = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->items_content 	 = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->items_slider 	 = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->items_menu	 	 = new \Doctrine\Common\Collections\ArrayCollection();        
-        $this->items_rss	 	 = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->items_partner	 = new \Doctrine\Common\Collections\ArrayCollection();
+        parent::__construct();
+        
+        $this->items_contact      = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->items_block          = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->items_media          = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->items_content      = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->items_slider      = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->items_menu          = new \Doctrine\Common\Collections\ArrayCollection();        
+        $this->items_rss          = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->items_partner     = new \Doctrine\Common\Collections\ArrayCollection();
         $this->items_pressrelease= new \Doctrine\Common\Collections\ArrayCollection();
-        $this->items_newsletter	 = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->items_newsletter     = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -198,7 +198,7 @@ class Category extends AbstractDefault
      */
     public function __toString()
     {
-    	return (string) $this->getName();
+        return (string) $this->getName();
     }    
 
     /**
@@ -218,8 +218,8 @@ class Category extends AbstractDefault
      */
     public function setType($type)
     {
-    	$this->type = $type;
-    	return $this;
+        $this->type = $type;
+        return $this;
     }
     
     /**
@@ -229,7 +229,7 @@ class Category extends AbstractDefault
      */
     public function getType()
     {
-    	return $this->type;
+        return $this->type;
     }    
 
     /**
@@ -239,8 +239,8 @@ class Category extends AbstractDefault
      */
     public function setName($name)
     {
-    	$this->name = $name;
-    	return $this;
+        $this->name = $name;
+        return $this;
     }
         
     /**
@@ -250,7 +250,7 @@ class Category extends AbstractDefault
      */
     public function getName()
     {
-    	return $this->name;
+        return $this->name;
     }   
 
     /**
@@ -260,7 +260,7 @@ class Category extends AbstractDefault
      */
     public function setSubtitle($subtitle)
     {
-    	$this->subtitle = $subtitle;
+        $this->subtitle = $subtitle;
     }
     
     /**
@@ -270,7 +270,7 @@ class Category extends AbstractDefault
      */
     public function getSubtitle()
     {
-    	return $this->subtitle;
+        return $this->subtitle;
     }    
     
     /**
@@ -280,8 +280,8 @@ class Category extends AbstractDefault
      */
     public function setDescriptif ($descriptif)
     {
-    	$this->descriptif = $descriptif;
-    	return $this;
+        $this->descriptif = $descriptif;
+        return $this;
     }
     
     /**
@@ -291,7 +291,7 @@ class Category extends AbstractDefault
      */
     public function getDescriptif ()
     {
-    	return $this->descriptif;
+        return $this->descriptif;
     }    
     
     /**
@@ -301,13 +301,13 @@ class Category extends AbstractDefault
      */
     public function setMedia($media)
     {
-    	//     	if (($media instanceof \PiApp\GedmoBundle\Entity\Media) && ($media->getImage()->getName() == ""))
-    		// 	    	$this->media = null;
-    		//     	else{
-    		//     		$this->media = $media;
-    		//     	}
-    		$this->media = $media;
-    		return $this;
+        //         if (($media instanceof \PiApp\GedmoBundle\Entity\Media) && ($media->getImage()->getName() == ""))
+            //             $this->media = null;
+            //         else{
+            //             $this->media = $media;
+            //         }
+            $this->media = $media;
+            return $this;
     }
     
     /**
@@ -317,7 +317,7 @@ class Category extends AbstractDefault
      */
     public function getMedia()
     {
-    	return $this->media;
+        return $this->media;
     }    
 
     /**
@@ -327,9 +327,9 @@ class Category extends AbstractDefault
      */
     public function addContact(\PiApp\GedmoBundle\Entity\Contact $itemsContacts)
     {
-    	if (!$this->items_contact->contains($itemsContacts)){
-    		$this->items_contact->add($itemsContacts);
-    	}
+        if (!$this->items_contact->contains($itemsContacts)){
+            $this->items_contact->add($itemsContacts);
+        }
     }
     
     /**
@@ -339,7 +339,7 @@ class Category extends AbstractDefault
      */
     public function getItemsContact()
     {
-    	return $this->items_contact;
+        return $this->items_contact;
     }
     
     /**
@@ -349,7 +349,7 @@ class Category extends AbstractDefault
      */
     public function addBlock(\PiApp\GedmoBundle\Entity\Block $itemsBlocks)
     {
-    	$this->items_block[] = $itemsBlocks;
+        $this->items_block[] = $itemsBlocks;
     }
     
     /**
@@ -359,7 +359,7 @@ class Category extends AbstractDefault
      */
     public function getItemsBlock()
     {
-    	return $this->items_block;
+        return $this->items_block;
     }
     
     /**
@@ -369,7 +369,7 @@ class Category extends AbstractDefault
      */
     public function addMedia(\PiApp\GedmoBundle\Entity\Media $itemsMedias)
     {
-    	$this->items_media[] = $itemsMedias;
+        $this->items_media[] = $itemsMedias;
     }
     
     /**
@@ -379,7 +379,7 @@ class Category extends AbstractDefault
      */
     public function getItemsMedia()
     {
-    	return $this->items_media;
+        return $this->items_media;
     }
     
     /**
@@ -389,7 +389,7 @@ class Category extends AbstractDefault
      */
     public function addContent(\PiApp\GedmoBundle\Entity\Content $items_content)
     {
-    	$this->items_content[] = $items_content;
+        $this->items_content[] = $items_content;
     }
     
     /**
@@ -399,7 +399,7 @@ class Category extends AbstractDefault
      */
     public function getItemsContent()
     {
-    	return $this->items_content;
+        return $this->items_content;
     }
     
     /**
@@ -409,7 +409,7 @@ class Category extends AbstractDefault
      */
     public function addSlider(\PiApp\GedmoBundle\Entity\Slider $items_slider)
     {
-    	$this->items_slider[] = $items_slider;
+        $this->items_slider[] = $items_slider;
     }
     
     /**
@@ -419,7 +419,7 @@ class Category extends AbstractDefault
      */
     public function getItemsSlider()
     {
-    	return $this->items_slider;
+        return $this->items_slider;
     }
     
     /**
@@ -429,7 +429,7 @@ class Category extends AbstractDefault
      */
     public function addMenu(\PiApp\GedmoBundle\Entity\Menu $items_menu)
     {
-    	$this->items_menu[] = $items_menu;
+        $this->items_menu[] = $items_menu;
     }
     
     /**
@@ -439,7 +439,7 @@ class Category extends AbstractDefault
      */
     public function getItemsMenu()
     {
-    	return $this->items_menu;
+        return $this->items_menu;
     } 
 
     
@@ -454,7 +454,7 @@ class Category extends AbstractDefault
      */
     public function addPartner(\PiApp\GedmoBundle\Entity\Partner $items_partner)
     {
-    	$this->items_partner[] = $items_partner;
+        $this->items_partner[] = $items_partner;
     }
     
     /**
@@ -464,7 +464,7 @@ class Category extends AbstractDefault
      */
     public function getPartner()
     {
-    	return $this->items_partner;
+        return $this->items_partner;
     }
 
     /**
@@ -474,7 +474,7 @@ class Category extends AbstractDefault
      */
     public function addRss(\PiApp\GedmoBundle\Entity\Rss $items_rss)
     {
-    	$this->items_rss[] = $items_rss;
+        $this->items_rss[] = $items_rss;
     }
     
     /**
@@ -484,7 +484,7 @@ class Category extends AbstractDefault
      */
     public function getItemsRss()
     {
-    	return $this->items_rss;
+        return $this->items_rss;
     }
 
     /**
@@ -494,7 +494,7 @@ class Category extends AbstractDefault
      */
     public function addPressrelease(\PiApp\GedmoBundle\Entity\Pressrelease $items_pressrelease)
     {
-    	$this->items_pressrelease[] = $items_pressrelease;
+        $this->items_pressrelease[] = $items_pressrelease;
     }
     
     /**
@@ -504,7 +504,7 @@ class Category extends AbstractDefault
      */
     public function getItemsPressrelease()
     {
-    	return $this->items_pressrelease;
+        return $this->items_pressrelease;
     }
 
     /**
@@ -514,7 +514,7 @@ class Category extends AbstractDefault
      */
     public function addNewsletter(\PiApp\GedmoBundle\Entity\Newsletter $items_newsletter)
     {
-    	$this->items_newsletter[] = $items_newsletter;
+        $this->items_newsletter[] = $items_newsletter;
     }
     
     /**
@@ -524,6 +524,6 @@ class Category extends AbstractDefault
      */
     public function getItemsNewsletter()
     {
-    	return $this->items_newsletter;
+        return $this->items_newsletter;
     }    
 }

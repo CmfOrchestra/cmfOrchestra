@@ -24,9 +24,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class PiForwardExtension extends \Twig_Extension
 {
-	/**
-	 * @var \Symfony\Component\DependencyInjection\ContainerInterface
-	 */	
+    /**
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */    
     private $container;
 
     /**
@@ -49,7 +49,7 @@ class PiForwardExtension extends \Twig_Extension
      */
     public function getName()
     {
-    	return 'admin_forward_extension';
+        return 'admin_forward_extension';
     }    
     
     /**
@@ -66,9 +66,9 @@ class PiForwardExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-    	return array(
-    			'renderForward'  => new \Twig_Function_Method($this, 'renderForwardFunction'),
-    	);
+        return array(
+                'renderForward'  => new \Twig_Function_Method($this, 'renderForwardFunction'),
+        );
     }    
 
     /**

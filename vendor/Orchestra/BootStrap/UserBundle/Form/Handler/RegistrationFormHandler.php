@@ -10,11 +10,11 @@ class RegistrationFormHandler extends BaseHandler
     protected function onSuccess(UserInterface $user, $confirmation)
     {
         if ($confirmation) {
-        	$user->setEnabled(false);
-        	$this->mailer->sendConfirmationEmailMessage($user);
+            $user->setEnabled(false);
+            $this->mailer->sendConfirmationEmailMessage($user);
         } else {
-        	$user->setConfirmationToken(null);
-        	$user->setEnabled(true);
+            $user->setConfirmationToken(null);
+            $user->setEnabled(true);
         }
         $user->setRoles(array('ROLE_ADMIN'));
         $user->setPermissions(array('VIEW', 'EDIT', 'CREATE', 'DELETE'));

@@ -53,25 +53,25 @@ class PiTwigLoader implements \Twig_LoaderInterface
      * @param Twig_LoaderInterface $fallback_loader
      */
     public function __construct(
-    			PiPageManagerBuilderInterface $page_manager, 
-    			PiWidgetManagerBuilderInterface $widget_manager, 
-    			PiTransWidgetManagerBuilderInterface $transwidget_manager, 
-    			PiTreeManagerBuilderInterface $tree_manager,
-    			PiListenerManagerBuilderInterface $listener_manager,
-    			PiSliderManagerBuilderInterface $slider_manager,
-    			PiJqextManagerBuilderInterface $jqext_manager,
-    			PiSearchLuceneManagerBuilderInterface $searchlucene_manager,
-    			\Twig_LoaderInterface $loader = null)
+                PiPageManagerBuilderInterface $page_manager, 
+                PiWidgetManagerBuilderInterface $widget_manager, 
+                PiTransWidgetManagerBuilderInterface $transwidget_manager, 
+                PiTreeManagerBuilderInterface $tree_manager,
+                PiListenerManagerBuilderInterface $listener_manager,
+                PiSliderManagerBuilderInterface $slider_manager,
+                PiJqextManagerBuilderInterface $jqext_manager,
+                PiSearchLuceneManagerBuilderInterface $searchlucene_manager,
+                \Twig_LoaderInterface $loader = null)
     {
-        $this->page_manager			= $page_manager;
-        $this->widget_manager		= $widget_manager;
-        $this->transwidget_manager 	= $transwidget_manager;
-        $this->tree_manager			= $tree_manager;
-        $this->listener_manager		= $listener_manager;
-        $this->slider_manager		= $slider_manager;
-        $this->jqext_manager		= $jqext_manager;
-        $this->searchlucene_manager	= $searchlucene_manager;
-        $this->loader				= $loader;
+        $this->page_manager            = $page_manager;
+        $this->widget_manager        = $widget_manager;
+        $this->transwidget_manager     = $transwidget_manager;
+        $this->tree_manager            = $tree_manager;
+        $this->listener_manager        = $listener_manager;
+        $this->slider_manager        = $slider_manager;
+        $this->jqext_manager        = $jqext_manager;
+        $this->searchlucene_manager    = $searchlucene_manager;
+        $this->loader                = $loader;
     }
 
     /**
@@ -91,29 +91,29 @@ class PiTwigLoader implements \Twig_LoaderInterface
             list($type, $id, $lang, $params) = $parsed_info;
         
         if (!empty($id) && ($type == 'page')){
-        	$source = $this->page_manager->renderSource($id, $lang, $params);
+            $source = $this->page_manager->renderSource($id, $lang, $params);
         }elseif (!empty($id) && ($type == 'widget')){
-        	$source = $this->widget_manager->renderSource($id, $lang, $params);
+            $source = $this->widget_manager->renderSource($id, $lang, $params);
         }elseif (!empty($id) && ($type == 'transwidget')){
-        	$source = $this->transwidget_manager->renderSource($id, $lang, $params);
+            $source = $this->transwidget_manager->renderSource($id, $lang, $params);
         }elseif (!empty($id) && (in_array($type,array('navigation', 'organigram')))){
-        	$source = $this->tree_manager->renderSource($id, $lang, $params);
+            $source = $this->tree_manager->renderSource($id, $lang, $params);
         }elseif (!empty($id) && ($type == 'listener')){
-        	$source = $this->listener_manager->renderSource($id, $lang, $params);
+            $source = $this->listener_manager->renderSource($id, $lang, $params);
         }elseif (!empty($id) && ($type == 'slider')){
-        	$source = $this->slider_manager->renderSource($id, $lang, $params);
+            $source = $this->slider_manager->renderSource($id, $lang, $params);
         }elseif (!empty($id) && ($type == 'jqext')){
-        	$source = $this->jqext_manager->renderSource($id, $lang, $params);
+            $source = $this->jqext_manager->renderSource($id, $lang, $params);
         }elseif (!empty($id) && ($type == 'lucene')){
-        	$source = $this->searchlucene_manager->renderSource($id, $lang, $params);
+            $source = $this->searchlucene_manager->renderSource($id, $lang, $params);
         }
         
         // Check source
         if (!$source)
             //throw new \Twig_Error_Loader('Id "'.$id.'" not found in the database for type: '.$type);
-        	return '';
-		else
-			return $source;
+            return '';
+        else
+            return $source;
     }
     
     /**

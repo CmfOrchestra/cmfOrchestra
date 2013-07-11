@@ -37,25 +37,25 @@ use PiApp\AdminBundle\Form\TranslationWidgetType;
  */
 class TranslationWidgetController extends abstractController
 {
-	protected $_entityName = "PiAppAdminBundle:TranslationWidget";
-	
+    protected $_entityName = "PiAppAdminBundle:TranslationWidget";
+    
     /**
      * Lists all TranslationWidget entities.
      * 
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function indexAction($widget)
     {
         $em = $this->getDoctrine()->getEntityManager();
 
         if (is_null($widget))
-        	$entities = $em->getRepository('PiAppAdminBundle:TranslationWidget')->findAll();
+            $entities = $em->getRepository('PiAppAdminBundle:TranslationWidget')->findAll();
         else
-        	$entities = $em->getRepository('PiAppAdminBundle:TranslationWidget')->findBy(array('widget'=>$widget));        
+            $entities = $em->getRepository('PiAppAdminBundle:TranslationWidget')->findBy(array('widget'=>$widget));        
 
         return $this->render('PiAppAdminBundle:TranslationWidget:index.html.twig', array(
             'entities' => $entities
@@ -74,7 +74,7 @@ class TranslationWidgetController extends abstractController
      */
     public function enabledajaxAction()
     {
-    	return parent::enabledajaxAction();
+        return parent::enabledajaxAction();
     }
     
     /**
@@ -89,7 +89,7 @@ class TranslationWidgetController extends abstractController
      */
     public function disableajaxAction()
     {
-    	return parent::disableajaxAction();
+        return parent::disableajaxAction();
     }
 
     /**
@@ -98,8 +98,8 @@ class TranslationWidgetController extends abstractController
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function showAction($id)
     {
@@ -126,8 +126,8 @@ class TranslationWidgetController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function newAction()
     {
@@ -146,8 +146,8 @@ class TranslationWidgetController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function createAction()
     {
@@ -177,8 +177,8 @@ class TranslationWidgetController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function editAction($id)
     {
@@ -206,8 +206,8 @@ class TranslationWidgetController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function updateAction($id)
     {
@@ -246,8 +246,8 @@ class TranslationWidgetController extends abstractController
      * @Secure(roles="ROLE_SUPER_ADMIN")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function deleteAction($id)
     {

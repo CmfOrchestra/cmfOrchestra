@@ -38,7 +38,7 @@ class AddinfoFieldTypeExtension extends AbstractTypeExtension
     }
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-    	$resolver->setDefaults(array(
+        $resolver->setDefaults(array(
             'widget_prefix' => null,
             'widget_suffix' => null,
             'widget_remove_btn' => null,

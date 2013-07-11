@@ -23,17 +23,17 @@ use Symfony\Component\OptionsResolver\Options;
  
 class LabelFieldTypeExtension extends AbstractTypeExtension
 {
-	public function buildForm(FormBuilderInterface $builder, array $options)
-	{
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
         $builder->setAttribute('label_attr', $options['label_attr']);
         $builder->setAttribute('label_render', $options['label_render']);
-	}
-	
-	public function buildView(FormView $view, FormInterface $form, array $options)
-	{
-	    $view->set('label_attr', $form->getAttribute('label_attr'));
-	    $view->set('label_render', $form->getAttribute('label_render'));
-	}
+    }
+    
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $view->set('label_attr', $form->getAttribute('label_attr'));
+        $view->set('label_render', $form->getAttribute('label_render'));
+    }
     
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
@@ -43,8 +43,8 @@ class LabelFieldTypeExtension extends AbstractTypeExtension
         ));
     }
     
-	public function getExtendedType()
-	{
-		return 'field';
-	}
+    public function getExtendedType()
+    {
+        return 'field';
+    }
 }

@@ -25,21 +25,21 @@ use PiApp\AdminBundle\Exception\ExtensionException;
  */
 class PiToolExtension extends \Twig_Extension
 {
-	/**
-	 * @var \Symfony\Component\DependencyInjection\ContainerInterface
-	 */
-	protected $container;
-	
-	/**
-	 * Constructor.
-	 *
-	 * @param ContainerInterface $container The service container
-	 */
-	public function __construct(ContainerInterface $container)
-	{
-		$this->container = $container;
-	}
-		
+    /**
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */
+    protected $container;
+    
+    /**
+     * Constructor.
+     *
+     * @param ContainerInterface $container The service container
+     */
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
+        
     /**
      * Returns the name of the extension.
      *
@@ -48,44 +48,44 @@ class PiToolExtension extends \Twig_Extension
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-	public function getName() {
-		return 'gedmo_tool_extension';
-	}
-		
-	/**
-	 * Returns a list of functions to add to the existing list.
-	 * 
-	 * <code>
-	 * </code>
-	 * 
-	 * @return array An array of functions
-	 * @access public
+    public function getName() {
+        return 'gedmo_tool_extension';
+    }
+        
+    /**
+     * Returns a list of functions to add to the existing list.
+     * 
+     * <code>
+     * </code>
+     * 
+     * @return array An array of functions
+     * @access public
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 */
-	public function getFunctions() {
-		return array(
-				'getProfilByUser'		=> new \Twig_Function_Method($this, 'getProfilByUserFunction'),
-		);
-	}
-	
-	
-	/**
-	 * Functions
-	 */
-		
-	public function getProfilByUserFunction($idUser) {
-		$locale		 = $this->container->get('request')->getLocale();
-			
-		$Individual  = $this->container->get('doctrine')->getEntityManager()->getRepository("PiAppGedmoBundle:Individual")->findOneByUser($idUser, $locale);
-		$Corporation = $this->container->get('doctrine')->getEntityManager()->getRepository("PiAppGedmoBundle:Corporation")->findOneByUser($idUser, $locale);
-		
-		if (!is_null($Individual))
-			return $Individual;
-		elseif (!is_null($Corporation))
-			return $Corporation;
-		else 
-			return null; 
-	}
+     */
+    public function getFunctions() {
+        return array(
+                'getProfilByUser'        => new \Twig_Function_Method($this, 'getProfilByUserFunction'),
+        );
+    }
+    
+    
+    /**
+     * Functions
+     */
+        
+    public function getProfilByUserFunction($idUser) {
+        $locale         = $this->container->get('request')->getLocale();
+            
+        $Individual  = $this->container->get('doctrine')->getEntityManager()->getRepository("PiAppGedmoBundle:Individual")->findOneByUser($idUser, $locale);
+        $Corporation = $this->container->get('doctrine')->getEntityManager()->getRepository("PiAppGedmoBundle:Corporation")->findOneByUser($idUser, $locale);
+        
+        if (!is_null($Individual))
+            return $Individual;
+        elseif (!is_null($Corporation))
+            return $Corporation;
+        else 
+            return null; 
+    }
 
 }

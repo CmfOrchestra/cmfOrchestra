@@ -30,32 +30,32 @@ class RubriqueType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        	->add('enabled', 'checkbox', array(
-        			'data'  => true,
-        			'label'	=> 'pi.form.label.field.enabled',
-        	))
-	        ->add('parent', 'entity', array(
-	        		'class' => 'PiAppAdminBundle:Rubrique',
-	        		'query_builder' => function(EntityRepository $er) {
-	        		return $er->createQueryBuilder('k')
-		        		->select('k')
-		        		->where('k.enabled = :enabled')
-		        		->orderBy('k.lft', 'ASC')
-		        		->setParameter('enabled', 1);
-			        },
-			        'empty_value' => 'Choose an option',
-			        'multiple'	=> false,
-			        'required'  => false,
-			        "attr" => array(
-			        		"class"=>"pi_simpleselect",
-			        ),
-	        ))
+            ->add('enabled', 'checkbox', array(
+                    'data'  => true,
+                    'label'    => 'pi.form.label.field.enabled',
+            ))
+            ->add('parent', 'entity', array(
+                    'class' => 'PiAppAdminBundle:Rubrique',
+                    'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('k')
+                        ->select('k')
+                        ->where('k.enabled = :enabled')
+                        ->orderBy('k.lft', 'ASC')
+                        ->setParameter('enabled', 1);
+                    },
+                    'empty_value' => 'Choose an option',
+                    'multiple'    => false,
+                    'required'  => false,
+                    "attr" => array(
+                            "class"=>"pi_simpleselect",
+                    ),
+            ))
             ->add('titre', 'text', array(
-            		'label'	=> "pi.form.label.field.title",
+                    'label'    => "pi.form.label.field.title",
             ))
             ->add('descriptif', 'text', array(
- 					'label'	=> 'pi.form.label.field.description',
- 			))  
+                     'label'    => 'pi.form.label.field.description',
+             ))  
             ->add('texte');
     }
 

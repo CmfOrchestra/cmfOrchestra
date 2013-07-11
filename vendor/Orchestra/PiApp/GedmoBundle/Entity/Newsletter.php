@@ -35,29 +35,29 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  */
 class Newsletter extends AbstractDefault 
 {
-	/**
-	 * List of al translatable fields
-	 * 
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_fields	= array('title', 'subtitle', 'descriptif', 'content');
+    /**
+     * List of al translatable fields
+     * 
+     * @var array
+     * @access  protected
+     */
+    protected $_fields    = array('title', 'subtitle', 'descriptif', 'content');
 
-	/**
-	 * Name of the Translation Entity
-	 * 
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\NewsletterTranslation';
-	
-	/**
-	 * @var \Doctrine\Common\Collections\ArrayCollection
-	 *
-	 * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\NewsletterTranslation", mappedBy="object", cascade={"persist", "remove"})
-	 */
-	protected $translations;	
-	
+    /**
+     * Name of the Translation Entity
+     * 
+     * @var array
+     * @access  protected
+     */
+    protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\NewsletterTranslation';
+    
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\NewsletterTranslation", mappedBy="object", cascade={"persist", "remove"})
+     */
+    protected $translations;    
+    
     /**
      * @var bigint
      * 
@@ -153,9 +153,9 @@ class Newsletter extends AbstractDefault
      */    
     public function __construct()
     {
-    	parent::__construct();
-    	
-    	$this->users			= new \Doctrine\Common\Collections\ArrayCollection();
+        parent::__construct();
+        
+        $this->users            = new \Doctrine\Common\Collections\ArrayCollection();
     }    
     
     /**
@@ -167,7 +167,7 @@ class Newsletter extends AbstractDefault
      */    
     public function __toString()
     {
-    	return (string) $this->getTitle();
+        return (string) $this->getTitle();
     }   
 
     /**
@@ -195,8 +195,8 @@ class Newsletter extends AbstractDefault
      */
     public function setUsers(\Doctrine\Common\Collections\ArrayCollection $users)
     {
-    	$this->users = $users;
-    	return $this;
+        $this->users = $users;
+        return $this;
     }
     
     /**
@@ -206,7 +206,7 @@ class Newsletter extends AbstractDefault
      */
     public function getUsers()
     {
-    	return $this->users;
+        return $this->users;
     }     
 
     /**
@@ -216,9 +216,9 @@ class Newsletter extends AbstractDefault
      */
     public function addUser(\BootStrap\UserBundle\Entity\User $users)
     {
-    	if (!$this->users->contains($users)){
-    		$this->users->add($users);
-    	}
+        if (!$this->users->contains($users)){
+            $this->users->add($users);
+        }
     }    
 
     /**
@@ -228,7 +228,7 @@ class Newsletter extends AbstractDefault
      */
     public function removeUser(\BootStrap\UserBundle\Entity\User $user)
     {
-    	return $this->users->removeElement($user);
+        return $this->users->removeElement($user);
     }    
     
     /**
@@ -238,8 +238,8 @@ class Newsletter extends AbstractDefault
      */
     public function setCategory($category)
     {
-    	$this->category = $category;
-    	return $this;
+        $this->category = $category;
+        return $this;
     }
     
     /**
@@ -249,7 +249,7 @@ class Newsletter extends AbstractDefault
      */
     public function getCategory()
     {
-    	return $this->category;
+        return $this->category;
     } 
     
     /**
@@ -319,7 +319,7 @@ class Newsletter extends AbstractDefault
      */
     public function setDescriptif ($descriptif)
     {
-    	$this->descriptif = $descriptif;
+        $this->descriptif = $descriptif;
     }
     
     /**
@@ -329,7 +329,7 @@ class Newsletter extends AbstractDefault
      */
     public function getDescriptif ()
     {
-    	return $this->descriptif;
+        return $this->descriptif;
     }    
 
     /**
@@ -359,8 +359,8 @@ class Newsletter extends AbstractDefault
      */
     public function setPageurl($pageurl)
     {
-    	$this->pageurl = $pageurl;
-    	return $this;
+        $this->pageurl = $pageurl;
+        return $this;
     }
     
     /**
@@ -370,7 +370,7 @@ class Newsletter extends AbstractDefault
      */
     public function getPageurl()
     {
-    	return $this->pageurl;
+        return $this->pageurl;
     }
     
     /**
@@ -380,8 +380,8 @@ class Newsletter extends AbstractDefault
      */
     public function setUrl($url)
     {
-    	$this->url = $url;
-    	return $this;
+        $this->url = $url;
+        return $this;
     }
     
     /**
@@ -391,7 +391,7 @@ class Newsletter extends AbstractDefault
      */
     public function getUrl()
     {
-    	return $this->url;
+        return $this->url;
     }
     
     /**
@@ -401,8 +401,8 @@ class Newsletter extends AbstractDefault
      */
     public function setMedia($media)
     {
-    	$this->media = $media;
-    	return $this;
+        $this->media = $media;
+        return $this;
     }
     
     /**
@@ -412,7 +412,7 @@ class Newsletter extends AbstractDefault
      */
     public function getMedia()
     {
-    	return $this->media;
+        return $this->media;
     }  
 
 }

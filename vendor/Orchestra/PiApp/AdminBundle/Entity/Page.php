@@ -202,21 +202,21 @@ class Page
 
     public function __construct()
     {
-        $this->translations	= new \Doctrine\Common\Collections\ArrayCollection();
-    	$this->blocks		= new \Doctrine\Common\Collections\ArrayCollection();
-    	$this->menus		= new \Doctrine\Common\Collections\ArrayCollection();
-    	$this->keywords		= new \Doctrine\Common\Collections\ArrayCollection();
-    	$this->page_css		= new \Doctrine\Common\Collections\ArrayCollection();
-    	$this->page_js		= new \Doctrine\Common\Collections\ArrayCollection();
-    	
-    	$this->setEnabled(true);
-    	//$this->setCreatedAt(new \DateTime());
-    	//$this->setUpdatedAt(new \DateTime());
+        $this->translations    = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->blocks        = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->menus        = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->keywords        = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->page_css        = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->page_js        = new \Doctrine\Common\Collections\ArrayCollection();
+        
+        $this->setEnabled(true);
+        //$this->setCreatedAt(new \DateTime());
+        //$this->setUpdatedAt(new \DateTime());
     }
     
     public function __toString()
     {
-    	return (string) $this->route_name;
+        return (string) $this->route_name;
     }    
     
 //     /**
@@ -224,8 +224,8 @@ class Page
 //      */
 //     public function setCreatedValue()
 //     {
-//     	$this->setCreatedAt(new \DateTime());
-//     	$this->setUpdatedAt(new \DateTime());
+//         $this->setCreatedAt(new \DateTime());
+//         $this->setUpdatedAt(new \DateTime());
 //     }
     
 //     /**
@@ -233,7 +233,7 @@ class Page
 //      */
 //     public function setUpdatedValue()
 //     {
-//     	$this->setUpdatedAt(new \DateTime());
+//         $this->setUpdatedAt(new \DateTime());
 //     }    
     
     /**
@@ -389,36 +389,36 @@ class Page
     /**
      * Set the collection of related translations
      *
-     * @param \Doctrine\Common\Collections\ArrayCollection	$translations
+     * @param \Doctrine\Common\Collections\ArrayCollection    $translations
      */
     public function setTranslations(\Doctrine\Common\Collections\ArrayCollection $translations)
     {
-    	$this->translations = $translations;
+        $this->translations = $translations;
     }
         
     /**
      * Add a translation to the collection of related translations
      *
-     * @param \PiApp\AdminBundle\Entity\TranslationPage	$translation
+     * @param \PiApp\AdminBundle\Entity\TranslationPage    $translation
      */
     public function addTranslation(\PiApp\AdminBundle\Entity\TranslationPage $translation)
     {
-    	if (!$this->translations->contains($translation))
-      		$this->translations->add($translation);
-    	
-       	$translation->setPage($this);
+        if (!$this->translations->contains($translation))
+              $this->translations->add($translation);
+        
+           $translation->setPage($this);
     }
     
     /**
      * Remove a translation from the collection of related translations
      *
-     * @param  \PiApp\AdminBundle\Entity\TranslationPage	$translation
+     * @param  \PiApp\AdminBundle\Entity\TranslationPage    $translation
      */
     public function removeTranslation(\PiApp\AdminBundle\Entity\TranslationPage $translation)
     {
-    	//if ($this->translations->contains($translation)) {
-    		$this->translations->removeElement($translation);
-    	//}
+        //if ($this->translations->contains($translation)) {
+            $this->translations->removeElement($translation);
+        //}
     }    
 
     /**
@@ -439,17 +439,17 @@ class Page
      */
     public function getTranslationByLocale($locale)
     {
-    	foreach($this->translations as $key => $trans){
-    		if ($trans->getLangCode()->getId() == $locale)
-    			return $trans;
-    	}
-    	return null;
+        foreach($this->translations as $key => $trans){
+            if ($trans->getLangCode()->getId() == $locale)
+                return $trans;
+        }
+        return null;
     }    
 
     /**
      * Add blocks
      *
-     * @param \PiApp\AdminBundle\Entity\Block	$block
+     * @param \PiApp\AdminBundle\Entity\Block    $block
      */
     public function addBlock(\PiApp\AdminBundle\Entity\Block $block)
     {
@@ -470,7 +470,7 @@ class Page
     /**
      * Set rubrique
      *
-     * @param \PiApp\AdminBundle\Entity\Rubrique	$rubrique
+     * @param \PiApp\AdminBundle\Entity\Rubrique    $rubrique
      */
     public function setRubrique(\PiApp\AdminBundle\Entity\Rubrique $rubrique)
     {
@@ -490,7 +490,7 @@ class Page
     /**
      * Set layout
      *
-     * @param \PiApp\AdminBundle\Entity\Layout	$layout
+     * @param \PiApp\AdminBundle\Entity\Layout    $layout
      */
     public function setLayout(\PiApp\AdminBundle\Entity\Layout $layout)
     {
@@ -510,21 +510,21 @@ class Page
     /**
      * Add Css Page
      *
-     * @param \PiApp\AdminBundle\Entity\Page	$Page
+     * @param \PiApp\AdminBundle\Entity\Page    $Page
      */
     public function addPageCss(\PiApp\AdminBundle\Entity\Page $Page)
     {
-    	$this->page_css[] = $Page;
+        $this->page_css[] = $Page;
     }
     
     /**
      * Set Css Page
      *
-     * @param \Doctrine\Common\Collections\ArrayCollection	$Page
+     * @param \Doctrine\Common\Collections\ArrayCollection    $Page
      */
     public function setPageCss($Pages)
     {
-    	$this->page_css = $Pages;
+        $this->page_css = $Pages;
     }
     
     /**
@@ -534,13 +534,13 @@ class Page
      */
     public function getPageCss()
     {
-    	return $this->page_css;
+        return $this->page_css;
     }    
     
     /**
      * Add Js Page
-     *	
-     * @param \PiApp\AdminBundle\Entity\Page	$Page
+     *    
+     * @param \PiApp\AdminBundle\Entity\Page    $Page
      */
     public function addPageJs(\PiApp\AdminBundle\Entity\Page $Page)
     {
@@ -550,11 +550,11 @@ class Page
     /**
      * Set Js Page
      *
-     * @param \Doctrine\Common\Collections\ArrayCollection	$Pages
+     * @param \Doctrine\Common\Collections\ArrayCollection    $Pages
      */    
     public function setPageJs($Pages)
     {
-    	$this->page_js = $Pages;
+        $this->page_js = $Pages;
     }    
 
     /**
@@ -570,7 +570,7 @@ class Page
     /**
      * Add keyWord
      *
-     * @param \PiApp\AdminBundle\Entity\KeyWord	$keywords
+     * @param \PiApp\AdminBundle\Entity\KeyWord    $keywords
      */
     public function addKeyWord(\PiApp\AdminBundle\Entity\KeyWord $keywords)
     {
@@ -580,11 +580,11 @@ class Page
     /**
      * Set keywords
      *
-     * @param \Doctrine\Common\Collections\ArrayCollection	$keyword
+     * @param \Doctrine\Common\Collections\ArrayCollection    $keyword
      */    
     public function setKeywords($keyword)
     {
-    	$this->keywords = $keyword;
+        $this->keywords = $keyword;
     }    
 
     /**
@@ -604,7 +604,7 @@ class Page
      */
     public function setCreatedAt($createdAt)
     {
-    	$this->created_at = $createdAt;
+        $this->created_at = $createdAt;
     }
     
     /**
@@ -614,7 +614,7 @@ class Page
      */
     public function getCreatedAt()
     {
-    	return $this->created_at;
+        return $this->created_at;
     }
     
     /**
@@ -624,7 +624,7 @@ class Page
      */
     public function setUpdatedAt($updatedAt)
     {
-    	$this->updated_at = $updatedAt;
+        $this->updated_at = $updatedAt;
     }
     
     /**
@@ -634,7 +634,7 @@ class Page
      */
     public function getUpdatedAt()
     {
-    	return $this->updated_at;
+        return $this->updated_at;
     }
     
     /**
@@ -644,7 +644,7 @@ class Page
      */
     public function setArchiveAt($archiveAt)
     {
-    	$this->archive_at = $archiveAt;
+        $this->archive_at = $archiveAt;
     }
     
     /**
@@ -654,7 +654,7 @@ class Page
      */
     public function getArchiveAt()
     {
-    	return $this->archive_at;
+        return $this->archive_at;
     }
     
     
@@ -665,7 +665,7 @@ class Page
      */
     public function setEnabled($enabled)
     {
-    	$this->enabled = $enabled;
+        $this->enabled = $enabled;
     }
     
     /**
@@ -675,7 +675,7 @@ class Page
      */
     public function getEnabled()
     {
-    	return $this->enabled;
+        return $this->enabled;
     }   
 
     /**
@@ -685,8 +685,8 @@ class Page
      */
     public function setArchived($archived)
     {
-    	$this->archived = $archived;
-    	return $this;
+        $this->archived = $archived;
+        return $this;
     }
     
     /**
@@ -696,7 +696,7 @@ class Page
      */
     public function getArchived()
     {
-    	return $this->archived;
+        return $this->archived;
     }    
     
     /**
@@ -706,7 +706,7 @@ class Page
      */
     public function getMenus()
     {
-    	return $this->menus;
+        return $this->menus;
     }    
 
 }

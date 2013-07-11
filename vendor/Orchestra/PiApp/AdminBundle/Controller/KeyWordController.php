@@ -37,20 +37,20 @@ use PiApp\AdminBundle\Form\KeyWordType;
  */
 class KeyWordController extends abstractController
 {
-	protected $_entityName = "PiAppAdminBundle:KeyWord";
-	
+    protected $_entityName = "PiAppAdminBundle:KeyWord";
+    
     /**
      * Lists all KeyWord entities.
      * 
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function indexAction()
     {
-        $em 	  = $this->getDoctrine()->getEntityManager();
+        $em       = $this->getDoctrine()->getEntityManager();
         $entities = $em->getRepository('PiAppAdminBundle:KeyWord')->findAll();
 
         return $this->render('PiAppAdminBundle:KeyWord:index.html.twig', array(
@@ -70,7 +70,7 @@ class KeyWordController extends abstractController
      */
     public function enabledajaxAction()
     {
-    	return parent::enabledajaxAction();
+        return parent::enabledajaxAction();
     }
     
     /**
@@ -85,7 +85,7 @@ class KeyWordController extends abstractController
      */
     public function disableajaxAction()
     {
-    	return parent::disableajaxAction();
+        return parent::disableajaxAction();
     }
 
     /**
@@ -94,12 +94,12 @@ class KeyWordController extends abstractController
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function showAction($id)
     {
-        $em		= $this->getDoctrine()->getEntityManager();
+        $em        = $this->getDoctrine()->getEntityManager();
         $entity = $em->getRepository('PiAppAdminBundle:KeyWord')->find($id);
 
         if (!$entity) {
@@ -121,12 +121,12 @@ class KeyWordController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function newAction()
     {
-    	$em		= $this->getDoctrine()->getEntityManager();
+        $em        = $this->getDoctrine()->getEntityManager();
         $entity = new KeyWord();
         $form   = $this->createForm(new KeyWordType($em), $entity, array('show_legend' => false));
 
@@ -142,12 +142,12 @@ class KeyWordController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function createAction()
     {
-    	$em		 = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getEntityManager();
         $entity  = new KeyWord();
         $request = $this->getRequest();
         $form    = $this->createForm(new KeyWordType($em), $entity, array('show_legend' => false));
@@ -174,12 +174,12 @@ class KeyWordController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function editAction($id)
     {
-        $em		= $this->getDoctrine()->getEntityManager();
+        $em        = $this->getDoctrine()->getEntityManager();
         $entity = $em->getRepository('PiAppAdminBundle:KeyWord')->find($id);
 
         if (!$entity) {
@@ -202,12 +202,12 @@ class KeyWordController extends abstractController
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function updateAction($id)
     {
-        $em 	= $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getEntityManager();
         $entity = $em->getRepository('PiAppAdminBundle:KeyWord')->find($id);
 
         if (!$entity) {
@@ -241,8 +241,8 @@ class KeyWordController extends abstractController
      * @Secure(roles="ROLE_SUPER_ADMIN")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * 
-     * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     public function deleteAction($id)
     {
@@ -260,10 +260,10 @@ class KeyWordController extends abstractController
             }
 
             try {
-            	$em->remove($entity);
-            	$em->flush();
+                $em->remove($entity);
+                $em->flush();
             } catch (\Exception $e) {
-            	$this->container->get('request')->getSession()->getFlashBag()->add('notice', 'pi.session.flash.wrong.undelete');
+                $this->container->get('request')->getSession()->getFlashBag()->add('notice', 'pi.session.flash.wrong.undelete');
             }
         }
 

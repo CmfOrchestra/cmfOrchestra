@@ -35,29 +35,29 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  */
 class Rss extends AbstractDefault 
 {
-	/**
-	 * List of al translatable fields
-	 * 
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_fields	= array('title');
+    /**
+     * List of al translatable fields
+     * 
+     * @var array
+     * @access  protected
+     */
+    protected $_fields    = array('title');
 
-	/**
-	 * Name of the Translation Entity
-	 * 
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\RssTranslation';
-	
-	/**
-	 * @var \Doctrine\Common\Collections\ArrayCollection
-	 *
-	 * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\RssTranslation", mappedBy="object", cascade={"persist", "remove"})
-	 */
-	protected $translations;	
-	
+    /**
+     * Name of the Translation Entity
+     * 
+     * @var array
+     * @access  protected
+     */
+    protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\RssTranslation';
+    
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\RssTranslation", mappedBy="object", cascade={"persist", "remove"})
+     */
+    protected $translations;    
+    
     /**
      * @var bigint
      * 
@@ -130,9 +130,9 @@ class Rss extends AbstractDefault
      */    
     public function __construct()
     {
-    	parent::__construct();
-    	
-    	$this->users			= new \Doctrine\Common\Collections\ArrayCollection();
+        parent::__construct();
+        
+        $this->users            = new \Doctrine\Common\Collections\ArrayCollection();
     }    
     
     /**
@@ -144,10 +144,10 @@ class Rss extends AbstractDefault
      */    
     public function __toString()
     {
-    	return (string) $this->getTitle();
+        return (string) $this->getTitle();
     }    
     
-	/**
+    /**
      * @ORM\PrePersist
      * @ORM\preUpdate
      */
@@ -172,8 +172,8 @@ class Rss extends AbstractDefault
      */
     public function setUsers(\Doctrine\Common\Collections\ArrayCollection $users)
     {
-    	$this->users = $users;
-    	return $this;
+        $this->users = $users;
+        return $this;
     }
     
     /**
@@ -183,7 +183,7 @@ class Rss extends AbstractDefault
      */
     public function getUsers()
     {
-    	return $this->users;
+        return $this->users;
     }
     
     /**
@@ -193,9 +193,9 @@ class Rss extends AbstractDefault
      */
     public function addUser(\BootStrap\UserBundle\Entity\User $users)
     {
-    	if (!$this->users->contains($users)){
-    		$this->users->add($users);
-    	}
+        if (!$this->users->contains($users)){
+            $this->users->add($users);
+        }
     }    
     
     /**
@@ -205,8 +205,8 @@ class Rss extends AbstractDefault
      */
     public function setCategory($category)
     {
-    	$this->category = $category;
-    	return $this;
+        $this->category = $category;
+        return $this;
     }
     
     /**
@@ -216,7 +216,7 @@ class Rss extends AbstractDefault
      */
     public function getCategory()
     {
-    	return $this->category;
+        return $this->category;
     }
     
     /**
@@ -246,7 +246,7 @@ class Rss extends AbstractDefault
      */
     public function setTitle($title)
     {
-    	$this->title = $title;
+        $this->title = $title;
     }
     
     /**
@@ -256,7 +256,7 @@ class Rss extends AbstractDefault
      */
     public function getTitle()
     {
-    	return $this->title;
+        return $this->title;
     }    
     
     /**
@@ -266,8 +266,8 @@ class Rss extends AbstractDefault
      */
     public function setPageurl($pageurl)
     {
-    	$this->pageurl = $pageurl;
-    	return $this;
+        $this->pageurl = $pageurl;
+        return $this;
     }
     
     /**
@@ -277,7 +277,7 @@ class Rss extends AbstractDefault
      */
     public function getPageurl()
     {
-    	return $this->pageurl;
+        return $this->pageurl;
     }    
 
     /**
@@ -287,8 +287,8 @@ class Rss extends AbstractDefault
      */
     public function setUrl($url)
     {
-    	$this->url = $url;
-    	return $this;
+        $this->url = $url;
+        return $this;
     }
     
     /**
@@ -298,7 +298,7 @@ class Rss extends AbstractDefault
      */
     public function getUrl()
     {
-    	return $this->url;
+        return $this->url;
     }
 
     /**
@@ -308,8 +308,8 @@ class Rss extends AbstractDefault
      */
     public function setMedia($media)
     {
-    	$this->media = $media;    	
-    	return $this;
+        $this->media = $media;        
+        return $this;
     }
     
     /**
@@ -319,7 +319,7 @@ class Rss extends AbstractDefault
      */
     public function getMedia()
     {
-    	return $this->media;
+        return $this->media;
     }    
 
 }

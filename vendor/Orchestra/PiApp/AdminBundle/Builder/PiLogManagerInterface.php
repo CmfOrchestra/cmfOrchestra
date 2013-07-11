@@ -21,13 +21,13 @@ namespace PiApp\AdminBundle\Builder;
  */
 interface PiLogManagerInterface
 {
-	public function setPath($path);
-	public function setName($name);
-	public function setFile($filePath, $mode = 0777);
-	public function setInit($id, $format = "YmdHis", $flag = FILE_APPEND, $path = "");
-	public function setInfo($info, $inLogger = true);
-	public function clearInfo();
-	public function setErr($err, $inLogger = true);
-	public function delete();
-	public function save($flag = FILE_APPEND, $mode = 0777);
+    public function setPath($path);
+    public function setName($name);
+    public function setFile($filePath, $mode = 0777);
+    public function setInit($id, $format = "YmdHis", $flag = FILE_APPEND, $path = "");
+    public function setInfo($info, $inLogger = true);
+    public function clearInfo();
+    public function setErr($err, $inLogger = true);
+    public function delete();
+    public function save($flag = FILE_APPEND, $mode = 0777);
 }

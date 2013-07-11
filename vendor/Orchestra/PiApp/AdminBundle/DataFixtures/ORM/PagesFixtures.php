@@ -28,12 +28,12 @@ use PiApp\AdminBundle\Repository\PageRepository;
  */
 class PagesFixtures extends AbstractFixture implements OrderedFixtureInterface
 {
-	/**
-	 * Load language fixtures
-	 *
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 * @since 2012-01-23
-	 */
+    /**
+     * Load language fixtures
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @since 2012-01-23
+     */
     public function load(ObjectManager $manager)
     {
         $field1 = new Page();
@@ -76,7 +76,7 @@ class PagesFixtures extends AbstractFixture implements OrderedFixtureInterface
      */
     public function getOrder()
     {
-    	// The order in which fixtures will be loaded
-    	return 3;
+        // The order in which fixtures will be loaded
+        return 3;
     }    
 }

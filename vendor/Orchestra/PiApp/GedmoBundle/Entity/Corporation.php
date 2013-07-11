@@ -24,7 +24,7 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  * PiApp\GedmoBundle\Entity\Corporation
  *
  * @ORM\Table(
- * 			name="gedmo_corporation",
+ *             name="gedmo_corporation",
  *          indexes={@ORM\Index(name="name_idx", columns={"user_name"})}
  * )
  * @ORM\Entity(repositoryClass="PiApp\GedmoBundle\Repository\CorporationRepository")
@@ -38,29 +38,29 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  */
 class Corporation extends AbstractDefault 
 {
-	/**
-	 * List of al translatable fields
-	 * 
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_fields	= array('DetailActivity', 'ArgumentCommercial');
+    /**
+     * List of al translatable fields
+     * 
+     * @var array
+     * @access  protected
+     */
+    protected $_fields    = array('DetailActivity', 'ArgumentCommercial');
 
-	/**
-	 * Name of the Translation Entity
-	 * 
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\CorporationTranslation';
-	
-	/**
-	 * @var \Doctrine\Common\Collections\ArrayCollection
-	 *
-	 * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\CorporationTranslation", mappedBy="object", cascade={"persist", "remove"})
-	 */
-	protected $translations;	
-	
+    /**
+     * Name of the Translation Entity
+     * 
+     * @var array
+     * @access  protected
+     */
+    protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\CorporationTranslation';
+    
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\CorporationTranslation", mappedBy="object", cascade={"persist", "remove"})
+     */
+    protected $translations;    
+    
     /**
      * @var bigint
      * 
@@ -519,9 +519,9 @@ class Corporation extends AbstractDefault
      */    
     public function __construct()
     {
-    	parent::__construct();
-    	
-    	$this->individuals			= new \Doctrine\Common\Collections\ArrayCollection();
+        parent::__construct();
+        
+        $this->individuals            = new \Doctrine\Common\Collections\ArrayCollection();
     }    
     
     /**
@@ -533,10 +533,10 @@ class Corporation extends AbstractDefault
      */    
     public function __toString()
     {
-    	return (string) $this->getName();
+        return (string) $this->getName();
     }    
     
-	/**
+    /**
      * @ORM\PrePersist
      * @ORM\preUpdate
      */
@@ -561,8 +561,8 @@ class Corporation extends AbstractDefault
      */
     public function setIndividuals(\Doctrine\Common\Collections\ArrayCollection $Individuals)
     {
-    	$this->individuals = $Individuals;
-    	return $this;
+        $this->individuals = $Individuals;
+        return $this;
     }
     
     /**
@@ -572,7 +572,7 @@ class Corporation extends AbstractDefault
      */
     public function getIndividuals()
     {
-    	return $this->individuals;
+        return $this->individuals;
     }
     
     /**
@@ -582,7 +582,7 @@ class Corporation extends AbstractDefault
      */
     public function addIndividual(\PiApp\GedmoBundle\Entity\Individual $Individual)
     {
-    	$this->individuals[] = $Individual;
+        $this->individuals[] = $Individual;
     }    
     
     /**
@@ -592,7 +592,7 @@ class Corporation extends AbstractDefault
      */
     public function setUser(\BootStrap\UserBundle\Entity\User $user)
     {
-    	$this->user = $user;
+        $this->user = $user;
     }
     
     /**
@@ -602,7 +602,7 @@ class Corporation extends AbstractDefault
      */
     public function getUser()
     {
-    	return $this->user;
+        return $this->user;
     }    
     
     /**
@@ -612,8 +612,8 @@ class Corporation extends AbstractDefault
      */
     public function setPageurl($pageurl)
     {
-    	$this->pageurl = $pageurl;
-    	return $this;
+        $this->pageurl = $pageurl;
+        return $this;
     }
     
     /**
@@ -623,7 +623,7 @@ class Corporation extends AbstractDefault
      */
     public function getPageurl()
     {
-    	return $this->pageurl;
+        return $this->pageurl;
     }    
 
     /**
@@ -633,8 +633,8 @@ class Corporation extends AbstractDefault
      */
     public function setUrl($url)
     {
-    	$this->url = $url;
-    	return $this;
+        $this->url = $url;
+        return $this;
     }
     
     /**
@@ -644,7 +644,7 @@ class Corporation extends AbstractDefault
      */
     public function getUrl()
     {
-    	return $this->url;
+        return $this->url;
     }
         
     /**
@@ -654,7 +654,7 @@ class Corporation extends AbstractDefault
      */
     public function setUserPhone($UserPhone)
     {
-    	$this->UserPhone = $UserPhone;
+        $this->UserPhone = $UserPhone;
     }
     
     /**
@@ -664,7 +664,7 @@ class Corporation extends AbstractDefault
      */
     public function getUserPhone()
     {
-    	return $this->UserPhone;
+        return $this->UserPhone;
     } 
     
     /**
@@ -674,8 +674,8 @@ class Corporation extends AbstractDefault
      */
     public function setMedia($media)
     {
-    	$this->media = $media;    	
-    	return $this;
+        $this->media = $media;        
+        return $this;
     }
     
     /**
@@ -685,7 +685,7 @@ class Corporation extends AbstractDefault
      */
     public function getMedia()
     {
-    	return $this->media;
+        return $this->media;
     }    
 
     /**
@@ -695,8 +695,8 @@ class Corporation extends AbstractDefault
      */
     public function setMedia2($media2)
     {
-    	$this->media2 = $media2;    	
-    	return $this;
+        $this->media2 = $media2;        
+        return $this;
     }
     
     /**
@@ -706,7 +706,7 @@ class Corporation extends AbstractDefault
      */
     public function getMedia2()
     {
-    	return $this->media2;
+        return $this->media2;
     }    
     
     /**
@@ -716,7 +716,7 @@ class Corporation extends AbstractDefault
      */
     public function setHighlighted($highlighted)
     {
-    	$this->highlighted = $highlighted;
+        $this->highlighted = $highlighted;
     }
     
     /**
@@ -726,7 +726,7 @@ class Corporation extends AbstractDefault
      */
     public function getHighlighted()
     {
-    	return $this->highlighted;
+        return $this->highlighted;
     }   
 
     /**
@@ -736,7 +736,7 @@ class Corporation extends AbstractDefault
      */
     public function setCorporationName($CorporationName)
     {
-    	$this->CorporationName = $CorporationName;
+        $this->CorporationName = $CorporationName;
     }
 
     
@@ -828,8 +828,8 @@ class Corporation extends AbstractDefault
      */
     public function setEmail($Email)
     {
-    	$this->Email = $Email;
-    	return $this;
+        $this->Email = $Email;
+        return $this;
     }    
     
     /**
@@ -839,7 +839,7 @@ class Corporation extends AbstractDefault
      */
     public function getEmail()
     {
-    	return $this->Email;
+        return $this->Email;
     }    
     
     /**
@@ -850,8 +850,8 @@ class Corporation extends AbstractDefault
      */
     public function setEmailPerso($EmailPerso)
     {
-    	$this->EmailPerso = $EmailPerso;
-    	return $this;
+        $this->EmailPerso = $EmailPerso;
+        return $this;
     }    
     
     /**
@@ -861,7 +861,7 @@ class Corporation extends AbstractDefault
      */
     public function getEmailPerso()
     {
-    	return $this->EmailPerso;
+        return $this->EmailPerso;
     }    
 
     /**
@@ -1052,8 +1052,8 @@ class Corporation extends AbstractDefault
      */
     public function setOriginContact($OriginContact)
     {
-    	$this->OriginContact = $OriginContact;
-    	return $this;
+        $this->OriginContact = $OriginContact;
+        return $this;
     }
     
     /**
@@ -1063,7 +1063,7 @@ class Corporation extends AbstractDefault
      */
     public function getOriginContact()
     {
-    	return $this->OriginContact;
+        return $this->OriginContact;
     }
     
     /**
@@ -1074,8 +1074,8 @@ class Corporation extends AbstractDefault
      */
     public function setOriginContactOther($OriginContactOther)
     {
-    	$this->OriginContactOther = $OriginContactOther;
-    	return $this;
+        $this->OriginContactOther = $OriginContactOther;
+        return $this;
     }
     
     /**
@@ -1085,7 +1085,7 @@ class Corporation extends AbstractDefault
      */
     public function getOriginContactOther()
     {
-    	return $this->OriginContactOther;
+        return $this->OriginContactOther;
     }
     
     /**
@@ -1096,8 +1096,8 @@ class Corporation extends AbstractDefault
      */
     public function setOriginContactSponsor($OriginContactSponsor)
     {
-    	$this->OriginContactSponsor = $OriginContactSponsor;
-    	return $this;
+        $this->OriginContactSponsor = $OriginContactSponsor;
+        return $this;
     }
     
     /**
@@ -1107,7 +1107,7 @@ class Corporation extends AbstractDefault
      */
     public function getOriginContactSponsor()
     {
-    	return $this->OriginContactSponsor;
+        return $this->OriginContactSponsor;
     }
     
     /**
@@ -1118,8 +1118,8 @@ class Corporation extends AbstractDefault
      */
     public function setFacebook($Facebook)
     {
-    	$this->Facebook = $Facebook;
-    	return $this;
+        $this->Facebook = $Facebook;
+        return $this;
     }
     
     /**
@@ -1129,7 +1129,7 @@ class Corporation extends AbstractDefault
      */
     public function getFacebook()
     {
-    	return $this->Facebook;
+        return $this->Facebook;
     }   
     
     /**
@@ -1140,8 +1140,8 @@ class Corporation extends AbstractDefault
      */
     public function setGooglePlus($GooglePlus)
     {
-    	$this->GooglePlus = $GooglePlus;
-    	return $this;
+        $this->GooglePlus = $GooglePlus;
+        return $this;
     }
     
     /**
@@ -1151,7 +1151,7 @@ class Corporation extends AbstractDefault
      */
     public function getGooglePlus()
     {
-    	return $this->GooglePlus;
+        return $this->GooglePlus;
     }   
     
     /**
@@ -1162,8 +1162,8 @@ class Corporation extends AbstractDefault
      */
     public function setTwitter($Twitter)
     {
-    	$this->Twitter = $Twitter;
-    	return $this;
+        $this->Twitter = $Twitter;
+        return $this;
     }
     
     /**
@@ -1173,7 +1173,7 @@ class Corporation extends AbstractDefault
      */
     public function getTwitter()
     {
-    	return $this->Twitter;
+        return $this->Twitter;
     }   
     
     /**
@@ -1184,8 +1184,8 @@ class Corporation extends AbstractDefault
      */
     public function setLinkedIn($LinkedIn)
     {
-    	$this->LinkedIn = $LinkedIn;
-    	return $this;
+        $this->LinkedIn = $LinkedIn;
+        return $this;
     }
     
     /**
@@ -1195,7 +1195,7 @@ class Corporation extends AbstractDefault
      */
     public function getLinkedIn()
     {
-    	return $this->LinkedIn;
+        return $this->LinkedIn;
     }   
     
     /**
@@ -1206,8 +1206,8 @@ class Corporation extends AbstractDefault
      */
     public function setViadeo($Viadeo)
     {
-    	$this->Viadeo = $Viadeo;
-    	return $this;
+        $this->Viadeo = $Viadeo;
+        return $this;
     }
     
     /**
@@ -1217,7 +1217,7 @@ class Corporation extends AbstractDefault
      */
     public function getViadeo()
     {
-    	return $this->Viadeo;
+        return $this->Viadeo;
     }   
     
     /**
@@ -1227,7 +1227,7 @@ class Corporation extends AbstractDefault
      */
     public function getCorporationName()
     {
-    	return $this->CorporationName;
+        return $this->CorporationName;
     }   
         
     /**
@@ -1237,7 +1237,7 @@ class Corporation extends AbstractDefault
      */
     public function setCommercialName($CommercialName)
     {
-    	$this->CommercialName = $CommercialName;
+        $this->CommercialName = $CommercialName;
     }
     
     /**
@@ -1247,7 +1247,7 @@ class Corporation extends AbstractDefault
      */
     public function getCommercialName()
     {
-    	return $this->CommercialName;
+        return $this->CommercialName;
     }   
         
     /**
@@ -1257,7 +1257,7 @@ class Corporation extends AbstractDefault
      */
     public function setAddress($Address)
     {
-    	$this->Address = $Address;
+        $this->Address = $Address;
     }
     
     /**
@@ -1267,7 +1267,7 @@ class Corporation extends AbstractDefault
      */
     public function getAddress()
     {
-    	return $this->Address;
+        return $this->Address;
     }   
         
     /**
@@ -1277,7 +1277,7 @@ class Corporation extends AbstractDefault
      */
     public function setCP($CP)
     {
-    	$this->CP = $CP;
+        $this->CP = $CP;
     }
     
     /**
@@ -1287,7 +1287,7 @@ class Corporation extends AbstractDefault
      */
     public function getCP()
     {
-    	return $this->CP;
+        return $this->CP;
     }   
         
     /**
@@ -1297,7 +1297,7 @@ class Corporation extends AbstractDefault
      */
     public function setCity($City)
     {
-    	$this->City = $City;
+        $this->City = $City;
     }
     
     /**
@@ -1307,7 +1307,7 @@ class Corporation extends AbstractDefault
      */
     public function getCity()
     {
-    	return $this->City;
+        return $this->City;
     }   
         
     /**
@@ -1317,7 +1317,7 @@ class Corporation extends AbstractDefault
      */
     public function setCountry($Country)
     {
-    	$this->Country = $Country;
+        $this->Country = $Country;
     }
     
     /**
@@ -1327,7 +1327,7 @@ class Corporation extends AbstractDefault
      */
     public function getCountry()
     {
-    	return $this->Country;
+        return $this->Country;
     }   
         
     /**
@@ -1337,7 +1337,7 @@ class Corporation extends AbstractDefault
      */
     public function setPhone($Phone)
     {
-    	$this->Phone = $Phone;
+        $this->Phone = $Phone;
     }
     
     /**
@@ -1347,7 +1347,7 @@ class Corporation extends AbstractDefault
      */
     public function getPhone()
     {
-    	return $this->Phone;
+        return $this->Phone;
     }   
         
     /**
@@ -1357,7 +1357,7 @@ class Corporation extends AbstractDefault
      */
     public function setFax($Fax)
     {
-    	$this->Fax = $Fax;
+        $this->Fax = $Fax;
     }
     
     /**
@@ -1367,7 +1367,7 @@ class Corporation extends AbstractDefault
      */
     public function getFax()
     {
-    	return $this->Fax;
+        return $this->Fax;
     }   
         
     /**
@@ -1377,7 +1377,7 @@ class Corporation extends AbstractDefault
      */
     public function setInvoiceAddress($InvoiceAddress)
     {
-    	$this->InvoiceAddress = $InvoiceAddress;
+        $this->InvoiceAddress = $InvoiceAddress;
     }
     
     /**
@@ -1387,7 +1387,7 @@ class Corporation extends AbstractDefault
      */
     public function getInvoiceAddress()
     {
-    	return $this->InvoiceAddress;
+        return $this->InvoiceAddress;
     }   
         
     /**
@@ -1397,7 +1397,7 @@ class Corporation extends AbstractDefault
      */
     public function setInvoiceCP($InvoiceCP)
     {
-    	$this->InvoiceCP = $InvoiceCP;
+        $this->InvoiceCP = $InvoiceCP;
     }
     
     /**
@@ -1407,7 +1407,7 @@ class Corporation extends AbstractDefault
      */
     public function getInvoiceCP()
     {
-    	return $this->InvoiceCP;
+        return $this->InvoiceCP;
     }   
         
     /**
@@ -1417,7 +1417,7 @@ class Corporation extends AbstractDefault
      */
     public function setInvoiceCity($InvoiceCity)
     {
-    	$this->InvoiceCity = $InvoiceCity;
+        $this->InvoiceCity = $InvoiceCity;
     }
     
     /**
@@ -1427,7 +1427,7 @@ class Corporation extends AbstractDefault
      */
     public function getInvoiceCity()
     {
-    	return $this->InvoiceCity;
+        return $this->InvoiceCity;
     }   
         
     /**
@@ -1437,7 +1437,7 @@ class Corporation extends AbstractDefault
      */
     public function setInvoiceCountry($InvoiceCountry)
     {
-    	$this->InvoiceCountry = $InvoiceCountry;
+        $this->InvoiceCountry = $InvoiceCountry;
     }
     
     /**
@@ -1447,7 +1447,7 @@ class Corporation extends AbstractDefault
      */
     public function getInvoiceCountry()
     {
-    	return $this->InvoiceCountry;
+        return $this->InvoiceCountry;
     }   
         
     /**
@@ -1457,7 +1457,7 @@ class Corporation extends AbstractDefault
      */
     public function setInvoicePhone($InvoicePhone)
     {
-    	$this->InvoicePhone = $InvoicePhone;
+        $this->InvoicePhone = $InvoicePhone;
     }
     
     /**
@@ -1467,7 +1467,7 @@ class Corporation extends AbstractDefault
      */
     public function getInvoicePhone()
     {
-    	return $this->InvoicePhone;
+        return $this->InvoicePhone;
     }   
         
     /**
@@ -1477,7 +1477,7 @@ class Corporation extends AbstractDefault
      */
     public function setInvoiceFax($InvoiceFax)
     {
-    	$this->InvoiceFax = $InvoiceFax;
+        $this->InvoiceFax = $InvoiceFax;
     }
     
     /**
@@ -1487,7 +1487,7 @@ class Corporation extends AbstractDefault
      */
     public function getInvoiceFax()
     {
-    	return $this->InvoiceFax;
+        return $this->InvoiceFax;
     }   
         
     /**
@@ -1497,7 +1497,7 @@ class Corporation extends AbstractDefault
      */
     public function setMotherAddress($MotherAddress)
     {
-    	$this->MotherAddress = $MotherAddress;
+        $this->MotherAddress = $MotherAddress;
     }
     
     /**
@@ -1507,7 +1507,7 @@ class Corporation extends AbstractDefault
      */
     public function getMotherAddress()
     {
-    	return $this->MotherAddress;
+        return $this->MotherAddress;
     }   
         
     /**
@@ -1517,7 +1517,7 @@ class Corporation extends AbstractDefault
      */
     public function setMotherCP($MotherCP)
     {
-    	$this->MotherCP = $MotherCP;
+        $this->MotherCP = $MotherCP;
     }
     
     /**
@@ -1527,7 +1527,7 @@ class Corporation extends AbstractDefault
      */
     public function getMotherCP()
     {
-    	return $this->MotherCP;
+        return $this->MotherCP;
     }   
         
     /**
@@ -1537,7 +1537,7 @@ class Corporation extends AbstractDefault
      */
     public function setMotherCity($MotherCity)
     {
-    	$this->MotherCity = $MotherCity;
+        $this->MotherCity = $MotherCity;
     }
     
     /**
@@ -1547,7 +1547,7 @@ class Corporation extends AbstractDefault
      */
     public function getMotherCity()
     {
-    	return $this->MotherCity;
+        return $this->MotherCity;
     }   
         
     /**
@@ -1557,7 +1557,7 @@ class Corporation extends AbstractDefault
      */
     public function setMotherCountry($MotherCountry)
     {
-    	$this->MotherCountry = $MotherCountry;
+        $this->MotherCountry = $MotherCountry;
     }
     
     /**
@@ -1567,7 +1567,7 @@ class Corporation extends AbstractDefault
      */
     public function getMotherCountry()
     {
-    	return $this->MotherCountry;
+        return $this->MotherCountry;
     }   
         
     /**
@@ -1577,7 +1577,7 @@ class Corporation extends AbstractDefault
      */
     public function setMotherPhone($MotherPhone)
     {
-    	$this->MotherPhone = $MotherPhone;
+        $this->MotherPhone = $MotherPhone;
     }
     
     /**
@@ -1587,7 +1587,7 @@ class Corporation extends AbstractDefault
      */
     public function getMotherPhone()
     {
-    	return $this->MotherPhone;
+        return $this->MotherPhone;
     }   
         
     /**
@@ -1597,7 +1597,7 @@ class Corporation extends AbstractDefault
      */
     public function setMotherFax($MotherFax)
     {
-    	$this->MotherFax = $MotherFax;
+        $this->MotherFax = $MotherFax;
     }
     
     /**
@@ -1607,7 +1607,7 @@ class Corporation extends AbstractDefault
      */
     public function getMotherFax()
     {
-    	return $this->MotherFax;
+        return $this->MotherFax;
     }   
         
     /**
@@ -1617,7 +1617,7 @@ class Corporation extends AbstractDefault
      */
     public function setEffectifNational($EffectifNational)
     {
-    	$this->EffectifNational = $EffectifNational;
+        $this->EffectifNational = $EffectifNational;
     }
     
     /**
@@ -1627,7 +1627,7 @@ class Corporation extends AbstractDefault
      */
     public function getEffectifNational()
     {
-    	return $this->EffectifNational;
+        return $this->EffectifNational;
     }   
         
     /**
@@ -1637,7 +1637,7 @@ class Corporation extends AbstractDefault
      */
     public function setEffectifRegional($EffectifRegional)
     {
-    	$this->EffectifRegional = $EffectifRegional;
+        $this->EffectifRegional = $EffectifRegional;
     }
     
     /**
@@ -1647,7 +1647,7 @@ class Corporation extends AbstractDefault
      */
     public function getEffectifRegional()
     {
-    	return $this->EffectifRegional;
+        return $this->EffectifRegional;
     }   
         
     /**
@@ -1657,7 +1657,7 @@ class Corporation extends AbstractDefault
      */
     public function setLegalForm($LegalForm)
     {
-    	$this->LegalForm = $LegalForm;
+        $this->LegalForm = $LegalForm;
     }
     
     /**
@@ -1667,7 +1667,7 @@ class Corporation extends AbstractDefault
      */
     public function getLegalForm()
     {
-    	return $this->LegalForm;
+        return $this->LegalForm;
     }   
         
     /**
@@ -1677,7 +1677,7 @@ class Corporation extends AbstractDefault
      */
     public function setCodeNAF($CodeNAF)
     {
-    	$this->CodeNAF = $CodeNAF;
+        $this->CodeNAF = $CodeNAF;
     }
     
     /**
@@ -1687,7 +1687,7 @@ class Corporation extends AbstractDefault
      */
     public function getCodeNAF()
     {
-    	return $this->CodeNAF;
+        return $this->CodeNAF;
     }   
         
     /**
@@ -1697,7 +1697,7 @@ class Corporation extends AbstractDefault
      */
     public function setSiret($Siret)
     {
-    	$this->Siret = $Siret;
+        $this->Siret = $Siret;
     }
     
     /**
@@ -1707,7 +1707,7 @@ class Corporation extends AbstractDefault
      */
     public function getSiret()
     {
-    	return $this->Siret;
+        return $this->Siret;
     }   
         
     /**
@@ -1717,7 +1717,7 @@ class Corporation extends AbstractDefault
      */
     public function setCaNational($CaNational)
     {
-    	$this->CaNational = $CaNational;
+        $this->CaNational = $CaNational;
     }
     
     /**
@@ -1727,7 +1727,7 @@ class Corporation extends AbstractDefault
      */
     public function getCaNational()
     {
-    	return $this->CaNational;
+        return $this->CaNational;
     } 
 
     /**
@@ -1738,8 +1738,8 @@ class Corporation extends AbstractDefault
      */
     public function setPaymentstatus($paymentstatus)
     {
-    	$this->paymentstatus = $paymentstatus;
-    	return $this;
+        $this->paymentstatus = $paymentstatus;
+        return $this;
     }
     
     /**
@@ -1749,6 +1749,6 @@ class Corporation extends AbstractDefault
      */
     public function getPaymentstatus()
     {
-    	return $this->paymentstatus;
+        return $this->paymentstatus;
     }    
 }

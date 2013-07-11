@@ -36,9 +36,9 @@ use PiApp\AdminBundle\Builder\PiRestManagerInterface;
  */
 class PiRestManager implements PiRestManagerInterface
 {
-	/**
-	 * @var string
-	 */	
+    /**
+     * @var string
+     */    
    private $_url;
    
    /**
@@ -54,7 +54,7 @@ class PiRestManager implements PiRestManagerInterface
    /**
     * Sets the url
     *
-    * @param string	$slug
+    * @param string    $slug
     * @return \PiApp\AdminBundle\Util\PiRestManager
     * @access public
     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
@@ -82,7 +82,7 @@ class PiRestManager implements PiRestManagerInterface
     * Launch a url with POST request
     *
     * @param array $pGetParams an array or object containing properties.
-    * @param mixed $pPostParams	content or an array or object containing properties.
+    * @param mixed $pPostParams    content or an array or object containing properties.
     * @return array Content and header result of the request.
     * @access public
     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
@@ -172,13 +172,13 @@ class PiRestManager implements PiRestManagerInterface
     */   
    protected function _launch ($pUrl, $context)
    {
-   		if (($stream = @fopen($pUrl, 'r', false, $context)) !== false){
-   			$content 	= stream_get_contents($stream);
-   			$header 	= stream_get_meta_data($stream);
-   			fclose($stream);
-   			return array('content'=>$content, 'header'=>$header, 'url'=>$pUrl);
-   		} else {
-   			return array('content'=>false, 'header'=>false, 'url'=>$pUrl);
-   		}   		
+           if (($stream = @fopen($pUrl, 'r', false, $context)) !== false){
+               $content     = stream_get_contents($stream);
+               $header     = stream_get_meta_data($stream);
+               fclose($stream);
+               return array('content'=>$content, 'header'=>$header, 'url'=>$pUrl);
+           } else {
+               return array('content'=>false, 'header'=>false, 'url'=>$pUrl);
+           }           
    }   
 }

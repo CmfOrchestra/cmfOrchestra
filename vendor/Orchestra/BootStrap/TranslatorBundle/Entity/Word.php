@@ -33,29 +33,29 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  */
 class Word extends AbstractDefault
 {
-	/**
-	 * List of al translatable fields
-	 *
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_fields	= array('label');
-	
-	/**
-	 * Name of the Translation Entity
-	 *
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_translationClass = 'BootStrap\TranslatorBundle\Entity\Translation\WordTranslation';
-	
-	/**
-	 * @var \Doctrine\Common\Collections\ArrayCollection
-	 *
-	 * @ORM\OneToMany(targetEntity="BootStrap\TranslatorBundle\Entity\Translation\WordTranslation", mappedBy="object", cascade={"persist", "remove"})
-	 */
-	protected $translations;
-		
+    /**
+     * List of al translatable fields
+     *
+     * @var array
+     * @access  protected
+     */
+    protected $_fields    = array('label');
+    
+    /**
+     * Name of the Translation Entity
+     *
+     * @var array
+     * @access  protected
+     */
+    protected $_translationClass = 'BootStrap\TranslatorBundle\Entity\Translation\WordTranslation';
+    
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="BootStrap\TranslatorBundle\Entity\Translation\WordTranslation", mappedBy="object", cascade={"persist", "remove"})
+     */
+    protected $translations;
+        
     /**
      * @var string $id
      *
@@ -98,8 +98,8 @@ class Word extends AbstractDefault
 
     public function __construct()
     {
-    	parent::__construct();    	
-    	$this->setEnabled(true);
+        parent::__construct();        
+        $this->setEnabled(true);
     }    
     
     /**
@@ -110,7 +110,7 @@ class Word extends AbstractDefault
      *
      */
     public function __toString() {
-    	return (string) $this->label;
+        return (string) $this->label;
     }
 
     /**
@@ -119,11 +119,11 @@ class Word extends AbstractDefault
      */
     public function setUpdatedValue()
     {
-    	$other  = $this->getCategoryother();
-    	if (!empty($other)){
-    		$this->setCategory($other);
-    		$this->setCategoryother('');
-    	}
+        $other  = $this->getCategoryother();
+        if (!empty($other)){
+            $this->setCategory($other);
+            $this->setCategoryother('');
+        }
     }
     
     /**
@@ -143,7 +143,7 @@ class Word extends AbstractDefault
      */
     public function setId($id)
     {
-    	$this->id = $id;
+        $this->id = $id;
     }    
 
     /**
@@ -173,7 +173,7 @@ class Word extends AbstractDefault
      */
     public function getKeyword()
     {
-    	return $this->keyword;
+        return $this->keyword;
     }
     
     /**
@@ -183,7 +183,7 @@ class Word extends AbstractDefault
      */
     public function setkeyword($keyword)
     {
-    	$this->keyword = $keyword;
+        $this->keyword = $keyword;
     }
     
     /**
@@ -193,7 +193,7 @@ class Word extends AbstractDefault
      */
     public function setCategory($category)
     {
-    	$this->category = $category;
+        $this->category = $category;
     }
     
     /**
@@ -204,7 +204,7 @@ class Word extends AbstractDefault
     
     public function getCategory()
     {
-    	return $this->category;
+        return $this->category;
     }
     
     /**
@@ -214,7 +214,7 @@ class Word extends AbstractDefault
      */
     public function setCategoryother($category)
     {
-    	$this->categoryother = $category;
+        $this->categoryother = $category;
     }
     
     /**
@@ -224,6 +224,6 @@ class Word extends AbstractDefault
      */
     public function getCategoryother()
     {
-    	return $this->categoryother;
+        return $this->categoryother;
     }    
 }

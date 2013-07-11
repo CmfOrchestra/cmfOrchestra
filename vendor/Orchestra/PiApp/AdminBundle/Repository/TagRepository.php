@@ -28,35 +28,35 @@ use BootStrap\TranslationBundle\Repository\TranslationRepository;
  */
 class TagRepository extends TranslationRepository
 {
-	/**
-	 * Gets all groupname of tag.
-	 *
-	 * @return array
-	 * @access public
-	 *
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-	 * @since 2012-03-28
-	 */
-	public function getArrayAllGroupName($locale)
-	{
-		$query = $this->createQueryBuilder('t')
-		->select('t.groupname')
-		->where('t.enabled = :enabled')
-		->setParameters(array(
-				'enabled'	=> 1,
-		))
-		->getQuery();
-		
-		$result = array();
-		$data 	= $this->findTranslationsByQuery($locale, $query, 'array', true);
-		
-		if ($data && is_array($data) && count($data)) {
-			foreach ($data as $row) {
-				if (!empty($row['groupname']))
-					$result[ $row['groupname'] ] = $row['groupname'];
-			}
-		}
-		return $result;
-	}
-		
+    /**
+     * Gets all groupname of tag.
+     *
+     * @return array
+     * @access public
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @since 2012-03-28
+     */
+    public function getArrayAllGroupName($locale)
+    {
+        $query = $this->createQueryBuilder('t')
+        ->select('t.groupname')
+        ->where('t.enabled = :enabled')
+        ->setParameters(array(
+                'enabled'    => 1,
+        ))
+        ->getQuery();
+        
+        $result = array();
+        $data     = $this->findTranslationsByQuery($locale, $query, 'array', true);
+        
+        if ($data && is_array($data) && count($data)) {
+            foreach ($data as $row) {
+                if (!empty($row['groupname']))
+                    $result[ $row['groupname'] ] = $row['groupname'];
+            }
+        }
+        return $result;
+    }
+        
 }

@@ -44,18 +44,18 @@ use {{ namespace }}\Entity\Translation\{{ entity }}Translation;
  */
 class {{ entity_class }}Controller extends abstractController
 {
-	protected $_entityName = "{{ bundle }}:{{ entity }}";
-	
-	{%- include 'actions/enabledajax.php' %}	
-	 
-	{%- include 'actions/disableajax.php' %}	
-	 
-	{%- include 'actions/positionajax.php' %}
-	
-	{%- include 'actions/deleteajax.php' %}
-	
-	{%- include 'actions/archiveajax.php' %}
-	
+    protected $_entityName = "{{ bundle }}:{{ entity }}";
+    
+    {%- include 'actions/enabledajax.php' %}    
+     
+    {%- include 'actions/disableajax.php' %}    
+     
+    {%- include 'actions/positionajax.php' %}
+    
+    {%- include 'actions/deleteajax.php' %}
+    
+    {%- include 'actions/archiveajax.php' %}
+    
 
     {%- if 'index' in actions %}
         {%- include 'actions/index.php' %}
@@ -79,10 +79,10 @@ class {{ entity_class }}Controller extends abstractController
         {%- include 'actions/delete.php' %}
     {%- endif %}
     
-   	{%- include 'actions/_template_show.php' %}
+       {%- include 'actions/_template_show.php' %}
     
-   	{%- include 'actions/_template_list.php' %}    
-   	
-   	{%- include 'actions/_template_archive.php' %}   	
+       {%- include 'actions/_template_list.php' %}    
+       
+       {%- include 'actions/_template_archive.php' %}       
     
 }

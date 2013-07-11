@@ -22,13 +22,13 @@ namespace PiApp\AdminBundle\Builder;
  */
 interface PiFormBuilderManagerInterface
 {
-	public function XmlConfigWidget(array $data);
-	public function preEventActionForm(array $data);
-	public function postEventActionForm(array $data);	
-	public function setIndexBlock($index);
-	public function setIndexWidget($index);
-	public function setIndexForm($index);
-	public function getTypeForm();
-	public function executeAllFormByContainer($container);
-	public function execute($options);
+    public function XmlConfigWidget(array $data);
+    public function preEventActionForm(array $data);
+    public function postEventActionForm(array $data);    
+    public function setIndexBlock($index);
+    public function setIndexWidget($index);
+    public function setIndexForm($index);
+    public function getTypeForm();
+    public function executeAllFormByContainer($container);
+    public function execute($options);
 }

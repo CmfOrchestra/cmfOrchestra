@@ -36,29 +36,29 @@ use BootStrap\TranslationBundle\Model\AbstractDefault;
  */
 class Menu extends AbstractDefault 
 {
-	/**
-	 * List of al translatable fields
-	 * 
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_fields	= array('slug', 'title');
+    /**
+     * List of al translatable fields
+     * 
+     * @var array
+     * @access  protected
+     */
+    protected $_fields    = array('slug', 'title');
 
-	/**
-	 * Name of the Translation Entity
-	 * 
-	 * @var array
-	 * @access  protected
-	 */
-	protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\MenuTranslation';	
-	
-	/**
-	 * @var \Doctrine\Common\Collections\ArrayCollection
-	 *
-	 * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\MenuTranslation", mappedBy="object", cascade={"persist", "remove"})
-	 */
-	protected $translations;	
-	
+    /**
+     * Name of the Translation Entity
+     * 
+     * @var array
+     * @access  protected
+     */
+    protected $_translationClass = 'PiApp\GedmoBundle\Entity\Translation\MenuTranslation';    
+    
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Translation\MenuTranslation", mappedBy="object", cascade={"persist", "remove"})
+     */
+    protected $translations;    
+    
     /**
      * @var bigint
      * 
@@ -143,18 +143,18 @@ class Menu extends AbstractDefault
      */    
     public function __construct()
     {
-    	parent::__construct();
-    	
-    	$this->childrens = new \Doctrine\Common\Collections\ArrayCollection();
-    	$this->setEnabled(true);    	
+        parent::__construct();
+        
+        $this->childrens = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->setEnabled(true);        
     }    
     
     public function __toString()
     {
-    	return (string) $this->getTitle();
+        return (string) $this->getTitle();
     }    
     
-	/**
+    /**
      * @ORM\PrePersist
      * @ORM\preUpdate
      */
@@ -174,17 +174,17 @@ class Menu extends AbstractDefault
     
     public function getSlug()
     {
-    	return $this->slug;
+        return $this->slug;
     }    
     
     /**
      * Set page
      *
-     * @param \PiApp\AdminBundle\Entity\Page	$page
+     * @param \PiApp\AdminBundle\Entity\Page    $page
      */
     public function setPage($page)
     {
-    	$this->page = $page;
+        $this->page = $page;
     }
     
     /**
@@ -194,7 +194,7 @@ class Menu extends AbstractDefault
      */
     public function getPage()
     {
-    	return $this->page;
+        return $this->page;
     }  
 
     /**
@@ -204,7 +204,7 @@ class Menu extends AbstractDefault
      */
     public function setUrl($url)
     {
-    	$this->url = $url;
+        $this->url = $url;
     }
     
     /**
@@ -214,7 +214,7 @@ class Menu extends AbstractDefault
      */
     public function getUrl()
     {
-    	return $this->url;
+        return $this->url;
     }    
     
     /**
@@ -224,8 +224,8 @@ class Menu extends AbstractDefault
      */
     public function setBlank($blank)
     {
-    	$this->blank = $blank;
-    	return $this;
+        $this->blank = $blank;
+        return $this;
     }
     
     /**
@@ -235,7 +235,7 @@ class Menu extends AbstractDefault
      */
     public function getBlank()
     {
-    	return $this->blank;
+        return $this->blank;
     }    
     
     /**
@@ -245,8 +245,8 @@ class Menu extends AbstractDefault
      */
     public function setCategory($category)
     {
-    	$this->category = $category;
-    	return $this;
+        $this->category = $category;
+        return $this;
     }
     
     /**
@@ -256,7 +256,7 @@ class Menu extends AbstractDefault
      */
     public function getCategory()
     {
-    	return $this->category;
+        return $this->category;
     } 
 
     /**
@@ -286,7 +286,7 @@ class Menu extends AbstractDefault
      */
     public function setSubtitle($subtitle)
     {
-    	$this->subtitle = $subtitle;
+        $this->subtitle = $subtitle;
     }
     
     /**
@@ -296,7 +296,7 @@ class Menu extends AbstractDefault
      */
     public function getSubtitle()
     {
-    	return $this->subtitle;
+        return $this->subtitle;
     }   
 
     /**
@@ -306,7 +306,7 @@ class Menu extends AbstractDefault
      */
     public function setConfigCssClass($configCssClass)
     {
-    	$this->configCssClass = $configCssClass;
+        $this->configCssClass = $configCssClass;
     }
     
     /**
@@ -316,7 +316,7 @@ class Menu extends AbstractDefault
      */
     public function getConfigCssClass()
     {
-    	return $this->configCssClass;
+        return $this->configCssClass;
     }    
     
     /**
@@ -326,8 +326,8 @@ class Menu extends AbstractDefault
      */
     public function setMedia($media)
     {
-    	$this->media = $media;    	
-    	return $this;
+        $this->media = $media;        
+        return $this;
     }
     
     /**
@@ -337,7 +337,7 @@ class Menu extends AbstractDefault
      */
     public function getMedia()
     {
-    	return $this->media;
+        return $this->media;
     } 
     
     
@@ -401,17 +401,17 @@ class Menu extends AbstractDefault
      */
     public function getChildrens()
     {
-    	return $this->childrens;
+        return $this->childrens;
     }
     
     /**
      * Set parent
      *
-     * @param \PiApp\GedmoBundle\Entity\Menu	$parent
+     * @param \PiApp\GedmoBundle\Entity\Menu    $parent
      */
     public function setParent(\PiApp\GedmoBundle\Entity\Menu $parent)
     {
-    	$this->parent = $parent;
+        $this->parent = $parent;
     }
     
     /**
@@ -421,7 +421,7 @@ class Menu extends AbstractDefault
      */
     public function getParent()
     {
-    	return $this->parent;
+        return $this->parent;
     }
     
     /**
@@ -431,7 +431,7 @@ class Menu extends AbstractDefault
      */
     public function setTreeParents(array $parents)
     {
-    	$this->parents_tree = $parents;
+        $this->parents_tree = $parents;
     }
     
     /**
@@ -441,20 +441,20 @@ class Menu extends AbstractDefault
      */
     public function getTreeParents()
     {
-    	if (!$this->parents_tree) {
+        if (!$this->parents_tree) {
     
-    		$page = $this;
-    		$parents = array();
+            $page = $this;
+            $parents = array();
     
-    		while ($page->getParent()) {
-    			$page = $page->getParent();
-    			$parents[] = $page;
-    		}
+            while ($page->getParent()) {
+                $page = $page->getParent();
+                $parents[] = $page;
+            }
     
-    		$this->setTreeParents(array_reverse($parents));
-    	}
+            $this->setTreeParents(array_reverse($parents));
+        }
     
-    	return $this->parents_tree;
+        return $this->parents_tree;
     }
     
     /**
@@ -464,7 +464,7 @@ class Menu extends AbstractDefault
      */
     public function getRoot()
     {
-    	return $this->root;
+        return $this->root;
     }
     
     /**
@@ -474,7 +474,7 @@ class Menu extends AbstractDefault
      */
     public function getLevel()
     {
-    	return $this->level;
+        return $this->level;
     }
     
     /**
@@ -484,7 +484,7 @@ class Menu extends AbstractDefault
      */
     public function getLeft()
     {
-    	return $this->lft;
+        return $this->lft;
     }
     
     /**
@@ -494,7 +494,7 @@ class Menu extends AbstractDefault
      */
     public function getRight()
     {
-    	return $this->rgt;
+        return $this->rgt;
     }
     
     /**
@@ -504,7 +504,7 @@ class Menu extends AbstractDefault
      */
     public function setLft($lft)
     {
-    	$this->lft = $lft;
+        $this->lft = $lft;
     }
     
     /**
@@ -514,7 +514,7 @@ class Menu extends AbstractDefault
      */
     public function getLft()
     {
-    	return $this->lft;
+        return $this->lft;
     }
     
     /**
@@ -524,7 +524,7 @@ class Menu extends AbstractDefault
      */
     public function setLvl($lvl)
     {
-    	$this->lvl = $lvl;
+        $this->lvl = $lvl;
     }
     
     /**
@@ -534,7 +534,7 @@ class Menu extends AbstractDefault
      */
     public function getLvl()
     {
-    	return $this->lvl;
+        return $this->lvl;
     }
     
     /**
@@ -544,7 +544,7 @@ class Menu extends AbstractDefault
      */
     public function setRgt($rgt)
     {
-    	$this->rgt = $rgt;
+        $this->rgt = $rgt;
     }
     
     /**
@@ -554,7 +554,7 @@ class Menu extends AbstractDefault
      */
     public function getRgt()
     {
-    	return $this->rgt;
+        return $this->rgt;
     }  
     
 }

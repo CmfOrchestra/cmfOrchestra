@@ -23,14 +23,14 @@ namespace BootStrap\UserBundle\Exception;
 class UserException extends \Exception
 {
 
-	public static function serviceNotSupported()
+    public static function serviceNotSupported()
     {
         return new self("The service selected is not yet supported.");
     }
     
     public static function notSupported($method)
     {
-    	return new self("Operation '$method' is not supported by platform.");
+        return new self("Operation '$method' is not supported by platform.");
     }    
 
 }

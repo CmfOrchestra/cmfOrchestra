@@ -28,74 +28,74 @@ use Doctrine\ORM\EntityRepository;
  */
 class TeamType extends AbstractType
 {
-	/**
-	 * @var \Doctrine\ORM\EntityManager
-	 */
-	protected $_em;
-	
-	/**
-	 * @var \Symfony\Component\DependencyInjection\ContainerInterface
-	 */
-	protected $_container;	
-	
-	/**
-	 * @var string
-	 */
-	protected $_locale;	
-	
-	/**
-	 * Constructor.
-	 *
-	 * @param \Doctrine\ORM\EntityManager $em
-	 * @param string	$locale
-	 * @return void
-	 */
-	public function __construct(EntityManager $em, ContainerInterface $container)
-	{
-		$this->_em 			= $em;
-		$this->_locale		= $container->get('request')->getLocale();
-		$this->_container 	= $container;
-	}
-		
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    protected $_em;
+    
+    /**
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */
+    protected $_container;    
+    
+    /**
+     * @var string
+     */
+    protected $_locale;    
+    
+    /**
+     * Constructor.
+     *
+     * @param \Doctrine\ORM\EntityManager $em
+     * @param string    $locale
+     * @return void
+     */
+    public function __construct(EntityManager $em, ContainerInterface $container)
+    {
+        $this->_em             = $em;
+        $this->_locale        = $container->get('request')->getLocale();
+        $this->_container     = $container;
+    }
+        
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder 			
- 			->add('enabled', 'checkbox', array(
-            		'data'  => true,
- 					'label'	=> 'pi.form.label.field.enabled',
-            )) 		
+        $builder             
+             ->add('enabled', 'checkbox', array(
+                    'data'  => true,
+                     'label'    => 'pi.form.label.field.enabled',
+            ))         
             ->add('category', 'choice', array(
-             	'choices'   => array(
-             							"Le bureau" =>"Le bureau",
-             			 				"Le conseil d'administration" => "Le conseil d'administration",
-             							"Les permanents" => "Les permanents"
-             					),
-             	'empty_value' => 'pi.form.label.select.choose.category',
-             	'label'	=> "pi.form.label.field.category",
-             	"attr" => array(
-             			"class"=>"pi_simpleselect",
-             	),
-             	"label_attr" => array(
-             			"class"=>"category_collection",
-             	),
-             	'multiple'	=> false,
-             	'required'  => false,
-            ))            	
-        	->add('name', 'text', array(
- 					'label'		=> "pi.form.label.field.name",
- 					'required'  => false,
- 			))			
- 			->add('nickname', 'text', array(
- 					'label'		=> "Prénom",
- 					'required'  => false,
- 			)) 			
- 			->add('InscrJob', 'text', array(
- 					'label'		=> "Poste",
- 					'required'  => false,
- 			)) 			
- 			->add('email') 			
+                 'choices'   => array(
+                                         "Le bureau" =>"Le bureau",
+                                          "Le conseil d'administration" => "Le conseil d'administration",
+                                         "Les permanents" => "Les permanents"
+                                 ),
+                 'empty_value' => 'pi.form.label.select.choose.category',
+                 'label'    => "pi.form.label.field.category",
+                 "attr" => array(
+                         "class"=>"pi_simpleselect",
+                 ),
+                 "label_attr" => array(
+                         "class"=>"category_collection",
+                 ),
+                 'multiple'    => false,
+                 'required'  => false,
+            ))                
+            ->add('name', 'text', array(
+                     'label'        => "pi.form.label.field.name",
+                     'required'  => false,
+             ))            
+             ->add('nickname', 'text', array(
+                     'label'        => "Prénom",
+                     'required'  => false,
+             ))             
+             ->add('InscrJob', 'text', array(
+                     'label'        => "Poste",
+                     'required'  => false,
+             ))             
+             ->add('email')             
 
- 			->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
+             ->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))
         ;
     }
 

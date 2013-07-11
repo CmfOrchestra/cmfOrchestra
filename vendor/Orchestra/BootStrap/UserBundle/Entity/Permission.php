@@ -70,7 +70,7 @@ class Permission
     
     public function __toString()
     {
-    	return (string) $this->getName();
+        return (string) $this->getName();
     }    
     
     
@@ -91,7 +91,7 @@ class Permission
      */
     public function setName($name)
     {
-    	$this->name = $name;
+        $this->name = $name;
     }
     
     /**
@@ -101,7 +101,7 @@ class Permission
      */
     public function getName()
     {
-    	return $this->name;
+        return $this->name;
     }  
 
     /**
@@ -131,7 +131,7 @@ class Permission
      */
     public function setEnabled($enabled)
     {
-    	$this->enabled = $enabled;
+        $this->enabled = $enabled;
     }
 
 

@@ -3,23 +3,23 @@
      * Edits an existing {{ entity }} entity.
      *
      * @Secure(roles="ROLE_USER")
-	 * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *
-	 * @access	public
-	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
+     * @access    public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
      */
     public function updateAction($id)
     {
-        $em 		= $this->getDoctrine()->getEntityManager();
-    	$locale		= $this->container->get('request')->getLocale();
-        $entity 	= $em->getRepository("{{ bundle }}:{{ entity }}")->findOneByEntity($locale, $id, "object"); 
+        $em         = $this->getDoctrine()->getEntityManager();
+        $locale        = $this->container->get('request')->getLocale();
+        $entity     = $em->getRepository("{{ bundle }}:{{ entity }}")->findOneByEntity($locale, $id, "object"); 
         
         $category   = $this->container->get('request')->query->get('category');
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-        if (!$NoLayout)	$template = "edit.html.twig";  else	$template = "edit.html.twig";        
+        if (!$NoLayout)    $template = "edit.html.twig";  else    $template = "edit.html.twig";        
 
         if (!$entity) {
-        	$entity = $em->getRepository("{{ bundle }}:{{ entity }}")->find($id);
+            $entity = $em->getRepository("{{ bundle }}:{{ entity }}")->find($id);
         }
 
         $editForm   = $this->createForm(new {{ entity_class }}Type($em, $this->container), $entity, array('show_legend' => false));
@@ -39,16 +39,16 @@
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'NoLayout' 	  => $NoLayout,
-            'category'	  => $category,
+            'NoLayout'       => $NoLayout,
+            'category'      => $category,
         );
 {% else %}
         return $this->render("{{ bundle }}:{{ entity|replace({'\\': '/'}) }}:$template", array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'NoLayout' 	  => $NoLayout,
-            'category'	  => $category,
+            'NoLayout'       => $NoLayout,
+            'category'      => $category,
         ));
 {% endif %}
     }

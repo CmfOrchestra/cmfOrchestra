@@ -57,36 +57,36 @@ class Configuration implements ConfigurationInterface
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
     protected function addAdminConfig(ArrayNodeDefinition $rootNode){
-    	$rootNode
-	    	->children()
-		    	->arrayNode('admin')
-		    	->addDefaultsIfNotSet()
-		    	->children()
-		    	
-			    	->scalarNode('context_menu_theme')
-			    		->defaultValue('pi2')
-			    		->cannotBeEmpty()
-			    		->end()
+        $rootNode
+            ->children()
+                ->arrayNode('admin')
+                ->addDefaultsIfNotSet()
+                ->children()
+                
+                    ->scalarNode('context_menu_theme')
+                        ->defaultValue('pi2')
+                        ->cannotBeEmpty()
+                        ->end()
 
-			    	->scalarNode('grid_index_css')
-			    		->defaultValue('style-grid-7.css')
-			    		->cannotBeEmpty()
-			    		->end()
-			    		
-			    	->scalarNode('grid_show_css')
-			    		->defaultValue('style-grid-5.css')
-			    		->cannotBeEmpty()
-			    		->end()
-			    		
-			    	->scalarNode('theme_css')
-			    		->defaultValue('rocket')
-			    		->cannotBeEmpty()
-			    		->end()
-			    		
-		    	->end()
-	    
-	    	->end()
-    	->end();
+                    ->scalarNode('grid_index_css')
+                        ->defaultValue('style-grid-7.css')
+                        ->cannotBeEmpty()
+                        ->end()
+                        
+                    ->scalarNode('grid_show_css')
+                        ->defaultValue('style-grid-5.css')
+                        ->cannotBeEmpty()
+                        ->end()
+                        
+                    ->scalarNode('theme_css')
+                        ->defaultValue('rocket')
+                        ->cannotBeEmpty()
+                        ->end()
+                        
+                ->end()
+        
+            ->end()
+        ->end();
     }    
     
     /**
@@ -100,56 +100,56 @@ class Configuration implements ConfigurationInterface
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
     protected function addPageConfig(ArrayNodeDefinition $rootNode){
-    	$rootNode
-	    	->children()
-		    	->arrayNode('page')
-		    	->addDefaultsIfNotSet()
-		    	->children()
+        $rootNode
+            ->children()
+                ->arrayNode('page')
+                ->addDefaultsIfNotSet()
+                ->children()
 
-		    		->booleanNode('homepage_deletewidget')
-		    			->defaultValue(true)
-		    			->end()
-		    			
-		    		->booleanNode('page_management_by_user_only')
-		    			->defaultValue(false)
-		    			->end()		    			
-		    	
-			    	->booleanNode('single_slug')
-			    		->defaultValue(false)
-			    		->end()
-			    	
-			    	->booleanNode('refresh_allpage_containing_snippet')
-			    		->defaultValue(true)
-			    		->end()
-			    		
-			    	->booleanNode('refresh_css_js_cache_file')
-			    		->defaultValue(true)
-			    		->end()			    		
-			    		
-			    	->booleanNode('indexation_authorized_automatically')
-			    		->defaultValue(false)
-			    		->end()			    		
+                    ->booleanNode('homepage_deletewidget')
+                        ->defaultValue(true)
+                        ->end()
+                        
+                    ->booleanNode('page_management_by_user_only')
+                        ->defaultValue(false)
+                        ->end()                        
+                
+                    ->booleanNode('single_slug')
+                        ->defaultValue(false)
+                        ->end()
+                    
+                    ->booleanNode('refresh_allpage_containing_snippet')
+                        ->defaultValue(true)
+                        ->end()
+                        
+                    ->booleanNode('refresh_css_js_cache_file')
+                        ->defaultValue(true)
+                        ->end()                        
+                        
+                    ->booleanNode('indexation_authorized_automatically')
+                        ->defaultValue(false)
+                        ->end()                        
 
-			    	->booleanNode('switch_layout_mobile_authorized')
-			    		->defaultValue(false)
-			    		->end()
-			    	
-			    	->booleanNode('switch_layout_init_redirection_authorized')
-			    		->defaultValue(false)
-			    		->end()
-			    		 
-			    	->booleanNode('switch_language_browser_authorized')
-			    		->defaultValue(false)
-			    		->end()
-			    		 
-		    		->booleanNode('memcache_enable')
-			    		->defaultValue(false)
-			    		->end()
-			    		
-		    	->end()
-	    
-	    	->end()
-    	->end();
+                    ->booleanNode('switch_layout_mobile_authorized')
+                        ->defaultValue(false)
+                        ->end()
+                    
+                    ->booleanNode('switch_layout_init_redirection_authorized')
+                        ->defaultValue(false)
+                        ->end()
+                         
+                    ->booleanNode('switch_language_browser_authorized')
+                        ->defaultValue(false)
+                        ->end()
+                         
+                    ->booleanNode('memcache_enable')
+                        ->defaultValue(false)
+                        ->end()
+                        
+                ->end()
+        
+            ->end()
+        ->end();
     }
         
     /**
@@ -180,7 +180,7 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('error_type')
                             ->defaultValue('inline')
                             ->cannotBeEmpty()
-                        	->end()
+                            ->end()
                         
                     ->end()
                     
@@ -199,24 +199,24 @@ class Configuration implements ConfigurationInterface
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     protected function addCookiesConfig(ArrayNodeDefinition $rootNode){
-    	$rootNode
-	    	->children()
-		    	->arrayNode('cookies')
-			    	->addDefaultsIfNotSet()
-			    	->children()
-			    
-				    	->booleanNode('date_expire')
-					    	->defaultValue(true)
-					    	->end()
-				    
-				    	->scalarNode('date_interval')
-					    	->defaultValue("PT4H")
-					    	->end()
-				    
-		    	->end()
-	    
-	    	->end()
-    	->end();
+        $rootNode
+            ->children()
+                ->arrayNode('cookies')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                
+                        ->booleanNode('date_expire')
+                            ->defaultValue(true)
+                            ->end()
+                    
+                        ->scalarNode('date_interval')
+                            ->defaultValue("PT4H")
+                            ->end()
+                    
+                ->end()
+        
+            ->end()
+        ->end();
     }    
     
     /**
@@ -230,162 +230,162 @@ class Configuration implements ConfigurationInterface
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
     protected function addLayoutConfig(ArrayNodeDefinition $rootNode){
-    	$rootNode
-	    	->children()
-		    	->arrayNode('layout')
-		    		->addDefaultsIfNotSet()
-			    	->children()
-			    	
-			    		->arrayNode('init_pc')
-			    			->addDefaultsIfNotSet()
-			    			->children()
-			    			
-						    	->scalarNode('template_name')
-						    		->defaultValue('layout-pi-page1.html.twig')
-						    		->cannotBeEmpty()
-						    		->end()
-						    		
-						    	->scalarNode('route_redirection_name')
-						    		->defaultValue('home_page')
-						    		->cannotBeEmpty()
-						    		->end()
-						    		
-						    ->end()
-					    ->end()
-					    
-					    ->arrayNode('init_mobile')
-					    	->addDefaultsIfNotSet()
-						    ->children()
-						    
-							    ->scalarNode('template_name')
-								    ->defaultValue('Default')
-								    ->cannotBeEmpty()
-								    ->end()
-								    
-							    ->scalarNode('route_redirection_name')
-								    ->defaultValue('public_page_mobile')
-								    ->cannotBeEmpty()
-								    ->end()
-								    
-						    ->end()
-					    ->end()
+        $rootNode
+            ->children()
+                ->arrayNode('layout')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                    
+                        ->arrayNode('init_pc')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                            
+                                ->scalarNode('template_name')
+                                    ->defaultValue('layout-pi-page1.html.twig')
+                                    ->cannotBeEmpty()
+                                    ->end()
+                                    
+                                ->scalarNode('route_redirection_name')
+                                    ->defaultValue('home_page')
+                                    ->cannotBeEmpty()
+                                    ->end()
+                                    
+                            ->end()
+                        ->end()
+                        
+                        ->arrayNode('init_mobile')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                            
+                                ->scalarNode('template_name')
+                                    ->defaultValue('Default')
+                                    ->cannotBeEmpty()
+                                    ->end()
+                                    
+                                ->scalarNode('route_redirection_name')
+                                    ->defaultValue('public_page_mobile')
+                                    ->cannotBeEmpty()
+                                    ->end()
+                                    
+                            ->end()
+                        ->end()
 
-					    
-					    ->arrayNode('login_role')
-						    ->addDefaultsIfNotSet()
-						    ->children()
-						    
-							    ->scalarNode('redirection_admin')
-								    ->defaultValue('admin_homepage')
-								    ->cannotBeEmpty()
-								    ->end()
-							    
-							    ->scalarNode('redirection_user')
-								    ->defaultValue('home_page')
-								    ->cannotBeEmpty()
-								    ->end()
-								    
-								->scalarNode('redirection_subscriber')
-								    ->defaultValue('home_page')
-								    ->cannotBeEmpty()
-								    ->end()
-								    
-								->scalarNode('template_admin')
-								    ->defaultValue('layout-pi-admin.html.twig')
-								    ->cannotBeEmpty()
-								    ->end()
+                        
+                        ->arrayNode('login_role')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                            
+                                ->scalarNode('redirection_admin')
+                                    ->defaultValue('admin_homepage')
+                                    ->cannotBeEmpty()
+                                    ->end()
+                                
+                                ->scalarNode('redirection_user')
+                                    ->defaultValue('home_page')
+                                    ->cannotBeEmpty()
+                                    ->end()
+                                    
+                                ->scalarNode('redirection_subscriber')
+                                    ->defaultValue('home_page')
+                                    ->cannotBeEmpty()
+                                    ->end()
+                                    
+                                ->scalarNode('template_admin')
+                                    ->defaultValue('layout-pi-admin.html.twig')
+                                    ->cannotBeEmpty()
+                                    ->end()
 
-								->scalarNode('template_user')
-								    ->defaultValue('layout-pi-page2.html.twig')
-								    ->cannotBeEmpty()
-								    ->end()
+                                ->scalarNode('template_user')
+                                    ->defaultValue('layout-pi-page2.html.twig')
+                                    ->cannotBeEmpty()
+                                    ->end()
 
-								->scalarNode('template_subscriber')
-								    ->defaultValue('layout-pi-page2.html.twig')
-								    ->cannotBeEmpty()
-								    ->end()
-								    
-								    
-						    ->end()
-					    ->end()
-					    
-					    ->arrayNode('template')
-						    ->addDefaultsIfNotSet()
-						    ->children()
-						    
-							    ->scalarNode('template_connection')
-								    ->defaultValue('layout-security.html.twig')
-								    ->cannotBeEmpty()
-								    ->end()
-							    
-							    ->scalarNode('template_form')
-								    ->defaultValue('fields.html.twig')
-								    ->cannotBeEmpty()
-								    ->end()
-							    
-							    ->scalarNode('template_grid')
-								    ->defaultValue('grid.theme.html.twig')
-								    ->cannotBeEmpty()
-								    ->end()
+                                ->scalarNode('template_subscriber')
+                                    ->defaultValue('layout-pi-page2.html.twig')
+                                    ->cannotBeEmpty()
+                                    ->end()
+                                    
+                                    
+                            ->end()
+                        ->end()
+                        
+                        ->arrayNode('template')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                            
+                                ->scalarNode('template_connection')
+                                    ->defaultValue('layout-security.html.twig')
+                                    ->cannotBeEmpty()
+                                    ->end()
+                                
+                                ->scalarNode('template_form')
+                                    ->defaultValue('fields.html.twig')
+                                    ->cannotBeEmpty()
+                                    ->end()
+                                
+                                ->scalarNode('template_grid')
+                                    ->defaultValue('grid.theme.html.twig')
+                                    ->cannotBeEmpty()
+                                    ->end()
 
-								->scalarNode('template_flash')
-								    ->defaultValue('flash.html.twig')
-								    ->cannotBeEmpty()
-								    ->end()
-								    
-						    ->end()
-					    ->end()
-					    
+                                ->scalarNode('template_flash')
+                                    ->defaultValue('flash.html.twig')
+                                    ->cannotBeEmpty()
+                                    ->end()
+                                    
+                            ->end()
+                        ->end()
+                        
 
-					    ->arrayNode('meta_head')
-						    ->addDefaultsIfNotSet()
-						    ->children()
-						    
-							    ->scalarNode('author')
-								    ->defaultValue('Orchestra')
-								    ->cannotBeEmpty()
-								    ->end()
-							    
-							    ->scalarNode('copyright')
-								    ->defaultValue('Orchestra')
-								    ->cannotBeEmpty()
-								    ->end()
-								    
-								->scalarNode('title')
-								    ->defaultValue('')
-								    ->end()								    
-								    
-								->scalarNode('description')
-								    ->defaultValue('')
-								    ->end()
-								    
-								->scalarNode('keywords')
-								    ->defaultValue('')
-								    ->end()
-								    
-								->scalarNode('og_type')
-								    ->defaultValue('')
-								    ->cannotBeEmpty()
-								    ->end()
+                        ->arrayNode('meta_head')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                            
+                                ->scalarNode('author')
+                                    ->defaultValue('Orchestra')
+                                    ->cannotBeEmpty()
+                                    ->end()
+                                
+                                ->scalarNode('copyright')
+                                    ->defaultValue('Orchestra')
+                                    ->cannotBeEmpty()
+                                    ->end()
+                                    
+                                ->scalarNode('title')
+                                    ->defaultValue('')
+                                    ->end()                                    
+                                    
+                                ->scalarNode('description')
+                                    ->defaultValue('')
+                                    ->end()
+                                    
+                                ->scalarNode('keywords')
+                                    ->defaultValue('')
+                                    ->end()
+                                    
+                                ->scalarNode('og_type')
+                                    ->defaultValue('')
+                                    ->cannotBeEmpty()
+                                    ->end()
 
-								->scalarNode('og_image')
-								    ->defaultValue('')
-								    ->cannotBeEmpty()
-								    ->end()
+                                ->scalarNode('og_image')
+                                    ->defaultValue('')
+                                    ->cannotBeEmpty()
+                                    ->end()
 
-								->scalarNode('og_site_name')
-								    ->defaultValue('')
-								    ->cannotBeEmpty()
-								    ->end()								    
-						    
-						    ->end()
-					    ->end()					    
-					    
-					    
-					    
-			    	->end()
-		    	->end()
-	    	->end();
+                                ->scalarNode('og_site_name')
+                                    ->defaultValue('')
+                                    ->cannotBeEmpty()
+                                    ->end()                                    
+                            
+                            ->end()
+                        ->end()                        
+                        
+                        
+                        
+                    ->end()
+                ->end()
+            ->end();
     }    
         
 }
