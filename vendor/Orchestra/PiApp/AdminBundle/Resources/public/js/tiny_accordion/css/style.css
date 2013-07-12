@@ -1,0 +1,25 @@
+.tinyoptions {width:100%; margin:20px auto; text-align:right; color:#9ac1c9}
+.tinyoptions a {text-decoration:none; color:#9ac1c9}
+.tinyoptions a:hover {color:#033}
+
+ul.acc {width:100%; list-style:none; color:#033; margin:0 auto 40px}
+ul.acc h3 {width:98%; border:1px solid #9ac1c9; padding:6px 6px 8px; font-weight:bold; margin-top:5px; cursor:pointer; background:url(../images/header.gif)}
+ul.acc h3:hover {background:url(../images/header_over.gif)}
+ul.acc .acc-section {overflow:hidden; background:#fff}
+ul.acc .acc-content {width:96.5%; padding:15px; border:1px solid #9ac1c9; border-top:none; background:#fff}
+
+#nested {width:95%; list-style:none; color:#033; margin-bottom:15px}
+#nested h3 {width:95%; border:1px solid #9ac1c9; padding:6px 6px 8px; font-weight:bold; margin-top:5px; cursor:pointer; background:url(../images/header.gif)}
+#nested h3:hover {background:url(../images/header_over.gif)}
+#nested .acc-section {overflow:hidden; background:#fff}
+#nested .acc-content {width:95; padding:15px; border:1px solid #9ac1c9; border-top:none; background:#fff}
+#nested .acc-selected {background:url(../images/header_over.gif)}
+
+.tree-menu{}
+.tree-node{}
+
+
+.acc-content table select {
+	width: 111px;
+	backgounrd-color: red;
+}

@@ -1,0 +1,3 @@
+#content{background:url("error/line.png") repeat-x center center transparent;position:relative;overflow:hidden;width:300px;padding-left:300px;margin-top:200px;}
+#content p{width:300px;text-align:center;}
+#piaf{background:url("error/piaf.png") no-repeat center center transparent;height:100%;left:0px;position:absolute;top:0;width:118px}
