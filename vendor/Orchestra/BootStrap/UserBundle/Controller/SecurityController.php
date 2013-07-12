@@ -14,6 +14,7 @@ namespace BootStrap\UserBundle\Controller;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\HttpFoundation\Response;
 
 class SecurityController extends ContainerAware
 {
@@ -59,6 +60,18 @@ class SecurityController extends ContainerAware
      */
     protected function renderLogin(array $data)
     {
+        if ($request->isXmlHttpRequest()) {
+        	if ($error){
+        		$statut = "error";
+        	}
+        	else{
+        		$statut = "ok";
+        	}
+        	$response = new Response(json_encode($statut));
+        	$response->headers->set('Content-Type', 'application/json');
+        	return $response;
+        }
+        
         $template = "PiAppTemplateBundle:Template\\Login\\Security:login.html.twig";
     
         return $this->container->get('templating')->renderResponse($template, $data);
