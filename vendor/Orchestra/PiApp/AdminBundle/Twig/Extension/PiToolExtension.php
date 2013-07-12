@@ -309,7 +309,7 @@ class PiToolExtension extends \Twig_Extension
                 
         try {
             $lang          = $this->container->get('request')->getLocale();
-            $pathInfo    = str_replace($this->container->get('request')->getUriForPath(''), '', $this->container->get('request')->getUri());
+            $pathInfo	= $this->container->get('request')->getPathInfo();
             $match        = $this->container->get('be_simple_i18n_routing.router')->match($pathInfo);
             $route        = $match['_route'];
             
@@ -388,7 +388,7 @@ class PiToolExtension extends \Twig_Extension
         $metas[] = "    <meta property='og:url' content=\"{$Uri}\"/>";
         try {
             // title management
-            $pathInfo    = str_replace($this->container->get('request')->getUriForPath(''), '', $this->container->get('request')->getUri());
+            $pathInfo	= $this->container->get('request')->getPathInfo();
             $match        = $this->container->get('be_simple_i18n_routing.router')->match($pathInfo);
             $route        = $match['_route'];
             if (isset($GLOBALS['ROUTE']['SLUGGABLE'][ $route ]) && !empty($GLOBALS['ROUTE']['SLUGGABLE'][ $route ])) {
