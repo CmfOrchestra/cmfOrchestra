@@ -73,12 +73,12 @@ class RequestListener
         $this->date_interval    = $this->container->getParameter('pi_app_admin.cookies.date_interval');
         // we set the browser information
         $browser    =    $this->browscap->getBrowser();
-        if ($this->date_expire && !empty($this->date_interval)) {
-            $dateExpire = new \DateTime("NOW");
-            $dateExpire->add(new \DateInterval($this->date_interval)); // we add 4 hour
-        } else {
-            $dateExpire = 0;
-        }
+//         if ($this->date_expire && !empty($this->date_interval)) {
+//             $dateExpire = new \DateTime("NOW");
+//             $dateExpire->add(new \DateInterval($this->date_interval)); // we add 4 hour
+//         } else {
+//             $dateExpire = 0;
+//         }
         // we add browser info in the request
         $request->attributes->set('orchestra-browser', $browser);
         $request->attributes->set('orchestra-mobiledetect', $this->mobiledetect);
@@ -105,7 +105,9 @@ class RequestListener
         ){
             $isNoScope = true;
         }
-          
+        if ($browser->Version == 0.0) {
+            $isNoScope = false;
+        }
         if ($isNoScope){
             if (!$browser->isMobileDevice) {
                 if ( isset($globals["navigator"][$nav_desktop]) && (floatval($browser->Version)  <= $globals["navigator"][$nav_desktop]) ) $isNav = false; else $isNav = true;

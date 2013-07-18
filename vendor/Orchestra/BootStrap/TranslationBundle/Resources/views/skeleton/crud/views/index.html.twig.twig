@@ -1,4 +1,5 @@
 {{ "{% initJquery 'GRID:grid-table' %}" }}
+{{ "{% stylesheet getParameter('pi_app_admin.admin.theme_css')~':prepend' %}" }}
 {{ "{% if NoLayout %}" }}
 	{{ "{% stylesheet 'bundles/piappadmin/css/layout/admin/screen.css' %}" }}
 	{{ "{% javascript 'bundles/piappadmin/js/jquery/custom_jquery.js' %}" }}
@@ -50,66 +51,70 @@
 	        </tr>
 	    </thead>
 	    <tbody>
-	    {{ '{% set num_line = 0 %}' }}
-	    {{ '{% for entity in entities %}' }}
-	        <tr {{ '{% if(num_line == 0) %}class="odd"{% endif %}' }}  {{ "id='{{ entity.position }}_row_{{ entity.id }}'"}}  >
-	        
-		{%- set is_position = "" -%}
-		{%- set value_id_position = "1" -%}
-	    {%- for field, metadata in fields %}
-	        {%- if loop.first and ('show' in actions) %}
-	
-	            <td><a href="{{ "{{ path('"~ route_name_prefix ~"_show', { 'id': entity.id, 'NoLayout': NoLayout, 'category':category }) }}" }}" title="">{{ '{{ entity.'~ field|replace({'_': ''}) ~' }}' }}</a></td>
-	
-	        {%- elseif metadata.type in ['date', 'datetime'] %}
-	
-	            <td>{{ '{% if entity.'~ field|replace({'_': ''}) ~' %}{{ entity.'~ field|replace({'_': ''}) ~'|date(\'Y-m-d\') }}{% endif%}' }}</td>
-	
-			{%- elseif field in ['enabled'] %}
-	
-	            <td class="enabled" >{{ '{{ entity.'~ field ~'}}' }}</td>
-	
-			{%- elseif field in ['position'] %}
-			
-				{%- set is_position = "'1':'Position'," -%}
-				{%- set value_id_position = "2" -%}
+	    {{ '{% if not isServerSide %}' }}
+		    {{ '{% set num_line = 0 %}' }}
+		    {{ '{% for entity in entities %}' }}
+		        <tr {{ '{% if(num_line == 0) %}class="odd"{% endif %}' }}  {{ "id='{{ entity.position }}_row_{{ entity.id }}'"}}  >
+		        
+			{%- set is_position = "" -%}
+			{%- set value_id_position = "1" -%}
+		    {%- for field, metadata in fields %}
+		        {%- if loop.first and ('show' in actions) %}
+		
+		            <td><a href="{{ "{{ path('"~ route_name_prefix ~"_show', { 'id': entity.id, 'NoLayout': NoLayout, 'category':category }) }}" }}" title="">{{ '{{ entity.'~ field|replace({'_': ''}) ~' }}' }}</a></td>
+		
+		        {%- elseif metadata.type in ['date', 'datetime'] %}
+		
+		            <td>{{ '{% if entity.'~ field|replace({'_': ''}) ~' %}{{ entity.'~ field|replace({'_': ''}) ~'|date(\'Y-m-d\') }}{% endif%}' }}</td>
+		
+				{%- elseif field in ['enabled'] %}
+		
+		            <td class="enabled" >{{ '{{ entity.'~ field ~'}}' }}</td>
+		
+				{%- elseif field in ['position'] %}
 				
-				<td class="position" >{{ '{{ entity.'~ field ~'}}' }}</td>
+					{%- set is_position = "'1':'Position'," -%}
+					{%- set value_id_position = "2" -%}
+					
+					<td class="position" >{{ '{{ entity.'~ field ~'}}' }}</td>
+		
+		        {%- else %}
+		
+		            <td>
+		            	{{ '{{ entity.'~ field|replace({'_': ''}) ~'|truncateText(55)|raw }}' }}
+		            </td>
+		
+		        {%- endif %}
+		
+		        {%- if loop.last %}
+		
+					<td>
+					
+		        	{%- include "views/others/actions.html.twig.twig" %}
 	
-	        {%- else %}
-	
-	            <td>
-	            	{{ '{{ entity.'~ field|replace({'_': ''}) ~'|truncateText(55)|raw }}' }}
-	            </td>
-	
-	        {%- endif %}
-	
-	        {%- if loop.last %}
-	
-				<td>
-				
-	        	{%- include "views/others/actions.html.twig" %}
-
-				</td>
-	
-	        {%- endif %}
-	    {%- endfor %}
-	
-	        </tr>
-	        {{ "{% if num_line == 0 %}" }} 
-	        	{{ "{% set num_line = 1 %}" }}
-	        {{ "{% else %}" }}
-	        	{{ "{% set num_line = 0 %}" }}
-	        {{ "{% endif %}" }}	
-	                
-	    {{ "{% endfor %}" }}
+					</td>
+		
+		        {%- endif %}
+		    {%- endfor %}
+		
+		        </tr>
+		        {{ "{% if num_line == 0 %}" }} 
+		        	{{ "{% set num_line = 1 %}" }}
+		        {{ "{% else %}" }}
+		        	{{ "{% set num_line = 0 %}" }}
+		        {{ "{% endif %}" }}	
+		                
+		    {{ "{% endfor %}" }}
+	    {{ "{% endif %}" }}
 	    </tbody>
 	</table>
 
 	{{ "{% set options_gridtabale = {'grid-name': 'grid_"~ entity|lower|replace({"\\": '_'}) ~"', 'grid-type':'simple', 
+	        'grid-server-side': isServerSide,
 			'grid-paginate':'true',
 			'grid-LengthMenu':25,
 			'grid-filters-select': ['0','1'],
+			'grid-filters-active':'true',
 			'grid-filters': { 
 					"~ is_position ~"
 					'"~ value_id_position ~"':'Identifiant',

@@ -1,5 +1,5 @@
 {{ "{% stylesheet getParameter('pi_app_admin.admin.grid_show_css') %}" }}
-{{ "{% stylesheet getParameter('pi_app_admin.admin.theme_css')~":prepend" %}" }}
+{{ "{% stylesheet getParameter('pi_app_admin.admin.theme_css')~':prepend' %}" }}
 {{ "{% if NoLayout %}" }}
 	{{ "{% set layout_nav = 'PiAppTemplateBundle::Template\\\\Layout\\\\layout-ajax.html.twig' %}" }}
 {{ "{% else %}" }}
@@ -40,7 +40,7 @@
 	{{ "{% if is_granted('ROLE_ALLOWED_TO_SWITCH') %}" }}
 	
 		{% set hide_edit, hide_delete = false, false %}
-		{% include 'views/others/record_actions.html.twig' %}
+		{% include 'views/others/record_actions.html.twig.twig' %}
 	
 		<script type="text/javascript">
 		//<![CDATA[

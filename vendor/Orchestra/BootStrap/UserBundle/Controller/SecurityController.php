@@ -42,7 +42,19 @@ class SecurityController extends ContainerAware
         $csrfToken = $this->container->has('form.csrf_provider')
         ? $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate')
         : null;
-    
+
+        if ($request->isXmlHttpRequest()) {
+        	if ($error){
+        		$statut = "error";
+        	}
+        	else{
+        		$statut = "ok";
+        	}
+        	$response = new Response(json_encode($statut));
+        	$response->headers->set('Content-Type', 'application/json');
+        	return $response;
+        }
+                
         return $this->renderLogin(array(
                 'last_username' => $lastUsername,
                 'error'         => $error,
@@ -60,18 +72,6 @@ class SecurityController extends ContainerAware
      */
     protected function renderLogin(array $data)
     {
-        if ($request->isXmlHttpRequest()) {
-        	if ($error){
-        		$statut = "error";
-        	}
-        	else{
-        		$statut = "ok";
-        	}
-        	$response = new Response(json_encode($statut));
-        	$response->headers->set('Content-Type', 'application/json');
-        	return $response;
-        }
-        
         $template = "PiAppTemplateBundle:Template\\Login\\Security:login.html.twig";
     
         return $this->container->get('templating')->renderResponse($template, $data);

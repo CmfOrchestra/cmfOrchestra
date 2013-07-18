@@ -1,0 +1,115 @@
+
+    /**
+     * Lists all {{ entity }} entities.
+     *
+     * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
+	 * @return \Symfony\Component\HttpFoundation\Response
+     *
+	 * @access	public
+	 * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>   
+     */
+    public function indexAction()
+    {
+        $request    = $this->container->get('request');
+    	$em        = $this->getDoctrine()->getEntityManager();
+    	$locale    = $this->container->get('request')->getLocale();
+        
+        $category    = $this->container->get('request')->query->get('category');
+        $NoLayout    = $this->container->get('request')->query->get('NoLayout');
+        if (!$NoLayout) 	$template = "index.html.twig"; else $template = "index.html.twig";
+        
+        if ($NoLayout){
+    		$query    = $em->getRepository("{{ bundle }}:{{ entity }}")->setContainer($this->container)->getAllByCategory($category, null, '', 'DESC', false);
+    	} else {
+    		$query    = $em->getRepository("{{ bundle }}:{{ entity }}")->getAllByCategory($category, null, '', 'ASC', false);
+    	}
+    	
+        $is_Server_side = true;
+        
+        if ($request->isXmlHttpRequest() && $is_Server_side) {
+           $aColumns    = array('a.position','a.id','a.status','m.name','a.published_at','a.enabled');
+           $q1 = clone $query;
+           $q2 = clone $query;
+           $result    = $this->createAjaxQuery('select',$aColumns, $q1, 'a');
+           $total    = $this->createAjaxQuery('count',$aColumns, $q2, 'a');
+        
+           $output = array(
+               "sEcho" => intval($request->get('sEcho')),
+                "iTotalRecords" => $total,
+                "iTotalDisplayRecords" => $total,
+                "aaData" => array()
+           );
+        
+           foreach ($result as $e) {
+              $row = array();
+              $row[] = $e->getPosition();
+              $row[] = $e->getId();
+              
+              if (is_object($e->getCategory())) {
+                  $row[] = $e->getCategory()->getName();
+              } else {
+                  $row[] = "";
+              }
+              
+              if (is_object($e->getImage())) {
+                  $row[] = $e->getImage()->getName();
+              } else {
+                  $row[] = "";
+              }
+        
+              if (is_object($e->getImage())) {
+                  $UrlPicture = $this->container->get('pi_app_admin.twig.extension.route')->getMediaUrlFunction($e->getImage(), 'reference', true, $e->getUpdatedAt(), 'gedmo_{{ entity|replace({'\\': '/'}) }}');
+                  $row[] = '<a href="#" title=\'<img width="450px" src="'.$UrlPicture.'">\' class="info-tooltip"><img width="20px" src="'.$UrlPicture.'"></a>';
+                  
+                  if (is_object($e->getUpdatedAt())) {
+                      $row[] = $e->getUpdatedAt()->format('d-m-Y');
+                  } else {
+                      $row[] = "";
+                  }
+              }
+              
+              // create enabled/disabled buttons
+              $Urlenabled     = $this->container->get('templating.helper.assets')->getUrl("bundles/piappadmin/images/grid/button-green.png");
+              $Urldisabled     = $this->container->get('templating.helper.assets')->getUrl("bundles/piappadmin/images/grid/button-red.png");
+              if ($e->getEnabled()) {
+                  $row[] = '<img width="17px" src="'.$Urlenabled.'">';
+              } else {
+                  $row[] = '<img width="17px" src="'.$Urldisabled.'">';
+              }
+              // create action links
+              $route_path_show = $this->container->get('pi_app_admin.twig.extension.route')->getUrlByRouteFunction('admin_gedmo_media_show', array('id'=>$e->getId(), 'NoLayout'=>$NoLayout, 'category'=>$category));
+              $route_path_edit = $this->container->get('pi_app_admin.twig.extension.route')->getUrlByRouteFunction('admin_gedmo_media_edit', array('id'=>$e->getId(), 'NoLayout'=>$NoLayout, 'category'=>$category, 'status'=>$e->getStatus()));
+              $actions = '<a href="'.$route_path_show.'" title="'.$this->container->get('translator')->trans('pi.grid.action.show').'" class="icon-3 info-tooltip" >&nbsp;</a>'; //actions
+              $actions = '<a href="'.$route_path_edit.'" title="'.$this->container->get('translator')->trans('pi.grid.action.edit').'" class="icon-1 info-tooltip" >&nbsp;</a>'; //actions
+              $row[] = $actions;
+              
+              $output['aaData'][] = $row ;
+            }
+            $response = new Response(json_encode( $output ));
+            $response->headers->set('Content-Type', 'application/json');
+            
+            return $response;
+        }
+        
+        if (!$is_Server_side) {
+           $entities    = $em->getRepository("{{ bundle }}:{{ entity }}")->findTranslationsByQuery($locale, $query->getQuery(), 'object', false);
+        } else {
+           $entities   = null;
+        }    	
+
+{% if 'annotation' == format %}
+        return array(
+            'isServerSide' => $is_Server_side,
+        	'entities'	=> $entities,
+        	'NoLayout'	=> $NoLayout,
+        	'category'	=> $category,
+        );
+{% else %}
+        return $this->render("{{ bundle }}:{{ entity|replace({'\\': '/'}) }}:$template", array(
+            'isServerSide' => $is_Server_side,
+            'entities'	=> $entities,
+            'NoLayout'	=> $NoLayout,
+            'category'	=> $category,
+        ));
+{% endif %}
+    }

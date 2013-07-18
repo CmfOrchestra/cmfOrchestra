@@ -46,43 +46,43 @@ class {{ entity_class }}Controller extends abstractController
 {
     protected $_entityName = "{{ bundle }}:{{ entity }}";
     
-    {%- include 'actions/enabledajax.php' %}    
+    {%- include 'actions/enabledajax.php.twig' %}    
      
-    {%- include 'actions/disableajax.php' %}    
+    {%- include 'actions/disableajax.php.twig' %}    
      
-    {%- include 'actions/positionajax.php' %}
+    {%- include 'actions/positionajax.php.twig' %}
     
-    {%- include 'actions/deleteajax.php' %}
+    {%- include 'actions/deleteajax.php.twig' %}
     
-    {%- include 'actions/archiveajax.php' %}
+    {%- include 'actions/archiveajax.php.twig' %}
     
 
     {%- if 'index' in actions %}
-        {%- include 'actions/index.php' %}
+        {%- include 'actions/index.php.twig' %}
     {%- endif %}    
 
     {%- if 'show' in actions %}
-        {%- include 'actions/show.php' %}
+        {%- include 'actions/show.php.twig' %}
     {%- endif %}
 
     {%- if 'new' in actions %}
-        {%- include 'actions/new.php' %}
-        {%- include 'actions/create.php' %}
+        {%- include 'actions/new.php.twig' %}
+        {%- include 'actions/create.php.twig' %}
     {%- endif %}
 
     {%- if 'edit' in actions %}
-        {%- include 'actions/edit.php' %}
-        {%- include 'actions/update.php' %}
+        {%- include 'actions/edit.php.twig' %}
+        {%- include 'actions/update.php.twig' %}
     {%- endif %}
 
     {%- if 'delete' in actions %}
-        {%- include 'actions/delete.php' %}
+        {%- include 'actions/delete.php.twig' %}
     {%- endif %}
     
-       {%- include 'actions/_template_show.php' %}
+       {%- include 'actions/_template_show.php.twig' %}
     
-       {%- include 'actions/_template_list.php' %}    
+       {%- include 'actions/_template_list.php.twig' %}    
        
-       {%- include 'actions/_template_archive.php' %}       
+       {%- include 'actions/_template_archive.php.twig' %}       
     
 }
