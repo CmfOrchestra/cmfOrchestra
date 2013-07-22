@@ -29,7 +29,10 @@ class BootStrapMediaExtension extends Extension{
 
     public function load(array $config, ContainerBuilder $container)
     {
-        $loaderYaml = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config/service'));
+        $loaderYaml = new Loader\YamlFileLoader($container, new FileLocator(realpath(__DIR__ . '/../Resources/config/service')));
         $loaderYaml->load('services.yml');
+        
+        $loaderXml = new Loader\XmlFileLoader($container, new FileLocator(realpath(__DIR__ . '/../Resources/config/service')));
+        $loaderXml->load('security.xml');
     }
 }

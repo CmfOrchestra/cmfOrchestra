@@ -64,7 +64,7 @@ class DoctrineCrudCommand extends BaseGenerator
         $this->setName('orchestra:generate:crud');
     }
 
-    protected function getGenerator()
+    protected function getGenerator($bundle = null)
     {
         $generator_crud = new DoctrineCrudGenerator($this->getContainer()->get('filesystem'), __DIR__.'/../Resources/views/skeleton/crud');
         $this->setGenerator($generator_crud);

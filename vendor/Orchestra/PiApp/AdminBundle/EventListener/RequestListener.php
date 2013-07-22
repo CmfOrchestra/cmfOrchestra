@@ -105,7 +105,7 @@ class RequestListener
         ){
             $isNoScope = true;
         }
-        if ($browser->Version == 0.0) {
+        if ( ($browser->Version == 0.0) || ($browser->Platform_Version == 0.0) ) {
             $isNoScope = false;
         }
         if ($isNoScope){
