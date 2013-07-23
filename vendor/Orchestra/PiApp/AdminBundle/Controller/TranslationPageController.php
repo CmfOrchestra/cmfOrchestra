@@ -50,7 +50,7 @@ class TranslationPageController extends abstractController
      */
     public function indexAction($page)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         if (is_null($page))
             $entities = $em->getRepository('PiAppAdminBundle:TranslationPage')->findAll();
@@ -103,7 +103,7 @@ class TranslationPageController extends abstractController
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('PiAppAdminBundle:TranslationPage')->find($id);
 
         if (!$entity) {
@@ -158,7 +158,7 @@ class TranslationPageController extends abstractController
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -183,7 +183,7 @@ class TranslationPageController extends abstractController
      */
     public function editAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository('PiAppAdminBundle:TranslationPage')->find($id);
 
@@ -212,7 +212,7 @@ class TranslationPageController extends abstractController
      */
     public function updateAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository('PiAppAdminBundle:TranslationPage')->find($id);
 
@@ -256,7 +256,7 @@ class TranslationPageController extends abstractController
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('PiAppAdminBundle:TranslationPage')->find($id);
 
             if (!$entity) {

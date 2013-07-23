@@ -102,7 +102,7 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
         if (empty($params['locale']))
             $params['locale']        = $this->container->get('request')->getLocale();        
         
-        $em           = $this->container->get('doctrine')->getEntityManager();        
+        $em           = $this->container->get('doctrine')->getManager();        
         $request = $this->container->get('request');
         $session = $request->getSession();
         

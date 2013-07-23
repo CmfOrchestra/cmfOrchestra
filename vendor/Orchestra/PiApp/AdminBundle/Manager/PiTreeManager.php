@@ -93,7 +93,7 @@ class PiTreeManager extends PiCoreManager implements PiTreeManagerBuilderInterfa
      */
     public function defaultNavigation($locale, $entity, $category, $template, $separatorClass = "", $ulClass = "", $liClass = "", $params = null)
     {
-        $em      = $this->container->get('doctrine')->getEntityManager();        
+        $em      = $this->container->get('doctrine')->getManager();        
         
 //         if (count(explode(':', $entity)) < 2){
 //             $entity             = ucfirst(strtolower($entity));
@@ -219,7 +219,7 @@ class PiTreeManager extends PiCoreManager implements PiTreeManagerBuilderInterfa
                         }
             
                         // we get the url of the page associated to the menu.
-                        $menu   = $self->getContainer()->get('doctrine')->getEntityManager()->getRepository($self->entity)->findOneById($node['id']);
+                        $menu   = $self->getContainer()->get('doctrine')->getManager()->getRepository($self->entity)->findOneById($node['id']);
                         if ( method_exists($menu, 'getPage') && ($menu->getPage() InstanceOf \PiApp\AdminBundle\Entity\Page) ) {
                             $routename     = $menu->getPage()->getRouteName();
                             $url        = $self->getContainer()->get('bootstrap.RouteTranslator.factory')->getRoute($menu->getPage()->getRouteName(), array('locale'=>$self->locale));
@@ -246,7 +246,7 @@ class PiTreeManager extends PiCoreManager implements PiTreeManagerBuilderInterfa
                         }
             
                         // we get all route name of all childs of the menu.
-                        $childs_routesnames = $self->getContainer()->get('doctrine')->getEntityManager()->getRepository($self->entity)->findChildsRouteByParentId($node['id'], $self->locale, 'string');
+                        $childs_routesnames = $self->getContainer()->get('doctrine')->getManager()->getRepository($self->entity)->findChildsRouteByParentId($node['id'], $self->locale, 'string');
             
                         //print_r($self->nodes);
                         //print_r("<br /><br />");
@@ -322,7 +322,7 @@ class PiTreeManager extends PiCoreManager implements PiTreeManagerBuilderInterfa
      */
     public function defaultOrganigram($locale, $entity, $category, $params = null)
     {
-        $em               = $this->container->get('doctrine')->getEntityManager();
+        $em               = $this->container->get('doctrine')->getManager();
         $self            = &$this;        
         
 //         if (count(explode(':', $entity)) < 2){
@@ -342,7 +342,7 @@ class PiTreeManager extends PiCoreManager implements PiTreeManagerBuilderInterfa
                 'childClose' => "    </li> \n",
                 'nodeDecorator' => function($node) use (&$self) {                                    
                     // we get the url of the page associated to the menu.
-                    $tree   = $self->getContainer()->get('doctrine')->getEntityManager()->getRepository($self->entity)->findOneById($node['id']);
+                    $tree   = $self->getContainer()->get('doctrine')->getManager()->getRepository($self->entity)->findOneById($node['id']);
                     if ( method_exists($tree, 'getPage') && ($tree->getPage() InstanceOf \PiApp\AdminBundle\Entity\Page) ) {
                         $routename     = $tree->getPage()->getRouteName();
                         $url        = $self->getContainer()->get('bootstrap.RouteTranslator.factory')->getRoute($tree->getPage()->getRouteName(), array('locale'=>$self->locale));

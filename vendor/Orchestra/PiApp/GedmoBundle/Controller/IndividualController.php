@@ -130,7 +130,7 @@ class IndividualController extends abstractController
      */
     public function indexAction()
     {
-        $em            = $this->getDoctrine()->getEntityManager();
+        $em            = $this->getDoctrine()->getManager();
         $locale        = $this->container->get('request')->getLocale();
         
         $category   = $this->container->get('request')->query->get('category');
@@ -163,7 +163,7 @@ class IndividualController extends abstractController
      */
     public function subscribersAction()
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
     
         if (empty($lang))
             $lang    = $this->container->get('request')->getLocale();
@@ -197,7 +197,7 @@ class IndividualController extends abstractController
      */
     public function showAction($id)
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $locale        = $this->container->get('request')->getLocale();
         $entity     = $em->getRepository("PiAppGedmoBundle:Individual")->findOneByEntity($locale, $id, 'object');
         
@@ -232,7 +232,7 @@ class IndividualController extends abstractController
      */
     public function newAction()
     {
-             $em         = $this->getDoctrine()->getEntityManager();
+             $em         = $this->getDoctrine()->getManager();
              $entity     = new Individual();
         $form       = $this->createForm(new IndividualType($em, $this->container), $entity, array('show_legend' => false));
         
@@ -262,7 +262,7 @@ class IndividualController extends abstractController
      */
     public function createAction()
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $locale        = $this->container->get('request')->getLocale();
         
            $category   = $this->container->get('request')->query->get('category');
@@ -302,7 +302,7 @@ class IndividualController extends abstractController
      */
     public function editAction($id)
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $locale        = $this->container->get('request')->getLocale();
         $entity     = $em->getRepository("PiAppGedmoBundle:Individual")->findOneByEntity($locale, $id, 'object');
         
@@ -340,7 +340,7 @@ class IndividualController extends abstractController
      */
     public function updateAction($id)
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $locale        = $this->container->get('request')->getLocale();
         $entity     = $em->getRepository("PiAppGedmoBundle:Individual")->findOneByEntity($locale, $id, "object"); 
         
@@ -386,7 +386,7 @@ class IndividualController extends abstractController
      */
     public function deleteAction($id)
     {
-        $em          = $this->getDoctrine()->getEntityManager();
+        $em          = $this->getDoctrine()->getManager();
         $locale         = $this->container->get('request')->getLocale();
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');        
@@ -434,7 +434,7 @@ class IndividualController extends abstractController
      */
     public function _template_showAction($id, $template = '_tmp_show.html.twig', $lang = "")
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         
         if (empty($lang))
             $lang    = $this->container->get('request')->getLocale();
@@ -465,7 +465,7 @@ class IndividualController extends abstractController
      */
     public function _template_listAction($category = '', $MaxResults = null, $template = '_tmp_list.html.twig', $order = 'DESC', $lang = "")
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
 
         if (empty($lang))
             $lang    = $this->container->get('request')->getLocale();
@@ -491,7 +491,7 @@ class IndividualController extends abstractController
      */
     public function _template_inscriptionAction($template = '_template_form_inscription.html.twig', $lang = "", $type = 'lamelee')
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $new   = $this->container->get('request')->get('new');
 
         if (empty($lang))
@@ -529,7 +529,7 @@ class IndividualController extends abstractController
     
     public function _template_inscriptionValidationAction($template = '_template_form_inscription.html.twig', $lang = "", $type = 'lamelee')
     {
-          $em               = $this->getDoctrine()->getEntityManager();
+          $em               = $this->getDoctrine()->getManager();
           $request   = $this->container->get('request');
         if (empty($lang))
                   $lang   = $this->container->get('request')->getLocale();
@@ -653,7 +653,7 @@ class IndividualController extends abstractController
      */
     public function _template_adhesionAction($template = '_template_form_adhesion_step1.html.twig', $lang = "", $type = 'lamelee')
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         
         $entity   = new Individual();
         $user = '';
@@ -794,7 +794,7 @@ class IndividualController extends abstractController
 
     public function _template_adhesionValidationAction($template = '_template_form_adhesion_step1.html.twig', $lang = "", $type = 'lamelee', $step = 1)
     {
-      $em        = $this->getDoctrine()->getEntityManager();
+      $em        = $this->getDoctrine()->getManager();
       $request   = $this->container->get('request');
 
       if (empty($lang))
@@ -884,7 +884,7 @@ class IndividualController extends abstractController
 
     public function _template_adhesionSaveAction($template = '_template_form_adhesion_step3.html.twig', $lang = "", $type = 'lamelee', $step = 3)
     {
-      $em        = $this->getDoctrine()->getEntityManager();
+      $em        = $this->getDoctrine()->getManager();
       $request   = $this->container->get('request');
 
       if (empty($lang))
@@ -1068,7 +1068,7 @@ class IndividualController extends abstractController
     }
     
     private function _get_newsletters_categories($lang ='' ,$user ='', $category_ignore='') {
-      $em        = $this->getDoctrine()->getEntityManager();
+      $em        = $this->getDoctrine()->getManager();
       if (empty($lang))
               $lang   = $this->container->get('request')->getLocale();
       

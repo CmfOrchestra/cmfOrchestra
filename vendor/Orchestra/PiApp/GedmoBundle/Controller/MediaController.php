@@ -128,7 +128,7 @@ class MediaController extends abstractController
     public function indexAction()
     {
         $request = $this->container->get('request');
-        $em  = $this->getDoctrine()->getEntityManager();
+        $em  = $this->getDoctrine()->getManager();
         $locale = $this->container->get('request')->getLocale();
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
@@ -235,7 +235,7 @@ class MediaController extends abstractController
      */
     public function showAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppGedmoBundle:Media")->findOneByEntity($locale, $id, 'object');
         
@@ -271,7 +271,7 @@ class MediaController extends abstractController
      */
     public function newAction()
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $status = $this->container->get('request')->query->get('status');
         $entity = new Media();
@@ -305,7 +305,7 @@ class MediaController extends abstractController
      */
     public function createAction()
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $status = $this->container->get('request')->query->get('status');
     
@@ -349,7 +349,7 @@ class MediaController extends abstractController
      */
     public function editAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppGedmoBundle:Media")->findOneByEntity($locale, $id, 'object');
         
@@ -390,7 +390,7 @@ class MediaController extends abstractController
      */
     public function updateAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppGedmoBundle:Media")->findOneByEntity($locale, $id, "object"); 
         
@@ -438,7 +438,7 @@ class MediaController extends abstractController
      */
     public function deleteAction($id)
     {
-        $em      = $this->getDoctrine()->getEntityManager();
+        $em      = $this->getDoctrine()->getManager();
         $locale     = $this->container->get('request')->getLocale();
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');       
@@ -486,7 +486,7 @@ class MediaController extends abstractController
      */
     public function _template_showAction($id, $template = '_tmp_show.html.twig', $lang = "")
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         
         if (empty($lang))
             $lang    = $this->container->get('request')->getLocale();
@@ -515,7 +515,7 @@ class MediaController extends abstractController
      */
     public function _template_listAction($category = '', $MaxResults = null, $template = '_tmp_list.html.twig', $order = 'DESC', $lang = "")
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
 
         if (empty($lang))
             $lang    = $this->container->get('request')->getLocale();

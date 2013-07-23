@@ -117,7 +117,7 @@ class PiOrgBreadcrumbManager extends PiJqueryExtension
         
         $_content = "";
         if (!is_null($parameters['node'])){
-            $em        = $this->container->get('doctrine')->getEntityManager();
+            $em        = $this->container->get('doctrine')->getManager();
             $nodes    = $em->getRepository($options['entity'])->getPath($parameters['node']);
             
             // we construct all boucles.
@@ -186,7 +186,7 @@ class PiOrgBreadcrumbManager extends PiJqueryExtension
         else        
             $locale = $options['locale'];
         
-        $em         = $this->container->get('doctrine')->getEntityManager();
+        $em         = $this->container->get('doctrine')->getManager();
            $node          = $em->getRepository($options['entity'])->findNodeOr404($options['node'], $locale,'object');
            //$query         = $em->getRepository($options['entity'])->childrenQuery($node, true);
            //$nodes         = $em->getRepository($options['entity'])->findTranslationsByQuery($locale, $query, 'object');

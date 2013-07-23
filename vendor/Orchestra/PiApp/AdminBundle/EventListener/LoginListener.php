@@ -100,7 +100,7 @@ class LoginListener
         $this->router        = $router;
         $this->security     = $security;
         $this->dispatcher     = $dispatcher;
-        $this->em              = $doctrine->getEntityManager();
+        $this->em              = $doctrine->getManager();
         $this->container     = $container;
     }
 

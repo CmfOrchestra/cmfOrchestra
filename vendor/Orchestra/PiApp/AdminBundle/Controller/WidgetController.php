@@ -50,7 +50,7 @@ class WidgetController extends abstractController
      */
     public function indexAction($block, $NoLayout = '')
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         
         if (is_null($block))
             $entities = $em->getRepository('PiAppAdminBundle:Widget')->findAll(array('position'=> "ASC"));
@@ -122,7 +122,7 @@ class WidgetController extends abstractController
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
 
         $entity = $em->getRepository('PiAppAdminBundle:Widget')->find($id);
@@ -181,7 +181,7 @@ class WidgetController extends abstractController
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             
             // On persiste tous les translations d'une page.
             foreach($entity->getTranslations() as $translationPage) {
@@ -213,7 +213,7 @@ class WidgetController extends abstractController
      */
     public function editAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('PiAppAdminBundle:Widget')->find($id);
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
@@ -248,7 +248,7 @@ class WidgetController extends abstractController
      */
     public function updateAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('PiAppAdminBundle:Widget')->find($id);
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
@@ -305,7 +305,7 @@ class WidgetController extends abstractController
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('PiAppAdminBundle:Widget')->find($id);
 
             if (!$entity) {
@@ -341,7 +341,7 @@ class WidgetController extends abstractController
     public function deleteajaxAction()
     {
         $request = $this->container->get('request');
-        $em      = $this->getDoctrine()->getEntityManager();
+        $em      = $this->getDoctrine()->getManager();
         
         if ($request->isXmlHttpRequest()){
 
@@ -378,7 +378,7 @@ class WidgetController extends abstractController
     public function movewidgetajaxAction()
     {
         $request = $this->container->get('request');
-        $em      = $this->getDoctrine()->getEntityManager();
+        $em      = $this->getDoctrine()->getManager();
             
         if ($request->isXmlHttpRequest()){
     
@@ -434,7 +434,7 @@ class WidgetController extends abstractController
     public function moveajaxAction()
     {
         $request = $this->container->get('request');
-        $em      = $this->getDoctrine()->getEntityManager();
+        $em      = $this->getDoctrine()->getManager();
     
         if ($request->isXmlHttpRequest()){
     

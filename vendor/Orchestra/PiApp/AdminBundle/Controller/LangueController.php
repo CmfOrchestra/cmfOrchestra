@@ -52,7 +52,7 @@ class LangueController extends abstractController
      */
     public function indexAction()
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $locale        = $this->container->get('request')->getLocale();
         $entities     = $em->getRepository("PiAppAdminBundle:Langue")->findAllByEntity($locale, 'object', false);        
         
@@ -74,7 +74,7 @@ class LangueController extends abstractController
     public function enabledajaxAction()
     {
         $request = $this->container->get('request');
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         
         if ($request->isXmlHttpRequest()){
             $data        = $request->get('data', null);
@@ -116,7 +116,7 @@ class LangueController extends abstractController
     public function disableajaxAction()
     {
         $request = $this->container->get('request');
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         
         if ($request->isXmlHttpRequest()){
             $data        = $request->get('data', null);
@@ -156,7 +156,7 @@ class LangueController extends abstractController
      */
     public function showAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppAdminBundle:Langue")->findOneByEntity($locale, $id, 'object');        
 
@@ -210,7 +210,7 @@ class LangueController extends abstractController
      */
     public function createAction()
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $entity = new Langue();
         
@@ -244,7 +244,7 @@ class LangueController extends abstractController
      */
     public function editAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppAdminBundle:Langue")->findOneByEntity($locale, $id, 'object');
 
@@ -274,7 +274,7 @@ class LangueController extends abstractController
      */
     public function updateAction($id)
     {
-        $em        = $this->getDoctrine()->getEntityManager();
+        $em        = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppAdminBundle:Langue")->findOneByEntity($locale, $id, 'object');
         
@@ -318,7 +318,7 @@ class LangueController extends abstractController
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('PiAppAdminBundle:Langue')->find($id);
 
             if (!$entity) {

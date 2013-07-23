@@ -51,7 +51,7 @@ class PageCssJsController extends abstractController
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('PiAppAdminBundle:Page')->getAllPageCssJs()->getQuery()->getResult();
 
@@ -101,7 +101,7 @@ class PageCssJsController extends abstractController
      */
     public function showAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('PiAppAdminBundle:Page')->find($id);
 
         if (!$entity) {
@@ -156,7 +156,7 @@ class PageCssJsController extends abstractController
 
         if ('POST' === $request->getMethod()) {
             if ($form->isValid()) {
-                $em = $this->getDoctrine()->getEntityManager();
+                $em = $this->getDoctrine()->getManager();
     
                 // On persiste tous les translations d'une page.
                 foreach($entity->getTranslations() as $translationPage) {
@@ -189,7 +189,7 @@ class PageCssJsController extends abstractController
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PiAppAdminBundle:Page')->find($id);
 
@@ -218,7 +218,7 @@ class PageCssJsController extends abstractController
      */
     public function updateAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PiAppAdminBundle:Page')->find($id);
         
@@ -268,7 +268,7 @@ class PageCssJsController extends abstractController
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('PiAppAdminBundle:Page')->find($id);
 
             if (!$entity) {

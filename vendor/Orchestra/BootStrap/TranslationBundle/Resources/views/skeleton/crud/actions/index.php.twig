@@ -11,7 +11,7 @@
     public function indexAction()
     {
         $request    = $this->container->get('request');
-    	$em        = $this->getDoctrine()->getEntityManager();
+    	$em        = $this->getDoctrine()->getManager();
     	$locale    = $this->container->get('request')->getLocale();
         
         $category    = $this->container->get('request')->query->get('category');

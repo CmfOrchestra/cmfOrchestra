@@ -77,8 +77,8 @@ class PiToolExtension extends \Twig_Extension
     public function getProfilByUserFunction($idUser) {
         $locale         = $this->container->get('request')->getLocale();
             
-        $Individual  = $this->container->get('doctrine')->getEntityManager()->getRepository("PiAppGedmoBundle:Individual")->findOneByUser($idUser, $locale);
-        $Corporation = $this->container->get('doctrine')->getEntityManager()->getRepository("PiAppGedmoBundle:Corporation")->findOneByUser($idUser, $locale);
+        $Individual  = $this->container->get('doctrine')->getManager()->getRepository("PiAppGedmoBundle:Individual")->findOneByUser($idUser, $locale);
+        $Corporation = $this->container->get('doctrine')->getManager()->getRepository("PiAppGedmoBundle:Corporation")->findOneByUser($idUser, $locale);
         
         if (!is_null($Individual))
             return $Individual;

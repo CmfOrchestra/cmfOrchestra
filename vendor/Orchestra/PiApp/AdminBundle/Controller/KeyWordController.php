@@ -50,7 +50,7 @@ class KeyWordController extends abstractController
      */
     public function indexAction()
     {
-        $em       = $this->getDoctrine()->getEntityManager();
+        $em       = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('PiAppAdminBundle:KeyWord')->findAll();
 
         return $this->render('PiAppAdminBundle:KeyWord:index.html.twig', array(
@@ -99,7 +99,7 @@ class KeyWordController extends abstractController
      */
     public function showAction($id)
     {
-        $em        = $this->getDoctrine()->getEntityManager();
+        $em        = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('PiAppAdminBundle:KeyWord')->find($id);
 
         if (!$entity) {
@@ -126,7 +126,7 @@ class KeyWordController extends abstractController
      */
     public function newAction()
     {
-        $em        = $this->getDoctrine()->getEntityManager();
+        $em        = $this->getDoctrine()->getManager();
         $entity = new KeyWord();
         $form   = $this->createForm(new KeyWordType($em), $entity, array('show_legend' => false));
 
@@ -147,14 +147,14 @@ class KeyWordController extends abstractController
      */
     public function createAction()
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $entity  = new KeyWord();
         $request = $this->getRequest();
         $form    = $this->createForm(new KeyWordType($em), $entity, array('show_legend' => false));
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -179,7 +179,7 @@ class KeyWordController extends abstractController
      */
     public function editAction($id)
     {
-        $em        = $this->getDoctrine()->getEntityManager();
+        $em        = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('PiAppAdminBundle:KeyWord')->find($id);
 
         if (!$entity) {
@@ -207,7 +207,7 @@ class KeyWordController extends abstractController
      */
     public function updateAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('PiAppAdminBundle:KeyWord')->find($id);
 
         if (!$entity) {
@@ -252,7 +252,7 @@ class KeyWordController extends abstractController
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('PiAppAdminBundle:KeyWord')->find($id);
 
             if (!$entity) {

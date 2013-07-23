@@ -112,7 +112,7 @@ class WordController extends abstractController
      */
     public function indexAction()
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $locale        = $this->container->get('request')->getLocale();
         $entities     = $em->getRepository("BootStrapTranslatorBundle:Word")->setContainer($this->container)->findAllByEntity($locale, 'object');        
         
@@ -136,7 +136,7 @@ class WordController extends abstractController
      */
     public function showAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("BootStrapTranslatorBundle:Word")->findOneByEntity($locale, $id, 'object');
         
@@ -168,7 +168,7 @@ class WordController extends abstractController
      */
     public function newAction()
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $entity = new Word();
         $locale    = $this->container->get('request')->getLocale();
         $form   = $this->createForm(new WordType($em, $locale, $this->container), $entity, array('show_legend' => false));
@@ -194,7 +194,7 @@ class WordController extends abstractController
      */
     public function createAction()
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
@@ -233,7 +233,7 @@ class WordController extends abstractController
      */
     public function editAction($id)
     {
-        $em       = $this->getDoctrine()->getEntityManager();
+        $em       = $this->getDoctrine()->getManager();
           $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("BootStrapTranslatorBundle:Word")->findOneByEntity($locale, $id, 'object');
         
@@ -267,7 +267,7 @@ class WordController extends abstractController
      */
     public function updateAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
             $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("BootStrapTranslatorBundle:Word")->findOneByEntity($locale, $id, "object"); 
         
@@ -311,7 +311,7 @@ class WordController extends abstractController
      */
     public function translateAction($id)
     {
-        $em                 = $this->getDoctrine()->getEntityManager();
+        $em                 = $this->getDoctrine()->getManager();
         $locale                = $this->container->get('request')->getLocale();
         $NoLayout           = $this->container->get('request')->query->get('NoLayout');
         $entity             = $em->getRepository("BootStrapTranslatorBundle:Word")->findOneByEntity($locale, $id, 'object');
@@ -346,7 +346,7 @@ class WordController extends abstractController
      */
     public function editTranslateAction($id, $lang)
     {
-        $em           = $this->getDoctrine()->getEntityManager();
+        $em           = $this->getDoctrine()->getManager();
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         $entity     = $em->getRepository("BootStrapTranslatorBundle:Word")->findOneByEntity($lang, $id, 'object');
         
@@ -376,7 +376,7 @@ class WordController extends abstractController
      */
     public function updateTranslateAction($id, $lang)
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $entity     = $em->getRepository("BootStrapTranslatorBundle:Word")->findOneByEntity($lang, $id, "object"); 
         $NoLayout     = $this->container->get('request')->query->get('NoLayout');
 
@@ -418,7 +418,7 @@ class WordController extends abstractController
      */
     public function deleteAction($id)
     {
-        $em      = $this->getDoctrine()->getEntityManager();
+        $em      = $this->getDoctrine()->getManager();
         $locale     = $this->container->get('request')->getLocale();
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');        
@@ -462,7 +462,7 @@ class WordController extends abstractController
      */
     public function syncAction()
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
     
         $locale    = $this->container->get('request')->getLocale();
         if(!$locale){

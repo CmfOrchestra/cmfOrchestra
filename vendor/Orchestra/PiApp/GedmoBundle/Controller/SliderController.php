@@ -125,7 +125,7 @@ class SliderController extends abstractController
      */
     public function indexAction()
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $locale        = $this->container->get('request')->getLocale();
          
         $category   = $this->container->get('request')->query->get('category');
@@ -155,7 +155,7 @@ class SliderController extends abstractController
      */
     public function showAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppGedmoBundle:Slider")->findOneByEntity($locale, $id, 'object');
         
@@ -187,7 +187,7 @@ class SliderController extends abstractController
     public function newAction()
     {
         $locale    = $this->container->get('request')->getLocale();
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $entity = new Slider();
         
         $category   = $this->container->get('request')->query->get('category', '');
@@ -218,7 +218,7 @@ class SliderController extends abstractController
      */
     public function createAction()
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         
         $category   = $this->container->get('request')->query->get('category');
@@ -255,7 +255,7 @@ class SliderController extends abstractController
      */
     public function editAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppGedmoBundle:Slider")->findOneByEntity($locale, $id, 'object');      
 
@@ -289,7 +289,7 @@ class SliderController extends abstractController
      */
     public function updateAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppGedmoBundle:Slider")->findOneByEntity($locale, $id, "object"); 
         
@@ -331,7 +331,7 @@ class SliderController extends abstractController
      */
     public function deleteAction($id)
     {
-        $em      = $this->getDoctrine()->getEntityManager();
+        $em      = $this->getDoctrine()->getManager();
         $locale     = $this->container->get('request')->getLocale();
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');

@@ -11,7 +11,7 @@
      */
     public function _template_showAction($id, $template = '_tmp_show.html.twig', $lang = "")
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         
         if (empty($lang))
             $lang    = $this->container->get('request')->getLocale();

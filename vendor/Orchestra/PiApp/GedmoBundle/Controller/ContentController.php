@@ -126,7 +126,7 @@ class ContentController extends abstractController
      */
     public function indexAction()
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $locale        = $this->container->get('request')->getLocale();
     
         $category   = $this->container->get('request')->query->get('category');
@@ -157,7 +157,7 @@ class ContentController extends abstractController
      */
     public function showAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppGedmoBundle:Content")->findOneByEntity($locale, $id, 'object');
         
@@ -190,7 +190,7 @@ class ContentController extends abstractController
     public function newAction()
     {
         $locale    = $this->container->get('request')->getLocale();
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $entity = new Content();
         $form   = $this->createForm(new ContentType($em, $locale, $this->container), $entity, array('show_legend' => false));
         
@@ -216,7 +216,7 @@ class ContentController extends abstractController
      */
     public function createAction()
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         
         $category   = $this->container->get('request')->query->get('category');
@@ -255,7 +255,7 @@ class ContentController extends abstractController
      */
     public function editAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppGedmoBundle:Content")->findOneByEntity($locale, $id, 'object');
         
@@ -290,7 +290,7 @@ class ContentController extends abstractController
      */
     public function updateAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppGedmoBundle:Content")->findOneByEntity($locale, $id, "object"); 
         
@@ -332,7 +332,7 @@ class ContentController extends abstractController
      */
     public function deleteAction($id)
     {
-        $em      = $this->getDoctrine()->getEntityManager();
+        $em      = $this->getDoctrine()->getManager();
         $locale     = $this->container->get('request')->getLocale();
         
         $category   = $this->container->get('request')->query->get('category');
@@ -379,7 +379,7 @@ class ContentController extends abstractController
      */
     public function _template_showAction($id, $template = '_tmp_show.html.twig', $lang = "")
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         
         if (empty($lang))
             $lang    = $this->container->get('request')->getLocale();
@@ -407,7 +407,7 @@ class ContentController extends abstractController
      */
     public function _template_listAction($category = '', $MaxResults = null, $template = '_tmp_list.html.twig', $order = 'DESC', $lang = "")
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
 
         if (empty($lang))
             $lang    = $this->container->get('request')->getLocale();

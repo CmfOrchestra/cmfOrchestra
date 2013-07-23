@@ -53,7 +53,7 @@ class AdherantController extends abstractController
      */
     public function membersAction()
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
     
         if (empty($lang))
             $lang    = $this->container->get('request')->getLocale();
@@ -115,7 +115,7 @@ class AdherantController extends abstractController
     public function enabledpaymentstatusajaxAction()
     {
         $request = $this->container->get('request');
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         
         if ($request->isXmlHttpRequest()){
             $data        = $request->get('data', null);
@@ -199,7 +199,7 @@ class AdherantController extends abstractController
     public function disablepaymentstatusajaxAction()
     {
         $request = $this->container->get('request');
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
          
         if ($request->isXmlHttpRequest()){
             $data        = $request->get('data', null);
@@ -257,7 +257,7 @@ class AdherantController extends abstractController
      */
     public function _template_annuaireAction($MaxResults = null, $template = '_template_adherent_annuaire.html.twig', $order = 'DESC', $lang = "")
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
 
         if (empty($lang))
             $lang    = $this->container->get('request')->getLocale();
@@ -348,7 +348,7 @@ class AdherantController extends abstractController
     public function detailadherantajaxAction()
     {
         $request = $this->container->get('request');
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
     
         if ($request->isXmlHttpRequest()){
             $id_individual    = $request->get('id_individual', '');

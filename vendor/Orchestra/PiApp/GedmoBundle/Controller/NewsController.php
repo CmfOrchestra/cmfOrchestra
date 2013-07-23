@@ -127,7 +127,7 @@ class NewsController extends abstractController
      */
     public function indexAction()
     {
-        $em            = $this->getDoctrine()->getEntityManager();
+        $em            = $this->getDoctrine()->getManager();
         $locale        = $this->container->get('request')->getLocale();
         $entities    = $em->getRepository("PiAppGedmoBundle:News")->findAllByEntity($locale, 'object');        
         
@@ -151,7 +151,7 @@ class NewsController extends abstractController
      */
     public function showAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppGedmoBundle:News")->findOneByEntity($locale, $id, 'object');
         
@@ -183,7 +183,7 @@ class NewsController extends abstractController
      */
     public function newAction()
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $entity = new News();
         $form   = $this->createForm(new NewsType($em, $this->container), $entity, array('show_legend' => false));
         
@@ -208,7 +208,7 @@ class NewsController extends abstractController
      */
     public function createAction()
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
@@ -246,14 +246,14 @@ class NewsController extends abstractController
      */
     public function editAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         
         if (!empty($id)){
             $entity    = $em->getRepository("PiAppGedmoBundle:News")->findOneByEntity($locale, $id, 'object', false);
         } else {
             $slug    = $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('slug', $locale, true);
-            $entity    = $this->container->get('doctrine')->getEntityManager()->getRepository("PiAppGedmoBundle:News")->getEntityByField($locale, array('content_search' => array('slug' =>$slug)), 'object');
+            $entity    = $this->container->get('doctrine')->getManager()->getRepository("PiAppGedmoBundle:News")->getEntityByField($locale, array('content_search' => array('slug' =>$slug)), 'object');
         }
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
@@ -286,7 +286,7 @@ class NewsController extends abstractController
      */
     public function updateAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppGedmoBundle:News")->findOneByEntity($locale, $id, "object"); 
         
@@ -328,7 +328,7 @@ class NewsController extends abstractController
      */
     public function deleteAction($id)
     {
-        $em      = $this->getDoctrine()->getEntityManager();
+        $em      = $this->getDoctrine()->getManager();
         $locale     = $this->container->get('request')->getLocale();
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');        
@@ -375,7 +375,7 @@ class NewsController extends abstractController
      */
     public function _template_showAction($id, $template = '_tmp_show.html.twig', $lang = "")
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         
         if (empty($lang))
             $lang    = $this->container->get('request')->getLocale();
@@ -384,7 +384,7 @@ class NewsController extends abstractController
             $entity    = $em->getRepository("PiAppGedmoBundle:News")->findOneByEntity($lang, $id, 'object', false);
         } else {           
             $slug    = $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('slug', $lang);
-            $entity    = $this->container->get('doctrine')->getEntityManager()->getRepository("PiAppGedmoBundle:News")->getEntityByField($lang, array('content_search' => array('slug' =>$slug)), 'object');
+            $entity    = $this->container->get('doctrine')->getManager()->getRepository("PiAppGedmoBundle:News")->getEntityByField($lang, array('content_search' => array('slug' =>$slug)), 'object');
         }
         
         return $this->render("PiAppGedmoBundle:Sicap\News:$template", array(
@@ -405,7 +405,7 @@ class NewsController extends abstractController
      */
     public function _template_listAction($category = '', $MaxResults = null, $template = '_tmp_list.html.twig', $order = 'DESC', $lang = "")
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
 
         if (empty($lang))
             $lang    = $this->container->get('request')->getLocale();
@@ -431,7 +431,7 @@ class NewsController extends abstractController
     */
     public function _template_archiveAction($MaxResults = null, $template = '_tmp_archive.html.twig', $order = 'DESC', $lang = "")
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
     
         if (empty($lang))
             $lang    = $this->container->get('request')->getLocale();

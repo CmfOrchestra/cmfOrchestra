@@ -50,7 +50,7 @@ class CommentController extends abstractController
      */
     public function indexAction($page)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         if (is_null($page))
             $entities = $em->getRepository('PiAppAdminBundle:Comment')->findAll();
@@ -118,7 +118,7 @@ class CommentController extends abstractController
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PiAppAdminBundle:Comment')->find($id);
 
@@ -172,7 +172,7 @@ class CommentController extends abstractController
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -197,7 +197,7 @@ class CommentController extends abstractController
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PiAppAdminBundle:Comment')->find($id);
 
@@ -226,7 +226,7 @@ class CommentController extends abstractController
      */
     public function updateAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PiAppAdminBundle:Comment')->find($id);
 
@@ -272,7 +272,7 @@ class CommentController extends abstractController
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('PiAppAdminBundle:Comment')->find($id);
 
             if (!$entity) {

@@ -335,11 +335,11 @@ class PiToolExtension extends \Twig_Extension
                 $method_keywords     = "get".implode('', $sluggable_keywords_tab);                
                 
                 if ( ($sluggable_field_search == 'id') && isset($match['id']) ){
-                    $entity         = $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->findOneByEntity($lang, $match['id'], 'object');
+                    $entity         = $this->container->get('doctrine')->getManager()->getRepository($sluggable_entity)->findOneByEntity($lang, $match['id'], 'object');
                     if (is_object($entity) && method_exists($entity, $method_title))
                         $title = $entity->$method_title();
                 }elseif (array_key_exists($sluggable_field_search, $match)){
-                    $result = $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->getContentByField($lang, array('content_search' => array($sluggable_field_search =>$match[$sluggable_field_search]), 'field_result'=>$sluggable_title), false);
+                    $result = $this->container->get('doctrine')->getManager()->getRepository($sluggable_entity)->getContentByField($lang, array('content_search' => array($sluggable_field_search =>$match[$sluggable_field_search]), 'field_result'=>$sluggable_title), false);
                     if (is_object($result))
                         $title = $result->getContent();
                 }
@@ -410,7 +410,7 @@ class PiToolExtension extends \Twig_Extension
                 $method_resume         = "get".implode('', $sluggable_resume_tab);
                 $method_keywords     = "get".implode('', $sluggable_keywords_tab);                
                 if ( ($sluggable_field_search == 'id') && isset($match['id']) ) {
-                    $entity = $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->findOneByEntity($lang, $match['id'], 'object');
+                    $entity = $this->container->get('doctrine')->getManager()->getRepository($sluggable_entity)->findOneByEntity($lang, $match['id'], 'object');
                     if (is_object($entity) && method_exists($entity, $method_title) && method_exists($entity, $method_resume) && method_exists($entity, $method_keywords)) {
                         $og_title                 = str_replace(array('"',"’"), array("'","'"), $entity->$method_title());
                         $new_meta                = "    <meta property='og:title' content=\"{$og_title}\"/>";
@@ -418,9 +418,9 @@ class PiToolExtension extends \Twig_Extension
                         $options['keywords']    = str_replace(array('"',"’"), array("'","'"), strip_tags($this->container->get('translator')->trans($entity->$method_keywords())));
                     }
                 } elseif (array_key_exists($sluggable_field_search, $match)) {
-                    $meta_title                        = $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->getContentByField($lang, array('content_search' => array($sluggable_field_search =>$match[$sluggable_field_search]), 'field_result'=>$sluggable_title), false);
-                    $meta_resume                    = $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->getContentByField($lang, array('content_search' => array($sluggable_field_search =>$match[$sluggable_field_search]), 'field_result'=>$sluggable_resume), false);
-                    $meta_keywords                    = $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->getContentByField($lang, array('content_search' => array($sluggable_field_search =>$match[$sluggable_field_search]), 'field_result'=>$sluggable_keywords), false);
+                    $meta_title                        = $this->container->get('doctrine')->getManager()->getRepository($sluggable_entity)->getContentByField($lang, array('content_search' => array($sluggable_field_search =>$match[$sluggable_field_search]), 'field_result'=>$sluggable_title), false);
+                    $meta_resume                    = $this->container->get('doctrine')->getManager()->getRepository($sluggable_entity)->getContentByField($lang, array('content_search' => array($sluggable_field_search =>$match[$sluggable_field_search]), 'field_result'=>$sluggable_resume), false);
+                    $meta_keywords                    = $this->container->get('doctrine')->getManager()->getRepository($sluggable_entity)->getContentByField($lang, array('content_search' => array($sluggable_field_search =>$match[$sluggable_field_search]), 'field_result'=>$sluggable_keywords), false);
                     
                     if(is_object($meta_title)){
                         $og_title                     = str_replace(array('"',"’"), array("'","'"), $meta_title->getContent());

@@ -10,7 +10,7 @@
      */
     public function newAction()
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $entity     = new {{ entity_class }}();
         $form       = $this->createForm(new {{ entity_class }}Type($em, $this->container), $entity, array('show_legend' => false));
         

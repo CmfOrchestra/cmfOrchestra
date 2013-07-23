@@ -87,7 +87,7 @@ abstract class abstractController extends Controller
     public function enabledajaxAction()
     {
         $request = $this->container->get('request');
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         
         if ($request->isXmlHttpRequest()){
             $data        = $request->get('data', null);
@@ -143,7 +143,7 @@ abstract class abstractController extends Controller
     public function disableajaxAction()
     {
         $request = $this->container->get('request');
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         
         if ($request->isXmlHttpRequest()){
             $data        = $request->get('data', null);
@@ -198,7 +198,7 @@ abstract class abstractController extends Controller
     public function deletajaxAction()
     {
         $request = $this->container->get('request');
-        $em      = $this->getDoctrine()->getEntityManager();
+        $em      = $this->getDoctrine()->getManager();
          
         if ($request->isXmlHttpRequest()){
             $data        = $request->get('data', null);
@@ -248,7 +248,7 @@ abstract class abstractController extends Controller
     public function archiveajaxAction()
     {
         $request = $this->container->get('request');
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
          
         if ($request->isXmlHttpRequest()){
             $data        = $request->get('data', null);
@@ -305,7 +305,7 @@ abstract class abstractController extends Controller
     public function positionajaxAction()
     {
         $request = $this->container->get('request');
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
          
         if ($request->isXmlHttpRequest()){
             $old_position     = $request->get('fromPosition', null);
@@ -353,7 +353,7 @@ abstract class abstractController extends Controller
      */
     public function SortDisabledFieldsAction()
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $table         = $em->getRepository($this->_entityName)->getClassName();
         $entities    = $em->getRepository($this->_entityName)->getAllOrderByField('created_at', 'ASC', 0)->getQuery()->getArrayResult();
         
@@ -414,7 +414,7 @@ abstract class abstractController extends Controller
     public function createAjaxQuery($type, $aColumns, $qb = null, $tablecode = 'u', $table = null)
     {
         $request = $this->container->get('request');
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         
         if (is_null($qb)) {
             $qb     = $em->createQueryBuilder();

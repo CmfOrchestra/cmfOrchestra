@@ -89,7 +89,7 @@ class PiSliderManager extends PiCoreManager implements PiSliderManagerBuilderInt
      */
     public function getSlider($locale, $controller, $category, $template, $parameters = null)
     {
-        $em           = $this->container->get('doctrine')->getEntityManager();
+        $em           = $this->container->get('doctrine')->getManager();
         
         if (isset($parameters['boucle_array']) && !empty($parameters['boucle_array']))
             $boucle_array = $parameters['boucle_array'];

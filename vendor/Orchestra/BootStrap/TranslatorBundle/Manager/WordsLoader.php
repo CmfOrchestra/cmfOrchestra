@@ -158,7 +158,7 @@ class WordsLoader implements LoaderInterface
      */
     public function wordsTranslation()
     {
-        $entityManager     = $this->container->get('doctrine')->getEntityManager();
+        $entityManager     = $this->container->get('doctrine')->getManager();
         $locale    = $this->container->get('request')->getLocale();
 
         $foundBundle    = $this->container->get('kernel')->getBundle('BootStrapTranslatorBundle');

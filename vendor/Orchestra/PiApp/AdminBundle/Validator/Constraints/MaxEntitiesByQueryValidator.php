@@ -50,7 +50,7 @@ class MaxEntitiesByQueryValidator extends ConstraintValidator
     
     public function isValid($value, Constraint $constraint) 
     {
-        $em         = $this->container->get('doctrine')->getEntityManager();
+        $em         = $this->container->get('doctrine')->getManager();
         
         // try to get one entity that matches the constraint
         $entities    = $em->getRepository($constraint->entity)->findBy(json_decode(str_replace("'",'"',$constraint->field), true));

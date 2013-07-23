@@ -108,7 +108,7 @@ class PiFlexSliderManager extends PiJqueryExtension
      */
     private function renderdefaultAction($sliders, $options = null)
     {
-        $em = $this->container->get('doctrine')->getEntityManager();
+        $em = $this->container->get('doctrine')->getManager();
         
         if (isset($options['params']) && is_array($options['params']) && (count($options['params']) >= 1) ){
             $results = array_map(function($key, $value) {
@@ -161,7 +161,7 @@ class PiFlexSliderManager extends PiJqueryExtension
             $method_keywords     = "get".implode('', $sluggable_keywords_tab);
                 
             if ( ($sluggable_field_search == 'id') && isset($match['id']) && !empty($match['id']) ){
-                $entity         = $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->findOneByEntity($this->locale, $match['id'], 'object');
+                $entity         = $this->container->get('doctrine')->getManager()->getRepository($sluggable_entity)->findOneByEntity($this->locale, $match['id'], 'object');
     
                 if (!is_null($entity)){
                     $position     = $entity->getPosition() - 1;
@@ -172,10 +172,10 @@ class PiFlexSliderManager extends PiJqueryExtension
                     $startAt = ",startAt:$position";
                 }
             }elseif (array_key_exists($sluggable_field_search, $match) && !empty($match[$sluggable_field_search]) ){
-                $object =  $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->getContentByField($this->locale, array('content_search' => array($sluggable_field_search =>$match[$sluggable_field_search]), 'field_result'=>$sluggable_title), false);
+                $object =  $this->container->get('doctrine')->getManager()->getRepository($sluggable_entity)->getContentByField($this->locale, array('content_search' => array($sluggable_field_search =>$match[$sluggable_field_search]), 'field_result'=>$sluggable_title), false);
                 if (is_object($object)){
                     $id        = $object->getObject()->getId();
-                    $entity = $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->findOneByEntity($this->locale, $id, 'object');
+                    $entity = $this->container->get('doctrine')->getManager()->getRepository($sluggable_entity)->findOneByEntity($this->locale, $id, 'object');
                     if (!is_null($entity)){
                         $position = $entity->getPosition() - 1;
                         if (isset($options['params']['maxItems']) && !empty($options['params']['maxItems']) && ($options['params']['maxItems'] != 0)){

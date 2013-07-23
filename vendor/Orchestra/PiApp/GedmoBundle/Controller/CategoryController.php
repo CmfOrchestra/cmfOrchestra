@@ -127,7 +127,7 @@ class CategoryController extends abstractController
      */
     public function indexAction()
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $locale        = $this->container->get('request')->getLocale();
         $entities     = $em->getRepository("PiAppGedmoBundle:Category")->findAllByEntity($locale, 'object');
     
@@ -151,7 +151,7 @@ class CategoryController extends abstractController
      */
     public function showAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppGedmoBundle:Category")->findOneByEntity($locale, $id, 'object');
         
@@ -183,7 +183,7 @@ class CategoryController extends abstractController
      */
     public function newAction()
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $entity = new Category();
         $form   = $this->createForm(new CategoryType($this->container, $em), $entity, array('show_legend' => false));
         
@@ -208,7 +208,7 @@ class CategoryController extends abstractController
      */
     public function createAction()
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
@@ -246,7 +246,7 @@ class CategoryController extends abstractController
      */
     public function editAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppGedmoBundle:Category")->findOneByEntity($locale, $id, 'object');
         
@@ -280,7 +280,7 @@ class CategoryController extends abstractController
      */
     public function updateAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppGedmoBundle:Category")->findOneByEntity($locale, $id, "object"); 
         
@@ -322,7 +322,7 @@ class CategoryController extends abstractController
      */
     public function deleteAction($id)
     {
-        $em      = $this->getDoctrine()->getEntityManager();
+        $em      = $this->getDoctrine()->getManager();
         $locale     = $this->container->get('request')->getLocale();
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');        
@@ -369,7 +369,7 @@ class CategoryController extends abstractController
      */
     public function _template_showAction($id, $template = '_tmp_show.html.twig', $lang = "")
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         
         if (empty($lang))
             $lang    = $this->container->get('request')->getLocale();
@@ -398,7 +398,7 @@ class CategoryController extends abstractController
      */
     public function _template_listAction($category = '', $MaxResults = null, $template = '_tmp_list.html.twig', $order = 'DESC', $lang = "")
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
 
         if (empty($lang))
             $lang    = $this->container->get('request')->getLocale();

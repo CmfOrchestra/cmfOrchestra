@@ -50,7 +50,7 @@ class SnippetController extends abstractController
      */
     public function indexAction()
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
            $entities    = $em->getRepository('PiAppAdminBundle:Widget')->findBy(array('block'=>null));
            
         return $this->render('PiAppAdminBundle:Snippet:index.html.twig', array(
@@ -99,7 +99,7 @@ class SnippetController extends abstractController
      */
     public function showAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('PiAppAdminBundle:Widget')->find($id);
 
         if (!$entity) {
@@ -152,7 +152,7 @@ class SnippetController extends abstractController
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             
             // On persiste tous les translations d'une page.
             foreach($entity->getTranslations() as $translationPage) {
@@ -182,7 +182,7 @@ class SnippetController extends abstractController
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PiAppAdminBundle:Widget')->find($id);
 
@@ -211,7 +211,7 @@ class SnippetController extends abstractController
      */
     public function updateAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PiAppAdminBundle:Widget')->find($id);
 
@@ -261,7 +261,7 @@ class SnippetController extends abstractController
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('PiAppAdminBundle:Widget')->find($id);
 
             if (!$entity) {

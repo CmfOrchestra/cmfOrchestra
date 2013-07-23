@@ -95,7 +95,7 @@ class BlockByWidgetController extends abstractController
      */
     public function indexAction($page)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
     
         if (is_null($page))
@@ -120,7 +120,7 @@ class BlockByWidgetController extends abstractController
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
 
         $entity = $em->getRepository('PiAppAdminBundle:Block')->find($id);
@@ -178,7 +178,7 @@ class BlockByWidgetController extends abstractController
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             // On persiste tous les widgets d'un block.
             foreach($entity->getWidgets() as $block) {
                 $entity->addWidget($block);
@@ -207,7 +207,7 @@ class BlockByWidgetController extends abstractController
      */
     public function editAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('PiAppAdminBundle:Block')->find($id);
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
@@ -243,7 +243,7 @@ class BlockByWidgetController extends abstractController
     public function updateAction($id)
     {
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('PiAppAdminBundle:Block')->find($id);
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
@@ -319,7 +319,7 @@ class BlockByWidgetController extends abstractController
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('PiAppAdminBundle:Block')->find($id);
             
             $id_page = $entity->getPage()->getId();

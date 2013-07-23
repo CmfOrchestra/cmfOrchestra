@@ -10,14 +10,14 @@
      */
     public function editAction($id)
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $locale        = $this->container->get('request')->getLocale();
         
         if (!empty($id)){
             $entity    = $em->getRepository("{{ bundle }}:{{ entity }}")->findOneByEntity($locale, $id, 'object');
         } else {
             $slug    = $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('slug', $locale, true);
-            $entity    = $this->container->get('doctrine')->getEntityManager()->getRepository("{{ bundle }}:{{ entity }}")->getEntityByField($locale, array('content_search' => array('slug' =>$slug)), 'object');
+            $entity    = $this->container->get('doctrine')->getManager()->getRepository("{{ bundle }}:{{ entity }}")->getEntityByField($locale, array('content_search' => array('slug' =>$slug)), 'object');
         }        
         
         $category   = $this->container->get('request')->query->get('category');

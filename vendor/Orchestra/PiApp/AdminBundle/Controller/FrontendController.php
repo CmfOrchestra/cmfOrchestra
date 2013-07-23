@@ -239,7 +239,7 @@ class FrontendController extends BaseController
      */
     public function importmanagementAction()
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $locale        = $this->container->get('request')->getLocale();
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
@@ -261,7 +261,7 @@ class FrontendController extends BaseController
      */    
     public function indexAction()
     {
-        $em            = $this->getDoctrine()->getEntityManager();
+        $em            = $this->getDoctrine()->getManager();
         
 //         $message = \Swift_Message::newInstance()
 //         ->setSubject('Hello Email')

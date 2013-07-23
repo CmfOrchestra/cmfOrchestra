@@ -107,7 +107,7 @@ class PiFormBuilderManager extends AbstractType implements PiFormBuilderManagerI
     public function __construct(ContainerInterface $containerService, $container = '', $actionName = '', $type_form = '', $form_template = 'model_form_builder.html.twig', $form_name = "myform")
     {
         $this->container        = $containerService;
-        $this->_em                = $this->container->get('doctrine')->getEntityManager();
+        $this->_em                = $this->container->get('doctrine')->getManager();
         $this->_locale            = $this->container->get('request')->getLocale();
         $this->_id_widget        = $this->container->get('request')->get('id_widget', null);
         $this->_id_block        = $this->container->get('request')->get('id_block', null);

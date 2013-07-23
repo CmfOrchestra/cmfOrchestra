@@ -51,7 +51,7 @@ class TagController extends abstractController
      */
     public function indexAction()
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $locale        = $this->container->get('request')->getLocale();
         $entities     = $em->getRepository("PiAppAdminBundle:Tag")->findAllByEntity($locale, 'object');      
 
@@ -101,7 +101,7 @@ class TagController extends abstractController
      */
     public function showAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppAdminBundle:Tag")->findOneByEntity($locale, $id, 'object');        
 
@@ -129,7 +129,7 @@ class TagController extends abstractController
      */
     public function newAction()
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         
         $entity = new Tag();
@@ -152,7 +152,7 @@ class TagController extends abstractController
      */
     public function createAction()
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         
         $entity  = new Tag();
@@ -185,7 +185,7 @@ class TagController extends abstractController
      */
     public function editAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppAdminBundle:Tag")->findOneByEntity($locale, $id, 'object');
 
@@ -215,7 +215,7 @@ class TagController extends abstractController
      */
     public function updateAction($id)
     {
-        $em        = $this->getDoctrine()->getEntityManager();
+        $em        = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppAdminBundle:Tag")->findOneByEntity($locale, $id, 'object');
 
@@ -268,7 +268,7 @@ class TagController extends abstractController
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('PiAppAdminBundle:Tag')->find($id);
 
             if (!$entity) {

@@ -13,6 +13,7 @@
 namespace PiApp\AdminBundle\Manager;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpFoundation\Response as Response;
 
 use PiApp\AdminBundle\Builder\PiListenerManagerBuilderInterface;
@@ -62,15 +63,35 @@ class PiListenerManager extends PiCoreManager implements PiListenerManagerBuilde
         
         $params['lang']     = $lang;
         $params['_route']    = $this->container->get('request')->get('_route');
-        $params['GET']        = $_GET;
-        $params['POST']        = $_POST;
         
-        //$response = $this->container->get('http_kernel')->render($id, array('attributes'=>$params)); // // this not allow redirection in controller action
-        $response = $this->container->get('http_kernel')->forward($id, $params); // this allow redirection in controller action
+        // this allow Redirect Response in controller action
+        $params['_controller'] = $id;
+        $subRequest = $this->container->get('request')->duplicate(array(), null, $params);
+        $response =  $this->container->get('http_kernel')->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
         
-        if ($response instanceof \Symfony\Component\HttpFoundation\RedirectResponse)
-            return "<div style='visibility:hidden'>".$response."</div>";
-        else
-            return utf8_decode(mb_convert_encoding($response->getContent(), "UTF-8", "HTML-ENTITIES"));
+        if ($response instanceof \Symfony\Component\HttpFoundation\RedirectResponse) {
+        	return "<div style='visibility:hidden'>".$response."</div>";
+        } else {
+        	return utf8_decode(mb_convert_encoding($response->getContent(), "UTF-8", "HTML-ENTITIES"));
+        }        
+        
+// 		if (isset($params['isRedirect']) && ( ($params['isRedirect'] == true) || ($params['isRedirect'] == 'true') ) ) {
+// 		    // this allow Redirect Response in controller action
+// 	        $params['_controller'] = $id;
+// 	        $subRequest = $this->container->get('request')->duplicate(array(), null, $params);
+// 	        $response =  $this->container->get('http_kernel')->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
+	         
+// 	        if ($response instanceof \Symfony\Component\HttpFoundation\RedirectResponse) {
+// 	        	return "<div style='visibility:hidden'>".$response."</div>";
+// 	        } else {
+// 	        	return utf8_decode(mb_convert_encoding($response->getContent(), "UTF-8", "HTML-ENTITIES"));
+// 	        }
+// 		} else {
+// 			$strategy = ( isset($params['strategy']) && in_array($params['strategy'], array('inline', 'hinclude')) ) ? $params['strategy'] : 'inline';  //
+// 			unset($params['strategy']);
+// 			$response =  $this->container->get('fragment.handler')->render($id, $strategy, $params);
+// 		}
+//		
+//		return utf8_decode(mb_convert_encoding($response->getContent(), "UTF-8", "HTML-ENTITIES"));
     }    
 }

@@ -68,7 +68,7 @@ class PiLanguageChoiceManager extends PiJqueryExtension
             throw ExtensionException::optionValueNotSpecified('img-arrow', __CLASS__);
         
         
-        $em         = $this->container->get('doctrine')->getEntityManager();
+        $em         = $this->container->get('doctrine')->getManager();
         $locale        = $this->container->get('request')->getLocale();
         $entities     = $em->getRepository("PiAppAdminBundle:Langue")->getAllEnabled($locale, 'object', false);    
 

@@ -197,7 +197,7 @@ class PiLuceneManager extends PiCoreManager implements PiSearchLuceneManagerBuil
                 $method_keywords     = "get".implode('', $sluggable_keywords_tab);            
                 
                 if (array_key_exists($sluggable_field_search, $match)){
-                    $entity    = $this->container->get('doctrine')->getEntityManager()->getRepository($sluggable_entity)->getEntityByField($this->language, array('content_search' => array($sluggable_field_search =>$match[$sluggable_field_search])), 'object');
+                    $entity    = $this->container->get('doctrine')->getManager()->getRepository($sluggable_entity)->getEntityByField($this->language, array('content_search' => array($sluggable_field_search =>$match[$sluggable_field_search])), 'object');
                     if(is_object($entity) && method_exists($entity, $method_title)){
                         $indexValues['Title']     = $entity->$method_title();
                     }

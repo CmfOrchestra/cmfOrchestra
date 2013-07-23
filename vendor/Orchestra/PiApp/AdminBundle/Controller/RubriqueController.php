@@ -50,7 +50,7 @@ class RubriqueController extends abstractController
      */
     public function indexAction()
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         $entities     = $em->getRepository('PiAppAdminBundle:Rubrique')->findAll();
 
@@ -101,7 +101,7 @@ class RubriqueController extends abstractController
      */
     public function showAction($id)
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $entity     = $em->getRepository('PiAppAdminBundle:Rubrique')->find($id);
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
 
@@ -130,7 +130,7 @@ class RubriqueController extends abstractController
     public function newAction()
     {
         $entity = new Rubrique();
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $form   = $this->createForm(new RubriqueType(), $entity, array('show_legend' => false));
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
@@ -168,7 +168,7 @@ class RubriqueController extends abstractController
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
             
@@ -193,7 +193,7 @@ class RubriqueController extends abstractController
      */
     public function editAction($id)
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $entity     = $em->getRepository('PiAppAdminBundle:Rubrique')->find($id);
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');        
 
@@ -223,7 +223,7 @@ class RubriqueController extends abstractController
      */
     public function updateAction($id)
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $entity     = $em->getRepository('PiAppAdminBundle:Rubrique')->find($id);
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
 
@@ -270,7 +270,7 @@ class RubriqueController extends abstractController
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em     = $this->getDoctrine()->getEntityManager();
+            $em     = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('PiAppAdminBundle:Rubrique')->find($id);
 
             if (!$entity) {
@@ -307,7 +307,7 @@ class RubriqueController extends abstractController
      */
     public function treeAction()
     {
-        $em        = $this->getDoctrine()->getEntityManager();
+        $em        = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
          
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
@@ -380,7 +380,7 @@ class RubriqueController extends abstractController
      */
     public function moveUpAction($id)
     {
-        $em                 = $this->getDoctrine()->getEntityManager();
+        $em                 = $this->getDoctrine()->getManager();
         $locale             = $this->container->get('request')->getLocale();
         $NoLayout        = $this->container->get('request')->query->get('NoLayout');
          
@@ -419,7 +419,7 @@ class RubriqueController extends abstractController
      */
     public function moveDownAction($id)
     {
-        $em                 = $this->getDoctrine()->getEntityManager();
+        $em                 = $this->getDoctrine()->getManager();
         $locale             = $this->container->get('request')->getLocale();
         $NoLayout        = $this->container->get('request')->query->get('NoLayout');
          
@@ -458,7 +458,7 @@ class RubriqueController extends abstractController
      */
     public function removeAction($id)
     {
-        $em        = $this->getDoctrine()->getEntityManager();
+        $em        = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $node    = $em->getRepository("PiAppAdminBundle:Rubrique")->findNodeOr404($id, $locale);
          

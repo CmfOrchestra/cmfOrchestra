@@ -51,7 +51,7 @@ class OrganigramController extends abstractController
      */
     public function indexAction()
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $locale        = $this->container->get('request')->getLocale();
         $entities     = $em->getRepository("PiAppGedmoBundle:Organigram")->getAllTree($locale);    
 
@@ -148,7 +148,7 @@ class OrganigramController extends abstractController
      */
     public function showAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppGedmoBundle:Organigram")->findNodeOr404($id, $locale);
         
@@ -180,7 +180,7 @@ class OrganigramController extends abstractController
      */
     public function newAction()
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $entity = new Organigram();
         
@@ -214,7 +214,7 @@ class OrganigramController extends abstractController
      */
     public function createAction()
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
 
         $category   = $this->container->get('request')->query->get('category');
@@ -253,7 +253,7 @@ class OrganigramController extends abstractController
      */
     public function editAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppGedmoBundle:Organigram")->findNodeOr404($id, $locale, 'object');
 
@@ -288,7 +288,7 @@ class OrganigramController extends abstractController
      */
     public function updateAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("PiAppGedmoBundle:Organigram")->findNodeOr404($id, $locale, "object");
 
@@ -331,7 +331,7 @@ class OrganigramController extends abstractController
      */
     public function deleteAction($id)
     {
-        $em      = $this->getDoctrine()->getEntityManager();
+        $em      = $this->getDoctrine()->getManager();
         $locale     = $this->container->get('request')->getLocale();
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
@@ -378,7 +378,7 @@ class OrganigramController extends abstractController
      */
     public function treeAction($category)
     {
-        $em        = $this->getDoctrine()->getEntityManager();
+        $em        = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
@@ -410,7 +410,7 @@ class OrganigramController extends abstractController
                 'childClose' => "    </li> \n",
                 'nodeDecorator' => function($node) use (&$self) {
                     
-                    $tree   = $self->getContainer()->get('doctrine')->getEntityManager()->getRepository($self->_entityName)->findOneById($node['id']);
+                    $tree   = $self->getContainer()->get('doctrine')->getManager()->getRepository($self->_entityName)->findOneById($node['id']);
                 
                     // define of all url images
                     $Urlpath0     = $self->get('templating.helper.assets')->getUrl('bundles/piappadmin/images/icons/tree/plus.png');
@@ -481,7 +481,7 @@ class OrganigramController extends abstractController
         */
     public function moveUpAction($id, $category)
     {
-        $em        = $this->getDoctrine()->getEntityManager();
+        $em        = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $node     = $em->getRepository("PiAppGedmoBundle:Organigram")->findNodeOr404($id, $locale);
         
@@ -503,7 +503,7 @@ class OrganigramController extends abstractController
      */
     public function moveDownAction($id, $category)
     {
-        $em        = $this->getDoctrine()->getEntityManager();
+        $em        = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $node    = $em->getRepository("PiAppGedmoBundle:Organigram")->findNodeOr404($id, $locale);
         
@@ -525,7 +525,7 @@ class OrganigramController extends abstractController
      */
     public function removeAction($id, $category)
     {
-        $em        = $this->getDoctrine()->getEntityManager();
+        $em        = $this->getDoctrine()->getManager();
         $locale    = $this->container->get('request')->getLocale();
         $node    = $em->getRepository("PiAppGedmoBundle:Organigram")->findNodeOr404($id, $locale);
         

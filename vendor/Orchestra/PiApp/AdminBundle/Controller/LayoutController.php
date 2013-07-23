@@ -50,7 +50,7 @@ class LayoutController extends abstractController
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('PiAppAdminBundle:Layout')->findAll();
 
@@ -115,7 +115,7 @@ class LayoutController extends abstractController
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PiAppAdminBundle:Layout')->find($id);
 
@@ -169,7 +169,7 @@ class LayoutController extends abstractController
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -194,7 +194,7 @@ class LayoutController extends abstractController
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PiAppAdminBundle:Layout')->find($id);
 
@@ -223,7 +223,7 @@ class LayoutController extends abstractController
      */
     public function updateAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PiAppAdminBundle:Layout')->find($id);
 
@@ -269,7 +269,7 @@ class LayoutController extends abstractController
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('PiAppAdminBundle:Layout')->find($id);
 
             if (!$entity) {

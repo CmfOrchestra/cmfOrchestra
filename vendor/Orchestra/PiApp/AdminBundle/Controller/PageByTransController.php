@@ -51,7 +51,7 @@ class PageByTransController extends abstractController
      */
     public function indexAction()
     {
-        $em       = $this->getDoctrine()->getEntityManager();
+        $em       = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('PiAppAdminBundle:Page')->getAllPageHtml()->getQuery()->getResult();
         
         return $this->render('PiAppAdminBundle:PageByTrans:index.html.twig', array(
@@ -116,7 +116,7 @@ class PageByTransController extends abstractController
     public function wizardAction($status)
     {
         $locale        = $this->container->get('request')->getLocale();
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $token         = $this->get('security.context')->getToken();
         
            $idUser        = $token->getUser()->getId();
@@ -151,7 +151,7 @@ class PageByTransController extends abstractController
      */
     public function showAction($id)
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('PiAppAdminBundle:Page')->find($id);
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
@@ -235,7 +235,7 @@ class PageByTransController extends abstractController
 
         if ('POST' === $request->getMethod()) {
             if ($form->isValid()) {
-                $em = $this->getDoctrine()->getEntityManager();
+                $em = $this->getDoctrine()->getManager();
     
                 // We persist all page translations
                 foreach($entity->getTranslations() as $translationPage) {
@@ -270,7 +270,7 @@ class PageByTransController extends abstractController
     {
         $locale    = $this->container->get('request')->getLocale();
         $User     = $this->get('security.context')->getToken()->getUser();
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('PiAppAdminBundle:Page')->find($id);
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
@@ -307,7 +307,7 @@ class PageByTransController extends abstractController
     {
         $locale    = $this->container->get('request')->getLocale();
         $User     = $this->get('security.context')->getToken()->getUser();
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('PiAppAdminBundle:Page')->find($id);
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
@@ -381,7 +381,7 @@ class PageByTransController extends abstractController
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('PiAppAdminBundle:Page')->find($id);
 
             if (!$entity) {

@@ -127,7 +127,7 @@ class TeamController extends abstractController
      */
     public function indexAction()
     {
-        $em            = $this->getDoctrine()->getEntityManager();
+        $em            = $this->getDoctrine()->getManager();
         $locale        = $this->container->get('request')->getLocale();
         
         $category   = $this->container->get('request')->query->get('category');
@@ -159,7 +159,7 @@ class TeamController extends abstractController
      */
     public function showAction($id)
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $locale        = $this->container->get('request')->getLocale();
         $entity     = $em->getRepository("PiAppGedmoBundle:Team")->findOneByEntity($locale, $id, 'object');
         
@@ -192,7 +192,7 @@ class TeamController extends abstractController
      */
     public function newAction()
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $entity     = new Team();
         $form       = $this->createForm(new TeamType($em, $this->container), $entity, array('show_legend' => false));
         
@@ -222,7 +222,7 @@ class TeamController extends abstractController
      */
     public function createAction()
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $locale        = $this->container->get('request')->getLocale();
         
         $category   = $this->container->get('request')->query->get('category');
@@ -262,7 +262,7 @@ class TeamController extends abstractController
      */
     public function editAction($id)
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $locale        = $this->container->get('request')->getLocale();
         $entity     = $em->getRepository("PiAppGedmoBundle:Team")->findOneByEntity($locale, $id, 'object');
         
@@ -298,7 +298,7 @@ class TeamController extends abstractController
      */
     public function updateAction($id)
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $locale        = $this->container->get('request')->getLocale();
         $entity     = $em->getRepository("PiAppGedmoBundle:Team")->findOneByEntity($locale, $id, "object"); 
         
@@ -342,7 +342,7 @@ class TeamController extends abstractController
      */
     public function deleteAction($id)
     {
-        $em          = $this->getDoctrine()->getEntityManager();
+        $em          = $this->getDoctrine()->getManager();
         $locale         = $this->container->get('request')->getLocale();
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');        
@@ -390,7 +390,7 @@ class TeamController extends abstractController
      */
     public function _template_showAction($id, $template = '_tmp_show.html.twig', $lang = "")
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         
         if (empty($lang))
             $lang    = $this->container->get('request')->getLocale();
@@ -421,7 +421,7 @@ class TeamController extends abstractController
      */
     public function _template_listAction($category = '', $MaxResults = null, $template = '_tmp_list.html.twig', $order = 'DESC', $lang = "", $type='')
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
 
         if (empty($lang))
             $lang    = $this->container->get('request')->getLocale();

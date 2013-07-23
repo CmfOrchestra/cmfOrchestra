@@ -51,7 +51,7 @@ class PageByBlockController extends abstractController
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('PiAppAdminBundle:Page')->getAllPageHtml()->getQuery()->getResult();
 
@@ -101,7 +101,7 @@ class PageByBlockController extends abstractController
      */
     public function showAction($id)
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
 
         $entity = $em->getRepository('PiAppAdminBundle:Page')->find($id);
@@ -166,7 +166,7 @@ class PageByBlockController extends abstractController
 
         if ('POST' === $request->getMethod()) {
             if ($form->isValid()) {
-                $em = $this->getDoctrine()->getEntityManager();
+                $em = $this->getDoctrine()->getManager();
 
                 // On persiste tous les blocks d'une page.
                 foreach($entity->getBlocks() as $block) {
@@ -200,7 +200,7 @@ class PageByBlockController extends abstractController
     public function editAction($id)
     {
         $User     = $this->get('security.context')->getToken()->getUser();
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('PiAppAdminBundle:Page')->find($id);
 
         if (!$entity) {
@@ -229,7 +229,7 @@ class PageByBlockController extends abstractController
     public function updateAction($id)
     {
         $User     = $this->get('security.context')->getToken()->getUser();
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('PiAppAdminBundle:Page')->find($id);
 
         if (!$entity) {
@@ -278,7 +278,7 @@ class PageByBlockController extends abstractController
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('PiAppAdminBundle:Page')->find($id);
 
             if (!$entity) {

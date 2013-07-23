@@ -54,7 +54,7 @@ class AdsController extends abstractController
     public function enabledajaxAction()
     {
         $request = $this->container->get('request');
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         
         if ($request->isXmlHttpRequest()){
             $data        = $request->get('data', null);
@@ -118,7 +118,7 @@ class AdsController extends abstractController
     public function disableajaxAction()
     {
         $request = $this->container->get('request');
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         
         if ($request->isXmlHttpRequest()){
             $data        = $request->get('data', null);
@@ -196,7 +196,7 @@ class AdsController extends abstractController
     public function deleteajaxAction()
     {
         $request = $this->container->get('request');
-        $em      = $this->getDoctrine()->getEntityManager();
+        $em      = $this->getDoctrine()->getManager();
          
         if ($request->isXmlHttpRequest()){
             $data        = $request->get('data', null);
@@ -268,7 +268,7 @@ class AdsController extends abstractController
      */
     public function indexAction()
     {
-        $em            = $this->getDoctrine()->getEntityManager();
+        $em            = $this->getDoctrine()->getManager();
         $locale        = $this->container->get('request')->getLocale();
         
         $category   = $this->container->get('request')->query->get('category');
@@ -300,7 +300,7 @@ class AdsController extends abstractController
      */
     public function showAction($id)
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $locale        = $this->container->get('request')->getLocale();
         $entity     = $em->getRepository("PiAppGedmoBundle:Ads")->findOneByEntity($locale, $id, 'object');
         
@@ -333,7 +333,7 @@ class AdsController extends abstractController
      */
     public function newAction()
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $entity     = new Ads();
         $form       = $this->createForm(new AdsType($em, $this->container), $entity, array('show_legend' => false));
         
@@ -366,7 +366,7 @@ class AdsController extends abstractController
      */
     public function createAction()
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $locale        = $this->container->get('request')->getLocale();
         
         $category   = $this->container->get('request')->query->get('category');
@@ -406,7 +406,7 @@ class AdsController extends abstractController
      */
     public function editAction($id)
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $locale        = $this->container->get('request')->getLocale();
         $entity     = $em->getRepository("PiAppGedmoBundle:Ads")->findOneByEntity($locale, $id, 'object');
         
@@ -442,7 +442,7 @@ class AdsController extends abstractController
      */
     public function updateAction($id)
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         $locale        = $this->container->get('request')->getLocale();
         $entity     = $em->getRepository("PiAppGedmoBundle:Ads")->findOneByEntity($locale, $id, "object"); 
         
@@ -486,7 +486,7 @@ class AdsController extends abstractController
      */
     public function deleteAction($id)
     {
-        $em          = $this->getDoctrine()->getEntityManager();
+        $em          = $this->getDoctrine()->getManager();
         $locale         = $this->container->get('request')->getLocale();
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');        
@@ -534,7 +534,7 @@ class AdsController extends abstractController
      */
     public function _template_showAction($id, $template = '_tmp_show.html.twig', $lang = "")
     {
-        $em     = $this->getDoctrine()->getEntityManager();
+        $em     = $this->getDoctrine()->getManager();
         
         if (empty($lang))
             $lang    = $this->container->get('request')->getLocale();
@@ -544,7 +544,7 @@ class AdsController extends abstractController
             $slug    = $entity->getSlug();
         } else {
             $slug    = $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('slug', $lang);
-            $entity    = $this->container->get('doctrine')->getEntityManager()->getRepository("PiAppGedmoBundle:Ads")->getEntityByField($lang, array('content_search' => array('slug' =>$slug)), 'object');
+            $entity    = $this->container->get('doctrine')->getManager()->getRepository("PiAppGedmoBundle:Ads")->getEntityByField($lang, array('content_search' => array('slug' =>$slug)), 'object');
         }        
         
         if (method_exists($entity, "getTemplate") && $entity->getTemplate() != "")
@@ -567,7 +567,7 @@ class AdsController extends abstractController
      */
     public function _template_listAction($category = '', $MaxResults = null, $template = '_tmp_list.html.twig', $order = 'DESC', $lang = "")
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
         if (empty($lang))
             $lang    = $this->container->get('request')->getLocale();
             
@@ -592,7 +592,7 @@ class AdsController extends abstractController
     */
     public function _template_archiveAction($MaxResults = null, $template = '_tmp_archive.html.twig', $order = 'DESC', $lang = "")
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
     
         if (empty($lang))
             $lang    = $this->container->get('request')->getLocale();
@@ -690,7 +690,7 @@ class AdsController extends abstractController
      */
     public function _template_formAction($ads_id, $template = '_template_form_ads.html.twig', $lang = "")
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
     
         if (empty($lang))
             $lang    = $this->container->get('request')->getLocale();
@@ -727,7 +727,7 @@ class AdsController extends abstractController
      */
     public function _template_formValidationAction($ads_id, $lang = "")
     {
-        $em            = $this->getDoctrine()->getEntityManager();
+        $em            = $this->getDoctrine()->getManager();
 
         if (empty($lang))
             $lang   = $this->container->get('request')->getLocale();
@@ -786,7 +786,7 @@ class AdsController extends abstractController
     
     protected function getAds($id, $lang)
     {
-        $em        = $this->getDoctrine()->getEntityManager();
+        $em        = $this->getDoctrine()->getManager();
         $ads    = $em->getRepository("PiAppGedmoBundle:Ads")->findOneByEntity($lang, $id, 'object', false);
         
         if (!$ads) {
@@ -812,7 +812,7 @@ class AdsController extends abstractController
 //                return new RedirectResponse($url);
 //         }
         
-        $em    = $this->getDoctrine()->getEntityManager();
+        $em    = $this->getDoctrine()->getManager();
     
         if (empty($lang))
             $lang    = $this->container->get('request')->getLocale();
@@ -877,7 +877,7 @@ class AdsController extends abstractController
      */
     public function _template_wordcloudAction($template = '_template_lamelee_wordcloud.html.twig', $lang = "")
     {
-        $em         = $this->getDoctrine()->getEntityManager();
+        $em         = $this->getDoctrine()->getManager();
     
         if (empty($lang))
             $lang    = $this->container->get('request')->getLocale();
