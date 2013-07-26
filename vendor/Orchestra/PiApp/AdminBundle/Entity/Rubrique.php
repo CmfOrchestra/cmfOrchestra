@@ -283,7 +283,7 @@ class Rubrique
      *
      * @param \PiApp\AdminBundle\Entity\Rubrique $parent
      */
-    public function setParent(\PiApp\AdminBundle\Entity\Rubrique $parent)
+    public function setParent($parent)
     {
            $this->parent = $parent;
     }

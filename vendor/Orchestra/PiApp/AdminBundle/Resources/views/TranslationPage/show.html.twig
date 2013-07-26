@@ -121,7 +121,7 @@
 	    {% endif %}
 	</ul>
 	
-	{% render "PiAppAdminBundle:Comment:index" with {'page': entity.id} %}
+	{{ render(controller('PiAppAdminBundle:Comment:index', {'page': entity.id})) }}
 	
 	<script type="text/javascript">
 	//<![CDATA[

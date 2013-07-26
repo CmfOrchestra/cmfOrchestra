@@ -1,7 +1,7 @@
 							<ul class="">
                             {% for node in nodes %}
                             	
-                            		{% set childs_routesnames = getService('doctrine').getEntityManager().getRepository("PiAppGedmoBundle:Menu").findChildsRouteByParentId(node.id, locale, 'string') %}
+                            		{% set childs_routesnames = getService('doctrine').getManager().getRepository("PiAppGedmoBundle:Menu").findChildsRouteByParentId(node.id, locale, 'string') %}
                             		           
 	                            	{% if(node.lvl == 1) %}
 	                            		{%  set url_lft = node.lft %}

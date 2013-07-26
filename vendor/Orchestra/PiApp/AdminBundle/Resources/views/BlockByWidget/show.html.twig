@@ -77,7 +77,7 @@
 	    {% endif %}
 	</ul>
 	
-	{% render "PiAppAdminBundle:Widget:index" with {'block': entity.id, 'NoLayout': NoLayout} %}
+	{{ render(controller('PiAppAdminBundle:Widget:index', {'block': entity.id, 'NoLayout': NoLayout})) }}
 	
 	<script type="text/javascript">
 	//<![CDATA[

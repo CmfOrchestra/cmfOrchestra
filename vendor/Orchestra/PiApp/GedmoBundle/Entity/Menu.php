@@ -409,7 +409,7 @@ class Menu extends AbstractDefault
      *
      * @param \PiApp\GedmoBundle\Entity\Menu    $parent
      */
-    public function setParent(\PiApp\GedmoBundle\Entity\Menu $parent)
+    public function setParent($parent)
     {
         $this->parent = $parent;
     }

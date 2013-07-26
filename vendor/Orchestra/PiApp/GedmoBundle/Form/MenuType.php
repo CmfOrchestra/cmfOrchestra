@@ -54,8 +54,8 @@ class MenuType extends AbstractType
     {
         $builder            
              ->add('enabled', 'checkbox', array(
-                    'data'  => true,
-                     'label'    => 'pi.form.label.field.enabled',
+                    //'data'  => true,
+                    'label'    => 'pi.form.label.field.enabled',
             ))            
             ->add('category', 'entity', array(
                     'class' => 'PiAppGedmoBundle:Category',
@@ -116,7 +116,7 @@ class MenuType extends AbstractType
                      'required'  => false,
              ))     
              ->add('blank', 'checkbox', array(
-                     'data'  => false,
+                     //'data'  => false,
                      'label'=>'pi.form.label.field.blank',
                      'required'  => false,
              ))                     

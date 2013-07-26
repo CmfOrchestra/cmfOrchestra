@@ -56,8 +56,6 @@
 #        
 #twig:
 #    globals:
-#      pagesize: 100
-#      nbProduct: 41
 #      navigator:
 #          chrome:  25
 #          safari:  4

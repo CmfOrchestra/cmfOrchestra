@@ -411,7 +411,7 @@ class Organigram extends AbstractDefault
      *
      * @param \PiApp\GedmoBundle\Entity\Organigram    $parent
      */
-    public function setParent(\PiApp\GedmoBundle\Entity\Organigram $parent)
+    public function setParent($parent)
     {
         $this->parent = $parent;
     }

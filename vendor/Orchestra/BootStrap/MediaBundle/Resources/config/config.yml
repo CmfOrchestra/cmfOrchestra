@@ -37,11 +37,12 @@
 #    contexts:
 #        default:  # the default context is mandatory
 #            download:
-#                strategy: sonata.media.security.public_strategy         # ROLE_USER
+#                #strategy: sonata.media.security.session_strategy # a media can be downloaded only once per session.
+#                #strategy: sonata.media.security.public_strategy         # ROLE_USER
 #                #strategy: sonata.media.security.superadmin_strategy  # ROLE_SUPER_ADMIN or ROLE_ADMIN
 #                #strategy: sonata.media.security.public_strategy      # no restriction, files are public
 #                #strategy: sonata.media.security.forbidden_strategy   # not possible to retrieve the original file
-#                #strategy: sonata.media.security.connected_strategy   # IS_AUTHENTICATED_FULLY or IS_AUTHENTICATED_REMEMBERED
+#                strategy: sonata.media.security.connected_strategy   # IS_AUTHENTICATED_FULLY or IS_AUTHENTICATED_REMEMBERED
 #                mode: http              # use php to send the file
 #                #mode: X-Sendfile        # use the X-Sendfile flag (Apache + mod_xsendfile : https://tn123.org/mod_xsendfile/)
 #                #mode: X-Accel-Redirect  # use the X-Accel-Redirect flag (Nginx : http://wiki.nginx.org/X-accel)

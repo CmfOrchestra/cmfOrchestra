@@ -61,7 +61,7 @@
 	    </li>
 	</ul>
 	
-	{% render "PiAppAdminBundle:TranslationPage:index" with {'page': entity.id} %}
+	{{ render(controller('PiAppAdminBundle:TranslationPage:index', {'page': entity.id})) }}
 	
 	<script type="text/javascript">
 	//<![CDATA[

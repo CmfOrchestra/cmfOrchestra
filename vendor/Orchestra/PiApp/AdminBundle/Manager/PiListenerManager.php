@@ -72,7 +72,8 @@ class PiListenerManager extends PiCoreManager implements PiListenerManagerBuilde
         if ($response instanceof \Symfony\Component\HttpFoundation\RedirectResponse) {
         	return "<div style='visibility:hidden'>".$response."</div>";
         } else {
-        	return utf8_decode(mb_convert_encoding($response->getContent(), "UTF-8", "HTML-ENTITIES"));
+        	//return utf8_decode(mb_convert_encoding($response->getContent(), "UTF-8", "HTML-ENTITIES"));
+        	$response->getContent();
         }        
         
 // 		if (isset($params['isRedirect']) && ( ($params['isRedirect'] == true) || ($params['isRedirect'] == 'true') ) ) {

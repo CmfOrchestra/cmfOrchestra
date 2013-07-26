@@ -96,7 +96,7 @@ class MediaType extends AbstractType
         if ($this->_simpleLink == "all"){
             $builder            
                  ->add('enabled', 'checkbox', array(
-                        'data'  => true,
+                         //'data'  => true,
                          'label'    => 'pi.form.label.field.enabled',
                          "label_attr" => array(
                                  "class"=> $this->_class,

@@ -83,7 +83,7 @@
 	    </li>
 	</ul>
 	
-	{% render "PiAppAdminBundle:TranslationWidget:index" with {'widget': entity.id, 'NoLayout': NoLayout} %}
+	{{ render(controller('PiAppAdminBundle:TranslationWidget:index', {'widget': entity.id, 'NoLayout': NoLayout})) }}
 	
 	<script type="text/javascript">
 	//<![CDATA[

@@ -65,14 +65,14 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
     {
         // we set the langue
         if (empty($lang))    $lang = $this->language;
-        
-        //     Initialize page
-        if ($this->getCurrentPage()){
+        // Initialize page
+        if ($this->getCurrentPage()) {
             // we get the current page.
             $page = $this->getCurrentPage();
             // we set the page.
-            if ($isSetPage)
+            if ($isSetPage) {
                 $this->setPage($page);
+            }
         } else {
             if ($this->isAnonymousToken()) {
                 // We inform that the page does not exist fi the user is connected.
@@ -81,49 +81,41 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
             // we redirect to the public url home page.
             return $this->redirectHomePublicPage();
         }
-        
         // if the page is enabled.
-        if ($page && $page->getEnabled()){
+        if ($page && $page->getEnabled()) {
             //     Initialize response
             $response = $this->getResponseByIdAndType('page', $page->getId());            
-            
             // we register only the translation page asked in the $lang value.
             $this->setTranslations($page, $lang);
-            
             // we get the translation of the current page in terms of the lang value.
-            $pageTrans        = $this->getTranslationByPageId($page->getId(), $lang);
-            
+            $pageTrans	= $this->getTranslationByPageId($page->getId(), $lang);
             // If the translation page is secure and the user is not connected, we return to the home page.
-            if ($pageTrans && $pageTrans->getSecure() && $this->isAnonymousToken()){
+            if ($pageTrans && $pageTrans->getSecure() && $this->isAnonymousToken()) {
                 return $this->redirectHomePublicPage();
             }    
-
             // If the translation page is not authorized to publish, we return to the home page.
-            if ($pageTrans && ($pageTrans->getStatus() != TranslationPageRepository::STATUS_PUBLISH) && $this->isAnonymousToken()){
+            if ($pageTrans && ($pageTrans->getStatus() != TranslationPageRepository::STATUS_PUBLISH) && $this->isAnonymousToken()) {
                 return $this->redirectHomePublicPage();
             }        
-
             // If the translation page is secure and the user is not authorized, we return to the home page.
-            if ($pageTrans && $pageTrans->getSecure() && $this->isUsernamePasswordToken()){
+            if ($pageTrans && $pageTrans->getSecure() && $this->isUsernamePasswordToken()) {
                 // Gets all user roles.
                 $user_roles                = $this->container->get('bootstrap.Role.factory')->getAllUserRoles();
                 // Gets the best role authorized to access to the entity.
                 $authorized_page_roles     = $this->container->get('bootstrap.Role.factory')->getBestRoles($pageTrans->getHeritage());                
-                
                 $right = false;
-                if (is_null($authorized_page_roles))
+                if (is_null($authorized_page_roles)) {
                     $right = true;
-                else{
-                    foreach($authorized_page_roles as $key=>$role_page){
+                } else {
+                    foreach ($authorized_page_roles as $key=>$role_page) {
                         if (in_array($role_page, $user_roles))
                             $right = true;
                     }
                 }
-                
-                if (!$right)
+                if (!$right) {
                     return $this->redirectHomePublicPage();
+                }
             }            
-            
             // Handle 404
             // We don't show the page if :
             // * The page doesn't have a translation set.
@@ -132,28 +124,23 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
                 // we register all translations page linked to one page.
                 $this->setTranslations($page);
                 // we get the translation of the current page in another language if it exists.
-                $pageTrans        = $this->getTranslationByPageId($page->getId(), $lang);
-                
+                $pageTrans	= $this->getTranslationByPageId($page->getId(), $lang);
                 if (!$pageTrans) {
-                    $page             = $this->getRepository('page')->getPageByUrlAndSlug('error', 'error404-'.$this->language);
-                    if (!$page)
+                    $page	= $this->getRepository('page')->getPageByUrlAndSlug('error', 'error404-'.$this->language);
+                    if (!$page) {
                         throw new \InvalidArgumentException("We haven't set in the data fixtures the error page message in the $lang locale !");
-            
+                    }
                     // we set the page.
                     $this->setPage($page);
-                                    
                     $response->setStatusCode(404);
                 }
             }
-            
             // We set the Etag value
-            $id                 = $page->getId();
-            $lang_                = $this->language;
+            $id		= $page->getId();
+            $lang_	= $this->language;
             $this->setEtag("page:$id:$lang_");
-
             // Create a Response with a Last-Modified header.
             $response = $this->configureCache($page, $response);
-            
             // Check that the Response is not modified for the given Request.
             if ($response->isNotModified($this->container->get('request'))){
                 // We set the reponse
@@ -164,19 +151,18 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
                 // or render a template with the $response you've already started
                 $response->headers->set('Content-Type', $page->getMetaContentType());
                 $response->headers->set('Pragma', "no-cache");
-                
                 if ($this->isUsernamePasswordToken()){
                     $response->headers->set('Cache-control', "private");
                 }
-                
-                $response = $this->container->get('pi_app_admin.caching')->renderResponse($this->Etag, array('page' => $page), $response);
                 // We set the reponse
+                $response = $this->container->get('pi_app_admin.caching')->renderResponse($this->Etag, array('page' => $page), $response);
                 $this->setResponse($page, $response);
-                // return the Response
+
                 return $response;
             }
-        }else
+        } else {
             return $this->redirectHomePublicPage();
+        }
     }
     
     /**
@@ -193,26 +179,24 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
      */
     public function renderSource($id, $lang = '', $params = null)
     {
-        if (!$this->getPageById($id)){
-            // we set the page.
+    	// we set the page.
+        if (!$this->getPageById($id)) {
             $this->setPageById($id);
         }
-        
         // we set the langue
         if (empty($lang))    $lang = $this->language;
-        
+        // we init params
         $init_pc_layout        = str_replace("/", "\\\\", $this->getPageById($id)->getLayout()->getFilePc());
         $init_pc_layout        = str_replace("\\", "\\\\", $init_pc_layout);
         $init_mobile_layout    = str_replace("\\", "\\\\", $this->getPageById($id)->getLayout()->getFileMobile());
-        
         $request             = $this->container->get('request');
         $session            = $request->getSession();
-        
-        if (empty($init_pc_layout))
+        if (empty($init_pc_layout)) {
             $init_pc_layout     = $this->container->getParameter('pi_app_admin.layout.init.pc.template');
-        if (empty($init_mobile_layout))
+        }
+        if (empty($init_mobile_layout)) {
             $init_mobile_layout = $this->container->getParameter('pi_app_admin.layout.init.mobile.template');
-
+        }
         // we get the translation of the current page in terms of the lang value.
         $pageTrans     = $this->getTranslationByPageId($id, $lang);    //if ($lang == 'fr') print_r($pageTrans->getLangCode()->getId());
         if ($pageTrans instanceof TranslationPage){
@@ -224,12 +208,10 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
             $keywords     = "";        
             $title       = "";
         }
-
         // we get the css file of the page.
-        $styleshette = $this->getPageById($id)->getPageCss();
+        $stylesheet = $this->getPageById($id)->getPageCss();
         // we get the js file of the page.
         $javascript  = $this->getPageById($id)->getPageJs();
-        
         // we create the source page.
         $source  = "{% set layout_screen = app.request.attributes.get('orchestra-screen') %}\n";
         $source .= "{% set is_switch_layout_mobile_authorized = getParameter('pi_app_admin.page.switch_layout_mobile_authorized') %}";
@@ -242,33 +224,30 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
         $source .= "{%     set layout_nav = 'PiAppTemplateBundle::Template\\\Layout\\\Pc\\\\".$init_pc_layout."' %}\n";
         $source .= "{% endif %}\n";
         $source .= "{% extends layout_nav %}\n";        
-        
-        if ($styleshette instanceof \Doctrine\ORM\PersistentCollection){
-            foreach($styleshette as $s){
+        // we set stylesheets
+        if ($stylesheet instanceof \Doctrine\ORM\PersistentCollection){
+            foreach($stylesheet as $s){
                 $source     .= "{% stylesheet '".$s->getUrl()."' %} \n";
             }
         }
+        // we set javascripts
         if ($javascript instanceof \Doctrine\ORM\PersistentCollection){
             foreach($javascript as $s){
                 $source     .= "{% javascript '".$s->getUrl()."' %} \n";
             }
         }
-
         $source     .= "{% block global_title %}";
         $source     .= "{{ parent() }} \n";
         $source     .= "{{ title_page('{$title}') }} \n";
         $source     .= "{% endblock %} \n";
-        
         $source     .= "{% set global_local_language = '".$this->language."' %} \n";
         $source     .= " \n";
-        
         $source     .= "{% block global_meta %} \n";
         $source     .= "    {{ metas_page({'description':\"{$description}\",'keywords':\"{$keywords}\",'title':\"{$title}\"})|raw }} \n";
         $source     .= "{{ parent() }}    \n";
         $source     .= "{% endblock %} \n";
-        
-        if (isset($this->blocks[$id]) && !empty($this->blocks[$id])){
-            
+        // we set all widgets of all blocks
+        if (isset($this->blocks[$id]) && !empty($this->blocks[$id])) {
             $all_blocks = $this->blocks[$id];
             foreach ($all_blocks as $block) {
                 // if the block is not disabled.                
@@ -276,40 +255,33 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
                     $source     .= "{% block ".$block->getName()." %} \n";
                     $source     .= "{{ parent() }}    \n";
                     $source     .= "<orchestra id=\"block__".$block->getId()."\" data-id=\"".$block->getId()."\" data-name=\"".$this->container->get('translator')->trans($block->getName())."\" style=\"display:block\"> \n";
-                    
+                    // we set all widget of the block
                     if (isset($this->widgets[$id][$block->getId()]) && !empty($this->widgets[$id][$block->getId()])){
                         $all_widgets      = $this->widgets[$id][$block->getId()];
                         $widget_position = array();
                         foreach ($all_widgets as $widget) {
                             if ($widget->getEnabled()) {
                                 if (isset($this->widgets[$id][$block->getId()][$widget->getId()]) && !empty($this->widgets[$id][$block->getId()][$widget->getId()])){
-                                    
                                     // we get the widget manager
                                     $widgetManager      = $this->getWidgetManager();
-                                    
                                     // we set the result
                                     $widgetManager->setCurrentWidget($this->widgets[$id][$block->getId()][$widget->getId()]);
-                                    
                                     // we initialize js and css script of the widget
                                     $widgetManager->setScript();
-                                    
                                     // we initialize init of the widget
                                     $widgetManager->setInit();                
-
                                     if ($widget->getPosition() && ($widget->getPosition() != 0)){
                                         $pos = $widget->getPosition();
-                                        
                                         // we return the render (cache or not)
                                         $widget_position[ $pos ]     = "<orchestra id=\"widget__".$widget->getId()."\" data-id=\"".$widget->getId()."\" style=\"display:block\"> \n";
-                                         $widget_position[ $pos ]     .= $widgetManager->render($this->language). " \n";
-                                         $widget_position[ $pos ]     .= "</orchestra> \n";
+                                        $widget_position[ $pos ]     .= $widgetManager->render($this->language). " \n";
+                                        $widget_position[ $pos ]     .= "</orchestra> \n";
                                     } else {
                                         // we return the render (cache or not)
                                         $widget_position[]              = "<orchestra id=\"widget__".$widget->getId()."\" data-id=\"".$widget->getId()."\" > \n";
-                                         $widget_position[]             .= $widgetManager->render($this->language) . " \n";
-                                         $widget_position[]             .= "</orchestra> \n";
+                                        $widget_position[]             .= $widgetManager->render($this->language) . " \n";
+                                        $widget_position[]             .= "</orchestra> \n";
                                     } 
-                                    
                                     // we set the js and css scripts.
                                     $container  = strtoupper($widget->getPlugin());
                                     $this->script['js']        = array_merge($this->script['js'], $widgetManager->getScript('js', 'array'));
@@ -326,8 +298,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
                 }
             }            
         }
-        
-        // we set the js and css script of the widget
+        // we set the js script of the widget
         $source     .= "{% block global_script_js %} \n";
         $source        .= " {{ parent() }} \n"; 
         $source     .= " <script type=\"text/javascript\"> \n";
@@ -336,17 +307,15 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
         $source     .= " //]]> \n";
         $source     .= " </script> \n";
         $source     .= "{% endblock %} \n";
-        
+        // we set the css script of the widget
         $source     .= "{% block global_script_css %} \n";
         $source        .= " {{ parent() }} \n";
         $source     .= " <style type=\"txt/css\"> \n<!-- \n";
         $source     .= $this->getScript('css', 'implode') . " \n";
         $source     .= " \n--> \n</style> \n";
         $source     .= "{% endblock %} \n";
-        
         // we set all initWidget
         $source        = $this->getScript('init', 'implode') . "\n" . $source;
-        
         //print_r($source);
         //print_r("<br /><br /><br />");
         //exit;
@@ -434,21 +403,21 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
         // Get corresponding page
         if (!$route || empty($route)) {
             $page = $this->getRepository('page')->getHomepage();
-        }
-        else {
+        } else {
             $page = $this->getRepository('page')->findOneBy(array('route_name' => $route));
         }
-        
         if ($page instanceof Page) {
             // we set the result
             $this->setCurrentPage($page);
             // we set the page.
-            if ($isSetPage)
+            if ($isSetPage) {
                 $this->setPage($page);
+            }
             // we return the setting page.
             return $page;
-        }else
+        } else {
             return false;
+        }
     }    
 
     /**
@@ -490,8 +459,8 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
      */
     private function setTranslations(Page $page, $locale = false)
     {
-        if (!isset($this->translations[$page->getId()]) || empty($this->translations[$page->getId()])){            
-            if (!$locale){
+        if (!isset($this->translations[$page->getId()]) || empty($this->translations[$page->getId()])) {            
+            if (!$locale) {
                 // records all translations
                 $all_translations = $page->getTranslations();
                 foreach ($all_translations as $translation) {
@@ -499,9 +468,9 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
                 }
             } else {
                 $translationPage = $this->getRepository('translationPage')->findOneBy(array('page' => $page->getId(), 'langCode'=>$locale));
-                
-                if ($translationPage instanceof \PiApp\AdminBundle\Entity\TranslationPage)
+                if ($translationPage instanceof \PiApp\AdminBundle\Entity\TranslationPage) {
                     $this->translations[$page->getId()][$locale] = $translationPage;
+                }
             }
         }
     }    
@@ -519,9 +488,8 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
      */
     private function setBlocks(Page $page)
     {
-        if (!isset($this->blocks[$page->getId()]) || empty($this->blocks[$page->getId()])){
+        if (!isset($this->blocks[$page->getId()]) || empty($this->blocks[$page->getId()])) {
             $all_blocks = $page->getBlocks();
-        
             // records all blocks
             foreach ($all_blocks as $block) {
                 $this->blocks[$page->getId()][$block->getId()] = $block;
@@ -544,7 +512,6 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
     {
         if (isset($this->blocks[$page->getId()]) && !empty($this->blocks[$page->getId()])) {
             $all_blocks = $this->blocks[$page->getId()];
-        
             // records all widgets
             foreach ($all_blocks as $block) {
                 $all_widgets = $block->getWidgets();
@@ -597,8 +564,9 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
      */
     private function getWidgetManager()
     {
-        if (empty($this->widgetManager))
+        if (empty($this->widgetManager)) {
             $this->setWidgetManager();
+        }
     
         return $this->widgetManager;
     }    
@@ -618,6 +586,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
         if (empty($url)) {
             $url = $this->container->get('router')->generate('home_page');
         }
+        
         return new RedirectResponse($url);
     }    
     
@@ -664,16 +633,17 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
      */
     public function setTreeWithPages($htmlTree)
     {
-        if (empty($htmlTree))
+        if (empty($htmlTree)) {
             return $htmlTree;
+        }
     
         $htmlTree = $this->container->get('pi_app_admin.string_manager')->trimUltime($htmlTree);
         if (preg_match_all('#<a data-rub="(?P<id_rubrique>(.*))" >(?P<titre>(.*))</a><p class="pi_tree_desc">(?P<descriptif>(.*))</p>#sU', $htmlTree, $matches_rubs)){
-            foreach($matches_rubs['id_rubrique'] as $key => $idRubrique){
+            foreach ($matches_rubs['id_rubrique'] as $key => $idRubrique) {
                 $result_simple      = preg_split('#<a data-rub="'.$idRubrique.'" >(.*)</a><p class="pi_tree_desc">(.*)</p>#sU', $htmlTree);
                 $result_multiple      = preg_split('#<a data-rub="'.$idRubrique.'" >(.*)</a><p class="pi_tree_desc">(.*)</p>(.*)<ul>#sU', $htmlTree);
     
-                if (count($result_simple) == 2){
+                if (count($result_simple) == 2) {
                     $allRubriquePages = $this->getPagesByRub($idRubrique);
                     if (!empty($allRubriquePages))
                         $htmlTree = $result_simple[0]
@@ -683,9 +653,8 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
                         . '</ul>'
                         . $result_simple[1];
                 }
-                if (count($result_multiple) == 2){
+                if (count($result_multiple) == 2) {
                     $allRubriquePages = $this->getPagesByRub($idRubrique);
-    
                     if (!empty($allRubriquePages))
                         $htmlTree = $result_multiple[0]
                         . '<a data-rub="'.$idRubrique.'" >'.$matches_rubs['titre'][$key].'</a><p class="pi_tree_desc">'.$matches_rubs['descriptif'][$key].'</p>'
@@ -693,7 +662,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
                         . $allRubriquePages
                         . $result_multiple[1];
                 }
-            } // end foreach
+            }
         }
     
         return $htmlTree;
@@ -714,11 +683,10 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
         $page             =  $this->container->get('pi_app_admin.repository')->getRepository('Page')->getHomePage();
     
         if ($page instanceof Page){
-    
-            if ( !$page->getTranslations()->isEmpty() ){
+            if ( !$page->getTranslations()->isEmpty() ) {
                 $locales = array();
                 $pages_content .= "<li><p>Home Page ".$page->getId()."</p><a href='#'>url : ".$page->getUrl()."</a><p></p><ul>";
-                foreach($page->getTranslations() as $key=>$translationPage){
+                foreach ($page->getTranslations() as $key=>$translationPage) {
                     if ($translationPage instanceof TranslationPage){
                         $local = $translationPage->getLangCode()->getId();
                         try {
@@ -733,10 +701,9 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
                 }
                 $pages_content .= "</ul></li>";
             }
-    
         }
-    
         $pages_content      = preg_replace('#<ul>#sU', '<ul>'.$pages_content, $htmlTree, 1);
+        
         return $pages_content;
     }
     
@@ -754,26 +721,23 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
         $pages_content        = "";
         $pagesByRubrique     =  $this->container->get('pi_app_admin.repository')->getRepository('Page')->getAllPageByRubriqueId($idRubrique)->getQuery()->getResult();
     
-        if (is_array($pagesByRubrique)){
-            foreach($pagesByRubrique as $key => $page){
-                if ($page instanceof Page){
-    
-                    if ( !$page->getTranslations()->isEmpty() ){
+        if (is_array($pagesByRubrique)) {
+            foreach($pagesByRubrique as $key => $page) {
+                if ($page instanceof Page) {
+                    if ( !$page->getTranslations()->isEmpty() ) {
                         $locales = array();
                         $pages_content .= "<li><p>Page ".$page->getId()."</p><a href='#'>url : ".$page->getUrl()."</a><p></p><ul>";
-                        foreach($page->getTranslations() as $key=>$translationPage){
-                            if ($translationPage instanceof TranslationPage){
+                        foreach ($page->getTranslations() as $key=>$translationPage) {
+                            if ($translationPage instanceof TranslationPage) {
                                 $local = $translationPage->getLangCode()->getId();
                                 try {
                                     $route = $this->container->get('router')->generate( $page->getRouteName(), array('locale' => $local) );
                                 } catch (\Exception $e) {
-
                                     try {
                                         $route = $this->container->get('router')->generate( $page->getRouteName() );
                                     } catch (\Exception $e) {
                                         $route = "";
                                     }
-                                    
                                 }
                                 $pages_content .= "<li class='css-transform-rotate dhtmlgoodies_sheet.gif' >";
                                 $pages_content .= "<p>local ".$local."</p><a href='".$route."'>slug : ".$translationPage->getSlug()."</a><p class='pi_tree_title'>".$translationPage->getTitre()."</p><p class='pi_tree_desc'>".$translationPage->getDescriptif ()."</p>";
@@ -782,7 +746,6 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
                         } // end foreach
                         $pages_content .= "</ul></li>";
                     }
-    
                 }
             } // end foreach
         }
@@ -801,42 +764,39 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
      */
     public function setNode($htmlTree)
     {
-        if (empty($htmlTree))
+        if (empty($htmlTree)) {
             return $htmlTree;
-        
+        }
         //print_r($htmlTree);
-    
         $htmlTree             = $this->container->get('pi_app_admin.string_manager')->trimUltime($htmlTree);
         $matches_balise_rub    = preg_split('#<li>(?P<num>(.*))#sU', $htmlTree);
         $max_key            = 1;
-        if ($matches_balise_rub){
-            
+        if ($matches_balise_rub) {
             //print_r($matches_balise_il);
             $htmlTree = '';
             $max_key = count($matches_balise_rub)-1;
-            foreach($matches_balise_rub as $key => $value){
-                if ($max_key != $key)
+            foreach ($matches_balise_rub as $key => $value) {
+                if ($max_key != $key) {
                     $htmlTree .= $value . '<li id="node'.($key+1).'">';
-                else
+                } else {
                     $htmlTree .= $value;
+                }
             }
         }
-        
         $matches_balise_page     = preg_split("#<li class='dhtmlgoodies_sheet.gif'>(?P<num>(.*))#sU", $htmlTree);
         $max_key                = 1;
-        if ($matches_balise_page){
-        
+        if ($matches_balise_page) {
             //print_r($matches_balise_il);
             $htmlTree = '';
             $max_key = count($matches_balise_page)-1;
             foreach($matches_balise_page as $key => $value){
-                if ($max_key != $key)
+                if ($max_key != $key) {
                     $htmlTree .= $value . '<li id="node'.($key+1).'" class=\'dhtmlgoodies_sheet.gif\'>';
-                else
+                } else {
                     $htmlTree .= $value;
+                }
             }
         }        
-        
         //print_r($htmlTree);exit;
     
         return $htmlTree;
@@ -863,7 +823,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
         // we create de Etag cache
         $params_treechart      = json_encode($params_treechart);
         $params_treechart     = str_replace(':', '#', $params_treechart);
-        
+        // we refresh all caches 
         $all_lang    = $this->getRepository('Langue')->findByEnabled(true);
         foreach($all_lang as $key => $lang){
             $id_lang = $lang->getId();
@@ -872,7 +832,6 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
             $this->cacheRefreshByname($Etag_treechart);
         }
     }    
-    
     
     /**
      * Refresh the cache of all elements of a page (TranslationPages, widgets, translationWidgets)
@@ -887,36 +846,27 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
     {
         // we refresh the cache of the tree Chart page.
         $this->cacheTreeChartPageRefresh();
-        
         // we get the current page.
         $page = $this->getCurrentPage();
-        
         if (!is_null($page) && !is_null($this->translations[$page->getId()])){
             foreach ($this->translations[$page->getId()] as $translation) {
                 // we get the lang page
                 $lang_page = $translation->getLangCode()->getId();
-                
                 // we create the cache name
                 $name_page    = 'page:'.$page->getId().':'.$lang_page;
-    
                 if (isset($this->widgets[$page->getId()]) && is_array($this->widgets[$page->getId()])){
                     foreach ($this->widgets[$page->getId()] as $key_block=>$widgets) {
-                        
                         if (isset($this->widgets[$page->getId()][$key_block]) && is_array($this->widgets[$page->getId()][$key_block])){
                             foreach ($this->widgets[$page->getId()][$key_block] as $key_widget => $widget) {
-                                
 //                                 print_r($this->container->get('request')->getLocale());
 //                                 print_r(' - id : ' . $widget->getId());
 //                                 print_r(' - plugin : ' . $widget->getPlugin());
 //                                 print_r(' - action : ' . $widget->getAction());
 //                                 print_r('<br />');                                
-                                
                                 // we create the cache name of the widget
                                 $Etag_widget    = 'widget:'.$widget->getId().':'.$lang_page;                    
-    
                                 // we manage the "transwidget"
                                 $widget_translations = $this->getWidgetManager()->setWidgetTranslations($widget);
-                                
                                 if (is_array($widget_translations)){
                                     foreach ($widget_translations as $translang => $translationWidget) {
                                         // we create the cache name of the transwidget
@@ -926,11 +876,9 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
                                         //print_r($Etag_transwidget);
                                     }
                                 }
-                                
                                 // If the widget is a "content snippet"
                                 if ( ($widget->getPlugin() == 'content') && ($widget->getAction() == 'snippet') )    {
                                     $xmlConfig    = $widget->getConfigXml();
-
                                     // if the configXml field of the widget is configured correctly.
                                     try {
                                         $xmlConfig    = new \Zend_Config_Xml($xmlConfig);
@@ -946,12 +894,9 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
                                     } catch (\Exception $e) {
                                     }
                                 }
-                                
                                 // If the widget is a tree a "jqext"
                                 if ( ($widget->getPlugin() == 'content') && ($widget->getAction() == 'jqext') )    {
-                                
                                     $xmlConfig            = $widget->getConfigXml();
-                                
                                     // if the configXml field of the widget is configured correctly.
                                     try {
                                         $xmlConfig    = new \Zend_Config_Xml($xmlConfig);
@@ -1009,8 +954,6 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
                                     
                                     if (!is_null($new_widget) && ($new_widget instanceof Widget) )
                                         $widget = $new_widget;
-                                    
-                                
                                 }        
 
 //                                 print_r($this->container->get('request')->getLocale());
@@ -1021,9 +964,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
                                 
                                 // If the widget is a tree a "listener"
                                 if ( ($widget->getPlugin() == 'gedmo') && ($widget->getAction() == 'listener') )    {
-                                    
                                     $xmlConfig            = $widget->getConfigXml();
-                                    
                                     // if the configXml field of the widget is configured correctly.
                                     try {
                                         $xmlConfig    = new \Zend_Config_Xml($xmlConfig);
@@ -1055,9 +996,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
                                 
                                 // If the widget is a "tree"
                                 if ( ($widget->getPlugin() == 'gedmo') && (($widget->getAction() == 'navigation') || ($widget->getAction() == 'organigram')) )    {
-                                    
                                     $xmlConfig            = $widget->getConfigXml();
-                                
                                     // if the configXml field of the widget is configured correctly.
                                     try {
                                         $xmlConfig    = new \Zend_Config_Xml($xmlConfig);
@@ -1167,9 +1106,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
                                 
                                 // If the widget is a tree a "slider"
                                 if ( ($widget->getPlugin() == 'gedmo') && ($widget->getAction() == 'slider') )    {
-                                    
                                     $xmlConfig            = $widget->getConfigXml();
-                                    
                                     // if the configXml field of the widget is configured correctly.
                                     try {
                                         $xmlConfig    = new \Zend_Config_Xml($xmlConfig);
