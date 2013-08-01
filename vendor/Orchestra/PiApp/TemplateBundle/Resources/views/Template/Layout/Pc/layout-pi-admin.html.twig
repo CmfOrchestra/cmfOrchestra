@@ -127,47 +127,23 @@
 <div id="admin-header">	
 	<!-- Start: page-top-outer -->
 	<div id="page-top-outer">    
-	
-	<!-- Start: page-top -->
-	<div id="page-top">
-	
-		<!-- start logo -->
-		<div id="logo">
-			<a href="{{ path('admin_homepage') }}" title="logo"><img src="{{ asset('bundles/piappadmin/images/logo/logo-orchestra-white.png') }}" height="67" alt="" /></a>
+		<!-- Start: page-top -->
+		<div id="page-top">
+			
+			<!-- start logo -->
+			<div id="logo">
+				<a href="{{ path('admin_homepage') }}" title="logo"><img src="{{ asset('bundles/piappadmin/images/logo/logo-orchestra-white.png') }}" height="67" alt="" /></a>
+			</div>
+			<!-- end logo -->
+			
+			<!-- start nav-right -->
+			<div id="nav-right">
+				{% include "PiAppTemplateBundle::Template\\Layout\\Connexion\\connexion.html.twig" %}
+			</div>
+			<!-- end nav-right -->
+			
 		</div>
-		<!-- end logo -->
-		
-		{# 
-		
-		<!--  start top-search -->
-		<div id="top-search">
-			<table>
-			<tr>
-			<td><input type="text" value="{{ 'pi.dashboard.search'|trans }}" onblur="if (this.value=='') { this.value='{{ 'pi.dashboard.search'|trans }}'; }" onfocus="if (this.value=='{{ 'pi.dashboard.search'|trans }}') { this.value=''; }" class="top-search-inp" /></td>
-			<td>
-			<select  class="styledselect">
-				<option value="">All</option>
-				<option value="">Products</option>
-				<option value="">Categories</option>
-				<option value="">Clients</option>
-				<option value="">News</option>
-				<option value="">Sonata Admin</option>
-			</select> 
-			</td>
-			<td>
-			<input type="image" src="{{ asset('bundles/piappadmin/images/shared/top_search_btn.gif') }}"  alt="search" />
-			</td>
-			</tr>
-			</table>
-		</div>
-	 	<!--  end top-search -->
-	 	<div class="clear"></div>
-	 	
-	 	#}
-	
-	</div>
-	<!-- End: page-top -->
-	
+		<!-- End: page-top -->
 	</div>
 	<!-- End: page-top-outer -->
 		
@@ -178,14 +154,7 @@
 	<!--  start nav-outer -->
 	<div class="nav-outer"> 
 	
-			<!-- start nav-right -->
-			<div id="nav-right">
-				{% include "PiAppTemplateBundle::Template\\Layout\\Connexion\\connexion.html.twig" %}
-			</div>
-			<!-- end nav-right -->
-	
-	
-			<!--  start nav -->
+	        <!--  start nav -->
 			<div class="nav">
 			<div class="table">
 			
@@ -302,7 +271,7 @@
 			</div>
 			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
 			</li>
-			</ul>			
+			</ul>		
 			
 			<div class="clear"></div>
 			</div>
@@ -376,20 +345,13 @@
 	<!--  end content-outer........................................................END -->
 	
 	<div class="clear">&nbsp;</div>
-	    
-	<!-- start footer -->         
-	<div id="footer">
-	<!-- <div id="footer-pad">&nbsp;</div> -->
-		<!--  start footer-left -->
-		<div id="footer-left">
-			<a rel='Copyright' href='http://www.cmf-orchestra.net/#Copyright' id='copyright'>{{ 'pi.footer.copyright'|trans }}</a> © 2004-{{ "now"|date("Y") }} Ltd. <a href="" title="">www.cmf-orchestra.net</a>.
+	<!-- start footer -->    
+	<div class="footer">
+	    <div>
+    	    <a rel='Copyright' href='http://www.cmf-orchestra.net/#Copyright' id='copyright'>{{ 'pi.footer.copyright'|trans }}</a> © 2004-{{ "now"|date("Y") }} Ltd. <a href="" title="">www.cmf-orchestra.net</a>.
 			<img src="{{ asset('bundles/piappadmin/images/logo/html5-badge.png') }}" alt="html5 validated by contactpfelix@gmail.com" />
-			<div class="clear"><!-- --></div>
-		</div>
-		<!--  end footer-left -->
-		<div class="clear"><!-- --></div>
-	</div>
+	    </div>
+    </div>
 	<!-- end footer -->
-
 				     
 {% endblock %}

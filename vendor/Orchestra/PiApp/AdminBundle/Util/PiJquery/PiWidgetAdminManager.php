@@ -223,7 +223,7 @@ class PiWidgetAdminManager extends PiJqueryExtension
                                 error: function(msg){ alert( "Error !: " + msg );},            
                                 success: function(response){
                                     var url = response[0].url;
-                                      $("#page-action-dialog").html('<iframe id="modalIframeId" width="97%" height="100%" marginWidth="0" marginHeight="0" frameBorder="0" scrolling="auto" src="'+url+'" />').dialog({
+                                      $("#page-action-dialog").html('<iframe id="modalIframeId" width="100%" height="100%" marginWidth="0" marginHeight="0" frameBorder="0" scrolling="auto" src="'+url+'" />').dialog({
                                            width: 840,
                                            height: height/1.5,
                                            open: function () {
@@ -260,7 +260,7 @@ class PiWidgetAdminManager extends PiJqueryExtension
                                 error: function(msg){ alert( "Error !: " + msg );},            
                                 success: function(response){
                                     var url = response[0].url;
-                                      $("#page-action-dialog").html('<iframe id="modalIframeId" width="97%" height="100%" marginWidth="0" marginHeight="0" frameBorder="0" scrolling="auto" src="'+url+'" />').dialog({
+                                      $("#page-action-dialog").html('<iframe id="modalIframeId" width="100%" height="100%" marginWidth="0" marginHeight="0" frameBorder="0" scrolling="auto" src="'+url+'" />').dialog({
                                            width: 840,
                                            height: height/1.5,
                                            open: function () {
@@ -321,7 +321,7 @@ class PiWidgetAdminManager extends PiJqueryExtension
                             error: function(msg){ alert( "Error !: " + msg );},            
                             success: function(response){
                                 var url = response[0].url;
-                                  $("#block-action-dialog").html('<iframe id="modalIframeId" width="97%" height="100%" marginWidth="0" marginHeight="0" frameBorder="0" scrolling="auto" src="'+url+'" />').dialog({
+                                  $("#block-action-dialog").html('<iframe id="modalIframeId" width="100%" height="100%" marginWidth="0" marginHeight="0" frameBorder="0" scrolling="auto" src="'+url+'" />').dialog({
                                        width: 840,
                                        height: height/1.5,
                                        open: function () {
@@ -414,7 +414,7 @@ class PiWidgetAdminManager extends PiJqueryExtension
                                         expandingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
                                     });
                                 } else {
-                                    $('#widget-action-dialog').html('<iframe id="modalIframeId" width="97%" height="100%" marginWidth="0" marginHeight="0" frameBorder="0" scrolling="auto" src="'+url+'" />').dialog({
+                                    $('#widget-action-dialog').html('<iframe id="modalIframeId" width="100%" height="100%" marginWidth="0" marginHeight="0" frameBorder="0" scrolling="auto" src="'+url+'" />').dialog({
                                         width: 971,
                                         height: height/1.5,
                                         overlay: {

@@ -37,23 +37,13 @@ class UserRepository extends TranslationRepository
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-03-15
      */
-    public function getAllByParams($category = '', $MaxResults = null, $ORDER_PublishDate = '', $ORDER_Position = '', $enabled = true, $is_home_page = true)
+    public function getAllByParams($category = '', $MaxResults = null, $ORDER_PublishDate = '', $ORDER_Position = '', $enabled = true, $is_checkRoles = true)
     {
-        $em = $this->createQueryBuilder('a')
-            ->select('a')
-            ->leftJoin('a.individual', 'i')
-            ->leftJoin('a.corporation', 'c');
+        $em = $this->createQueryBuilder('a')->select('a');
     
         if ($enabled)
             $em->andWhere('a.enabled = 1');
         
-        if ($is_home_page){
-            $orModule = $em->expr()->orx();
-            $orModule->add($em->expr()->eq('i.highlighted', 1));
-            $orModule->add($em->expr()->eq('c.highlighted', 1));
-            $em->andWhere($orModule);
-        }
-
         if (!empty($ORDER_PublishDate) && !empty($ORDER_Position)){
             $em
             ->orderBy('a.created_at', $ORDER_PublishDate)
@@ -68,6 +58,8 @@ class UserRepository extends TranslationRepository
     
         if (!is_null($MaxResults))
             $em->setMaxResults($MaxResults);
+        if ($is_checkRoles)
+        	$em = $this->checkRoles($em);
     
         return $em;
     }    

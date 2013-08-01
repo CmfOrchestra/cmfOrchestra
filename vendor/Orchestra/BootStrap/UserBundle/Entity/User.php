@@ -111,7 +111,7 @@ class User extends BaseUser
      * @var array
      * @ORM\Column(type="array")
      */
-    protected $permissions;    
+    protected $permissions = array();    
     
     /**
      * @var \DateTime
@@ -262,11 +262,26 @@ class User extends BaseUser
     public function addPermission($permission)
     {
         $permission = strtoupper($permission);
-    
+
         if (!in_array($permission, $this->permissions, true)) {
             $this->permissions[] = $permission;
         }
     }  
+
+    /**
+     * Remove a permission to the user.
+     *
+     * @param string $permission
+     */
+    public function removePermission($permission)
+    {
+        $permission = strtoupper($permission);
+    
+        if (in_array($permission, $this->permissions, true)) {
+            $key = array_search($permission, $this->permissions);
+            unset($this->permissions[$key]);
+        }
+    }     
 
     /**
      * Adds a role to the user.

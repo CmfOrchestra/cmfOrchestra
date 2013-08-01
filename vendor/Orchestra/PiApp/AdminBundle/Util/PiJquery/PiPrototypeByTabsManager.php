@@ -111,8 +111,15 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
             
             <div id="form-error-dialog" >&nbsp;</div>
             
+            <div id="dialog-confirm" title="Empty the recycle bin?">
+				<p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+				These items will be permanently deleted and cannot be recovered. Are you sure?</p>
+			</div>             
+            
             <script type="text/javascript">
             //<![CDATA[
+            
+            	var id_form_delete = "";
             
                 // we create the animations.
                 var j_prototype_bytabs = new function()
@@ -348,8 +355,16 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                                 j_prototype_bytabs.ftc_tinymce_editor_simple($(prototype_widget + " .pi_editor_simple"));
                                                 j_prototype_bytabs.ftc_tinymce_editor_simple_easy($(prototype_widget + " .pi_editor_simple_easy"));
                                                 j_prototype_bytabs.ftc_tinymce_editor_easy($(prototype_widget + " .pi_editor_easy"));
-                                                
-                                                $("button[type='submit']").button();
+
+                                                // http://jquery-ui.googlecode.com/svn/tags/1.6rc5/tests/static/icons.html
+                                                $("button.button-ui-create").button({icons: {primary: "ui-icon-circle-plus"}});
+                                                $("button.button-ui-save").button({icons: {primary: "ui-icon-disk"}});
+                                                $("a.button-ui-delete").button({icons: {primary: "ui-icon-trash"}}).click(function( event ) {
+                                                	 event.preventDefault();
+                                                	 id_form_delete = $(this).data('id');
+                                                	 $("#dialog-confirm").dialog("open");
+                                                });
+                                                $("a.button-ui-back-list").button({icons: {primary: "ui-icon-arrowreturn-1-w"}});
                                                 $("input[type='button']").click(function () { return false; });
                     };    
 
@@ -819,10 +834,27 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                         j_prototype_bytabs.ftc_init('<?php echo $options['prototype-idForm']; ?>', '<?php echo $value; ?>');
                     <?php } ?>
                     //jQuery(document).trigger('htmlAppended')    
+                    
+                    $("#dialog-confirm").dialog({
+	               		 autoOpen: false,
+	               		 resizable: false,
+	               		 height:140,
+	               		 modal: true,
+	               		 buttons: {
+	                   		 "Delete all items": function() {
+	                           	$('#'+id_form_delete).trigger('submit');
+	                           	$( this ).dialog( "close" );
+	                   		 },
+	                   		 Cancel: function() {
+	                   		 	$( this ).dialog( "close" );
+	                   		 }
+	               		 }
+               	 	});
+               	 	
                 });
 
             //]]>
-            </script>      
+            </script>    
         <?php 
         // We retrieve the contents of the buffer.
         $_content = ob_get_contents ();

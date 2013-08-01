@@ -74,4 +74,10 @@ piapp_gedmo_rss:
 #PiAppGedmoBundle:Ads
 piapp_gedmo_ads:
     resource: "@PiAppGedmoBundle/Resources/config/routing/ads.xml"
-    prefix: /admin/gedmo/ads        
+    prefix: /admin/gedmo/ads   
+    
+    
+#PiAppGedmoBundle:Simulateur
+piapp_gedmo_simulateur:
+    resource: "@PiAppGedmoBundle/Resources/config/routing/simulateur.xml"
+    prefix: /admin/gedmo/simulateur          

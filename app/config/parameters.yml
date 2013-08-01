@@ -13,3 +13,9 @@ parameters:
 
     locale:            en_GB
     secret:            5b5a0ff57bd45284dafe7f104fc7d8e15
+    
+    #FACEBOOK
+    api_facebook_id:      182919085216808 # ID de l’application/Clé de l’API
+    api_facebook_secret:  8b70ce184d3e91142a387b28d995cead # Clé secrète
+    api_facebook_name:    http://apps.facebook.com/_myproject/ # App Namespace
+    api_facebook_server:  http://mywebsite.com/ # URL du site

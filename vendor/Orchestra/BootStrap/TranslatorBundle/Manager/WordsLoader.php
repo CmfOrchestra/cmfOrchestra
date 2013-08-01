@@ -115,18 +115,14 @@ class WordsLoader implements LoaderInterface
     {
         if ($format == 'yml') {
             $loader = $this->container->get('translation.loader.yml');
-        }
-        elseif ($format == 'php'){
+        } elseif ($format == 'php') {
             $loader = $this->container->get('translation.loader.php');
-        }
-        elseif ($format == 'xliff'){
+        } elseif ($format == 'xliff') {
             $loader = $this->container->get('translation.loader.xliff');
-        }
-        elseif ($format == 'csv'){
+        } elseif ($format == 'csv') {
             $loader = $this->container->get('translation.loader.csv');
-        }    
-        else{
-                throw new InvalidArgumentException(sprintf('The format "%s" does not exist.', $format));
+        } else {
+            throw new \InvalidArgumentException(sprintf('The format "%s" does not exist.', $format));
         }
         
         return $loader;

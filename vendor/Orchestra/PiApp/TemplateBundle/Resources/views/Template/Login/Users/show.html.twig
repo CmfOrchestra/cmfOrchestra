@@ -1,0 +1,21 @@
+{% extends app.session.get('wurfl-layout') %}
+
+{% block title %}
+<h1>{{ 'users'|trans }}</h1>
+{% endblock %}
+
+
+{% block content %}
+    <h2>{{ 'pi.form.title.show'|trans }}</h2>
+    <div class="show-form cf">
+        <p><label>{{ 'users.id'|trans }} :</label> {{ entity.id }}</p>
+        <p><label>{{ 'users.username'|trans }} : </label> {{ entity.username }}</p>
+        <p><label>{{ 'users.email'|trans }} : </label> {{ entity.email }}</p>
+        <p><label>{{ 'users.language'|trans }} : </label> {{ entity.langCode }}</p>
+        <p><label>{{ 'users.roles'|trans }} : </label> {% for group in entity.groups %} {{ group.name }} {% endfor %}</p>
+        <p><label>{{ 'grid.th.enabled'|trans }} : </label> {{ entity.enabled }}</p>
+    </div>
+    {% set parameters ={ 'path':path('users'), 'pathEdit':path('users_edit',{'id':entity.id}), 'pathDelete':path('users_deletentity_ajax'), 'functionType':['edit','delete'] } %}
+    {% include 'PiAppTemplateBundle::Template\\Form\\actionButton.html.twig' with parameters %}
+  
+{% endblock %}

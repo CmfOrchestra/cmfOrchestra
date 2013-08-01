@@ -1,4 +1,4 @@
-{%  initJquery 'FORM:form-simple' %}
+{%  initJquery 'FORM:prototype-bytab' %}
 
 {% extends app.request.attributes.get('orchestra-layout') %}
 
@@ -18,7 +18,7 @@
 	</form>
 
 	{% set options = {'form-name': '.myform' } %}
-	{{ renderJquery('FORM', 'form-simple', options )|raw }}
+	{{ renderJquery('FORM', 'prototype-bytab', options )|raw }}
 		
 	<ul class="ui-widget-header myform">
 	    <li>

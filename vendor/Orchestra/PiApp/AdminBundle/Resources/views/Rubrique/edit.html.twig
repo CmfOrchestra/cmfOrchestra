@@ -1,4 +1,4 @@
-{%  initJquery 'FORM:form-simple' %}
+{%  initJquery 'FORM:prototype-bytab' %}
 {% if NoLayout %}
 	{% set layout_nav = "PiAppTemplateBundle::Template\\Layout\\layout-ajax.html.twig" %}
 {% else %}
@@ -22,7 +22,7 @@
 	</form>
 	
 	{% set options = {'form-name': '.myform' } %}
-	{{ renderJquery('FORM', 'form-simple', options )|raw }}
+	{{ renderJquery('FORM', 'prototype-bytab', options )|raw }}
 		
 	<ul class="ui-widget-header myform">
 	    <li>

@@ -78,13 +78,11 @@ class SecurityRolesType extends AbstractType
         // get roles from the service container
         foreach ($this->container->getParameter('security.role_hierarchy.roles') as $name => $rolesHierarchy)
         {
-            if ($this->container->get('security.context')->isGranted($name)) {
-                $roles[$name] = $name . ': ' . implode(', ', $rolesHierarchy);
-    
-                foreach ($rolesHierarchy as $role) {
-                    if (!isset($roles[$role])) {
-                        $roles[$role] = $role;
-                    }
+            $roles[$name] = $name . ': ' . implode(', ', $rolesHierarchy);
+
+            foreach ($rolesHierarchy as $role) {
+                if (!isset($roles[$role])) {
+                    $roles[$role] = $role;
                 }
             }
         }

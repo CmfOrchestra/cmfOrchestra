@@ -77,10 +77,11 @@ class PiSessionFlashManager extends PiJqueryExtension
             throw ExtensionException::optionValueNotSpecified('dialog-name', __CLASS__);
         
         $method = strtolower($options['action']) . "Action";
-        if (method_exists($this, $method))
+        if (method_exists($this, $method)) {
             return $this->$method($options);
-        else
+        } else {
             throw ExtensionException::MethodUnDefined($method);
+        }
     }
 
     /**

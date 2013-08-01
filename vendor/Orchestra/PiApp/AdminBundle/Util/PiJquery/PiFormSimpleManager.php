@@ -90,9 +90,16 @@ class PiFormSimpleManager extends PiJqueryExtension
 
         // We open the buffer.
         ob_start ();        
-        ?>
+        ?>        
+            <div id="dialog-confirm" title="Empty the recycle bin?">
+				<p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+				These items will be permanently deleted and cannot be recovered. Are you sure?</p>
+			</div>			
+			        
             <script type="text/javascript">
             //<![CDATA[
+            
+            	var id_form_delete = "";
             
                 // we create the animations.
                 var j_prototype = new function()
@@ -518,6 +525,22 @@ class PiFormSimpleManager extends PiJqueryExtension
                 };
             
                 $(document).ready(function() {
+
+                    $("#dialog-confirm").dialog({
+	               		 autoOpen: false,
+	               		 resizable: false,
+	               		 height:140,
+	               		 modal: true,
+	               		 buttons: {
+	                   		 "Delete all items": function() {
+	                           	$('#'+id_form_delete).trigger('submit');
+	                           	$( this ).dialog( "close" );
+	                   		 },
+	                   		 Cancel: function() {
+	                   		 	$( this ).dialog( "close" );
+	                   		 }
+	               		 }
+              	 	});                    
                 
                     $("<?php echo $options['form-name']; ?> input[type='radio']").iCheck({
                         handle: 'radio',
@@ -527,7 +550,15 @@ class PiFormSimpleManager extends PiJqueryExtension
                         handle: 'checkbox',
                         checkboxClass: 'icheckbox_square-blue',
                     });
-                    $("<?php echo $options['form-name']; ?> button[type='submit']").button();
+
+                    $("<?php echo $options['form-name']; ?> button.button-ui-create").button({icons: {primary: "ui-icon-circle-plus"}});
+                    $("<?php echo $options['form-name']; ?> button.button-ui-save").button({icons: {primary: "ui-icon-disk"}});
+                    $("<?php echo $options['form-name']; ?> a.button-ui-delete").button({icons: {primary: "ui-icon-trash"}}) .click(function( event ) {
+                    	 event.preventDefault();
+                    	 id_form_delete = $(this).data('id');
+                    	 $("#dialog-confirm").dialog("open");
+                    });
+                    $(<?php echo $options['form-name']; ?> "a.button-ui-back-list").button({icons: {primary: "ui-icon-arrowreturn-1-w"}});
                     $("<?php echo $options['form-name']; ?> input[type='button']").click(function () { return false; });
                     
 

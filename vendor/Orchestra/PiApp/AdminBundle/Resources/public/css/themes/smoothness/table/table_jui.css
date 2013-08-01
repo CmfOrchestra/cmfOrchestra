@@ -309,7 +309,7 @@ tfoot input.search_init {
 }
 
 td.group {
-	background-color: #d1cfd0;
+	background-color: #EEFFEE;
 	border-bottom: 2px solid #A19B9E;
 	border-top: 2px solid #A19B9E;
 	font-weight: bold;
@@ -366,11 +366,12 @@ tr.odd td.sorting_1:hover {
 }
 
 tr.odd td.sorting_2 {
-	background-color: #DADCFF;
+	/* background-color: #DADCFF;*/
+	background-color: rgb(233, 231, 231);
 }
 
 tr.odd td.sorting_3 {
-	background-color: #E0E2FF;
+	background-color: #f0f0f0;
 }
 
 tr.even td.sorting_1 {

@@ -143,13 +143,36 @@ class PiToolExtension extends \Twig_Extension
                 'title_page'                => new \Twig_Function_Method($this, 'getTitlePageFunction'),
                 'picture_form'                => new \Twig_Function_Method($this, 'getPictureFormFunction'),
                 'file_form'                    => new \Twig_Function_Method($this, 'getFileFormFunction'),
-                'get_pattern_by_local'        => new \Twig_Function_Method($this, 'getDatePatternByLocalFunction'),                
+                'get_pattern_by_local'        => new \Twig_Function_Method($this, 'getDatePatternByLocalFunction'),  
+                'clean_name'				=> new \Twig_Function_Method($this, 'getCleanNameFunction'),
         );
-    }    
+    }   
+     
     
     /**
      * Functions
      */
+    
+    /**
+     * this function cleans up the filename
+     *
+     * @param string $fileName
+     * @access public
+     * @return string
+     * @static
+     *
+     * @author Riad Hellal <r.hellal@novediagroup.com>
+     */
+    public static function getCleanNameFunction($fileName)
+    {
+    	$fileName = strtolower($fileName);
+    	$string = substr($fileName, 0, strlen($fileName)- 4);
+    	$code_entities_match 	= array( '-' ,'_' ,'.');
+    	$code_entities_replace 	= array(' ' ,' ' ,' ');
+    	$name 					= str_replace($code_entities_match, $code_entities_replace, $string);
+    
+    	return $name;
+    }    
     
     /**
      * moving an image.

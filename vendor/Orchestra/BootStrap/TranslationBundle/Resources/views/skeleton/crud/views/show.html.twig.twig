@@ -23,11 +23,15 @@
 	        {%- if metadata.type in ['date', 'datetime'] %}
 	
 	            <td>{{ '{{ entity.'~ field|replace({'_': ''}) ~'|date(\'Y-m-d H:i:s\') }}' }}</td>
+
+	        {%- elseif field in ['heritage'] %}
+
+	        	<td>{{ '{{ entity.'~ field|replace({'_': ''}) ~'|print_r }}'|raw }}</td>	            
 	
 	        {%- else %}
 	
 	            <td>{{ '{{ entity.'~ field|replace({'_': ''}) ~' }}'|raw }}</td>
-	
+
 	        {%- endif %}
 	
 	        </tr>

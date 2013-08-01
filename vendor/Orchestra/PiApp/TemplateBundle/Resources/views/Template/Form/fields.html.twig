@@ -159,7 +159,7 @@
 
 {% block field_row %}
     {% if not ('form' in form.get('types')) %}
-    <div class="clearfix {% if errors|length > 0 %}error{% endif %}">
+    <div class="clearfix {% if errors|length > 0 %}errors{% endif %}">
     {% endif %}
 				
         {% if 'form' in form.get('types') and form.hasParent() != 0 %}

@@ -383,6 +383,10 @@ a:hover.icon-6  {
     border: 2px solid white;
     border-radius: 20px;
     box-shadow: 0 0 7px black;
+    max-width: 300px;
+}
+img.info-tooltip-image {
+	max-width: 300px;
 }
 .ui-tooltip .ui-tooltip-pointer,.ui-tooltip .ui-tooltip-pointer-inner { position:absolute; width:0; height:0; background:none; }
 

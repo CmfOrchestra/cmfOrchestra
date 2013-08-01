@@ -44,4 +44,12 @@ a:hover	{
 .fancybox-wrap p{
     padding: 7px;
 }
+
+/* TRANSLATION LANGUAGE MENU  */
+#language_menu {
+	position: fixed;
+    top: 11px;
+    left: 45%;
+	margin: 0px auto;
+}
 	

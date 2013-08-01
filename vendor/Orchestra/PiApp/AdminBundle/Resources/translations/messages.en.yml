@@ -39,6 +39,9 @@ pi.welcome.title: Welcome to Orchestra!
 #wizard
 pi.wizard.intro: Click to select all pages belonging to the requested status. 
 
+# Authentication
+pi.layout.profil_consult: Consult my profil  
+
 # grid
 pi.grid.action.title: Actions
 pi.grid.action.show: Show

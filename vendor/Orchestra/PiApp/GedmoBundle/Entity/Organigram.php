@@ -354,7 +354,7 @@ class Organigram extends AbstractDefault
      * @var integer $parent
      *
      * @Gedmo\TreeParent
-     * @ORM\ManyToOne(targetEntity="Organigram", inversedBy="childrens", cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="Organigram", inversedBy="childrens", cascade={"persist"})
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true)
      */
     protected $parent;
@@ -362,7 +362,7 @@ class Organigram extends AbstractDefault
     /**
      * @var array $childrens
      *
-     * @ORM\OneToMany(targetEntity="Organigram", mappedBy="parent", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Organigram", mappedBy="parent", cascade={"all"})
      * @ORM\OrderBy({"lft" = "ASC"})
      */
     protected $childrens;

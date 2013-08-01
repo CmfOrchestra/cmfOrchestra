@@ -80,6 +80,7 @@ class Block extends AbstractDefault
      *
      * @Gedmo\Translatable
      * @ORM\Column(name="title", type="text", nullable = true)
+     * @Assert\NotBlank()
      */
     protected $title;    
     

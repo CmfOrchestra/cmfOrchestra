@@ -82,11 +82,11 @@ class RoleRepository extends TranslationRepository
         $data    = $query->getQuery()->getArrayResult();
         if ($data && is_array($data) && count($data)) {
             foreach ($data as $row) {
-                if (!empty($row['name']))
-                    $result[ $row['name'] ] = unserialize( $row['heritage'] );
+                if (!empty($row['name'])) {
+                    $result[ $row['name'] ] = $row['heritage'];
+                }
             }
         }
         return $result;
-                
     }    
 }

@@ -51,8 +51,8 @@
 		            </td>
 					<td>
 					    {% if entity.image.id is defined %}
-						<a href="#" title="{{ media_url(entity.image, 'reference', true, entity.getUpdatedAt(), 'gedmo_media_') }}" class="info-tooltip" >
-						<img width="50px" src="{{ media_url(entity.image, 'reference', true, entity.getUpdatedAt(), 'gedmo_media_') }}" alt="Photo"/>
+						<a href="#" title="<img src='{{ media_url(entity.image, 'reference', true, entity.getUpdatedAt(), 'gedmo_media_') }}' class='info-tooltip-image' >" class="info-tooltip" >
+						<img width="20px" src="{{ media_url(entity.image, 'reference', true, entity.getUpdatedAt(), 'gedmo_media_') }}" alt="Photo"/>
 						</a>
 						{% endif %}
 					</td>	

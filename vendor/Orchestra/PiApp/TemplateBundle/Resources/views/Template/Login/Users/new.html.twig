@@ -1,0 +1,51 @@
+{% extends app.session.get('wurfl-layout') %}
+{% form_theme form 'PiAppTemplateBundle::Template\\Form\\fields.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/piappadmin/css/form/form.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/piappadmin/css/ui/jquery-ui-1.10.2.custom.min.css') }}" />
+{% endblock %}
+    
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('/bundles/piappadmin/js/ui/jquery-ui-1.10.2.custom.min.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('/bundles/piappadmin/js/ui/form-custom.js') }}" ></script>
+{% endblock %}
+    
+{% block title %}
+<h1>{{ 'users'|trans }}</h1>
+{% endblock %}
+
+{% block content %}
+    
+    <h2>{{ 'pi.form.title.create'|trans }}</h2>
+
+    <form id="form-custom" action="{{ path('users_create') }}" method="post" {{ form_enctype(form) }}>
+    
+    <div class="row-fluid">
+    <div class="span12">
+        <span class="form-error">
+            {{ form_errors(form) }}
+        </span>
+    </div>
+    <div class="span6">
+        {#
+    <div class="input-container">
+        {{ form_label(form.input)}}
+        <span class="field-mandatory">*</span>:
+        {{ form_widget(form.input, { 'attr': {'class': 'task_field'} }) }}
+    </div>
+#}      
+        {{ form_widget(form)}}       
+     </div>
+     </div>
+     
+     {% set parameters ={ 'path':path('users'), 'functionType':['new-submit'] } %}
+     {% include 'PiAppTemplateBundle::Template\\Form\\actionButton.html.twig' with parameters %}
+   
+    </form>
+<script>
+    {{ tinymce_init() }}
+</script>
+{% endblock %}

@@ -110,24 +110,17 @@
 				{{ renderJquery('TOOL', 'veneer', options_veneer )|raw }}
 		</searchlucene>
 		{% endif %}		
-		
+
 		{#
-		{% set is_google_analytic = getParameter('pi_app_admin.page.google_analytic') %}
-		{% if is_google_analytic %}
-			{% set tracker  = getParameter('pi_app_admin.page.google_analytic_tracker') %}
-			{% set template = getParameter('pi_app_admin.page.google_analytic_template') %}
-			{% include template with {'trackerKey':tracker} %}
-		{% endif %}
-		#}
-		
 		{% javascripts
             'js/libs/xtcore.js'
-            'js/scriptXiti.js'
+            'js/scriptXiti.js'		
 			'js/scriptFunct.js'
             'js/scriptInit.js'
         filter='yui_js' output='js/compiled/main.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
+        #}
 						
     </body>
 </html>

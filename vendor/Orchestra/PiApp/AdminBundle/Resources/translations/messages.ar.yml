@@ -39,6 +39,9 @@ pi.welcome.title: أهلاً بك في Orchestra!
 #wizard
 pi.wizard.intro: انقر لتحديد كل الصفحات التابعة لمركز المطلوبة
 
+# Authentication
+pi.layout.profil_consult: Consulter mon profil  
+
 # grid
 pi.grid.action.title: أعمال
 pi.grid.action.show: عرض

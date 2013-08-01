@@ -171,6 +171,7 @@ class BlockType extends AbstractType
              $builder
              ->add('title', 'text', array(
                      'label'    => "pi.form.label.field.title",
+             		 'required'  => true,
                      "label_attr" => array(
                              "class"=>"block_collection",
                      ),

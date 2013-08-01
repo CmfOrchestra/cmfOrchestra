@@ -19,7 +19,7 @@ var LM = {
 	
 	obfuscateLink:function(){
 		jQuery('.hiddenLink').each(function(index, span) {
-	        $(span).removeClass('hiddenLink');
+			$(span).removeClass('hiddenLink');
 
 	        var base16  = "0A12B34C56D78E9F";
 	        var link    = document.createElement('a');
@@ -37,7 +37,8 @@ var LM = {
 	        styles.shift();
 	        link.className  = styles.join(' ');
 	        link.href       = decoded;
-	        link.target     = '_blank';
+	        if($(span).attr('target') == '_blank') { link.target = '_blank'; }
+	        // link.target     = '_blank';
 	        link.innerHTML  = span.innerHTML;
 
 	        $(span).replaceWith(link);

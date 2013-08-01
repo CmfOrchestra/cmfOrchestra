@@ -1,7 +1,7 @@
 /* ------------------------
 	Language selector
 --------------------------- */
-	#language_menu{position:relative;width:auto;z-index:99;background-color:#238BDB;width:auto;margin:4px 5px 0;padding:5px 20px 5px 5px;border-radius:7px;cursor:pointer;}
+	#language_menu{position:absolute;width:auto;z-index:99;background-color:#238BDB;width:auto;padding:5px 20px 5px 5px;border-radius:7px;cursor:pointer;}
 	#language_menu ul{display:none;height:auto;}
 	#language_menu ul li{display:block;color:#fff;list-style:none;height:29px;line-height:29px;padding:0 5px;}
 	/*#language_menu #language_menu_scroll{cursor:pointer;display:block;position:absolute;top:0;right:-5px;width:12px;height:29px;}*/

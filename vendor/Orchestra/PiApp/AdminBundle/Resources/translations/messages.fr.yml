@@ -39,6 +39,9 @@ pi.welcome.title: ORCHESTRA vous souhaite la bienvenue !
 #wizard
 pi.wizard.intro: Cliquez pour sélectionner toutes les pages appartenant au statut demandé. 
 
+# Authentication
+pi.layout.profil_consult: Consulter mon profil  
+
 # grid
 pi.grid.action.title: Actions
 pi.grid.action.show: Voir

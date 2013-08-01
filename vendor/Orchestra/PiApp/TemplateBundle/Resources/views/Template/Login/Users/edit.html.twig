@@ -1,0 +1,41 @@
+{% extends app.session.get('wurfl-layout') %}
+{% form_theme edit_form 'PiAppTemplateBundle::Template\\Form\\fields.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/piappadmin/css/form/form.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/piappadmin/css/ui/jquery-ui-1.10.2.custom.min.css') }}" />
+{% endblock %}
+    
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('/bundles/piappadmin/js/ui/jquery-ui-1.10.2.custom.min.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('/bundles/piappadmin/js/ui/form-custom.js') }}" ></script>
+{% endblock %}
+
+{% block title %}
+<h1>{{ 'users'|trans }}</h1>
+{% endblock %}
+
+{% block content %}
+
+<h2>{{ 'pi.form.title.edit'|trans }}</h2>
+
+<form id="form-custom" action="{{ path('users_update', { 'id': entity.id }) }}" {{ form_enctype(edit_form) }} method="POST">
+    <div class="row-fluid">
+        <div class="span12">
+            <span class="form-error">
+            {{ form_errors(edit_form) }}
+            </span>
+       </div>
+        <div class="span6">
+            {{ form_widget(edit_form) }}
+        </div>
+         </div>
+        
+        {% set parameters ={ 'path':path('users'), 'pathDelete':path('users_deletentity_ajax'), 'pathEditPassword':path('fos_user_change_password'),'functionType':['edit-submit','edit-password','delete'] } %}
+        {% include 'PiAppTemplateBundle::Template\\Form\\actionButton.html.twig' with parameters %}
+    
+</form>
+
+{% endblock content %}

@@ -8,10 +8,6 @@ annotation_admin:
 #
 #   Import Default routing files
 #
-piapp_gedmo:
-    resource: "@PiAppGedmoBundle/Resources/config/routing.yml"
-    prefix: /
-    
 piapp_layout:
     resource: "@PiAppAdminBundle/Resources/config/routing/layout.xml"
     prefix: /admin/layout

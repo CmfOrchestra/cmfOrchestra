@@ -33,7 +33,7 @@ class BlockByWidgetType extends AbstractType
         $builder
             ->add('enabled', 'checkbox', array(
                     'data'  => true,
-                     'label'    => 'pi.form.label.field.enabled',
+                    'label'    => 'pi.form.label.field.enabled',
             )) 
             ->add('name', 'text', array(
                  'label' => "pi.form.label.field.name"

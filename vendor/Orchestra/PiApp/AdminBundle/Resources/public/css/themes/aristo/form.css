@@ -186,7 +186,7 @@
 	-moz-box-shadow: 4px 4px 4px #ddd;
 	-webkit-box-shadow: 4px 4px 4px #ddd;
 	box-shadow: 4px 4px 4px #ddd; 	
-	z-index: 9999999;
+	z-index: 999;
 }
 .myform .choice span.help-inline {
 	position: absolute;

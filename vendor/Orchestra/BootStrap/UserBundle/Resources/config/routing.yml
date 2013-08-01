@@ -31,9 +31,21 @@ fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /user/change-password
     
+fos_users:
+    resource: "@BootStrapUserBundle/Resources/config/routing/users.yml"
+    prefix: /admin/users    
+    
 #
 #    BootStrapUserBundle routing url
 #     
 unauthorized:
     pattern:  /unauthorized
-    defaults: { _controller: BootStrapUserBundle:Error:unauthorized }    
+    defaults: { _controller: BootStrapUserBundle:Error:unauthorized }   
+    
+#
+#    Facebook routing url
+#         
+_security_check:
+    pattern:  /login_facebook_check
+_security_logout:
+    pattern:  /logout      

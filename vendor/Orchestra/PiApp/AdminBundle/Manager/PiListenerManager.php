@@ -73,7 +73,7 @@ class PiListenerManager extends PiCoreManager implements PiListenerManagerBuilde
         	return "<div style='visibility:hidden'>".$response."</div>";
         } else {
         	//return utf8_decode(mb_convert_encoding($response->getContent(), "UTF-8", "HTML-ENTITIES"));
-        	$response->getContent();
+        	return $response->getContent();
         }        
         
 // 		if (isset($params['isRedirect']) && ( ($params['isRedirect'] == true) || ($params['isRedirect'] == 'true') ) ) {

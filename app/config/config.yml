@@ -246,7 +246,17 @@ fos_user:
             type:               fos_user_group
             name:               fos_user_group_form
             validation_groups:  [Registration]
-            
+
+#
+# routing configuration
+#           
+fos_facebook:
+    alias:  facebook
+    app_id: %api_facebook_id%
+    secret: %api_facebook_secret%
+    cookie: true
+    permissions: [email, user_birthday, user_location]
+                
 #
 # routing configuration
 #        
@@ -472,7 +482,7 @@ pi_app_admin:
         context_menu_theme: pi2 # {'xp', 'default', 'vista', 'osx', 'human', 'gloss', 'gloss,gloss-cyan', 'gloss,gloss-semitransparent', 'pi', 'pi2'}
         grid_index_css: style-grid-1.css             
         grid_show_css: style-grid-1.css
-        theme_css: rocket # {'orchestra', 'aristo', 'rocket', 'smoothness', 'dark-hive'}
+        theme_css: smoothness # {'orchestra', 'aristo', 'rocket', 'smoothness', 'dark-hive'}
         
 twig:
     globals:

@@ -82,7 +82,7 @@ button.DTTT_button {
 button.DTTT_button:hover,
 div.DTTT_button:hover,
 a.DTTT_button:hover {
-	border: 1px solid #666;
+	/*border: 1px solid #666;*/
 	text-decoration: none !important;
 
 	-webkit-box-shadow: 1px 1px 3px #999;

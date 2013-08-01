@@ -1,0 +1,24 @@
+users:
+    pattern:  /
+    defaults: { _controller: "BootStrapUserBundle:Users:index" }
+users_ajax:
+    pattern:  /ajax
+    defaults: { _controller: "BootStrapUserBundle:Users:indexAjax" }
+    requirements: { _method: post }
+users_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "BootStrapUserBundle:Users:show" }
+users_new:
+    pattern:  /new
+    defaults: { _controller: "BootStrapUserBundle:Users:new" }
+users_create:
+    pattern:  /create
+    defaults: { _controller: "BootStrapUserBundle:Users:create" }
+    requirements: { _method: post }
+users_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "BootStrapUserBundle:Users:edit" }
+users_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "BootStrapUserBundle:Users:update" }
+    requirements: { _method: post|put }

@@ -352,7 +352,7 @@ class Menu extends AbstractDefault
      * @var \PiApp\GedmoBundle\Entity\Menu $parent
      *
      * @Gedmo\TreeParent
-     * @ORM\ManyToOne(targetEntity="\PiApp\GedmoBundle\Entity\Menu", inversedBy="childrens", cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="\PiApp\GedmoBundle\Entity\Menu", inversedBy="childrens", cascade={"persist"})
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     protected $parent;
@@ -360,7 +360,7 @@ class Menu extends AbstractDefault
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection $childrens
      *
-     * @ORM\OneToMany(targetEntity="\PiApp\GedmoBundle\Entity\Menu", mappedBy="parent", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="\PiApp\GedmoBundle\Entity\Menu", mappedBy="parent", cascade={"all"})
      * @ORM\OrderBy({"lft" = "ASC"})
      */
     protected $childrens;

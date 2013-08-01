@@ -115,7 +115,7 @@ class Word extends AbstractDefault
 
     /**
      * @ORM\PrePersist
-     * @ORM\preUpdate
+     * @ORM\PreUpdate
      */
     public function setUpdatedValue()
     {

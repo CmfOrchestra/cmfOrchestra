@@ -42,6 +42,7 @@ class AppKernel extends Kernel
 
         		# tools
         		new FOS\UserBundle\FOSUserBundle(),
+                new FOS\FacebookBundle\FOSFacebookBundle(),
 	            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
 	            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),  
 	            new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),

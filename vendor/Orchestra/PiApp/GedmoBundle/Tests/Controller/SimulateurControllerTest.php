@@ -13,7 +13,7 @@ class SimulateurControllerTest extends WebTestCase
         $client = static::createClient();
 
         // Create a new entry in the database
-        $crawler = $client->request('GET', '/admin_gedmo_simulateur/');
+        $crawler = $client->request('GET', '/admin_gedmo_simulator/');
         $this->assertTrue(200 === $client->getResponse()->getStatusCode());
         $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
 

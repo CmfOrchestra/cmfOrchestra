@@ -62,6 +62,10 @@
 		        {%- if loop.first and ('show' in actions) %}
 		
 		            <td><a href="{{ "{{ path('"~ route_name_prefix ~"_show', { 'id': entity.id, 'NoLayout': NoLayout, 'category':category }) }}" }}" title="">{{ '{{ entity.'~ field|replace({'_': ''}) ~' }}' }}</a></td>
+
+				{%- elseif metadata.type in ['array'] %}	
+				
+					<td class="enabled" >{{ '{{ entity.'~ field ~'|print_r }}' }}</td>	            
 		
 		        {%- elseif metadata.type in ['date', 'datetime'] %}
 		
@@ -69,7 +73,7 @@
 		
 				{%- elseif field in ['enabled'] %}
 		
-		            <td class="enabled" >{{ '{{ entity.'~ field ~'}}' }}</td>
+		            <td class="enabled" >{{ '{{ entity.'~ field ~' }}' }}</td>
 		
 				{%- elseif field in ['position'] %}
 				
