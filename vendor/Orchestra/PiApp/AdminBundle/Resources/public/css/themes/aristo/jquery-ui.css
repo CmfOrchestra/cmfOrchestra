@@ -2358,6 +2358,8 @@ padding:0 1em !important;
 .ui-veneer .ui-veneer-header:hover {
     background: rgb(168, 166, 166); /* #5B3C11 */
 }
+.ui-veneer .ui-state-default span {
+}
 
 /* SET PROCESSING */
 .dataTables_processing{

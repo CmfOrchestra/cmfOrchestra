@@ -2,7 +2,7 @@
  * DataTables Filter
  */
 table.dataTable, table.filter {
-	margin: 0 auto;
+	margin: -2px auto;
 	width: 100%;
 	clear: both;
 	border-collapse: collapse;
@@ -210,7 +210,7 @@ v\:roundrect, v\:fill, v\:stroke {
     border: none;
     outline: none;
     cursor: pointer;
-    margin-top: 6px;
+    margin-top: 5px;
     margin-left: -3px;
 }
 
@@ -296,9 +296,85 @@ div.dataTables_scrollFoot {
 
 /********************************
  *
+ * ADD jquery ui icons
+ *
+ ********************************/
+.ui-button .ui-icon.ui-icon-show {
+    background-image: url(img/view.png);
+    width: 16px;
+    height: 16px; 
+}
+.ui-button.ui-state-hover .ui-icon.ui-icon-show {
+    background-image: url(img/view.png);
+    width: 16px;
+    height: 16px; 
+}
+.ui-button .ui-icon.ui-icon-edit {
+    background-image: url(img/edit-3.png);
+    width: 16px;
+    height: 16px; 
+}
+.ui-button.ui-state-hover .ui-icon.ui-icon-edit {
+    background-image: url(img/edit-3.png);
+    width: 16px;
+    height: 16px; 
+}
+/********************************
+ *
  * ACTION
  *
  ********************************/
+a.action-edit ,
+a.action-delete,
+a.action-back-list {
+    color: #272727;
+    display: inline;
+    font-weight: bold;
+    line-height: 37px;
+    padding: 13px 10px 12px 45px;
+    
+    -moz-border-radius: 5px 5px 0px 0px;
+    -webkit-border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 0px 0px; 
+    
+    -webkit-transition: background 0.5s linear;
+    -moz-transition: background 0.5s linear;
+    -o-transition: background 0.5s linear;
+    transition: background 0.5s linear; 
+    }
+a.action-edit   {
+    background: #E3E3E3 url(img/create.png) no-repeat 5px 5px;
+    }
+a:hover.action-edit {
+    background: #7F7F7F url(img/create.png) no-repeat 5px 5px;
+    color: #fff;
+    }
+a.action-delete {
+    background: #E3E3E3 url(img/remove.png) no-repeat 5px 5px;
+    }
+a:hover.action-delete   {
+    background: #7F7F7F url(img/remove.png) no-repeat 5px 5px;
+    color: #fff;
+    }
+a.action-back-list   {
+    background: #E3E3E3 url(img/back-list.png) no-repeat 5px 5px;
+    }
+a:hover.action-back-list {
+    background: #7F7F7F url(img/back-list.png) no-repeat 5px 5px;
+    color: #fff;
+    } 
+ 
+a.icon-trans    {
+    background: url(img/translations.png) no-repeat;
+    display: block;
+    float: left;
+    margin: 0 8px 0 0;
+    width: 28px;
+    height: 28px;
+    }
+a:hover.icon-trans  {
+    background: url(img/translations.png) 0 -28px;
+    }
 a.icon-1    {
     background: url(img/edit.png) no-repeat;
     display: block;
@@ -426,6 +502,18 @@ img.info-tooltip-image {
 }
 .ui-button{
    line-height: 0px;
+}
+
+/********************************
+ *
+ * VENEER
+ *
+ ********************************/ 
+.ui-veneer .ui-veneer-header {
+    -webkit-transition: background 0.5s linear;
+    -moz-transition: background 0.5s linear;
+    -o-transition: background 0.5s linear;
+    transition: background 0.5s linear;
 }
 
 /********************************

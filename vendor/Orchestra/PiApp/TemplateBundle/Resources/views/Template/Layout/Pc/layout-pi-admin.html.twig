@@ -53,6 +53,24 @@
 	<script type="text/javascript">
 	//<![CDATA[
 	$(document).ready(function(){
+		$(window).resize(function() {
+			var windowWidth = $(window).width();
+
+			if (windowWidth < 450) {
+			    $('a[title=logo]').css('display', 'none');
+			} else {
+				$('a[title=logo]').css('display', 'block');
+			}
+		});
+	});
+	//]]>
+	</script>	
+#}
+	
+{#	
+	<script type="text/javascript">
+	//<![CDATA[
+	$(document).ready(function(){
  		$(document).on('click', 'div.select_sub a', function(e) { 	 			
  			var pthis  = this;
  			var ptitle = $(this).html();
@@ -214,9 +232,9 @@
 			
 			<div class="nav-divider">&nbsp;</div>
 			
-			<ul {{ in_paths("admin_gedmo_organigram_tree:admin_gedmo_media:admin_snippet:admin_gedmo_block:admin_gedmo_content:admin_gedmo_menu:admin_gedmo_slider:admin_gedmo_menu_tree", 'class="current"', 'class="select"')|raw }} ><li><a href="#nogo"><strong>{{ 'pi.dashboard.menu4.title'|trans }}</strong><!--[if IE 7]><!--></a><!--<![endif]-->
+			<ul {{ in_paths("admin_gedmo_contact:admin_gedmo_organigram_tree:admin_gedmo_media:admin_snippet:admin_gedmo_block:admin_gedmo_content:admin_gedmo_menu:admin_gedmo_slider:admin_gedmo_menu_tree", 'class="current"', 'class="select"')|raw }} ><li><a href="#nogo"><strong>{{ 'pi.dashboard.menu4.title'|trans }}</strong><!--[if IE 7]><!--></a><!--<![endif]-->
 			<!--[if lte IE 6]><table><tr><td><![endif]-->
-			<div class="select_sub {{ in_paths("admin_gedmo_organigram_tree:admin_gedmo_media:admin_snippet:admin_gedmo_block:admin_gedmo_content:admin_gedmo_menu:admin_gedmo_slider:admin_gedmo_menu_tree", 'show')|raw }} ">
+			<div class="select_sub {{ in_paths("admin_gedmo_contact:admin_gedmo_organigram_tree:admin_gedmo_media:admin_snippet:admin_gedmo_block:admin_gedmo_content:admin_gedmo_menu:admin_gedmo_slider:admin_gedmo_menu_tree", 'show')|raw }} ">
 				<ul class="sub">
 					<li {{ in_paths("admin_snippet", 'class="sub_show"')|raw }}		><a href="{{ path("admin_snippet") }}" >{{ 'pi.dashboard.menu2.snippet'|trans }}</a></li>
 					<li><a style="color:#238BDB" >&#187;</a></li>
@@ -227,51 +245,12 @@
 					<li {{ in_paths("admin_gedmo_media", 'class="sub_show"')|raw }}				><a href="{{ path("admin_gedmo_media") }}" >{{ 'pi.dashboard.menu4.media'|trans }}</a></li>
 					<li {{ in_paths("admin_gedmo_block", 'class="sub_show"')|raw }}			><a href="{{ path("admin_gedmo_block") }}" >{{ 'pi.dashboard.menu4.block'|trans }}</a></li>
 					<li {{ in_paths("admin_gedmo_content", 'class="sub_show"')|raw }}				><a href="{{ path("admin_gedmo_content") }}" >{{ 'pi.dashboard.menu4.content'|trans }}</a></li>
+					<li {{ in_paths("admin_gedmo_contact", 'class="sub_show"')|raw }}				><a href="{{ path("admin_gedmo_contact") }}" >{{ 'pi.dashboard.menu6.contact'|trans }}</a></li>	
 				</ul>
 			</div>
 			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
 			</li>
 			</ul>
-			
-			<div class="nav-divider">&nbsp;</div>
-			
-			<ul {{ in_paths("admin_gedmo_lamelee_event_subscribers:admin_gedmo_list_adherent:admin_gedmo_individual_subscribers:admin_gedmo_individual:admin_gedmo_corporation:admin_gedmo_lamelee_event:admin_gedmo_ads:admin_gedmo_rss:admin_gedmo_newsletter", 'class="current"', 'class="select"')|raw }} ><li><a href="#nogo"><strong>{{ 'pi.dashboard.menu5.title'|trans }}</strong><!--[if IE 7]><!--></a><!--<![endif]-->
-			<!--[if lte IE 6]><table><tr><td><![endif]-->
-			<div class="select_sub {{ in_paths("admin_gedmo_lamelee_event_subscribers:admin_gedmo_list_adherent:admin_gedmo_individual_subscribers:admin_gedmo_individual:admin_gedmo_corporation:admin_gedmo_lamelee_event:admin_gedmo_ads:admin_gedmo_rss:admin_gedmo_newsletter", 'show')|raw }} ">
-				<ul class="sub">
-					<li {{ in_paths("admin_gedmo_individual", 'class="sub_show"')|raw }}	><a href="{{ path("admin_gedmo_individual") }}" >{{ 'pi.dashboard.menu5.individual'|trans }}</a></li>
-					<li {{ in_paths("admin_gedmo_corporation", 'class="sub_show"')|raw }}	><a href="{{ path("admin_gedmo_corporation") }}" >{{ 'pi.dashboard.menu5.corporation'|trans }}</a></li>
-					<li {{ in_paths("admin_gedmo_individual_subscribers", 'class="sub_show"')|raw }}	><a href="{{ path("admin_gedmo_individual_subscribers") }}" >{{ 'Abonnés'|trans }}</a></li>
-					<li {{ in_paths("admin_gedmo_list_adherent", 'class="sub_show"')|raw }}	><a href="{{ path("admin_gedmo_list_adherent") }}" >{{ 'Adhérents'|trans }}</a></li>
-					<li><a style="color:#238BDB" >&#187;</a></li>
-					<li {{ in_paths("admin_gedmo_ads", 'class="sub_show"')|raw }}	><a href="{{ path("admin_gedmo_ads") }}" >{{ 'pi.dashboard.menu5.ads'|trans }}</a></li>
-					<li><a style="color:#238BDB" >&#187;</a></li>
-					<li {{ in_paths("admin_gedmo_rss", 'class="sub_show"')|raw }}	><a href="{{ path("admin_gedmo_rss") }}" >{{ 'pi.dashboard.menu5.rss'|trans }}</a></li>
-					<li {{ in_paths("admin_gedmo_newsletter", 'class="sub_show"')|raw }}	><a href="{{ path("admin_gedmo_newsletter") }}" >{{ 'pi.dashboard.menu5.newsletter'|trans }}</a></li>
-				</ul>
-			</div>
-			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
-			</li>
-			</ul>			
-			
-			<div class="nav-divider">&nbsp;</div>
-			
-			<ul {{ in_paths("admin_gedmo_lamelee_article:admin_gedmo_lamelee_comment:admin_gedmo_lamelee_resource:admin_gedmo_contact:admin_gedmo_partner:admin_gedmo_pressrelease:admin_gedmo_team", 'class="current"', 'class="select"')|raw }} ><li><a href="#nogo"><strong>{{ 'pi.dashboard.menu6.title'|trans }}</strong><!--[if IE 7]><!--></a><!--<![endif]-->
-			<!--[if lte IE 6]><table><tr><td><![endif]-->
-			<div class="select_sub {{ in_paths("admin_gedmo_lamelee_article:admin_gedmo_lamelee_comment:admin_gedmo_lamelee_resource:admin_gedmo_contact:admin_gedmo_partner:admin_gedmo_pressrelease:admin_gedmo_team", 'show')|raw }} ">
-				<ul class="sub">
-					<li {{ in_paths("admin_gedmo_contact", 'class="sub_show"')|raw }}				><a href="{{ path("admin_gedmo_contact") }}" >{{ 'pi.dashboard.menu6.contact'|trans }}</a></li>	
-					<li><a style="color:#238BDB" >&#187;</a></li>
-					<li {{ in_paths("admin_gedmo_partner", 'class="sub_show"')|raw }}			><a href="{{ path("admin_gedmo_partner") }}" >{{ 'pi.dashboard.menu6.partner'|trans }}</a></li>
-					<li><a style="color:#238BDB" >&#187;</a></li>
-					<li {{ in_paths("admin_gedmo_pressrelease", 'class="sub_show"')|raw }}		><a href="{{ path("admin_gedmo_pressrelease") }}" >{{ 'pi.dashboard.menu6.pressrelease'|trans }}</a></li>
-					<li><a style="color:#238BDB" >&#187;</a></li>
-					<li {{ in_paths("admin_gedmo_team", 'class="sub_show"')|raw }}	><a href="{{ path("admin_gedmo_team") }}" >{{ 'pi.dashboard.menu6.team'|trans }}</a></li>
-				</ul>
-			</div>
-			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
-			</li>
-			</ul>		
 			
 			<div class="clear"></div>
 			</div>
@@ -298,7 +277,7 @@
 	
 		<!--  start page-heading -->
 		<div id="page-heading">
-			{{ block('title') }}
+			
 		</div>
 		<!-- end page-heading -->
 	
@@ -319,6 +298,7 @@
 				<!--  start table-content  -->
 				<div id="table-content">
 		            {% block content %}
+		                {{ block('title') }}
 		            {% endblock %}						
 				</div>
 				<!--  end table-content  -->
@@ -348,7 +328,7 @@
 	<!-- start footer -->    
 	<div class="footer">
 	    <div>
-    	    <a rel='Copyright' href='http://www.cmf-orchestra.net/#Copyright' id='copyright'>{{ 'pi.footer.copyright'|trans }}</a> © 2004-{{ "now"|date("Y") }} Ltd. <a href="" title="">www.cmf-orchestra.net</a>.
+    	    <a rel='Copyright' href='http://www.cmf-orchestra.net/#Copyright' id='copyright'>{{ 'pi.footer.copyright'|trans }}</a> © 2004-{{ "now"|date("Y") }} Ltd. <a href="ttp://www.cmf-orchestra.net" title="" target="_blank">www.cmf-orchestra.net</a>.
 			<img src="{{ asset('bundles/piappadmin/images/logo/html5-badge.png') }}" alt="html5 validated by contactpfelix@gmail.com" />
 	    </div>
     </div>

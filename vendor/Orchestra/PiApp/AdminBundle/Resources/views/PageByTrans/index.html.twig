@@ -9,6 +9,10 @@
  
 {% block content %}
 
+    {{ parent() }}
+    
+    <br />
+    
 	{% set options_tabs = 
 		{
 			'id': 'tab', 
@@ -31,16 +35,6 @@
 		border: 0px solid #e3e3e3;
 		background: #fff url('') 50% 50% repeat-x;
 		}
-  </style>
-  
-	<!--  start actions-box ............................................... -->
-	<div id="actions-box">
-		<a href="" class="action-slider"><span>{{ 'pi.grid.action.title'|trans }}</span></a>
-		<div id="actions-box-slider">
-			<a href="{{ path('admin_pagebytrans_new') }}" class="action-edit">{{ 'pi.grid.action.create'|trans }}</a>
-		</div>
-		<div class="clear"></div>
-	</div>
-	<!-- end actions-box........... -->
+    </style>
 		
 {% endblock %}

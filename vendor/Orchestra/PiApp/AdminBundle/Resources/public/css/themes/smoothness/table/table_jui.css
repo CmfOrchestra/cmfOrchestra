@@ -37,9 +37,9 @@ table.dataTable thead th .ui-icon-triangle-1-n {
     width: 8px;
 }
 table.dataTable thead th .ui-icon-carat-2-n-s {
-    background: url('../../img/sort_both.png') no-repeat right center;
+    /*background: url('../../img/sort_both.png') no-repeat right center;*/
     height: 16px;
-    width: 8px;
+    /*width: 8px;*/
 }
 
 /*
@@ -81,7 +81,7 @@ table.dataTable thead th .ui-icon-carat-2-n-s {
 }
 
 table.dataTable tr td a{color: #4F4F4F;border-bottom:1px dotted #4F4F4F;}
-table.dataTable tr td a:hover{font-weight:bold;border:0;}
+table.dataTable tr td a:hover{border:0;}
 
 div.dataTables_wrapper .ui-widget-header {
 	font-weight: normal;
@@ -247,7 +247,7 @@ table.dataTable tr.odd:hover{
 }
 table.dataTable  tr.even {
 	/*background-color: rgba(226, 228, 255, 0.1);*/
-	background-color: #dbdbdb;
+	background-color: rgb(233, 231, 231);
 }
 table.dataTable  tr.even:hover {
 	/*background-color: rgba(35, 139, 219, 0.3);*/
@@ -255,7 +255,7 @@ table.dataTable  tr.even:hover {
 }
 
 table.dataTable tr.DTTT_selected.odd td {
-    background-color: rgb(95, 95, 95);
+    background-color: rgb(122, 121, 121);
     color:white;
 }
 table.dataTable tr.DTTT_selected.even td {
@@ -309,8 +309,10 @@ tfoot input.search_init {
 }
 
 td.group {
-	background-color: #EEFFEE;
-	border-bottom: 2px solid #A19B9E;
+	/*background-color: #4F6480;*/
+    /*color: #FFFFFF;*/
+    color: #4F6480;
+    border-bottom: 2px solid #A19B9E;
 	border-top: 2px solid #A19B9E;
 	font-weight: bold;
 }

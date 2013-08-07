@@ -2,341 +2,308 @@
  * Development by
  * <etienne de Longeaux> <etienne.delongeaux@gmail.com>
  *******************************************************/
-
-
-/********************************
- *
- * CORE
- *
- ********************************/
-table.grid {
-	width: 100%;
-	border-collapse: inherit;
-	border-spacing: 0px;
-	margin: 11px;
-	margin-bottom: 20px;
+ 
+#itsthetable {
+    background: #F0F0F0;
+    padding: 20px;
 }
 
-table.grid a,table.grid,table.grid tbody,table.grid tfoot,table.grid tr,table.grid th,table.grid td
-	{
-	font-family: Arial, Helvetica, sans-serif;
+table.grid {
+    margin: 0px 0px -2px;
+    width: 100%;
+    font: normal 0.9em tahoma, arial, sans-serif;
+    line-height: 1.4em;
+    border-collapse: collapse;
+    color: #4F6480;
+    background: #F0F0F0;
 }
 
 table.grid caption {
-	display: none;
+    margin: 0;
+    padding: 0;
+    height: 32px;
+    color: #4F6480;
+    line-height: 2em;
+    text-align: left;
+    font: bold 150% georgia, serif;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
 }
 
 table.grid  caption span.numberfield {font-size: 11px;}
 
-/*  RELATED THEAD ------------------------------------------------------------ */	
+table.grid thead {
+    color: #fff;
+    background: #5E7796;
+}
+
+table.grid thead tr th {
+    padding: 4px 8px 4px 8px;
+    color: #f18200;
+}
+
 table.grid thead th {
-	background: url(../../images/grid/redblack/bg_th.gif) left;
-	height: 21px;
-	color: #238BDB;
-	font-size: 0.8em;
-	font-family: Arial;
-	font-weight: bold;
-	padding: 0px 7px;
-	margin: 20px 0px 0px;
-	text-align: left;
+    border: 3px solid #E3E3E3;
 }
 
-table.grid thead th.line-left	{
-	border-left: 1px solid #373737;
+table.grid tfoot {
+    background: #fff;
 }
 
-table.grid thead th.table-header-check	{
-	background: url(../../images/table/table_header_checkbox.jpg) no-repeat;
-	border: none;
-	min-width: 29px;
-	padding: 0px 0 0 10px;
-	width: 29px;
-}
-table.grid thead th.table-header-repeat	{
-	background: url(../../images/table/table_header_repeat.jpg) repeat-x;
-	border: none;
-	font-size: 0px;
-	line-height: 0;
-	padding: 0px 0 0 0;
-}
-table.grid thead th.table-header-options	{
-	background: url(../../images/table/table_header_options.jpg) 0 0 no-repeat;
-	border: none;
-	padding: 0 0 0 0;
-}
-table.grid thead th.table-header-options a,
-table.grid thead th.table-header-repeat a	{
-	background: url(../../images/table/table_sort_arrow.gif) right no-repeat;
-	color: #fff;
-	font-family: Tahoma;
-	font-size: 13px;
-	font-weight: bold;
-	line-height: 14px;
-	margin: 0 0 0 10px;
-	padding: 0 10px 0 0;
-}
-table.grid thead th.table-header-options a:hover,
-table.grid thead th.table-header-repeat a:hover	{
-	color:#238BDB
+table.grid tfoot tr td,table.grid tfoot tr th,table.grid tbody tr td {
+    padding: 4px;
 }
 
-/*  RELATED TBODY ------------------------------------------------------------ */
+tbody tr:hover {
+    background: #fff;
+}
+
 table.grid tbody tr {
-	background: #ffffff;
-}
-
-table.grid tbody tr.odd {
-	background: #f0f0f0;
+    border: 3px solid #E3E3E3;
+    
+    -webkit-transition: background 0.3s linear;
+    -moz-transition: background 0.3s linear;
+    -o-transition: background 0.3s linear;
+    transition: background 0.3s linear;     
 }
 
 table.grid tbody th {
-	background: url(../../images/grid/redblack/arrow_white.gif) left center
-		no-repeat;
-	background-position: 5px;
-	padding-left: 40px !important;
-	width: 400px;
+    padding: 8px;
+    border: 3px solid #E3E3E3;  
+    width:227px;
 }
 
-table.grid tbody tr.odd th {
-	background: url(../../images/grid/redblack/arrow_grey.gif) left center
-		no-repeat;
-	background-position: 5px;
-	padding-left: 40px !important;
+table.grid tbody td {
+    background: #FBFBFB;
 }
 
-table.grid tbody th,table.grid tbody td {
-	font-size: 0.8em;
-	line-height: 1.4em;
-	font-family: Arial, Helvetica, sans-serif;
-	color: #000000;
-	padding: 5px 7px;
-	border-bottom: 1px solid #D3D6FF;
-	text-align: left;
-	
-	-webkit-transition: background 0.1s linear;
-	-moz-transition: background 0.1s linear;
-	-o-transition: background 0.1s linear;
-	transition: background 0.1s linear;		
+table.grid tbody tr.odd {
+    background: #C4CFDB;
 }
 
-table.grid tbody tr:hover th {
-	background: #800000 url(../../images/grid/redblack/arrow_red.gif) left center
-		no-repeat;
-	background-position: 5px;
-	color: #ffffff;
+table.grid tbody tr.odd td {
+    background: #F0F0F0;
+    color: #4F6480;
 }
 
-table.grid tbody tr.odd:hover th {
-	background: #800000 url(../../images/grid/redblack/arrow_red.gif) left
-		center no-repeat;
-	background-position: 5px;
-	color: #ffffff;
+table.grid tbody tr.odd:hover {
+    background: #fff;
 }
 
-table.grid tbody tr:hover th a,table.grid tr.odd:hover th a {
-	color: #ffffff;
+table.grid tbody tr th a:link {
+    font: bold 0.9em tahoma, arial, sans-serif;
+    color: #5E7796;
+    text-decoration: underline;
 }
 
-table.grid tbody tr:hover td,table.grid tr:hover td a,table.grid tr.odd:hover td,table.grid tr.odd:hover td a {
-	background-color: #000000;
-	color: #ffffff;
+table.grid tbody tr th a:visited {
+    font: bold 0.9em tahoma, arial, sans-serif;
+    color: #5E7796;
+    text-decoration: none;
 }
 
-table.grid tbody tr.odd:hover td,table.grid tr.odd:hover td a {
-	background-color: #000000;
-	color: #ffffff;
+table.grid tbody tr th a:hover {
+    font: bold 0.9em tahoma, arial, sans-serif;
+    color: #5E7796;
+    text-decoration: none;
 }
 
-table.grid tbody td.options-width	{
-	padding: 10px;
-	width: 210px;
+table.grid tbody tr th a:active {
+    font: bold 0.9em tahoma, arial, sans-serif;
+    color: #5E7796;
+    text-decoration: line-through;
 }
 
-/*  RELATED TFOOT ----------------------------------------------------------- */
-table.grid tfoot th,table.grid tfoot td {
-	background: #ffffff url(../../images/grid/redblack/bg_footer.gif) repeat-x
-		bottom;
-	font-size: 0.8em;
-	color: #ffffff;
-	height: 21px;
+table.grid tbody tr th a:visited:after {
+    content: "\00A0\221A";
 }
 
-/*  LINKS GRID ------------------------------------------------------------ */
-table.grid a {
-	color: #000;
+table.grid tbody td a:link {
+    font: normal 0.9em tahoma, arial, sans-serif;
+    color: #808000;
+    text-decoration: underline;
 }
 
-table.grid a:hover {
-	color: #000;
+table.grid tbody td a:visited {
+    font: normal 0.9em tahoma, arial, sans-serif;
+    color: #808000;
+    text-decoration: none;
 }
 
-table.grid a img {
-	border: 0;
+table.grid tbody td a:hover {
+    font: normal 0.9em tahoma, arial, sans-serif;
+    color: #808000;
+    text-decoration: none;
 }
 
-/********************************
- *
- * LINKS
- *
- ********************************/
-/*  LINKS THEAD ------------------------------------------------------------ */
+table.grid tbody td a:active {
+    font: normal 0.9em tahoma, arial, sans-serif;
+    color: #808000;
+    text-decoration: underline;
+}
+
+table.grid tbody td a:visited:after {
+    content: "\00A0\221A";
+    color: #808000;
+    text-decoration: none;
+}
+
+table.grid tbody td+td+td+td a {
+    display: block;
+    height: 24px;
+    text-decoration: none;
+    border: none;
+}
+
+table.grid tbody td+td+td+td a:hover {
+    display: block;
+    height: 24px;
+    text-decoration: none;
+    border: none;
+}
+
 table.grid thead th a {
-	border: 0;
-	color: #fff;
-	text-decoration: none;
+    border: 0;
+    color: #fff;
+    text-decoration: none;
 }
 
 table.grid thead th a:hover {
-	border: 0;
-	border-bottom: 1px dotted #fff;
-	color: #fff;
+    border: 0;
+    border-bottom: 1px dotted #fff;
+    color: #fff;
 }
 
-/*  LINKS TFOOT ------------------------------------------------------------ */
 table.grid tfoot th a {
-	border: 0;
-	color: #fff;
-	text-decoration: none;
+    border: 0;
+    color: #fff;
+    text-decoration: none;
 }
 
 table.grid tfoot th a:hover {
-	border: 0;
-	border-bottom: 1px dotted #fff;
-	color: #fff;
+    border: 0;
+    border-bottom: 1px dotted #fff;
+    color: #fff;
 }
 
-/*  LINKS TBODY ------------------------------------------------------------ */
 table.grid tbody tr th a,table.grid tbody tr.odd th a {
-	color: #000;
-	font-weight: normal;
-	border: 0;
-	text-decoration: none;
+    color: #000;
+    font-weight: normal;
+    border: 0;
+    text-decoration: none;
 }
 
 table.grid tbody tr th a:hover,table.grid tbody tr.odd th a:hover {
-	color: #238BDB;
-	font-weight: normal;
-	text-decoration: none;
+    color: #f18200;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+table.grid tbody tr th a:visited,table.grid tbody tr.odd th a:visited {
+    color: #000;
+    font-weight: normal;
+    text-decoration: none;
 }
 
 table.grid tbody tr td a,table.grid tbody tr.odd td a {
-	color: #000;
-	border: 0;
+    color: #000;
+    border: 0;
 }
 
 table.grid tbody tr td a:hover,table.grid tbody tr.odd td a:hover {
-	color: #238BDB;
+    color: #f18200;
 }
 
-/********************************
- *
- * CHECKBOX
- *
- ********************************/
-#toggle-all, #check-all, #uncheck-all  {
-	display: block;
-	width: 17px;
-	height:17px;
-	cursor: pointer;
-}
-#checkbox-menu {
-	text-align: left;
-}
-#toggle-all span, #check-all span, #uncheck-all span {
-	color: #238BDB;
-	font-size: 12px;
-	font-weight: bold;
-	margin-left: -7px;
-}
-#toggle-all .toggle-checked {
-	display: block;
-	width: 17px;
-	height:17px;
-	background: url(../../images/shared/checkbox.gif) 0 0;
+table.grid tbody tr td a:visited,table.grid tbody tr.odd td a:visited {
+    color: #000;
 }
 
-.ui-radio-state-disabled,
-	.ui-radio-state-checked-disabled,
-	.ui-radio-state-disabled-hover,
-	.ui-radio-state-checked-disabled-hover {
-		color: #999;
-}
-	
-span.ui-checkbox,
-span.ui-radio {
-	display: block;
-	float: left;
-	width: 16px;
-	height: 16px;
-	background: url(../../images/grid/checkbox/icon_checkbox.png) 0 -40px no-repeat;
+table.grid a {
+    color: #000;
 }
 
-span.ui-helper-hidden {
-	display: none;
-}
-label {
-	padding: 2px;
-	
-}
-span.ui-radio-state-hover,
-span.ui-checkbox-state-hover {
-	background-position: 0 -114px;
-}
-span.ui-checkbox-state-checked {
-	background-position: 0 -1px;
+table.grid a:hover {
+    color: #000;
 }
 
-span.ui-checkbox-state-checked-hover {
-	background-position: 0 -75px;
+table.grid a img {
+    border: 0;
 }
-span.ui-radio-state-checked-disabled-hover,
-span.ui-radio-state-checked-disabled,
-span.ui-radio-state-checked {
-	background-position: 0 -161px;
+
+#paginglinks {
+    margin: 5px auto 5px auto;
+    clear: both;
+    color: #000;
+    font-size: 0.8em;
+    text-transform: uppercase;
 }
-span.ui-radio-state-checked-hover {
-	background-position: 0 -200px;
+
+.pagelink,.pagelinklast,.pagecurrent {
+    background: #fff;
+    border: 1px solid #212121;
+    padding: 1px 3px 1px 3px;
 }
-.ui-radio-disabled,
-.ui-checkbox-disabled {
-	opacity: 0.7;
+
+.pagelinklast {
+    background: #999;
+}
+
+.pagecurrent {
+    background: #999;
+}
+
+table.grid tfoot span.pagelink a,table.grid tfoot span.pagelinklast a {
+    border: 0;
+    color: #000;
+    text-decoration: none;
+}
+
+table.grid tfoot span.pagelink a:hover,table.grid tfoot span.pagelinklast a:hover
+    {
+    border: 0;
+    border-bottom: 1px dotted #000;
+    color: #000;
+}
+
+table.grid span.field_block_button {
+    float: right;
+    margin-left:-10px;
+}
+
+table.grid button.field_update_button, table.grid input.field_update_button 
+    {
+    border-width: 1px;
+    border-bottom: 0.2em solid #666;
+    font-size: 1em;
+    padding: 0.3em 0.6em;
+    color: #fff;
+    line-height: 1;
+    text-shadow: 0 0 0.1em #222;
+    cursor: pointer;
+    background-color: #294145;
+    -moz-box-shadow: 0 0.1em 0.2em rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0 0.1em 0.2em rgba(0, 0, 0, 0.5);
+    -moz-border-radius: 10.2em;
+    -webkit-border-radius: 10.2em;  
+}
+
+table.grid  input.field_value_button {
+    text-align: center;
+    padding:0;
+    height: 14px;
+    -moz-box-shadow: 0 0.1em 0.2em rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0 0.1em 0.2em rgba(0, 0, 0, 0.5);
+    -moz-border-radius: 10.2em;
+    -webkit-border-radius: 10.2em;      
 }
 
 /********************************
  *
  * OPTIONAL SET ATTRIBUTES FOR THE FOOTER BUTTON
  *
- ********************************/	
-ul.record_actions {
-    -moz-box-shadow: inset 1px 1px 0 rgba(255,255,255,0.05);
-    -webkit-box-shadow: inset 1px 1px 0 rgba(255,255,255,0.05);
-    box-shadow: inset 1px 1px 0 rgba(255,255,255,0.05);
-	-moz-box-shadow: 4px 4px 4px #ddd;
-	-webkit-box-shadow: 4px 4px 4px #ddd;
-	box-shadow: 4px 4px 4px #ddd;	    
-    font-weight: normal;
-    color: #fafafa;	
-}
-ul.record_actions {
-	text-align: center;
-	white-space: nowrap;
-	letter-spacing: 35px;
-	line-height: 12px;
-	overflow: hidden;
-	width: 100%;
-}
-ul.record_actions li {
-	display: inline-block;
-	letter-spacing: normal;
-	font-size: normal;
-	white-space: normal;
-	text-align: normal;
-	vertical-align: middle;
-	margin: 10px;
-}
-ul.record_actions li {
-	*display: inline;
-	*margin: 0 20px 0 20px;
+ ********************************/  
+.button-ui-update {
+    font-size: 12px;
 }
 
 /********************************
@@ -344,83 +311,83 @@ ul.record_actions li {
  * ACTION
  *
  ********************************/
-a.icon-1	{
-	background: url(../../images/table/table_icon_1.gif) no-repeat;
-	display: block;
-	float: left;
-	height: 24px;
-	margin: 0 8px 0 0;
-	width: 24px;
-	}
-a:hover.icon-1	{
-	background: url(../../images/table/table_icon_1.gif) 0 -24px;
-	}
-a.icon-2	{
-	background: url(../../images/table/table_icon_2.gif) no-repeat;
-	display: block;
-	float: left;
-	height: 24px;
-	margin: 0 8px 0 0;
-	width: 24px;
-	}
-a:hover.icon-2	{
-	background: url(../../images/table/table_icon_2.gif) 0 -24px;
-	}
-a.icon-3	{
-	background: url(../../images/table/table_icon_3.gif) no-repeat;
-	display: block;
-	float: left;
-	height: 24px;
-	margin: 0 8px 0 0;
-	width: 24px;
-	}
-a:hover.icon-3	{
-	background: url(../../images/table/table_icon_3.gif) 0 -24px;
-	}
-a.icon-4	{
-	background: url(../../images/table/table_icon_4.gif) no-repeat;
-	display: block;
-	float: left;
-	height: 24px;
-	margin: 0 8px 0 0;
-	width: 24px;
-	}
-a:hover.icon-4	{
-	background: url(../../images/table/table_icon_4.gif) 0 -24px;
-	}
-a.icon-5	{
-	background: url(../../images/table/table_icon_5.gif) no-repeat;
-	display: block;
-	float: left;
-	height: 24px;
-	width: 24px;
-	}
-a:hover.icon-5	{
-	background: url(../../images/table/table_icon_5.gif) 0 -24px;
-	}
-	
-	
+a.icon-1    {
+    background: url(../../images/table/table_icon_1.gif) no-repeat;
+    display: block;
+    float: left;
+    height: 24px;
+    margin: 0 8px 0 0;
+    width: 24px;
+    }
+a:hover.icon-1  {
+    background: url(../../images/table/table_icon_1.gif) 0 -24px;
+    }
+a.icon-2    {
+    background: url(../../images/table/table_icon_2.gif) no-repeat;
+    display: block;
+    float: left;
+    height: 24px;
+    margin: 0 8px 0 0;
+    width: 24px;
+    }
+a:hover.icon-2  {
+    background: url(../../images/table/table_icon_2.gif) 0 -24px;
+    }
+a.icon-3    {
+    background: url(../../images/table/table_icon_3.gif) no-repeat;
+    display: block;
+    float: left;
+    height: 24px;
+    margin: 0 8px 0 0;
+    width: 24px;
+    }
+a:hover.icon-3  {
+    background: url(../../images/table/table_icon_3.gif) 0 -24px;
+    }
+a.icon-4    {
+    background: url(../../images/table/table_icon_4.gif) no-repeat;
+    display: block;
+    float: left;
+    height: 24px;
+    margin: 0 8px 0 0;
+    width: 24px;
+    }
+a:hover.icon-4  {
+    background: url(../../images/table/table_icon_4.gif) 0 -24px;
+    }
+a.icon-5    {
+    background: url(../../images/table/table_icon_5.gif) no-repeat;
+    display: block;
+    float: left;
+    height: 24px;
+    width: 24px;
+    }
+a:hover.icon-5  {
+    background: url(../../images/table/table_icon_5.gif) 0 -24px;
+    }
+    
+    
 /********************************
  *
  * TOOLTP
  *
- ********************************/	
-#tooltip	{
-	background-color: #8c8c8c;
-	border: 1px solid #767676;
-	color: #fff;
-	font-family: Arial;
-	font-size: 10px;
-	font-weight: normal;
-	opacity: 0.85;
-	padding: 0 5px;
-	position: absolute;
-	text-align: left;
-	z-index: 3000;
+ ********************************/  
+#tooltip    {
+    background-color: #8c8c8c;
+    border: 1px solid #767676;
+    color: #fff;
+    font-family: Arial;
+    font-size: 10px;
+    font-weight: normal;
+    opacity: 0.85;
+    padding: 0 5px;
+    position: absolute;
+    text-align: left;
+    z-index: 3000;
 }
-#tooltip h6, #tooltip div	{
-	font-family: Arial;
-	font-size: 11px;
-	line-height: 20px;
-	margin: 0;
-}	
+#tooltip h6, #tooltip div   {
+    font-family: Arial;
+    font-size: 11px;
+    line-height: 20px;
+    margin: 0;
+}   

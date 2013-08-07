@@ -10,6 +10,8 @@
 
 {% block content %}
 
+    {{ parent() }}
+    
 	{% include 'PiAppGedmoBundle:Menu:tree_view.html.twig' with {'NoLayout':NoLayout, 'form_search':form_search, 'category': category, 'tree':tree} %}
 		
 {% endblock %}

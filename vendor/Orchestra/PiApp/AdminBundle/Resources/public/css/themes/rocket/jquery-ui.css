@@ -2033,6 +2033,8 @@ a.ui-button:link, a.ui-button
 .ui-veneer .ui-veneer-header:hover {
     background: rgb(95, 84, 31); /* #5B3C11 */
 }
+.ui-veneer .ui-state-default span {
+}
 
 /* SET PROCESSING */
 .dataTables_processing{

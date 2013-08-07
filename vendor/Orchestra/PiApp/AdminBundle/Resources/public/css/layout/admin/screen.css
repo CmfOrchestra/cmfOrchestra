@@ -12,7 +12,7 @@ html, body	{
 	}
 body	{
 	background: #fff;
-	color: #393939;
+	color: #4F6480;
 	font-family: Arial;
 	font-size: 11px;
 }
@@ -78,22 +78,25 @@ form	{
 .font11	{
 	font-size: 11px;
 	}
-	
+
+h1, h2, h3 {
+	margin: 0px;
+	padding: 0px 0px 17px 0px;
+    text-align: left;
+	text-transform: uppercase;
+	letter-spacing: 0.14em;
+	color: #4F6480;	
+    line-height: 2em;
+    font: bold 1.3em georgia, serif;	
+}
+
 h1	{
-	color: #4b4b4b;
-	font-family: Tahoma;
-	font-size: 22px;
-	line-height: 24px;
-	font-weight: normal;
-	}
+}
 h2	{
-	color: #393939;
-	font-size: 16px;
-	font-weight: bold;
-	line-height: 20px;
-	margin-bottom: 10px;
+    font: bold 1.1em georgia, serif;
 	}
 h3	{
+    font: bold 0.9em georgia, serif;
 	}	
 ul  {
 	list-style-type: none;
@@ -127,13 +130,18 @@ ul  {
 	position:relative;
 	color: #333;
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 12px;
+	font-size: 11px;
 	line-height: 18px;
 	margin: 0 auto 0 auto;
 	max-width: 1260px;
 	/*min-width: 780px;*/
 	padding: 15px 0px 30px 0px;
 	}
+	
+#content h1, #content h2, #content h3 {
+    margin: 0px;
+    padding: 0px;
+}
 #content-inner	{
 	color: #333;
 	font-family: Arial, Helvetica, sans-serif;
@@ -144,7 +152,6 @@ ul  {
 	}
 #content-table	{
 	width: 100%;
-	font-size: 0px;
 	}
 #content-table th.sized	{
 	height: 15px;
@@ -159,7 +166,6 @@ ul  {
 .image-fixed-right {position:fixed;top:50%;margin-top:-110px;margin-right:5px;}
 
 #content-table-inner	{
-	font-size: 12px;
 	/*line-height: 12px;*/
 	padding: 0px 0 20px 0;
 	}
@@ -183,7 +189,7 @@ ul  {
 /* content --------------------------------------------------------------- */	
 #table-content	{
 	/*line-height: 16px;*/
-	margin: 0 10px 10px 10px;
+	margin: 0px 0px 0px 0px;
 	min-height: 2000px;
 }
 	
@@ -226,7 +232,7 @@ height:15px;
 	position:fixed;
 	z-index:9999;
 	width:100%;
-	border-bottom: 7px solid rgb(95, 84, 31);
+	border-bottom: 3px solid rgb(95, 84, 31);
 }
 
 #paging-table {
@@ -271,9 +277,9 @@ height:15px;
 	
 /*  ACTIONS BOX ----------------------------------------------- */	
 #actions-box	{
-	float: left;
-	margin: 0 0 5px 0px;
-	position: relative;
+    position: relative;
+	float: right;
+	margin: -17px 0px -2px 0px;
 	}
 a.action-slider	{
 	background: url(../../../images/table/dropdown_actions.png) no-repeat;
@@ -314,41 +320,6 @@ a.action-slider.activated	{
 	margin: 0 auto;
 	width: 108px;
 	}
-a.action-edit ,
-a.action-delete	{
-	color: #272727;
-	display: block;
-	font-weight: bold;
-	height: 20px;
-	margin: 0 auto;
-	padding: 10px 0 5px 45px;
-	width: 63px;
-	line-height: 16px;
-	
-	-webkit-transition: background 0.5s linear;
-	-moz-transition: background 0.5s linear;
-	-o-transition: background 0.5s linear;
-	transition: background 0.5s linear;	
-	}
-a:hover.action-edit	{
-	background: #949494 url(../../../images/table/action_edit.gif) no-repeat 5px 5px;
-	color: #fff;
-	}
-a.action-edit	{
-	background: #c7c7c7 url(../../../images/table/action_edit.gif) no-repeat 5px 5px;
-	}
-a.action-delete	{
-	background: #c7c7c7 url(../../../images/table/action_delete.gif) no-repeat 5px 5px;
-	}
-a:hover.action-delete	{
-	background: #949494 url(../../../images/table/action_delete.gif) no-repeat 5px 5px;
-	color: #fff;
-	}
-		 
-	
-
-
-
 .step-no {
 	float:left;
 	height:29px;
@@ -380,14 +351,12 @@ a:hover.action-delete	{
 	color:#fff;
 	font-weight: bold;
 }
-
 .step-dark-left a{
 	 
 	font-size: 13px;
 	color:#fff;
 	font-weight: bold;
 }
-
 .step-dark-right {
 	float:left;
 	width:12px;
@@ -400,7 +369,6 @@ a:hover.action-delete	{
 	height:39px;
 	background: url(../../../images/forms/step_dark_round.gif) no-repeat;
 }
-
 .step-light-left {
 	float:left;
 	 	height:27px;
@@ -411,7 +379,6 @@ a:hover.action-delete	{
 	color:#cbcbcb;
 	font-weight: bold;
 }
-
 .step-light-left a{
 	 
 	 
@@ -440,7 +407,6 @@ a:hover.action-delete	{
 	margin-left: 5px;
 	background: url(../../../images/forms/bubble_left.gif) no-repeat;
 }
-
 .bubble-inner {
 	float:left;
 	padding: 7px 0px 0 2px;
@@ -456,6 +422,7 @@ a:hover.action-delete	{
 	height:29px;
 	background: url(../../../images/forms/bubble_right.gif) right no-repeat;
 }
+
 .error-left {
 	float:left;
 	width:13px;
@@ -463,7 +430,6 @@ a:hover.action-delete	{
 	margin-left: 5px;
 	background: url(../../../images/forms/error_left.gif) no-repeat;
 }
-
 .error-inner {
 	float:left;
 	padding: 7px 10px 0 4px;
@@ -494,9 +460,9 @@ a:hover.action-delete	{
 	min-width: 850px;
 	}
 #nav-right	{
-	float: right;
-	position: relative;
-	width: auto;
+	position: absolute;
+    float: right;
+    width: auto;
 	z-index: 999;
 	height: 50px;
     color: rgb(255, 255, 255);
@@ -683,7 +649,7 @@ Copyright (c) 2005-2007 Stu Nicholls. All rights reserved. This stylesheet and t
 	background: url(../../../images/shared/nav/pro_line_1.gif);
 	color: #fff;
 	cursor: pointer;
-	padding: 0 0 0 10px;
+	padding: 0px 0px 1px 10px;
 	}
 .nav .select a:hover strong, 
 .nav .select li:hover a strong	{
@@ -784,6 +750,7 @@ Copyright (c) 2005-2007 Stu Nicholls. All rights reserved. This stylesheet and t
     margin: 0px auto;
     max-width: 1231px;
     line-height: 35px;
+    z-index: 9999;
 }
 
 .footer > div {
@@ -1216,3 +1183,11 @@ span.connexion-my-account:hover,
 span.connexion-login-logout:hover{
 	color: #238BDB;
 	}
+	
+	
+/* VERSION MOBILE */
+@media screen and (max-width:450px) {
+	#logo a[title='logo'] {
+	   display:none;
+	}
+}	

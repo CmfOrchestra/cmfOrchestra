@@ -6,6 +6,8 @@
 	
 {% block content %}
 
+    {{ parent() }}
+    
 	{% include 'PiAppGedmoBundle:Slider:show_view.html.twig' with {'NoLayout':NoLayout, 'entity':entity, 'category':category} %}	
 		
 {% endblock %}

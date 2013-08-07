@@ -40,15 +40,18 @@ pi.welcome.title: Welcome to Orchestra!
 pi.wizard.intro: Click to select all pages belonging to the requested status. 
 
 # Authentication
-pi.layout.profil_consult: Consult my profil  
+pi.layout.profil_consult: View my profile  
 
 # grid
+pi.grid.action.trans: List of translations
 pi.grid.action.title: Actions
 pi.grid.action.show: Show
 pi.grid.action.edit: Edit
 pi.grid.action.update: Update
 pi.grid.action.save: Save
 pi.grid.action.delete: Delete
+pi.grid.action.delete.confirmation.title: Delete Confirmation
+pi.grid.action.delete.confirmation.message: This item will be permanently deleted and cannot be recovered. Are you sure?
 pi.grid.action.create: Create
 pi.grid.action.validate: Validate
 pi.grid.action.back-to-the-list: Back to List
@@ -90,6 +93,7 @@ pi.form.tab.box.title: Add tab
 pi.form.tab.box.click: Click to add a new tab !
 pi.form.tab.box.add: Add
 pi.form.tab.box.cancel: Cancel
+pi.form.tab.box.delete: Delete
 pi.form.title.default.create: Create form
 pi.form.title.default.update: Update form
 

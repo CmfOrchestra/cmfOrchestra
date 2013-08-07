@@ -2,13 +2,13 @@
 {% extends app.request.attributes.get('orchestra-layout') %}
 
 {% block title %}
-
 	<h1>Content creation</h1>
-	
 {% endblock %}
  
 {% block content %}
 
+    {{ parent() }}
+    
 	{% include 'PiAppGedmoBundle:Content:new_view.html.twig' with {'form':form, 'NoLayout':NoLayout, 'category':category} %}
 	
 {% endblock %}

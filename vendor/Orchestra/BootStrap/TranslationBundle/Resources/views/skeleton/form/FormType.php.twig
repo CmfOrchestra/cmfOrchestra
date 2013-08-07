@@ -63,6 +63,8 @@ class {{ form_class }} extends AbstractType
         //if (!isset($choiceList) || !count($choiceList))
         //    $choiceList = array();
         
+        $format_date = $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale);
+        
         $builder
         {%- for field in fields %}
             
@@ -78,7 +80,7 @@ class {{ form_class }} extends AbstractType
              ->add('created_at', 'date', array(
                      'widget' => 'single_text', // choice, text, single_text
                      'input' => 'datetime',
-                     'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
+                     'format' => $format_date,// 'dd/MM/yyyy', 'MM/dd/yyyy',
                      'required'  => false,
                      "attr" => array(
                              "class"=>"pi_datepicker",
@@ -91,7 +93,7 @@ class {{ form_class }} extends AbstractType
              ->add('updated_at', 'date', array(
                      'widget' => 'single_text', // choice, text, single_text
                      'input' => 'datetime',
-                     'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
+                     'format' => $format_date,// 'dd/MM/yyyy', 'MM/dd/yyyy',
                      'required'  => false,
                      "attr" => array(
                              "class"=>"pi_datepicker",
@@ -104,7 +106,7 @@ class {{ form_class }} extends AbstractType
              ->add('published_at', 'date', array(
                      'widget' => 'single_text', // choice, text, single_text
                      'input' => 'datetime',
-                     'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
+                     'format' => $format_date,// 'dd/MM/yyyy', 'MM/dd/yyyy',
                      'required'  => false,
                      "attr" => array(
                              "class"=>"pi_datepicker",
@@ -117,7 +119,7 @@ class {{ form_class }} extends AbstractType
              ->add('archive_at', 'date', array(
                      'widget' => 'single_text', // choice, text, single_text
                      'input' => 'datetime',
-                     'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
+                     'format' => $format_date,// 'dd/MM/yyyy', 'MM/dd/yyyy',
                      'required'  => false,
                      "attr" => array(
                              "class"=>"pi_datepicker",

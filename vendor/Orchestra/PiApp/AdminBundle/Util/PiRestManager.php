@@ -143,6 +143,7 @@ class PiRestManager implements PiRestManagerInterface
          }
          $opts['http']['content'] = $pContent; 
       }
+      
       return stream_context_create($opts);
    }
     
@@ -157,8 +158,8 @@ class PiRestManager implements PiRestManagerInterface
    protected function _makeUrl($pParams)
    {
       return $this->_url
-             .(strpos($this->_url, '?') ? '' : '?')
-             .http_build_query($pParams);
+             . (strpos($this->_url, '?') ? '' : '?')
+             . http_build_query($pParams);
    }
     
    /**
@@ -172,13 +173,16 @@ class PiRestManager implements PiRestManagerInterface
     */   
    protected function _launch ($pUrl, $context)
    {
-           if (($stream = @fopen($pUrl, 'r', false, $context)) !== false){
-               $content     = stream_get_contents($stream);
-               $header     = stream_get_meta_data($stream);
-               fclose($stream);
-               return array('content'=>$content, 'header'=>$header, 'url'=>$pUrl);
-           } else {
-               return array('content'=>false, 'header'=>false, 'url'=>$pUrl);
-           }           
+        if (($stream = @fopen($pUrl, 'r', false, $context)) !== false) {
+            $content = stream_get_contents($stream);
+            $header = stream_get_meta_data($stream);
+            fclose($stream);
+            
+            return array('content' => $content, 'header' => $header['wrapper_data'], 'url' => $pUrl);
+        } else {
+            $header = get_headers($pUrl);
+            
+            return array('content' => false, 'header' => $header, 'url' => $pUrl);
+        }         
    }   
 }

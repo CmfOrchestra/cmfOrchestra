@@ -1,5 +1,7 @@
 parameters:
     bootstrap.media.event_subscriber.media.class: BootStrap\MediaBundle\EventSubscriber\EventSubscriberMedia
+    #sonata.media.provider.file.class.class: BootStrap\MediaBundle\Provider\FileProvider
+    #sonata.media.thumbnail.format: BootStrap\MediaBundle\Thumbnail\FormatThumbnail    
     
 services:
     #

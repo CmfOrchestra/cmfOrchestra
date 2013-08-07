@@ -16,9 +16,14 @@
  
 {% block content %}
 
+    {{ parent() }}
+    
 	<!--  start actions-box ............................................... -->
-	<a href="{{ path('admin_langue_new') }}" class="btn-on" style="margin:5px">{{ 'pi.grid.action.create'|trans }}</a>
-	<!-- end actions-box........... -->
+	<div id="actions-box">
+		<a href="{{ path('admin_langue_new') }}" class="action-edit">{{ 'pi.grid.action.create'|trans }}</a>
+		<div class="clear"></div>
+	</div>
+	<!-- end actions-box........... -->	
 	
 	<table id="grid" >
 	    <thead>
@@ -35,10 +40,10 @@
 	        <tr {% if(num_line == 0) %}class="odd"{% endif %} id="{{ entity.id }}"  >
 	            <td><a href="{{ path('admin_langue_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
 	            <td>{{ entity.label }}</td>
-	            <td class="enabled" >{{ entity.enabled }}</td>
-	            <td>
-					<a href="{{ path('admin_langue_show', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.show'|trans }}" class="icon-3 info-tooltip">&nbsp;</a>
-					<a href="{{ path('admin_langue_edit', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.edit'|trans }}" class="icon-1 info-tooltip">&nbsp;</a>
+	            <td class="enabled" width="20px">{{ entity.enabled }}</td>
+	            <td width="130px">
+					<a href="{{ path('admin_langue_show', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.show'|trans }}" class="button-ui-show info-tooltip">{{ 'pi.grid.action.show'|trans }}</a>
+					<a href="{{ path('admin_langue_edit', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.edit'|trans }}" class="button-ui-edit info-tooltip">{{ 'pi.grid.action.edit'|trans }}</a>
 	            </td>
 	        </tr>
 	        {% if num_line == 0 %} 
@@ -49,10 +54,6 @@
 	    {% endfor %}
 	    </tbody>
 	</table>
-	
-	<!--  start actions-box ............................................... -->
-	<a href="{{ path('admin_langue_new') }}" class="btn-on" style="margin:5px">{{ 'pi.grid.action.create'|trans }}</a>
-	<!-- end actions-box........... -->	
 	
 	{% set options_gridtabale = {'grid-name': 'grid', 'grid-type':'simple', 
 		'grid-filters': {

@@ -54,6 +54,8 @@ class TranslationPageType extends AbstractType
         
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $format_date = $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale);
+        
         $builder
             ->add('enabled', 'checkbox', array(
                     //'data'  => true,
@@ -78,7 +80,7 @@ class TranslationPageType extends AbstractType
             ->add('published_at', 'date', array(
                     'widget' => 'single_text', // choice, text, single_text
                     'input' => 'datetime',
-                    'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction($this->_locale),// 'dd/MM/yyyy', 'MM/dd/yyyy',
+                    'format' => $format_date,// 'dd/MM/yyyy', 'MM/dd/yyyy',
                     "attr" => array(
                             "class"=>"pi_datepicker",
                     ),
@@ -87,7 +89,7 @@ class TranslationPageType extends AbstractType
             ->add('archive_at', 'date', array(
                     'widget' => 'single_text', // choice, text, single_text
                     'input' => 'datetime',
-                    'format' => $this->_container->get('pi_app_admin.twig.extension.tool')->getDatePatternByLocalFunction("fr_FR"),// 'dd/MM/yyyy', 'MM/dd/yyyy',
+                    'format' => $format_date,// 'dd/MM/yyyy', 'MM/dd/yyyy',
                     "attr" => array(
                             "class"=>"pi_datepicker",
                     ),

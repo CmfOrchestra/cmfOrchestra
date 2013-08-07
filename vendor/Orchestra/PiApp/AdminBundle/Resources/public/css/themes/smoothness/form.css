@@ -11,8 +11,8 @@
     height:auto;
 }
 .myform fieldset{
-    margin: 0;
-    padding: 4%;
+    margin: 11px;
+    padding: 11px;
     background: #f0f0f0;
     border: 2px solid #d0d0d0;
     -moz-border-radius: 10px;
@@ -26,8 +26,9 @@
 .myform fieldset.no-accordion{
     float:left;
     width:46%;
+    /*margin-top: 0;*/
     margin-bottom:10px;
-    padding:2%;
+    /*padding:2%;*/
 }
 .myform .accordion-form{
     float:right;
@@ -240,25 +241,6 @@
     margin: 0.4em 0.2em 0 0;
     cursor: pointer;
 }
-#add_tab
-{
-    cursor: pointer;
-}
-/* OPTIONAL SET ATTRIBUTES FOR THE BUTTON */
-.myform p {
-    text-align: center;
-    clear:both;     /* SBLA */
-}
-.myform input.ui-button {
-    margin-bottom: 11px;
-    width: 110px;
-    line-height: 1.4;
-}
-.myform .ui-button-text-only .ui-button-text {
-    padding: .4em 0em;
-    margin-bottom: 11px;
-    width: 110px;
-}
 /* OPTIONAL SET ATTRIBUTES FOR THE FOOTER BUTTON */
 ul.ui-widget-header {
     -moz-box-shadow: inset 1px 1px 0 rgba(255,255,255,0.05);
@@ -266,22 +248,26 @@ ul.ui-widget-header {
     box-shadow: inset 1px 1px 0 rgba(255,255,255,0.05);
     /*background-color: #242122;*/
     /*border: 1px solid #d0d0d0;*/
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px; 
+    -moz-border-radius: 5px 5px 0px 0px;
+    -webkit-border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 0px 0px;
     /*
     -moz-box-shadow: 4px 4px 4px #ddd;
     -webkit-box-shadow: 4px 4px 4px #ddd;
     box-shadow: 4px 4px 4px #ddd;*/       
     font-weight: normal;
     color: #fafafa;
-    margin:0;   
+    margin: -1px 0px 11px 0px; 
+}
+ul.ui-footer {
+    -moz-border-radius: Opx 0px 5px 5px;
+    -webkit-border-radius: 0px 0px 5px 5px;
+    border-radius: 0px 0px 5px 5px;
 }
 ul.ui-widget-header {
     /*border: solid 1px #aaa;*/
     text-align: center;
     white-space: nowrap;
-    letter-spacing: 35px;
     line-height: 12px;
     overflow: hidden;
     width: 100%;

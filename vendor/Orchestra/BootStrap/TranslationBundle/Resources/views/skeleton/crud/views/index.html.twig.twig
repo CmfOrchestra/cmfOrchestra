@@ -15,6 +15,8 @@
  
 {{ '{% block content %}' }}
 
+    {{ parent() }}
+    
 	{% if 'new' in actions %}
 	{{ "{% if NoLayout == false %}" }}
 	<!--  start actions-box ............................................... -->
@@ -47,7 +49,7 @@
 	            
 	        {%- endfor %}
 	        
-	            <th><a href="javascript:void(0);" title="Actions">Actions</a></th>
+	            <th>Actions</th>
 	        </tr>
 	    </thead>
 	    <tbody>
@@ -65,7 +67,7 @@
 
 				{%- elseif metadata.type in ['array'] %}	
 				
-					<td class="enabled" >{{ '{{ entity.'~ field ~'|print_r }}' }}</td>	            
+					<td class="enabled" width="20px">{{ '{{ entity.'~ field ~'|print_r }}' }}</td>	            
 		
 		        {%- elseif metadata.type in ['date', 'datetime'] %}
 		
@@ -73,7 +75,7 @@
 		
 				{%- elseif field in ['enabled'] %}
 		
-		            <td class="enabled" >{{ '{{ entity.'~ field ~' }}' }}</td>
+		            <td class="enabled" width="20px">{{ '{{ entity.'~ field ~' }}' }}</td>
 		
 				{%- elseif field in ['position'] %}
 				
@@ -92,7 +94,7 @@
 		
 		        {%- if loop.last %}
 		
-					<td>
+					<td width="130px">
 					
 		        	{%- include "views/others/actions.html.twig.twig" %}
 	

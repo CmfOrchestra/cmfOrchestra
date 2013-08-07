@@ -12,6 +12,8 @@
 	
 {% block content %}
 
+    {{ parent() }}
+    
 	<table class="grid">
 		<caption>Media</caption>
 	    <tbody>	
@@ -59,39 +61,72 @@
 	</table>
 
 	{% if is_granted('ROLE_ALLOWED_TO_SWITCH') %}
-	
-				
-	<ul class="ui-widget-header">
+	<ul class="ui-widget-header ui-footer">
 		<li>
-	        <form action="{{ path('admin_gedmo_media', { 'NoLayout': NoLayout, 'category':category }) }}" method="post">
-	            <button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
-	        </form>	        
+	        <a href="{{ path('admin_gedmo_media', { 'NoLayout': NoLayout, 'category':category }) }}" class="button-ui-back-list">{{ 'pi.grid.action.back-to-the-list'|trans }}</a>      
 		</li>
-			<li>
+		<li>
 	        <form action="{{ path('admin_gedmo_media_edit', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category, 'status':entity.status }) }}" method="post">
-	            <button type="submit">{{ 'pi.grid.action.update'|trans }}</button>
+	            <button type="submit" class="button-ui-update">{{ 'pi.grid.action.update'|trans }}</button>
 	        </form>	        
 		</li>
-			
-		{% if NoLayout == false %}
-	    <li>
-	        <form action="{{ path('admin_gedmo_media_delete', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category }) }}" method="post">
-	            {{ form_widget(delete_form) }}
-	            <button type="submit">{{ 'pi.grid.action.delete'|trans }}</button>
-	        </form>
-	    </li>
-	    {% endif %}
+		<li>
+            {% if is_granted('ROLE_ADMIN') %}  
+	        <a data-id="delete-form" class="button-ui-delete">{{ 'pi.grid.action.delete'|trans }}</a> 
+	        {% endif %}
+        </li>
+        <li>
+            <a href="{{ path('admin_gedmo_media_new', { 'NoLayout':NoLayout, 'category':category, 'status':entity.status }) }}" class="button-ui-create">{{ 'pi.grid.action.create'|trans }}</a>
+        </li>
+	</ul>
+
+    {% if is_granted('ROLE_ADMIN') %}   
+	<div style="display:none">		
+    	<form id="delete-form" action="{{ path('admin_gedmo_media_delete', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category }) }}" method="post">
+        	{{ form_widget(delete_form) }}
+        	<button type="submit">{{ 'pi.grid.action.delete'|trans }}</button>
+    	</form>
+    </div>	
+    {% endif %}
 	    
-	
-	</ul>	
-		<script type="text/javascript">
-		//<![CDATA[
+    <div id="dialog-confirm" title="{{ 'pi.grid.action.delete.confirmation.title'|trans }}">
+	    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+		{{ 'pi.grid.action.delete.confirmation.message'|trans }}</p>
+	</div> 	
+
+	<script type="text/javascript">
+	//<![CDATA[
 			$(document).ready(function() {
-				$("button[type='submit']").button();
+                // http://jquery-ui.googlecode.com/svn/tags/1.6rc5/tests/static/icons.html
+                $("a.button-ui-create").button({icons: {primary: "ui-icon-circle-plus"}});
+                $("button.button-ui-update").button({icons: {primary: "ui-icon-disk"}});
+                {% if NoLayout == false and is_granted('ROLE_ADMIN') %}
+                $("a.button-ui-delete").button({icons: {primary: "ui-icon-trash"}}).click(function( event ) {
+                	 event.preventDefault();
+                	 id_form_delete = $(this).data('id');
+                	 $("#dialog-confirm").dialog("open");
+                });
+                {% endif %}
+                $("a.button-ui-back-list").button({icons: {primary: "ui-icon-arrowreturn-1-w"}});
+
+                $("#dialog-confirm").dialog({
+              		 autoOpen: false,
+              		 resizable: false,
+              		 height:140,
+              		 modal: true,
+              		 buttons: {
+                  		 "{{ 'pi.form.tab.box.delete'|trans }}": function() {
+                          	$('#'+id_form_delete).trigger('submit');
+                          	$( this ).dialog( "close" );
+                  		 },
+                  		 "{{ 'pi.form.tab.box.cancel'|trans }}": function() {
+                  		 	$( this ).dialog( "close" );
+                  		 }
+              		 }
+          	 	});                
 			});
-		//]]>
-		</script>
-		
+	//]]>
+	</script>
 	{% endif %}		
 		
 {% endblock %}

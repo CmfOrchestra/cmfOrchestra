@@ -194,7 +194,7 @@ class MediaType extends AbstractType
          }elseif ($this->_status == "image"){
              if ($this->_labelLink == "") $this->_labelLink = 'pi.form.label.media.picture';     
              if ($this->_context == "")    $this->_context        = 'image';
-             $builder->add('image', 'sonata_media_type', array(
+             $builder->add('image', 'orchestra_media_type', array(
                      'provider'     => 'sonata.media.provider.image',
                      'context'      => $this->_context,
                      'label'        => $this->_labelLink,

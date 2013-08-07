@@ -64,7 +64,16 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
         $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/tiny_mce/jquery.tinymce.js");
         
         // datepicker region
-        //$this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/jquery/external/cultures/globalize.cultures.js");
+        $locale = strtolower(substr($this->locale, 0, 2));
+        $root_file         = realpath($this->container->getParameter("kernel.root_dir") . "/../web/bundles/piappadmin/js/ui/i18n/jquery.ui.datepicker-{$locale}.js");
+        if (!$root_file) {
+        	$locale = "en-GB";
+        }
+        $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/ui/i18n/jquery.ui.datepicker-{$locale}.js");
+        
+        // jcrop
+        $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/jquery/jcrop/jquery.Jcrop.min.js");
+        $this->container->get('pi_app_admin.twig.extension.layouthead')->addCssFile("bundles/piappadmin/js/jquery/jcrop/jquery.Jcrop.min.css");
     }    
     
     /**
@@ -79,21 +88,27 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
     protected function render($options = null)
     {        
         // Option management
-        if (!isset($options['prototype-name']) || empty($options['prototype-name']))
+        if (!isset($options['prototype-name']) || empty($options['prototype-name'])) {
             throw ExtensionException::optionValueNotSpecified('prototype-name', __CLASS__);
-
-        if (!isset($options['prototype-tab-title']) || empty($options['prototype-tab-title']))
+        }
+        if (!isset($options['prototype-tab-title']) || empty($options['prototype-tab-title'])) {
             throw ExtensionException::optionValueNotSpecified('prototype-tab-title', __CLASS__);
-        
-        if (!isset($options['prototype-tab-idForm']) || empty($options['prototype-tab-idForm']))
+        }
+        if (!isset($options['prototype-tab-idForm']) || empty($options['prototype-tab-idForm'])) {
             $options['prototype-idForm'] = ".myform";
-        
+        }
+        // we set all roots
         $url_css  = '/css/layout.css';
         $url_root = 'http://'. $this->container->get('Request')->getHttpHost() . $this->container->get('Request')->getBasePath();
         $url_base = $url_root . "/bundles/piappadmin/js/tiny_mce";
         $root_upload = $this->container->get("kernel")->getRootDir()."/../web/uploads/tinymce/";
         $root_web = $this->container->get("kernel")->getRootDir()."/../web";
-        
+        // we set the locale date format of datepicker
+        $locale = strtolower(substr($this->locale, 0, 2));
+        $root_file         = realpath($this->container->getParameter("kernel.root_dir") . "/../web/bundles/piappadmin/js/ui/i18n/jquery.ui.datepicker-{$locale}.js");
+        if (!$root_file) {
+        	$locale = "en-GB";
+        }
         // We open the buffer.
         ob_start ();        
         ?>
@@ -111,10 +126,10 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
             
             <div id="form-error-dialog" >&nbsp;</div>
             
-            <div id="dialog-confirm" title="Empty the recycle bin?">
-				<p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
-				These items will be permanently deleted and cannot be recovered. Are you sure?</p>
-			</div>             
+            <div id="dialog-confirm" title="<?php echo $this->container->get('translator')->trans('pi.grid.action.delete.confirmation.title'); ?>">
+    		    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+    			<?php echo $this->container->get('translator')->trans('pi.grid.action.delete.confirmation.message'); ?></p>
+    		</div>			         
             
             <script type="text/javascript">
             //<![CDATA[
@@ -232,12 +247,22 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                                     $dialog.dialog('close');
                                                     return false;
                                                 });
-                                                
+
+                                                // http://jquery-ui.googlecode.com/svn/tags/1.6rc5/tests/static/icons.html
+                                                $("button.button-ui-create").button({icons: {primary: "ui-icon-circle-plus"}});
+                                                $("button.button-ui-save").button({icons: {primary: "ui-icon-disk"}});
+                                                $("a.button-ui-delete").button({icons: {primary: "ui-icon-trash"}}).click(function( event ) {
+                                                	event.preventDefault();
+                                                	id_form_delete = $(this).data('id');
+                                                	$("#dialog-confirm").dialog("open");
+                                                });
+                                                $("a.button-ui-back-list").button({icons: {primary: "ui-icon-arrowreturn-1-w"}});
+                                                                                                
                                                 // addTab button: just opens the dialog
-                                                $('#add_tab').button()
-                                                            .click(function () {
-                                                                $dialog.dialog('open');
-                                                            });
+                                                $('button.button-ui-add-tab').button({icons: {primary: "ui-icon-newwin"}}).click(function ( event ) {
+                                                    event.preventDefault();
+                                                    $dialog.dialog('open');
+                                                });
                                     
                                                 // close icon: removing the tab on click
                                                 // note: closable tabs gonna be an option in the future - see http://dev.jqueryui.com/ticket/3924
@@ -249,7 +274,11 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                                 // We run the "get start" of construction.
                                                 j_prototype_bytabs.ftc_addGetStart(name_idForm);
 
-                                                
+                                                // we remove each number of all tabs
+                                                $("[id^='"+var_prototype+"']").each(function(i){
+                                                	var currentId = $(this).attr('id');
+                                                	$(this).find('div:first-child > label').remove();
+                                                }); 
                     };
         
                     // actual addTab function: adds new tab using the title input from the form above
@@ -336,7 +365,7 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                                 $(prototype_widget + " .pi_datetimepicker").datepicker({
                                                     formatDate: 'g'
                                                 });
-                                                $.datepicker.setDefaults( $.datepicker.regional[ "<?php echo str_replace("_", "-", $this->locale); ?>" ] );
+                                                $.datepicker.setDefaults( $.datepicker.regional[ "<?php echo strtolower(substr($locale, 0, 2)); ?>" ] );
 
                                                 $("[class*='limited']").each(function(i){
                                                     var c = $(this).attr("class");
@@ -355,19 +384,7 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                                 j_prototype_bytabs.ftc_tinymce_editor_simple($(prototype_widget + " .pi_editor_simple"));
                                                 j_prototype_bytabs.ftc_tinymce_editor_simple_easy($(prototype_widget + " .pi_editor_simple_easy"));
                                                 j_prototype_bytabs.ftc_tinymce_editor_easy($(prototype_widget + " .pi_editor_easy"));
-
-                                                // http://jquery-ui.googlecode.com/svn/tags/1.6rc5/tests/static/icons.html
-                                                $("button.button-ui-create").button({icons: {primary: "ui-icon-circle-plus"}});
-                                                $("button.button-ui-save").button({icons: {primary: "ui-icon-disk"}});
-                                                $("a.button-ui-delete").button({icons: {primary: "ui-icon-trash"}}).click(function( event ) {
-                                                	 event.preventDefault();
-                                                	 id_form_delete = $(this).data('id');
-                                                	 $("#dialog-confirm").dialog("open");
-                                                });
-                                                $("a.button-ui-back-list").button({icons: {primary: "ui-icon-arrowreturn-1-w"}});
-                                                $("input[type='button']").click(function () { return false; });
                     };    
-
 
                     this.ftc_tinymce_editor = function(idObj){
                         idObj.tinymce({
@@ -701,6 +718,7 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                                                             
                     
                     // THIS FUNCTION ALLOW TO INJECT SEVERAL FIELDS IN A ACCORDION MENU.
+                    // exemple : j_prototype_bytabs.ftc_accordion_form("meta_definition", "SEO", ".myform");
                     this.ftc_accordion_form = function(className, title, idForm){
                         var tabsToProcess = $(idForm+" .ui-tabs-panel");
                         
@@ -757,8 +775,8 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                     };
                         
                         
-                    
                     // this function allow to inject several fields in a dialog.
+                    // exemple : j_prototype_bytabs.ftc_dialog_form("solution_descriptif", "Descriptif", ".myform", 400, 366, "center");			
                     this.ftc_dialog_form = function(className, title, idForm, height, width, position){
                         // We inject the testimonial fields via a dialog
                         // var button     = $("<a href='#' style='margin-right:30px' class=' dialog_link_"+className+"' title='"+title+"'>"+title+"</a>").appendTo(idForm+" fieldset"); SBLA
@@ -841,11 +859,11 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
 	               		 height:140,
 	               		 modal: true,
 	               		 buttons: {
-	                   		 "Delete all items": function() {
+	                   		 "<?php echo $this->container->get('translator')->trans('pi.form.tab.box.delete'); ?>": function() {
 	                           	$('#'+id_form_delete).trigger('submit');
 	                           	$( this ).dialog( "close" );
 	                   		 },
-	                   		 Cancel: function() {
+	                   		 "<?php echo $this->container->get('translator')->trans('pi.form.tab.box.cancel'); ?>": function() {
 	                   		 	$( this ).dialog( "close" );
 	                   		 }
 	               		 }

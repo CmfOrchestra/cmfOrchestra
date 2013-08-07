@@ -148,7 +148,7 @@ class ContentType extends AbstractType
              ))         
              ->add('content', 'textarea', array(
                     "attr" => array(
-                            "class"    =>"pi_editor",
+                            "class"    =>"pi_editor_simple_easy",
                     ),
                      'required'  => false,
                      'label'    => "pi.form.label.field.content",

@@ -1,4 +1,4 @@
-{%  initJquery 'FORM:prototype-bytab' %}
+{% initJquery 'FORM:prototype-bytab' %}
 
 {% extends app.request.attributes.get('orchestra-layout') %}
 
@@ -8,31 +8,40 @@
  
 {% block content %}
 
-	{% form_theme edit_form getParameter('pi_app_admin.layout.template.form') %}
-	<form class="myform" action="{{ path('admin_keyword_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} novalidate>
-	    {{ form_widget(edit_form) }}
-	    <p>
-	        <button type="submit">{{ 'pi.grid.action.save'|trans }}</button>
-	    </p>
-	</form>
+    {{ parent() }}
+    
+    <!-- Begin tag markup -->
+	<div id="tabs">
+		<ul><li><a href="#tabs-1" title="">{{ 'pi.form.title.default.update'|trans }}</a></li></ul>
+		{% form_theme edit_form getParameter('pi_app_admin.layout.template.form') %}
+		<form class="myform" action="{{ path('admin_keyword_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} novalidate>
+			<div id="tabs-1">
+				    {{ form_widget(edit_form) }} 
+			</div>
+		    <ul class="ui-widget-header ui-footer">
+			    <li>
+			    	<!-- <button id="add_tab" class="button-ui-add-tab">{{ 'pi.grid.action.add-tab'|trans }}</button> -->
+			    	<button type="submit" class="button-ui-save">{{ 'pi.grid.action.save'|trans }}</button>
+		            <a href="{{ path('admin_keyword') }}" class="button-ui-back-list">{{ 'pi.grid.action.back-to-the-list'|trans }}</a>
+                    {% if is_granted('ROLE_ADMIN') %} 
+		            <a data-id="delete-form" class="button-ui-delete">{{ 'pi.grid.action.delete'|trans }}</a> 
+				    {% endif %}
+			    </li>
+			</ul>		    
+		</form>
+	</div>
+	<!-- End tag markup -->
 	
-	{% set options = {'form-name': '.myform' } %}
-	{{ renderJquery('FORM', 'prototype-bytab', options )|raw }}		
+    {% if is_granted('ROLE_ADMIN') %}
+	<div style="display:none">		
+    	<form id="delete-form" action="{{ path('admin_keyword_delete', { 'id': entity.id }) }}" method="post">
+        	{{ form_widget(delete_form) }}
+        	<button type="submit">{{ 'pi.grid.action.delete'|trans }}</button>
+    	</form>
+    </div>	
+    {% endif %}		
 	
-	<ul class="ui-widget-header myform">
-	    <li>
-	        <form action="{{ path('admin_keyword') }}" method="post">
-	            <button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
-	        </form>
-	    </li>
-	    {% if is_granted('ROLE_ADMIN') %}
-	    <li>
-	        <form action="{{ path('admin_keyword_delete', { 'id': entity.id }) }}" method="post">
-	            {{ form_widget(delete_form) }}
-	            <button type="submit">{{ 'pi.grid.action.delete'|trans }}</button>
-	        </form>
-	    </li>
-	    {% endif %}
-	</ul>
+	{% set options = {'prototype-name': ['translations'], 'prototype-tab-title': 'pi.page.translation.prototype-tab-title'|trans} %}
+	{{ renderJquery('FORM', 'prototype-bytab', options )|raw }}	
 	
 {% endblock %}

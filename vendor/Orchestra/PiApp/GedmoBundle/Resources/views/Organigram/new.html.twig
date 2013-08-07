@@ -9,6 +9,8 @@
  
 {% block content %}
 
+    {{ parent() }}
+    
 	{% include 'PiAppGedmoBundle:Organigram:new_view.html.twig' with {'form':form, 'NoLayout':NoLayout} %}
 
 {% endblock %}

@@ -43,12 +43,15 @@ pi.wizard.intro: Cliquez pour sélectionner toutes les pages appartenant au stat
 pi.layout.profil_consult: Consulter mon profil  
 
 # grid
+pi.grid.action.trans: Liste des traductions
 pi.grid.action.title: Actions
 pi.grid.action.show: Voir
 pi.grid.action.edit: Editer
 pi.grid.action.update: Modifier
 pi.grid.action.save: Sauvegarder
 pi.grid.action.delete: Supprimer
+pi.grid.action.delete.confirmation.title: Confirmation de suppression
+pi.grid.action.delete.confirmation.message: Cette entitée sera définitivement supprimé et ne peut pas être récupéré. Etes-vous sûr?
 pi.grid.action.create: Créer
 pi.grid.action.validate: Valider
 pi.grid.action.back-to-the-list: Retour à la liste
@@ -90,6 +93,7 @@ pi.form.tab.box.title: Ajouter l'onglet
 pi.form.tab.box.click: Cliquez pour ajouter un nouvel onglet !
 pi.form.tab.box.add: Ajouter
 pi.form.tab.box.cancel: Annuler
+pi.form.tab.box.delete: Supprimer
 pi.form.title.default.create: Formulaire de création
 pi.form.title.default.update: Formulaire de modification
 

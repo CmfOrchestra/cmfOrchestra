@@ -113,55 +113,6 @@ class Media extends AbstractDefault
      */
     protected $mediadelete; 
 
-    
-    
-    
-    
-    /**
-     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Individual", mappedBy="media");
-     */
-    protected $individual;
-        
-    /**
-     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Corporation", mappedBy="media");
-     */
-    protected $corporation;
-    
-    /**
-     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Corporation", mappedBy="media2");
-     */
-    protected $corporation2;    
-        
-    /**
-     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Newsletter", mappedBy="media");
-     */
-    protected $newsletter;    
-    
-    /**
-     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Rss", mappedBy="media");
-     */
-    protected $rss;    
-
-    /**
-     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Ads", mappedBy="media");
-     */
-    protected $ads;
-        
-    /**
-     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Partner", mappedBy="media");
-     */
-    protected $partner;
-    
-    /**
-     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Pressrelease", mappedBy="media");
-     */
-    protected $pressrelease;
-        
-    /**
-     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\News", mappedBy="media");
-     */
-    protected $news;
-        
     /**
      * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Contact", mappedBy="media");
      */
@@ -201,11 +152,6 @@ class Media extends AbstractDefault
      * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Category", mappedBy="media");
      */
     protected $entitycategory; 
-
-    /**
-     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Team", mappedBy="media");
-     */
-    protected $team;      
     
     
     /**
@@ -378,42 +324,6 @@ class Media extends AbstractDefault
      *
      * @return \BootStrap\MediaBundle\Entity\Media
      */
-    public function getIndividual()
-    {
-        return $this->individual;
-    }
-    public function getCorporation()
-    {
-        return $this->corporation;
-    }
-    public function getCorporation2()
-    {
-        return $this->corporation2;
-    }
-    public function getNewsletter()
-    {
-        return $this->newsletter;
-    }
-    public function getRss()
-    {
-        return $this->rss;
-    }
-    public function getAds()
-    {
-        return $this->ads;
-    }    
-    public function getPartner()
-    {
-        return $this->partner;
-    }    
-    public function getPressrelease()
-    {
-        return $this->pressrelease;
-    }    
-    public function getNews()
-    {
-        return $this->news;
-    }    
     public function getContact1()
     {
         return $this->contact1;
@@ -446,20 +356,6 @@ class Media extends AbstractDefault
     {
         return $this->entitycategory;
     }
-    public function getTeam()
-    {
-        return $this->team;
-    }
-    
-    /**
-     * Set team
-     *
-     * @param \PiApp\GedmoBundle\Entity\Team $team
-     */
-    public function setTem(\PiApp\GedmoBundle\Entity\Team $team)
-    {
-        $this->team = $team;
-    }    
     
     /**
      * Set entitycategory
@@ -471,96 +367,6 @@ class Media extends AbstractDefault
         $this->entitycategory = $category;
     }   
   
-    /**
-     * Set individual
-     *
-     * @param \PiApp\GedmoBundle\Entity\Individual $individual
-     */
-    public function setIndividual(\PiApp\GedmoBundle\Entity\Individual $individual)
-    {
-        $this->individual = $individual;
-    }
-
-    /**
-     * Set corporation
-     *
-     * @param \PiApp\GedmoBundle\Entity\Corporation $corporation
-     */
-    public function setCorporation(\PiApp\GedmoBundle\Entity\Corporation $corporation)
-    {
-        $this->corporation = $corporation;
-    }
-    
-    /**
-     * Set corporation
-     *
-     * @param \PiApp\GedmoBundle\Entity\Corporation $corporation
-     */
-    public function setCorporation2(\PiApp\GedmoBundle\Entity\Corporation $corporation)
-    {
-        $this->corporation2 = $corporation;
-    }    
-
-    /**
-     * Set newsletter
-     *
-     * @param \PiApp\GedmoBundle\Entity\Newsletter $newsletter
-     */
-    public function setNewsletter(\PiApp\GedmoBundle\Entity\Newsletter $newsletter)
-    {
-        $this->newsletter = $newsletter;
-    }
-
-    /**
-     * Set rss
-     *
-     * @param \PiApp\GedmoBundle\Entity\Rss $rss
-     */
-    public function setRss(\PiApp\GedmoBundle\Entity\Rss $rss)
-    {
-        $this->rss = $rss;
-    }
-
-    /**
-     * Set ads
-     *
-     * @param \PiApp\GedmoBundle\Entity\Ads $ads
-     */
-    public function setAds(\PiApp\GedmoBundle\Entity\Ads $ads)
-    {
-        $this->ads = $ads;
-    }
-
-    /**
-     * Set partner
-     *
-     * @param \PiApp\GedmoBundle\Entity\Partner $partner
-     */
-    public function setPartner(\PiApp\GedmoBundle\Entity\Partner $partner)
-    {
-        $this->partner = $partner;
-    }
-
-    /**
-     * Set pressrelease
-     *
-     * @param \PiApp\GedmoBundle\Entity\Pressrelease $pressrelease
-     */
-    public function setPressrelease(\PiApp\GedmoBundle\Entity\Pressrelease $pressrelease)
-    {
-        $this->pressrelease = $pressrelease;
-    }
-
-    /**
-     * Set news
-     *
-     * @param \PiApp\GedmoBundle\Entity\News $news
-     */
-    public function setNews(\PiApp\GedmoBundle\Entity\News $news)
-    {
-        $this->news = $news;
-    }
-
     /**
      * Set contact1
      *

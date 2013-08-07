@@ -40,15 +40,18 @@ pi.welcome.title: أهلاً بك في Orchestra!
 pi.wizard.intro: انقر لتحديد كل الصفحات التابعة لمركز المطلوبة
 
 # Authentication
-pi.layout.profil_consult: Consulter mon profil  
+pi.layout.profil_consult: عرض صفحتي  
 
 # grid
+pi.grid.action.trans: قائمة الترجمات
 pi.grid.action.title: أعمال
 pi.grid.action.show: عرض
 pi.grid.action.edit: حرر
 pi.grid.action.update: حَدِّث
 pi.grid.action.save: احفظ
 pi.grid.action.delete: احذف
+pi.grid.action.delete.confirmation.title: حذف تأكيد
+pi.grid.action.delete.confirmation.message: سيتم حذف بشكل دائم البند له والتي لا يمكن استردادها. هل أنت متأكد؟
 pi.grid.action.create: أنشئ
 pi.grid.action.validate:  التحقق من صحة
 pi.grid.action.back-to-the-list: العودة إلى القائمة
@@ -90,6 +93,7 @@ pi.form.tab.box.title: إضافة التبويب
 pi.form.tab.box.click: انقر لإضافة علامة تبويب جديدة!
 pi.form.tab.box.add: أضف
 pi.form.tab.box.cancel: إلغاء
+pi.form.tab.box.delete: احذف
 pi.form.title.default.create: إنشاء استمارة
 pi.form.title.default.update: تحديث استمارة
 

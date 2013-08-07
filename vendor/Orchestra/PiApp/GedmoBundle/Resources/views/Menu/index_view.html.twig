@@ -29,10 +29,10 @@
 	            <td>
 	            {{ entity.title }}
 	            </td>
-	            <td class="enabled">{{ entity.enabled }}</td>	
-				<td>
-					<a href="{{ path('admin_gedmo_menu_show', { 'id': entity.id, 'NoLayout': NoLayout }) }}" title="{{ 'pi.grid.action.show'|trans }}" class="icon-3 info-tooltip" >&nbsp;</a>
-					<a href="{{ path('admin_gedmo_menu_edit', { 'id': entity.id, 'NoLayout': NoLayout }) }}" title="{{ 'pi.grid.action.edit'|trans }}" class="icon-1 info-tooltip" >&nbsp;</a>
+	            <td class="enabled" width="20px">{{ entity.enabled }}</td>	
+				<td width="130px">
+					<a href="{{ path('admin_gedmo_menu_show', { 'id': entity.id, 'NoLayout': NoLayout }) }}" title="{{ 'pi.grid.action.show'|trans }}" class="button-ui-show info-tooltip">{{ 'pi.grid.action.show'|trans }}</a>
+					<a href="{{ path('admin_gedmo_menu_edit', { 'id': entity.id, 'NoLayout': NoLayout }) }}" title="{{ 'pi.grid.action.edit'|trans }}" class="button-ui-edit info-tooltip">{{ 'pi.grid.action.edit'|trans }}</a>
 				</td>	
 	        </tr>
 	        
@@ -46,7 +46,10 @@
 	    </tbody>
 	</table>
 	
-	{% set options_gridtabale = {'grid-name': 'grid_menu', 'grid-type':'simple', 'grid-paginate':'true',
+	{% set options_gridtabale = {'grid-name': 'grid_menu', 'grid-type':'simple', 
+	    'grid-paginate':'true',
+	    'grid-LengthMenu':10,
+	    'grid-filters-active':'false',
 		'grid-filters': { 
 				'1':'Identifiant',
 				'2':'Category',

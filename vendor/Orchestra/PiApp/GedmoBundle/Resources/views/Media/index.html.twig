@@ -15,6 +15,17 @@
  
 {% block content %}
 
+    {{ parent() }}
+    
+	<!--  start actions-box ............................................... -->
+	<div id="actions-box">
+		<a href="{{ path('admin_gedmo_media_new', {'NoLayout':NoLayout, 'category':category, 'status':'file'}) }}" class="action-edit" title="">{{ 'pi.grid.action.create'|trans }} File</a>
+		<a href="{{ path('admin_gedmo_media_new', {'NoLayout':NoLayout, 'category':category, 'status':'image'}) }}" class="action-edit" title="">{{ 'pi.grid.action.create'|trans }} Image</a>
+		<a href="{{ path('admin_gedmo_media_new', {'NoLayout':NoLayout, 'category':category, 'status':'youtube'}) }}" class="action-edit" title="">{{ 'pi.grid.action.create'|trans }} Youtube</a>
+		<a href="{{ path('admin_gedmo_media_new', {'NoLayout':NoLayout, 'category':category, 'status':'dailymotion'}) }}" class="action-edit" title="">{{ 'pi.grid.action.create'|trans }} Dailymotion</a>
+		<div class="clear"></div>
+	</div>
+	<!-- end actions-box........... -->	
 	<table id="grid_media" class="grid" >
 	    <thead>
 	        <tr>	            
@@ -23,8 +34,8 @@
 	            <th>Categorie</th>         
 	            <th>Type</th>	            
 	            <th>Titre</th>	            
-	            <th>Date</th>	
 	            <th>Image</th>            
+	            <th>Date</th>	
 	            <th>Actif</th>	        	
 	            <th>Modifier</th>
 	        </tr>
@@ -57,10 +68,10 @@
 						{% endif %}
 					</td>	
 		            <td>{% if entity.publishedat %}{{ entity.publishedat|date('Y-m-d') }}{% endif%}</td>	
-		            <td class="enabled" >{{ entity.enabled}}</td>	
-					<td>
-						<a href="{{ path('admin_gedmo_media_show', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category }) }}" title="{{ 'pi.grid.action.show'|trans }}" class="icon-3 info-tooltip" >&nbsp;</a>
-	                	<a href="{{ path('admin_gedmo_media_edit', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category, 'status':entity.status }) }}" title="{{ 'pi.grid.action.edit'|trans }}" class="icon-1 info-tooltip" >&nbsp;</a>
+		            <td class="enabled" width="20px">{{ entity.enabled}}</td>	
+					<td width="130px">
+						<a href="{{ path('admin_gedmo_media_show', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category }) }}" title="{{ 'pi.grid.action.show'|trans }}" class="button-ui-show info-tooltip">{{ 'pi.grid.action.show'|trans }}</a>
+	                	<a href="{{ path('admin_gedmo_media_edit', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category, 'status':entity.status }) }}" title="{{ 'pi.grid.action.edit'|trans }}" class="button-ui-edit info-tooltip">{{ 'pi.grid.action.edit'|trans }}</a>
 					</td>	
 		        </tr>
 		        {% if num_line == 0 %} 
@@ -73,27 +84,12 @@
 	    </tbody>
 	</table>
 	
-	<!--  start actions-box ............................................... -->
-	<div id="actions-box">
-		<a href="" class="action-slider"><span>{{ 'pi.grid.action.title'|trans }}</span></a>
-		<div id="actions-box-slider">
-			{#<a href="" class="action-edit" title="{{ 'pi.grid.action.edit'|trans }}">{{ 'pi.grid.action.edit'|trans }}</a>#}
-			{#<a href="" class="action-delete" title="{{ 'pi.grid.action.delete'|trans }}">{{ 'pi.grid.action.delete'|trans }}</a>#}
-			<a href="{{ path('admin_gedmo_media_new', {'NoLayout':NoLayout, 'category':category, 'status':'file'}) }}" class="action-edit" title="{{ 'pi.grid.action.create'|trans }}">{{ 'pi.grid.action.create'|trans }} File</a>
-			<a href="{{ path('admin_gedmo_media_new', {'NoLayout':NoLayout, 'category':category, 'status':'image'}) }}" class="action-edit" title="{{ 'pi.grid.action.create'|trans }}">{{ 'pi.grid.action.create'|trans }} Image</a>
-			<a href="{{ path('admin_gedmo_media_new', {'NoLayout':NoLayout, 'category':category, 'status':'youtube'}) }}" class="action-edit" title="{{ 'pi.grid.action.create'|trans }}">{{ 'pi.grid.action.create'|trans }} Youtube</a>
-			<a href="{{ path('admin_gedmo_media_new', {'NoLayout':NoLayout, 'category':category, 'status':'dailymotion'}) }}" class="action-edit" title="{{ 'pi.grid.action.create'|trans }}">{{ 'pi.grid.action.create'|trans }} Dailymotion</a>
-		</div>
-		<div class="clear"></div>
-	</div>
-	<!-- end actions-box........... -->	
-	
 	{% set options_gridtabale = {'grid-name': 'grid_media', 'grid-type':'simple', 
 			'grid-server-side': isServerSide,
 			'grid-LengthMenu':25,
 			'grid-paginate':'true',
-			'grid-filters-select': ['0','1','2','3','4','5','6','7','8'],
 			'grid-filters-active':'true',
+			'grid-filters-select': ['0','1','2','3','4','5','6','7','8'],
 			'grid-filters': { 
 					'4':'Type',
 					'5':'Titre',

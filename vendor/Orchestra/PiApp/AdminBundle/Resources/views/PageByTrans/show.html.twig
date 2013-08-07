@@ -8,6 +8,8 @@
  
 {% block content %}
 
+    {{ parent() }}
+
 	{% include 'PiAppAdminBundle:PageByTrans:show_view.html.twig' with {'delete_form':delete_form, 'NoLayout':NoLayout, 'entity':entity} %}
 	
 {% endblock %}

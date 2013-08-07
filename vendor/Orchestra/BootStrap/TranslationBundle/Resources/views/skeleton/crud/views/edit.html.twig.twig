@@ -12,32 +12,40 @@
  
 {{ "{% block content %}" }}
 
+    {{ parent() }}
+
 	<!-- Begin tag markup -->
 	<div id="tabs">
-		<ul>
-			<li>
-				<a href="#tabs-1" title="{{ "{{ 'pi.form.title.default.update'|trans }}" }}">{{ "{{ 'pi.form.title.default.update'|trans }}" }}</a> 
-			</li>
-		</ul>
-
+		<ul><li><a href="#tabs-1" title="">{{ "{{ 'pi.form.title.default.update'|trans }}" }}</a></li></ul>
 		{{ "{% form_theme edit_form getParameter('pi_app_admin.layout.template.form') %}" }}
 		<form class="myform" action="{{ "{{ path('"~ route_name_prefix ~"_update', { 'id': entity.id, 'NoLayout': NoLayout, 'category':category }) }}" }}" method="post" {{ "{{ form_enctype(edit_form) }}" }} novalidate>
 		    <div id="tabs-1">
 		    	{{ "{{ form_widget(edit_form) }}" }}
 		    </div>
-		    <p>
-		        <!-- <input id="add_tab" type="button" value="{{ "{{ 'pi.grid.action.add-tab'|trans }}" }}" /> -->
-		        <button type="submit">{{ "{{ 'pi.grid.action.save'|trans }}" }}</button>
-		    </p>		    
+		    <ul class="ui-widget-header ui-footer">
+			    <li>
+			    	<!-- <button id="add_tab" class="button-ui-add-tab">{{ "{{ 'pi.grid.action.add-tab'|trans }}" }}</button>" /> -->
+			    	<button type="submit" class="button-ui-save">{{ "{{ 'pi.grid.action.save'|trans }}" }}</button>
+		            <a href="{{ "{{ path('"~ route_name_prefix ~"', { 'NoLayout': NoLayout, 'category':category }) }}" }}" class="button-ui-back-list">{{ "{{ 'pi.grid.action.back-to-the-list'|trans }}" }}</a>
+                    {{ "{% if NoLayout == false and is_granted('ROLE_ADMIN') %} " }} 
+		            <a data-id="delete-form" class="button-ui-delete">{{ "{{ 'pi.grid.action.delete'|trans }}" }}</a> 
+                    {{ "{% endif %}" }}
+			    </li>
+			</ul>		    		    
 		</form>
-		
 	</div>
 	<!-- End tag markup -->	
 	
-	{{ "{% set options = {'prototype-name': ['translations'], 'prototype-tab-title': 'Translate'} %}" }}
+    {{ "{% if NoLayout == false and is_granted('ROLE_ADMIN') %}" }}
+	<div style="display:none">		
+    	<form id="delete-form" action="{{ "{{ path('"~ route_name_prefix ~"_delete', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category }) }}" }}" method="post">
+                {{ '{{ form_widget(delete_form) }}' }}
+        	<button type="submit">{{ "{{ 'pi.grid.action.delete'|trans }}" }}</button>
+    	</form>
+    </div>		    
+    {{ "{% endif %}" }}	
+	
+	{{ "{% set options = {'prototype-name': ['translations'], 'prototype-tab-title': 'pi.page.translation.prototype-tab-title'|trans} %}" }}
 	{{ "{{ renderJquery('FORM', 'prototype-bytab', options )|raw }}" }}
-		
-	{% set hide_edit, hide_delete = true, false %}
-	{% include 'views/others/record_actions.html.twig.twig' %}
 
 {{ "{% endblock %}" }}		

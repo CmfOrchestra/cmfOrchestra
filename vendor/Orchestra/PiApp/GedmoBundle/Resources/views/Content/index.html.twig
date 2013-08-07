@@ -8,6 +8,8 @@
  
 {% block content %}
 
+    {{ parent() }}
+    
 	{% include 'PiAppGedmoBundle:Content:index_view.html.twig' with {'NoLayout':NoLayout, 'entities':entities, 'category':category} %}
 
 {% endblock %}

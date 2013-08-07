@@ -41,6 +41,17 @@
 
 			$(".image-fixed-left").attr('style','display:none');
 			$(".image-fixed-right").attr('style','display:none');
+
+			$("a.button-ui-exand").button({icons: {primary: "ui-icon-circle-plus"}}).click(function( event ) {
+			    event.preventDefault();
+			    accordeon_tab["0"].pr(1)
+        	});
+            $("a.button-ui-collapse").button({icons: {primary: "ui-icon-circle-minus"}}).click(function( event ) {
+			    event.preventDefault();
+			    accordeon_tab["0"].pr(-1)
+        	});
+            $("a.button-ui-back-list").button({icons: {primary: "ui-icon-arrowreturn-1-w"}});
+            $("a.button-ui-create").button({icons: {primary: "ui-icon-plus"}});			
 		});
 
 	//]]>
@@ -56,11 +67,27 @@
 				</td>
 				<td>
 					<button type="submit" style="font-size:10px;" >OK</button>
-				</td>				
+				</td>		
+				<td>&nbsp;&nbsp;&nbsp;</td>
+				<td>
+		            <a href='' class="button-ui-exand">Exand All</a>
+				</td>
+				<td>&nbsp;&nbsp;&nbsp;</td>
+                <td>
+		            <a href='' class="button-ui-collapse">Collapse All</a>	
+				</td>
+				<td>&nbsp;&nbsp;&nbsp;</td>
+                <td>
+		            <a href="{{ path("admin_gedmo_organigram", { 'NoLayout':NoLayout}) }}" class="button-ui-back-list">{{ 'pi.dashboard.menu4.menu'|trans }} Management</a>		
+				</td>
+				<td>&nbsp;&nbsp;&nbsp;</td>
+                <td>
+		            <a href="{{ path('admin_gedmo_organigram_new', {'NoLayout':NoLayout}) }}" class="button-ui-create">{{ 'pi.grid.action.create'|trans }}</a>		
+				</td>
 		    </tr>
 		</table>		
 	</form>	
-
+	
 	<br />
 	
 	{% if tree %}
@@ -70,13 +97,9 @@
 	{% else %}
 		<div class="alert-message info"><p>There are no nodes in tree to display</p></div>
 	{% endif %}
-
+	
 	{% set options_tiny = {'id': 'acc_'} %}
-	{{ renderJquery('ACCORDEON', 'tiny', options_tiny )|raw }}
-		
-	<div class="tinyoptions">
-		<a href="{{ path("admin_gedmo_organigram", { 'NoLayout':NoLayout}) }}" >{{ 'pi.dashboard.menu4.organigram'|trans }} Management</a>
-	</div>	
+	{{ renderJquery('ACCORDEON', 'tiny', options_tiny )|raw }}	
 	
 	{% if (NoLayout != true) %}
 		{% set options_chartpage = {

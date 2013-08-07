@@ -8,6 +8,15 @@
  
 {% block content %}	
 
+    {{ parent() }}
+    
+	<!--  start actions-box ............................................... -->
+	<div id="actions-box">
+		<a href="{{ path('admin_snippet_new') }}" class="action-edit">{{ 'pi.grid.action.create'|trans }}</a>
+		<div class="clear"></div>
+	</div>
+	<!-- end actions-box........... -->
+	
 	<table id="grid_snippet">
 	    <thead>
 	        <tr>
@@ -29,10 +38,10 @@
 	            <td>{{ entity.plugin }}</td>
 	            <td>{{ entity.action }}</td>
 	            <td>{{ entity.configXml|limite('0', 25) }}</td>
-	            <td class="enabled" >{{ entity.enabled }}</td>
-	            <td>
-					<a href="{{ path('admin_snippet_show', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.show'|trans }}" class="icon-3 info-tooltip">&nbsp;</a>
-					<a href="{{ path('admin_snippet_edit', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.edit'|trans }}" class="icon-1 info-tooltip">&nbsp;</a>
+	            <td class="enabled" width="20px">{{ entity.enabled }}</td>
+	            <td width="130px">
+					<a href="{{ path('admin_snippet_show', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.show'|trans }}" class="button-ui-show info-tooltip">{{ 'pi.grid.action.show'|trans }}</a>
+					<a href="{{ path('admin_snippet_edit', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.edit'|trans }}" class="button-ui-edit info-tooltip">{{ 'pi.grid.action.edit'|trans }}</a>
 	            </td>
 	        </tr>
 	        {% if num_line == 0 %} 
@@ -44,18 +53,6 @@
 	    </tbody>
 	</table>
 
-	<!--  start actions-box ............................................... -->
-	<div id="actions-box">
-		<a href="" class="action-slider"><span>{{ 'pi.grid.action.title'|trans }}</span></a>
-		<div id="actions-box-slider">
-			{#<a href="" class="action-edit">{{ 'pi.grid.action.edit'|trans }}</a>#}
-			{#<a href="" class="action-delete">{{ 'pi.grid.action.delete'|trans }}</a>#}
-			<a href="{{ path('admin_snippet_new') }}" class="action-edit">{{ 'pi.grid.action.create'|trans }}</a>
-		</div>
-		<div class="clear"></div>
-	</div>
-	<!-- end actions-box........... -->
-	
 	{% set options_gridtabale = {'grid-name': 'grid_snippet', 'grid-type':'simple', 
 		'grid-filters': {
 				'1':'Identifiant',

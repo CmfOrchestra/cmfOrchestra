@@ -21,10 +21,10 @@
 	            <td>{{ entity.configCssClass }}</td>
 	            <td>{{ entity.configXml|limite('0', 25) }}</td>
 	            <td>{% if entity.createdat %}{{ entity.createdat|date('Y-m-d') }}{% endif%}</td>
-	            <td class="enabled" >{{ entity.enabled }}</td>
-	            <td>
-					<a href="{{ path('admin_blockbywidget_show', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.show'|trans }} Widgets" class="icon-3 info-tooltip">&nbsp;</a>
-					<a href="{{ path('admin_blockbywidget_edit', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.edit'|trans }} Widgets" class="icon-1 info-tooltip">&nbsp;</a>
+	            <td class="enabled" width="20px">{{ entity.enabled }}</td>
+	            <td width="130px">
+					<a href="{{ path('admin_blockbywidget_show', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.show'|trans }} Widgets" class="button-ui-show info-tooltip">{{ 'pi.grid.action.show'|trans }}</a>
+					<a href="{{ path('admin_blockbywidget_edit', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.edit'|trans }} Widgets" class="button-ui-edit info-tooltip">{{ 'pi.grid.action.edit'|trans }}</a>
 	            </td>
 	        </tr>
 	        {% if num_line == 0 %} 

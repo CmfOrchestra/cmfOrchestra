@@ -34,6 +34,7 @@
     height: 16px;
     padding: 0;margin:0;
     margin-left: 7px;
+    text-decoration: none;
  }
 
  /* WIDGET --------------------------------------------------------*/
@@ -60,6 +61,7 @@
     height: 16px;
     padding: 0;margin:0;
     margin-left: 7px;
+    text-decoration: none;
   }
  .widget_action_move_up{
     background:url(../../images/icons/widget/move-up.png) no-repeat top left;

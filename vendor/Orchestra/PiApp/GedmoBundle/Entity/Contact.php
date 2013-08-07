@@ -76,14 +76,6 @@ class Contact extends AbstractDefault
     protected $category;   
     
     /**
-     * @var \PiApp\GedmoBundle\Entity\Ads $ads
-     * 
-     * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Ads", inversedBy="responses", cascade={"persist"})
-     * @ORM\JoinColumn(name="ads", referencedColumnName="id", nullable=true)
-     */
-    protected $ads;    
-    
-    /**
      * @var string $name
      *
      * @ORM\Column(name="name", type="text", nullable = true)
@@ -325,27 +317,6 @@ class Contact extends AbstractDefault
     public function getCategory()
     {
         return $this->category;
-    }    
-    
-    /**
-     * Set Ads
-     *
-     * @param string \PiApp\GedmoBundle\Entity\Ads $Ads
-     */
-    public function setAds(\PiApp\GedmoBundle\Entity\Ads $Ads)
-    {
-        $this->ads = $Ads;
-        return $this;
-    }
-    
-    /**
-     * Get Ads
-     *
-     * @return string
-     */
-    public function getAds()
-    {
-        return $this->ads;
     }    
     
     /**

@@ -393,24 +393,24 @@ abstract class CoreListener extends abstractListener
     {
         $entity_page    = $eventArgs->getEntity();
         $entityManager     = $eventArgs->getEntityManager();
-    
         // we set the persist of the Page entity
-        if ($entity_page instanceof \PiApp\AdminBundle\Entity\Page){
+        if ($entity_page instanceof \PiApp\AdminBundle\Entity\Page) {
             $isflash = false;
             if (
                     ($eventArgs->hasChangedField('route_name') && ($eventArgs->getOldValue('route_name') == 'home_page'))
                     ||
                     ($entity_page->getRouteName() == 'home_page')
-            ){
+            ) {
                 $entity_page->setRouteName('home_page');
-                   $entity_page->setEnabled(true);
-                   $entity_page->setMetaContentType(PageRepository::TYPE_TEXT_HTML);
-    
-                $isflash = true;
+                $entity_page->setEnabled(true);
+                $entity_page->setMetaContentType(PageRepository::TYPE_TEXT_HTML);
             }
-    
-            if ($isflash)
+            if ($eventArgs->hasChangedField('route_name') && ($eventArgs->getOldValue('route_name') == 'home_page')) {
+                $isflash = true;                
+            }
+            if ($isflash) {
                 $this->setFlash('pi.session.flash.right.homepage.notchange', 'warning');
+            }
         }
     }
     
@@ -432,35 +432,30 @@ abstract class CoreListener extends abstractListener
     {
         $entity            = $eventArgs->getEntity();
         $entityManager     = $eventArgs->getEntityManager();
-    
         if ( ($entity instanceof \PiApp\AdminBundle\Entity\Page)
-                && ($entity->getRouteName() == 'home_page' )){
+                && ($entity->getRouteName() == 'home_page' )) {
             $entityManager->getUnitOfWork()->detach($entity);
             $this->setFlash('pi.session.flash.right.homepage.undelete');
         }
-    
         if ( ($entity instanceof \PiApp\AdminBundle\Entity\TranslationPage)
                 && ($entity->getPage() instanceof \PiApp\AdminBundle\Entity\Page)
-                && ($entity->getPage()->getRouteName() == 'home_page' ) ){
+                && ($entity->getPage()->getRouteName() == 'home_page' ) ) {
             $entityManager->getUnitOfWork()->detach($entity);
             $this->setFlash('pi.session.flash.right.homepage.undelete');
         }
-    
         if ( ($entity instanceof \PiApp\AdminBundle\Entity\Block)
                 && ($entity->getPage() instanceof \PiApp\AdminBundle\Entity\Page)
-                && ($entity->getPage()->getRouteName() == 'home_page' )){
+                && ($entity->getPage()->getRouteName() == 'home_page' )) {
             $entityManager->getUnitOfWork()->detach($entity);
             $this->setFlash('pi.session.flash.right.homepage.undelete');
         }
-    
         $is_permission_delete_widget_homepage = $this->_container()->getParameter('pi_app_admin.page.homepage_deletewidget');
-    
         // if we want to undelete all widgets of the home page
         if ( !$is_permission_delete_widget_homepage
                 && ($entity instanceof \PiApp\AdminBundle\Entity\Widget)
                 && ($entity->getBlock() instanceof \PiApp\AdminBundle\Entity\Block)
                 && ($entity->getBlock()->getPage() instanceof \PiApp\AdminBundle\Entity\Page)
-                && ($entity->getBlock()->getPage()->getRouteName() == 'home_page' )){
+                && ($entity->getBlock()->getPage()->getRouteName() == 'home_page' )) {
             $entityManager->getUnitOfWork()->detach($entity);
             $this->setFlash('pi.session.flash.right.homepage.undelete');
         }
@@ -481,24 +476,21 @@ abstract class CoreListener extends abstractListener
     final protected function _Delete_Permission_Page_ByUser(LifecycleEventArgs $eventArgs){
         $entity         = $eventArgs->getEntity();
         $entityManager     = $eventArgs->getEntityManager();
-    
-           // If  autentication user and the user has the permission to delete a page
-           if ( $this->isUsernamePasswordToken() && (in_array('DELETE', $this->getUserPermissions()) || in_array('ROLE_SUPER_ADMIN', $this->getUserRoles())) ) {
-               
-               $no_permission  = $this->_permission_management_Page_ByUser($eventArgs);
-               
-               if ($no_permission){
-                   $entityManager->getUnitOfWork()->detach($entity);                
-                   $this->setFlash('pi.session.flash.right.page.management_by_user_only', 'only');
-               } else {    
-                   if ($entity instanceof \PiApp\AdminBundle\Entity\Page){                
+        // If  autentication user and the user has the permission to delete a page
+        if ( $this->isUsernamePasswordToken() && (in_array('DELETE', $this->getUserPermissions()) || in_array('ROLE_SUPER_ADMIN', $this->getUserRoles())) ) {
+           $no_permission  = $this->_permission_management_Page_ByUser($eventArgs);
+           if ($no_permission) {
+               $entityManager->getUnitOfWork()->detach($entity);                
+               $this->setFlash('pi.session.flash.right.page.management_by_user_only', 'only');
+           } else {    
+               if ($entity instanceof \PiApp\AdminBundle\Entity\Page){                
                     // if we try to delete a page other than the home page.
-                    if ($entity->getRouteName() != 'home_page' ){
+                    if ($entity->getRouteName() != 'home_page' ) {
                         // we delete the row in relation with the pi_routing table
                         $query     = "SELECT id FROM pi_routing WHERE route = ?";
                         $id     = $this->_connexion($eventArgs)->fetchColumn($query, array($entity->getRouteName()));
                         $this->_connexion($eventArgs)->delete('pi_routing', array('id'=>$id));
-        
+                    
                         // we delete all caches of the page
                         $all_lang    = $this->getRepository('Langue')->findByEnabled(true);
                         foreach($all_lang as $key => $lang){
@@ -509,9 +501,9 @@ abstract class CoreListener extends abstractListener
                             }
                         }
                     }
-                   }
-               }   
-           }
+               }
+           }   
+        }
     }        
     
     /**
@@ -530,14 +522,13 @@ abstract class CoreListener extends abstractListener
         $entity            = $eventArgs->getEntity();
         $entityManager     = $eventArgs->getEntityManager();        
         $no_permission  = $this->_permission_management_Page_ByUser($eventArgs);
-        
-        if ($no_permission){
+        if ($no_permission) {
             $class = $entityManager->getClassMetadata(get_class($entity));
             $entityManager->getUnitOfWork()->computeChangeSet($class, $entity);
         
             $this->setFlash('pi.session.flash.right.page.management_by_user_only', 'only');
         } else {
-            if ($entity instanceof \PiApp\AdminBundle\Entity\Page){
+            if ($entity instanceof \PiApp\AdminBundle\Entity\Page) {
                 // if we try to delete a page other than the home page.
                 if (($entity->getRouteName() != 'home_page' ) && ($eventArgs->hasChangedField('route_name'))){
                     // we delete the row in relation with the pi_routing table
@@ -564,8 +555,7 @@ abstract class CoreListener extends abstractListener
     {
         $entity            = $eventArgs->getEntity();
         $entityManager     = $eventArgs->getEntityManager();        
-           $no_permission  = $this->_permission_management_Page_ByUser($eventArgs);
-    
+        $no_permission  = $this->_permission_management_Page_ByUser($eventArgs);
         if ($no_permission){
             $entityManager->getUnitOfWork()->scheduleOrphanRemoval($entity);
             $this->setFlash('pi.session.flash.right.page.management_by_user_only', 'only');
@@ -587,9 +577,7 @@ abstract class CoreListener extends abstractListener
     {
         $entity            = $eventArgs->getEntity();
         $entityManager     = $eventArgs->getEntityManager();
-        
         $is_permission_management_page_by_user_only = $this->_container()->getParameter('pi_app_admin.page.management_by_user_only');
-        
         if ($this->isUsernamePasswordToken() && $is_permission_management_page_by_user_only) {
             switch (true) {
                 case ( ($entity instanceof \PiApp\AdminBundle\Entity\Page)
@@ -639,8 +627,9 @@ abstract class CoreListener extends abstractListener
                         $no_permission = false;
                         break;                    
             } 
-        }else
+        } else {
             $no_permission = false;
+        }
        
         return $no_permission;
     }    
@@ -660,36 +649,32 @@ abstract class CoreListener extends abstractListener
     {
         $entity_page    = $eventArgs->getEntity();
         $entityManager     = $eventArgs->getEntityManager();
-    
         // If  autentication user
         if ( $this->isUsernamePasswordToken() 
             && ($entity_page instanceof \PiApp\AdminBundle\Entity\Page) 
             && ($entity_page->getLayout() instanceof \PiApp\AdminBundle\Entity\Layout)){
-    
                     $layout_blocks    = (string) $entity_page->getLayout()->getConfigXml();
-                    
                     // if the configXml field of the layout entity isn't configured correctly.
                     try {
                         $layout_blocks    = new \Zend_Config_Xml($layout_blocks);
                     } catch (\Exception $e) {
                         $layout_blocks = null;
                     }                    
-                    
                     if (is_object($layout_blocks->get('blocks')) && $layout_blocks->get('blocks') && $layout_blocks->blocks->get('name')){
                         $layout_blocks    = $layout_blocks->blocks->name->toArray();
-                    }else 
+                    } else { 
                         $layout_blocks = null;
-
-                    if (!is_null($layout_blocks)){
+                    }
+                    if (!is_null($layout_blocks)) {
                         // we get all block names information of the page entity.
                         $page_blocks    = $entity_page->getBlocks()->toArray();
                         $page_blocks_name = array();
-                        foreach($page_blocks as $k=>$v){
+                        foreach($page_blocks as $k=>$v) {
                             $page_blocks_name[] = $v->getName();
                         }                            
                         // we create all the blocks that have not already been created.
-                        foreach($layout_blocks as $key => $block_name){
-                            if (!in_array($block_name, $page_blocks_name)){
+                        foreach($layout_blocks as $key => $block_name) {
+                            if (!in_array($block_name, $page_blocks_name)) {
                                 $entity_block = new Block();
                                 $entity_block->setCreatedAt(new \DateTime(date('Y-m-d')));
                                 $entity_block->setUpdatedAt(new \DateTime(date('Y-m-d')));
@@ -725,7 +710,7 @@ abstract class CoreListener extends abstractListener
         $no_permission    = false;
         
         // If  autentication user
-        if ( $this->isUsernamePasswordToken() ){
+        if ( $this->isUsernamePasswordToken() ) {
             switch (true) {
                 default:
                     $page = null;
@@ -737,43 +722,40 @@ abstract class CoreListener extends abstractListener
                     $page = $entity->getPage();
                     break;
             } // end switch
-            
-            if (is_null($page))
+            if (is_null($page)) {
                 return $no_permission;
-            
+            }
             if ( ($page instanceof \PiApp\AdminBundle\Entity\Page) 
-                    && ( !$page->getTranslations()->isEmpty() )){
-                    
-                    // we delete all references of the page in the index file.
-                    $this->_container()->get('pi_app_admin.manager.search_lucene')->deletePage($page);                    
-                    
-                    // we get all urls of a page
-                    $locales              = $this->_container()->get('pi_app_admin.manager.page')->getUrlByPage($page, 'sql');
-                    $no_permission_urls = null;
-                    $route_page         = $page->getRouteName();
-                    // we select all rows which contain the url value
-                    foreach($locales as $key => $value){
-                        // if the urls of the page are not those of the home page.
-                        if (!empty($value)){
-                            $query     = "SELECT id, locales FROM pi_routing WHERE locales LIKE '%$value%' AND route != '$route_page' ";
-                            $rows     = $this->_connexion($eventArgs)->fetchAll($query);
-                            
-                            foreach($rows as $row){
-                                $locales = json_decode($row['locales']);
-                                foreach($locales as $lang => $slug){
-                                    $value    = str_replace("\\\\\\\\\/", "/", $value);
-                                    if ($slug == $value){
-                                        $no_permission            = true;
-                                        $no_permission_urls[]     = '« ' . str_replace("\\\\\\\\\/", "/", $value) . ' »';
-                                    }                                    
-                                }
+                && ( !$page->getTranslations()->isEmpty() )) {
+                
+                // we delete all references of the page in the index file.
+                $this->_container()->get('pi_app_admin.manager.search_lucene')->deletePage($page);                    
+                
+                // we get all urls of a page
+                $locales              = $this->_container()->get('pi_app_admin.manager.page')->getUrlByPage($page, 'sql');
+                $no_permission_urls = null;
+                $route_page         = $page->getRouteName();
+                // we select all rows which contain the url value
+                foreach($locales as $key => $value){
+                    // if the urls of the page are not those of the home page.
+                    if (!empty($value)){
+                        $query     = "SELECT id, locales FROM pi_routing WHERE locales LIKE '%$value%' AND route != '$route_page' ";
+                        $rows     = $this->_connexion($eventArgs)->fetchAll($query);
+                        
+                        foreach($rows as $row){
+                            $locales = json_decode($row['locales']);
+                            foreach($locales as $lang => $slug){
+                                $value    = str_replace("\\\\\\\\\/", "/", $value);
+                                if ($slug == $value){
+                                    $no_permission            = true;
+                                    $no_permission_urls[]     = '« ' . str_replace("\\\\\\\\\/", "/", $value) . ' »';
+                                }                                    
                             }
                         }
                     }
+                }
             } // endif
-            
         } // endif
-        
         // If one of the urls of the page already existe, we forbid those registrations.
         if ($no_permission){
             switch (true) {
@@ -786,12 +768,10 @@ abstract class CoreListener extends abstractListener
                     $entity->setSlug('undefined-value');
                 break;
             }         
-        
             $urls = implode(', ', $no_permission_urls);
             $message = $this->_container()->get('translator')->trans('pi.session.flash.page.slug.exist', array('url'=> $urls));
             $this->setFlash($message, 'only');
         }
-        
     }   
     
     /**
@@ -809,10 +789,8 @@ abstract class CoreListener extends abstractListener
     {
         $entity            = $eventArgs->getEntity();
         $entityManager     = $eventArgs->getEntityManager();
-        
         // We check the permission in config.
         $is_indexation_authorized = $this->_container()->getParameter('pi_app_admin.page.indexation_authorized_automatically');
-        
         if ($this->isUsernamePasswordToken() && $is_indexation_authorized) {
             switch (true) {
                 default:
@@ -840,10 +818,9 @@ abstract class CoreListener extends abstractListener
                             $page = null;                        
                         break;
             } 
-            
-            if (is_null($page))
-                return false;        
-    
+            if (is_null($page)) {
+                return false;    
+            }    
             switch ($action) {
                 case ('insert') :
                     $this->_container()->get('pi_app_admin.manager.search_lucene')->indexPage($page);
@@ -859,9 +836,7 @@ abstract class CoreListener extends abstractListener
                     break; 
             }
         }
-
     }
-  
     
     /**
      * We register in the cache the route of the page
@@ -877,15 +852,14 @@ abstract class CoreListener extends abstractListener
     final protected function _updateCacheUrlGenerator(LifecycleEventArgs $eventArgs)
     {
         $entity            = $eventArgs->getEntity();
-        
         if ( $this->isUsernamePasswordToken() 
                 && ($entity instanceof \PiApp\AdminBundle\Entity\Page) 
                 && $entity->getEnabled() 
                 && !$entity->getTranslations()->isEmpty() ){
-        }elseif ($entity instanceof \PiApp\AdminBundle\Entity\TranslationPage){
-        }else
+        } elseif ($entity instanceof \PiApp\AdminBundle\Entity\TranslationPage) {
+        } else {
             return false;
-        
+        }
         $routeCacheManager = $this->_container()->get('bootstrap.route_cache');
         $routeCacheManager->setGenerator();
         $routeCacheManager->setMatcher();
@@ -906,7 +880,6 @@ abstract class CoreListener extends abstractListener
     {
         $entity            = $eventArgs->getEntity();
         $entityManager     = $eventArgs->getEntityManager();
-        
         // we set the persist of the Page entity
         if ( $this->isUsernamePasswordToken() && $entity instanceof TranslationPage){
             if ($eventArgs->hasChangedField('status')) {
@@ -917,7 +890,6 @@ abstract class CoreListener extends abstractListener
                 $historicalStatus->setComment('Historical status change');
                 $historicalStatus->setCreatedAt(new \DateTime());
                 $historicalStatus->setEnabled(true);
-                
                 // we add the entity to be persisted.
                 $this->_addPersistEntities($historicalStatus);
             }

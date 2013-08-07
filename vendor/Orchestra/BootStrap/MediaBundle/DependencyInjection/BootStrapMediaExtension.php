@@ -34,5 +34,8 @@ class BootStrapMediaExtension extends Extension{
         
         $loaderXml = new Loader\XmlFileLoader($container, new FileLocator(realpath(__DIR__ . '/../Resources/config/service')));
         $loaderXml->load('security.xml');
+        
+        $loaderXmlForm = new Loader\XmlFileLoader($container, new FileLocator(realpath(__DIR__ . '/../Resources/config')));
+        $loaderXmlForm->load('form.xml');
     }
 }

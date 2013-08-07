@@ -48,17 +48,16 @@ class BootStrapUserBundle extends Bundle
     public function build(ContainerBuilder $container)
     {
         parent::build($container);
-        //print_r('UserBundle-PiApptest1   ');
-        
         // we get the heritage.jon file if it's created
         $path_heritages_file         = realpath($container->getParameter("kernel.cache_dir"). '/../heritage.json');
         if ($path_heritages_file){
             $roles_json = file_get_contents($path_heritages_file);
-        }else
+        } else {
             $roles_json = '';
-        
+        }
+        // we inject all roles in the role_hierarchy param
         $heritage_role  = json_decode($roles_json);
-        if (is_object($heritage_role)){
+        if (is_object($heritage_role)) {
             $heritage_role  = get_object_vars($heritage_role->HERITAGE_ROLES);
         } else {
             $heritage_role  = array(
@@ -80,8 +79,6 @@ class BootStrapUserBundle extends Bundle
                     'ROLE_SUPER_ADMIN'         => array('ROLE_ADMIN', 'ROLE_ALLOWED_TO_SWITCH', 'ROLE_SONATA_ADMIN', 'SONATA'),
             );
         }
-        //print_r($heritage_role);exit;
-
         // Security
         $container->loadFromExtension('security', array(
                 'role_hierarchy' => $heritage_role,

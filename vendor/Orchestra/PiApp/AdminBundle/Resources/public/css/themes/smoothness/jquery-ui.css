@@ -236,6 +236,9 @@ button.ui-button::-moz-focus-inner {
 	padding: .2em .2em 0;
 	display: none;
 }
+.ui-datepicker-calendar{
+	background-color: #D8D8D8;
+}
 .ui-datepicker .ui-datepicker-header {
 	position: relative;
 	padding: .2em 0;
@@ -775,7 +778,8 @@ button.ui-button::-moz-focus-inner {
 .ui-tabs .ui-tabs-panel {
 	display: block;
 	border-width: 0;
-	padding: 1em 1.4em;
+	/*padding: 1em 1.4em;*/
+	padding: 0.1em;
 	background: none;
 }
 body .ui-tooltip {
@@ -808,7 +812,7 @@ body .ui-tooltip {
 }
 .ui-widget-header {
 	/*border: 1px solid #aaaaaa;*/
-	background: #E3E3E3 url(images/ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 50% repeat-x;
+	background: #CCCCCC url(images/ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 0% repeat-x;
 	color: #222222;
 	font-weight: bold;
 }
@@ -838,7 +842,7 @@ body .ui-tooltip {
 .ui-state-focus,
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
-	border: 1px solid #999999;
+	/*border: 1px solid #999999;*/
 	background: #dadada url(images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x;
 	font-weight: normal;
 	color: #212121;
@@ -853,7 +857,7 @@ body .ui-tooltip {
 .ui-state-active,
 .ui-widget-content .ui-state-active,
 .ui-widget-header .ui-state-active {
-	border: 1px solid #aaaaaa;
+	/*border: 1px solid #aaaaaa;*/
 	/*background: #ffffff url(images/ui-bg_glass_65_ffffff_1x400.png) 50% 50% repeat-x;*/
 	font-weight: normal;
 	color: #212121;
@@ -1175,15 +1179,32 @@ body .ui-tooltip {
 	border-radius: 8px;
 }
 
-/* OPTIONAL SET VENEER */
-.ui-veneer .ui-veneer-header {
-    -webkit-transition: background 0.5s linear;
-    -moz-transition: background 0.5s linear;
-    -o-transition: background 0.5s linear;
-    transition: background 0.5s linear;
+.ui-multiselect-menu {
+    background: #D8D8D8;
 }
+
+/* OPTIONAL SET VENEER */
 .ui-veneer .ui-veneer-header:hover {
     background: #CDCCCC; /* #5B3C11 */
 }
 .ui-veneer .ui-state-default span {
+}
+
+/* SET PROCESSING */
+.dataTables_processing{
+    background-color: #dbdbdb;
+    color: #424242;
+
+    -moz-box-shadow: 0px 0px 9px #000000;
+    -webkit-box-shadow: 0px 0px 9px #000000;
+    box-shadow: 0px 0px 9px #000000;
+
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#ffffff', endColorstr = '#dbdbdb');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr = '#ffffff', endColorstr = '#dbdbdb')";
+    background-image: -moz-linear-gradient(top, #ffffff, #dbdbdb);
+    background-image: -ms-linear-gradient(top, #ffffff, #dbdbdb);
+    background-image: -o-linear-gradient(top, #ffffff, #dbdbdb);
+    background-image: -webkit-gradient(linear, center top, center bottom, from(#ffffff), to(#dbdbdb));
+    background-image: -webkit-linear-gradient(top, #ffffff, #dbdbdb);
+    background-image: linear-gradient(top, #ffffff, #dbdbdb);
 }

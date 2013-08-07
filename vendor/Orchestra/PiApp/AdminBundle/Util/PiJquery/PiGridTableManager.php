@@ -228,7 +228,10 @@ class PiGridTableManager extends PiJqueryExtension
                     var <?php echo $options['grid-name']; ?>oTable;
                     var envelopeConf = $.fn.dataTable.Editor.display.envelope.conf;
                     envelopeConf.attach = 'head';
-                    envelopeConf.windowScroll = false;                    
+                    envelopeConf.windowScroll = false;       
+
+                    $("a.button-ui-show").button({icons: {primary: "ui-icon-show"}});
+                    $("a.button-ui-edit").button({icons: {primary: "ui-icon-edit"}});
 
                     $("td.enabled").each(function(index) {
                         var value = $(this).html();
@@ -343,7 +346,6 @@ class PiGridTableManager extends PiJqueryExtension
                         "sAjaxSource": "<?php echo $this->container->get('request')->getRequestUri(); ?>",
                         "sServerMethod": "POST",
                         "fnInfoCallback": function( oSettings, iStart, iEnd, iMax, iTotal, sPre ) {  
-                            console.log('coincoin');
                             $("a.info-tooltip").tooltip({
                                 position: {
                                     track: true,
@@ -353,7 +355,9 @@ class PiGridTableManager extends PiJqueryExtension
                                 content: function () {
                                       return $(this).prop('title');
                                   }                            
-                          });
+                            });
+                            $("a.button-ui-show").button({icons: {primary: "ui-icon-show"}});
+                            $("a.button-ui-edit").button({icons: {primary: "ui-icon-edit"}});
                         },                                               
                         <?php endif; ?>                         
 

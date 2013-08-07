@@ -67,7 +67,16 @@ class PiFormSimpleManager extends PiJqueryExtension
         $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/tiny_mce/jquery.tinymce.js");
         
         // datepicker region
-        //$this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/jquery/external/cultures/globalize.cultures.js");
+        $locale = strtolower(substr($this->locale, 0, 2));
+        $root_file         = realpath($this->container->getParameter("kernel.root_dir") . "/../web/bundles/piappadmin/js/ui/i18n/jquery.ui.datepicker-{$locale}.js");
+        if (!$root_file) {
+        	$locale = "en-GB";
+        }
+        $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/ui/i18n/jquery.ui.datepicker-{$locale}.js");
+        
+        // jcrop
+        $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/jquery/jcrop/jquery.Jcrop.min.js");
+        $this->container->get('pi_app_admin.twig.extension.layouthead')->addCssFile("bundles/piappadmin/js/jquery/jcrop/jquery.Jcrop.min.css");        
     }    
     
     /**
@@ -91,10 +100,10 @@ class PiFormSimpleManager extends PiJqueryExtension
         // We open the buffer.
         ob_start ();        
         ?>        
-            <div id="dialog-confirm" title="Empty the recycle bin?">
-				<p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
-				These items will be permanently deleted and cannot be recovered. Are you sure?</p>
-			</div>			
+            <div id="dialog-confirm" title="<?php echo $this->container->get('translator')->trans('pi.grid.action.delete.confirmation.title'); ?>">
+    		    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+    			<?php echo $this->container->get('translator')->trans('pi.grid.action.delete.confirmation.message'); ?></p>
+    		</div>		
 			        
             <script type="text/javascript">
             //<![CDATA[
@@ -532,11 +541,11 @@ class PiFormSimpleManager extends PiJqueryExtension
 	               		 height:140,
 	               		 modal: true,
 	               		 buttons: {
-	                   		 "Delete all items": function() {
+	                   		 "<?php echo $this->container->get('translator')->trans('pi.form.tab.box.delete'); ?>": function() {
 	                           	$('#'+id_form_delete).trigger('submit');
 	                           	$( this ).dialog( "close" );
 	                   		 },
-	                   		 Cancel: function() {
+	                   		 "<?php echo $this->container->get('translator')->trans('pi.form.tab.box.cancel'); ?>": function() {
 	                   		 	$( this ).dialog( "close" );
 	                   		 }
 	               		 }
@@ -580,6 +589,7 @@ class PiFormSimpleManager extends PiJqueryExtension
                     $("<?php echo $options['form-name']; ?> .pi_datetimepicker").datepicker({
                         formatDate: 'g'
                     });
+                    $.datepicker.setDefaults( $.datepicker.regional[ "<?php echo strtolower(substr($locale, 0, 2)); ?>" ] );
 
                     $("[class*='limited']").each(function(i){
                         var c = $(this).attr("class");

@@ -1,30 +1,21 @@
 	<!-- Begin tag markup -->
 	<div id="tabs">
-		<ul>
-			<li><a href="#tabs-1">{{ 'pi.content.translation.title'|trans }}</a></li>
-		</ul>
-
+        <ul><li><a href="#tabs-1" title="">{{ 'pi.form.title.default.create'|trans }}</a></li></ul>
 		{% form_theme form getParameter('pi_app_admin.layout.template.form') %}
 		<form class="myform" action="{{ path('admin_gedmo_content_create', {'NoLayout': NoLayout, 'category':category}) }}" method="post" {{ form_enctype(form) }} novalidate>
 		    <div id="tabs-1">
 		    	{{ form_widget(form) }}
 		    </div>
-		    <p>
-		        <!-- <input id="add_tab" type="button" value="{{ 'pi.grid.action.add-tab'|trans }}" /> -->
-		        <button type="submit">{{ 'pi.grid.action.create'|trans }}</button>
-		    </p>		    
+		    <ul class="ui-widget-header ui-footer">
+			    <li>
+			    	<!-- <input id="add_tab" type="button" value="{{ 'pi.grid.action.add-tab'|trans }}" /> -->
+			    	<button type="submit" class="button-ui-create">{{ 'pi.grid.action.create'|trans }}</button>
+		            <a href="{{ path('admin_gedmo_content', {'NoLayout': NoLayout, 'category':category}) }}" class="button-ui-back-list">{{ 'pi.grid.action.back-to-the-list'|trans }}</a>
+			    </li>
+			</ul>		    	    
 		</form>
-		
 	</div>
 	<!-- End tag markup -->	
 	
-	{% set options = {'prototype-name': ['translations'], 'prototype-tab-title': 'Translate'} %}
-	{{ renderJquery('FORM', 'prototype-bytab', options )|raw }}		
-		
-	<ul class="ui-widget-header">
-		<li>
-	        <form action="{{ path('admin_gedmo_content', {'NoLayout': NoLayout, 'category':category}) }}" method="post">
-	            <button type="submit">{{ 'pi.grid.action.back-to-the-list'|trans }}</button>
-	        </form>	        
-		</li>
-	</ul>
+	{% set options = {'prototype-name': ['translations'], 'prototype-tab-title': 'pi.page.translation.prototype-tab-title'|trans} %}
+	{{ renderJquery('FORM', 'prototype-bytab', options )|raw }}

@@ -14,10 +14,13 @@
 {% endblock %}
  
 {% block content %}
+
+    {{ parent() }}
+    
 	{% if NoLayout == false %}
 	<!--  start actions-box ............................................... -->
 	<div id="actions-box">
-		<a href="{{ path('admin_word') }}" class="action-edit" title="{{ 'Retour'|trans }}">{{ 'Retour'|trans }}</a>
+		<a href="{{ path('admin_word') }}" class="action-back-list" title="{{ 'Retour'|trans }}">{{ 'Retour'|trans }}</a>
 		<div class="clear"></div>	
 	</div>
 	<!-- end actions-box........... -->

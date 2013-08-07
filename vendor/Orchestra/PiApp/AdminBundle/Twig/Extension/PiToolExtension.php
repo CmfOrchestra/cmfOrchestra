@@ -519,19 +519,29 @@ class PiToolExtension extends \Twig_Extension
      * translation of date.
      *
      * @author riad hellal <r.hellal@novediagroup.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    public function getDatePatternByLocalFunction($locale, $dir='/web/bundles/piappadmin/js/jquery/external/cultures/', $fileName = 'cultures_date.json')
+    public function getDatePatternByLocalFunction($locale, $fileName = 'i18n_date.json')
     {
-        // $isGood = $this->updateCulturesJsFilesFunction($dir, $fileName);
-    
+        $root_file         = realpath($this->container->getParameter("kernel.cache_dir") . '/../'.$fileName);
+        if (!$root_file) {
+        	$isGood = $this->updateCulturesJsFilesFunction($fileName);
+        	$root_file  = realpath($this->container->getParameter("kernel.cache_dir") . '/../'.$fileName);
+        }
+        // we parse the data file of all formats
         $dates         = array();
-        $root_file  = $this->container->get("kernel")->getRootDir() .'/../'. $dir . $fileName;
         $dates        = json_decode(file_get_contents($root_file));
-    
+        // we set the locale value
+        $locale = strtolower(substr($locale, 0, 2));
+        $root_file         = realpath($this->container->getParameter("kernel.root_dir") . "/../web/bundles/piappadmin/js/ui/i18n/jquery.ui.datepicker-{$locale}.js");
+        if (!$root_file) {
+        	$locale = "en-GB";
+        }
+        // we return the locale format of the date
         if (isset($dates->{$locale})) {
             return $dates->{$locale};
         } else {
-            return "MM/dd/yyyy";
+            return "dd/MM/yy";  // "MM/dd/yyyy";
         }
     }
     
@@ -539,35 +549,28 @@ class PiToolExtension extends \Twig_Extension
      * parsing translaion js files.
      *
      * @author riad hellal <r.hellal@novediagroup.com>
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    private function updateCulturesJsFilesFunction($dir='/web/bundles/piappadmin/js/wijmo/external/cultures/', $fileName = 'cultures_date.json')
+    private function updateCulturesJsFilesFunction($fileName = 'i18n_date.json')
     {
-        $root_dir = $this->container->get("kernel")->getRootDir() .'/../'. $dir;
-    
-        $MyDirectory = opendir($root_dir) or die('Erreur');
-        $fp = fopen($root_dir.$fileName, 'w');
+        $root_dir = realpath($this->container->getParameter("kernel.cache_dir"). '/../');
+        $rout_i18n_files = realpath($this->container->getParameter("kernel.root_dir") . "/../web/bundles/piappadmin/js/ui/i18n/");
+        $MyDirectory = opendir($rout_i18n_files) or die('Erreur');
+        $fp = fopen($root_dir.'/'.$fileName, 'w');
         while($Entry = @readdir($MyDirectory)) {
             if ($Entry != '.' && $Entry != '..') {
-                $ch = file_get_contents($root_dir.$Entry, FILE_USE_INCLUDE_PATH);
-                    
-                preg_match('/Globalize.addCultureInfo\(((.+)\})\);/is', $ch, $match);
-    
-                $strm = $match[1];
-                preg_match('/(.+), (\{(.+)\})/is', $strm, $tabres);
-                $str = $tabres[2];
-                preg_match('/d: \"(.+)\"/', $str, $es);
-    
-                $tabln =  explode( ',', $tabres[1] ) ;
-                if ($es){
-                    $ln =  trim(str_replace('"', '', $tabln[0])) ;
-                    $ln =  str_replace('-', '_', $ln) ;
-                    $posts[$ln] =  $es[1];
-    
+                $ch = file_get_contents($rout_i18n_files."/".$Entry, FILE_USE_INCLUDE_PATH);
+                preg_match('/dateFormat:([ ]*)\'(.+)\',/', $ch, $match);
+                preg_match('#datepicker.regional\[[\'"]{1}(?P<value>(.*))[\'"]{1}\]#sU', $ch, $locale);
+                if (isset($locale['value'])) {
+                    $ln = $locale['value'];
+                } else {
+                    print_r($rout_i18n_files."/".$Entry);exit;
                 }
-                    
+                
+                $posts[$ln] =  str_replace('m','M',$match[2]);
             }
         }
-    
         fwrite($fp, json_encode($posts));
         fclose($fp);
         closedir($MyDirectory);

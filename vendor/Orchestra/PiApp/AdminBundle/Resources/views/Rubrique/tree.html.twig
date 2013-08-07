@@ -10,6 +10,8 @@
 
 {% block content %}
 
+    {{ parent() }}
+    
 	{% include 'PiAppAdminBundle:Rubrique:tree_view.html.twig' with {'NoLayout':NoLayout, 'tree':tree} %}
 		
 {% endblock %}

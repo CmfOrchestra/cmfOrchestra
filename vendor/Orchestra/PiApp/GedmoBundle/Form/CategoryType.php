@@ -61,10 +61,6 @@ class CategoryType extends AbstractType
                                         3=>"pi.category.type.3", 
                                         4=>"pi.category.type.4", 
                                         5=>"pi.category.type.5", 
-                                        6=>"pi.category.type.6", 
-                                        7=>"pi.category.type.7", 
-                                        8=>"pi.category.type.8", 
-                                        9=>"pi.category.type.9"
                                     ),
                     'label'    => 'pi.page.form.status',
                     'required'  => true,

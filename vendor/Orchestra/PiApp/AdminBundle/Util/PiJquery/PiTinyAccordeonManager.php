@@ -64,50 +64,44 @@ class PiTinyAccordeonManager extends PiJqueryExtension
     protected function render($options = null)
     {        
         // Options management
-        if (!isset($options['id']) || empty($options['id']))
+        if (!isset($options['id']) || empty($options['id'])) {
             throw ExtensionException::optionValueNotSpecified('id', __CLASS__);
-        
-        
+        }
+        if (!isset($options['menu']) || ($options['menu'] == false) ) {
+        	$options['menu'] = false;
+        }
         $Urlpath_Moins     = $this->container->get('templating.helper.assets')->getUrl('bundles/piappadmin/images/icons/tree/moins.png');
         $Urlpath_Plus     = $this->container->get('templating.helper.assets')->getUrl('bundles/piappadmin/images/icons/tree/plus.png');
-
         // We open the buffer.
         ob_start ();        
         ?>
-        
+            <?php if ($options['menu']): ?>
             <div class="tinyoptions">
                 <a href='javascript:accordeon_tab["0"].pr(1)'>Exand All</a> | <a href='javascript:accordeon_tab["0"].pr(-1)'>Collapse All</a>
             </div>
-    
+            <?php endif; ?>
        
             <script type="text/javascript">
             //<![CDATA[
-            
                 var accordeon_tab = [];
                 //var array           = new Array();
-
                 $("#tree ul.acc").each(function(index) {
                         $(this).attr('id','acc_'+index);
                         accordeon_tab[index] = 'acc_'+index;
                 });
-
                 for (Val in accordeon_tab){ 
                     //var tinyy = new TINY.accordion.slider("acc_"+Val);
                     //console.log(array[Val]);
                     //array.push(tinyy);
                     //array[Val].init('acc_'+Val,"h3",0,0);
-
                     var id_name = accordeon_tab[Val];            
                     accordeon_tab[Val] = new TINY.accordion.slider("accordeon_tab["+Val+"]");
                     accordeon_tab[Val].init(id_name,"h3",0,0);
-                    
                 }
                 //var Accordion0=new TINY.accordion.slider("Accordion0");
                 //Accordion0.init("acc_0","h3",0,0);
-    
                 //var Accordion1=new TINY.accordion.slider("Accordion1");
                 //Accordion1.init("acc_1","h3",0,0);        
-                
                 jQuery(document).ready(function() {
                     // preload img
                     var moins = '<?php echo $Urlpath_Moins; ?>';
@@ -129,10 +123,8 @@ class PiTinyAccordeonManager extends PiJqueryExtension
                     });
                             
                 });
-
             //]]>
             </script>
-            
         <?php 
         // We retrieve the contents of the buffer.
         $_content = ob_get_contents ();

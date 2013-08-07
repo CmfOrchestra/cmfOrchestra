@@ -113,7 +113,7 @@ class OrganigramType extends AbstractType
             ->add('content', 'textarea', array(
                     'label'    => "pi.form.label.field.content",
                     "attr" => array(
-                            "class"    =>"pi_editor",
+                            "class"    =>"pi_editor_simple_easy",
                     ),
             ))            
             ->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'))

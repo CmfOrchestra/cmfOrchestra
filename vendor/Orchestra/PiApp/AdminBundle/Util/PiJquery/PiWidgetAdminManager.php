@@ -76,8 +76,8 @@ class PiWidgetAdminManager extends PiJqueryExtension
         ob_start ();        
         ?>
             <script id="adminblockTemplate" type="text/x-jquery-tmpl">
-            <h5 class='block_action_menu' > 
-                 <a href='#' class='block_action_admin'    data-action='admin'        data-id='${id}' title='<?php echo $this->translator->trans("pi.admin"); ?>' >&nbsp;</a> 
+            <h5 class='block_action_menu' >
+                <a href='#' class='block_action_admin'    data-action='admin'        data-id='${id}' title='<?php echo $this->translator->trans("pi.admin"); ?>' >&nbsp;</a>
                 <a href='#' class='block_action_import'    data-action='import'    data-id='${id}' title='<?php echo $this->translator->trans("pi.allwidgets"); ?>' >&nbsp;</a>
             </h5>
             </script>

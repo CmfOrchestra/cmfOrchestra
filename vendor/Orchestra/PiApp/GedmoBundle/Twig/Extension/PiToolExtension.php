@@ -65,7 +65,7 @@ class PiToolExtension extends \Twig_Extension
      */
     public function getFunctions() {
         return array(
-                'getProfilByUser'        => new \Twig_Function_Method($this, 'getProfilByUserFunction'),
+                //'getName'        => new \Twig_Function_Method($this, 'getNameFunction'),
         );
     }
     
@@ -74,18 +74,4 @@ class PiToolExtension extends \Twig_Extension
      * Functions
      */
         
-    public function getProfilByUserFunction($idUser) {
-        $locale         = $this->container->get('request')->getLocale();
-            
-        $Individual  = $this->container->get('doctrine')->getManager()->getRepository("PiAppGedmoBundle:Individual")->findOneByUser($idUser, $locale);
-        $Corporation = $this->container->get('doctrine')->getManager()->getRepository("PiAppGedmoBundle:Corporation")->findOneByUser($idUser, $locale);
-        
-        if (!is_null($Individual))
-            return $Individual;
-        elseif (!is_null($Corporation))
-            return $Corporation;
-        else 
-            return null; 
-    }
-
 }

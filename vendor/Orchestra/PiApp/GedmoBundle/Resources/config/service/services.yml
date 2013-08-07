@@ -1,5 +1,6 @@
 parameters:
     piapp.gedmo.repository.class: PiApp\GedmoBundle\Repository\Repository
+    pi_app_gedmo.translation.event_subscriber.bundle.class: PiApp\GedmoBundle\EventSubscriber\EventSubscriberBundle
     
 services:
     #
@@ -12,3 +13,8 @@ services:
     #
     # configuration of the event subscriber of entities
     #
+    pi_app_gedmo.event_subscriber.bundle:
+        class: %pi_app_gedmo.translation.event_subscriber.bundle.class%
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_subscriber }  

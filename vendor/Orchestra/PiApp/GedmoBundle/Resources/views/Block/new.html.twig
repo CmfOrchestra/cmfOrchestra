@@ -12,6 +12,8 @@
  
 {% block content %}
 
+    {{ parent() }}
+    
 	<!-- Begin tag markup -->
 	<div id="tabs">
 		<ul><li><a href="#tabs-1" title="{{ 'pi.form.title.default.create'|trans }}">{{ 'pi.form.title.default.create'|trans }}</a></li></ul>
@@ -31,7 +33,7 @@
 	</div>
 	<!-- End tag markup -->	
 	
-	{% set options = {'prototype-name': ['translations'], 'prototype-tab-title': 'Translate'} %}
+	{% set options = {'prototype-name': ['translations'], 'prototype-tab-title': 'pi.page.translation.prototype-tab-title'|trans} %}
 	{{ renderJquery('FORM', 'prototype-bytab', options )|raw }}
 		
 	<script type="text/javascript">

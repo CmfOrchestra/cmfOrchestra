@@ -55,27 +55,6 @@ class User extends BaseUser
      */
     protected $nickname;    
     
-    /**
-     * @var array of \Doctrine\Common\Collections\ArrayCollection newsletters
-     *
-     * @ORM\ManyToMany(targetEntity="PiApp\GedmoBundle\Entity\Newsletter", mappedBy="users")
-     */
-    protected $newsletters;
-    
-    /**
-     * @var \Doctrine\Common\Collections\ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Ads", mappedBy="user", cascade={"all"})
-     */
-    protected $ads;  
-
-    /**
-     * @var array of \Doctrine\Common\Collections\ArrayCollection $rssneeds
-     *
-     * @ORM\ManyToMany(targetEntity="PiApp\GedmoBundle\Entity\Rss", mappedBy="users")
-     */
-    protected $rssneeds;    
-
      /**
      * @ORM\ManyToMany(targetEntity="BootStrap\UserBundle\Entity\Group")
      * @ORM\JoinTable(name="fos_user_group",
@@ -92,20 +71,6 @@ class User extends BaseUser
      * @ORM\JoinColumn(name="lang_code", referencedColumnName="id", nullable=true)
      */
     protected $langCode; 
-    
-    /**
-     * @var \PiApp\GedmoBundle\Entity\Individual $individual
-     *
-     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Individual", mappedBy="user")
-     */
-    protected $individual;    
-    
-    /**
-     * @var \PiApp\GedmoBundle\Entity\Corporation $corporation
-     *
-     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Corporation", mappedBy="user")
-     */
-    protected $corporation;    
     
     /**
      * @var array
@@ -134,13 +99,7 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-        
         $this->groups        = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->newsletters    = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->typocommissions    = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->events    = new \Doctrine\Common\Collections\ArrayCollection();      
-        $this->rssneeds        = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->ads          = new \Doctrine\Common\Collections\ArrayCollection();
     }    
     
     /**
@@ -175,47 +134,6 @@ class User extends BaseUser
     }
 
     /**
-     * Add newsletters
-     *
-     * @param \PiApp\GedmoBundle\Entity\Newsletter $newsletters
-     */
-    public function addNewsletter(\PiApp\GedmoBundle\Entity\Newsletter $newsletters)
-    {
-        $newsletters->addUser($this);
-        $this->newsletters[] = $newsletters;
-    }
-    
-    /**
-     * Remove newsletter
-     *
-     * @param \PiApp\GedmoBundle\Entity\Newsletter $newsletter
-     */
-    public function removeNewsletter(\PiApp\GedmoBundle\Entity\Newsletter $newsletter)
-    {
-       return $newsletter->removeUser($this);
-    }
-
-    /**
-     * Add ads
-     *
-     * @param \PiApp\GedmoBundle\Entity\Ads $ads
-     */
-    public function addAds(\PiApp\GedmoBundle\Entity\Ads $ads)
-    {
-        $this->ads[] = $ads;
-    }
-    
-    /**
-     * Get all ads
-     *
-     * @return \Doctrine\Common\Collections\ArrayCollection
-     */
-    public function getAds()
-    {
-        return $this->ads;
-    }
-    
-    /**
      * Get groups
      *
      * @return \Doctrine\Common\Collections\ArrayCollection
@@ -233,7 +151,6 @@ class User extends BaseUser
     public function setPermissions(array $permissions)
     {
         $this->permissions = array();
-    
         foreach ($permissions as $permission) {
             $this->addPermission($permission);
         }
@@ -247,7 +164,6 @@ class User extends BaseUser
     public function getPermissions()
     {
         $permissions = $this->permissions;
-    
         // we need to make sure to have at least one role
         $permissions[] = PermissionRepository::ShowDefaultPermission();
     
@@ -262,7 +178,6 @@ class User extends BaseUser
     public function addPermission($permission)
     {
         $permission = strtoupper($permission);
-
         if (!in_array($permission, $this->permissions, true)) {
             $this->permissions[] = $permission;
         }
@@ -276,7 +191,6 @@ class User extends BaseUser
     public function removePermission($permission)
     {
         $permission = strtoupper($permission);
-    
         if (in_array($permission, $this->permissions, true)) {
             $key = array_search($permission, $this->permissions);
             unset($this->permissions[$key]);
@@ -294,7 +208,6 @@ class User extends BaseUser
         if ($role === static::ROLE_DEFAULT) {
             return;
         }
-    
         if (!in_array($role, $this->roles, true)) {
             $this->roles[] = $role;
         }
@@ -310,11 +223,9 @@ class User extends BaseUser
     public function getRoles()
     {
         $roles = $this->roles;
-    
         foreach ($this->getGroups() as $group) {
             $roles = array_merge($roles, $group->getRoles());
         }
-        
         // we need to make sure to have at least one role
         $roles[] = static::ROLE_DEFAULT;
         
@@ -340,46 +251,6 @@ class User extends BaseUser
     {
         return $this->langCode;
     }
-    
-    /**
-     * Get newsletters
-     *
-     * @return \Doctrine\Common\Collections\ArrayCollection
-     */
-    public function getNewsletters()
-    {
-        return $this->newsletters;
-    }
-    
-    /**
-     * Get rssneeds
-     *
-     * @return \Doctrine\Common\Collections\ArrayCollection
-     */
-    public function getRssneeds()
-    {
-        return $this->rssneeds;
-    }    
-    
-    /**
-     * Get corporation
-     *
-     * @return \PiApp\GedmoBundle\Entity\Corporation
-     */
-    public function getCorporation()
-    {
-        return $this->corporation;
-    }   
-
-    /**
-     * Get individual
-     *
-     * @return \PiApp\GedmoBundle\Entity\Individual
-     */
-    public function getIndividual()
-    {
-        return $this->individual;
-    }    
     
     /**
      * Set name
@@ -441,6 +312,5 @@ class User extends BaseUser
     {
         return $this->created_at;
     }    
-    
 
 }

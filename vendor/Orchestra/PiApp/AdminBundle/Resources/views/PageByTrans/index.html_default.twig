@@ -42,10 +42,10 @@
 	            <td>{{ entity.lifetime }}</td>
 	            <td class="enabled">{{ entity.enabled }}</td>
 	            <td>
-					<a href="{{ path('admin_pagebytrans_show', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.show'|trans }} Trans" class="icon-3 info-tooltip">&nbsp;</a>
-					<a href="{{ path('admin_pagebytrans_edit', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.edit'|trans }} Trans" class="icon-1 info-tooltip">&nbsp;</a>
-					<a href="{{ path('admin_pagebyblock_show', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.show'|trans }} Block" class="icon-3 info-tooltip">&nbsp;</a>
-					<a href="{{ path('admin_pagebyblock_edit', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.edit'|trans }} Block" class="icon-1 info-tooltip">&nbsp;</a>
+					<a href="{{ path('admin_pagebytrans_show', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.show'|trans }} Trans" class="button-ui-show info-tooltip">{{ 'pi.grid.action.show'|trans }}</a>
+					<a href="{{ path('admin_pagebytrans_edit', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.edit'|trans }} Trans" class="button-ui-edit info-tooltip">{{ 'pi.grid.action.edit'|trans }}</a>
+					<a href="{{ path('admin_pagebyblock_show', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.show'|trans }} Block" class="button-ui-show info-tooltip">{{ 'pi.grid.action.show'|trans }}</a>
+					<a href="{{ path('admin_pagebyblock_edit', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.edit'|trans }} Block" class="button-ui-edit info-tooltip">{{ 'pi.grid.action.edit'|trans }}</a>
 	            </td>
 	        </tr>
 	        {% if num_line == 0 %} 

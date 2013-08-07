@@ -64,7 +64,7 @@
 .pi_default_tree{
 	width:auto;
 	height: auto;	
-	z-index: 9999;
+	z-index: 9998;
 }
 #table-content .pi_default_tree{
 	/*-moz-box-shadow: 0 0 30px #999 inset;

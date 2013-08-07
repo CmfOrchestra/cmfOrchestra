@@ -14,6 +14,8 @@ namespace PiApp\AdminBundle\EventListener;
 
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Cookie;
 
 use PiApp\AdminBundle\Lib\Browscap;
 use PiApp\AdminBundle\Lib\MobileDetect;
@@ -68,20 +70,31 @@ class RequestListener
         $request     = $event->getRequest($event);
         $locale        = $request->getLocale();
         $globals     = $this->container->get("twig")->getGlobals();
-        // we get params        
-        $this->date_expire        = $this->container->getParameter('pi_app_admin.cookies.date_expire');
-        $this->date_interval    = $this->container->getParameter('pi_app_admin.cookies.date_interval');
         // we set the browser information
-        $browser    =    $this->browscap->getBrowser();
-//         if ($this->date_expire && !empty($this->date_interval)) {
-//             $dateExpire = new \DateTime("NOW");
-//             $dateExpire->add(new \DateInterval($this->date_interval)); // we add 4 hour
+//         if (!$request->cookies->has('orchestra-browser')) {
+//             // we get params
+//             $this->date_expire        = $this->container->getParameter('pi_app_admin.cookies.date_expire');
+//             $this->date_interval    = $this->container->getParameter('pi_app_admin.cookies.date_interval');
+//             // we get Browser info
+//             $browser = $this->browscap->getBrowser();
+//             if ($this->date_expire && !empty($this->date_interval)) {
+//                 $dateExpire = new \DateTime("NOW");
+//                 $dateExpire->add(new \DateInterval($this->date_interval)); // we add 4 hour
+//             } else {
+//                 $dateExpire = 0;
+//             }
+//             // we save brwoser in cookies
+//             if (!$event->hasResponse()) {
+//                 $event->setResponse(new Response);
+//             }
+//             $event->getResponse()->headers->setCookie(new Cookie('orchestra-browser', serialize($browser), $dateExpire));
 //         } else {
-//             $dateExpire = 0;
+//             $browser = unserialize($request->cookies->get('orchestra-browser'));
 //         }
+        $browser = $this->browscap->getBrowser();
         // we add browser info in the request
         $request->attributes->set('orchestra-browser', $browser);
-        $request->attributes->set('orchestra-mobiledetect', $this->mobiledetect);
+        $request->attributes->set('orchestra-mobiledetect', $this->mobiledetect);        
         // we stop the website content if the navigator is not configurate correctly.
         $nav_desktop    = strtolower($browser->Browser);
         $nav_mobile        = strtolower($browser->Platform);
@@ -122,14 +135,11 @@ class RequestListener
             $response     = $this->container->get('templating')->renderResponse('PiAppTemplateBundle:Template\\Nonav:nonav.html.twig', array('locale' => $locale, 'isCookies'=>$isCookies, 'isJs'=>$isJs, 'isNav'=>$isNav), $response);
             $event->setResponse($response);
         } else {
-            // we add browser info in the request
-            $request->attributes->set('orchestra-browser', $browser);
-            $request->attributes->set('orchestra-mobiledetect', $this->mobiledetect);
             // we add orchestra-layout info in the request
             if ($request->cookies->has('orchestra-layout')){
                 $request->attributes->set('orchestra-layout', $request->cookies->get('orchestra-layout'));
             }
-            $request->attributes->set('orchestra-screen', "layout");                
+            $request->attributes->set('orchestra-screen', "layout"); 
         }
     }     
 }

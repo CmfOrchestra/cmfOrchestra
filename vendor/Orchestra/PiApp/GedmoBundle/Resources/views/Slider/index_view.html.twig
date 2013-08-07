@@ -38,10 +38,10 @@
 	            <td>{{ entity.subtitle}}</td>	            
 	            <td>{% if entity.publishedat %}{{ entity.publishedat|date('Y-m-d') }}{% endif%}</td>
 	        	<td  class="position" >{{ entity.position }}</td>	
-	            <td class="enabled">{{ entity.enabled }}</td>	
-				<td>
-					<a href="{{ path('admin_gedmo_slider_show', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category }) }}" title="{{ 'pi.grid.action.show'|trans }}" class="icon-3 info-tooltip" >&nbsp;</a>
-					<a href="{{ path('admin_gedmo_slider_edit', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category }) }}" title="{{ 'pi.grid.action.edit'|trans }}" class="icon-1 info-tooltip" >&nbsp;</a>
+	            <td class="enabled" width="20px">{{ entity.enabled }}</td>	
+				<td width="130px">
+					<a href="{{ path('admin_gedmo_slider_show', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category }) }}" title="{{ 'pi.grid.action.show'|trans }}" class="button-ui-show info-tooltip">{{ 'pi.grid.action.show'|trans }}</a>
+					<a href="{{ path('admin_gedmo_slider_edit', { 'id': entity.id, 'NoLayout':NoLayout, 'category':category }) }}" title="{{ 'pi.grid.action.edit'|trans }}" class="button-ui-edit info-tooltip">{{ 'pi.grid.action.edit'|trans }}</a>
 				</td>	
 	        </tr>
 	        {% if num_line == 0 %} 
@@ -55,7 +55,9 @@
 	</table>
 
 	{% set options_gridtabale = {'grid-name': 'grid_slider', 'grid-type':'simple', 
-		'grid-paginate':'false',
+	    'grid-paginate':'true',
+	    'grid-LengthMenu':10,
+	    'grid-filters-active':'false',
 		'grid-filters': {
 				'1':'Position',
 				'2':'Identifiant',

@@ -9,6 +9,8 @@
  
 {% block content %}
 
+    {{ parent() }}
+    
 	{% include 'PiAppGedmoBundle:Menu:new_view.html.twig' with {'form':form, 'NoLayout':NoLayout} %}
 
 {% endblock %}

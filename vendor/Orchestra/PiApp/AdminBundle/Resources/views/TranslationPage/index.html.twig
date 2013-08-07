@@ -25,10 +25,10 @@
 	            <td>{{ entity.titre }}</td>
 	            <td>{% if entity.createdat %}{{ entity.createdat|date('Y-m-d') }}{% endif%}</td>
 	            <td>{% if entity.publishedat %}{{ entity.publishedat|date('Y-m-d') }}{% endif%}</td>
-	            <td class="enabled" >{{ entity.enabled }}</td>
-	            <td>
-					<a href="{{ path('admin_transpage_show', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.show'|trans }}" class="icon-3 info-tooltip">&nbsp;</a>
-					<a href="{{ path('admin_transpage_edit', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.edit'|trans }}" class="icon-1 info-tooltip">&nbsp;</a>
+	            <td class="enabled" width="20px">{{ entity.enabled }}</td>
+	            <td width="130px">
+					<a href="{{ path('admin_transpage_show', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.show'|trans }}" class="button-ui-show info-tooltip">{{ 'pi.grid.action.show'|trans }}</a>
+					<a href="{{ path('admin_transpage_edit', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.edit'|trans }}" class="button-ui-edit info-tooltip">{{ 'pi.grid.action.edit'|trans }}</a>
 	            </td>
 	        </tr>
 	        {% if num_line == 0 %} 

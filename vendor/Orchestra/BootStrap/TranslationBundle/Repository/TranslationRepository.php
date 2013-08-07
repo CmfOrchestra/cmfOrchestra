@@ -601,27 +601,30 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
     {
         $query = $this->createQueryBuilder('a')->select('a');
          
-        if (!empty($ORDER_PublishDate) && !empty($ORDER_Position)){
+        if (!empty($ORDER_PublishDate) && !empty($ORDER_Position)) {
             $query
             ->orderBy('a.published_at', $ORDER_PublishDate)
             ->addOrderBy('a.position', $ORDER_Position);
-        }elseif (!empty($ORDER_PublishDate) && empty($ORDER_Position)){
+        } elseif (!empty($ORDER_PublishDate) && empty($ORDER_Position)) {
             $query
             ->orderBy('a.published_at', $ORDER_PublishDate);
-        }elseif (empty($ORDER_PublishDate) && !empty($ORDER_Position)){
+        } elseif (empty($ORDER_PublishDate) && !empty($ORDER_Position)) {
             $query
             ->orderBy('a.position', $ORDER_Position);
         }
-
         foreach ($fields as $key => $value) {
-            $query
-            ->andWhere("a.{$key} LIKE '{$value}'");
-        }
-         
-        if (!is_null($MaxResults))
+        	if (is_int($value)) {
+        		$query->andWhere("a.{$key} = $value");
+        	} else {
+        		$query->andWhere("a.{$key} LIKE '{$value}'");
+        	}
+        }        
+        if (!is_null($MaxResults)) {
             $query->setMaxResults($MaxResults);
-        if ($is_checkRoles)
+        }
+        if ($is_checkRoles) {
             $query = $this->checkRoles($query);
+        }
     
         return $query;
     }
