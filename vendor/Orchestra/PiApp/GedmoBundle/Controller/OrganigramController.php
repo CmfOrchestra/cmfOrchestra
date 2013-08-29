@@ -385,7 +385,7 @@ class OrganigramController extends abstractController
         if (!$NoLayout)     $template = "tree.html.twig"; else $template = "tree_ajax.html.twig";
         
         // from search category management        
-        $form_search    = $this->createForm(new CategorySearchForm($em, "organigram"));
+        $form_search    = $this->createForm(new CategorySearchForm($em, "organigram", $this->container));
         $data = array();
         $data['category'] = $category;
         $form_search->setData($data);

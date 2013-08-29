@@ -403,7 +403,7 @@ class MenuController extends abstractController
         if (!$NoLayout)     $template = "tree.html.twig"; else $template = "tree_ajax.html.twig";
 
         // from search category management
-        $form_search        = $this->createForm(new CategorySearchForm($em, "menu"));
+        $form_search        = $this->createForm(new CategorySearchForm($em, "menu", $this->container));
         $data                 = array();
         $data['category']     = $em->getRepository("PiAppGedmoBundle:Category")->find($category);
         

@@ -98,6 +98,8 @@ class ContentType extends AbstractType
             ->add('category', 'entity', array(
                     'class' => 'PiAppGedmoBundle:Category',
                      'query_builder' => function(EntityRepository $er) {
+                         $translatableListener = $this->_container->get('gedmo.listener.translatable');
+                         $translatableListener->setTranslationFallback(true);
                          return $er->createQueryBuilder('k')
                          ->select('k')
                          ->where('k.type = :type')

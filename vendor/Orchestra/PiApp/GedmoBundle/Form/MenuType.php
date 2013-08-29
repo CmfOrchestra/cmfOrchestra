@@ -60,6 +60,8 @@ class MenuType extends AbstractType
             ->add('category', 'entity', array(
                     'class' => 'PiAppGedmoBundle:Category',
                     'query_builder' => function(EntityRepository $er) {
+                        $translatableListener = $this->_container->get('gedmo.listener.translatable');
+                        $translatableListener->setTranslationFallback(true);
                         return $er->createQueryBuilder('k')
                         ->select('k')
                         ->where('k.type = :type')
@@ -78,7 +80,9 @@ class MenuType extends AbstractType
              ->add('parent', 'entity', array(
                     'class' => 'PiAppGedmoBundle:Menu',
                     'query_builder' => function(EntityRepository $er) {
-                    return $er->createQueryBuilder('k')
+                        $translatableListener = $this->_container->get('gedmo.listener.translatable');
+                        $translatableListener->setTranslationFallback(true);
+                        return $er->createQueryBuilder('k')
                         ->select('k')
                         ->orderBy('k.lft', 'ASC');
                     },

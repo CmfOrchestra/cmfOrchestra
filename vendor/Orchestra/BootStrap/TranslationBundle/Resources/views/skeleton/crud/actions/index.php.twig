@@ -92,7 +92,7 @@
         }
         
         if (!$is_Server_side) {
-           $entities    = $em->getRepository("{{ bundle }}:{{ entity }}")->findTranslationsByQuery($locale, $query->getQuery(), 'object', false);
+           $entities    = $em->getRepository("{{ bundle }}:{{ entity }}")->findTranslationsByQuery($locale, $query->getQuery(), 'object', false, true);
         } else {
            $entities   = null;
         }    	

@@ -26,13 +26,11 @@
     	<!--  Meta core -->
         {% block global_meta %}{% endblock %}         
         
-        <!--  Css core -->
+        <!--  Css core ['php', 'yui', 'file', 'array', 'empty'] -->
         {% stylesheet "bundles/piappadmin/css/layout/screen-layout-global.css:prepend" %}
         {% if is_granted('ROLE_USER') %}
-        {% stylesheet getParameter('pi_app_admin.admin.theme_css')~":prepend" %}
+            {% stylesheet getParameter('pi_app_admin.admin.theme_css')~":prepend" %}
         {% endif %}
-        
-        
         {% if (is_granted('ROLE_USER')) %}
    			{% CMFstylesheets 'file' %}
    		{% else %}	
@@ -44,17 +42,16 @@
 			<script type="text/javascript" src="/bundles/piappadmin/js/html5shiv/html5shiv-printshiv.js"></script>
 		<![endif]-->        
         
-        <!--  Js core -->
+        <!--  Js core ['php', 'yui', 'file', 'array', 'empty'] -->
    		{% javascript "bundles/piappadmin/js/ui/jquery-ui-1.10.3.custom.min.js:prepend" %}
-		{% javascript "bundles/piappadmin/js/jquery/jquery-migrate-1.2.1.min.js:prepend" %}
-   		{% javascript "bundles/piappadmin/js/jquery/jquery-2.0.2.min.js:prepend" %}
-		
+   		{% javascript "bundles/piappadmin/js/jquery/jquery-migrate-1.2.1.min.js:prepend" %}
+   		{% javascript "bundles/piappadmin/js/jquery/jquery-2.0.3.min.js:prepend" %}
 		{% if (is_granted('ROLE_USER')) %}
    			{% CMFjavascripts 'file' %}
    		{% else %}	
 			{% CMFjavascripts 'php' %}
-   		{% endif %}	
-   		
+   		{% endif %}
+   			
         <!--  script divers -->
         {% block global_script_divers %}
         {% endblock %}                

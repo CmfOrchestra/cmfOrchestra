@@ -63,7 +63,7 @@ class PiGridTableManager extends PiJqueryExtension
         $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/datatable/plugins/RowGrouping/media/js/jquery.dataTables.rowGrouping.js");
         $this->container->get('pi_app_admin.twig.extension.layouthead')->addCssFile("bundles/piappadmin/js/datatable/plugins/RowGrouping/media/css/dataTables.rowGrouping.default.css", "append");
         
-        // plugin Tools
+        // plugin Toolsrows_position
         $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/datatable/extras/TableTools/media/js/TableTools.min.js");
         $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/datatable/extras/TableTools/media/js/ZeroClipboard.js");
         
@@ -765,8 +765,11 @@ class PiGridTableManager extends PiJqueryExtension
                             <?php echo $options['grid-name']; ?>oTable.rowReordering({ 
                                   sURL:"<?php echo $this->container->get('router')->generate($params['route']) ?>",
                                   sRequestType: "GET",
+                                  <?php if (isset($options['grid-actions']['rows_grouping'])) : ?>
+                                  bGroupingUsed: true,
+                                  <?php endif; ?> 
                                   fnAlert: function(message) {
-                                   }
+                                  }
                             });    
                         <?php endif; ?>
 

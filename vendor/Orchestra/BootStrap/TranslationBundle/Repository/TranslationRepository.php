@@ -169,7 +169,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    public function findTranslationsByQuery($locale, Query $query, $result = "array", $INNER_JOIN = false)
+    public function findTranslationsByQuery($locale, Query $query, $result = "array", $INNER_JOIN = false, $FALLBACK = true)
     {
         if (!$query) {
             throw new NotFoundHttpException(sprintf(
@@ -177,16 +177,14 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
                     $id
             ));
         }
-
-        $query = $this->setTranslatableHints($query, $locale, $INNER_JOIN);
-        
-        if ($result == 'array')
+        $query = $this->setTranslatableHints($query, $locale, $INNER_JOIN, $FALLBACK);
+        if ($result == 'array') {
             $entities = $query->getArrayResult();
-        elseif ($result == 'object')
+        } elseif ($result == 'object') {
             $entities = $query->getResult();
-        else
+        } else {
             throw new \InvalidArgumentException("We haven't set the good option value : array or object !");
-        
+        }
         $query->free();
     
         return $entities;
@@ -206,16 +204,12 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * 
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    public function setTranslatableHints(Query $query, $locale, $INNER_JOIN = false)
+    public function setTranslatableHints(Query $query, $locale, $INNER_JOIN = false, $FALLBACK = true)
     {
         $query->setHint(\Doctrine\ORM\Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\Translatable\Query\TreeWalker\TranslationWalker');
-        
-        if ($INNER_JOIN){
-            $query->setHint(\Gedmo\Translatable\TranslatableListener::HINT_INNER_JOIN, true);
-        }
-        
+        $query->setHint(\Gedmo\Translatable\TranslatableListener::HINT_INNER_JOIN, $INNER_JOIN);
         $query->setHint(\Gedmo\Translatable\TranslatableListener::HINT_TRANSLATABLE_LOCALE, $locale);
-        $query->setHint(\Gedmo\Translatable\TranslatableListener::HINT_FALLBACK, true);
+        $query->setHint(\Gedmo\Translatable\TranslatableListener::HINT_FALLBACK, $FALLBACK);
         
         return $query;
     }    
@@ -232,18 +226,19 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * 
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
-    public function findAllByEntity($locale, $result = "array", $INNER_JOIN = false, $MaxResults = null)
+    public function findAllByEntity($locale, $result = "array", $INNER_JOIN = false, $MaxResults = null, $FALLBACK = true)
     {
         $qb = $this->_em->createQueryBuilder()
         ->select('a')
         ->from($this->_entityName, 'a')
         ->where('a.archived = 0');
       
-          $query = $this->checkRoles($qb)->getQuery();
+        $query = $this->checkRoles($qb)->getQuery();
       
         if (!is_null($MaxResults))
             $query->setMaxResults($MaxResults);
-        return $this->findTranslationsByQuery($locale, $query, $result, $INNER_JOIN);        
+        
+        return $this->findTranslationsByQuery($locale, $query, $result, $INNER_JOIN, $FALLBACK);        
     }
 
     /**
@@ -258,7 +253,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * 
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
-    public function findOneByEntity($locale, $id, $result = "array", $INNER_JOIN = false)
+    public function findOneByEntity($locale, $id, $result = "array", $INNER_JOIN = false, $FALLBACK = true)
     {
         $qb = $this->_em->createQueryBuilder()
         ->select('a')
@@ -270,7 +265,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
         $query->setParameter('id', $id);
         $query->setMaxResults(1);
         
-        return current($this->findTranslationsByQuery($locale, $query, $result, $INNER_JOIN));
+        return current($this->findTranslationsByQuery($locale, $query, $result, $INNER_JOIN, $FALLBACK));
     }
 
     /**
@@ -746,7 +741,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    public function getAllEnabled($locale, $result = "object", $INNER_JOIN = false, $MaxResults = null, $is_checkRoles = true)
+    public function getAllEnabled($locale, $result = "object", $INNER_JOIN = false, $MaxResults = null, $is_checkRoles = true, $FALLBACK = true)
     {
         $query = $this->_em->createQueryBuilder()
         ->select('a')
@@ -758,7 +753,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
         if ($is_checkRoles)
             $query = $this->checkRoles($query);
         
-        return $this->findTranslationsByQuery($locale, $query->getQuery(), $result, $INNER_JOIN);
+        return $this->findTranslationsByQuery($locale, $query->getQuery(), $result, $INNER_JOIN, $FALLBACK);
     }    
 
     /**
@@ -773,7 +768,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    public function getAllEnableByCat($locale, $category, $result = "object", $INNER_JOIN = false, $is_checkRoles = true)
+    public function getAllEnableByCat($locale, $category, $result = "object", $INNER_JOIN = false, $is_checkRoles = true, $FALLBACK = true)
     {
         $query = $this->_em->createQueryBuilder()
         ->select('a')
@@ -792,7 +787,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
         if ($is_checkRoles)
             $query = $this->checkRoles($query);
         
-        return $this->findTranslationsByQuery($locale, $query->getQuery(), $result, $INNER_JOIN);
+        return $this->findTranslationsByQuery($locale, $query->getQuery(), $result, $INNER_JOIN, $FALLBACK);
     }    
 
     /**
@@ -807,7 +802,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    public function getAllEnableByCatAndByPosition($locale, $category, $result = "object", $INNER_JOIN = false, $is_checkRoles = true)
+    public function getAllEnableByCatAndByPosition($locale, $category, $result = "object", $INNER_JOIN = false, $is_checkRoles = true, $FALLBACK = true)
     {
         $query = $this->_em->createQueryBuilder()
         ->select('a')
@@ -827,7 +822,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
         if ($is_checkRoles)
             $query = $this->checkRoles($query);
     
-        return $this->findTranslationsByQuery($locale, $query->getQuery(), $result, $INNER_JOIN);
+        return $this->findTranslationsByQuery($locale, $query->getQuery(), $result, $INNER_JOIN, $FALLBACK);
     } 
 
     /**

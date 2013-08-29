@@ -67,7 +67,9 @@ class ContactType extends AbstractType
              ->add('category', 'entity', array(
                      'class' => 'PiAppGedmoBundle:Category',
                      'query_builder' => function(EntityRepository $er) {
-                         return $er->createQueryBuilder('k')
+                        $translatableListener = $this->_container->get('gedmo.listener.translatable');
+                        $translatableListener->setTranslationFallback(true);
+                        return $er->createQueryBuilder('k')
                         ->select('k')
                         ->where('k.type = :type')
                         ->orderBy('k.name', 'ASC')
