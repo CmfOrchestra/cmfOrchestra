@@ -346,7 +346,7 @@ class TreeRepository extends NestedTreeRepository
         $query = $this->createQueryBuilder('node')
         ->select('node')
         ->where('node.enabled = :enabled')
-        ->andWhere('a.archived = :archived');
+        ->andWhere('node.archived = :archived');
         
         if ($rootOnly && in_array($rootOnly, array('ASC', 'DESC'))){
             $config = $this->getConfiguration();
