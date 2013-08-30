@@ -146,7 +146,7 @@ class TreeRepository extends NestedTreeRepository
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    public function findTranslationsByQuery($locale, Query $query, $result = "object", $INNER_JOIN = false)
+    public function findTranslationsByQuery($locale, Query $query, $result = "object", $INNER_JOIN = false, $FALLBACK = true)
     {
         if (!$query) {
             throw new NotFoundHttpException(sprintf(
@@ -154,16 +154,14 @@ class TreeRepository extends NestedTreeRepository
                     $id
             ));
         }
-    
-        $query = $this->setTranslatableHints($query, $locale, $INNER_JOIN);
-        
-        if ($result == 'array')
+        $query = $this->setTranslatableHints($query, $locale, $INNER_JOIN, $FALLBACK);
+        if ($result == 'array') {
             $entities = $query->getArrayResult();
-        elseif ($result == 'object')
+        } elseif ($result == 'object') {
             $entities = $query->getResult();
-        else
+        } else {
             throw new \InvalidArgumentException("We haven't set the good option value : array or object !");
-        
+        }
         $query->free();
     
         return $entities;
@@ -173,6 +171,8 @@ class TreeRepository extends NestedTreeRepository
      * Loads all translations with all translatable
      * fields from the given entity
      *
+     * @link https://github.com/l3pp4rd/DoctrineExtensions/blob/master/doc/translatable.md#entity-domain-object
+     * 
      * @param object $entity Must implement Translatable
      * @return \Doctrine\ORM\Query
      * @param string $locale
@@ -181,17 +181,13 @@ class TreeRepository extends NestedTreeRepository
      * 
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    private function setTranslatableHints(Query $query, $locale, $INNER_JOIN = false)
+    private function setTranslatableHints(Query $query, $locale, $INNER_JOIN = false, $FALLBACK = true)
     {
         $query->setHint(\Doctrine\ORM\Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\Translatable\Query\TreeWalker\TranslationWalker');
-        
-        if ($INNER_JOIN){
-            $query->setHint(\Gedmo\Translatable\TranslatableListener::HINT_INNER_JOIN, true);
-        }
-        
+        $query->setHint(\Gedmo\Translatable\TranslatableListener::HINT_INNER_JOIN, $INNER_JOIN);
         $query->setHint(\Gedmo\Translatable\TranslatableListener::HINT_TRANSLATABLE_LOCALE, $locale);
-        $query->setHint(\Gedmo\Translatable\TranslatableListener::HINT_FALLBACK, true);
-    
+        $query->setHint(\Gedmo\Translatable\TranslatableListener::HINT_FALLBACK, $FALLBACK);
+        
         return $query;
     }
     
@@ -215,6 +211,33 @@ class TreeRepository extends NestedTreeRepository
     
         return current($this->findTranslationsByQuery($locale, $query, $result, $INNER_JOIN));
     }
+    
+    /**
+     * Find a translation of an entity by its id
+     *
+     * @param string $locale
+     * @param int    $id
+     * @param string $result = {'array', 'object'}
+     * @param bool    $INNER_JOIN
+     * @return object
+     * @access    public
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function findOneByEntity($locale, $id, $result = "array", $INNER_JOIN = false, $FALLBACK = true)
+    {
+    	$qb = $this->_em->createQueryBuilder()
+    	->select('node')
+    	->from($this->_entityName, 'node')
+    	->where('node.id = :id');
+    
+    	$query = $this->checkRoles($qb)->getQuery();
+    
+    	$query->setParameter('id', $id);
+    	$query->setMaxResults(1);
+    
+    	return current($this->findTranslationsByQuery($locale, $query, $result, $INNER_JOIN, $FALLBACK));
+    }    
     
     /**
      * Find all nodes of the tree by params

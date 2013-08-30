@@ -860,6 +860,10 @@ class PiGridTableManager extends PiJqueryExtension
                         $("#blocksearch").slideToggle("slow");
                     });
 
+                    <?php if (isset($options['grid-actions']['rows_position'])) : ?>
+                    $(".ui-state-default div.DataTables_sort_wrapper .ui-icon").css('display', 'none');
+                    <?php endif; ?> 
+
                     var opts_spinner = {
                             lines: 11, // The number of lines to draw
                             length: 2, // The length of each line
