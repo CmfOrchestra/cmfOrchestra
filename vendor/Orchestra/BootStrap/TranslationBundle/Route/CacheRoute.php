@@ -72,7 +72,7 @@ class CacheRoute
     {
         $this->container            = $container;
         $this->options['cache_dir'] = $container->get("kernel")->getCacheDir();
-        $this->environment            = $container->get("kernel")->getEnvironment();
+        $this->environment            = ucfirst($container->get("kernel")->getEnvironment());
         // we get all routes existed
         $this->collection            = $container->get('router')->getRouteCollection();
     }

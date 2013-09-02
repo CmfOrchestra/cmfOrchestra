@@ -13,7 +13,14 @@
 PiAppAdminBundle:
     resource: "@PiAppAdminBundle/Resources/config/routing.yml"
     prefix:   / 
-      
+
+#
+#   Import PiAppGedmoBundle routing files
+#        
+PiAppGedmoBundle:
+    resource: "@PiAppGedmoBundle/Resources/config/routing.yml"
+    prefix: /      
+
 #
 #   Import BootStrapUserBundle routing files
 #       
