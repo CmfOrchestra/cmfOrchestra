@@ -170,15 +170,19 @@ class PiVeneerManager extends PiJqueryExtension
                                             datatype: "json",
                                             //type: "POST",
                                             cache: false,
-                                            error: function(msg){},            
-                                            success: function(response){
-                                                //var request = response[0].request;
-                                                //alert(response);
-                                                $("#hProBar").progressbar( "destroy" );
-                                                window.location.href= "<?php echo $this->container->get('router')->generate('public_refresh_page') ?>";
-                                            }
-                                        });
-                                        
+                                            "beforeSend": function ( xhr ) {
+                                                //xhr.overrideMimeType("text/plain; charset=x-user-defined");
+                                            },
+                                            "statusCode": {
+                                                404: function() {
+                                                }
+                                            }            
+                                        }).done(function ( response ) {
+                                            //var request = response[0].request;
+                                            //alert(response);
+                                            $("#hProBar").progressbar( "destroy" );
+                                            window.location.href= "<?php echo $this->container->get('router')->generate('public_refresh_page') ?>";
+                                 	    });
                                     }
                                 },
                                 // Lorsque l'on passe un élément au dessus d'un block

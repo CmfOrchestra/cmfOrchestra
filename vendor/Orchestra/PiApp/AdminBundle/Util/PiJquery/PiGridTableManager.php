@@ -655,7 +655,7 @@ class PiGridTableManager extends PiJqueryExtension
                                                 }
                                             },    
                                     <?php elseif (!empty($actionName) && (strstr($actionName, 'rows_text_') != "") ): ?>
-                                    // exemple : 'rows_text_test': {'sButtonText':'test', 'route':'admin_layout_enabledentity_ajax', 'questionTitle':'Titre de mon action', 'questionText':'Etes-vous sûr de vouloir activer toutes les lignes suivantes ?', 'typeResponse':'ajaxResult', 'responseText':'Operation successfully'},
+                                    // exemple : 'rows_text_test': {'sButtonText':'test', 'route':'admin_layout_enabledentity_ajax', 'questionTitle':'Titre de mon action', 'questionText':'Etes-vous sûr de vouloir activer toutes les lignes suivantes ?', 'typeResponse':'ajaxResult', 'responseText':'Operation successfully', 'reload':false},
                                             <?php if (!isset($params['sButtonText']) || empty($params['sButtonText']) ) $params['sButtonText'] = '_new_'; ?>
                                             {
                                                 "sExtends": "text",
@@ -733,7 +733,7 @@ class PiGridTableManager extends PiJqueryExtension
                                                            	   
                                                            	   $('.dataTables_processing').css({'visibility':'hidden'});
 
-                                                        	   <?php if (isset($params['reload']) && !empty($params['reload'])) : ?>
+                                                        	   <?php if (isset($params['reload']) && ($params['reload']) == true) : ?>
                                                         	   window.location.reload();     
                                                         	   <?php endif; ?>                                                           	   
                                                            });

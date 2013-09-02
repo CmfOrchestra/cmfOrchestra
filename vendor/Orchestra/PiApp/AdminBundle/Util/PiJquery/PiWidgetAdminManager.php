@@ -136,39 +136,43 @@ class PiWidgetAdminManager extends PiJqueryExtension
                                 data: "",
                                 datatype: "json",
                                 cache: false,
-                                error: function(msg){ alert( "Error !: " + msg );},            
-                                success: function(response){
-                                    //$('#page-action-dialog').html(response);
-                                    $('#page-action-dialog').html("<?php echo $this->translator->trans("pi.page.indexation.success"); ?>");
-                                    $('#page-action-dialog').attr('title', '<?php echo $this->translator->trans("pi.contextmenu.page.indexation"); ?>');
-                                      $('#page-action-dialog').dialog({
-                                          height: 180,
-                                          width: 400,
-                                            open: function () {
-                                           },
-                                           beforeClose: function () {
-                                               $('#page-action-dialog').html(' ');
-                                           },
-                                          buttons: {
-                                              Ok: function () {
-                                                  $(this).dialog("close");
-                                              }
-                                          },
-                                          captionButtons: {
-                                              //pin: { visible: false },
-                                              refresh: { visible: false },
-                                              //toggle: { visible: false },
-                                              minimize: { visible: false },
-                                              maximize: { visible: false }
-                                          },
-                                        show: 'scale',
-                                        hide: 'scale',
-                                        collapsingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
-                                        expandingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
-                                      });
-                                                       
-                                }
-                            });
+                                "beforeSend": function ( xhr ) {
+                                    //xhr.overrideMimeType("text/plain; charset=x-user-defined");
+                                },
+                                "statusCode": {
+                                    404: function() {
+                                    }
+                                }                                              
+                            }).done(function ( response ) {
+                                //$('#page-action-dialog').html(response);
+                                $('#page-action-dialog').html("<?php echo $this->translator->trans("pi.page.indexation.success"); ?>");
+                                $('#page-action-dialog').attr('title', '<?php echo $this->translator->trans("pi.contextmenu.page.indexation"); ?>');
+                                $('#page-action-dialog').dialog({
+                                      height: 180,
+                                      width: 400,
+                                        open: function () {
+                                       },
+                                       beforeClose: function () {
+                                           $('#page-action-dialog').html(' ');
+                                       },
+                                      buttons: {
+                                          Ok: function () {
+                                              $(this).dialog("close");
+                                          }
+                                      },
+                                      captionButtons: {
+                                          //pin: { visible: false },
+                                          refresh: { visible: false },
+                                          //toggle: { visible: false },
+                                          minimize: { visible: false },
+                                          maximize: { visible: false }
+                                      },
+                                    show: 'scale',
+                                    hide: 'scale',
+                                    collapsingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
+                                    expandingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
+                                });                            
+                     	    });
                             // end ajax    
                         }
 
@@ -179,37 +183,42 @@ class PiWidgetAdminManager extends PiJqueryExtension
                                 data: "",
                                 datatype: "json",
                                 cache: false,
-                                error: function(msg){ alert( "Error !: " + msg );},            
-                                success: function(response){
-                                    $('#page-action-dialog').html("<?php echo $this->translator->trans("pi.page.indexation.delete.success"); ?>");
-                                    $('#page-action-dialog').attr('title', '<?php echo $this->translator->trans("pi.contextmenu.page.desindexation"); ?>');
-                                      $('#page-action-dialog').dialog({
-                                          height: 180,
-                                          width: 400,
-                                            open: function () {
-                                           },
-                                           beforeClose: function () {
-                                               $('#page-action-dialog').html(' ');
-                                           },
-                                          buttons: {
-                                              Ok: function () {
-                                                  $(this).dialog("close");
-                                              }
-                                          },
-                                          captionButtons: {
-                                              //pin: { visible: false },
-                                              refresh: { visible: false },
-                                              //toggle: { visible: false },
-                                              minimize: { visible: false },
-                                              maximize: { visible: false }
-                                          },
-                                        show: 'scale',
-                                        hide: 'scale',
-                                        collapsingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
-                                        expandingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
-                                      });
-                                }
-                            });
+                                "beforeSend": function ( xhr ) {
+                                    //xhr.overrideMimeType("text/plain; charset=x-user-defined");
+                                },
+                                "statusCode": {
+                                    404: function() {
+                                    }
+                                }               
+                            }).done(function ( response ) {
+                                $('#page-action-dialog').html("<?php echo $this->translator->trans("pi.page.indexation.delete.success"); ?>");
+                                $('#page-action-dialog').attr('title', '<?php echo $this->translator->trans("pi.contextmenu.page.desindexation"); ?>');
+                                $('#page-action-dialog').dialog({
+                                      height: 180,
+                                      width: 400,
+                                        open: function () {
+                                       },
+                                       beforeClose: function () {
+                                           $('#page-action-dialog').html(' ');
+                                       },
+                                      buttons: {
+                                          Ok: function () {
+                                              $(this).dialog("close");
+                                          }
+                                      },
+                                      captionButtons: {
+                                          //pin: { visible: false },
+                                          refresh: { visible: false },
+                                          //toggle: { visible: false },
+                                          minimize: { visible: false },
+                                          maximize: { visible: false }
+                                      },
+                                    show: 'scale',
+                                    hide: 'scale',
+                                    collapsingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
+                                    expandingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
+                                });                            
+                     	    });
                             // end ajax    
                         }                        
                         
@@ -220,33 +229,39 @@ class PiWidgetAdminManager extends PiJqueryExtension
                                 data: "type=page&action=edit&routename=<?php echo $this->container->get('request')->get('_route'); ?>",
                                 datatype: "json",
                                 cache: false,
-                                error: function(msg){ alert( "Error !: " + msg );},            
-                                success: function(response){
-                                    var url = response[0].url;
-                                      $("#page-action-dialog").html('<iframe id="modalIframeId" width="100%" height="100%" marginWidth="0" marginHeight="0" frameBorder="0" scrolling="auto" src="'+url+'" />').dialog({
-                                           width: 840,
-                                           height: height/1.5,
-                                           open: function () {
-                                               $(this).attr('title', '<?php echo $this->translator->trans("pi.page.update"); ?>');
-                                               $(this).find('iframe').attr('style', 'width: 99%;height: 99%');
-                                           },
-                                           beforeClose: function () {
-                                               window.location.href= "<?php echo $this->container->get('router')->generate('public_refresh_page') ?>";
-                                           },
-                                          captionButtons: {
-                                              //pin: { visible: true },
-                                              refresh: { visible: true },
-                                              //toggle: { visible: true },
-                                              minimize: { visible: true },
-                                              maximize: { visible: true }
-                                          },                                           
-                                        show: 'scale',
-                                        hide: 'scale',
-                                        collapsingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
-                                        expandingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
-                                       });                    
-                                }
-                            });
+                                cache: false,
+                                "beforeSend": function ( xhr ) {
+                                    //xhr.overrideMimeType("text/plain; charset=x-user-defined");
+                                },
+                                "statusCode": {
+                                    404: function() {
+                                    }
+                                }             
+                            }).done(function ( response ) {
+                                var url = response[0].url;
+                                $("#page-action-dialog").html('<iframe id="modalIframeId" width="100%" height="100%" marginWidth="0" marginHeight="0" frameBorder="0" scrolling="auto" src="'+url+'" />').dialog({
+                                     width: 840,
+                                     height: height/1.5,
+                                     open: function () {
+                                         $(this).attr('title', '<?php echo $this->translator->trans("pi.page.update"); ?>');
+                                         $(this).find('iframe').attr('style', 'width: 99%;height: 99%');
+                                     },
+                                     beforeClose: function () {
+                                         window.location.href= "<?php echo $this->container->get('router')->generate('public_refresh_page') ?>";
+                                     },
+                                     captionButtons: {
+                                        //pin: { visible: true },
+                                        refresh: { visible: true },
+                                        //toggle: { visible: true },
+                                        minimize: { visible: true },
+                                        maximize: { visible: true }
+                                     },                                           
+                                     show: 'scale',
+                                     hide: 'scale',
+                                     collapsingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
+                                     expandingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
+                                });                            
+                     	    });
                             // end ajax    
                         }
 
@@ -257,46 +272,51 @@ class PiWidgetAdminManager extends PiJqueryExtension
                                 data: "type=page&action=new",
                                 datatype: "json",
                                 cache: false,
-                                error: function(msg){ alert( "Error !: " + msg );},            
-                                success: function(response){
-                                    var url = response[0].url;
-                                      $("#page-action-dialog").html('<iframe id="modalIframeId" width="100%" height="100%" marginWidth="0" marginHeight="0" frameBorder="0" scrolling="auto" src="'+url+'" />').dialog({
-                                           width: 840,
-                                           height: height/1.5,
-                                           open: function () {
-                                               $(this).attr('title', '<?php echo $this->translator->trans("pi.page.create"); ?>');
-                                               $(this).find('iframe').attr('style', 'width: 99%;height: 99%');                                               
-                                           },
-                                           beforeClose: function () {
-                                               var routename = $(this).find('iframe').contents().find("#piapp_adminbundle_pagetype_route_name").val();
-                                               //console.log(routename);
-                                               $.ajax({
-                                                url: "<?php echo $this->container->get('router')->generate('public_urlmanagement_page') ?>",
-                                                data: "type=routename" + "&routename=" + routename + "&action=url",
-                                                datatype: "json",
-                                                cache: false,
-                                                error: function(msg){ alert( "Error !: " + msg );},            
-                                                success: function(response){
-                                                    var url = response[0].url;
-                                                    window.location.href= url;
-                                                }
-                                            });
-                                            // end ajax    
-                                           },
-                                          captionButtons: {
-                                              //pin: { visible: true },
-                                              refresh: { visible: true },
-                                              //toggle: { visible: true },
-                                              minimize: { visible: true },
-                                              maximize: { visible: true }
-                                          },                                           
-                                        show: 'scale',
-                                        hide: 'scale',
-                                        collapsingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
-                                        expandingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
-                                       });                    
-                                }
-                            });
+                                "beforeSend": function ( xhr ) {
+                                    //xhr.overrideMimeType("text/plain; charset=x-user-defined");
+                                },
+                                "statusCode": {
+                                    404: function() {
+                                    }
+                                }  
+                            }).done(function ( response ) {
+                                var url = response[0].url;
+                                $("#page-action-dialog").html('<iframe id="modalIframeId" width="100%" height="100%" marginWidth="0" marginHeight="0" frameBorder="0" scrolling="auto" src="'+url+'" />').dialog({
+                                     width: 840,
+                                     height: height/1.5,
+                                     open: function () {
+                                         $(this).attr('title', '<?php echo $this->translator->trans("pi.page.create"); ?>');
+                                         $(this).find('iframe').attr('style', 'width: 99%;height: 99%');                                               
+                                     },
+                                     beforeClose: function () {
+                                         var routename = $(this).find('iframe').contents().find("#piapp_adminbundle_pagetype_route_name").val();
+                                         //console.log(routename);
+                                         $.ajax({
+                                          url: "<?php echo $this->container->get('router')->generate('public_urlmanagement_page') ?>",
+                                          data: "type=routename" + "&routename=" + routename + "&action=url",
+                                          datatype: "json",
+                                          cache: false,
+                                          error: function(msg){ alert( "Error !: " + msg );},            
+                                          success: function(response){
+                                              var url = response[0].url;
+                                              window.location.href= url;
+                                          }
+                                      });
+                                      // end ajax    
+                                     },
+                                     captionButtons: {
+                                        //pin: { visible: true },
+                                        refresh: { visible: true },
+                                        //toggle: { visible: true },
+                                        minimize: { visible: true },
+                                        maximize: { visible: true }
+                                     },                                           
+                                     show: 'scale',
+                                     hide: 'scale',
+                                     collapsingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
+                                     expandingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
+                                });                             
+                     	    });
                             // end ajax    
                         }    
                                             
@@ -318,33 +338,38 @@ class PiWidgetAdminManager extends PiJqueryExtension
                             data: "id=" + id + "&action=" + action + "&type=block",
                             datatype: "json",
                             cache: false,
-                            error: function(msg){ alert( "Error !: " + msg );},            
-                            success: function(response){
-                                var url = response[0].url;
-                                  $("#block-action-dialog").html('<iframe id="modalIframeId" width="100%" height="100%" marginWidth="0" marginHeight="0" frameBorder="0" scrolling="auto" src="'+url+'" />').dialog({
-                                       width: 840,
-                                       height: height/1.5,
-                                       open: function () {
-                                           $(this).attr('title', '<?php echo $this->translator->trans('pi.form'); ?> ' + title);
-                                           $(this).find('iframe').attr('style', 'width: 99%;height: 99%');
-                                       },
-                                       beforeClose: function () {
-                                           window.location.href= "<?php echo $this->container->get('router')->generate('public_refresh_page') ?>"; 
-                                       },
-                                      captionButtons: {
-                                          //pin: { visible: true },
-                                          refresh: { visible: true },
-                                          //toggle: { visible: true },
-                                          minimize: { visible: true },
-                                          maximize: { visible: true }
-                                      },                                       
-                                    show: 'scale',
-                                    hide: 'scale',
-                                    collapsingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
-                                    expandingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
-                                   });                    
-                            }
-                        });
+                            "beforeSend": function ( xhr ) {
+                                //xhr.overrideMimeType("text/plain; charset=x-user-defined");
+                            },
+                            "statusCode": {
+                                404: function() {
+                                }
+                            } 
+                        }).done(function ( response ) {
+                            var url = response[0].url;
+                            $("#block-action-dialog").html('<iframe id="modalIframeId" width="100%" height="100%" marginWidth="0" marginHeight="0" frameBorder="0" scrolling="auto" src="'+url+'" />').dialog({
+                                 width: 840,
+                                 height: height/1.5,
+                                 open: function () {
+                                     $(this).attr('title', '<?php echo $this->translator->trans('pi.form'); ?> ' + title);
+                                     $(this).find('iframe').attr('style', 'width: 99%;height: 99%');
+                                 },
+                                 beforeClose: function () {
+                                     window.location.href= "<?php echo $this->container->get('router')->generate('public_refresh_page') ?>"; 
+                                 },
+                                 captionButtons: {
+                                    //pin: { visible: true },
+                                    refresh: { visible: true },
+                                    //toggle: { visible: true },
+                                    minimize: { visible: true },
+                                    maximize: { visible: true }
+                                 },                                       
+                                 show: 'scale',
+                                 hide: 'scale',
+                                 collapsingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
+                                 expandingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
+                             });                        
+                 	    });
                         // end ajax        
                     });
                     // end click
@@ -364,85 +389,90 @@ class PiWidgetAdminManager extends PiJqueryExtension
                             data: "id=" + id + "&action=" + action + "&type=widget",
                             datatype: "json",
                             cache: false,
-                            error: function(msg){ alert( "Error !: " + msg );},            
-                            success: function(response){
-                                var url = response[0].url;
-                                if ( (_class == "widget_action_delete") || (_class== "widget_action_move_up") || (_class== "widget_action_move_down") ){
-                                    $('#widget-action-dialog').dialog({
-                                        height: 180,
-                                        width: 400,
-                                        open: function () {
-                                            $(this).attr('title', '<?php echo $this->translator->trans('pi.form'); ?> ' + title);
-                                            if (_class == "widget_action_delete")
-                                                $(this).html('<?php echo $this->translator->trans('pi.widget.ajaxaction.widget_action_delete'); ?>');
-                                            if (_class == "widget_action_move_up")
-                                                $(this).html('<?php echo $this->translator->trans('pi.widget.ajaxaction.widget_action_move_up'); ?>');
-                                            if (_class == "widget_action_move_down")
-                                                $(this).html('<?php echo $this->translator->trans('pi.widget.ajaxaction.widget_action_move_down'); ?>');
-                                            
-                                            $(this).find('iframe').attr('style', 'width: 99%;height: 99%');
-                                        },
-                                        buttons: {
-                                            Cancel: function () {
-                                                $(this).dialog("close");
-                                            },
-                                            Ok: function () {
-                                                $.ajax({
-                                                    url: url,
-                                                    data:"",
-                                                    datatype: "json",
-                                                    cache: false,
-                                                    error: function(msg){ alert( "Error !: " + msg );},                 
-                                                    success: function(response){
-                                                        //console.log(response);
-                                                        window.location.href= "<?php echo $this->container->get('router')->generate('public_refresh_page') ?>";
-                                                    }
-                                                });
-                                            }
-                                        },
-                                        captionButtons: {
-                                            close: { visible: false },
-                                            //pin: { visible: false },
-                                            refresh: { visible: false },
-                                            //toggle: { visible: false },
-                                            minimize: { visible: false },
-                                            maximize: { visible: false }
-                                        },
-                                        show: 'scale',
-                                        hide: 'scale',
-                                        collapsingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
-                                        expandingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
-                                    });
-                                } else {
-                                    $('#widget-action-dialog').html('<iframe id="modalIframeId" width="100%" height="100%" marginWidth="0" marginHeight="0" frameBorder="0" scrolling="auto" src="'+url+'" />').dialog({
-                                        width: 971,
-                                        height: height/1.5,
-                                        overlay: {
-                                            backgroundColor: '#000',
-                                            opacity: 0.5
-                                        },
-                                        open: function () {
-                                            $(this).attr('title', 'Formulaire ' + title);
-                                            $(this).find('iframe').attr('style', 'width: 99%;height: 99%');
-                                        },
-                                        beforeClose: function () {
-                                            window.location.href= "<?php echo $this->container->get('router')->generate('public_refresh_page') ?>"; 
-                                        },
-                                          captionButtons: {
-                                              //pin: { visible: true },
-                                              refresh: { visible: true },
-                                              //toggle: { visible: true },
-                                              minimize: { visible: true },
-                                              maximize: { visible: true }
-                                          },                                        
-                                        show: 'scale',
-                                        hide: 'scale',
-                                        collapsingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
-                                        expandingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
-                                    });                    
+                            "beforeSend": function ( xhr ) {
+                                //xhr.overrideMimeType("text/plain; charset=x-user-defined");
+                            },
+                            "statusCode": {
+                                404: function() {
                                 }
-                            }
-                        });
+                            } 
+                        }).done(function ( response ) {
+                            var url = response[0].url;
+                            if ( (_class == "widget_action_delete") || (_class== "widget_action_move_up") || (_class== "widget_action_move_down") ){
+                                $('#widget-action-dialog').dialog({
+                                    height: 180,
+                                    width: 400,
+                                    open: function () {
+                                        $(this).attr('title', '<?php echo $this->translator->trans('pi.form'); ?> ' + title);
+                                        if (_class == "widget_action_delete")
+                                            $(this).html('<?php echo $this->translator->trans('pi.widget.ajaxaction.widget_action_delete'); ?>');
+                                        if (_class == "widget_action_move_up")
+                                            $(this).html('<?php echo $this->translator->trans('pi.widget.ajaxaction.widget_action_move_up'); ?>');
+                                        if (_class == "widget_action_move_down")
+                                            $(this).html('<?php echo $this->translator->trans('pi.widget.ajaxaction.widget_action_move_down'); ?>');
+                                        
+                                        $(this).find('iframe').attr('style', 'width: 99%;height: 99%');
+                                    },
+                                    buttons: {
+                                        Cancel: function () {
+                                            $(this).dialog("close");
+                                        },
+                                        Ok: function () {
+                                            $.ajax({
+                                                url: url,
+                                                data:"",
+                                                datatype: "json",
+                                                cache: false,
+                                                error: function(msg){ alert( "Error !: " + msg );},                 
+                                                success: function(response){
+                                                    //console.log(response);
+                                                    window.location.href= "<?php echo $this->container->get('router')->generate('public_refresh_page') ?>";
+                                                }
+                                            });
+                                        }
+                                    },
+                                    captionButtons: {
+                                        close: { visible: false },
+                                        //pin: { visible: false },
+                                        refresh: { visible: false },
+                                        //toggle: { visible: false },
+                                        minimize: { visible: false },
+                                        maximize: { visible: false }
+                                    },
+                                    show: 'scale',
+                                    hide: 'scale',
+                                    collapsingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
+                                    expandingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
+                                });
+                            } else {
+                                $('#widget-action-dialog').html('<iframe id="modalIframeId" width="100%" height="100%" marginWidth="0" marginHeight="0" frameBorder="0" scrolling="auto" src="'+url+'" />').dialog({
+                                    width: 971,
+                                    height: height/1.5,
+                                    overlay: {
+                                        backgroundColor: '#000',
+                                        opacity: 0.5
+                                    },
+                                    open: function () {
+                                        $(this).attr('title', 'Formulaire ' + title);
+                                        $(this).find('iframe').attr('style', 'width: 99%;height: 99%');
+                                    },
+                                    beforeClose: function () {
+                                        window.location.href= "<?php echo $this->container->get('router')->generate('public_refresh_page') ?>"; 
+                                    },
+                                    captionButtons: {
+                                          //pin: { visible: true },
+                                          refresh: { visible: true },
+                                          //toggle: { visible: true },
+                                          minimize: { visible: true },
+                                          maximize: { visible: true }
+                                    },                                        
+                                    show: 'scale',
+                                    hide: 'scale',
+                                    collapsingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
+                                    expandingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
+                                });                    
+                            }                        
+                 	    });
                         // end ajax                        
                     });
                     // end click    
