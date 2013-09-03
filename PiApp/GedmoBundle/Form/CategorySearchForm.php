@@ -13,6 +13,7 @@
 namespace PiApp\GedmoBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -33,6 +34,11 @@ class CategorySearchForm extends AbstractType
     protected $_em;
     
     /**
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */
+    protected $_container;    
+    
+    /**
      * @var string
      */
     protected $_entity;    
@@ -43,10 +49,11 @@ class CategorySearchForm extends AbstractType
      * @param \Doctrine\ORM\EntityManager $em
      * @return void
      */
-    public function __construct(EntityManager $em, $entity)
+    public function __construct(EntityManager $em, $entity, ContainerInterface $container)
     {
         $this->_em         = $em;
         $this->_entity     = ucfirst(strtolower($entity));
+        $this->_container     = $container;
     }
         
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -80,6 +87,8 @@ class CategorySearchForm extends AbstractType
                 ->add('category', 'entity', array(
                         'class' => 'PiAppGedmoBundle:Category',
                         'query_builder' => function(EntityRepository $er) use($choiceList) {
+                            $translatableListener = $this->_container->get('gedmo.listener.translatable');
+                            $translatableListener->setTranslationFallback(true);
                             return $er->createQueryBuilder('k')
                             ->select('k')
                             ->where('k.type = :type')

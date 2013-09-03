@@ -133,12 +133,12 @@ class SliderController extends abstractController
         if (!$NoLayout)     $template = "index.html.twig"; else $template = "index_ajax.html.twig";
     
         if ($NoLayout){
-            //$entities     = $em->getRepository("PiAppGedmoBundle:Slider")->getAllEnableByCatAndByPosition($locale, $category, 'object');
-            $query        = $em->getRepository("PiAppGedmoBundle:Slider")->getAllByCategory($category, null, '', 'ASC', false)->getQuery();
-            $entities   = $em->getRepository("PiAppGedmoBundle:Slider")->findTranslationsByQuery($locale, $query, 'object', false);
-        }else
-            $entities    = $em->getRepository("PiAppGedmoBundle:Slider")->findAllByEntity($locale, 'object');        
-    
+        	$query    = $em->getRepository("PiAppGedmoBundle:Slider")->setContainer($this->container)->getAllByCategory($category, null, '', 'DESC', false);
+        } else {
+        	$query    = $em->getRepository("PiAppGedmoBundle:Slider")->getAllByCategory($category, null, '', 'ASC', false);
+        }
+        $entities   = $em->getRepository("PiAppGedmoBundle:Slider")->findTranslationsByQuery($locale, $query->getQuery(), 'object', false, true);
+        
         return $this->render("PiAppGedmoBundle:Slider:$template", array(
                 'entities' => $entities,
                 'NoLayout' => $NoLayout,

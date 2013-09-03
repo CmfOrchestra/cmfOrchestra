@@ -129,10 +129,15 @@ class CategoryController extends abstractController
     {
         $em         = $this->getDoctrine()->getManager();
         $locale        = $this->container->get('request')->getLocale();
-        $entities     = $em->getRepository("PiAppGedmoBundle:Category")->findAllByEntity($locale, 'object');
-    
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if (!$NoLayout)     $template = "index.html.twig"; else $template = "index.html.twig";
+        
+        if ($NoLayout){
+        	$query    = $em->getRepository("PiAppGedmoBundle:Category")->setContainer($this->container)->getAllByCategory('', null, '', 'DESC', false);
+        } else {
+        	$query    = $em->getRepository("PiAppGedmoBundle:Category")->getAllByCategory('', null, '', 'ASC', false);
+        }
+        $entities   = $em->getRepository("PiAppGedmoBundle:Category")->findTranslationsByQuery($locale, $query->getQuery(), 'object', false, true);
     
         return $this->render("PiAppGedmoBundle:Category:$template", array(
                 'entities' => $entities,

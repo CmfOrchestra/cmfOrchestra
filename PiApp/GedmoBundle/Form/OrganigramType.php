@@ -92,7 +92,9 @@ class OrganigramType extends AbstractType
              ->add('parent', 'entity', array(
                     'class' => 'PiAppGedmoBundle:Organigram',
                     'query_builder' => function(EntityRepository $er) {
-                    return $er->createQueryBuilder('k')
+                        $translatableListener = $this->_container->get('gedmo.listener.translatable');
+                        $translatableListener->setTranslationFallback(true);
+                        return $er->createQueryBuilder('k')
                         ->select('k')
                         ->orderBy('k.lft', 'ASC');
                     },

@@ -59,8 +59,7 @@
 #            type:               fos_user_group
 #            name:               fos_user_group_form
 #            validation_groups:  [Registration]
-#          
-
+# 
 ##
 ## routing configuration
 ##           
@@ -70,7 +69,7 @@
 #    secret: %api_facebook_secret%
 #    cookie: true
 #    permissions: [email, user_birthday, user_location]
-  
+#                
 ##
 ## routing configuration
 ##        

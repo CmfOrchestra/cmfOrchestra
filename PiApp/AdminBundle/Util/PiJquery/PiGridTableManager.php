@@ -63,7 +63,7 @@ class PiGridTableManager extends PiJqueryExtension
         $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/datatable/plugins/RowGrouping/media/js/jquery.dataTables.rowGrouping.js");
         $this->container->get('pi_app_admin.twig.extension.layouthead')->addCssFile("bundles/piappadmin/js/datatable/plugins/RowGrouping/media/css/dataTables.rowGrouping.default.css", "append");
         
-        // plugin Tools
+        // plugin Toolsrows_position
         $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/datatable/extras/TableTools/media/js/TableTools.min.js");
         $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/datatable/extras/TableTools/media/js/ZeroClipboard.js");
         
@@ -156,6 +156,7 @@ class PiGridTableManager extends PiJqueryExtension
                         <header class="tt-grey">
                             <h3 id="grid-header">MESSAGE</h3>
                         </header>    
+                        <div>&nbsp;</div>
                         <footer class="tt-grey">
                             <button type="button" id="grid-save" class="save"><?php echo $this->translator->trans('pi.grid.action.validate'); ?></button>
                         </footer>    
@@ -199,31 +200,30 @@ class PiGridTableManager extends PiJqueryExtension
             <script type="text/javascript">
             //<![CDATA[
             
-                function fnFilterGlobal ()
-                {
-                    $('#<?php echo $options['grid-name']; ?>').dataTable().fnFilter( 
-                        $("#global_filter").val(),
-                        null, 
-                        $("#global_regex")[0].checked, 
-                        $("#global_smart")[0].checked
-                    );
-                }
-                 
-                function fnFilterColumn ( i )
-                {
-                    $('#<?php echo $options['grid-name']; ?>').dataTable().fnFilter( 
-                        $("#col"+(i+1)+"_filter").val(),
-                        i, 
-                        $("#col"+(i+1)+"_regex")[0].checked, 
-                        $("#col"+(i+1)+"_smart")[0].checked
-                    );
-                }
-
-                var enabled;
-                var disablerow;
-                var deleterow;
-                var archiverow;
-                $(document).ready(function() {
+                    function fnFilterGlobal ()
+                    {
+                        $('#<?php echo $options['grid-name']; ?>').dataTable().fnFilter( 
+                            $("#global_filter").val(),
+                            null, 
+                            $("#global_regex")[0].checked, 
+                            $("#global_smart")[0].checked
+                        );
+                    }
+                     
+                    function fnFilterColumn ( i )
+                    {
+                        $('#<?php echo $options['grid-name']; ?>').dataTable().fnFilter( 
+                            $("#col"+(i+1)+"_filter").val(),
+                            i, 
+                            $("#col"+(i+1)+"_regex")[0].checked, 
+                            $("#col"+(i+1)+"_smart")[0].checked
+                        );
+                    }
+    
+                    var enabled;
+                    var disablerow;
+                    var deleterow;
+                    var archiverow;
 
                     var <?php echo $options['grid-name']; ?>oTable;
                     var envelopeConf = $.fn.dataTable.Editor.display.envelope.conf;
@@ -655,32 +655,41 @@ class PiGridTableManager extends PiJqueryExtension
                                                 }
                                             },    
                                     <?php elseif (!empty($actionName) && (strstr($actionName, 'rows_text_') != "") ): ?>
+                                    // exemple : 'rows_text_test': {'sButtonText':'test', 'route':'admin_layout_enabledentity_ajax', 'questionTitle':'Titre de mon action', 'questionText':'Etes-vous sûr de vouloir activer toutes les lignes suivantes ?', 'typeResponse':'ajaxResult', 'responseText':'Operation successfully'},
                                             <?php if (!isset($params['sButtonText']) || empty($params['sButtonText']) ) $params['sButtonText'] = '_new_'; ?>
                                             {
                                                 "sExtends": "text",
                                                 "sButtonText": "<?php echo $this->translator->trans($params['sButtonText']); ?>",
                                                 "fnClick": function(nButton, oConfig, nRow){
                                                         var oSelectedRows = this.fnGetSelected();
-                                                        var data_id = new Array();
+                                                        var data_id = [];
                                                         var data_HTML = new Array();
-
-                                                        $('.dataTables_processing').css({'visibility':'visible'});
-                                                        
+                                                        // we register all rows in data
+                                                        data_HTML.push( "<br /><br />" );
                                                         for ( var i=0 ; i<oSelectedRows.length ; i++ )
                                                         {
                                                             data_id.push( oSelectedRows[i]['id'] );
                                                             data_HTML.push( oSelectedRows[i] );
                                                             data_HTML.push( "<br />" );
                                                         }
-
-                                                        // Messages are injected into the overlay fancybox
-                                                        $("#grid-html").find("header:first").next().before(data_HTML.toString());
-                                                        <?php if (isset($params['title']) && !empty($params['title'])) : ?>
-                                                        $("#grid-header").html("<?php echo $params['title']; ?>");
+                                                        data_HTML.push( "<br />" );
+                                                        // we deselet all selected rows
+                                                        this.fnDeselect(oSelectedRows);
+                                                        // we empty the content
+                                                        $("#grid-html").find("div").empty();
+                                                        // Question message are injected into the overlay fancybox
+                                                        <?php if (isset($params['questionText']) && !empty($params['questionText'])) : ?>
+                                                        $("#grid-html").find("div").prepend("<span class='rows_text_question'><?php echo $params['questionText']; ?></span>");
                                                         <?php endif; ?>
-                                                        var overlay_grid = $("#confirm-popup-grid").html();
+                                                        // all select rows are injected into the overlay fancybox
+                                                        $("#grid-html").find("div").append(data_HTML);
+                                                        // all select rows are injected into the overlay fancybox
+                                                        <?php if (isset($params['questionTitle']) && !empty($params['questionTitle'])) : ?>
+                                                        $("#grid-header").html("<?php echo $params['questionTitle']; ?>");
+                                                        <?php endif; ?>
+                                                        // we run fancybox
                                                         $.fancybox({
-                                                            'content':overlay_grid,
+                                                            'content':$("#confirm-popup-grid").html(),
                                                             'autoDimensions':true,
                                                             'scrolling':'no',
                                                             'transitionIn'    :    'elastic',
@@ -690,28 +699,50 @@ class PiGridTableManager extends PiJqueryExtension
                                                             'overlayShow'    :    true,
                                                             'height': 'auto',
                                                             'padding':0,
-                                                            'type': 'inline'
-                                                        });                                                            
+                                                            'type': 'inline',
+                                                            'onComplete'		: function() {
+                                                             },
+                                                            'onClosed'		: function() {                                                            	
+                                                        	}
+                                                        });  
+                                                        // we set the action button
+                                                      	<?php if (isset($params['route']) && !empty($params['route'])) : ?>
+                                                        $("button.save").click(function(event, dataObject) {  
+                                                            event.preventDefault(); 
+                                                            $.ajax( {
+                                                               "url": "<?php echo $this->container->get('router')->generate($params['route']) ?>",
+                                                               "data": { "data": data_id },
+                                                               "dataType": "json",
+                                                               "type": "post",
+                                                               "beforeSend": function ( xhr ) {
+                                                                   //xhr.overrideMimeType("text/plain; charset=x-user-defined");
+                                                               	   $('.dataTables_processing').css({'visibility':'visible'});
+                                                               },
+                                                               "statusCode": {
+                                                                   404: function() {
+                                                                   }
+                                                               }
+                                                           }).done(function ( data ) {
+                                                        	   <?php if (isset($params['typeResponse']) && ($params['typeResponse']) == "ajaxResult") : ?>
+                                                        	      $("#grid-html > div").html(data);
+                                                           	   <?php else: ?>
+                                                         	      <?php if (isset($params['responseText']) && !empty($params['responseText'])) : ?>
+                                                         	      $("#grid-html > div").html("<?php echo $params['responseText']; ?>");
+                                                           	      <?php endif; ?>
+                                                           	   <?php endif; ?>
+                                                           	   
+                                                           	   $('.dataTables_processing').css({'visibility':'hidden'});
 
-                                                         <?php if (isset($params['route']) && !empty($params['route'])) : ?>
-                                                         $("#grid-save").click(function(){
-                                                             console.log('cocicn');
-                                                             $.ajax( {
-                                                                "url": "<?php echo $this->container->get('router')->generate($params['route']) ?>",
-                                                                "data": { "data": data_id  },
-                                                                "dataType": "json",
-                                                                "type": "post",
-                                                                "success": function (response) {
-                                                                    $('.dataTables_processing').css({'visibility':'hidden'});
-                                                                }
-                                                            });
-                                                         });
-                                                        <?php endif; ?>
+                                                        	   <?php if (isset($params['reload']) && !empty($params['reload'])) : ?>
+                                                        	   window.location.reload();     
+                                                        	   <?php endif; ?>                                                           	   
+                                                           });
+                                                        });
+                                                       <?php endif; ?>                                                    	
                                                 },
                                                 // http://datatables.net/extras/tabletools/button_options
-                                                "fnInit": function(nButton){
-                                                    $('.dataTables_processing').css({'visibility':'hidden'});
-                                                }                                                
+                                                "fninit": function(nButton){
+                                                }                                              
                                             },                                                                                        
                                     <?php endif; ?>                                        
                             <?php endforeach; ?>
@@ -765,8 +796,11 @@ class PiGridTableManager extends PiJqueryExtension
                             <?php echo $options['grid-name']; ?>oTable.rowReordering({ 
                                   sURL:"<?php echo $this->container->get('router')->generate($params['route']) ?>",
                                   sRequestType: "GET",
+                                  <?php if (isset($options['grid-actions']['rows_grouping'])) : ?>
+                                  bGroupingUsed: true,
+                                  <?php endif; ?> 
                                   fnAlert: function(message) {
-                                   }
+                                  }
                             });    
                         <?php endif; ?>
 
@@ -857,6 +891,10 @@ class PiGridTableManager extends PiJqueryExtension
                         $("#blocksearch").slideToggle("slow");
                     });
 
+                    <?php if (isset($options['grid-actions']['rows_position'])) : ?>
+                    $(".ui-state-default div.DataTables_sort_wrapper .ui-icon").css('display', 'none');
+                    <?php endif; ?> 
+
                     var opts_spinner = {
                             lines: 11, // The number of lines to draw
                             length: 2, // The length of each line
@@ -877,20 +915,19 @@ class PiGridTableManager extends PiJqueryExtension
                           };
                    var target_spinner = document.getElementById('spin');
                    var spinner = new Spinner(opts_spinner).spin(target_spinner);
-                });
 
-                $(function() {
-                    $("a.info-tooltip").tooltip({
-                          position: {
-                              track: true,
-                              my: "center bottom-20",
-                              at: "center top",
-                            },
-                          content: function () {
-                                return $(this).prop('title');
-                            }                            
-                    });
-                });
+                   $(function() {
+                        $("a.info-tooltip").tooltip({
+                              position: {
+                                  track: true,
+                                  my: "center bottom-20",
+                                  at: "center top",
+                                },
+                              content: function () {
+                                    return $(this).prop('title');
+                                }                            
+                        });
+                   });
 
             //]]>
             </script>

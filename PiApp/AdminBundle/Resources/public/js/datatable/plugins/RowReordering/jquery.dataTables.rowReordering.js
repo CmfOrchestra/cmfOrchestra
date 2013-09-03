@@ -1,9 +1,9 @@
 /*
 * File:        jquery.dataTables.rowReordering.js
-* Version:     1.0.0.
+* Version:     1.2.1.
 * Author:      Jovan Popovic 
 * 
-* Copyright 2012 Jovan Popovic, all rights reserved.
+* Copyright 2013 Jovan Popovic, all rights reserved.
 *
 * This source file is free software, under either the GPL v2 license or a
 * BSD style license, as supplied with this software.
@@ -19,9 +19,10 @@
 */
 (function ($) {
 
+	"use strict";
     $.fn.rowReordering = function (options) {
 
-        function _fnStartProcessingMode() {
+        function _fnStartProcessingMode(oTable) {
             ///<summary>
             ///Function that starts "Processing" mode i.e. shows "Processing..." dialog while some action is executing(Default function)
             ///</summary>
@@ -31,7 +32,7 @@
             }
         }
 
-        function _fnEndProcessingMode() {
+        function _fnEndProcessingMode(oTable) {
             ///<summary>
             ///Function that ends the "Processing" mode and returns the table in the normal state(Default function)
             ///</summary>
@@ -41,7 +42,8 @@
             }
         }
 
-        function fnGetStartPosition(sSelector) {
+		///Not used
+        function fnGetStartPosition(oTable, sSelector) {
             var iStart = 1000000;
             $(sSelector, oTable).each(function () {
                 iPosition = parseInt(oTable.fnGetData(this, properties.iIndexColumn));
@@ -51,7 +53,7 @@
             return iStart;
         }
 		
-		function fnCancelSorting(tbody, properties, iLogLevel, sMessage) {
+		function fnCancelSorting(oTable, tbody, properties, iLogLevel, sMessage) {
 			tbody.sortable('cancel');
 			if(iLogLevel<=properties.iLogLevel){
 				if(sMessage!= undefined){
@@ -60,13 +62,13 @@
 					properties.fnAlert("Row cannot be moved", "");
 				}
 			}
-			properties.fnEndProcessingMode();
+			properties.fnEndProcessingMode(oTable);
         }
 
-        function fnGetState(sSelector, id) {
-
-            var tr = $("#" + id);
+        function fnGetState(oTable, sSelector, id) {
+        	var tr = $("#" + id, oTable);
             var iCurrentPosition = oTable.fnGetData(tr[0], properties.iIndexColumn);
+            
             var iNewPosition = -1; // fnGetStartPosition(sSelector);
             var sDirection;
             var trPrevious = tr.prev(sSelector);
@@ -92,7 +94,7 @@
 
         }
 
-        function fnMoveRows(sSelector, iCurrentPosition, iNewPosition, sDirection, id, sGroup) {
+        function fnMoveRows(oTable, sSelector, iCurrentPosition, iNewPosition, sDirection, id, sGroup) {
             var iStart = iCurrentPosition;
             var iEnd = iNewPosition;
             if (sDirection == "back") {
@@ -145,8 +147,6 @@
 
         function _fnAlert(message, type) { alert(message); }
 
-        var oTable = this;
-
         var defaults = {
             iIndexColumn: 0,
             iStartPosition: 1,
@@ -154,17 +154,34 @@
             sRequestType: "POST",
             iGroupingLevel: 0,
             fnAlert: _fnAlert,
-			iLogLevel: 1,
+            fnSuccess: jQuery.noop,
+            iLogLevel: 1,
             sDataGroupAttribute: "data-group",
             fnStartProcessingMode: _fnStartProcessingMode,
-            fnEndProcessingMode: _fnEndProcessingMode
+            fnEndProcessingMode: _fnEndProcessingMode,
+            fnUpdateAjaxRequest: jQuery.noop			
         };
 
         var properties = $.extend(defaults, options);
 
         var iFrom, iTo;
 
+        // Return a helper with preserved width of cells (see Issue 9)
+        var tableFixHelper = function(e, tr)
+        {
+          var $originals = tr.children();
+          var $helper = tr.clone();
+          $helper.children().each(function(index)
+          {
+            // Set helper cell sizes to match the original sizes
+            $(this).width($originals.eq(index).width())
+          });
+          return $helper;
+        };
+
         return this.each(function () {
+		
+            var oTable = $(this).dataTable();
 
             var aaSortingFixed = (oTable.fnSettings().aaSortingFixed == null ? new Array() : oTable.fnSettings().aaSortingFixed);
             aaSortingFixed.push([properties.iIndexColumn, "asc"]);
@@ -182,31 +199,33 @@
             }
             oTable.fnDraw();
 
-            $("tbody", oTable).sortable({
+            $("tbody", oTable).disableSelection().sortable({
                 cursor: "move",
+                helper: tableFixHelper,
                 update: function (event, ui) {
+                    var $dataTable = oTable;
                     var tbody = $(this);
                     var sSelector = "tbody tr";
                     var sGroup = "";
                     if (properties.bGroupingUsed) {
                         sGroup = $(ui.item).attr(properties.sDataGroupAttribute);
-						if(sGroup==null || sGroup==undefined){
-							fnCancelSorting(tbody, properties, 3, "Grouping row cannot be moved");
-							return;
-						}
+                    if(sGroup==null || sGroup==undefined){
+                       fnCancelSorting($dataTable, tbody, properties, 3, "Grouping row cannot be moved");
+                       return;
+                    }
                         sSelector = "tbody tr[" + properties.sDataGroupAttribute + " ='" + sGroup + "']";
                     }
 
-                    var oState = fnGetState(sSelector, ui.item.context.id);
-					if(oState.iNewPosition == -1)
-					{
-						fnCancelSorting(tbody, properties,2);
-						return;
-					}
+                    var oState = fnGetState($dataTable, sSelector, ui.item.context.id);
+                    if(oState.iNewPosition == -1)
+                    {
+                       fnCancelSorting($dataTable, tbody, properties,2);
+                       return;
+                    }
 
                     if (properties.sURL != null) {
-                        properties.fnStartProcessingMode();
-                        $.ajax({
+                        properties.fnStartProcessingMode($dataTable);
+						var oAjaxRequest = {
                             url: properties.sURL,
                             type: properties.sRequestType,
                             data: { id: ui.item.context.id,
@@ -215,16 +234,19 @@
                                 direction: oState.sDirection,
                                 group: sGroup
                             },
-                            success: function () {
-                                fnMoveRows(sSelector, oState.iCurrentPosition, oState.iNewPosition, oState.sDirection, ui.item.context.id, sGroup);
-                                properties.fnEndProcessingMode();
+                            success: function (data) {
+                                properties.fnSuccess(data);
+                                fnMoveRows($dataTable, sSelector, oState.iCurrentPosition, oState.iNewPosition, oState.sDirection, ui.item.context.id, sGroup);
+                                properties.fnEndProcessingMode($dataTable);
                             },
                             error: function (jqXHR) {
-								fnCancelSorting(tbody, properties, 1, jqXHR.statusText);
+                                fnCancelSorting($dataTable, tbody, properties, 1, jqXHR.statusText);
                             }
-                        });
+                        };
+						properties.fnUpdateAjaxRequest(oAjaxRequest, properties, $dataTable);
+                        $.ajax(oAjaxRequest);
                     } else {
-                        fnMoveRows(sSelector, oState.iCurrentPosition, oState.iNewPosition, oState.sDirection, ui.item.context.id, sGroup);
+                        fnMoveRows($dataTable, sSelector, oState.iCurrentPosition, oState.iNewPosition, oState.sDirection, ui.item.context.id, sGroup);
                     }
 
                 }
@@ -233,8 +255,4 @@
         });
 
     };
-
-
-
-
 })(jQuery);
