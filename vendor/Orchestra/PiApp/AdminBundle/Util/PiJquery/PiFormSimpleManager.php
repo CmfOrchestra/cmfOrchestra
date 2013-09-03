@@ -425,14 +425,15 @@ class PiFormSimpleManager extends PiJqueryExtension
                             }
                             
                             var accordionId = "accordion_" + tabProcessedId + "_" + className;
-                            $("<fieldset id='"+accordionId+"' class='accordion'><a href='#' class='accordion_link_"+className+"' title='"+title+"'>"+title+"</a></fieldset>").appendTo("#"+tabProcessedId+" .accordion-form");
+                            $("<fieldset id='"+accordionId+"' class='accordion'><legend>"+title+"</legend></fieldset>").appendTo("#"+tabProcessedId+" .accordion-form");
                             
                             $("#"+tabProcessedId+" ."+className).each(function(indClass) {
                                 //$(this).parent('.clearfix').detach().appendTo("#"+accordionId);
                                 $(this).closest('.clearfix').detach().appendTo("#"+accordionId);
                             });    
                         
-                            $('#'+accordionId+' a').click(function () {
+                            $('#'+accordionId+' legend').click(function(event, dataObject) {  
+                            	event.preventDefault(); 
                                 var that = $(this);
                                 var newHeight = function(){
                                     var h=16;    //initial height when closed
@@ -451,7 +452,8 @@ class PiFormSimpleManager extends PiJqueryExtension
                                 } else {
                                     $(this).parent('fieldset').animate({
                                         height: newHeight()
-                                      }, 400, 'swing', function() {
+                                    }, 400, 'swing', function() {
+                                    	console.log('cocni');
                                         $(this).addClass('open');
                                     }).siblings('fieldset').removeClass('open').animate({
                                         height: '16px'

@@ -46,6 +46,8 @@ class BootStrapMediaBundle extends Bundle
     {
         parent::build($container);
         
+        $container->addCompilerPass(new OverrideServiceCompilerPass());
+        
 //          if (!empty($_SERVER['HTTP_HOST']))
 //              $url  = dirname('http://'. $_SERVER['HTTP_HOST'] . $_SERVER["SCRIPT_NAME"]);
 //          elseif (!empty($_SERVER['SERVER_NAME']))

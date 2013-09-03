@@ -134,9 +134,9 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
                 $query = "UPDATE $entity_table mytable SET mytable.media = null WHERE mytable.id = ?";
                 $this->_connexion($eventArgs)->executeUpdate($query, array($entity->getId()));
                 
-                $this->_container()->get('sonata.media.provider.image')->preRemove($entity->getImage());
+                $this->_container()->get('bootstrap.media.provider.image')->preRemove($entity->getImage());
                 $this->_connexion($eventArgs)->delete($this->getOwningTable($eventArgs, $entity->getImage()), array('id'=>$entity->getImage()->getId()));
-                $this->_container()->get('sonata.media.provider.image')->postRemove($entity->getImage());                
+                $this->_container()->get('bootstrap.media.provider.image')->postRemove($entity->getImage());                
             } catch (\Exception $e) {
             }
             

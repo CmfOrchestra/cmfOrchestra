@@ -86,11 +86,9 @@ class CacheRoute
     {
         $class                 = "app".$this->environment . $this->options['generator_cache_class'];
         $this->file         = realpath($this->options['cache_dir'].'/'.$class.'.php');
-        
         $cache        = new ConfigCache($this->file, false);
         //if (!$cache->isFresh($class)) {
             $dumper     = new $this->options['generator_dumper_class']($this->collection);
-        
             $options     = array(
                     'class'      => $class,
                     'base_class' => $this->options['generator_base_class'],

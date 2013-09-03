@@ -48,7 +48,7 @@ class MediaType extends AbstractType
             'provider' => $options['provider'],
             'context'  => $options['context'],
         )));
-
+        
         $this->pool->getProvider($options['provider'])->buildMediaType($builder);
     }
 

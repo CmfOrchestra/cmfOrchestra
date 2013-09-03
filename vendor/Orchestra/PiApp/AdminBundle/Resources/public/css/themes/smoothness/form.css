@@ -13,15 +13,33 @@
 .myform fieldset{
     margin: 11px;
     padding: 11px;
-    background: #f0f0f0;
-    border: 2px solid #d0d0d0;
+    background: #EBEBEB;
+    border: 1px dotted #e3e3e3; /* #d0d0d0 #ddd */
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    -moz-box-shadow: 6px 6px 6px #ddd;
-    -webkit-box-shadow: 6px 6px 6px #ddd;
-    box-shadow: 6px 6px 6px #ddd;
+    
+    /* -moz-box-shadow: 6px 6px 6px #e3e3e3;
+    -webkit-box-shadow: 6px 6px 6px #e3e3e3;
+    box-shadow: 6px 6px 6px #e3e3e3; */
 }
+.myform fieldset > legend {
+    font-weight:bold;
+    background: #e3e3e3;
+    cursor: pointer;cursor:hand;
+    
+    padding: 2px 5px;
+    width: 100%;
+
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
 /* deb SBLA */
 .myform fieldset.no-accordion{
     float:left;
@@ -79,7 +97,7 @@
 .myform input[type=email],
 .myform textarea,
 .myform select {
-    width: 320px;
+    width: 331px;
     font: normal 1.1em arial,verdana,tahoma,sans-serif;
     color: #666;
     padding: 5px 8px;

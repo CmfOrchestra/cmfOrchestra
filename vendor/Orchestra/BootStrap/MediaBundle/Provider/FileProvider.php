@@ -51,9 +51,54 @@ class FileProvider extends BaseProvider
     public function __construct($name, Filesystem $filesystem, CDNInterface $cdn, GeneratorInterface $pathGenerator, ThumbnailInterface $thumbnail, array $allowedExtensions = array(), array $allowedMimeTypes = array(), MetadataBuilderInterface $metadata = null)
     {
         parent::__construct($name, $filesystem, $cdn, $pathGenerator, $thumbnail);
-
-        $this->allowedExtensions = $allowedExtensions;
-        $this->allowedMimeTypes  = $allowedMimeTypes;
+        
+        $this->allowedExtensions = array
+        (
+            0 => 'pdf',
+            1 => 'txt',
+            2 => 'rtf',
+            3 => 'doc',
+            4 => 'docx',
+            5 => 'xls',
+            6 => 'xlsx',
+            7 => 'ppt',
+            8 => 'pttx',
+            9 => 'odt',
+            10 => 'odg',
+            11 => 'odp',
+            12 => 'ods',
+            13 => 'odc',
+            14 => 'odf',
+            15 => 'odb',
+            16 => 'csv',
+            17 => 'xml'
+        );
+        $this->allowedMimeTypes  = array
+        (
+            0 => 'application/pdf',
+            1 => 'application/x-pdf',
+            2 => 'application/rtf',
+            3 => 'text/html',
+            4 => 'text/rtf',
+            5 => 'text/plain',
+            6 => 'application/excel',
+            7 => 'application/msword',
+            8 => 'application/vnd.ms-excel',
+            9 => 'application/vnd.ms-powerpoint',
+            10 => 'application/vnd.ms-powerpoint',
+            11 => 'application/vnd.oasis.opendocument.text',
+            12 => 'application/vnd.oasis.opendocument.graphics',
+            13 => 'application/vnd.oasis.opendocument.presentation',
+            14 => 'application/vnd.oasis.opendocument.spreadsheet',
+            15 => 'application/vnd.oasis.opendocument.chart',
+            16 => 'application/vnd.oasis.opendocument.formula',
+            17 => 'application/vnd.oasis.opendocument.database',
+            18 => 'application/vnd.oasis.opendocument.image',
+            19 => 'text/comma-separated-values',
+            20 => 'text/xml',
+            21 => 'application/xml',
+            22 => 'application/zip'
+        );
         $this->metadata = $metadata;
     }
 
@@ -106,8 +151,6 @@ class FileProvider extends BaseProvider
         $label 		= $formBuilder->getAttribute('label');
         $label_attr = $formBuilder->getAttribute('label_attr');
         $attr 		= $formBuilder->getAttribute('attr');
-        
-        //print_r($label);exit;
         
         $formBuilder->add('binaryContent', 'file', array('label'=>$label, 'label_attr'=> $label_attr, 'attr'=> $attr));        
     }

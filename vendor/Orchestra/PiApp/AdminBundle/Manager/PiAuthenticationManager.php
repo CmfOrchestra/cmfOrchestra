@@ -102,7 +102,7 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
         if (empty($params['locale']))
             $params['locale']        = $this->container->get('request')->getLocale();        
         
-        $em           = $this->container->get('doctrine')->getManager();        
+        $em      = $this->container->get('doctrine')->getManager();        
         $request = $this->container->get('request');
         $session = $request->getSession();
         
@@ -233,7 +233,12 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
      */    
     public function sendResettingEmailMessage(UserInterface $user, $route_reset_connexion)
     {
-        $user->generateConfirmationToken();
+        $tokenGenerator = $this->container->get('fos_user.util.token_generator');
+        $user->setConfirmationToken($tokenGenerator->generateToken());
+        $em = $this->container->get('doctrine')->getEntityManager();
+        $em->persist($user);
+        $em->flush();
+        
         $this->container->get('request')->getSession()->set(static::SESSION_EMAIL, $this->getObfuscatedEmail($user));
         
         $url       = $this->container->get('bootstrap.RouteTranslator.factory')->getRoute($route_reset_connexion, array('token' => $user->getConfirmationToken()));
@@ -247,7 +252,12 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
      */
     public function tokenUser(UserInterface $user)
     {
-        $user->generateConfirmationToken();
+        $tokenGenerator = $this->container->get('fos_user.util.token_generator');
+        $user->setConfirmationToken($tokenGenerator->generateToken());
+        $em = $this->container->get('doctrine')->getEntityManager();
+        $em->persist($user);
+        $em->flush();
+        
         $this->container->get('request')->getSession()->set(static::SESSION_EMAIL, $this->getObfuscatedEmail($user));
          
         return $user->getConfirmationToken();

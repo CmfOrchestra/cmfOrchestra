@@ -61,7 +61,12 @@ class ResettingController extends ContainerAware
             return $this->container->get('templating')->renderResponse('PiAppTemplateBundle:Template\\Login\\Resetting:passwordAlreadyRequested.html.twig');
         }
 
-        $user->generateConfirmationToken();
+        $tokenGenerator = $this->container->get('fos_user.util.token_generator');
+        $user->setConfirmationToken($tokenGenerator->generateToken());
+        $em = $this->container->get('doctrine')->getEntityManager();
+        $em->persist($user);
+        $em->flush();
+        
         $this->container->get('session')->set(static::SESSION_EMAIL, $this->getObfuscatedEmail($user));
         $this->sendResettingEmailMessage($user, $routereset);
         $user->setPasswordRequestedAt(new \DateTime());
