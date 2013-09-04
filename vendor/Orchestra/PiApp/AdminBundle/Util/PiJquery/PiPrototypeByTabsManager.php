@@ -364,7 +364,7 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                                 $(prototype_widget + " .pi_datepicker").datepicker({
                                                     changeMonth: true,
                                                     changeYear: true,
-                                                    yearRange: "-100:+0",
+                                                    yearRange: "-71:+11",
                                                     reverseYearRange: true,
                                                     showOtherMonths: true,
                                                     showButtonPanel: true,
@@ -381,7 +381,7 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                                     formatDate: 'g',
                                                     buttonText: "<?php echo $this->translator->trans('pi.form.label.select.choose.hour'); ?>",
                                                     showOn: "both",
-                                                    buttonImage: "/bundles/piappadmin/images/forms/icon_calendar.jpg"
+                                                    buttonImage: "/bundles/piappadmin/images/icons/form/clock-icone-5653-128.png"
                                                 });
                                                 $.datepicker.setDefaults( $.datepicker.regional[ "<?php echo strtolower(substr($locale, 0, 2)); ?>" ] );
 
@@ -397,7 +397,6 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                                       }
                                                     });
                                                 });                                    
-
                                                 j_prototype_bytabs.ftc_tinymce_editor($(prototype_widget + " .pi_editor"));                                                
                                                 j_prototype_bytabs.ftc_tinymce_editor_simple($(prototype_widget + " .pi_editor_simple"));
                                                 j_prototype_bytabs.ftc_tinymce_editor_simple_easy($(prototype_widget + " .pi_editor_simple_easy"));

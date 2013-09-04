@@ -588,18 +588,26 @@ class PiFormSimpleManager extends PiJqueryExtension
                     }).multiselectfilter();                                                
                     
                     $("<?php echo $options['form-name']; ?> .pi_datepicker").datepicker({
-                        changeMonth: true,
+                    	changeMonth: true,
                         changeYear: true,
-                        yearRange: "-100:+0",
+                        yearRange: "-71:+11",
                         reverseYearRange: true,
-                        showButtonPanel: true,
                         showOtherMonths: true,
+                        showButtonPanel: true,
+                        showAnim: "fade",  // blind fade explode puff fold
                         showOptions: { 
                             direction: "up" 
-                        }
+                        },
+                        numberOfMonths: [ 1, 2 ],
+                        buttonText: "<?php echo $this->translator->trans('pi.form.label.select.choose.date'); ?>",
+                        showOn: "both",
+                        buttonImage: "/bundles/piappadmin/images/icons/form/calendrier-icone-7406-128.png"
                     });
                     $("<?php echo $options['form-name']; ?> .pi_datetimepicker").datepicker({
-                        formatDate: 'g'
+                        formatDate: 'g',
+                        buttonText: "<?php echo $this->translator->trans('pi.form.label.select.choose.hour'); ?>",
+                        showOn: "both",
+                        buttonImage: "/bundles/piappadmin/images/icons/form/clock-icone-5653-128.png"
                     });
                     $.datepicker.setDefaults( $.datepicker.regional[ "<?php echo strtolower(substr($locale, 0, 2)); ?>" ] );
 
