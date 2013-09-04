@@ -48,7 +48,12 @@ class RouteTranslatorFactory extends AbstractFactory implements RouteTranslatorF
     
     /**
      * Return the referer url translated to the locale value and record the language in session..
-     *
+     * 
+	 * <code>
+	 *     $match = $this->container->get('bootstrap.RouteTranslator.factory')->getRefererRoute($this->container->get('session')->getLocale(), array('result' => 'match'));
+	 *     $url   = $this->container->get('bootstrap.RouteTranslator.factory')->getRefererRoute($this->container->get('session')->getLocale());
+	 * </code>
+	 * 
      * @param string $langue
      * @param array $options
      * @return string the url translated to the locale value.
@@ -85,17 +90,21 @@ class RouteTranslatorFactory extends AbstractFactory implements RouteTranslatorF
             $new_url = $this->getContainer()->get('router')->generate('home_page');
         }
         
-        if (is_null($options)){
-            return $new_url;
-        }elseif (isset($options['result']) && !empty($options['result'])){
-            if ($options['result'] == 'match')
-                return    $data;
-        }
+    	if (isset($options['result']) && ($options['result'] == 'match')) {
+			return	$data;
+		} else {
+		    return $new_url;
+		}
     }
     
     /**
-     * Return the original url translated to the locale value.
-     *
+     * Return the current url translated to the locale value.
+     * 
+	 * <code>
+	 *     $match	= $this->container->get('bootstrap.RouteTranslator.factory')->getLocaleRoute($this->container->get('session')->getLocale(), array('result' => 'match'));
+	 *     $url    	= $this->container->get('bootstrap.RouteTranslator.factory')->getLocaleRoute($this->container->get('session')->getLocale(), array('result' => 'string'));
+	 * </code> 
+     * 
      * @param string $langue
      * @param array $options
      * @return string the url translated to the locale value.
@@ -121,16 +130,19 @@ class RouteTranslatorFactory extends AbstractFactory implements RouteTranslatorF
             $new_url    = $this->getContainer()->get('router')->generate('home_page');
         }
     
-        if (is_null($options)){
-            return $new_url;
-        }elseif (isset($options['result']) && !empty($options['result'])){
-            if ($options['result'] == 'match')
-                return    $data;
-        }
+        if (isset($options['result']) && ($options['result'] == 'match')) {
+			return	$data;
+		} else {
+		    return $new_url;
+		}
     }    
     
     /**
-     * Return the original url translated to the locale value.
+	 * Return the url translated by route name to the locale value.
+	 * 
+	 * <code>
+	 *     $url		= $this->container->get('bootstrap.RouteTranslator.factory')->getRoute("page_lamelee_connexion", array('locale'=> $this->container->get('session')->getLocale()));
+	 * </code>
      *
      * @param string $route_name
      * @param array     $params
@@ -169,10 +181,16 @@ class RouteTranslatorFactory extends AbstractFactory implements RouteTranslatorF
     }    
     
     /**
-     * Return the original url translated to the locale value.
-     *
-     * @param string $route_name
-     * @param array     $params
+	 * Return the value of the parameter of the current or the referer url.
+	 * 
+	 * <code>
+	 *     $slug = $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('slug', $this->container->get('session')->getLocale(), 0);
+	 *     $route = $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('_route', $this->container->get('session')->getLocale(), 1); 
+	 * </code>
+	 * 
+	 * @param array	 $params
+	 * @param string $langue
+	 * @param boolean $isGetReferer
      * @return string the url translated to the locale value.
      * @access public
      *

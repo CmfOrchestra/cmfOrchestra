@@ -103,7 +103,7 @@ class PiUserManager extends PiWidgetExtension
     }
 
     /**
-     * Sets the render of the lucene action.
+     * Sets the render of the connexion action.
      *
      * <code>
      *   <?xml version="1.0"?>
@@ -111,15 +111,40 @@ class PiUserManager extends PiWidgetExtension
      *         <widgets>
      *             <user>
      *                 <controller>BootStrapUserBundle:User:_connexion_default</controller>
-      *                <params>
-      *                    <template>PiAppTemplateBundle:Template\\Login\\Security:connexion-ajax-bloc.html.twig</template>
-      *                    <referer_redirection>true</referer_redirection>
-      *                </params>
+     *                 <params>
+     *                     <template>PiAppTemplateBundle:Template\\Login\\Security:connexion-ajax-bloc.html.twig</template>
+     *                     <referer_redirection>true</referer_redirection>
+     *                 </params>
      *             </user>
      *         </widgets>
      *   </config>
-      * </code>
-      * 
+     *  </code>
+     * 
+     * <code>  
+     *  {% set widget_service_params = {"template":"PiAppTemplateBundle:Template@@@@@@@@Login@@@@@@@@Security:connexion-ajax-bloc.html.twig"} %} 
+     *  {{ getService('pi_app_admin.manager.authentication').renderSource('BootStrapUserBundle:User~_connexion_default', 'fr_FR', widget_service_params)|raw }}
+     * </code>
+     *  
+     * <code>
+     *   <?xml version="1.0"?>
+     *   <config>
+     *         <widgets>
+     *             <user>
+     *                 <controller>BootStrapUserBundle:User:_reset_default</controller>
+     *                 <params>
+     *                     <template>PiAppTemplateBundle:Template\\Login\\Resetting:reset_content.html.twig</template>
+     *                     <path_url_redirection>page_lamelee_menuwrapper_monespace</url_redirection>
+     *                 </params>
+     *             </user>
+     *         </widgets>
+     *   </config>
+     *  </code>
+     *
+     * <code>
+     *  {% set widget_service_params = {"template":"PiAppTemplateBundle:Template@@@@@@@@Login@@@@@@@@Resetting:reset_content_monespace.html.twig", "url_redirection": path_url('page_lamelee_menuwrapper_monespace', {'locale':locale})~'#profil'} %} 
+     *  {{ getService('pi_app_admin.manager.authentication').renderSource('BootStrapUserBundle:User~_reset_default', 'fr_FR', widget_service_params)|raw }}
+     * </code>
+     *    
      * @param    $options    tableau d'options.
      * @access protected
      * @return void
@@ -156,7 +181,7 @@ class PiUserManager extends PiWidgetExtension
         }else
             throw ExtensionException::optionValueNotSpecified("content", __CLASS__);        
     }
-
+    
     /**
      * Sets JS script.
      *

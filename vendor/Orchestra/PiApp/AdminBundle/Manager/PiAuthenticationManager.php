@@ -154,20 +154,22 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
      */
     public function resetConnexion($params = null)
     {
-        if (isset($params['template']) && !empty($params['template']))
-            $template = $params['template'];
-        else
-            $template = "PiAppTemplateBundle:Template\\Login\\Resetting:reset_content.html.twig";
-        
-        if (isset($params['url_redirection']) && !empty($params['url_redirection']))
-            $url_redirection = $params['url_redirection'];
-        else
-            $url_redirection = $this->container->get('router')->generate("home_page");
-                
+        if (isset($params['template']) && !empty($params['template'])) {
+        	$template = $params['template'];
+        } else {
+        	$template = "PiAppTemplateBundle:Template\\Login\\Resetting:reset_content.html.twig";
+        }
+        if (isset($params['url_redirection']) && !empty($params['url_redirection'])) {
+        	$url_redirection = $params['url_redirection'];
+        } elseif(isset($params['path_url_redirection']) && !empty($params['path_url_redirection'])) {
+        	$url_redirection = $this->container->get('bootstrap.RouteTranslator.factory')->getRoute($params['path_url_redirection'], array('locale'=> $this->container->get('session')->getLocale()));
+        } else {
+        	$url_redirection = $this->container->get('router')->generate("home_page");
+        }        
         $token       = $this->container->get('request')->query->get('token');
         
         // if a user is connected, we generate automatically the token if it is not given in parameter.
-        if (empty($token) && $this->isUsernamePasswordToken()){
+        if (empty($token) && $this->isUsernamePasswordToken()) {
             $token = $this->tokenUser($this->getToken()->getUser());
             $user  = $this->getToken()->getUser();
         } else {
