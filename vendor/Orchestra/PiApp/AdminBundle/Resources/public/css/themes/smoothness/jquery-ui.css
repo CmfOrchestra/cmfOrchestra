@@ -291,6 +291,14 @@ button.ui-button::-moz-focus-inner {
 .ui-datepicker select.ui-datepicker-year {
 	width: 49%;
 }
+button.ui-datepicker-trigger {
+	position: relative;
+    top: 11px;
+    border: 0;
+}
+button.ui-datepicker-trigger img {
+    width: 35px;	
+}
 .ui-datepicker table {
 	width: 100%;
 	font-size: .9em;

@@ -587,7 +587,17 @@ class PiFormSimpleManager extends PiJqueryExtension
                        selectedList: 4
                     }).multiselectfilter();                                                
                     
-                    $("<?php echo $options['form-name']; ?> .pi_datepicker").datepicker();
+                    $("<?php echo $options['form-name']; ?> .pi_datepicker").datepicker({
+                        changeMonth: true,
+                        changeYear: true,
+                        yearRange: "-100:+0",
+                        reverseYearRange: true,
+                        showButtonPanel: true,
+                        showOtherMonths: true,
+                        showOptions: { 
+                            direction: "up" 
+                        }
+                    });
                     $("<?php echo $options['form-name']; ?> .pi_datetimepicker").datepicker({
                         formatDate: 'g'
                     });

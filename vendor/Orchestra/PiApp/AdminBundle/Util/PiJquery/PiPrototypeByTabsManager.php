@@ -361,9 +361,27 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                                    selectedList: 4
                                                 }).multiselectfilter();                                                
                                                 
-                                                $(prototype_widget + " .pi_datepicker").datepicker();
+                                                $(prototype_widget + " .pi_datepicker").datepicker({
+                                                    changeMonth: true,
+                                                    changeYear: true,
+                                                    yearRange: "-100:+0",
+                                                    reverseYearRange: true,
+                                                    showOtherMonths: true,
+                                                    showButtonPanel: true,
+                                                    showAnim: "fade",  // blind fade explode puff fold
+                                                    showOptions: { 
+                                                        direction: "up" 
+                                                    },
+                                                    numberOfMonths: [ 1, 2 ],
+                                                    buttonText: "<?php echo $this->translator->trans('pi.form.label.select.choose.date'); ?>",
+                                                    showOn: "both",
+                                                    buttonImage: "/bundles/piappadmin/images/icons/form/calendrier-icone-7406-128.png"
+                                                });
                                                 $(prototype_widget + " .pi_datetimepicker").datepicker({
-                                                    formatDate: 'g'
+                                                    formatDate: 'g',
+                                                    buttonText: "<?php echo $this->translator->trans('pi.form.label.select.choose.hour'); ?>",
+                                                    showOn: "both",
+                                                    buttonImage: "/bundles/piappadmin/images/forms/icon_calendar.jpg"
                                                 });
                                                 $.datepicker.setDefaults( $.datepicker.regional[ "<?php echo strtolower(substr($locale, 0, 2)); ?>" ] );
 
