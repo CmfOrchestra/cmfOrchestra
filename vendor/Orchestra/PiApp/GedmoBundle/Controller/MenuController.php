@@ -428,8 +428,8 @@ class MenuController extends abstractController
         $self->translator = $this->container->get('translator');
         $options = array(
                 'decorate' => true,
-                'rootOpen' => "\n <div class='acc-section'><div class='acc-content'><ul class='acc'> \n",
-                'rootClose' => "\n </ul></div></div> \n",
+                'rootOpen' => "\n <div class='inner'><ul> \n",
+                'rootClose' => "\n </ul></div> \n",
                 'childOpen' => "    <li> \n",        // 'childOpen' => "    <li class='collapsed' > \n",
                 'childClose' => "    </li> \n",
                 'nodeDecorator' => function($node) use (&$self) {
@@ -438,21 +438,22 @@ class MenuController extends abstractController
                 
                     // define of all url images
                     $Urlpath0     = $self->get('templating.helper.assets')->getUrl('bundles/piappadmin/images/icons/tree/plus.png');
-                    $UrlpathAdd    = $self->get('templating.helper.assets')->getUrl('bundles/piappadmin/images/icons/tree/add.png');
+                    $UrlpathAdd   = $self->get('templating.helper.assets')->getUrl('bundles/piappadmin/images/icons/tree/add.png');
                     $Urlpath1     = $self->get('templating.helper.assets')->getUrl('bundles/piappadmin/images/icons/tree/view.png');
                     $Urlpath2     = $self->get('templating.helper.assets')->getUrl('bundles/piappadmin/images/icons/tree/up.png');
                     $Urlpath3     = $self->get('templating.helper.assets')->getUrl('bundles/piappadmin/images/icons/tree/down.png');
                     $Urlpath4     = $self->get('templating.helper.assets')->getUrl('bundles/piappadmin/images/icons/tree/remove.png');
 
-                    $linkNode     = '<h3 class="tree-node" >'
-                    . '<img src="'.$Urlpath0.'" height="21px" />&nbsp;&nbsp;&nbsp;' . str_replace('<br>', ' ', $tree->getTitle())
-                    . '&nbsp;&nbsp;&nbsp; (node: ' .  $node['id'] . ', level : ' .  $node['lvl'] . ')'
-                    . '</h3>';
+                    $title = $tree->getTitle();
+                    $title = preg_replace('/([ \t\r\n\v\f])(\d{0,3})([ \t\r\n\v\f])/i', '  ', $title);
+                    $title = preg_replace("/<[bB]{1}[rR]{1}[ ]*[\/]*>/xsm", '', $title);
                     
-                    if ( ($node['lft'] == -1) && ($node['rgt'] == 0) )   $linkNode .= '<div class="acc-section"><div class="acc-content">';
-                    if ( ($node['lft'] !== -1) && ($node['rgt'] !== 0) ) $linkNode .= '<div class="acc-section"><div class="acc-content">';
-                    if ( ($node['lft'] == -1) && ($node['rgt'] !== 0) )  $linkNode .= '<div class="acc-section"><div class="acc-content">';
-                                        
+                    $linkNode     = '<h4>'. $title . '&nbsp;&nbsp;&nbsp; (node: ' .  $node['id'] . ', level : ' .  $node['lvl'] . ')' . '</h4>';
+                    
+                    if ( ($node['lft'] == -1) && ($node['rgt'] == 0) )   $linkNode .= '<div class="inner">';
+                    if ( ($node['lft'] !== -1) && ($node['rgt'] !== 0) ) $linkNode .= '<div class="inner">';
+                    if ( ($node['lft'] == -1) && ($node['rgt'] !== 0) )  $linkNode .= '<div class="inner">';                    
+                    
                     $linkAdd    = '<a href="#" class="tree-action" data-url="' . $self->generateUrl('admin_gedmo_menu_new', array("NoLayout" => true, 'category'=>$self->category, 'parent' => $node['id'])) . '" ><img src="'.$UrlpathAdd.'" title="'.$self->translator->trans('pi.add').'"  width="16" /></a>';
                     $linkEdit   = '<a href="#" class="tree-action" data-url="' . $self->generateUrl('admin_gedmo_menu_edit', array('id' => $node['id'], "NoLayout" => true)) . '" ><img src="'.$Urlpath1.'" title="'.$self->translator->trans('pi.edit').'"  width="16" /></a>';
                     $linkUp        = '<a href="' . $self->generateUrl('admin_gedmo_menu_move_up', array('id' => $node['id'], 'category'=>$self->category, 'NoLayout'=> $self->NoLayout)) . '"><img src="'.$Urlpath2.'" title="'.$self->translator->trans('pi.move-up').'" width="16" /></a>';
@@ -461,8 +462,8 @@ class MenuController extends abstractController
                     
                     $linkNode .= $linkAdd . '&nbsp;&nbsp;&nbsp;' . $linkEdit . '&nbsp;&nbsp;&nbsp;' . $linkUp . '&nbsp;&nbsp;&nbsp;' . $linkDown . '&nbsp;&nbsp;&nbsp;' . $linkDelete;
 
-                    if ( ($node['lft'] == -1) && ($node['rgt'] == 0) )  $linkNode .= '</div></div>'; // if ( ($node['lft'] == -1) && ($node['rgt'] !== 0) )
-                    if ( ($node['lft'] == -1) && ($node['rgt'] !== 0) ) $linkNode .= '</div></div>'; // if ( ($node['lft'] == -1) && ($node['rgt'] !== 0) )
+                    if ( ($node['lft'] == -1) && ($node['rgt'] == 0) )  $linkNode .= '</div>'; // if ( ($node['lft'] == -1) && ($node['rgt'] !== 0) )
+                    if ( ($node['lft'] == -1) && ($node['rgt'] !== 0) ) $linkNode .= '</div>'; // if ( ($node['lft'] == -1) && ($node['rgt'] !== 0) )
                     return $linkNode;
                 }
         );

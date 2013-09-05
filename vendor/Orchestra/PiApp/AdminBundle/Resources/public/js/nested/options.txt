@@ -1,0 +1,51 @@
+container : true, // {true} if the plugin is called on the closest named container, {false} if the pligin is called on the accordion element
+obj : 'ul', // the element which contains the accordion - 'ul', 'ol', 'div'
+objClass : '.accordion', // the class name of the accordion - required if you call the accordion on the container
+objID : '', // the ID of the accordion (optional)
+wrapper : 'li', // the common parent of 'a.trigger' and 'o.next' - 'li', 'div'
+el : 'li', // the parent of 'a.trigger' - 'li', '.h'
+head : '', // the headings that are parents of triggers (if any)
+next : 'ul', // the collapsible element - 'ul', 'ol', 'div'
+iconTrigger : false, // {false}, {true}
+initShow : '', // the initially expanded section (optional)
+expandSub : true, // {true} forces the sub-content under the 'current' item to be expanded on page load
+showMethod : 'slideDown', // 'slideDown', 'show', 'fadeIn', or custom
+hideMethod : 'slideUp', // 'slideUp', 'hide', 'fadeOut', or custom
+showSpeed: 400,
+hideSpeed: 800,
+scrollSpeed : 600, //speed of repositioning the newly opened section when it is pushed off screen.
+activeLink : true // 'true' if the accordion is used for site navigation
+event : 'click', // 'click', 'hover'
+focus : true, // it is needed for keyboard accessibility when we use {event:'hover'}
+interval : 200, // time-interval for delayed actions used to prevent the accidental activation of animations when we use {event:hover} (in milliseconds)
+collapsible : true // {true} - the accordion is fully collapsible, 'false' - one section is open at any time
+standardExpansible : false, // if {true}, the functonality will be standard Expand/Collapse without 'accordion' effect
+lastChild : true, //if {true}, the items without sub-elements will also trigger the 'accordion' animation
+shift : false, // false, 'clicked' or 'all' *
+elToWrap : null // null, or the element, besides the text node, to be wrapped by the trigger, e.g. 'span:first'
+uri : 'full', // 'full' if you use absolute paths. 'relative' - if you use relative paths in a navigation accordion - specify splitUrl option below
+splitUrl: '/', // If you use relative paths in a navigation accordion, specify a symbol '/', '?', '#', etc.
+retFunc : null
+
+
+
+
+To call the plugin, add the following code in a $(document).ready() function inside the <head> of your HTML document:
+
+1. To create accordions with different options in two different divisions of the page (for example #side and #main), you'll add a code like this:
+
+$('#side').accordion(); // uses all default options
+
+$('#main').accordion({el:'.h', head:'h2, h3', next:'div', initShow:'div.outer:eq(1)'});
+
+2. To override some options for a specific element, specify the ID:
+
+$('#acc3').accordion({container:false, initShow:'#current'});
+
+$('#acc2').accordion({container:false, obj:'div', wrapper:'div', el: '.h', head:'h2, h3', next:'div.outer'});
+
+3. We can globally override the defaults:
+
+$.fn.accordion.defaults.container = false;
+
+$.fn.accordion.defaults.initShow = '#current';

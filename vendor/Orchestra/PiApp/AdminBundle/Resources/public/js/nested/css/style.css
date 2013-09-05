@@ -1,0 +1,62 @@
+.accordion {margin:0px; padding:10px 10px}
+.accordion li {list-style-type:none}
+.accordion li.last-child {margin-left:19px; list-style-type:disc}
+#side ul.accordion ul {margin:0; padding:0 0 0 20px;}
+.accordion .outer {border:1px solid #dadada; border-width:0 1px 1px; background: #fff}
+.accordion .inner {margin-bottom:0; padding:.5em 20px 1em; position:relative; overflow:hidden}
+.accordion .inner .inner {padding-bottom:0}
+.accordion .h {padding-top:.3em} /* vertical padding instead of vertical margin (ie8) */
+.accordion p {margin:.5em 1px 1em}
+
+.accordion a {text-decoration:none; color:#555555; margin-right: 11px;}
+.accordion a:hover {text-decoration: underline;}
+
+.accordion .inner > a {text-decoration:none; color:#9ac1c9; float:left; margin-right: 11px;}
+
+/*  
+  Add styles for all links in the 'accordion':
+.accordion a {...}
+*/    
+
+a.trigger {display:block; padding-left:20px; background-image: url(../img/plus.png); background-size: 19px Auto; background-repeat: no-repeat; background-position: 1px 50%;  font-weight:700}
+a.trigger.open {background-image: url(../img/moins.png)}
+.last-child a.trigger{padding-left:1px; background-image:none; font-weight:normal}
+#tree {
+	margin:23px 0px;
+	border: 1px solid #D3D3D3;
+	border-radius: 11px;
+	-moz-border-radius: 11px;
+	-webkit-border-radius: 11px;
+	background-color: #fff;
+	opacity: 0.95;
+	filter: alpha(opacity=60);	
+}
+#tree a.trigger {background-color:#f0f0f0;padding: 3px 0px 3px 31px;}
+#tree a.trigger.open {border-color:#dadada; background-color: #238BC0; color:#fff; margin: 0;}
+#tree a:hover.trigger.open, #main a:focus.trigger.open, #main a:active.trigger.open {border-color:#bcd}
+
+
+#container {
+  float:left;
+  width:100%;
+  margin-right:-19em;
+  padding:0 0 1em;
+  position:relative;
+  min-height:0
+}
+#side{
+  float:left;
+  display:inline;
+  width:18em;
+  padding-bottom:1.3em;
+  position:relative;
+  color:#e3e3e3;
+  overflow:hidden
+}
+#side a {display:block; float:left; border-width:0 0 1px; border-color:#445; color:#f0f0f0}
+#side a:hover, #side a:active, #side a:focus {background-color:#334}
+#side a.active{font-weight:700; color:#f72; text-decoration:none}
+#side, #side h2, #side h3 {background:#000; color:#e3e3e3}
+#side h2 {border-bottom:1px solid #484b51}
+
+

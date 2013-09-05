@@ -3,6 +3,62 @@
  * <etienne de Longeaux> <etienne.delongeaux@gmail.com>
  *******************************************************/
  
+/*******************************************************
+ * Reset css
+ *******************************************************/
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,
+address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,
+u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,
+th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,
+output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0 none;font-size:100%;font:inherit}
+
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section, main{display:block}
+ol,ul{list-style:none}
+ul,li{list-style:none;margin:0;padding:0}
+nav ul,nav ol{list-style:none;list-style-image:none;margin:0;padding:0}
+blockquote,q{quotes:none}
+blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}
+table{border-collapse:collapse;border-spacing:0}
+a:hover,a:active,a,object, embed{outline:0}
+a{text-decoration: none}
+
+img{display:block;border:0 none;-ms-interpolation-mode:bicubic}
+label{cursor:pointer}
+
+button, input, select, textarea {margin: 0; vertical-align: middle; *vertical-align: middle; border:0 none; outline: none;}
+button, input { line-height: normal; }
+button, input[type="button"], input[type="reset"], input[type="submit"] { cursor: pointer; -webkit-appearance: button; *overflow: visible; }
+button[disabled], input[disabled] { cursor: default; }
+input[type="checkbox"], input[type="radio"] { box-sizing: border-box; padding: 0; *width: 13px; *height: 13px; }
+input[type="search"] { -webkit-appearance: textfield; -moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box; }
+input[type="search"]::-webkit-search-decoration, input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; }
+button::-moz-focus-inner, input::-moz-focus-inner { border: 0 none; padding: 0; }
+textarea { overflow: auto; vertical-align: top; resize: vertical; }
+button, input { line-height: normal; -webkit-border-radius:0} /*remove radius from iphone button*/
+/**
+* 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
+*    and `video` controls.
+* 2. Correct inability to style clickable `input` types in iOS.
+* 3. Improve usability and consistency of cursor style between image-type
+*    `input` and others.
+* 4. Remove inner spacing in IE 7 without affecting normal text inputs.
+*    Known issue: inner spacing remains in IE 6.
+*/
+
+button,
+html input[type="button"], /* 1 */
+input[type="reset"],
+input[type="submit"] { -webkit-appearance: button; /* 2 */ cursor: pointer; /* 3 */*overflow: visible;  /* 4 */}
+
+/* Reset des titres */
+h1,h2,h3,h4,h5,h6{ font-size:1em; font-weight:normal;}
+
+body,html{margin:0;padding:0;}
+
+/*******************************************************
+ * Main
+ *******************************************************/
+ 
  /* COMMON */
  div.wijmo-wijprogressbar-east{
 	position:fixed;
@@ -21,7 +77,7 @@
 	display: none;
     text-align: left;
     margin0;padding:0;
-    margin-top: -25px;
+    margin-top: -21px;
     padding-left: 0px;
     font-size: 10px;
     line-height: 13px;

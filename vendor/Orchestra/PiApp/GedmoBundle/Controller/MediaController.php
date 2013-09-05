@@ -140,7 +140,8 @@ class MediaController extends abstractController
         }
 
         $query                = $em->getRepository("PiAppGedmoBundle:Media")->getAllByCategory($category, null, '', 'ASC', false);
-        $query->leftJoin('a.image', 'm');
+        $query->leftJoin('a.image', 'm')
+        ->andWhere('a.image IS NOT NULL');
         
         $is_Server_side = true;
         

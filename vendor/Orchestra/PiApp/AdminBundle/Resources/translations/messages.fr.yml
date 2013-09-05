@@ -299,6 +299,8 @@ pi.form.label.select.choose.typologie: Choisissez une typologie
 pi.form.label.select.choose.activity: Choisissez une activité
 pi.form.label.select.choose.civility: Choisissez une civilité
 pi.form.label.select.choose.profile: Choisissez un profil
+pi.form.label.select.choose.date: Choisissez une date
+pi.form.label.select.choose.hour: Choisissez une heure
 
 # Footer
 pi.footer.copyright: Tous droits réservés

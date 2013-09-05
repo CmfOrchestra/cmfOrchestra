@@ -293,11 +293,13 @@ button.ui-button::-moz-focus-inner {
 }
 button.ui-datepicker-trigger {
 	position: relative;
-    top: 11px;
-    border: 0;
+    top: -1px;
+    /*border: 1px solid #d0d0d0;*/
+    margin-left: 8px;
+    padding:0;
 }
 button.ui-datepicker-trigger img {
-    width: 35px;	
+    width: 21px;	
 }
 .ui-datepicker table {
 	width: 100%;

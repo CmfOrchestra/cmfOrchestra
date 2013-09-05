@@ -28,9 +28,9 @@
         
         <!--  Css core ['php', 'yui', 'file', 'array', 'empty'] -->
         {% stylesheet "bundles/piappadmin/css/layout/screen-layout-global.css:prepend" %}
-        {% if is_granted('ROLE_USER') %}
-            {% stylesheet getParameter('pi_app_admin.admin.theme_css')~":prepend" %}
-        {% endif %}
+        {% if (is_granted('ROLE_USER')) %}
+            {% stylesheet getParameter('pi_app_admin.admin.theme_css')~":append" %}
+        {% endif %}	
         {% if (is_granted('ROLE_USER')) %}
    			{% CMFstylesheets 'file' %}
    		{% else %}	

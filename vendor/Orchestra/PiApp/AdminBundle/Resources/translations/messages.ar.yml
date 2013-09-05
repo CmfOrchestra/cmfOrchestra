@@ -299,6 +299,8 @@ pi.form.label.select.choose.typologie: اختيار التصني
 pi.form.label.select.choose.activity: اختر أي نشاط
 pi.form.label.select.choose.civility:  اختيار الكياسة
 pi.form.label.select.choose.profile:  اختيار الملف
+pi.form.label.select.choose.date: اختيار التاريخ
+pi.form.label.select.choose.hour: اختيار ساعة
 
 # Footer
 pi.footer.copyright: حق النشر

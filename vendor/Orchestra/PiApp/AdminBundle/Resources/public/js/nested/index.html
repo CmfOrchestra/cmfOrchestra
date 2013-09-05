@@ -1,0 +1,442 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
+<head>
+<title>Experiments | jQuery Nested Accordion - demo 1</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en" />
+<meta name="language" content="en" />
+<meta name="robots" content="index, follow" />
+<meta name="author" content="Adriana Palazova - www.adipalaz.com" />
+<style type='text/css'>
+/* --------
+  The CSS rules offered here are just an example. You can style the 'accordion' in any way you like.
+  The styles for the Page Structure are needed just for the purpose of this demo page.
+  If you decide to use the CSS rules in 'Accordion' (see below) as a base, 
+  be sure to rename the selectors as to satisfy the elements in your site.
+ --------- */
+* {margin:0; padding:0}
+/* --- Page Structure  --- */
+html {height:100%}
+body {
+  min-width:480px;
+  width:100%;
+  height:101%;
+  background:#fff;
+  color:#333;
+  font:76%/1.6 verdana,geneva,lucida,'lucida grande',arial,helvetica,sans-serif;
+  text-align:center
+}
+#wrapper{
+  margin-bottom:30px;
+  padding:10px 2.5%;
+  border-top:0.1em solid #ccc;
+  background:#fff;
+  text-align:left;
+  overflow:hidden
+}
+#container {
+  float:left;
+  width:100%;
+  margin-right:-19em;
+  padding:0 0 1em;
+  position:relative;
+  min-height:0
+}
+#main{
+  margin-right:19em;
+  position:relative; 
+  min-height:0
+}
+#side{
+  float:right;
+  display:inline;
+  width:18em;
+  padding-bottom:1.3em;
+  position:relative;
+  color:#e3e3e3;
+  overflow:hidden
+}
+p {margin: 0 10px 1em}
+.strong{font-weight:700}
+.clear {clear:both}
+img{border:0 none}
+
+/* --- Headings --- */
+h1 {font-family:georgia,'times new roman',times,serif; font-size:2.5em; font-weight:normal; color:#f60}
+
+h1, h2, h3 {margin-bottom:1em}
+
+h2, h3, h4 a, h5 a {padding:3px 10px}
+
+h2, h3, h4, h5 {font-size:1em}
+
+#main h2 {background-color:#f0f0f0}
+
+#side, #side h2, #side h3 {background:#000; color:#e3e3e3}
+
+#side h2 {border-bottom:1px solid #484b51}
+
+/* --- Links --- */
+a {padding:1px; border:1px solid #e0e0e0; color:#05b}
+
+a:hover, a:focus, a:active {border-color:#bcd; text-decoration:none; outline:0 none}
+
+#side a {display:block; border-width:0 0 1px; border-color:#445; color:#f0f0f0}
+
+#side a:hover, #side a:active, #side a:focus {background-color:#334}
+
+/* --- Accordion --- */
+.js #main .accordion {visibility:hidden}
+
+.js #side .accordion {display:none}
+
+.accordion {margin:0; padding:0 10px}
+
+.accordion li {list-style-type:none}
+
+.accordion li.last-child {margin-left:19px; list-style-type:disc}
+
+#side ul.accordion ul {margin:0; padding:0 0 0 20px;}
+
+.accordion .outer {border:1px solid #dadada; border-width:0 1px 1px; background: #fff}
+
+.accordion .inner {margin-bottom:0; padding:.5em 20px 1em; position:relative; overflow:hidden}
+
+.accordion .inner .inner {padding-bottom:0}
+
+.accordion .h {padding-top:.3em} /* vertical padding instead of vertical margin (ie8) */
+
+.accordion p {margin:.5em 1px 1em}
+
+/*  
+  Add styles for all links in the 'accordion':
+.accordion a {...}
+*/    
+
+a.trigger {display:block; padding-left:20px; background-image: url(img/plus.gif); background-repeat: no-repeat; background-position: 1px 50%;  font-weight:700}
+
+a.trigger.open {background-image: url(img/minus.gif)}
+
+.last-child a.trigger{padding-left:1px; background-image:none; font-weight:normal}
+
+#main a.trigger {background-color:#f0f0f0}
+
+#main a.trigger.open {border-color:#dadada; background-color:#e7e7e7}
+
+#main a:hover.trigger.open, #main a:focus.trigger.open, #main a:active.trigger.open {border-color:#bcd}
+
+#side a.active{font-weight:700; color:#f72; text-decoration:none}
+</style>
+
+<!--[if lte IE 6]>
+<style type='text/css'>
+  * html #main, * html #container, #side a, a.trigger, .accordion .inner {height:1%}
+  #lenta{height:52px}
+</style>
+<script type="text/javascript">
+   try { document.execCommand( "BackgroundImageCache", false, true); } catch(e) {};
+</script>
+<![endif]-->
+<!--[if lte IE 7]>
+<style type="text/css">
+  .accordion .inner {position:static; overflow:visible}
+</style>
+<![endif]-->
+<!--[if !lt IE 6]><!-->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script type="text/javascript" src="js/jquery.nestedAccordion.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+$("html").addClass("js");
+$.fn.accordion.defaults.container = false; 
+$(function() {
+  $("#acc3").accordion({initShow: "#current"});
+  $("#acc1").accordion({
+      el: ".h", 
+      head: "h4, h5", 
+      next: "div", 
+      initShow : "div.outer:eq(1)"
+  });
+  $("#acc2").accordion({
+      obj: "div", 
+      wrapper: "div", 
+      el: ".h", 
+      head: "h4, h5", 
+      next: "div", 
+      showMethod: "slideFadeDown",
+      hideMethod: "slideFadeUp",
+      initShow : "div.shown",
+      elToWrap: "sup, img"
+    });
+  $("html").removeClass("js");
+});
+//--><!]]>
+</script>
+<!--<![endif]-->
+
+<!-- end (Google Analytics) -->
+</head>
+<body id="nested-accordion-demo" class="jquery">
+    <div id="wrapper"> 
+      <p style="margin-left:0"><a style="padding:3px 5px; border:none;" href="http://www.adipalaz.com/experiments/jquery/nested_accordion.html">BACK</a></p>
+      <div id="content">  
+            <h1 class="heading">jQuery experiments: Nested Accordion - demo 1</h1>
+            <p><span class="strong">Accordion 3</span> can be used for site navigation.
+            The sub-list with the anchor whose target matches the current location and the sub-list under it (if any) are initially expanded. 
+            To see it in action, click one of the items with same-page link and then reload the page. (All the items under Item 1 have same-page links.)</p>
+            <div id="container">
+                <div id="main">
+                    <h2>Main content</h2>
+<!-- ********************* Accordion 1 ********************* -->                    
+                    <h3>Accordion 1 - Nested Lists + Headings + DIVs</h3>
+                    <p>Activated whenever a 'click' event occurs. The first sub-section is expanded when the page loads.</p>  
+                    <ul id="acc1" class="accordion">
+                      <li>
+                        <h4>Heading 1</h4>
+                        <div class="inner">
+                          <ul>
+                            <li>
+                              <h5>Heading a</h5>
+                              <div class="inner">
+                                  <p>
+                                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt 
+                                  ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+                                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
+                                  voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+                                  non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                  </p>
+                              </div>
+                            </li>
+                            <li>
+                              <h5>Heading b</h5>
+                              <div class="inner">
+                                  <p>
+                                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt 
+                                  ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+                                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
+                                  voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+                                  non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                  </p>
+                              </div>
+                            </li>
+                            <li>
+                              <h5>Heading c</h5>
+                              <div class="inner">
+                                  <p>
+                                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt 
+                                  ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+                                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
+                                  voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+                                  non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                  </p>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </li>
+                      <li>
+                        <h4>Heading 2</h4>
+                        <div class="inner">
+                          <ul>
+                            <li>
+                              <h5>Heading a</h5>
+                              <div class="inner">
+                                  <p>
+                                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt 
+                                  ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+                                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
+                                  voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+                                  non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                  </p>
+                              </div>
+                            </li>
+                            <li>
+                              <h5>Heading b</h5>
+                              <div class="inner">
+                                  <p>
+                                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt 
+                                  ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+                                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
+                                  voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+                                  non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                  </p>
+                              </div>
+                            </li>
+                            <li>
+                              <h5>Heading c</h5>
+                              <div class="inner">
+                                  <p>
+                                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt 
+                                  ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+                                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
+                                  voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+                                  non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                  </p>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </li>
+                    </ul> <!-- end accordion 1 -->
+                    <br />
+<!-- ********************* Accordion 2 ********************* -->                    
+                    <h3>Accordion 2 - Nested DIVs + Headings</h3>
+                    <p>Activated whenever a 'click' event occurs. The second section is expanded when the page loads.</p>                  
+                    <div id="acc2" class="accordion">
+                        <h4>1<sup>st</sup></h4>
+                        <div class="inner">
+                            <h5>Heading a <img src="/img/hover.gif" alt="" /></h5>
+                            <div class="inner">
+                              <p>
+                              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt 
+                              ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+                              laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
+                              voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+                              non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                              </p>
+                              <p>
+                              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt 
+                              ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+                              laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
+                              voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+                              non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                              </p>
+                            </div>
+                            <h5>Heading b</h5>
+                            <div class="inner">
+                              <p>
+                              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt 
+                              ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+                              laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
+                              voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+                              non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                              </p>
+                              <p>
+                              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt 
+                              ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+                              laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
+                              voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+                              non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                              </p>
+                          </div>
+                          </div>
+                          <h4>2<sup>nd</sup></h4>
+                          <div class="inner shown">
+                              <h5>Heading a</h5>
+                              <div class="inner">
+                                  <p>
+                                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt 
+                                  ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+                                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
+                                  voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+                                  non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                  </p>
+                                  <p>
+                                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt 
+                                  ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+                                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
+                                  voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+                                  non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                  </p>
+                              </div>
+                              <h5>Heading b</h5>
+                              <div class="inner">
+                                  <p>
+                                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt 
+                                  ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+                                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
+                                  voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+                                  non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                  </p>
+                              </div>
+                          </div>
+                          <h4>3<sup>rd</sup></h4>
+                          <div class="inner">
+                              <p>
+                              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt 
+                              ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+                              laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
+                              voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+                              non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                              </p>
+                              <p>
+                              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt 
+                              ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+                              laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
+                              voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+                              non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                              </p>
+                          </div>
+                    </div> <!-- end Accordion 2 -->
+                </div>
+            </div>
+            
+            <div id="side">
+                <h2>Side Column</h2>
+<!-- ********************* Accordion 3 ********************* -->                    
+                <h3>Accordion 3 - Nested Lists:</h3>
+                <p>Activated whenever a 'click' event occurs.</p>   
+                <ul id="acc3" class="accordion">
+                    <li><a href="http://www.adipalaz.com/experiments/jquery/nested_accordion_demo.html#item1">Item 1</a>
+                        <ul>
+                            <li><a href="http://www.adipalaz.com/experiments/jquery/nested_accordion_demo.html#Sub11">Sub 1.1</a>
+                                <ul>
+                                    <li><a href="http://www.adipalaz.com/experiments/jquery/nested_accordion_demo.html#Sub111">Sub 1.1.1</a>
+                                        <ul>
+                                            <li><a href="http://www.adipalaz.com/experiments/jquery/nested_accordion_demo.html#link1">Link 1</a></li>
+                                            <li><a href="http://www.adipalaz.com/experiments/jquery/nested_accordion_demo.html#link2">Link 2</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="http://www.adipalaz.com/experiments/jquery/nested_accordion_demo.html#Sub112">Sub 1.1.2</a>
+                                        <ul>
+                                            <li><a href="http://www.adipalaz.com/experiments/jquery/nested_accordion_demo.html#link3">Link 3</a></li>
+                                            <li><a href="http://www.adipalaz.com/experiments/jquery/nested_accordion_demo.html#link4">Link 4</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a href="http://www.adipalaz.com/experiments/jquery/nested_accordion_demo.html#Sub12">Sub 1.2</a>
+                                <ul>
+                                    <li><a href="http://www.adipalaz.com/experiments/jquery/nested_accordion_demo.html#link5">Link 5</a></li>
+                                    <li><a href="http://www.adipalaz.com/experiments/jquery/nested_accordion_demo.html#link6">Link 6</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>Item 2
+                        <ul>
+                            <li>Sub 2.1
+                                <ul>
+                                    <li><a href="http://www.adipalaz.com/experiments/jquery/nested_accordion_demo.html#link11">Link 11</a></li>
+                                    <li><a href="http://www.adipalaz.com/experiments/jquery/nested_accordion_demo.html#link12">Link 12</a></li>
+                                </ul>
+                            </li>
+                            <li>Sub 2.2
+                                <ul>
+                                    <li><a href="http://www.adipalaz.com/experiments/jquery/nested_accordion_demo.html#link13">Link 13</a></li>
+                                </ul>
+
+                            </li>
+                            <li>Sub 2.3
+                                <ul>
+                                    <li><a href="http://www.adipalaz.com/experiments/jquery/nested_accordion_demo.html#link14">Link 14</a></li>
+                                    <li><a href="http://www.adipalaz.com/experiments/jquery/nested_accordion_demo.html#link15">Link 15</a></li>
+                                    <li><a href="http://www.adipalaz.com/experiments/jquery/nested_accordion_demo.html#link16">Link 16</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>Item 3
+                        <ul>
+                            <li><a href="http://www.adipalaz.com/experiments/jquery/nested_accordion_demo.html#link17">Link 17</a></li>
+                            <li><a href="http://www.adipalaz.com/experiments/jquery/nested_accordion_demo.html#link18">Link 18</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="http://www.adipalaz.com/experiments/jquery/nested_accordion_demo.html#item4">Item 4</a></li>
+                </ul> <!-- end Accordion 3 -->
+            </div>
+        </div>
+    </div>
+    <p style="clear:both; padding-bottom:20em"><a href="#lenta" style="display: block; margin: 1em 0 7em; border-width: 1px;">^ TOP</a></p></body>
+</html>

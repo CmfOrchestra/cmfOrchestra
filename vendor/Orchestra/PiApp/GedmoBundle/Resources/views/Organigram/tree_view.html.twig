@@ -14,11 +14,9 @@
 		    	$("#tree-dialog").html('<iframe id="modalIframeId" width="100%" height="100%" marginWidth="0" marginHeight="0" frameBorder="0" scrolling="auto" src="'+url+'" />').dialog({
 			    	width: 670,
 			    	height: 600,
-			    	autoOpen: true,
-			    	modal: true,        						    	
 			    	open: function () {
 			    		$(this).attr('title', 'Formulaire');
-			    		$(this).find('iframe').attr('style', 'overflow: hidden;width: 99%;height: 99%');
+			    		$(this).find('iframe').attr('style', 'width: 99%;height: 99%');
 					},
 					close: function () {
 						window.location.reload(true);
@@ -26,11 +24,6 @@
 			    });
 			});		    
 		    
-			$("h3.tree-node").click(function (){
-				var id   = $(this).next('div.acc-section').next('a.tree-menu').data('id');
-				$('#tree_resultats_recherche_'+id).html('');
-			});		 
-			
 			$("#categorysearch_category").multiselect({
 			   multiple: false,
 			   noneSelectedText: "Select an Option",
@@ -38,9 +31,6 @@
 			}).multiselectfilter();
 			
 			$("form button[type='submit']").button();
-
-			$(".image-fixed-left").attr('style','display:none');
-			$(".image-fixed-right").attr('style','display:none');
 
 			$("a.button-ui-exand").button({icons: {primary: "ui-icon-circle-plus"}}).click(function( event ) {
 			    event.preventDefault();
@@ -69,14 +59,6 @@
 					<button type="submit" style="font-size:10px;" >OK</button>
 				</td>		
 				<td>&nbsp;&nbsp;&nbsp;</td>
-				<td>
-		            <a href='' class="button-ui-exand">Exand All</a>
-				</td>
-				<td>&nbsp;&nbsp;&nbsp;</td>
-                <td>
-		            <a href='' class="button-ui-collapse">Collapse All</a>	
-				</td>
-				<td>&nbsp;&nbsp;&nbsp;</td>
                 <td>
 		            <a href="{{ path("admin_gedmo_organigram", { 'NoLayout':NoLayout}) }}" class="button-ui-back-list">{{ 'pi.dashboard.menu4.menu'|trans }} Management</a>		
 				</td>
@@ -92,14 +74,19 @@
 	
 	{% if tree %}
 		<div id="tree">
-		    {{ tree|raw }}
+		        {#
+	            <a href='' class="button-ui-exand">Exand All</a>
+	            <a href='' class="button-ui-collapse">Collapse All</a>
+	            #}
+	            
+	            {{ tree|raw }}
 		</div>
 	{% else %}
 		<div class="alert-message info"><p>There are no nodes in tree to display</p></div>
 	{% endif %}
 	
-	{% set options_tiny = {'id': 'acc_'} %}
-	{{ renderJquery('ACCORDEON', 'tiny', options_tiny )|raw }}	
+    {% set options_nested = {'acc-id-box': 'tree', 'acc-id': 'acc1', 'acc-type': "accordeonUl"} %}
+	{{ renderJquery('ACCORDEON', 'nested', options_nested )|raw }}	
 	
 	{% if (NoLayout != true) %}
 		{% set options_chartpage = {

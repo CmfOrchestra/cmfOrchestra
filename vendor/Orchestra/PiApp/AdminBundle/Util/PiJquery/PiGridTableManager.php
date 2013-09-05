@@ -31,7 +31,7 @@ class PiGridTableManager extends PiJqueryExtension
      * @var array
      * @static
      */
-    static $types = array('simple', 'server-side');
+    static $types = array('simple');
         
     /**
      * Constructor.
@@ -112,9 +112,7 @@ class PiGridTableManager extends PiJqueryExtension
         if (!isset($options['grid-paginate']) || empty($options['grid-paginate']))
             $options['grid-paginate'] = true;
         
-        if ( $options['grid-type'] == "server-side" )
-            return $this->gridServer($options);
-        elseif ( $options['grid-type'] == "simple" )
+        if ( $options['grid-type'] == "simple" )
             return $this->gridSimple($options);
     }
     

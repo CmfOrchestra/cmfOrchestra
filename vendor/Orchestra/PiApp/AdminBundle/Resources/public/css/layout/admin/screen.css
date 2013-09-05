@@ -67,14 +67,6 @@ form	{
 	margin: 0;
 	padding: 0;
 	}
-.line	{
-	border-top: 1px solid #dcdada;
-	font-size: 0px;
-	height: 1px;
-	line-height: 0px;
-	margin: 20px 0;
-	padding: 0;
-	}
 .font11	{
 	font-size: 11px;
 	}
@@ -468,7 +460,7 @@ a.action-slider.activated	{
     color: rgb(255, 255, 255);
     font-size: 12px;
     font-weight: bold;	
-    right: 40px;
+    right: 15px;
     top: 10px;
 	}
 #nav-right a	{
@@ -1186,7 +1178,7 @@ span.connexion-login-logout:hover{
 	
 	
 /* VERSION MOBILE */
-@media screen and (max-width:450px) {
+@media screen and (max-width:588px) {
 	#logo a[title='logo'] {
 	   display:none;
 	}

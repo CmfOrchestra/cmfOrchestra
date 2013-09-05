@@ -23,6 +23,7 @@ parameters:
     piapp.manager.jquery.backstretch.class: PiApp\AdminBundle\Util\PiJquery\PiBackstretchManager
     piapp.manager.jquery.veneer.class: PiApp\AdminBundle\Util\PiJquery\PiVeneerManager
     piapp.manager.jquery.tinyaccordeon.class: PiApp\AdminBundle\Util\PiJquery\PiTinyAccordeonManager
+    piapp.manager.jquery.nestedaccordeon.class: PiApp\AdminBundle\Util\PiJquery\PiNestedAccordeonManager
     piapp.manager.jquery.tab.class: PiApp\AdminBundle\Util\PiJquery\PiTabManager
     piapp.manager.jquery.widgetadmin.class: PiApp\AdminBundle\Util\PiJquery\PiWidgetAdminManager
     piapp.manager.jquery.flexslider.class: PiApp\AdminBundle\Util\PiJquery\PiFlexSliderManager
@@ -119,7 +120,11 @@ services:
         
     pi_app_admin.jquery_manager.tinyaccordeon:                       
         class: %piapp.manager.jquery.tinyaccordeon.class%
-        arguments: ['@service_container']        
+        arguments: ['@service_container']    
+        
+    pi_app_admin.jquery_manager.nestedaccordeon:                       
+        class: %piapp.manager.jquery.nestedaccordeon.class%
+        arguments: ['@service_container']              
         
     pi_app_admin.jquery_manager.tab:                       
         class: %piapp.manager.jquery.tab.class%

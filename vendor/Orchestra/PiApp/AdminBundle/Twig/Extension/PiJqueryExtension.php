@@ -54,6 +54,7 @@ $GLOBALS['JQUERY']['TOOL'] = array(
 
 $GLOBALS['JQUERY']['ACCORDEON'] = array(
         'tiny'                     => 'pi_app_admin.jquery_manager.tinyaccordeon',
+        'nested'                     => 'pi_app_admin.jquery_manager.nestedaccordeon',
 );
 
 $GLOBALS['JQUERY']['TWITTER'] = array(
