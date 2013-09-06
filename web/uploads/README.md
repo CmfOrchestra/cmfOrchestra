@@ -14,15 +14,14 @@ The bundle has been split into 2 directories :
 **BootStrap**
 
 ``` bash
-* AclManagerBundle : A bundle which provides classes to run ACL Manager`s utilities for Symfony2
-* AdminBundle : A bundle which overload the SonataAdminBundle
-* CacheBundle : A bundle which provides classes to cache handlers (memcache, files)
+* AclManagerBundle : A bundle which provides classes to run ACL Manager`s utilities for Symfony2.
+* AdminBundle : A bundle which overload the SonataAdminBundle.
+* CacheBundle : A bundle which provides classes to cache handlers (memcache, files).
 * DatabaseBundle : A bundle which provides classes and commands to run DB vendor`s utilities to backup and restore databases. 
 * MediaBundle : A bundle which overload the SonataMediaBundle.
-* TranslationBundle : A bundle which provides models of classes allowing to work and develop with Gedmo translation and Gedmo tree, and a command to
-generate orchestra bundle with a CRUD system of an entity
+* TranslationBundle : A bundle which provides models of classes allowing to work and develop with Gedmo translation and Gedmo tree, and a command to generate orchestra bundle with a CRUD system of an entity, contains core libraries and services of route, etc.
 * TranslatorBundle : A bundle which provides entity and models of classes allowing to work with translation words.
-* UserBundle : the current one, contains core libraries and services
+* UserBundle : A bundle which overload the FOSUserBundle.
 ```
 
 **PiApp**
@@ -76,6 +75,7 @@ Register all bundle in your `app/AppKernel.php` file:
 
                 # tools
                 new FOS\UserBundle\FOSUserBundle(),
+                new FOS\FacebookBundle\FOSFacebookBundle(),
                 new Knp\Bundle\MenuBundle\KnpMenuBundle(),
                 new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),  
                 new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
@@ -126,18 +126,19 @@ Register all namespace before using the bundle. Add the following line to your `
             "symfony/monolog-bundle": "2.2.0",
             "sensio/distribution-bundle": "2.2.4",
             "sensio/framework-extra-bundle": "2.2.4",
-            "sensio/generator-bundle": "2.3.2",
+            "sensio/generator-bundle": "2.2.4",
             
             "jms/translation-bundle": "1.1.*@dev",
             "jms/security-extra-bundle": "1.4.*",
             "jms/di-extra-bundle": "1.3.*",
             
             "gedmo/doctrine-extensions": "2.3.*@dev",
-            "doctrine/doctrine-fixtures-bundle": "2.1.*@dev",
             "doctrine/data-fixtures": "1.0.*@dev",
+            "doctrine/doctrine-fixtures-bundle": "2.1.*@dev",
             "stof/doctrine-extensions-bundle": "1.1.0",
             
             "friendsofsymfony/user-bundle": "2.0.*@dev",
+            "friendsofsymfony/facebook-bundle": "1.2.*",
             "besimple/i18n-routing-bundle": "2.2.x-dev",
             
             "imagine/Imagine": "*@stable",
