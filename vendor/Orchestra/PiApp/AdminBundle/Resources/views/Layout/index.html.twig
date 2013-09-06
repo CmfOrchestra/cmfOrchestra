@@ -73,8 +73,6 @@
 				'rows_disable': {'sButtonText':'pi.grid.action.row_disable', 'route':'admin_layout_disablentity_ajax'},
 				'rows_delete': {'sButtonText':'pi.grid.action.row_delete', 'route':'admin_layout_deletentity_ajax'},
 				
-				'rows_text_test': {'sButtonText':'test', 'route':'admin_layout_enabledentity_ajax', 'questionTitle':'Titre de mon action', 'questionText':'Etes-vous sûr de vouloir activer toutes les lignes suivantes ?', 'typeResponse':'ajaxResult', 'responseText':'Operation successfully'},
-				
 				'copy': {'sButtonText':'pi.grid.action.copy'},
 				'print': {'sButtonText':'pi.grid.action.print'},
 				'export_pdf': {'sButtonText':'pi.grid.action.export'},				
@@ -83,6 +81,10 @@
 			}				
 		}
 	%}
-	{{ renderJquery('GRID', 'grid-table', options_gridtabale )|raw }}	
+	{{ renderJquery('GRID', 'grid-table', options_gridtabale )|raw }}
+	
+	{#
+	'rows_text_test': {'sButtonText':'test', 'route':'admin_layout_enabledentity_ajax', 'questionTitle':'Titre de mon action', 'questionText':'Etes-vous sûr de vouloir activer toutes les lignes suivantes ?', 'typeResponse':'ajaxResult', 'responseText':'Operation successfully'},
+	#}	
 	
 {% endblock %}

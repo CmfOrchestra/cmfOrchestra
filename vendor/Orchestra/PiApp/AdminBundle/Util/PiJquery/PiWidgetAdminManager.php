@@ -239,12 +239,11 @@ class PiWidgetAdminManager extends PiJqueryExtension
                                 }             
                             }).done(function ( response ) {
                                 var url = response[0].url;
-                                $("#page-action-dialog").html('<iframe id="modalIframeId" width="100%" height="100%" marginWidth="0" marginHeight="0" frameBorder="0" scrolling="auto" src="'+url+'" />').dialog({
+                                $("#page-action-dialog").html('<iframe id="modalIframeId" width="100%" height="99%" style="overflow-x: hidden; overflow-y: auto" marginWidth="0" marginHeight="0" frameBorder="0" src="'+url+'" />').dialog({
                                      width: 840,
                                      height: height/1.5,
                                      open: function () {
                                          $(this).attr('title', '<?php echo $this->translator->trans("pi.page.update"); ?>');
-                                         $(this).find('iframe').attr('style', 'width: 99%;height: 99%');
                                      },
                                      beforeClose: function () {
                                          window.location.href= "<?php echo $this->container->get('router')->generate('public_refresh_page') ?>";
@@ -281,12 +280,11 @@ class PiWidgetAdminManager extends PiJqueryExtension
                                 }  
                             }).done(function ( response ) {
                                 var url = response[0].url;
-                                $("#page-action-dialog").html('<iframe id="modalIframeId" width="100%" height="100%" marginWidth="0" marginHeight="0" frameBorder="0" scrolling="auto" src="'+url+'" />').dialog({
+                                $("#page-action-dialog").html('<iframe id="modalIframeId" width="100%" height="99%" style="overflow-x: hidden; overflow-y: auto" marginWidth="0" marginHeight="0" frameBorder="0" src="'+url+'" />').dialog({
                                      width: 840,
                                      height: height/1.5,
                                      open: function () {
                                          $(this).attr('title', '<?php echo $this->translator->trans("pi.page.create"); ?>');
-                                         $(this).find('iframe').attr('style', 'width: 99%;height: 99%');                                               
                                      },
                                      beforeClose: function () {
                                          var routename = $(this).find('iframe').contents().find("#piapp_adminbundle_pagetype_route_name").val();
@@ -347,12 +345,11 @@ class PiWidgetAdminManager extends PiJqueryExtension
                             } 
                         }).done(function ( response ) {
                             var url = response[0].url;
-                            $("#block-action-dialog").html('<iframe id="modalIframeId" width="100%" height="100%" marginWidth="0" marginHeight="0" frameBorder="0" scrolling="auto" src="'+url+'" />').dialog({
+                            $("#block-action-dialog").html('<iframe id="modalIframeId" width="100%" height="99%" style="overflow-x: hidden; overflow-y: auto" marginWidth="0" marginHeight="0" frameBorder="0" src="'+url+'" />').dialog({
                                  width: 840,
                                  height: height/1.5,
                                  open: function () {
                                      $(this).attr('title', '<?php echo $this->translator->trans('pi.form'); ?> ' + title);
-                                     $(this).find('iframe').attr('style', 'width: 99%;height: 99%');
                                  },
                                  beforeClose: function () {
                                      window.location.href= "<?php echo $this->container->get('router')->generate('public_refresh_page') ?>"; 
@@ -411,7 +408,7 @@ class PiWidgetAdminManager extends PiJqueryExtension
                                         if (_class == "widget_action_move_down")
                                             $(this).html('<?php echo $this->translator->trans('pi.widget.ajaxaction.widget_action_move_down'); ?>');
                                         
-                                        $(this).find('iframe').attr('style', 'width: 99%;height: 99%');
+                                        $(this).find('iframe').attr('style', 'width: 100%;height: 100%');
                                     },
                                     buttons: {
                                         Cancel: function () {
@@ -445,7 +442,7 @@ class PiWidgetAdminManager extends PiJqueryExtension
                                     expandingAnimation: { animated: "scale", duration: 1000000, easing: "easeOutExpo" },
                                 });
                             } else {
-                                $('#widget-action-dialog').html('<iframe id="modalIframeId" width="100%" height="100%" marginWidth="0" marginHeight="0" frameBorder="0" scrolling="auto" src="'+url+'" />').dialog({
+                                $('#widget-action-dialog').html('<iframe id="modalIframeId" width="100%" height="99%" style="overflow-x: hidden; overflow-y: auto" marginWidth="0" marginHeight="0" frameBorder="0" src="'+url+'" />').dialog({
                                     width: 971,
                                     height: height/1.5,
                                     overlay: {
@@ -454,7 +451,6 @@ class PiWidgetAdminManager extends PiJqueryExtension
                                     },
                                     open: function () {
                                         $(this).attr('title', 'Formulaire ' + title);
-                                        $(this).find('iframe').attr('style', 'width: 99%;height: 99%');
                                     },
                                     beforeClose: function () {
                                         window.location.href= "<?php echo $this->container->get('router')->generate('public_refresh_page') ?>"; 

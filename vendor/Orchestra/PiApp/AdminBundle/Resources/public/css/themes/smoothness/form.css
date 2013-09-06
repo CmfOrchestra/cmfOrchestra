@@ -11,7 +11,7 @@
     height:auto;
 }
 .myform fieldset{
-    margin: 11px;
+	margin: 11px;
     padding: 11px;
     background: #EBEBEB;
     border: 1px dotted #e3e3e3; /* #d0d0d0 #ddd */
@@ -46,18 +46,20 @@
     width:46%;
     /*margin-top: 0;*/
     margin-bottom:10px;
-    /*padding:2%;*/
+    margin: 11px;
+    padding: 11px;
 }
 .myform .accordion-form{
     float:right;
     margin-bottom:10px;
-    width:47%;
+    width:46%;
 }
 .myform fieldset.accordion{
     height:16px;
-    padding:4%;
     overflow:hidden;
     margin-bottom:20px;
+    margin: 11px;
+    padding: 11px;
 }
 .myform fieldset.accordion > div{
     display: none;
@@ -74,7 +76,6 @@
 }
 /* fin SBLA */
 .myform .clearfix label {
-    width: 320px;
     clear: both;
 }
 .myform .clearfix > label {
@@ -303,4 +304,17 @@ ul.ui-widget-header li {
 /* CHECKBOX */
 .icheckbox_square-blue{
     margin-bottom: 11px;
+}
+
+/* VERSION DIALOG */
+@media screen and (max-width:750px) {
+    .myform .accordion-form {
+		float: left;
+		width:90%;
+	}
+	.myform fieldset.no-accordion{
+	    float:left;
+	    width:90%;
+	}
+
 }

@@ -11,12 +11,11 @@
 		    $("a.tree-action").click(function(){
 		    	var url = $(this).data('url');
 		    	$("#tree-dialog").attr('title', 'Edit node');
-		    	$("#tree-dialog").html('<iframe id="modalIframeId" width="100%" height="100%" marginWidth="0" marginHeight="0" frameBorder="0" scrolling="auto" src="'+url+'" />').dialog({
+		    	$("#tree-dialog").html('<iframe id="modalIframeId" width="99%" height="99%" style="overflow-x: hidden; overflow-y: auto" marginWidth="0" marginHeight="0" frameBorder="0" src="'+url+'" />').dialog({
 			    	width: 450,
 			    	height: 600,
 			    	open: function () {
 			    		$(this).attr('title', 'Formulaire');
-			    		$(this).find('iframe').attr('style', 'width: 99%;height: 99%'); 
 					},
 					close: function () {
 						window.location.reload(true);
