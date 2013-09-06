@@ -480,8 +480,8 @@ pi_app_admin:
         error_type: inline
     admin:
         context_menu_theme: pi2 # {'xp', 'default', 'vista', 'osx', 'human', 'gloss', 'gloss,gloss-cyan', 'gloss,gloss-semitransparent', 'pi', 'pi2'}
-        grid_index_css: style-grid-1.css             
-        grid_show_css: style-grid-1.css
+        grid_index_css: style-grid-7.css             
+        grid_show_css: style-grid-7.css
         theme_css: smoothness # {'orchestra', 'aristo', 'rocket', 'smoothness', 'dark-hive'}
         
 twig:
