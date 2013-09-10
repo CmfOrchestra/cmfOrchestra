@@ -128,7 +128,7 @@ class TranslationPage
      * @var string $slug
      * 
      * @ORM\Column(name="slug", type="string", nullable=true)
-     * @Assert\MinLength(limit = 3, message = "erreur.slug.minlength")
+     * @Assert\MinLength(limit = 2, message = "erreur.slug.minlength")
      * @MyAssert\Unique(entity="TranslationPage", property="slug")
      */
     protected $slug;

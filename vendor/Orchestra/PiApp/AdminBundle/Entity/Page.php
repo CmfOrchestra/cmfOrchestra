@@ -53,7 +53,7 @@ class Page
      * @var \Doctrine\Common\Collections\ArrayCollection
      * 
      * @ORM\OneToMany(targetEntity="PiApp\AdminBundle\Entity\TranslationPage", mappedBy="page", cascade={"all"})
-     * @Assert\NotBlank()
+     * @Assert\Valid
      */
     protected $translations;  
     

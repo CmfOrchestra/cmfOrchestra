@@ -51,6 +51,7 @@ class Block
      * @var \Doctrine\Common\Collections\ArrayCollection $widgets
      * 
      * @ORM\OneToMany(targetEntity="PiApp\AdminBundle\Entity\Widget", mappedBy="block", cascade={"all"})
+     * @Assert\Valid
      */
     protected $widgets;
         
