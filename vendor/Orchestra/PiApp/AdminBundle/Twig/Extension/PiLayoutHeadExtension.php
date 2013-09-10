@@ -56,7 +56,7 @@ class PiLayoutHeadExtension extends \Twig_Extension
     public function __construct(ContainerInterface $container)
     {
         $this->container         = $container;
-        $this->JAR_PATH         = realpath($container->getParameter("kernel.root_dir") . "/Resources/java/yuicompressor-2.4.7.jar");
+        $this->JAR_PATH         = $container->getParameter('assetic.filter.yui_js.jar');
         $this->TEMP_FILES_DIR     = $container->getParameter("kernel.root_dir") . "/../web/yui";
     }    
     
