@@ -70,6 +70,9 @@
 	{% set options_gridtabale = {'grid-name': 'grid_block', 'grid-type':'simple', 
 		    'grid-paginate':'true',
 		    'grid-LengthMenu':10,
+            'grid-filter-date': {
+				'0': {'column' : 4, 'title-start': 'date min : ', 'title-end': 'date max : ', 'right':'179', 'width':'395', 'format' : 'yy-mm-dd', 'idMin':'minc', 'idMax':'maxc'},
+            },
 		    'grid-filters-active':'false',
 			'grid-filters': { 
 					'1':'Position',

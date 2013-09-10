@@ -46,6 +46,52 @@ class PiGridTableManager extends PiJqueryExtension
     /**
      * Sets init.
      *
+     * <code>
+     * 
+     * 	{% set options_gridtabale = {'grid-name': 'grid', 'grid-type':'simple', 
+     *      'grid-server-side': 'true',
+     * 		'grid-paginate':'true',
+     * 		'grid-LengthMenu':10,
+     *      'grid-filter-date': {
+     * 			'0': {'column' : 7, 'title-start': 'date min crea. ', 'title-end': 'date max crea. ', 'right':'449', 'width':'197', 'format' : 'yy-mm-dd', 'idMin':'minc', 'idMax':'maxc'},
+     *          '1': {'column' : 8, 'title-start': 'date min mod. ', 'title-end': 'date max mod. ', 'right':'291', 'width':'179', 'format' : 'yy-mm-dd', 'idMin':'minu', 'idMax':'maxu'},
+     *      },
+     * 		'grid-filters-select': ['0','4','5', '6'],
+     * 		'grid-filters-active':'false',
+     * 		'grid-filters': {
+     * 				'1':'Identifiant',
+     * 			},
+     * 		'grid-sorting': { 
+     * 				'1':'desc',
+     * 			},	
+     * 		'grid-visible': {
+     * 				'0':'false',
+     * 			},	
+     * 		'grid-actions': {
+     * 				'select_all': {'sButtonText':'pi.grid.action.select_all'},
+     * 				'select_none': {'sButtonText':'pi.grid.action.select_none'},
+     * 				'rows_enabled': {'sButtonText':'pi.grid.action.row_enabled', 'route':'admin_layout_enabledentity_ajax'},
+     * 				'rows_disable': {'sButtonText':'pi.grid.action.row_disable', 'route':'admin_layout_disablentity_ajax'},
+     * 				'rows_delete': {'sButtonText':'pi.grid.action.row_delete', 'route':'admin_layout_deletentity_ajax'},
+     * 				
+     * 				'copy': {'sButtonText':'pi.grid.action.copy'},
+     * 				'print': {'sButtonText':'pi.grid.action.print'},
+     * 				'export_pdf': {'sButtonText':'pi.grid.action.export'},				
+     * 				'export_csv': {'sButtonText':'pi.grid.action.export'},
+     * 				'export_xls': {'sButtonText':'pi.grid.action.export'},
+     * 
+     *              'rows_text_test': {'sButtonText':'test', 'route':'admin_layout_enabledentity_ajax', 'questionTitle':'Titre de mon action', 'questionText':'Etes-vous sûr de vouloir activer toutes les lignes suivantes ?', 'typeResponse':'ajaxResult', 'responseText':'Operation successfully'},
+     *              
+     *              'rows_grouping': {'Collapsible':'false', 
+						'GroupBy':'name', 'columnIndex':2, 'HideColumn':'true', 'SortDirection':'desc',
+					},
+     * 			}				
+     * 		}
+     * 	%}
+     * 	{{ renderJquery('GRID', 'grid-table', options_gridtabale )|raw }}
+     * 
+     * </code>
+     * 
      * @access protected
      * @return void
      *
@@ -197,7 +243,6 @@ class PiGridTableManager extends PiJqueryExtension
             
             <script type="text/javascript">
             //<![CDATA[
-            
                     function fnFilterGlobal ()
                     {
                         $('#<?php echo $options['grid-name']; ?>').dataTable().fnFilter( 
@@ -217,6 +262,121 @@ class PiGridTableManager extends PiJqueryExtension
                             $("#col"+(i+1)+"_smart")[0].checked
                         );
                     }
+
+                    $.extend( $.fn.dataTableExt.oSort, {
+    				    "num-html-pre": function ( a ) {
+    				        var x = a.replace( /<.*?>/g, "" );
+    				        x = x.replace( "%", "" );
+    				        if(x == " ") { x=-1; }
+    				        return parseFloat( x );
+    				    },    				 
+    				    "num-html-asc": function ( a, b ) {
+    				        return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+    				    },
+    				 
+    				    "num-html-desc": function ( a, b ) {
+    				        return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+    				    }
+    				} );
+
+    				$.fn.dataTableExt.oSort['numeric-comma-asc']  = function(a,b) {
+    					var x = (a == "-") ? 0 : a.replace( /,/, "." );
+    					var y = (b == "-") ? 0 : b.replace( /,/, "." );
+    					x = parseFloat( x );
+    					y = parseFloat( y );
+    					return ((x < y) ? -1 : ((x > y) ?  1 : 0));
+    				};
+    				
+    				$.fn.dataTableExt.oSort['numeric-comma-desc'] = function(a,b) {
+    					var x = (a == "-") ? 0 : a.replace( /,/, "." );
+    					var y = (b == "-") ? 0 : b.replace( /,/, "." );
+    					x = parseFloat( x );
+    					y = parseFloat( y );
+    					return ((x < y) ?  1 : ((x > y) ? -1 : 0));
+    				};  
+
+    				<?php if(isset($options['grid-filter-date'])): ?>
+    				    <?php foreach($options['grid-filter-date'] as $id => $gridDateFilter){ ?>
+        				    // http://live.datatables.net/etewoq/4/edit#javascript,html,live
+        				    var <?php echo $gridDateFilter['idMin']; ?>DateFilter;
+        				    var <?php echo $gridDateFilter['idMax']; ?>DateFilter;
+            				$('#<?php echo $options['grid-name']; ?>').before('<div id="filter-grid-date-<?php echo $id; ?>" style="position: absolute;z-index: 1;right: <?php echo $gridDateFilter['right']; ?>px;width: <?php echo $gridDateFilter['width']; ?>px;margin: 19px 0 0 0;"><span style="margin: 0 7px 0 0;"><?php echo $gridDateFilter['title-start']; ?><input type="text" id="<?php echo $gridDateFilter['idMin']; ?>" name="<?php echo $gridDateFilter['idMin']; ?>" style="width:67px"></span><span style="margin: 0 0 0 0;"><?php echo $gridDateFilter['title-end']; ?><input type="text" id="<?php echo $gridDateFilter['idMax']; ?>" name="<?php echo $gridDateFilter['idMax']; ?>" style="width:67px"></span></div>');
+            				$("#<?php echo $gridDateFilter['idMax']; ?>").datepicker({
+                                changeMonth: true,
+                                changeYear: true,
+                                yearRange: "-71:+11",
+                                reverseYearRange: true,
+                                showOtherMonths: true,
+                                showButtonPanel: true,
+                                showAnim: "fade",  // blind fade explode puff fold
+                                showWeek: true,
+                                dateFormat: "<?php echo $gridDateFilter['format']; ?>",
+                                showOptions: { 
+                                    direction: "up" 
+                                },
+                                numberOfMonths: [ 1, 2 ],
+                                buttonText: "<?php echo $this->translator->trans('pi.form.label.select.choose.date'); ?>",
+                                showOn: "both",
+                                buttonImage: "/bundles/piappadmin/images/icons/form/picto-calendar.png",
+                                "onSelect": function(date) {
+                                	<?php echo $gridDateFilter['idMax']; ?>DateFilter = new Date(date).getTime();
+                                    <?php echo $options['grid-name']; ?>oTable.fnDraw();
+                                  }
+                            }).keyup( function () {
+                            	<?php echo $gridDateFilter['idMax']; ?>DateFilter = new Date(this.value).getTime();
+                                <?php echo $options['grid-name']; ?>oTable.fnDraw();
+                            } );
+            				$("#<?php echo $gridDateFilter['idMin']; ?>").datepicker({
+                                changeMonth: true,
+                                changeYear: true,
+                                yearRange: "-71:+11",
+                                reverseYearRange: true,
+                                showOtherMonths: true,
+                                showButtonPanel: true,
+                                showAnim: "fade",  // blind fade explode puff fold
+                                showWeek: true,
+                                dateFormat: "<?php echo $gridDateFilter['format']; ?>",
+                                showOptions: { 
+                                    direction: "up" 
+                                },
+                                numberOfMonths: [ 1, 2 ],
+                                buttonText: "<?php echo $this->translator->trans('pi.form.label.select.choose.date'); ?>",
+                                showOn: "both",
+                                buttonImage: "/bundles/piappadmin/images/icons/form/picto-calendar.png",
+                                "onSelect": function(date) {
+                                	<?php echo $gridDateFilter['idMin']; ?>DateFilter = new Date(date).getTime();
+                                    <?php echo $options['grid-name']; ?>oTable.fnDraw();
+                                  }
+                            }).keyup( function () {
+                            	<?php echo $gridDateFilter['idMin']; ?>DateFilter = new Date(this.value).getTime();
+                                <?php echo $options['grid-name']; ?>oTable.fnDraw();
+                            } );
+            				<?php if(isset($options['grid-server-side']) && ($options['grid-server-side'] == 'true')) : ?>
+            				<?php else: ?>
+            				$.fn.dataTableExt.afnFiltering.push(
+            						  function( oSettings, aData, iDataIndex ) {
+            						    if ( typeof aData._date == 'undefined' ) {
+            						      aData._date = new Date(aData["<?php echo $gridDateFilter['column']; ?>"]).getTime();
+            						    }
+    
+            						    if ( <?php echo $gridDateFilter['idMin']; ?>DateFilter && !isNaN(<?php echo $gridDateFilter['idMin']; ?>DateFilter) ) {
+            						      if ( aData._date < <?php echo $gridDateFilter['idMin']; ?>DateFilter ) {
+            						        return false;
+            						      }
+            						    }
+            						    
+            						    if ( <?php echo $gridDateFilter['idMax']; ?>DateFilter && !isNaN(<?php echo $gridDateFilter['idMax']; ?>DateFilter) ) {
+            						      if ( aData._date > <?php echo $gridDateFilter['idMax']; ?>DateFilter ) {
+            						        return false;
+            						      }
+            						    }
+            						    
+            						    return true;
+            						  }
+            						);
+            				<?php endif; ?>  
+        				<?php } ?> 
+    				<?php endif; ?>    				                  
     
                     var enabled;
                     var disablerow;
@@ -342,7 +502,21 @@ class PiGridTableManager extends PiJqueryExtension
                         "bProcessing": true,
                         "bServerSide": true,
                         "sAjaxSource": "<?php echo $this->container->get('request')->getRequestUri(); ?>",
-                        "sServerMethod": "POST",
+                        'fnServerData' : function ( sSource, aoData, fnCallback ) {
+                        	<?php if (isset($options['grid-filter-date'])): ?>
+                            	<?php foreach($options['grid-filter-date'] as $id => $gridDateFilter){ ?>
+    						    aoData.push( { 'name' : 'date-<?php echo $gridDateFilter['idMin']; ?>', 'value' : $("#<?php echo $gridDateFilter['idMin']; ?>").val() } );
+    						    aoData.push( { 'name' : 'date-<?php echo $gridDateFilter['idMax']; ?>', 'value' : $("#<?php echo $gridDateFilter['idMax']; ?>").val() } );
+    						    <?php } ?>
+						    <?php endif; ?>
+						    $.ajax({
+							    'dataType' : 'json',
+							    'data' : aoData,
+							    'type' : 'POST',
+							    'url' : sSource,
+							    'success' : fnCallback
+						    });
+					    },
                         "fnInfoCallback": function( oSettings, iStart, iEnd, iMax, iTotal, sPre ) {  
                             $("a.info-tooltip").tooltip({
                                 position: {
@@ -868,7 +1042,7 @@ class PiGridTableManager extends PiJqueryExtension
 
 
                     var content = $("#blocksearch_content").html();
-                     $("#blocksearch_content").html('');
+                    $("#blocksearch_content").html('');
                     $("#<?php echo $options['grid-name']; ?>").before(content);
 
                     $("#global_filter").keyup( fnFilterGlobal );
@@ -884,7 +1058,7 @@ class PiGridTableManager extends PiJqueryExtension
                                                 
                         <?php } ?>
                     <?php } ?>    
-                     
+
                     $('.block_filter').click(function() {
                         $("#blocksearch").slideToggle("slow");
                     });

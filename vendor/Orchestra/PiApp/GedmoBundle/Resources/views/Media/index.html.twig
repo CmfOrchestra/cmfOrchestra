@@ -34,10 +34,11 @@
 	            <th>Categorie</th>         
 	            <th>Type</th>	            
 	            <th>Titre</th>	            
-	            <th>Image</th>            
+	            <th>Image</th>
+	            <th>Créer</th>	              
 	            <th>Date</th>	
-	            <th>Actif</th>	        	
-	            <th>Modifier</th>
+	            <th>Actif</th>
+	            <th>Actions</th>
 	        </tr>
 	    </thead>
 	    <tbody>
@@ -67,6 +68,7 @@
 						</a>
 						{% endif %}
 					</td>	
+					<td>{% if entity.createdat %}{{ entity.createdat|date('Y-m-d') }}{% endif%}</td>
 		            <td>{% if entity.publishedat %}{{ entity.publishedat|date('Y-m-d') }}{% endif%}</td>	
 		            <td class="enabled" width="20px">{{ entity.enabled}}</td>	
 					<td width="130px">
@@ -89,7 +91,11 @@
 			'grid-LengthMenu':25,
 			'grid-paginate':'true',
 			'grid-filters-active':'true',
-			'grid-filters-select': ['0','1','2','3','4','5','6','7','8'],
+			'grid-filter-date': {
+				'0': {'column' : 7, 'title-start': 'date min crea. ', 'title-end': 'date max crea. ', 'right':'449', 'width':'197', 'format' : 'yy-mm-dd', 'idMin':'minc', 'idMax':'maxc'},
+                '1': {'column' : 8, 'title-start': 'date min mod. ', 'title-end': 'date max mod. ', 'right':'291', 'width':'179', 'format' : 'yy-mm-dd', 'idMin':'minu', 'idMax':'maxu'},
+            },
+			'grid-filters-select': ['0','1','2','3','4','5','6','7','8','9'],
 			'grid-filters': { 
 					'4':'Type',
 					'5':'Titre',

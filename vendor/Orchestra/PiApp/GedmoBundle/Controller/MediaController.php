@@ -146,11 +146,15 @@ class MediaController extends abstractController
         $is_Server_side = true;
         
         if ($request->isXmlHttpRequest() && $is_Server_side) {
-           $aColumns    = array('a.position','a.id','a.status','m.name','a.published_at','a.enabled');
+           $aColumns    = array('a.position','a.id','a.status','m.name','a.updated_at','a.enabled');
            $q1 = clone $query;
            $q2 = clone $query;
-           $result    = $this->createAjaxQuery('select',$aColumns, $q1, 'a');
-           $total    = $this->createAjaxQuery('count',$aColumns, $q2, 'a');
+           $result    = $this->createAjaxQuery('select',$aColumns, $q1, 'a', null, array(
+                            0 =>array('column'=>'a.created_at', 'format'=>'Y-m-d', 'idMin'=>'minc', 'idMax'=>'maxc'),
+                            1 =>array('column'=>'a.updated_at', 'format'=>'Y-m-d', 'idMin'=>'minu', 'idMax'=>'maxu')
+                      )
+           );
+           $total    = $this->createAjaxQuery('count',$aColumns, $q2, 'a', null, array(0=>array('column'=>'a.updated_at', 'format'=>'Y-m-d', 'idMin'=>'min', 'idMax'=>'max')));
         
            $output = array(
                "sEcho" => intval($request->get('sEcho')),
@@ -181,8 +185,14 @@ class MediaController extends abstractController
               $UrlPicture = $this->container->get('pi_app_admin.twig.extension.route')->getMediaUrlFunction($e->getImage(), 'reference', true, $e->getUpdatedAt(), 'gedmo_media_');
               $row[] = '<a href="#" title=\'<img src="'.$UrlPicture.'" class="info-tooltip-image" >\' class="info-tooltip"><img width="20px" src="'.$UrlPicture.'"></a>';
               
+              if (is_object($e->getCreatedAt())) {
+              	$row[] = $e->getCreatedAt()->format('Y-m-d');
+              } else {
+              	$row[] = "";
+              }
+              
               if (is_object($e->getUpdatedAt())) {
-                  $row[] = $e->getUpdatedAt()->format('d-m-Y');
+                  $row[] = $e->getUpdatedAt()->format('Y-m-d');
               } else {
                   $row[] = "";
               }
