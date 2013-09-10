@@ -1,51 +1,39 @@
-{% extends app.session.get('wurfl-layout') %}
-{% form_theme form 'PiAppTemplateBundle::Template\\Form\\fields.html.twig' %}
+{% initJquery 'FORM:prototype-bytab' %}
+{% if NoLayout %}
+	{% set layout_nav = 'PiAppTemplateBundle::Template\\Layout\\layout-ajax.html.twig' %}
+{% else %}
+	{% set layout_nav = app.request.attributes.get('orchestra-layout') %}
+{% endif %}	
+{% extends layout_nav %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/piappadmin/css/form/form.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/piappadmin/css/ui/jquery-ui-1.10.2.custom.min.css') }}" />
-{% endblock %}
-    
-{% block javascripts %}
-    {{ parent() }}
-    <script type="text/javascript" src="{{ asset('/bundles/piappadmin/js/ui/jquery-ui-1.10.2.custom.min.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('/bundles/piappadmin/js/ui/form-custom.js') }}" ></script>
-{% endblock %}
-    
 {% block title %}
-<h1>{{ 'users'|trans }}</h1>
+    <h1>{{ 'users'|trans }}</h1>
 {% endblock %}
 
 {% block content %}
     
-    <h2>{{ 'pi.form.title.create'|trans }}</h2>
+    {{ parent() }}
 
-    <form id="form-custom" action="{{ path('users_create') }}" method="post" {{ form_enctype(form) }}>
-    
-    <div class="row-fluid">
-    <div class="span12">
-        <span class="form-error">
-            {{ form_errors(form) }}
-        </span>
-    </div>
-    <div class="span6">
-        {#
-    <div class="input-container">
-        {{ form_label(form.input)}}
-        <span class="field-mandatory">*</span>:
-        {{ form_widget(form.input, { 'attr': {'class': 'task_field'} }) }}
-    </div>
-#}      
-        {{ form_widget(form)}}       
-     </div>
-     </div>
-     
-     {% set parameters ={ 'path':path('users'), 'functionType':['new-submit'] } %}
-     {% include 'PiAppTemplateBundle::Template\\Form\\actionButton.html.twig' with parameters %}
-   
-    </form>
-<script>
-    {{ tinymce_init() }}
-</script>
+    <!-- Begin tag markup -->
+	<div id="tabs">
+		<ul><li><a href="#tabs-1" title="{{ 'pi.form.title.default.create'|trans }}">{{ 'pi.form.title.default.create'|trans }}</a></li></ul>
+		{% form_theme form getParameter('pi_app_admin.layout.template.form') %}
+		<form class="myform" action="{{ path('users_create') }}" method="post" {{ form_enctype(form) }} novalidate>
+		    <div id="tabs-1">
+		    	{{ form_widget(form) }}
+		    </div>
+		  	<ul class="ui-widget-header">
+			    <li>
+			    	<!-- <input id="add_tab" type="button" value="{{ 'pi.grid.action.add-tab'|trans }}" /> -->
+			    	<button type="submit" class="button-ui-save">{{ 'pi.grid.action.save'|trans }}</button>
+		            <a href="{{ path('users') }}" class="button-ui-back-list">{{ 'pi.grid.action.back-to-the-list'|trans }}</a>
+			    </li>
+			</ul>		    
+		</form>
+	</div>
+	<!-- End tag markup -->	
+	
+	{% set options = {'prototype-name': ['translations'], 'prototype-tab-title': 'pi.page.translation.prototype-tab-title'|trans} %}
+	{{ renderJquery('FORM', 'prototype-bytab', options )|raw }}
+
 {% endblock %}

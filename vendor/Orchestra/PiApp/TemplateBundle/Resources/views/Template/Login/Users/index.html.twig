@@ -15,16 +15,16 @@
 
 {% block content %}
 
-	 {% if entities is not empty %}
-	    <a href="{{ path('users_new') }}" class="btn-on" alt="{{ 'pi.grid.action.create'|trans }}">{{ 'pi.grid.action.create'|trans }}</a>
-	 {% endif %}
-	
-	 {% if entities is empty %}
-	    <div class="datatable-empty">
-	        <p>{{ 'datatable.empty'|trans }}</p>
-	        <a href="{{ path('users_new') }}" class="btn-on" alt="{{ 'pi.grid.action.create'|trans }}">{{ 'pi.grid.action.create'|trans }}</a>
-	    </div>
-	 {% else %}
+	    {{ parent() }}
+	    
+		{% if NoLayout == false %}
+		<!--  start actions-box ............................................... -->
+		<div id="actions-box">
+			<a href="{{ path('users_new') }}" class="action-edit" title="{{ 'pi.grid.action.create'|trans }}">{{ 'pi.grid.action.create'|trans }}</a>
+			<div class="clear"></div>
+		</div>
+		<!-- end actions-box........... -->
+		{% endif %}	 
 	            
 	    <table id="grid_users" class="grid" >
 	        <thead>
@@ -55,8 +55,8 @@
 		                </td>
 		                <td class="enabled" >{{ entity.enabled}}</td>	
 		                <td>
-						    <a href="{{ path('users_show', { 'id': entity.id, 'NoLayout':NoLayout }) }}" title="{{ 'pi.grid.action.show'|trans }}" class="icon-3 info-tooltip" >&nbsp;</a>
-	                	    <a href="{{ path('users_edit', { 'id': entity.id, 'NoLayout':NoLayout }) }}" title="{{ 'pi.grid.action.edit'|trans }}" class="icon-1 info-tooltip" >&nbsp;</a>
+						    <a href="{{ path('users_show', { 'id': entity.id, 'NoLayout':NoLayout }) }}" title="{{ 'pi.grid.action.show'|trans }}" class="button-ui-show info-tooltip" >{{ 'pi.grid.action.show'|trans }}</a>
+	                	    <a href="{{ path('users_edit', { 'id': entity.id, 'NoLayout':NoLayout }) }}" title="{{ 'pi.grid.action.edit'|trans }}" class="button-ui-edit info-tooltip" >{{ 'pi.grid.action.edit'|trans }}</a>
 		                </td>
                     </tr>
 			        {% if num_line == 0 %} 
@@ -97,12 +97,6 @@
 		%}
 		{{ renderJquery('GRID', 'grid-table', options_gridtabale )|raw }}	        
 	        
-	 {% endif %}
-	        
-	 {% if entities is not empty %}
-	    <a href="{{ path('users_new') }}" class="btn-on" alt="{{ 'pi.grid.action.create'|trans }}">{{ 'pi.grid.action.create'|trans }}</a>
-	 {% endif %}    
-        
 {% endblock %}
     
 
