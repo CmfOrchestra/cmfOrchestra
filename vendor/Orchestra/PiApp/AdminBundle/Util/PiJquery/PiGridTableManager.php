@@ -50,6 +50,7 @@ class PiGridTableManager extends PiJqueryExtension
      * 
      * 	{% set options_gridtabale = {'grid-name': 'grid', 'grid-type':'simple', 
      *      'grid-server-side': 'true',
+     *      'grid-state-save': 'false',
      * 		'grid-paginate':'true',
      * 		'grid-LengthMenu':10,
      *      'grid-filter-date': {
@@ -499,7 +500,6 @@ class PiGridTableManager extends PiJqueryExtension
                         <?php endif; ?>
 
                         <?php if(isset($options['grid-server-side']) && ($options['grid-server-side'] == 'true')) : ?>
-                        "bProcessing": true,
                         "bServerSide": true,
                         "sAjaxSource": "<?php echo $this->container->get('request')->getRequestUri(); ?>",
                         'fnServerData' : function ( sSource, aoData, fnCallback ) {
