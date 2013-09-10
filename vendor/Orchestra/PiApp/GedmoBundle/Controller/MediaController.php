@@ -154,10 +154,14 @@ class MediaController extends abstractController
                             1 =>array('column'=>'a.updated_at', 'format'=>'Y-m-d', 'idMin'=>'minu', 'idMax'=>'maxu')
                       )
            );
-           $total    = $this->createAjaxQuery('count',$aColumns, $q2, 'a', null, array(0=>array('column'=>'a.updated_at', 'format'=>'Y-m-d', 'idMin'=>'min', 'idMax'=>'max')));
+           $total    = $this->createAjaxQuery('count',$aColumns, $q2, 'a', null, array(
+                            0 =>array('column'=>'a.created_at', 'format'=>'Y-m-d', 'idMin'=>'minc', 'idMax'=>'maxc'),
+                            1 =>array('column'=>'a.updated_at', 'format'=>'Y-m-d', 'idMin'=>'minu', 'idMax'=>'maxu')
+                      )
+           );
         
            $output = array(
-               "sEcho" => intval($request->get('sEcho')),
+                "sEcho" => intval($request->get('sEcho')),
                 "iTotalRecords" => $total,
                 "iTotalDisplayRecords" => $total,
                 "aaData" => array()
