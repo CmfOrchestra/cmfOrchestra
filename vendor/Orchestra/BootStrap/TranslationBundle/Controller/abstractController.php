@@ -411,9 +411,10 @@ abstract class abstractController extends Controller
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    public function createAjaxQuery($type, $aColumns, $qb = null, $tablecode = 'u', $table = null)
+    public function createAjaxQuery($type, $aColumns, $qb = null, $tablecode = 'u', $table = null, $dateSearch = null)
     {
         $request = $this->container->get('request');
+        $locale = $this->container->get('request')->getLocale();
         $em     = $this->getDoctrine()->getManager();
         
         if (is_null($qb)) {
@@ -434,6 +435,27 @@ abstract class abstractController extends Controller
             }
         } elseif($type == "count") {
             $qb->add('select', 'COUNT('.$tablecode.'.id)');
+        }
+        
+        /**
+         * Date
+         */    
+        if (!is_null($dateSearch) && is_array($dateSearch)) {
+            foreach ($dateSearch as $k => $columnSearch) {
+                $idMin = "date-{$columnSearch['idMin']}";
+                $idMax = "date-{$columnSearch['idMax']}";
+                if ( $request->get($idMin) != '' ) {
+                    $date = \DateTime::createFromFormat($columnSearch['format'], $request->get($idMin));
+                    $dateMin = $date->format('Y-m-d 00:00:00');
+                    //$dateMin = $this->container->get('pi_app_admin.date_manager')->format($date->getTimestamp(), 'long','medium', $locale, "yyyy-MM-dd 00:00:00");
+               		$qb->andWhere("{$columnSearch['column']} >= '" . $dateMin . "'");
+                }
+                if ( $request->get($idMax) != '') {
+                    $date = \DateTime::createFromFormat($columnSearch['format'], $request->get($idMax));
+                    $dateMax = $date->format('Y-m-d 23:59:59');
+                	$qb->andWhere("{$columnSearch['column']} <= '" . $dateMax . "'");
+                }
+            }
         }
     
         /**
