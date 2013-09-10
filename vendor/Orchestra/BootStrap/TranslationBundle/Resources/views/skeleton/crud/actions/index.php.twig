@@ -34,7 +34,7 @@
            $total    = $this->createAjaxQuery('count',$aColumns, $q2, 'a');
         
            $output = array(
-               "sEcho" => intval($request->get('sEcho')),
+                "sEcho" => intval($request->get('sEcho')),
                 "iTotalRecords" => $total,
                 "iTotalDisplayRecords" => $total,
                 "aaData" => array()
@@ -56,16 +56,28 @@
               } else {
                   $row[] = "";
               }
-        
+              
               if (is_object($e->getImage())) {
                   $UrlPicture = $this->container->get('pi_app_admin.twig.extension.route')->getMediaUrlFunction($e->getImage(), 'reference', true, $e->getUpdatedAt(), 'gedmo_{{ entity|replace({'\\': '/'}) }}');
-                  $row[] = '<a href="#" title=\'<img src="'.$UrlPicture.'">\' class="info-tooltip-image"><img width="20px" src="'.$UrlPicture.'"></a>';
-                  
-                  if (is_object($e->getUpdatedAt())) {
-                      $row[] = $e->getUpdatedAt()->format('d-m-Y');
-                  } else {
-                      $row[] = "";
-                  }
+                  $row[] = '<a href="#" title=\'<img src="'.$UrlPicture.'" class="info-tooltip-image" >\' class="info-tooltip"><img width="20px" src="'.$UrlPicture.'"></a>';
+              }
+              
+              if (is_object($e->getCreatedAt())) {
+              	$row[] = $e->getCreatedAt()->format('Y-m-d');
+              } else {
+              	$row[] = "";
+              }
+              
+              if (is_object($e->getUpdatedAt())) {
+                  $row[] = $e->getUpdatedAt()->format('Y-m-d');
+              } else {
+                  $row[] = "";
+              }
+              
+              if (is_object($e->getPublishedAt())) {
+                  $row[] = $e->getPublishedAt()->format('Y-m-d');
+              } else {
+                  $row[] = "";
               }
               
               // create enabled/disabled buttons

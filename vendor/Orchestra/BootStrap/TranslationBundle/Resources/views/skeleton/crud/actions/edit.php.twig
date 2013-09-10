@@ -13,7 +13,7 @@
         $em         = $this->getDoctrine()->getManager();
         $locale        = $this->container->get('request')->getLocale();
         
-        if (!empty($id)){
+        if (!empty($id)) {
             $entity    = $em->getRepository("{{ bundle }}:{{ entity }}")->findOneByEntity($locale, $id, 'object');
         } else {
             $slug    = $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('slug', $locale, true);
