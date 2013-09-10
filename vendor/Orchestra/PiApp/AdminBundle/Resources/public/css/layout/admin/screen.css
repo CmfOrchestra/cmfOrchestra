@@ -1178,7 +1178,7 @@ span.connexion-login-logout:hover{
 	
 	
 /* VERSION MOBILE */
-@media screen and (max-width:588px) {
+@media screen and (max-width:500px) {
 	#logo a[title='logo'] {
 	   display:none;
 	}
