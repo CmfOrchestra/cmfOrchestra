@@ -18,7 +18,7 @@ use PiApp\AdminBundle\Builder\PiDateManagerBuilderInterface;
  * Description of date manager
  *
  * <code>
- *     $dateFormatter    = $container->get('pi_app_admin.date_manager');
+ *  $dateFormatter    = $container->get('pi_app_admin.date_manager');
  *  $result            = $dateFormatter->parse('December 20, 2011', 'en_GB'); // obtains a datetime instance
  *  echo $dateFormatter->format($result, 'long', 'none', 'fr'); // echoes : "20 décembre 2011"
  * </code>
@@ -78,9 +78,9 @@ class PiDateManager implements PiDateManagerBuilderInterface
      */
     public function format($date, $dateType = 'medium', $timeType = 'none', $locale = null, $pattern = null)
     {    
-        if (is_string($date))
+        if (is_string($date)) {
             $date = intval($date);
-        
+        }
         if (version_compare(\PHP_VERSION, '5.3.4', '<') && !is_int($date) && is_object($date)) {
             $date = $date->getTimestamp();
         }

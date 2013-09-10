@@ -56,8 +56,8 @@ class PiDateExtension extends \Twig_Extension
      * Returns a list of filters to add to the existing list.
      * 
      * <code>
-     *     {{ comment.created|created_ago }}
-     *  {{ comment.created|localedate('long','medium', 'fr', 'MMMM YYYY') }}  to have a long date and medium time, in the current locale
+     *  {{ comment.created|created_ago }}
+     *  {{ comment.created|localedate('long','medium', locale, 'EEEE d LLLL y') }}  to have a long date and medium time, in the current locale
      *  {{ comment.created|localedate }} to have a medium date and no time, in the current locale
      *  {{ comment.country|country }} to have the country, in the current locale
      *  {{ comment.country|country('c ountry does not exist') }} Define the returned value if the country does not exist
@@ -75,8 +75,8 @@ class PiDateExtension extends \Twig_Extension
         return array(
             'created_ago'         => new \Twig_Filter_Method($this, 'createdAgoFilter'),
             'relativetime_ago'     => new \Twig_Filter_Method($this, 'relativetimeAgoFilter'),
-               'country'             => new \Twig_Filter_Method($this, 'countryFilter'),
-               'localedate'          => new \Twig_Filter_Method($this, 'localeDateFilter'),
+            'country'             => new \Twig_Filter_Method($this, 'countryFilter'),
+            'localedate'          => new \Twig_Filter_Method($this, 'localeDateFilter'),
             'convertToDateTime'    => new \Twig_Filter_Method($this, 'convertToDattimeFilter'),
             'convertMonthNumberToString'    => new \Twig_Filter_Method($this, 'convertMonthNumberToStringFilter'),
             'convertToTimestamp'=> new \Twig_Filter_Method($this, 'convertToTimestampFilter'),
