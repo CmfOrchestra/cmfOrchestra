@@ -94,7 +94,8 @@ table.dataTable tr td:last-child a{border:0px;}
 	width:17px;
 	height: 19px;
 	float:right;
-	margin-right:39px;
+	margin-right: 27px;
+    margin-left: -16px;
 	margin-top: 7px;
 	background: url(img/filter-funnel-icone-8019-16.png) no-repeat;
 }

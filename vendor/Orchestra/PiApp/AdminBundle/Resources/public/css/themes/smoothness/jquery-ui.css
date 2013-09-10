@@ -1202,6 +1202,7 @@ body .ui-tooltip {
 
 /* SET PROCESSING */
 .dataTables_processing{
+	z-index: 999999;
     background-color: #dbdbdb;
     color: #424242;
 

@@ -113,6 +113,7 @@
 }
 .myform textarea{
     height: 71px;
+    resize: both;
 }
 .myform p{
     margin-top: 11px;
