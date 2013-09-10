@@ -12,7 +12,8 @@
 		 				'menu': 'widgetimport',
 		 				'template': 'default.html.twig',
 		 				'locale': app.request.locale,
-		 				}
+		 				'noJs': false,
+		    }
 	%}
 	{{ renderJquery('TOOL', 'widgetimport', options_widgetimport)|raw }}
 	

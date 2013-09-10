@@ -22,14 +22,14 @@ a {color:white;}
 
 /* Head section */
 #head {
-    background: #000 url(img/head-bg.png) repeat-x;
+    background: #000 url(../../img/head-bg.png) repeat-x;
     height: 100px;
 }
 #head h1 {
     line-height: 100px;
     color: #FFF;
     text-align: center;
-    background: url(img/inettuts.png) no-repeat center;
+    background: url(../../img/inettuts.png) no-repeat center;
     text-indent: -9999em
 }
 /* End Head Section */
@@ -45,8 +45,8 @@ a {color:white;}
 }
 
 /* Column dividers (background-images) : */
-#columns #column1 { background: url(img/column-bg-left.png) no-repeat right top; }
-#columns #column3 { background: url(img/column-bg-right.png) no-repeat left top; }
+#columns #column1 { background: url(../../img/column-bg-left.png) no-repeat right top; }
+#columns #column3 { background: url(../../img/column-bg-right.png) no-repeat left top; }
 	
 #columns #column1 .widget { margin: 30px 35px 0 25px; }
 #columns #column3 .widget { margin: 30px 25px 0 35px; }
@@ -72,7 +72,7 @@ a {color:white;}
     word-wrap: break-word;
 }
 #columns .widget .widget-content {
-    background: #333 url(img/widget-content-bg.png) repeat-x;
+    background: #333 url(../../img/widget-content-bg.png) repeat-x;
     padding: 0 5px;
     color: #DDD;
     -moz-border-radius-bottomleft: 2px;

@@ -1,4 +1,5 @@
 {% set layout_nav = app.request.attributes.get('orchestra-layout') %}
+{% initJquery 'TOOL:widgetimport:default' %}
 {% extends layout_nav %}
 
 {% block title %} {{ 'pi.welcome.title'|trans }} {% endblock %}
@@ -12,5 +13,15 @@
         {% include template %}
     {% endif %}
     #}
+    
+    {% set options_widgetimport = {
+             'action':'default',
+             'menu': 'default',
+             'template': 'home.html.twig',
+             'locale': app.request.locale,
+             'noJs': false,
+           }
+     %}
+     {{ renderJquery('TOOL', 'widgetimport', options_widgetimport )|raw }}
     
 {% endblock %}
