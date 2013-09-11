@@ -10,8 +10,13 @@ services:
     #         
     bootstrap_media.event_subscriber.media:
         class: %bootstrap.media.event_subscriber.media.class%
-        arguments: [ %sonata.media.thumbnail.format.default% ]
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_subscriber }         
             
+    #
+    # configuration of the event subscriber surcharge
+    #   
     bootstrap.media.thumbnail.format:
       class: %bootstrap.media.thumbnail.format.class%
       arguments: ['bootstrap.media.provider.image']
