@@ -735,14 +735,20 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                     };    
                                                                             
                     
-                    // THIS FUNCTION ALLOW TO INJECT SEVERAL FIELDS IN A ACCORDION MENU.
+                 // THIS FUNCTION ALLOW TO INJECT SEVERAL FIELDS IN A ACCORDION MENU.
                     // exemple : j_prototype_bytabs.ftc_accordion_form("meta_definition", "SEO", ".myform");
-                    this.ftc_accordion_form = function(className, title, idForm){
+                    // exemple : j_prototype_bytabs.ftc_accordion_form("meta_definition", "SEO", ".myform", 'questionLi0');
+                    // exemple : j_prototype_bytabs.ftc_accordion_form("meta_definition", "SEO", ".myform", 'questionLi1');
+                    this.ftc_accordion_form = function(className, title, idForm, addClass){
+                        var addClassBis;
                         var tabsToProcess = $(idForm+" .ui-tabs-panel");
+
+                        if (typeof(addClass) == "undefined") { addClass = '';addClassBis = ''; }
+                        else addClassBis = '.' + addClass;
                         
                         $(tabsToProcess).each(function(indTab,tabProcessed){
                             var tabProcessedId = $(tabProcessed).attr("id");
-                            
+
                             if ( $("#"+tabProcessedId+" ."+className).length ==0 ) {
                                 // Process next $.each()
                                 return;
@@ -753,10 +759,10 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                 $("<div class='accordion-form'>").insertAfter("#"+tabProcessedId+" fieldset");
                             }
                             
-                            var accordionId = "accordion_" + tabProcessedId + "_" + className;
+                            var accordionId = "accordion_" + tabProcessedId + "_" + addClass +"_"+ className;
                             $("<fieldset id='"+accordionId+"' class='accordion'><legend>"+title+"</legend></fieldset>").appendTo("#"+tabProcessedId+" .accordion-form");
-                            
-                            $("#"+tabProcessedId+" ."+className).each(function(indClass) {
+
+                            $("#"+tabProcessedId+" "+addClassBis+" ."+className).each(function(indClass) {
                                 //$(this).parent('.clearfix').detach().appendTo("#"+accordionId);
                                 $(this).closest('.clearfix').detach().appendTo("#"+accordionId);
                             });    
@@ -782,7 +788,6 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                     $(this).parent('fieldset').animate({
                                         height: newHeight()
                                     }, 400, 'swing', function() {
-                                    	console.log('cocni');
                                         $(this).addClass('open');
                                     }).siblings('fieldset').removeClass('open').animate({
                                         height: '16px'

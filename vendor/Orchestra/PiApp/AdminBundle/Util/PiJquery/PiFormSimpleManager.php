@@ -408,12 +408,19 @@ class PiFormSimpleManager extends PiJqueryExtension
                     };    
                     
                     // THIS FUNCTION ALLOW TO INJECT SEVERAL FIELDS IN A ACCORDION MENU.
-                    this.ftc_accordion_form = function(className, title, idForm){
+                    // exemple : j_prototype_bytabs.ftc_accordion_form("meta_definition", "SEO", ".myform");
+                    // exemple : j_prototype_bytabs.ftc_accordion_form("meta_definition", "SEO", ".myform", 'questionLi0');
+                    // exemple : j_prototype_bytabs.ftc_accordion_form("meta_definition", "SEO", ".myform", 'questionLi1');
+                    this.ftc_accordion_form = function(className, title, idForm, addClass){
+                        var addClassBis;
                         var tabsToProcess = $(idForm+" .ui-tabs-panel");
+
+                        if (typeof(addClass) == "undefined") { addClass = '';addClassBis = ''; }
+                        else addClassBis = '.' + addClass;
                         
                         $(tabsToProcess).each(function(indTab,tabProcessed){
                             var tabProcessedId = $(tabProcessed).attr("id");
-                            
+
                             if ( $("#"+tabProcessedId+" ."+className).length ==0 ) {
                                 // Process next $.each()
                                 return;
@@ -424,10 +431,10 @@ class PiFormSimpleManager extends PiJqueryExtension
                                 $("<div class='accordion-form'>").insertAfter("#"+tabProcessedId+" fieldset");
                             }
                             
-                            var accordionId = "accordion_" + tabProcessedId + "_" + className;
+                            var accordionId = "accordion_" + tabProcessedId + "_" + addClass +"_"+ className;
                             $("<fieldset id='"+accordionId+"' class='accordion'><legend>"+title+"</legend></fieldset>").appendTo("#"+tabProcessedId+" .accordion-form");
-                            
-                            $("#"+tabProcessedId+" ."+className).each(function(indClass) {
+
+                            $("#"+tabProcessedId+" "+addClassBis+" ."+className).each(function(indClass) {
                                 //$(this).parent('.clearfix').detach().appendTo("#"+accordionId);
                                 $(this).closest('.clearfix').detach().appendTo("#"+accordionId);
                             });    
@@ -453,7 +460,6 @@ class PiFormSimpleManager extends PiJqueryExtension
                                     $(this).parent('fieldset').animate({
                                         height: newHeight()
                                     }, 400, 'swing', function() {
-                                    	console.log('cocni');
                                         $(this).addClass('open');
                                     }).siblings('fieldset').removeClass('open').animate({
                                         height: '16px'
@@ -466,6 +472,7 @@ class PiFormSimpleManager extends PiJqueryExtension
                     };
                         
                     // this function allow to inject several fields in a dialog.
+                    // exemple : j_prototype_bytabs.ftc_dialog_form("solution_descriptif", "Descriptif", ".myform", 400, 366, "center");
                     this.ftc_dialog_form = function(className, title, idForm, height, width, position){
                         // We inject the testimonial fields via a dialog
                         // var button     = $("<a href='#' style='margin-right:30px' class=' dialog_link_"+className+"' title='"+title+"'>"+title+"</a>").appendTo(idForm+" fieldset"); SBLA
