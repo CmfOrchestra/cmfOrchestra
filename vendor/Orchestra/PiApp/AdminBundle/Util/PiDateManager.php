@@ -136,7 +136,6 @@ class PiDateManager implements PiDateManagerBuilderInterface
     }
     
     /**
-     * Function: relative_time
      * Returns the difference between the given timestamps or now.
      *
      * Parameters:
@@ -146,21 +145,20 @@ class PiDateManager implements PiDateManagerBuilderInterface
      * Returns:
      *     A string formatted like "3 days ago" or "3 days from now".
      */
-    public function relative_time($when, $from = null)
+    public function afterRelativeTime($when, $from = null)
     {
         fallback($from, time());
-    
         $time = (is_numeric($when)) ? $when : strtotime($when) ;
-    
         $difference = $from - $time;
     
         if ($difference < 0) {
             $word = "from now";
             $difference = -$difference;
-        } elseif ($difference > 0)
-        $word = "ago";
-        else
+        } elseif ($difference > 0) {
+            $word = "ago";
+        } else {
             return "just now";
+        }
     
         $units = array("second"     => 1,
                 "minute"     => 60,
@@ -174,16 +172,75 @@ class PiDateManager implements PiDateManagerBuilderInterface
                 "millennium" => 60 * 60 * 24 * 365 * 1000);
     
         $possible_units = array();
-        foreach ($units as $name => $val)
+        foreach ($units as $name => $val) {
             if (($name == "week" and $difference >= ($val * 2)) or # Only say "weeks" after two have passed.
                     ($name != "week" and $difference >= $val))
             $unit = $possible_units[] = $name;
+        }
     
         $precision = (int) in_array("year", $possible_units);
         $amount = round($difference / $units[$unit], $precision);
     
         return $amount." ".pluralize($unit, $amount)." ".$word;
     } 
+    
+    public function beforeRelativeTime(\DateTime $dateTime)
+    {
+    	$delta = $dateTime->getTimestamp() - time() ;
+    	if ($delta < 0)
+    		//throw new \Exception("createdAgo is unable to handle dates in the future");
+    		return '';
+    
+    	$duration = "";
+    
+    	$units = array("second"     => 1,
+    			"minute"     => 60,
+    			"hour"       => 60 * 60,
+    			"day"        => 60 * 60 * 24,
+    			"week"       => 60 * 60 * 24 * 7,
+    			"month"      => 60 * 60 * 24 * 30,
+    			"year"       => 60 * 60 * 24 * 365,
+    			"decade"     => 60 * 60 * 24 * 365 * 10,
+    			"century"    => 60 * 60 * 24 * 365 * 100,
+    			"millennium" => 60 * 60 * 24 * 365 * 1000);
+    
+    	$year = false; $month = false;
+    
+    	if ($delta > $units["year"])
+    	{
+    		// Années
+    		$time = floor($delta /  $units["year"]);
+    		$duration .= " <span>".$time . "</span> an" . (($time > 1) ? "s" : "");
+    		$year = true;
+    		$delta = $delta - (floor($delta /  $units["year"]) * $units["year"]);
+    	}
+    	if ($delta > $units["month"])
+    	{
+    		// Mois
+    		$time = floor($delta /  $units["month"]);
+    		if($year)
+    			$duration .= ", <span>".$time . "</span> mois";
+    		else
+    			$duration .= " <span>".$time . "</span> mois";
+    		$month = true;
+    		$delta = $delta - (floor($delta /  $units["month"]) * $units["month"]);
+    	}
+    	if ($delta > $units["day"])
+    	{
+    		// Jours
+    		$time = floor($delta / $units["day"]);
+    		if($month)
+    			$duration .= " et <span>".$time . "</span> jour" . (($time > 1) ? "s" : "");
+    		else
+    			$duration .= " <span>".$time . "</span> jour" . (($time > 1) ? "s" : "");
+    	}
+    	else {
+    
+    	}
+    
+    	return $duration;
+    }
+    
     
     /**
      * List of all months.

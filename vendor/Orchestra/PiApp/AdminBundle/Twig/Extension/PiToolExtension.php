@@ -145,6 +145,7 @@ class PiToolExtension extends \Twig_Extension
                 'file_form'                    => new \Twig_Function_Method($this, 'getFileFormFunction'),
                 'get_pattern_by_local'        => new \Twig_Function_Method($this, 'getDatePatternByLocalFunction'),  
                 'clean_name'				=> new \Twig_Function_Method($this, 'getCleanNameFunction'),
+                'picture_index'                => new \Twig_Function_Method($this, 'getPictureIndexFunction'),
         );
     }   
      
@@ -756,7 +757,7 @@ class PiToolExtension extends \Twig_Extension
     }
     
     /**
-     * encrypt string
+     * encrypts string
      *
      * @param string $string
      * @param string $key
@@ -774,7 +775,7 @@ class PiToolExtension extends \Twig_Extension
     }
     
     /**
-     * decrypt string
+     * decrypts string
      *
      * @param string $string
      * @param string $key
@@ -793,7 +794,7 @@ class PiToolExtension extends \Twig_Extension
     }  
     
     /**
-     * Obfuscate link. SEO worst practice.
+     * Obfuscates link. SEO worst practice.
      * Code by @position
      *
      * @param string $url
@@ -810,6 +811,38 @@ class PiToolExtension extends \Twig_Extension
             $output .= $_base16[$ch] . $_base16[$cl];
         }
         return $output;
-    }    
+    }  
+
+    /**
+     * Displays a crop picture in the given format
+     *
+     * <code>
+     * {{ picture_form(entity.blocgeneral.media.image, "m1m_contentbundle_articletype_blocgeneral_media_image_binaryContent",  'slider', 'display: block; text-align:left;')|raw }}
+     * </code>
+     * 
+     * @param string $media
+     * @param string $format
+     * @param string $width
+     * @param string $height
+     */    
+    public function getPictureIndexFunction($media, $format = '', $width='', $height='') 
+    {
+    	if ($media instanceof \BootStrap\MediaBundle\Entity\Media) {
+    		$id = $media->getId();
+    
+    		$mediaCrop = $this->container->get('sonata.media.twig.extension')->path($media, $format);
+    
+    		if(file_exists($src = $this->container->get('kernel')->getRootDir() . '/../web'.$mediaCrop))
+    			$img_balise = '<img title="' . $media->getAuthorname() . '" src="' . $mediaCrop . '?' . time() . '" width="auto" height="auto" alt="' . $media->getAuthorname() . '"/>';
+    		else
+    			$img_balise = 'Aucune image ce format ';
+    
+    		$content ="<div>Dimensions de ".$format." = " .$width."x".$height."</div>";
+    		$content .= "<div id='picture_" . $id . $format . "' class='".$format." default_crop' > \n";
+    		$content .= $img_balise;
+    		$content .= "</div></br></br> \n";
+    		return $content;
+    	}
+    }
     
 }
