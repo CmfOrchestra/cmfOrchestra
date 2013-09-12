@@ -6,7 +6,7 @@
 
     <services>
         <service id="orchestra.media.form.type.media" class="BootStrap\MediaBundle\Form\Type\MediaType">
-            <tag name="form.type" alias="orchestra_media_type" />
+            <tag name="form.type" alias="sonata_media_type" />
 
             <argument type="service" id="sonata.media.pool" />
             <argument />

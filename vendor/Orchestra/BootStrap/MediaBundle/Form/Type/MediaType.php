@@ -77,6 +77,6 @@ class MediaType extends AbstractType
      */
     public function getName()
     {
-        return 'orchestra_media_type';
+        return 'sonata_media_type';
     }
 }

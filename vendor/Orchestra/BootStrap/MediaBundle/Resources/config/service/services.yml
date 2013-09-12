@@ -16,7 +16,7 @@ services:
             
     #
     # configuration of the event subscriber surcharge
-    #   
+    #               
     bootstrap.media.thumbnail.format:
       class: %bootstrap.media.thumbnail.format.class%
       arguments: ['bootstrap.media.provider.image']

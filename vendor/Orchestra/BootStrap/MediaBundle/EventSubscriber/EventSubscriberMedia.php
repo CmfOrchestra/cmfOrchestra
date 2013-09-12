@@ -142,7 +142,6 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
             
             $entity->setImage(null);
         } 
-        
         // we clean the filename.
         if ( $this->isUsernamePasswordToken() && ($entity instanceof \Proxies\__CG__\BootStrap\MediaBundle\Entity\Media) ){
             $entity->setName($this->_cleanName($entity->getName()));
@@ -158,7 +157,8 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    private function _cleanName($string){
+    private function _cleanName($string)
+    {
         $string = \PiApp\AdminBundle\Util\PiStringManager::minusculesSansAccents($string);
         $string = \PiApp\AdminBundle\Util\PiStringManager::cleanFilename($string);
          
@@ -180,33 +180,19 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
     {
     	$entityManager = $eventArgs->getEntityManager();
     	$tab_post = $this->_container()->get('request')->request->all();
-    
     	if (!empty($tab_post['img_crop']) && $tab_post['img_crop'] == '1') {
-    		$entity = $eventArgs->getEntity()->getBlocgeneral();
-    
+    		$entity = $eventArgs->getEntity();
     		$getMedia = "getMedia";
     		$setMedia = "setMedia";
-    		//var_dump($entity);
-    		//var_dump($this->isUsernamePasswordToken());die();
     		if ($this->isUsernamePasswordToken() && method_exists($entity, $getMedia) && method_exists($entity, $setMedia)&& ( ($entity->$getMedia() instanceof \PiApp\GedmoBundle\Entity\Media) ) ) {
-    
     			$mediaPath = $this->_container()->get('sonata.media.twig.extension')->path($entity->$getMedia()->getImage()->getId(), 'reference');
     			$src = $this->_container()->get('kernel')->getRootDir() . '/../web/' . $mediaPath;
-    
     			if (file_exists($src)) {
     				$extension =  pathinfo($src, PATHINFO_EXTENSION);
-    
     				$mediaCrop = $this->_container()->get('sonata.media.twig.extension')->path($entity->$getMedia()->getImage()->getId(), $tab_post['img_name']);
-    				//var_dump($mediaCrop);die();
-    				//$mediaCrop = explode('.jpg', $mediaCrop);
-    				//$mediaCrop = $mediaCrop[0] . '.' . $extension;
-    
-    				//$globals = $this->_container()->get('twig')->getGlobals();
     				$targ_w = $tab_post['img_width']; //$globals['tailleWidthEdito1'];
     				$targ_h = $tab_post['img_height'];
     				$jpeg_quality = $tab_post['img_quality'];
-    
-    
     				switch ($extension) {
     					case 'jpg':
     						$img_r = imagecreatefromjpeg($src);
@@ -226,14 +212,7 @@ class EventSubscriberMedia  extends abstractListener implements EventSubscriber
     				}
     
     				$dst_r = imagecreatetruecolor($targ_w, $targ_h);
-    				/* if($extension == "gif" || $extension == "png") {
-    				 imagecolortransparent($dst_r, imagecolorallocatealpha($dst_r, 0, 0, 0, 127));
-    				imagealphablending($dst_r, false);
-    				imagesavealpha($dst_r, true);
-    				} */
-    
     				imagecopyresampled($dst_r, $img_r, 0, 0, $tab_post['x'], $tab_post['y'], $targ_w, $targ_h, $tab_post['w'], $tab_post['h']);
-    
     				switch ($extension) {
     					case 'jpg':
     						imagejpeg($dst_r, $this->_container()->get('kernel')->getRootDir() . '/../web/' . $mediaCrop, $jpeg_quality);

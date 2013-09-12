@@ -28,6 +28,9 @@ class OverrideServiceCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
+        $definition = $container->getDefinition('sonata.media.form.type.media');
+        $definition->setClass('BootStrap\MediaBundle\Form\Type\MediaType');
+        
         $definition = $container->getDefinition('sonata.media.thumbnail.format');
         $definition->setClass('BootStrap\MediaBundle\Thumbnail\FormatThumbnail');
         

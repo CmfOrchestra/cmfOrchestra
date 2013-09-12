@@ -139,9 +139,11 @@ class MediaController extends abstractController
             $category = $category['__isInitialized__'];
         }
 
-        $query                = $em->getRepository("PiAppGedmoBundle:Media")->getAllByCategory($category, null, '', 'ASC', false);
-        $query->leftJoin('a.image', 'm')
-        ->andWhere('a.image IS NOT NULL');
+        $query                = $em->getRepository("PiAppGedmoBundle:Media")->getAllByCategory($category, null, '', '', false);
+        $query
+        ->leftJoin('a.image', 'm')
+        ->andWhere('a.image IS NOT NULL')
+        ->orderBy('a.updated_at', 'DESC');
         
         $is_Server_side = true;
         
@@ -182,12 +184,18 @@ class MediaController extends abstractController
               
               if (is_object($e->getImage())) {
                   $row[] = $e->getImage()->getName();
+                  $url = $this->container->get('pi_app_admin.twig.extension.route')->getMediaUrlFunction($e->getImage(), 'reference', true, $e->getUpdatedAt(), 'media_');
               } else {
                   $row[] = "";
+                  $url = "#";
               }
-        
-              $UrlPicture = $this->container->get('pi_app_admin.twig.extension.route')->getMediaUrlFunction($e->getImage(), 'reference', true, $e->getUpdatedAt(), 'gedmo_media_');
-              $row[] = '<a href="#" title=\'<img src="'.$UrlPicture.'" class="info-tooltip-image" >\' class="info-tooltip"><img width="20px" src="'.$UrlPicture.'"></a>';
+              
+              if ($e->getStatus() == 'image') {
+              	$UrlPicture = $this->container->get('pi_app_admin.twig.extension.route')->getMediaUrlFunction($e->getImage(), 'reference', true, $e->getUpdatedAt(), 'gedmo_media_');
+              	$row[] = '<a href="#" title=\'<img src="'.$UrlPicture.'" class="info-tooltip-image" >\' class="info-tooltip"><img width="20px" src="'.$UrlPicture.'"></a>';
+              } else {
+              	$row[] = "";
+              }
               
               if (is_object($e->getCreatedAt())) {
               	$row[] = $e->getCreatedAt()->format('Y-m-d');
@@ -211,7 +219,11 @@ class MediaController extends abstractController
               // create action links
               $route_path_show = $this->container->get('pi_app_admin.twig.extension.route')->getUrlByRouteFunction('admin_gedmo_media_show', array('id'=>$e->getId(), 'NoLayout'=>$NoLayout, 'category'=>$category, 'status'=>$e->getStatus()));
               $route_path_edit = $this->container->get('pi_app_admin.twig.extension.route')->getUrlByRouteFunction('admin_gedmo_media_edit', array('id'=>$e->getId(), 'NoLayout'=>$NoLayout, 'category'=>$category, 'status'=>$e->getStatus()));
-              $actions = '<a href="'.$route_path_show.'" title="'.$this->container->get('translator')->trans('pi.grid.action.show').'" class="button-ui-show info-tooltip" >'.$this->container->get('translator')->trans('pi.grid.action.show').'</a>'; //actions
+              if (is_object($e->getImage()) && ($e->getStatus() == 'image')) {
+                  $actions = '<a href="'.$route_path_show.'" title="'.$this->container->get('translator')->trans('pi.grid.action.show').'" class="button-ui-show info-tooltip" >'.$this->container->get('translator')->trans('pi.grid.action.show').'</a>'; //actions
+              } else {
+                  $actions = '<a href="'.$url.'" target="_blank" title="'.$this->container->get('translator')->trans('pi.grid.action.show').'" class="button-ui-show info-tooltip" >'.$this->container->get('translator')->trans('pi.grid.action.show').'</a>'; //actions
+              }              
               $actions .= '<a href="'.$route_path_edit.'" title="'.$this->container->get('translator')->trans('pi.grid.action.edit').'" class="button-ui-edit info-tooltip" >'.$this->container->get('translator')->trans('pi.grid.action.edit').'</a>'; //actions
               $row[] = $actions;
               
