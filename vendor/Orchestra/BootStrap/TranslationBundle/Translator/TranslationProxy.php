@@ -39,7 +39,7 @@ class TranslationProxy
      * @param   string      $class          translation entity|document class
      * @param   Collection  $coll           translations collection
      */
-    public function __construct($translatable, $locale, array $fields, $class, Collection $coll)
+    public function __construct($translatable, $locale, array $fields, $class, $coll)
     {
         $this->translatable = $translatable;
         $this->locale       = $locale;
@@ -130,9 +130,17 @@ class TranslationProxy
      */
     public function getTranslatedValue($field)
     {
-        return $this
-            ->findOrCreateTranslationForProperty($field, $this->getProxyLocale())
-            ->getContent();
+        if (is_object($this->coll)) {
+            return $this
+                ->findOrCreateTranslationForProperty($field, $this->getProxyLocale())
+                ->getContent();
+        } else {
+             throw new \InvalidArgumentException(sprintf(
+                'Error field translate value',
+                $class
+            ));
+            //return '';
+        }
     }
 
     /**
@@ -143,9 +151,11 @@ class TranslationProxy
      */
     public function setTranslatedValue($field, $value)
     {
-        $this
-            ->findOrCreateTranslationForProperty($field, $this->getProxyLocale())
-            ->setContent($value);
+        if (is_object($this->coll)) {
+            $this
+                ->findOrCreateTranslationForProperty($field, $this->getProxyLocale())
+                ->setContent($value);
+        } 
     }
 
     /**

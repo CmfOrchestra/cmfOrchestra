@@ -1,0 +1,58 @@
+{#
+    {% set widget_service_params = {"template":"PiAppTemplateBundle:Template\\Login\\Security:connexion-fb.html.twig"} %}
+    {{ getService('pi_app_admin.manager.authentication').renderSource('BootStrapUserBundle:User~_connexion_default', 'fr_FR', widget_service_params)|raw }}
+#}
+<section id="popin-connexion" class="popin">
+    <h1 class="tt2">mon espace mariage</h1>
+    <h1 class="tt7">Connexion</h1>
+    <div class="fbConnect cf">
+        <!-- <div class="fb-login-button" data-show-faces="false" data-width="300" data-max-rows="1"></div> -->
+        <div class="fb-login-button" data-width="300" data-height="28"></div>
+    </div>
+    <form id="connexion" method='post' data-action="{{ path('fos_user_security_check') }}" novalidate>
+        <p class="errorMsg long"></p>
+        <div class="row cf">
+            <label>Adresse e-mail<span>*</span> :</label>
+            <input type="text" class="input" id="_username" name="_username" data-type="mail" value="{% if error %}{{ error }}{% elseif last_username is not empty  %}{{ last_username }}{% else %}{% endif %}"/>
+        </div>
+        <div class="row cf">
+            <label>Mot de passe<span>*</span> :</label>
+            <input id="pass1" type="password" class="input" id="_password" name="_password" />
+            <a href="{{ path_url('fos_user_resetting_request', {'NoLayout':1}) }}" class="fright popin-pass fancybox.ajax">Mot de passe oublié</a>
+        </div>
+        <div class="row cf remember">
+            <input type="checkbox"/><span class="checkbox"></span>
+            <label>Se souvenir de moi </label>
+        </div>
+        <input type="hidden" id="_csrf_token" name="_csrf_token" value="{{ csrf_token }}" />
+        <input type="submit" value="Envoyer" class="button"/>
+    </form>
+</section>
+
+{#
+		<script>
+		    function goLogIn(){
+		        window.location.href = "{{ path('_security_check') }}";
+		    }
+		
+		    function onFbInit() {
+		        if (typeof(FB) != 'undefined' && FB != null ) {
+		            FB.Event.subscribe('auth.statusChange', function(response) {
+		                if (response.session || response.authResponse) {
+		                    setTimeout(goLogIn, 500);
+		                } else {
+		                    window.location.href = "{{ path('_security_logout') }}";
+		                }
+		            });
+		        }
+		    }
+			(function(d, s, id) {
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) return;
+				js = d.createElement(s); js.id = id;
+				js.src = "//connect.facebook.net/{{ app.session.locale }}/all.js#xfbml=1";
+				fjs.parentNode.insertBefore(js, fjs);
+				}(document, 'script', 'facebook-jssdk')
+			);
+		</script>
+#}		

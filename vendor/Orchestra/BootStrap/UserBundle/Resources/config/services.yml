@@ -1,5 +1,6 @@
 parameters:
     bootstrap.user.repository.class: BootStrap\UserBundle\Repository\Repository
+    bootstrap.user.validator.unique.class: BootStrap\UserBundle\Validator\Constraints\MyUniqueValidator
 
 services:
     #
@@ -29,6 +30,16 @@ services:
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: bootstrap_user_profile }
+            
+    #
+    # configuration overload validators
+    # 
+    bootstrap.user.validator.unique:
+        class: %bootstrap.user.validator.unique.class%
+        arguments: [@fos_user.user_manager]
+        tags:
+            - { name: validator.constraint_validator, alias: bootstrap.user.validator.unique }
+                        
     #
     # configuration of IP address allowed for the Admin and user access control
     #    
@@ -38,3 +49,15 @@ services:
     #    public:     false
     #    tags:
     #        -       { name: security.voter }
+    
+    
+    #
+    # configuration of FACEBOOK SSO
+    #      
+    my_user.facebook_provider:
+        class: BootStrap\UserBundle\Security\User\Provider\FacebookProvider
+        arguments:
+            facebook: "@fos_facebook.api"
+            userManager: "@fos_user.user_manager"
+            validator: "@validator"
+    

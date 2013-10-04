@@ -57,10 +57,35 @@ class RoleFactory extends AbstractFactory implements RoleFactoryInterface
      */
     public function getAllUserRoles()
     {
-        if ($this->isUsernamePasswordToken()){
+        if ($this->isUsernamePasswordToken()) {
             return array_unique(array_merge($this->getAllHeritageByRoles($this->getBestRoles($this->getUserRoles())), $this->getUserRoles()));
-        }else
+        } else {
             return null;
+        }
+    }    
+    
+    /**
+     * Gets the best role of all user roles.
+     *
+     * @return string    the best role of all user roles.
+     * @access protected
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function getBestRoleUser()
+    {
+    	// we get all user roles.
+    	$ROLES_USER    = $this->getUserRoles();
+    	// we get the map of all roles.
+    	$roleMap = $this->buildRoleMap();
+    	foreach ($roleMap as $role => $heritage) {
+    		if (in_array($role, $ROLES_USER)) {
+    			$intersect    = array_intersect($heritage, $ROLES_USER);
+    			$ROLES_USER    = array_diff($ROLES_USER, $intersect);  // =  $ROLES_USER -  $intersect
+    		}
+    	}
+    
+    	return end($ROLES_USER);
     }    
     
     /**
@@ -75,20 +100,22 @@ class RoleFactory extends AbstractFactory implements RoleFactoryInterface
     public function getBestRoles($ROLES)
     {
         if ($this->isUsernamePasswordToken()){
-            if (is_null($ROLES))
+            if (is_null($ROLES)) {
                 return null;
-             
+            }
             // we get the map of all roles.
             $roleMap = $this->buildRoleMap();
-            foreach($roleMap as $role => $heritage){
+            foreach ($roleMap as $role => $heritage) {
                 if (in_array($role, $ROLES)){
                     $intersect    = array_intersect($heritage, $ROLES);
                     $ROLES        = array_diff($ROLES, $intersect);  // =  $ROLES_USER -  $intersect
                 }
             }
+            
             return $ROLES;
-        }else
+        } else {
             return null;
+        }
     }
     
     /**
@@ -102,23 +129,22 @@ class RoleFactory extends AbstractFactory implements RoleFactoryInterface
      */
     public function getAllHeritageByRoles($ROLES)
     {
-        if ($this->isUsernamePasswordToken()){
-            if (is_null($ROLES))
+        if ($this->isUsernamePasswordToken()) {
+            if (is_null($ROLES)) {
                 return null;
-             
+            }
             $results = array();
-        
             // we get the map of all roles.
             $roleMap = $this->buildRoleMap();
-        
-            foreach($ROLES as $key => $role){
+            foreach ($ROLES as $key => $role) {
                 if (isset($roleMap[$role]))
                     $results = array_unique(array_merge($results, $roleMap[$role]));
             }
         
             return $results;
-        }else
+        } else {
             return null;
+        }
     }
     
     /**

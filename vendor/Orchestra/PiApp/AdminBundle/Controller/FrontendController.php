@@ -251,6 +251,28 @@ class FrontendController extends BaseController
     }   
 
     /**
+     * Redirection function
+     * 
+     * @Secure(roles="ROLE_USER")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @since 2012-01-24
+     */
+    public function redirectionuserAction()
+    {
+    	if ($this->getRequest()->cookies->has('orchestra-redirection')){
+    	    $parameters   = array();
+    	    $redirection  = $this->getRequest()->cookies->get('orchestra-redirection');
+    		$response     = new RedirectResponse($this->container->get('bootstrap.RouteTranslator.factory')->getRoute($redirection, $parameters));
+    	} else {
+    		$response     = new RedirectResponse($this->container->get('bootstrap.RouteTranslator.factory')->getRoute('home_page'));
+    	}
+    	
+    	return $response;
+    }
+        
+    /**
      * Main default page
      *
      * @Secure(roles="ROLE_USER")
@@ -262,19 +284,17 @@ class FrontendController extends BaseController
     public function indexAction()
     {
         $em            = $this->getDoctrine()->getManager();
-        
-//         $message = \Swift_Message::newInstance()
-//         ->setSubject('Hello Email')
-//         ->setFrom('send@example.com')
-//         ->setTo('etienne_delongeaux@hotmail.com')
-//         ->setBody('codicydblciudycdcpi')
-//         ;
-        
-//         //print_r(get_class($this->get('mailer')));exit;        
-//         $this->get('mailer')->send($message);
 
-        return $this->render('PiAppAdminBundle:Frontend:index.html.twig', array(
-        ));
+        return $this->render('PiAppAdminBundle:Frontend:index.html.twig', array());
+
+        //         $message = \Swift_Message::newInstance()
+        //         ->setSubject('Hello Email')
+        //         ->setFrom('send@example.com')
+        //         ->setTo('etienne_delongeaux@hotmail.com')
+        //         ->setBody('codicydblciudycdcpi')
+        //         ;
+        //         //print_r(get_class($this->get('mailer')));exit;
+        //         $this->get('mailer')->send($message);        
     }  
     
     /**

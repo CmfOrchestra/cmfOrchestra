@@ -42,7 +42,7 @@ use Symfony\Component\HttpFoundation\Response;
 class LoginListener
 {
     /**
-     * @var Router $router
+     * @var \BootStrap\TranslationBundle\Route\RouteTranslatorFactory $router
      */
     protected $router;
         
@@ -90,18 +90,18 @@ class LoginListener
     /**
      * Constructs a new instance of SecurityListener.
      * 
-     * @param Router $router The router
      * @param SecurityContext $security The security context
      * @param EventDispatcher $dispatcher The event dispatcher
      * @param Doctrine        $doctrine
+     * @param Container        $container
      */
-    public function __construct(Router $router, SecurityContext $security, EventDispatcher $dispatcher, Doctrine $doctrine, ContainerInterface $container)
+    public function __construct(SecurityContext $security, EventDispatcher $dispatcher, Doctrine $doctrine, ContainerInterface $container)
     {
-        $this->router        = $router;
         $this->security     = $security;
         $this->dispatcher     = $dispatcher;
         $this->em              = $doctrine->getManager();
         $this->container     = $container;
+        $this->router        = $this->container->get('bootstrap.RouteTranslator.factory');
     }
 
     /**
@@ -145,13 +145,16 @@ class LoginListener
         /*         $response = $event->getResponse();
         // .. modify the response object */
         if (!empty($this->redirect)){
-            $response = new RedirectResponse($this->router->generate($this->redirect));
+            $response = new RedirectResponse($this->router->getRoute($this->redirect));
         }elseif ( $this->security->isGranted('ROLE_CONTENT_MANAGER') || $this->security->isGranted('ROLE_ADMIN') || $this->security->isGranted('ROLE_SUPER_ADMIN') ){
-            $response = new RedirectResponse($this->router->generate($this->redirect_admin));
+            $response = new RedirectResponse($this->router->getRoute($this->redirect_admin));
+            $this->redirect = $this->redirect_admin;
         }elseif ( $this->security->isGranted('ROLE_USER') ){
-            $response = new RedirectResponse($this->router->generate($this->redirect_user));
+            $response = new RedirectResponse($this->router->getRoute($this->redirect_user));
+            $this->redirect = $this->redirect_user;
         } else {
-            $response = new RedirectResponse($this->router->generate($this->redirect_subscriber));
+            $response = new RedirectResponse($this->router->getRoute($this->redirect_subscriber));
+            $this->redirect = $this->redirect_subscriber;
         }
         // Record the layout variable in cookies.
         if ($this->date_expire && !empty($this->date_interval)){
@@ -161,6 +164,7 @@ class LoginListener
             $dateExpire = 0;
         }
         $response->headers->setCookie(new \Symfony\Component\HttpFoundation\Cookie('orchestra-layout', $this->layout, $dateExpire));
+        $response->headers->setCookie(new \Symfony\Component\HttpFoundation\Cookie('orchestra-redirection', $this->redirect, $dateExpire));
         $event->setResponse($response);
     }    
     
@@ -228,24 +232,24 @@ class LoginListener
     protected function setParams()
     {
         // we get the best role of the user.
-        $BEST_ROLE_NAME = $this->getBestRoleUser();
-        if (!empty($BEST_ROLE_NAME)){
+        $BEST_ROLE_NAME = $this->container->get('bootstrap.Role.factory')->getBestRoleUser();
+        if (!empty($BEST_ROLE_NAME)) {
             $role         = $this->em->getRepository("BootStrapUserBundle:Role")->findOneBy(array('name' => $BEST_ROLE_NAME));
-            if ($role instanceof \BootStrap\UserBundle\Entity\Role){
+            if ($role instanceof \BootStrap\UserBundle\Entity\Role) {
                 $this->redirect = $role->getRouteName();
                 
-                if ($role->getLayout() instanceof \PiApp\AdminBundle\Entity\Layout)
+                if ($role->getLayout() instanceof \PiApp\AdminBundle\Entity\Layout) {
                     $this->template = $role->getLayout()->getFilePc();
+                }
             }
         }
-        
         $this->date_expire            = $this->container->getParameter('pi_app_admin.cookies.date_expire');
         $this->date_interval        = $this->container->getParameter('pi_app_admin.cookies.date_interval');
-        
+        // 
         $this->redirect_admin        = $this->container->getParameter('pi_app_admin.layout.login.admin_redirect');
         $this->redirect_user         = $this->container->getParameter('pi_app_admin.layout.login.user_redirect');
         $this->redirect_subscriber    = $this->container->getParameter('pi_app_admin.layout.login.subscriber_redirect');
-        
+        // 
         $this->template_admin        = $this->container->getParameter('pi_app_admin.layout.login.admin_template');
         $this->template_user        = $this->container->getParameter('pi_app_admin.layout.login.user_template');
         $this->template_subscriber    = $this->container->getParameter('pi_app_admin.layout.login.subscriber_template');        
@@ -266,7 +270,7 @@ class LoginListener
         // we get browser info
         $browser = $request->attributes->get('orchestra-browser');
         // Sets layout
-        if ($browser->isMobileDevice){
+        if ($browser->isMobileDevice) {
             if ($request->attributes->has('orchestra-screen')) {    
                 $OrchestraScreen = $request->attributes->get('orchestra-screen'); 
             } else {
@@ -293,7 +297,7 @@ class LoginListener
                 $layout    = 'PiAppTemplateBundle::Template\\Layout\\Pc\\'.$this->template_subscriber;
             }
         }
-        // Record the layout variable in session.    
+        // Record the layout variable in attributes.    
         $request->attributes->set('orchestra-layout', $layout);
         $this->layout =  $layout;
     }    
@@ -365,58 +369,5 @@ class LoginListener
     protected function setFlash()
     {
         $this->getFlashBag()->add('notice', "pi.session.flash.welcom");
-    }    
-    
-    /**
-     * Gets the best role of all user roles.
-     *
-     * @return string    the best role of all user roles.
-     * @access protected
-     *
-     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-     */    
-    protected function getBestRoleUser()
-    {
-        // we get all user roles.
-        $ROLES_USER    = $this->event->getAuthenticationToken()->getUser()->getRoles();
-        // we get the map of all roles.
-        $roleMap = $this->buildRoleMap();        
-        foreach($roleMap as $role => $heritage){
-            if (in_array($role, $ROLES_USER)){
-                $intersect    = array_intersect($heritage, $ROLES_USER);
-                $ROLES_USER    = array_diff($ROLES_USER, $intersect);  // =  $ROLES_USER -  $intersect
-            }    
-        }
-        
-        return end($ROLES_USER);
-    }        
-
-    /**
-     * Sets the map of all roles.
-     *
-     * @return array    role map
-     * @access protected
-     *
-     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-     */
-    protected function buildRoleMap()
-    {
-        $hierarchy     = $this->container->getParameter('security.role_hierarchy.roles');
-        $map        = array();
-        foreach ($hierarchy as $main => $roles) {
-            $map[$main] = $roles;
-            $visited = array();
-            $additionalRoles = $roles;
-            while ($role = array_shift($additionalRoles)) {
-                if (!isset($hierarchy[$role])) {
-                    continue;
-                }
-                $visited[]             = $role;
-                $map[$main]         = array_unique(array_merge($map[$main], $hierarchy[$role]));
-                $additionalRoles     = array_merge($additionalRoles, array_diff($hierarchy[$role], $visited));
-            }
-        }
-        
-        return $map;
     }    
 }

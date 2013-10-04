@@ -1,3 +1,6 @@
+{% extends "PiAppTemplateBundle:Template\\Login:layout.html.twig" %}
+
+{% block content %}
 <div id="form-connexion-request-response">
 	<script type="text/javascript">
 	//<![CDATA[
@@ -5,14 +8,14 @@
 	        $('#form-connexion-request').on('submit', function() {
 	            var username = jQuery(this).find('input[name="username"]').val();
 	            var template = jQuery(this).find('input[name="template"]').val();
-	            var pagename = jQuery(this).find('input[name="pagename"]').val();
+	            var routereset = jQuery(this).find('input[name="routereset"]').val();
 	            $.ajax({
 	                url: $(this).attr('action'),
-	                data: "username="+username+"&template="+template+"&pagename="+pagename,
+	                data: "username="+username+"&template="+template+"&routereset="+routereset,
 	                type: $(this).attr('method'),
-	                success: function(html) {
-	                   $("#form-connexion-request-response").html(html);
-	                }
+	                success: function(data) {
+		               $("#form-connexion-request-response").html(jQuery(data).find('#form-connexion-request-response').html());
+		            }
 	            });
 	            return false; // j'empêche le navigateur de soumettre lui-même le formulaire
 	        });
@@ -21,24 +24,29 @@
 	</script>  
 	
 	<section class="forgotten-password">
+	
 		<header class="tt-grey resetM">
-			<h3 class="uppercase bold tt-10">Mot de passe oublié ?</h3>
+			<h3 class="uppercase bold tt-10">Vous avez oublié votre mot de passe ?</h3>
 		</header>
 		
 		{% if success is defined %}
+		    {#<p>{{ 'Un email est envoyé à l’utilisateur avec son nouveau mot de passe généré par l’application'|trans()|raw }}<br/><br/></p>#}
 			<p>{{ 'resetting.request.success'|trans()|raw }}</p>
 		{% else %}	
 		    {% if invalid_username is defined %}
-		        <p>{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}, 'FOSUserBundle')|raw }}</p>
+		        <p class="error" style="font-weight: bold">{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}, 'FOSUserBundle')|raw }}<br/><br/></p>
 		    {% endif %}
 		   
-			<p>Saisissez l’adresse e-mail que vous utilisez habituellement pour vous connecter à La Mêlée</p>
+			<p>Saisissez votre identifiant, vous recevrez un email avec votre nouveau mot de passe.</p>
 			<form action="{{ path('fos_user_resetting_send_email') }}" method="POST" id="form-connexion-request" >
 			        <input type="text" 		id="username" 	name="username" class="resetBorder required email" />
-			        <input type="hidden" 	id="pagename"	name="pagename" value="page_lamelee_reset" />
+			        <input type="hidden" 	id="routereset"	name="routereset" value="page_route_name_reset" />
 			        <input type="hidden" 	id="template"  	name="template"  value="PiAppTemplateBundle:Template\\Login\\Resetting:request.html.twig" />
+			        <br/><br/>
 			        <input type="submit" value="ok" />
 			</form>
 		{% endif %}
+		<p style="text-align: right"><a href="{{ path('fos_user_security_login') }}">Retour à la page de connexion</a></p>
 	</section>
 </div>
+{% endblock content %}

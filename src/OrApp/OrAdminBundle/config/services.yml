@@ -1,0 +1,12 @@
+parameters:
+    oradmin.admin.listener.login.class: OrApp\OrAdminBundle\EventListener\LoginListener
+
+services:
+    #
+    # configuration of the listener classes
+    #        
+    or_admin.user.login_listener:
+        class: %oradmin.admin.listener.login.class%
+        arguments: [@security.context, @event_dispatcher, @doctrine, @service_container]
+        tags:
+            - { name: kernel.event_listener, event: security.interactive_login }

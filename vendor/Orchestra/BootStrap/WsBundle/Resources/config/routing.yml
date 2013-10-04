@@ -1,0 +1,6 @@
+#
+#   import routes from a controller directory
+#
+annotation_boot_strap_ws:
+    resource: "@BootStrapWsBundle/Controller"
+    type:     annotation    

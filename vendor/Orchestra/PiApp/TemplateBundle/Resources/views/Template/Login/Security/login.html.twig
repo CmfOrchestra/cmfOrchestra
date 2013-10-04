@@ -18,6 +18,9 @@
 		<tr>
 			<th></th>
 			<td valign="top"><input type="checkbox" id="login-check" name="_login-check" value="on" class="checkbox-size"  /><label for="login-check">{{ 'security.login.remember_me'|trans([], 'FOSUserBundle') }}</label></td>
+			<td valign="top">
+                <a href="{{ path('fos_user_resetting_request') }}" class="reset-pwd" title="">{{ 'Mot de passe oublié ?'|trans([], 'FOSUserBundle') }}</a>
+            </td>
 		</tr>
 		<tr>
 			<th></th>
@@ -31,6 +34,7 @@
     #}
 </p>
 
+    {{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
     {{ facebook_login_button({'autologoutlink': false}) }}
     <script>
         function goLogIn(){

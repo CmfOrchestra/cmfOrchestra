@@ -1,0 +1,103 @@
+                    {{ picture_form(media, nameForm,  'reference', 'display: block; text-align:left;','cropbox', 'default_crop')|raw}}
+                    {{ picture_form(media, nameForm,  'slider', 'display: block; text-align:left;', '', 'img_crop')|raw }}
+                    {{ picture_form(media, nameForm,  'mosaique', 'display: block; text-align:left;', '','img_crop')|raw }}
+                    {{ picture_form(media, nameForm,  'sous_rubrique', 'display: block; text-align:left;', '', 'img_crop')|raw }}
+                    {{ picture_form(media, nameForm,  'rubrique_miniature', 'display: block; text-align:left;', '', 'img_crop')|raw }}
+                    {{ picture_form(media, nameForm,  'image_principale', 'display: block; text-align:left;', '', 'img_crop')|raw }}
+                    {{ picture_form(media, nameForm,  'contenu_lie', 'display: block; text-align:left;', '', 'img_crop')|raw }}
+
+                    <input type="hidden" id="x" name="x" value="0" />
+                    <input type="hidden" id="y" name="y" value="0"/>
+                    <input type="hidden" id="w" name="w" value="{{ slider_width }}" />
+                    <input type="hidden" id="h" name="h" value="{{ slider_height }}"/>
+
+                    <input type="hidden" id="img_crop" name="img_crop" value="0" />
+                    <input type="hidden" id="img_name" name="img_name" value="slider"/>
+                    <input type="hidden" id="img_title" name="img_title" value="{{ entity.blocgeneral.media.title|slugify }}"/>
+                    <input type="hidden" id="img_width" name="img_width" value="{{ slider_width }}" />
+                    <input type="hidden" id="img_height" name="img_height" value="{{ slider_height }}" />
+                    <input type="hidden" id="img_quality" name="img_quality" value="{{ slider_quality }}" />
+
+                    <select id="format_crop" style="margin-top: 10px; margin-bottom: 10px;">
+                        <option value="slider">slider ({{ slider_width }}x{{ slider_height }})</option>
+                        <option value="mosaique">mosaique ({{ mosaique_width }}x{{ mosaique_height }})</option>
+                        <option value="sous_rubrique">sous_rubrique ({{sous_rubrique_width }}x{{ sous_rubrique_height }})</option>
+                        <option value="rubrique_miniature">rubrique_miniature ({{ rubrique_miniature_width }}x{{ rubrique_miniature_height }})</option>
+                        <option value="image_principale">image_principale ({{ image_principale_width }}x{{ image_principale_height }})</option>
+                        <option value="contenu_lie">contenu_lie ({{ contenu_lie_width }}x{{ contenu_lie_height }})</option>
+                    </select></br></br>
+                    
+				    <script type="text/javascript">
+				    //<![CDATA[
+				        	function updateTaille()
+						    {
+						        $('#img_crop').val('1');
+						    }
+						
+						    function updateCoords(c)
+						    {
+						        $('#x').val(c.x);
+						        $('#y').val(c.y);
+						        $('#w').val(c.w);
+						        $('#h').val(c.h);
+						    };
+							var cropTab = []
+						    cropTab['slider_width']={{ slider_width }};
+							cropTab['slider_height']={{ slider_height }};
+							cropTab['slider_ratio']={{ slider_ratio }};
+							cropTab['slider_quality']={{ slider_quality }};
+						
+							cropTab['mosaique_width']={{ mosaique_width }};
+							cropTab['mosaique_height']={{ mosaique_height }};
+							cropTab['mosaique_ratio']={{ mosaique_ratio }};
+							cropTab['mosaique_quality']={{ mosaique_quality }};
+						
+							cropTab['sous_rubrique_width']={{ sous_rubrique_width }};
+							cropTab['sous_rubrique_height']={{ sous_rubrique_height }};
+							cropTab['sous_rubrique_ratio']={{ sous_rubrique_ratio }};
+							cropTab['sous_rubrique_quality']={{ sous_rubrique_quality }};
+						
+							cropTab['rubrique_miniature_width']={{ rubrique_miniature_width }};
+							cropTab['rubrique_miniature_height']={{ rubrique_miniature_height }};
+							cropTab['rubrique_miniature_ratio']={{ rubrique_miniature_ratio }};
+							cropTab['rubrique_miniature_quality']={{ rubrique_miniature_quality }};
+						
+							cropTab['image_principale_width']={{ image_principale_width }};
+							cropTab['image_principale_height']={{ image_principale_height }};
+							cropTab['image_principale_ratio']={{ image_principale_ratio }};
+							cropTab['image_principale_quality']={{ image_principale_quality }};
+						
+							cropTab['contenu_lie_width']={{ contenu_lie_width }};
+							cropTab['contenu_lie_height']={{ contenu_lie_height }};
+							cropTab['contenu_lie_ratio']={{ contenu_lie_ratio }};
+							cropTab['contenu_lie_quality']={{ contenu_lie_quality }};
+						
+						    $(".img_crop").hide();
+						    $(".slider").show();
+						    $("[class*='default_crop']").each(function(i){
+						    	$('#format_crop').detach().appendTo(this);
+						    });               
+						    $('#cropbox').css('max-width','none').Jcrop({
+						        onSelect: updateCoords,
+						        onChange: updateTaille,
+						        animateTo: [ 0,0,cropTab['slider_width'],cropTab['slider_height'] ],
+						        aspectRatio: cropTab['slider_ratio']
+						    },function(){
+						        jcrop_api = this;
+						    });
+						    $("#format_crop").on('change', function(){
+						        var name = $("#format_crop option:selected").val();
+						        $(".img_crop").hide();
+						        $('.' + name ).show();
+						        console.log('.' + name)
+						        console.log(cropTab[name + "_width"])
+						        $("#img_width").val(cropTab[name + "_width"]);
+						        $("#img_height").val(cropTab[name + "_height"]);
+						        $("#img_quality").val(cropTab[name + "_quality"]);
+						        $("#img_name").val(name);
+						        jcrop_api.setOptions({
+						        	aspectRatio: cropTab[name + "_ratio"]
+						        });
+						    }); 
+					//]]>   
+				    </script> 

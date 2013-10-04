@@ -94,6 +94,9 @@ ul  {
 	list-style-type: none;
 }
 
+h1 a,h2 a,h3 a{color:black}
+h1 a:hover,h3 a:hover,h3 a:hover{color:black;border-bottom:1px dotted black}
+
 #page-top-outer	{
 	background: url(../../../images/shared/top_bg.jpg) top center repeat-x;
 	border-bottom: 1px solid #7e7e7e;
@@ -451,7 +454,7 @@ a.action-slider.activated	{
 	max-width: 1260px;
 	min-width: 850px;
 	}
-#nav-right	{
+#nav-right, #nav-right-search	{
 	position: absolute;
     float: right;
     width: auto;
@@ -460,9 +463,21 @@ a.action-slider.activated	{
     color: rgb(255, 255, 255);
     font-size: 12px;
     font-weight: bold;	
-    right: 15px;
-    top: 10px;
+    top:9px;
+    right: 354px;    
 	}
+#nav-right-search {
+    top: 19px;
+	right: 15px;
+    }	
+.top-search-inp {
+    background: url(../../../images/shared/top_search_inp.gif) no-repeat;
+    border: none;
+    color: #fff;
+    font-size: 12px;
+    height: 23px;
+    padding: 6px 6px 0 10px;
+}     
 #nav-right a	{
 	display: block;
 	float: left;
@@ -1178,8 +1193,13 @@ span.connexion-login-logout:hover{
 	
 	
 /* VERSION MOBILE */
-@media screen and (max-width:500px) {
+@media screen and (max-width:645px) {
 	#logo a[title='logo'] {
 	   display:none;
 	}
-}	
+}
+@media screen and (max-width:900px) {
+    span.connexion-my-account, span.connexion-login-logout {
+       display:none;
+    }
+}

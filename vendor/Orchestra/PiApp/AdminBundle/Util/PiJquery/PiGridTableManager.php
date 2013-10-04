@@ -672,8 +672,11 @@ class PiGridTableManager extends PiJqueryExtension
                                                                 <?php if (isset($params['reload']) && ($params['reload'] == 1) ) : ?>
                                                                 window.location.reload();
                                                                 <?php endif; ?>
+                                                                
+                                                                <?php if (isset($params['remove']) && ($params['remove'] == 1) ) : ?>
+                                                                $("tr.DTTT_selected td").remove();
+                                                                <?php endif; ?>
                                                             });
-                                                            $("tr.DTTT_selected td.enabled").remove();
                                                         },
                                                     }
                                                 ],
@@ -702,9 +705,15 @@ class PiGridTableManager extends PiJqueryExtension
                                                         "className": "save",
                                                         "fn": function (e) {
                                                             this.submit(function(){
+                                                                <?php if (isset($params['reload']) && ($params['reload'] == 1) ) : ?>
                                                                 window.location.reload();
+                                                                <?php endif; ?>
+
+                                                                <?php if (isset($params['remove']) && ($params['remove'] == 1) ) : ?>
+                                                                $("tr.DTTT_selected td").remove();
+                                                                <?php endif; ?>
                                                             });
-                                                        }
+                                                        },
                                                     }
                                                 ],
                                                 <?php if (!isset($params['questionTitle']) || empty($params['questionTitle']) ) : ?>
@@ -806,10 +815,15 @@ class PiGridTableManager extends PiJqueryExtension
                                                                 <?php if (isset($params['reload']) && ($params['reload'] == 1) ) : ?>
                                                                 window.location.reload();
                                                                 <?php endif; ?>
+
+                                                                <?php if (isset($params['remove']) && ($params['remove'] == 1) ) : ?>
+                                                                $("tr.DTTT_selected td").remove();
+                                                                <?php endif; ?>
+
+                                                                <?php if (isset($params['withImg']) && ($params['withImg'] == 1) ) : ?>
+                                                                $("tr.DTTT_selected td.enabled").html('<img width="17px" src="<?php echo $Urlenabled ?>">');
+                                                                <?php endif; ?>
                                                             });
-                                                            <?php if (isset($params['withImg']) && ($params['withImg'] == 1) ) : ?>
-                                                            $("tr.DTTT_selected td.enabled").html('<img width="17px" src="<?php echo $Urlenabled ?>">');
-                                                            <?php endif; ?>
                                                         },
                                                     }
                                                 ],

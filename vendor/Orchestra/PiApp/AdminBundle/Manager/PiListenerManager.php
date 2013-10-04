@@ -56,10 +56,11 @@ class PiListenerManager extends PiCoreManager implements PiListenerManagerBuilde
     {
         $id                = $this->_Decode($id);
         
-        if (!is_array($params))
+        if (!is_array($params)) {
             $params        = $this->paramsDecode($params);
-        else
+        } else {
             $this->recursive_map($params);
+        }
         
         $params['lang']     = $lang;
         $params['_route']    = $this->container->get('request')->get('_route');
@@ -69,12 +70,8 @@ class PiListenerManager extends PiCoreManager implements PiListenerManagerBuilde
         $subRequest = $this->container->get('request')->duplicate(array(), null, $params);
         $response =  $this->container->get('http_kernel')->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
         
-        if ($response instanceof \Symfony\Component\HttpFoundation\RedirectResponse) {
-        	return "<div style='visibility:hidden'>".$response."</div>";
-        } else {
-        	//return utf8_decode(mb_convert_encoding($response->getContent(), "UTF-8", "HTML-ENTITIES"));
-        	return $response->getContent();
-        }        
+       	//return utf8_decode(mb_convert_encoding($response->getContent(), "UTF-8", "HTML-ENTITIES"));
+       	return $response->getContent();
         
 // 		if (isset($params['isRedirect']) && ( ($params['isRedirect'] == true) || ($params['isRedirect'] == 'true') ) ) {
 // 		    // this allow Redirect Response in controller action

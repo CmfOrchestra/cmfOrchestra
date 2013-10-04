@@ -279,6 +279,14 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                                 	var currentId = $(this).attr('id');
                                                 	$(this).find('div:first-child > label').remove();
                                                 }); 
+
+                                                // we remove each first label of all fieldsets
+                                                $("fieldset.no-accordion > div > label:first-child").each(function(i){
+                                                	var myclass = $(this).parent().attr('class');
+                                                	if( (typeof(myclass) == "undefined") && (myclass != "clearfix") ){
+                                                	    $(this).remove();
+                                                	}
+                                                }); 
                     };
         
                     // actual addTab function: adds new tab using the title input from the form above

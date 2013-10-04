@@ -54,9 +54,9 @@
 					{{ entity.label|striptags|limite("0", 55) }}
 	            </td>	
 	            <td class="enabled" width="20px">{{ entity.enabled}}</td>
-				<td width="130px">
-					<a href="{{ path('admin_word_show', { 'id': entity.id, 'NoLayout':NoLayout }) }}" title="{{ 'pi.grid.action.show'|trans }}" class="icon-3 info-tooltip" >&nbsp;</a>
-                	<a href="{{ path('admin_word_edit', { 'id': entity.id, 'NoLayout':NoLayout }) }}" title="{{ 'pi.grid.action.edit'|trans }}" class="icon-1 info-tooltip" >&nbsp;</a>
+				<td width="171px">
+					<a href="{{ path('admin_word_show', { 'id': entity.id, 'NoLayout':NoLayout }) }}" title="{{ 'pi.grid.action.show'|trans }}" class="button-ui-show info-tooltip">{{ 'pi.grid.action.show'|trans }}</a>
+                	<a href="{{ path('admin_word_edit', { 'id': entity.id, 'NoLayout':NoLayout }) }}" title="{{ 'pi.grid.action.edit'|trans }}" class="button-ui-edit info-tooltip">{{ 'pi.grid.action.edit'|trans }}</a>
 					<a href="{{ path('admin_word_translate', { 'id': entity.id, 'NoLayout':NoLayout }) }}" title="{{ 'pi.grid.action.trans'|trans }}" class="icon-trans info-tooltip" >&nbsp;</a>
 				</td>	
 	        </tr>

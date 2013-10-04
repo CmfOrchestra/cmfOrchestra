@@ -23,6 +23,7 @@ namespace BootStrap\TranslationBundle\Builder;
 interface RoleFactoryInterface
 {
     public function getAllUserRoles();
+    public function getBestRoleUser();
     public function getBestRoles($ROLES);
     public function getAllHeritageByRoles($ROLES);
     public function buildRoleMap();

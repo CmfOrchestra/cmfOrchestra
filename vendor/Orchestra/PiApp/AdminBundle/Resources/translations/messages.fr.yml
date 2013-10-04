@@ -56,6 +56,10 @@ pi.grid.action.create: Créer
 pi.grid.action.validate: Valider
 pi.grid.action.back-to-the-list: Retour à la liste
 pi.grid.action.add-tab: Ajouter onglet
+pi.grid.action.add-picture: Ajouter une image
+pi.grid.action.add-question: Ajouter une question
+pi.grid.action.add-test: Ajouter un test
+pi.grid.action.add-deafult: Ajouter
 pi.grid.action.copy: Copie presse-papiers
 pi.grid.action.print: Impression
 pi.grid.action.export: Exporter
@@ -106,6 +110,7 @@ pi.form.label.date.start: Date de début
 pi.form.label.date.end: Date de fin
 
 pi.form.label.media.picture: Image
+pi.form.label.media.picture.miniature: Miniature
 pi.form.label.media.file: Fichier
 pi.form.label.media.download: Télécharger
 
@@ -137,8 +142,9 @@ pi.form.label.field.civility.type.mme: Mme
 pi.form.label.field.civility.type.mlle: Mlle
 
 pi.form.label.field.profile: Profil
-pi.form.label.field.profile.type.fournisseur: Fournisseur
-pi.form.label.field.profile.type.fournisseur.tic: Fournisseur TIC
+pi.form.label.field.profile.type.customer: Client
+pi.form.label.field.profile.type.provider: Fournisseur
+pi.form.label.field.profile.type.provider.tic: Fournisseur TIC
 pi.form.label.field.profile.type.user: Utilisateur
 pi.form.label.field.profile.type.user.tic: Utilisateur TIC
 pi.form.label.field.profile.type.cadre: Cadre

@@ -254,7 +254,7 @@ class PiContextMenuManager extends PiJqueryExtension
                 { "<?php echo $this->translator->trans('pi.contextmenu.go_admin'); ?>":
                     {
                         onclick:function() {
-                                window.location.href= "<?php echo $this->container->get('router')->generate('admin_homepage') ?>"; 
+                                window.location.href= "<?php echo $this->container->get('router')->generate('admin_redirection') ?>"; 
                         },
                         icon:'<?php echo $this->container->get('templating.helper.assets')->getUrl("bundles/piappadmin/images/icons/contextmenu/rotation-16-inverse.png"); ?>'
                     }

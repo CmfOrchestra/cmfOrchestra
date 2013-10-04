@@ -91,11 +91,11 @@ class PiRouteExtension extends \Twig_Extension
      */    
     public function getMediaUrlFunction($id, $format = "small", $cachable = true, $modifdate = false, $pattern = "media_")
     {
-        if ($modifdate)
+        if ($modifdate) {
             $timestamp = $modifdate->getTimestamp();
-        else
-            $timestamp = 0;        
-        
+        } else {
+            $timestamp = 0;
+        }        
         try {
             if (!$cachable){
                 $url_public_media = $this->container->get('sonata.media.twig.extension')->path($id, $format);
@@ -115,9 +115,12 @@ class PiRouteExtension extends \Twig_Extension
         } catch (\Exception $e) {
             $url_public_media = "";
         }
-           return $url_public_media;
+        if (empty($url_public_media) && ($format != 'reference')) {
+            return $this->getMediaUrlFunction($id, "reference", $cachable, $modifdate, $pattern);
+        } else {
+            return $url_public_media;
+        }
     }
-   
     
     /**
      * Return the url of a route, with or without a locale value

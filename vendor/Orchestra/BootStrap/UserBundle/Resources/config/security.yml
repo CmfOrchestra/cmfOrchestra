@@ -38,6 +38,13 @@ security:
                 target: /
                 invalidate_session: false
             anonymous: true
+            # FACEBOOK
+            fos_facebook:
+                app_url: "%api_facebook_name%"
+                server_url: "%api_facebook_server%"
+                check_path: /login_facebook_check   # Pour éviter toute confusion avec le formulaire de base, j'ai spécifié une route pour Facebook
+                provider: my_facebook_provider
+            
         # -> end custom configuration  
         
         secured_area:
@@ -72,3 +79,11 @@ security:
             #anonymous: ~
             #http_basic:
             #    realm: "Secured Demo Area"
+    
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username
+        # FACBOOK provider
+        my_facebook_provider:
+            id: my_user.facebook_provider
+            

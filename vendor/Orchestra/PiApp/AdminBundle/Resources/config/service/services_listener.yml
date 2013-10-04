@@ -33,7 +33,7 @@ services:
             
     pi_app_admin.user.login_listener:
         class: %piapp.admin.listener.login.class%
-        arguments: [@router, @security.context, @event_dispatcher, @doctrine, @service_container]
+        arguments: [@security.context, @event_dispatcher, @doctrine, @service_container]
         tags:
             - { name: kernel.event_listener, event: security.interactive_login }
             

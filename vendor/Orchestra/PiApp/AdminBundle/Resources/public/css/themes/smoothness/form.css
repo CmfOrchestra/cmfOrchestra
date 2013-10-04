@@ -137,57 +137,21 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
-    width: 520px;
 }
 .myform .choice li {
     float: left;
     margin-right: 11px;
     /*width: 131px;*/
-    width: 40%;
+    min-width: 11%;
     margin-bottom: 11px;
     list-style-type: none;
     line-height: 18px;
     padding: 0 0 0 12px;
 }
-/* OPTIONAL SET ATTRIBUTES FOR WIJMO AND UI ADJUSTMENT * SUPPR-SBLA-20121220
-.myform .wijmo-wijradio .ui-state-default {
-    background: #fff url(images/ui-bg_highlight-soft_15_9eca38_1x100_50.png) 50% 50% repeat-x;  
-    border: 1px solid #ddd;
-}
-
-.myform .wijmo-checkbox-box {
-    border: 1px solid #ddd;
-}
-.myform .wijmo-checkbox label {
-    cursor: pointer;
-    z-index: 0;
-    padding: 0 0 0 0;
-    outline: none;
-    margin-left: 23px;
-}
-*/
-.myform .wijmo-wijinput{
-    border: 0;
-}
-.myform .wijmo-wijradio .ui-state-default {
-    background: #fff url(images/ui-bg_highlight-soft_15_9eca38_1x100_50.png) 50% 50% repeat-x;  
-    border: 1px solid #ddd;
-}
-.myform .wijmo-wijradio .ui-state-default.ui-state-active {
-    -moz-box-shadow: inset 1px 1px 0 rgba(255,255,255,0.15);
-    -webkit-box-shadow: inset 1px 1px 0 rgba(255,255,255,0.15);
-    box-shadow: inset 1px 1px 0 rgba(255,255,255,0.15);
-    border: 1px solid transparent;
-    background: #606154 url(images/ui-bg_highlight-soft_15_333333_1x100.png) top repeat-x;
-    font-weight: normal;
-    color: #fafafa;
-}
 .ui-icon-radio-off
 {
     background-position: -80px -144px;
 }
-
-
 /* OPTIONAL SET ATTRIBUTES FOR THE ERRORS AND HELPS */
 .myform span.help-inline {
     position: absolute;

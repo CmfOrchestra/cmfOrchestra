@@ -27,23 +27,29 @@
 			{% endblock %}
 		</div><!-- #entete -->
 
-		<div id="navigation">
-			{% block pc_menuwrapper %}
-			<ul>
-				<li><a href="index.html">Accueil</a></li>
-				<li><a href="liste.html">Tous les gabarits</a></li>
-				<li><a href="utiliser.html">Utilisation</a></li>
-				<li><a href="licence.html">Licence</a></li>
-				<li><a href="credits.html">Crédits</a></li>
-			</ul>
-			{% endblock %}
+		<div id="menuleft">
+			<div id="navigation">
+				{% block pc_menuwrapper %}
+				<ul>
+					<li><a href="index.html">Accueil</a></li>
+					<li><a href="liste.html">Tous les gabarits</a></li>
+					<li><a href="utiliser.html">Utilisation</a></li>
+					<li><a href="licence.html">Licence</a></li>
+					<li><a href="credits.html">Crédits</a></li>
+				</ul>
+				{% endblock %}
+			</div><!-- #navigation -->
 			
-			{% include "BootStrapUserBundle::connexion-ul-li.html.twig" %}
-			
-			<a href="{{ path('pi_layout_choisir_langue', {'langue' : 'fr_FR'}) }}" title="">FR</a> | <a href="{{ path('pi_layout_choisir_langue', {'langue' : 'en_GB'}) }}" title="">EN</a> | <a href="{{ path('pi_layout_choisir_langue', {'langue' : 'ar_SA'}) }}" title="">AR</a> | 
-			<a href="www.cmf-orchestra.net" title="">cmf-orchestra.net</a> |
-		</div><!-- #navigation -->
-
+			<div id="connexion">
+			    {# {% include "BootStrapUserBundle::connexion-ul-li.html.twig" %} #}
+				{% set widget_service_params = {"template":"PiAppTemplateBundle:Template@@@@@@@@Login@@@@@@@@Security:connexion-ajax.html.twig"} %} 
+		 		{{ getService('pi_app_admin.manager.authentication').renderSource('BootStrapUserBundle:User~_connexion_default', 'fr_FR', widget_service_params)|raw }}
+				
+				<a href="{{ path('pi_layout_choisir_langue', {'langue' : 'fr_FR'}) }}" title="">FR</a> | <a href="{{ path('pi_layout_choisir_langue', {'langue' : 'en_GB'}) }}" title="">EN</a> | <a href="{{ path('pi_layout_choisir_langue', {'langue' : 'ar_SA'}) }}" title="">AR</a> | 
+				<a href="www.cmf-orchestra.net" title="">cmf-orchestra.net</a> |		
+	        </div><!-- #"connexion" -->
+        </div>
+        
 		<div id="contenu">
 			{% block content %}
 			<h2>À propos du gabarit 05</h2>

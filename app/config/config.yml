@@ -14,7 +14,7 @@ framework:
         strict_requirements: %kernel.debug%
     form:            ~
     csrf_protection: ~
-    validation:      { enable_annotations: true }
+    validation:      { enabled: true, enable_annotations: true }
     templating:
         engines: ['twig']
         #assets_version: SomeVersionScheme
@@ -150,6 +150,9 @@ doctrine:
             FOSUserBundle: ~
             StofDoctrineExtensionsBundle: ~
             SonataMediaBundle: ~
+            OrAppOrUserBundle: ~
+            OrAppOrAdminBundle: ~
+            OrAppOrGedmoBundle: ~
             BootStrapUserBundle: ~
             BootStrapTranslationBundle: ~
             BootStrapTranslatorBundle: ~
@@ -191,7 +194,7 @@ doctrine:
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
-    user_class: BootStrap\UserBundle\Entity\User
+    user_class: BootStrap\UserBundle\Entity\User  #OrApp\OrUserBundle\Entity\User   BootStrap\UserBundle\Entity\User
     use_listener:           true
     use_username_form_type: true
     model_manager_name:     null  # change it to the name of your entity/document manager if you don't want to use the default one.
@@ -246,7 +249,7 @@ fos_user:
             type:               fos_user_group
             name:               fos_user_group_form
             validation_groups:  [Registration]
-
+ 
 #
 # routing configuration
 #           
@@ -324,7 +327,7 @@ sonata_media:
                 #strategy: sonata.media.security.superadmin_strategy  # ROLE_SUPER_ADMIN or ROLE_ADMIN
                 #strategy: sonata.media.security.public_strategy      # no restriction, files are public
                 #strategy: sonata.media.security.forbidden_strategy   # not possible to retrieve the original file
-                strategy: sonata.media.security.connected_strategy   # IS_AUTHENTICATED_FULLY or IS_AUTHENTICATED_REMEMBERED
+                #strategy: sonata.media.security.connected_strategy   # IS_AUTHENTICATED_FULLY or IS_AUTHENTICATED_REMEMBERED
                 mode: http              # use php to send the file
                 #mode: X-Sendfile        # use the X-Sendfile flag (Apache + mod_xsendfile : https://tn123.org/mod_xsendfile/)
                 #mode: X-Accel-Redirect  # use the X-Accel-Redirect flag (Nginx : http://wiki.nginx.org/X-accel)
@@ -336,10 +339,10 @@ sonata_media:
 
             formats:
                 small: { width: 100 , quality: 70}
+                crop:   { width: 379 , height:383, quality: 66}
                 #big:   { width: 500 , quality: 70}
                 #cinema:     { width: 1850 , quality: 768}
-                #grandmatv:  { width: 640 , quality: 480}
-                
+                #grandmatv:  { width: 640 , quality: 480}                
                 
     cdn:
         server:
@@ -369,7 +372,7 @@ sonata_media:
             thumbnail:  sonata.media.thumbnail.format
 
         image:
-            resizer:    sonata.media.resizer.simple # sonata.media.resizer.square
+            resizer:    sonata.media.resizer.square # sonata.media.resizer.simple
             filesystem: sonata.media.filesystem.local
             cdn:        sonata.media.cdn.server
             generator:  sonata.media.generator.default
@@ -395,7 +398,7 @@ sonata_media:
             cdn:        sonata.media.cdn.server
             generator:  sonata.media.generator.default
             thumbnail:  sonata.media.thumbnail.format  
-            
+
 #
 # MenuBundle configuration
 #
@@ -427,7 +430,16 @@ knp_menu:
 #        enabled:    true
 #        #binary:     /usr/local/bin/wkhtmltoimage
 #        options:    []                                           
-            
+    
+#
+# recaptcha configuration
+#          
+ewz_recaptcha:
+    public_key:   6LcpsucSAAAAAMymbppD7z2W917CVN6Tv6kp8qZr
+    private_key:  6LcpsucSAAAAAOpXuESiygvlqVi2afdtSeW4U8sf
+    secure:       false
+    locale_key:   locale  
+                
 #
 # PiAppAdminBundle configuration
 #
@@ -496,4 +508,27 @@ twig:
           ios: 5.9
       tablet:
           android: 3.9
-          ios: 5.9
+          ios: 5.9    
+          
+          
+#
+# WsBundle configuration
+#
+boot_strap_ws:
+    
+    auth:
+        log:
+            dev: true
+            test: true
+            prod: false
+        handlers:
+            getpermisssion:
+                key: 0A1TG4GO
+                method: GET
+                api: http://www.orchestra22.local/ws/auth/get/permisssion
+                format: json
+            validatetoken:
+                key: 0A1TG4GO
+                method: GET
+                api: http://www.orchestra22.local/ws/auth/validate/token
+                format: json            

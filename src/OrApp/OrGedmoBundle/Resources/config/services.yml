@@ -1,0 +1,7 @@
+parameters:
+#    or_app_or_gedmo.example.class: OrApp\OrGedmoBundle\Example
+
+services:
+#    or_app_or_gedmo.example:
+#        class: %or_app_or_gedmo.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -75,11 +75,11 @@ services:
         
     pi_app_admin.twig.loader_chain:
         class: Twig_Loader_Chain
-        arguments: ['@pi_app_admin.twig.loader','@twig.loader']
+        arguments: [['@pi_app_admin.twig.loader','@twig.loader']]
 
     pi_app_admin.twig:
         class: %twig.class%
-        arguments: ['@pi_app_admin.twig.loader', %twig.options%]
+        arguments: ['@pi_app_admin.twig.loader_chain', %twig.options%]
         calls:
              - [ addGlobal, ['app', '@templating.globals'] ]
         

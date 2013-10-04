@@ -17,6 +17,12 @@ use Symfony\Component\HttpFoundation\Response as Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
+use FOS\UserBundle\FOSUserEvents;
+use FOS\UserBundle\Event\FormEvent;
+use FOS\UserBundle\Event\GetResponseUserEvent;
+use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Model\UserInterface;
 
 use PiApp\AdminBundle\Builder\PiTreeManagerBuilderInterface;
@@ -154,6 +160,11 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
      */
     public function resetConnexion($params = null)
     {
+        /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
+        $formFactory = $this->container->get('fos_user.resetting.form.factory');
+        /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
+        $userManager = $this->container->get('fos_user.user_manager');
+                
         if (isset($params['template']) && !empty($params['template'])) {
         	$template = $params['template'];
         } else {
@@ -162,7 +173,7 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
         if (isset($params['url_redirection']) && !empty($params['url_redirection'])) {
         	$url_redirection = $params['url_redirection'];
         } elseif(isset($params['path_url_redirection']) && !empty($params['path_url_redirection'])) {
-        	$url_redirection = $this->container->get('bootstrap.RouteTranslator.factory')->getRoute($params['path_url_redirection'], array('locale'=> $this->container->get('session')->getLocale()));
+        	$url_redirection = $this->container->get('bootstrap.RouteTranslator.factory')->getRoute($params['path_url_redirection'], array('locale'=> $this->container->get('request')->getLocale()));
         } else {
         	$url_redirection = $this->container->get('router')->generate("home_page");
         }        
@@ -173,40 +184,36 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
             $token = $this->tokenUser($this->getToken()->getUser());
             $user  = $this->getToken()->getUser();
         } else {
-            $user     = $this->container->get('fos_user.user_manager')->findUserByConfirmationToken($token);
-            if (null === $user) {
-                throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException(sprintf('The user with "confirmation token" does not exist for value "%s"', $token));
-            }
-            
-            //         if (!$user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
-            //             return new \Symfony\Component\HttpFoundation\RedirectResponse($this->container->get('router')->generate('fos_user_resetting_request'));
-            //         }
+            $user     = $userManager->findUserByConfirmationToken($token);
+        }
+        
+        if (null === $user) {
+        	throw new NotFoundHttpException(sprintf('The user with "confirmation token" does not exist for value "%s"', $token));
         }
     
-        $form             = $this->container->get('fos_user.resetting.form');
-        $formHandler     = $this->container->get('fos_user.resetting.form.handler');
-        $process         = $formHandler->process($user);
-    
-        if ($process) {
-        	$flash = $this->container->get('translator')->trans('resetting.flash.success');
-        	$this->container->get('request')->getSession()->getFlashBag()->add('success', $flash);
-            header('Location: '. $url_redirection);
-            exit;
-            //$response = new \Symfony\Component\HttpFoundation\RedirectResponse($url_redirection);
-            //$this->authenticateUser($user, $response);
-            //return $response;
-        }
+        $form = $formFactory->createForm();
+        $form->setData($user);
+        if ('POST' === $this->container->get('request')->getMethod()) {
+        	$form->bind($this->container->get('request'));
+        
+        	if ($form->isValid()) {
+        	    $userManager->updateUser($user);
+    		    $flash = $this->container->get('translator')->trans('resetting.flash.success');
+    		    $this->container->get('request')->getSession()->getFlashBag()->add('success', $flash);
+    		    header('Location: '. $url_redirection);
+    		    exit;
+        	}
+        }        
         
     	if (isset($params['clearflashes'])) {
 			$this->getFlashBag()->clear();
 		} else {
 			$this->getFlashBag()->get('permission');
 		}
-        
+		
         return $this->container->get('templating')->renderResponse($template, array(
                 'token' => $token,
                 'form'  => $form->createView(),
-                'theme' => $this->container->getParameter('fos_user.template.theme'),
                 'route' => $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('_route', $this->container->get('request')->getLocale())
         ))->getContent();
     }    
@@ -233,7 +240,7 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
     /**
      * Send mail to reset user password
      */    
-    public function sendResettingEmailMessage(UserInterface $user, $route_reset_connexion)
+    public function sendResettingEmailMessage(UserInterface $user, $route_reset_connexion, $title = '', $parameters = array())
     {
         $tokenGenerator = $this->container->get('fos_user.util.token_generator');
         $user->setConfirmationToken($tokenGenerator->generateToken());
@@ -243,10 +250,17 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
         
         $this->container->get('request')->getSession()->set(static::SESSION_EMAIL, $this->getObfuscatedEmail($user));
         
-        $url       = $this->container->get('bootstrap.RouteTranslator.factory')->getRoute($route_reset_connexion, array('token' => $user->getConfirmationToken()));
+        $parameters = array_merge($parameters, array('token' => $user->getConfirmationToken()));
+        
+        $url       = $this->container->get('bootstrap.RouteTranslator.factory')->getRoute($route_reset_connexion, $parameters);
         $html_url = 'http://'.$this->container->get('request')->getHttpHost() . $this->container->get('request')->getBasePath().$url;
-        $html_url = "<a href='$html_url'>" . $html_url . "</a>";
-        return $html_url;
+        
+        if (empty($title)) {
+        	$title = $html_url;
+        }
+        
+        $result = "<a href='$html_url'>" . $title . "</a>";
+        return $result;
     }    
     
     /**

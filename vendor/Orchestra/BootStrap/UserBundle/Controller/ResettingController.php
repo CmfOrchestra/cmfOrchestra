@@ -36,7 +36,9 @@ class ResettingController extends ContainerAware
      */
     public function requestAction()
     {
-        return $this->container->get('templating')->renderResponse('PiAppTemplateBundle:Template\\Login\\Resetting:request.html.twig');
+        $NoLayout   = $this->container->get('request')->query->get('NoLayout');
+        
+        return $this->container->get('templating')->renderResponse('PiAppTemplateBundle:Template\\Login\\Resetting:request.html.twig', array('NoLayout' => $NoLayout));
     }
 
     /**
@@ -46,7 +48,7 @@ class ResettingController extends ContainerAware
     {
         $username   = $request->get('username');
         $template   = $request->get('template');
-        $routereset = $request->get('pagename');
+        $routereset = $request->get('routereset');
         
         if (empty($template))
             $template = 'PiAppTemplateBundle:Template\\Login\\Resetting:request.html.twig';

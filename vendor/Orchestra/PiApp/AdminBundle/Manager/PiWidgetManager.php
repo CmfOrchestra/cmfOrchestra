@@ -127,12 +127,12 @@ class PiWidgetManager extends PiCoreManager implements PiWidgetManagerBuilderInt
         } else {
             // if the widget has translation OR if the widget calls a snippet
             if ( $widget && $this->isWidgetSupported($widget) ){
-                $response = $this->container->get('pi_app_admin.caching')->renderResponse($this->Etag, array('widget' => $widget), $response);
+                $response = $this->container->get('pi_app_admin.caching')->renderResponse($this->Etag, array(), $response);
                 // We set the reponse
                 $this->setResponse($widget, $response);
             } else {
                 // or render the error template with the $response you've already started
-                $response = $this->container->get('pi_app_admin.caching')->renderResponse($this->Etag, array('transwidget' => $transWidgetError), $response);
+                $response = $this->container->get('pi_app_admin.caching')->renderResponse($this->Etag, array(), $response);
             }
 
             // we don't send the header but the content only.

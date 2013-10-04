@@ -56,11 +56,21 @@ class AppKernel extends Kernel
         		new BootStrap\TranslationBundle\BootStrapTranslationBundle(),
         		new BootStrap\TranslatorBundle\BootStrapTranslatorBundle(),
         		new BootStrap\MediaBundle\BootStrapMediaBundle(),
+                new BootStrap\WsBundle\BootStrapWsBundle(),
         		
         		# trades
         		new PiApp\AdminBundle\PiAppAdminBundle(),
         		new PiApp\GedmoBundle\PiAppGedmoBundle(),
-        		new PiApp\TemplateBundle\PiAppTemplateBundle(),        		
+        		new PiApp\TemplateBundle\PiAppTemplateBundle(),
+                
+                #override Orchestra bundles
+                new OrApp\OrAdminBundle\OrAppOrAdminBundle(),
+                new OrApp\OrGedmoBundle\OrAppOrGedmoBundle(),
+                new OrApp\OrTemplateBundle\OrAppOrTemplateBundle(),      
+                new OrApp\OrUserBundle\OrAppOrUserBundle(),
+
+                # recaptcha
+                new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
@@ -76,17 +86,17 @@ class AppKernel extends Kernel
     {
         $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
     }
-
+    
     /**
      * For example to manual create scope "request" in CLI you may overload initializeContainer kernel metod.
-     * 
+     *
      * @see \Symfony\Component\HttpKernel\Kernel::initializeContainer()
      */
     protected function initializeContainer() {
-        parent::initializeContainer();
-        if (PHP_SAPI == 'cli') {
-            $this->getContainer()->enterScope('request');
-            $this->getContainer()->set('request', new \Symfony\Component\HttpFoundation\Request(), 'request');
-        }
-    }     
+    	parent::initializeContainer();
+    	if (PHP_SAPI == 'cli') {
+    		$this->getContainer()->enterScope('request');
+    		$this->getContainer()->set('request', new \Symfony\Component\HttpFoundation\Request(), 'request');
+    	}
+    }    
 }

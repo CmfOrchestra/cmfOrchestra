@@ -84,7 +84,7 @@ class PiTwigCache
         $this->getTwigEnvironment()->loadTemplate($name);
         
         $isMemCacheEnable = $this->container->getParameter("pi_app_admin.page.memcache_enable");
-        if ($isMemCacheEnable && $this->container->has("pi_memcache")){
+        if ($isMemCacheEnable && $this->container->has("pi_memcache")) {
             $this->container->get("pi_memcache")->clear($name);
         }
     }
@@ -103,13 +103,11 @@ class PiTwigCache
         if (null === $response) {
             $response = new Response();
         }
-        
         $isMemCacheEnable = $this->container->getParameter("pi_app_admin.page.memcache_enable");
-        
         // if the memcache service is disable
         // OR MemCache service doesn't exist
         // OR the content name isn't register in the memcache 
-        if ( !$isMemCacheEnable || !$this->container->has("pi_memcache") || ($this->container->has("pi_memcache") && !$this->container->get("pi_memcache")->get($name)) ){
+        if ( !$isMemCacheEnable || !$this->container->has("pi_memcache") || ($this->container->has("pi_memcache") && !$this->container->get("pi_memcache")->get($name)) ) {
             //$response->setContent($this->getTwigEnvironment()->loadTemplate($name)->render($parameters));
             $response = $this->container->get('pi_app_admin.templating')->renderResponse($name, $parameters, $response);
             
@@ -118,7 +116,7 @@ class PiTwigCache
                 //$source =  $this->getTwigEnvironment()->getLoader()->getSource($name);
                    $this->container->get("pi_memcache")->set($name, $response);
             }
-        }elseif ($isMemCacheEnable){
+        } elseif ($isMemCacheEnable) {
             $response = $this->container->get("pi_memcache")->get($name);
         }
                 
@@ -135,10 +133,10 @@ class PiTwigCache
      */
     protected function isUsernamePasswordToken()
     {
-        if ($this->container->get('security.context')->getToken() instanceof \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken)
+        if ($this->container->get('security.context')->getToken() instanceof \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken) {
             return true;
-        else
+        } else {
             return false;
+        }
     }    
-     
 }

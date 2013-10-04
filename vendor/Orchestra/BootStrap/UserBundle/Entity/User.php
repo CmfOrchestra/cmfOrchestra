@@ -12,23 +12,41 @@
  */
 namespace BootStrap\UserBundle\Entity;
 
-use FOS\UserBundle\Entity\User as BaseUser;
+use FOS\UserBundle\Model\User as AbstractUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use BootStrap\UserBundle\Repository\PermissionRepository;
 
+
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use BootStrap\UserBundle\Validator\Constraints as MyAssert;
+
 /**
- * @ORM\Entity
- * @ORM\Table(name="fos_user")
+ * Storage agnostic overloding fos user object
+ * 
  * @ORM\Entity(repositoryClass="BootStrap\UserBundle\Repository\UserRepository")
- * @ORM\HasLifecycleCallbacks() 
+ * @ORM\Table(name="fos_user", uniqueConstraints={
+ *     @ORM\UniqueConstraint(name="_api_fos_user_email", columns={"email","email_canonical"})
+ * })
+ * @UniqueEntity(
+ *     fields={"email"},
+ *     message="Your E-Mail adress has already been registered",
+ *     groups={"registration"}
+ * )
+ * @UniqueEntity(
+ *     fields={"emailCanonical"},
+ *     message="Your E-Mail adress has already been registered",
+ *     groups={"registration"}
+ * )
+ * @ORM\HasLifecycleCallbacks()
  * 
  * @category   BootStrap_Entities
  * @package    Entity
  * 
  * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
-class User extends BaseUser
+class User extends AbstractUser
 {
     const ROLE_DEFAULT = 'ROLE_ALLOWED_TO_SWITCH';
     
@@ -93,13 +111,47 @@ class User extends BaseUser
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
-    protected $created_at;    
+    protected $created_at;  
+
+    /**
+     * @var datetime $updated_at
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    protected $updated_at;   
+    
+    /**
+     * @var datetime $archive_at
+     *
+     * @ORM\Column(name="archive_at", type="datetime", nullable=true)
+     */
+    protected $archive_at;    
+
+    /**
+     * @var boolean $archived
+     *
+     * @ORM\Column(name="archived", type="boolean", nullable=false)
+     */
+    protected $archived = false;    
+    
+    /**
+     * @var array
+     * @ORM\Column(name="application_tokens", type="array", nullable=true)
+     */
+    protected $applicationTokens;    
     
 
     public function __construct()
     {
         parent::__construct();
         $this->groups        = new \Doctrine\Common\Collections\ArrayCollection();
+        
+        $this->applicationTokens = array();
+    }  
+
+    static public function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+    	$metadata->addConstraint(new MyAssert\MyUnique('email'));
     }    
     
     /**
@@ -292,6 +344,11 @@ class User extends BaseUser
         return $this->nickname;
     }
     
+    public function getEnabled()
+    {
+    	return $this->enabled;
+    }
+        
     /**
      * Set created_at
      *
@@ -312,5 +369,159 @@ class User extends BaseUser
     {
         return $this->created_at;
     }    
+    
+    /**
+     * Set updated_at
+     *
+     * @param datetime $updatedAt
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+    	$this->updated_at = $updatedAt;
+    	return $this;
+    }
+    
+    /**
+     * Get updated_at
+     *
+     * @return datetime
+     */
+    public function getUpdatedAt()
+    {
+    	return $this->updated_at;
+    }    
+    
+    /**
+     * Set archive_at
+     *
+     * @param datetime $archiveAt
+     */
+    public function setArchiveAt($archiveAt)
+    {
+    	$this->archive_at = $archiveAt;
+    	return $this;
+    }
+    
+    /**
+     * Get archive_at
+     *
+     * @return datetime
+     */
+    public function getArchiveAt()
+    {
+    	return $this->archive_at;
+    }    
+    
+    /**
+     * Set archived
+     *
+     * @param boolean $enabled
+     */
+    public function setArchived($archived)
+    {
+    	$this->archived = $archived;
+    	return $this;
+    }
+    
+    /**
+     * Get archived
+     *
+     * @return boolean
+     */
+    public function getArchived()
+    {
+    	return $this->archived;
+    }    
+    
+    /**
+     * Set application tokens
+     *
+     * @param array $all
+     */
+    public function setApplicationTokens( array $all)
+    {
+    	$this->applicationTokens = array();
+    	foreach ($all as $one) {
+    		$one = strtoupper($one);
+    		if (!in_array($one, $this->applicationTokens, true)) {
+    			$this->applicationTokens[] = $one;
+    		}
+    	}
+    }
+    
+    /**
+     * Get application tokens
+     *
+     * @return array
+     */
+    public function getApplicationTokens()
+    {
+    	return $this->applicationTokens;
+    }    
+    
+    
+    /**
+     * 
+     *  FACEBOOK
+     * 
+     */
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="facebookId", type="string", length=255, nullable=true)
+     */
+    protected $facebookId;    
+
+    /**
+     * @param string $facebookId
+     * @return void
+     */
+    public function setFacebookId($facebookId)
+    {
+    	$this->facebookId = $facebookId;
+    	$this->setUsername($facebookId);
+    	$this->salt = '';
+    }
+    
+    /**
+     * @return string
+     */
+    public function getFacebookId()
+    {
+    	return $this->facebookId;
+    }    
+        
+    public function serialize()
+    {
+    	return serialize(array($this->facebookId, parent::serialize()));
+    }
+    
+    public function unserialize($data)
+    {
+    	list($this->facebookId, $parentData) = unserialize($data);
+    	parent::unserialize($parentData);
+    }    
+    
+    /**
+     * @param Array
+     */
+    public function setFBData($fbdata)
+    {
+    	if (isset($fbdata['id'])) {
+    		$this->setFacebookId($fbdata['id']);
+    		$this->addRole('ROLE_FACEBOOK');
+    	}
+    	if (isset($fbdata['first_name'])) {
+    		$this->setNickname($fbdata['first_name']);
+    	}
+    	if (isset($fbdata['last_name'])) {
+    		$this->setName($fbdata['last_name']);
+    	}
+    	if (isset($fbdata['email'])) {
+    		$this->setEmail($fbdata['email']);
+    	}
+    }
+    
 
 }

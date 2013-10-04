@@ -1,0 +1,21 @@
+##
+## WsBundle configuration
+##
+#boot_strap_ws:
+#    
+#    auth:
+#        log:
+#            dev: true
+#            test: true
+#            prod: false
+#        handlers:
+#            getpermisssion:
+#                key: 0A1TG4GO
+#                method: GET
+#                api: http://www.orchestra22.local/ws/auth/get/permisssion
+#                format: json
+#            validateaccesstoken:
+#                key: 0A1TG4GO
+#                method: GET
+#                api: http://www.orchestra22.local/ws/auth/validate/access/token
+#                format: json

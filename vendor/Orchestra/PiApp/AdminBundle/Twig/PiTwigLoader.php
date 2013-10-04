@@ -85,35 +85,36 @@ class PiTwigLoader implements \Twig_LoaderInterface
     {
         $parsed_info = $this->page_manager->parseTemplateParam($name) ; //self::parseName($idPage);
         
-        if ($parsed_info === false)
+        if ($parsed_info === false) {
             return $this->loader->getSource($name);
-        else
+        } else {
             list($type, $id, $lang, $params) = $parsed_info;
-        
-        if (!empty($id) && ($type == 'page')){
-            $source = $this->page_manager->renderSource($id, $lang, $params);
-        }elseif (!empty($id) && ($type == 'widget')){
-            $source = $this->widget_manager->renderSource($id, $lang, $params);
-        }elseif (!empty($id) && ($type == 'transwidget')){
-            $source = $this->transwidget_manager->renderSource($id, $lang, $params);
-        }elseif (!empty($id) && (in_array($type,array('navigation', 'organigram')))){
-            $source = $this->tree_manager->renderSource($id, $lang, $params);
-        }elseif (!empty($id) && ($type == 'listener')){
-            $source = $this->listener_manager->renderSource($id, $lang, $params);
-        }elseif (!empty($id) && ($type == 'slider')){
-            $source = $this->slider_manager->renderSource($id, $lang, $params);
-        }elseif (!empty($id) && ($type == 'jqext')){
-            $source = $this->jqext_manager->renderSource($id, $lang, $params);
-        }elseif (!empty($id) && ($type == 'lucene')){
-            $source = $this->searchlucene_manager->renderSource($id, $lang, $params);
         }
         
+        if (!empty($id) && ($type == 'page')) {
+            $source = $this->page_manager->renderSource($id, $lang, $params);
+        } elseif (!empty($id) && ($type == 'widget')) {
+            $source = $this->widget_manager->renderSource($id, $lang, $params);
+        } elseif (!empty($id) && ($type == 'transwidget')) {
+            $source = $this->transwidget_manager->renderSource($id, $lang, $params);
+        } elseif (!empty($id) && (in_array($type,array('navigation', 'organigram')))) {
+            $source = $this->tree_manager->renderSource($id, $lang, $params);
+        } elseif (!empty($id) && ($type == 'listener')) {
+            $source = $this->listener_manager->renderSource($id, $lang, $params);
+        } elseif (!empty($id) && ($type == 'slider')) {
+            $source = $this->slider_manager->renderSource($id, $lang, $params);
+        } elseif (!empty($id) && ($type == 'jqext')) {
+            $source = $this->jqext_manager->renderSource($id, $lang, $params);
+        } elseif (!empty($id) && ($type == 'lucene')) {
+            $source = $this->searchlucene_manager->renderSource($id, $lang, $params);
+        }
         // Check source
-        if (!$source)
+        if (!$source) {
             //throw new \Twig_Error_Loader('Id "'.$id.'" not found in the database for type: '.$type);
             return '';
-        else
+        } else {
             return $source;
+        }
     }
     
     /**

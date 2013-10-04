@@ -94,7 +94,41 @@ class TranslationPagesFixtures extends AbstractFixture implements OrderedFixture
         $field5->setPage($this->getReference('page-error'));
         $field5->setEnabled(true);
         $field5->setPublishedAt(new \DateTime());
-        $manager->persist($field5);        
+        $manager->persist($field5);  
+        
+        
+        
+        
+        
+        $field6 = new TranslationPage();
+        $field6->setSlug('reset-fr');
+        $field6->setLangCode($this->getReference('lang-fr'));
+        $field6->setStatus(TranslationPageRepository::STATUS_PUBLISH);
+        $field6->setLangStatus(TranslationPageRepository::LANG_REFERENCE);
+        $field6->setPage($this->getReference('page-reset'));
+        $field6->setEnabled(true);
+        $field6->setPublishedAt(new \DateTime());
+        $manager->persist($field6);
+        
+        $field7 = new TranslationPage();
+        $field7->setSlug('reset-en');
+        $field7->setLangCode($this->getReference('lang-en'));
+        $field7->setStatus(TranslationPageRepository::STATUS_PUBLISH);
+        $field7->setLangStatus(TranslationPageRepository::LANG_TRADUCTION);
+        $field7->setPage($this->getReference('page-reset'));
+        $field7->setEnabled(true);
+        $field7->setPublishedAt(new \DateTime());
+        $manager->persist($field7);
+        
+        $field8 = new TranslationPage();
+        $field8->setSlug('reset-ar');
+        $field8->setLangCode($this->getReference('lang-ar'));
+        $field8->setStatus(TranslationPageRepository::STATUS_PUBLISH);
+        $field8->setLangStatus(TranslationPageRepository::LANG_TRADUCTION);
+        $field8->setPage($this->getReference('page-reset'));
+        $field8->setEnabled(true);
+        $field8->setPublishedAt(new \DateTime());
+        $manager->persist($field8);
 
         $manager->flush();
         
@@ -104,6 +138,10 @@ class TranslationPagesFixtures extends AbstractFixture implements OrderedFixture
         $this->addReference('transpage-error-fr-404', $field3);
         $this->addReference('transpage-error-en-404', $field4);
         $this->addReference('transpage-error-ar-404', $field5);
+        
+        $this->addReference('transpage-reset-fr', $field6);
+        $this->addReference('transpage-reset-en', $field7);
+        $this->addReference('transpage-reset-ar', $field8);
     }
     
     /**

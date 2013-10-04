@@ -125,7 +125,7 @@ div.dataTables_wrapper .ui-widget-header {
 }
 
 .dataTables_filter {
-	width: 230px;
+	/*width: 230px;*/
 	float: right;
 	text-align: right;
 	margin-right:20px;

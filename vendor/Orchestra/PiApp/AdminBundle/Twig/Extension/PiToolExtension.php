@@ -93,6 +93,7 @@ class PiToolExtension extends \Twig_Extension
                 'cleanWhitespace'    => new \Twig_Filter_Method($this, 'cleanWhitespaceFilter'),
                 'sanitize'            => new \Twig_Filter_Method($this, 'sanitizeFilter'),    
                 'slugify'            => new \Twig_Filter_Method($this, 'slugifyFilter'),
+                'departement'       => new \Twig_Filter_Method($this, 'departementFilter'),
 
                 'limite'            => new \Twig_Filter_Method($this, 'limitecaractereFilter'),
                 'splitText'         => new \Twig_Filter_Method($this, 'splitTextFilter'),
@@ -141,11 +142,15 @@ class PiToolExtension extends \Twig_Extension
                 'get_img_flag_By_country'     => new \Twig_Function_Method($this, 'getImgFlagByCountryFunction'),
                 'metas_page'                => new \Twig_Function_Method($this, 'getMetaPageFunction'),
                 'title_page'                => new \Twig_Function_Method($this, 'getTitlePageFunction'),
-                'picture_form'                => new \Twig_Function_Method($this, 'getPictureFormFunction'),
                 'file_form'                    => new \Twig_Function_Method($this, 'getFileFormFunction'),
                 'get_pattern_by_local'        => new \Twig_Function_Method($this, 'getDatePatternByLocalFunction'),  
                 'clean_name'				=> new \Twig_Function_Method($this, 'getCleanNameFunction'),
+                
+                // picure
+                'picture_form'                => new \Twig_Function_Method($this, 'getPictureFormFunction'),
                 'picture_index'                => new \Twig_Function_Method($this, 'getPictureIndexFunction'),
+                'picture_crop'                => new \Twig_Function_Method($this, 'getPictureCropFunction'),
+                
         );
     }   
      
@@ -180,30 +185,37 @@ class PiToolExtension extends \Twig_Extension
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    public function getPictureFormFunction($media, $nameForm, $format = 'reference', $style = "display: block; text-align:center;margin: 30px auto;", $idImg = "") {
-        if ($media instanceof \BootStrap\MediaBundle\Entity\Media){
-            $id         = $media->getId();
-            
-            try {
+    public function getPictureFormFunction($media, $nameForm, $format = 'reference', $style = "display: block; text-align:center;margin: 30px auto;", $idForm = "", $ClassName = '') 
+    {
+        if ($media instanceof \BootStrap\MediaBundle\Entity\Media) {
+            $id = $media->getId();
+            if ($format != 'reference') {
+                $mediaCrop = $this->container->get('sonata.media.twig.extension')->path($media, $format);
+
+                if(file_exists($src = $this->container->get('kernel')->getRootDir() . '/../web'.$mediaCrop)) {
+                    $img_balise = '<img title="' . $media->getAuthorname() . '" src="' . $mediaCrop . '?' . time() . '" width="auto" height="auto" alt="' . $media->getAuthorname() . '" style="' . $style . '" >';
+                } else {
+                    $img_balise = 'Aucune image pour ce format';
+                }
+                $content = "<div id='picture_" . $id . "_" . $format . "' class='".$format."  ".$ClassName."' > \n";
+            } else {
                 $img_balise = $this->container->get('sonata.media.twig.extension')->media($media, $format, array(
-                        'title'    => $media->getAuthorname(),
-                        'alt'    => $media->getAuthorname(),
-                        'style'    => $style,
-                        'id'    => $idImg,
+                    'title' => $media->getAuthorname(),
+                    'alt' => $media->getAuthorname(),
+                    'style' => $style,
+                    'id' => $idForm,
+                    'width' => 'auto',
+                    'height' => 'auto'
                 ));
-            } catch (\Exception $e) {
-                return "";
-            }            
-            
-            $content     = "<div id='picture_{$id}_{$format}'> \n";
-            $content    .= $img_balise;
-            $content    .= "</div> \n";
-            
-            $content    .= "<script type='text/javascript'> \n";
-            $content    .= "//<![CDATA[ \n";
-            $content    .= "$('#picture_{$id}_{$format}').detach().appendTo('#{$nameForm}'); \n";
-            $content    .= "//]]> \n";
-            $content    .= "</script> \n";
+                $content = "<div id='picture_" . $id . "_" . $format . "' class='".$format." ".$ClassName."' > \n";
+            }
+            $content .= $img_balise;
+            $content .= "</div> \n";
+            $content .= "<script type='text/javascript'> \n";
+            $content .= "//<![CDATA[ \n";
+            $content .= "$('#{$nameForm}').before($('#picture_" . $id . "_" . $format . "')); \n";
+            $content .= "//]]> \n";
+            $content .= "</script> \n";
             
             return $content;
         }
@@ -214,40 +226,79 @@ class PiToolExtension extends \Twig_Extension
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    public function getFileFormFunction($media, $nameForm, $style = "display: block; text-align:center;margin: 30px auto;z-index:99999999999", $is_by_mimetype = true) {
+    public function getFileFormFunction($media, $nameForm, $style = "display: block; text-align:center;margin: 30px auto;z-index:99999999999", $is_by_mimetype = true)
+    {
         if ($media instanceof \BootStrap\MediaBundle\Entity\Media){
             $id         = $media->getId();
-                
+
             try {
                     $file_url = $this->container->get('sonata.media.twig.extension')->path($id, "reference");
-                    
+
                     if ($is_by_mimetype){
                        $mime = str_replace('/','-',$media->getContentType());
                        $picto = '/bundles/piappadmin/images/icons/mimetypes/'.$mime.'.png';
                     } else {
-                        $ext = substr(strtolower(strrchr(basename($file_url), ".")), 1);  
+                        $ext = substr(strtolower(strrchr(basename($file_url), ".")), 1);
                         $picto = '/bundles/piappadmin/images/icons/form/download-'.$ext.'.png';
                     }
-            
+
                     if (!file_exists('.'.$picto)) {
                         $picto = '/bundles/piappadmin/images/icons/form/download-32.png';
                     }
             } catch (\Exception $e) {
                 return "";
             }
-                
+
             $content     = "<div id='file_$id'> \n";
             $content    .= "<a href='{$file_url}' target='_blanc' style='{$style}'> <img src='$picto' /> ".$media->getName()."</a>";
             $content    .= "</div> \n";
-                
+
             $content    .= "<script type='text/javascript'> \n";
             $content    .= "//<![CDATA[ \n";
             $content    .= "$('#file_$id').detach().appendTo('#{$nameForm}'); \n";
             $content    .= "//]]> \n";
             $content    .= "</script> \n";
-                
+
             return $content;
         }
+    }
+
+    public function getPictureIndexFunction($media, $format = '', $width='', $height='')
+    {
+        if ($media instanceof \BootStrap\MediaBundle\Entity\Media) {
+            $id = $media->getId();
+
+            $mediaCrop = $this->container->get('sonata.media.twig.extension')->path($media, $format);
+
+            if(file_exists($src = $this->container->get('kernel')->getRootDir() . '/../web'.$mediaCrop))
+                $img_balise = '<img title="' . $media->getAuthorname() . '" src="' . $mediaCrop . '?' . time() . '" width="auto" height="auto" alt="' . $media->getAuthorname() . '"/>';
+            else
+                $img_balise = 'Aucune image ce format ';
+
+            $content ="<div>Dimensions de ".$format." = " .$width."x".$height."</div>";
+            $content .= "<div id='picture_" . $id . $format . "' class='".$format." default_crop' > \n";
+            $content .= $img_balise;
+            $content .= "</div></br></br> \n";
+            return $content;
+        }
+    }
+    
+    public function getPictureCropFunction($media, $format = "PiAppTemplateBundle:Template\\Crop:default.html.twig", $nameForm = "")
+    {
+        if ($format == "default") {
+            $format = "PiAppTemplateBundle:Template\\Crop:default.html.twig";
+        }
+    	if ($media instanceof \BootStrap\MediaBundle\Entity\Media) {
+            $response     = $this->container->get('templating')->renderResponse(
+                                $format, 
+                                array(
+                                    "media"=>$media,
+                                    "nameForm"=>$nameForm,
+                                )
+            );
+            
+            return $response->getContent();
+    	}
     }    
         
     /**
@@ -328,8 +379,9 @@ class PiToolExtension extends \Twig_Extension
      */    
     public function getTitlePageFunction($title)
     {
-        if (empty($title))
+        if (empty($title)) {
             $title     = $this->container->getParameter('pi_app_admin.layout.meta.title');
+        }
                 
         try {
             $lang          = $this->container->get('request')->getLocale();
@@ -337,12 +389,18 @@ class PiToolExtension extends \Twig_Extension
             $match        = $this->container->get('be_simple_i18n_routing.router')->match($pathInfo);
             $route        = $match['_route'];
             
-            if (isset($GLOBALS['ROUTE']['SLUGGABLE'][ $route ]) && !empty($GLOBALS['ROUTE']['SLUGGABLE'][ $route ])){
+            if (isset($GLOBALS['ROUTE']['SLUGGABLE'][ $route ]) && !empty($GLOBALS['ROUTE']['SLUGGABLE'][ $route ])) {
                 $sluggable_entity         = $GLOBALS['ROUTE']['SLUGGABLE'][ $route ]['entity'];
                 $sluggable_field_search = $GLOBALS['ROUTE']['SLUGGABLE'][ $route ]['field_search'];
                 $sluggable_title         = $GLOBALS['ROUTE']['SLUGGABLE'][ $route ]['field_title'];
                 $sluggable_resume         = $GLOBALS['ROUTE']['SLUGGABLE'][ $route ]['field_resume'];
                 $sluggable_keywords        = $GLOBALS['ROUTE']['SLUGGABLE'][ $route ]['field_keywords'];
+                
+                if (isset($GLOBALS['ROUTE']['SLUGGABLE'][ $route ]['field_name']) && !empty($GLOBALS['ROUTE']['SLUGGABLE'][ $route ]['field_name'])) {
+                    $sluggable_field_name    = $GLOBALS['ROUTE']['SLUGGABLE'][ $route ]['field_name'];
+                } else {    
+                    $sluggable_field_name    =   $sluggable_field_search;  
+                }
                 
                 $sluggable_title_tab = array_map(function($value) {
                     return ucwords($value);
@@ -356,16 +414,18 @@ class PiToolExtension extends \Twig_Extension
                 
                 $method_title         = "get".implode('', $sluggable_title_tab);
                 $method_resume         = "get".implode('', $sluggable_resume_tab);
-                $method_keywords     = "get".implode('', $sluggable_keywords_tab);                
-                
-                if ( ($sluggable_field_search == 'id') && isset($match['id']) ){
+                $method_keywords     = "get".implode('', $sluggable_keywords_tab);    
+
+                if ( ($sluggable_field_search == 'id') && isset($match['id']) ) {
                     $entity         = $this->container->get('doctrine')->getManager()->getRepository($sluggable_entity)->findOneByEntity($lang, $match['id'], 'object');
-                    if (is_object($entity) && method_exists($entity, $method_title))
+                    if (is_object($entity) && method_exists($entity, $method_title)) {
                         $title = $entity->$method_title();
-                }elseif (array_key_exists($sluggable_field_search, $match)){
-                    $result = $this->container->get('doctrine')->getManager()->getRepository($sluggable_entity)->getContentByField($lang, array('content_search' => array($sluggable_field_search =>$match[$sluggable_field_search]), 'field_result'=>$sluggable_title), false);
-                    if (is_object($result))
+                    }
+                } elseif (array_key_exists($sluggable_field_search, $match)) {
+                    $result = $this->container->get('doctrine')->getManager()->getRepository($sluggable_entity)->getContentByField($lang, array('content_search' => array($sluggable_field_name =>$match[$sluggable_field_search]), 'field_result'=>$sluggable_title), false);
+                    if (is_object($result)) {
                         $title = $result->getContent();
+                    }
                 }
             }            
         } catch (\Exception $e) {
@@ -733,7 +793,14 @@ class PiToolExtension extends \Twig_Extension
     public function slugifyFilter($string) {
         return $this->container->get('pi_app_admin.string_manager')->slugify($string);
     }
-    
+
+    public function departementFilter($id) {
+        $em = $this->container->get('doctrine')->getManager();
+        $departement  = $em->getRepository('M1MProviderBundle:Region')->findOneBy(array('id' => $id));
+        return $departement;
+    }
+
+
     public function limitecaractereFilter($string, $mincara, $nbr_cara) {
         return $this->container->get('pi_app_admin.string_manager')->LimiteCaractere($string, $mincara, $nbr_cara);
     }    
@@ -757,13 +824,14 @@ class PiToolExtension extends \Twig_Extension
     }
     
     /**
-     * encrypts string
+     * encrypt string
      *
      * @param string $string
      * @param string $key
      */
     public function encryptFilter($string, $key = "0A1TG4GO")
     {
+        $key = $key . "0A1TG4GO";
         $result = '';
         for($i=0; $i<strlen($string); $i++) {
             $char = substr($string, $i, 1);
@@ -775,13 +843,14 @@ class PiToolExtension extends \Twig_Extension
     }
     
     /**
-     * decrypts string
+     * decrypt string
      *
      * @param string $string
      * @param string $key
      */
     public function decryptFilter($string, $key = "0A1TG4GO")
     {
+        $key = $key . "0A1TG4GO";
         $result = '';
         $string = base64_decode(strtr($string, '-_,', '+/='));
         for($i=0; $i<strlen($string); $i++) {
@@ -794,7 +863,7 @@ class PiToolExtension extends \Twig_Extension
     }  
     
     /**
-     * Obfuscates link. SEO worst practice.
+     * Obfuscate link. SEO worst practice.
      * Code by @position
      *
      * @param string $url
@@ -811,38 +880,6 @@ class PiToolExtension extends \Twig_Extension
             $output .= $_base16[$ch] . $_base16[$cl];
         }
         return $output;
-    }  
-
-    /**
-     * Displays a crop picture in the given format
-     *
-     * <code>
-     * {{ picture_form(entity.blocgeneral.media.image, "m1m_contentbundle_articletype_blocgeneral_media_image_binaryContent",  'slider', 'display: block; text-align:left;')|raw }}
-     * </code>
-     * 
-     * @param string $media
-     * @param string $format
-     * @param string $width
-     * @param string $height
-     */    
-    public function getPictureIndexFunction($media, $format = '', $width='', $height='') 
-    {
-    	if ($media instanceof \BootStrap\MediaBundle\Entity\Media) {
-    		$id = $media->getId();
-    
-    		$mediaCrop = $this->container->get('sonata.media.twig.extension')->path($media, $format);
-    
-    		if(file_exists($src = $this->container->get('kernel')->getRootDir() . '/../web'.$mediaCrop))
-    			$img_balise = '<img title="' . $media->getAuthorname() . '" src="' . $mediaCrop . '?' . time() . '" width="auto" height="auto" alt="' . $media->getAuthorname() . '"/>';
-    		else
-    			$img_balise = 'Aucune image ce format ';
-    
-    		$content ="<div>Dimensions de ".$format." = " .$width."x".$height."</div>";
-    		$content .= "<div id='picture_" . $id . $format . "' class='".$format." default_crop' > \n";
-    		$content .= $img_balise;
-    		$content .= "</div></br></br> \n";
-    		return $content;
-    	}
-    }
+    }    
     
 }

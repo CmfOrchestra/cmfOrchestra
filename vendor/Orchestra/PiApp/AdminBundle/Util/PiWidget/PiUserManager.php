@@ -133,7 +133,7 @@ class PiUserManager extends PiWidgetExtension
      *                 <controller>BootStrapUserBundle:User:_reset_default</controller>
      *                 <params>
      *                     <template>PiAppTemplateBundle:Template\\Login\\Resetting:reset_content.html.twig</template>
-     *                     <path_url_redirection>page_lamelee_menuwrapper_monespace</url_redirection>
+     *                     <path_url_redirection>page_route_name_reset</url_redirection>
      *                 </params>
      *             </user>
      *         </widgets>
@@ -141,7 +141,7 @@ class PiUserManager extends PiWidgetExtension
      *  </code>
      *
      * <code>
-     *  {% set widget_service_params = {"template":"PiAppTemplateBundle:Template@@@@@@@@Login@@@@@@@@Resetting:reset_content_monespace.html.twig", "url_redirection": path_url('page_lamelee_menuwrapper_monespace', {'locale':locale})~'#profil'} %} 
+     *  {% set widget_service_params = {"template":"PiAppTemplateBundle:Template@@@@@@@@Login@@@@@@@@Resetting:reset_content.html.twig", "url_redirection": path_url('page_lamelee_menuwrapper_monespace', {'locale':locale})~'#profil'} %} 
      *  {{ getService('pi_app_admin.manager.authentication').renderSource('BootStrapUserBundle:User~_reset_default', 'fr_FR', widget_service_params)|raw }}
      * </code>
      *    

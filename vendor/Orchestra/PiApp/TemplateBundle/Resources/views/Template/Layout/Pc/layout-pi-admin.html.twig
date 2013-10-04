@@ -154,11 +154,44 @@
 			</div>
 			<!-- end logo -->
 			
+
+	        <!-- start nav-right -->
+			<div id="nav-right-search">
+				<!--  start top-search -->
+				<div id="top-search">
+					<table>
+					<tr>
+					<td><input type="text" value="{{ 'pi.dashboard.search'|trans }}" onblur="if (this.value=='') { this.value='{{ 'pi.dashboard.search'|trans }}'; }" onfocus="if (this.value=='{{ 'pi.dashboard.search'|trans }}') { this.value=''; }" class="top-search-inp" /></td>
+					
+					<td>
+					<select  class="styledselect">
+						<option value="">All</option>
+						<option value="">Products</option>
+						<option value="">Categories</option>
+						<option value="">Clients</option>
+						<option value="">News</option>
+						<option value="">Sonata Admin</option>
+					</select> 
+					</td>
+					
+					<td>
+					<input type="image" src="{{ asset('bundles/piappadmin/images/shared/top_search_btn.gif') }}"  alt="search" />
+					</td>
+					</tr>
+					</table>
+				</div>
+			 	<!--  end top-search -->
+			 	<div class="clear"></div>
+            </div>
+			<!-- end nav-right -->	
+			
+			
+			
 			<!-- start nav-right -->
 			<div id="nav-right">
 				{% include "PiAppTemplateBundle::Template\\Layout\\Connexion\\connexion.html.twig" %}
 			</div>
-			<!-- end nav-right -->
+			<!-- end nav-right -->				
 			
 		</div>
 		<!-- End: page-top -->

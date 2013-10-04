@@ -1,4 +1,40 @@
 # www.robotstxt.org/
 # www.google.com/support/webmasters/bin/answer.py?hl=en&answer=156449
 
-User-agent: *
+# Exclusion de toutes les pages :
+# 
+# User-Agent: *    
+# Disallow: /
+# Exclusion d'aucune page (équivalent à l'absence de fichier robots.txt, toutes les pages sont visitées) :
+# 
+# User-Agent: *    
+# Disallow: 
+# Autorisation d'un seul robot :
+# 
+# User-Agent: nomDuRobot    
+# Disallow :    
+# User-Agent: *    
+# Disallow: /
+# Exclusion d'un robot :
+# 
+# User-Agent: NomDuRobot    
+# Disallow: /    
+# User-Agent: *    
+# Disallow:
+# Exclusion d'une page :
+# 
+# User-Agent: *    
+# Disallow: /repertoire/chemin/page.html
+# Exclusion de plusieurs page :
+# 
+# User-Agent: *    
+# Disallow: /repertoire/chemin/page.html    
+# Disallow: /repertoire/chemin/page2.html    
+# Disallow: /repertoire/chemin/page3.html
+# Exclusion de toutes les pages d'un répertoire et ses sous-dossiers :
+# 
+# User-Agent: *    
+# Disallow: /repertoire/
+
+User-Agent: *    
+Disallow: /

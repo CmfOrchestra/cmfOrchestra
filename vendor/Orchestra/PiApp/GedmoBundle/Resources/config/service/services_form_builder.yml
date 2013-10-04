@@ -6,6 +6,7 @@ parameters:
     piapp.manager.formbuilder.model.slide.class: PiApp\GedmoBundle\Manager\FormBuilder\PiModelWidgetSlide
     piapp.manager.formbuilder.model.breadcrumb.class: PiApp\GedmoBundle\Manager\FormBuilder\PiModelWidgetBreadcrumb   
     piapp.manager.formbuilder.model.connexion.class: PiApp\GedmoBundle\Manager\FormBuilder\PiModelWidgetConnexion
+    piapp.manager.formbuilder.model.reset.class: PiApp\GedmoBundle\Manager\FormBuilder\PiModelWidgetReset
     
 services:
     #
@@ -37,4 +38,8 @@ services:
         
     pi_app_admin.formbuilder_manager.model.connexion:
         class: %piapp.manager.formbuilder.model.connexion.class%
-        arguments: ['@service_container']                  
+        arguments: ['@service_container']             
+
+    pi_app_admin.formbuilder_manager.model.reset:
+        class: %piapp.manager.formbuilder.model.reset.class%
+        arguments: ['@service_container'] 

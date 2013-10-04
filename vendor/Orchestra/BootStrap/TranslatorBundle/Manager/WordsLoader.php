@@ -117,7 +117,7 @@ class WordsLoader implements LoaderInterface
             $loader = $this->container->get('translation.loader.yml');
         } elseif ($format == 'php') {
             $loader = $this->container->get('translation.loader.php');
-        } elseif ($format == 'xliff') {
+        } elseif ( ($format == 'xliff') || ($format == 'xlf') ) {
             $loader = $this->container->get('translation.loader.xliff');
         } elseif ($format == 'csv') {
             $loader = $this->container->get('translation.loader.csv');

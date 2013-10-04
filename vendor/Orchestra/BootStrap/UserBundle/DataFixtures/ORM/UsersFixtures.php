@@ -44,8 +44,8 @@ class UsersFixtures extends AbstractFixture implements OrderedFixtureInterface
         $field1->setEnabled(true);
         $field1->setRoles(array('ROLE_ADMIN'));
         $field1->setPermissions(array('VIEW', 'EDIT', 'CREATE', 'DELETE'));
-           $field1->addGroupUser($this->getReference('group-admin'));
-           $field1->setLangCode($this->getReference('lang-en'));
+        $field1->addGroupUser($this->getReference('group-admin'));
+        $field1->setLangCode($this->getReference('lang-en'));
         $manager->persist($field1);
 
         $field2 = new User();
@@ -57,8 +57,8 @@ class UsersFixtures extends AbstractFixture implements OrderedFixtureInterface
         $field2->setEnabled(true);
         $field2->setRoles(array('ROLE_ADMIN', 'ROLE_SUPER_ADMIN'));
         $field2->setPermissions(array('VIEW', 'EDIT', 'CREATE', 'DELETE'));
-           $field2->addGroupUser($this->getReference('group-superadmin'));
-           $field2->setLangCode($this->getReference('lang-en'));
+        $field2->addGroupUser($this->getReference('group-superadmin'));
+        $field2->setLangCode($this->getReference('lang-en'));
         $manager->persist($field2);
         
         $field3 = new User();

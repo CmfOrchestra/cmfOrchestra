@@ -1,5 +1,6 @@
 erreur.nom.minlength: Last name should have {{ limit }} characters minimum
 erreur.slug.minlength: The slug should have {{ limit }} characters minimum
+erreur.email.unique: The email address is already in use
 
 erreur.langstatus.notblank: You must enter a language status
 erreur.status.notblank: You must enter a status

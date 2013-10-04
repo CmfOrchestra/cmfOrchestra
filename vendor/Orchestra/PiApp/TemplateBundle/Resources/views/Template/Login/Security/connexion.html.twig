@@ -23,7 +23,7 @@
 		</form>
 		<div class="action cf">
 			<a href="{{ path('fos_user_registration_register') }}" class="fleft" title="">{{ 'layout.register'|trans([], 'FOSUserBundle') }}</a>
-			<a href="{{ path('fos_user_resetting_request') }}" class="fright popin-pass fancybox.ajax">Mot de passe oublié?</a>
+			<a href="{{ path_url('fos_user_resetting_request', {'NoLayout':1}) }}" class="fright popin-pass fancybox.ajax">Mot de passe oublié</a>
 		</div>
 	</div>	
 	{% endif %}

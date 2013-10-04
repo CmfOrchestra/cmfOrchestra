@@ -63,6 +63,9 @@ class BootStrapUserBundle extends Bundle
             $heritage_role  = array(
                     'ROLE_SUBSCRIBER'       => array('ROLE_ALLOWED_TO_SWITCH'),
                     'ROLE_MEMBER'            => array('ROLE_SUBSCRIBER', 'ROLE_ALLOWED_TO_SWITCH'),
+                    
+                    'ROLE_CUSTOMER'       => array('ROLE_ALLOWED_TO_SWITCH'),
+                    'ROLE_PROVIDER'            => array('ROLE_ALLOWED_TO_SWITCH'),
                         
                     'ROLE_USER'               => array('ROLE_ALLOWED_TO_SWITCH'),
                         
@@ -72,33 +75,35 @@ class BootStrapUserBundle extends Bundle
                     'ROLE_DESIGNER'          => array('ROLE_MEMBER', 'ROLE_USER', 'ROLE_ALLOWED_TO_SWITCH'),
             
                     'ROLE_CONTENT_MANAGER'  => array('ROLE_DESIGNER', 'ROLE_MODERATOR', 'ROLE_ALLOWED_TO_SWITCH'),
-                    'ROLE_ADMIN'               => array('ROLE_CONTENT_MANAGER', 'ROLE_ALLOWED_TO_SWITCH'),
+                    'ROLE_ADMIN'               => array('ROLE_CONTENT_MANAGER', 'ROLE_CUSTOMER', 'ROLE_PROVIDER','ROLE_ALLOWED_TO_SWITCH'),
             
                     'SONATA'                   => array('ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT ', 'ROLE_SONATA_PAGE_ADMIN_BLOCK_EDIT', 'ROLE_ALLOWED_TO_SWITCH'),
             
                     'ROLE_SUPER_ADMIN'         => array('ROLE_ADMIN', 'ROLE_ALLOWED_TO_SWITCH', 'ROLE_SONATA_ADMIN', 'SONATA'),
             );
         }
+        $heritage_role['SONATA'] = array('ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT ', 'ROLE_SONATA_PAGE_ADMIN_BLOCK_EDIT', 'ROLE_ALLOWED_TO_SWITCH');
+        $heritage_role['ROLE_SUPER_ADMIN'] = array('ROLE_ADMIN', 'ROLE_ALLOWED_TO_SWITCH', 'ROLE_SONATA_ADMIN', 'SONATA');
         // Security
         $container->loadFromExtension('security', array(
                 'role_hierarchy' => $heritage_role,
-                'providers' => array(
-                        'in_memory' => array(
-                                'memory' => array(
-                                    'users' => array(
-                                            'etienne' => array('password' => 'coincoin', 'roles' => 'ROLE_USER'),
-                                            'admin'   => array('password' => 'adminpsw', 'roles' => 'ROLE_ADMIN'),
-                                    ),
-                                ),
-                        ),
-                        #
-                        # the bundle's packaged user provider service available
-                        # The id of the bundle's user provider service is fos_user.user_manager.
-                        #
-                        'fos_userbundle' => array(
-                        'id'             => 'fos_user.user_manager'
-                        ),    
-                ),
+//                 'providers' => array(
+//                         'in_memory' => array(
+//                                 'memory' => array(
+//                                     'users' => array(
+//                                             'etienne' => array('password' => 'coincoin', 'roles' => 'ROLE_USER'),
+//                                             'admin'   => array('password' => 'adminpsw', 'roles' => 'ROLE_ADMIN'),
+//                                     ),
+//                                 ),
+//                         ),
+//                         #
+//                         # the bundle's packaged user provider service available
+//                         # The id of the bundle's user provider service is fos_user.user_manager.
+//                         #
+//                         'fos_userbundle' => array(
+//                         'id'             => 'fos_user.user_manager'
+//                         ),    
+//                 ),
                 #
                 # The access_control section is where you specify the credentials necessary for users trying to access specific parts of your application.
                 #

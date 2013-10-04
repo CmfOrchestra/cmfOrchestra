@@ -55,13 +55,11 @@ h1,h2,h3,h4,h5,h6{ font-size:1em; font-weight:normal;}
 
 body,html{margin:0;padding:0;}
  
- /* WIDGET --------------------------------------------------------*/
+ /* GENERAL --------------------------------------------------------*/
 *	{margin: 0; padding: 0; border: 0;}
 html, body	{width:100%; height: 100%;}
 body	{color: #000; font-family: Trebuchet MS, Arial, Helvetica, sans serif; font-size: 10px; overflow-x: hidden; overflow-y: auto;}
 p   {font-size: 10px;}
-
-/* GENERAL --------------------------------------------------------*/
 a	{
 	outline: none;
 	text-decoration: none;
@@ -103,5 +101,10 @@ a:hover	{
     top: 11px;
     left: 45%;
 	margin: 0px auto;
+}
+
+/*  DIALOG UI ----------------------------------------------- */
+.ui-widget-header {
+    border: 1px solid #aaaaaa;
 }
 	

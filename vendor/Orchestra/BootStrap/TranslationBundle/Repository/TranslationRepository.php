@@ -536,7 +536,7 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-03-15
      */
-    public function getAllByCategory($category = '', $MaxResults = null, $ORDER_PublishDate = '', $ORDER_Position = '', $enabled = true, $is_checkRoles = true)
+    public function getAllByCategory($category = '', $MaxResults = null, $ORDER_PublishDate = '', $ORDER_Position = '', $enabled = true, $is_checkRoles = true, $with_archive = false)
     {
         $query = $this->createQueryBuilder('a')->select('a');        
         
@@ -551,7 +551,9 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
             $query
                 ->orderBy('a.position', $ORDER_Position);
         }   
-        $query->where('a.archived = 0');     
+        if (!$with_archive){
+            $query->where('a.archived = 0');   
+        }  
     
         if ($enabled && !empty($category)){
             $query
@@ -633,11 +635,14 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-10-05
      */
-    public function getAllOrderByField($field = 'createat', $ORDER = "DESC", $enabled = null, $is_checkRoles = true)
+    public function getAllOrderByField($field = 'createat', $ORDER = "DESC", $enabled = null, $is_checkRoles = true, $with_archive = false)
     {
         $query = $this->createQueryBuilder('a')
-        ->select("a")
-        ->where('a.archived = 0');
+        ->select("a");
+        
+        if (!$with_archive){
+        	$query->where('a.archived = 0');
+        }
         
         if ( !is_null($enabled) ) {
             $query
@@ -663,11 +668,14 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-10-04
      */
-    public function getAllBetweenPosition($FirstPosition = null, $LastPosition = null, $enabled = null, $is_checkRoles = true)
+    public function getAllBetweenPosition($FirstPosition = null, $LastPosition = null, $enabled = null, $is_checkRoles = true, $with_archive = false)
     {
         $query = $this->createQueryBuilder('a')
-        ->select("a")
-        ->where('a.archived = 0');
+        ->select("a");
+        
+        if (!$with_archive){
+        	$query->where('a.archived = 0');
+        }
         
         if (!is_null($FirstPosition) && !is_null($LastPosition))
             $query
@@ -704,9 +712,13 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-10-04
      */
-    public function getMaxOrMinValueOfColumn($field, $type = 'MAX', $enabled = null, $is_checkRoles = true)
+    public function getMaxOrMinValueOfColumn($field, $type = 'MAX', $enabled = null, $is_checkRoles = true, $with_archive = false)
     {
-        $query = $this->createQueryBuilder('a')->select("a.{$field}")->where('a.archived = 0');
+        $query = $this->createQueryBuilder('a')->select("a.{$field}");
+        
+        if (!$with_archive){
+        	$query->where('a.archived = 0');
+        }
     
         if ($type == "MAX")
             $query->orderBy("a.{$field}", 'DESC');

@@ -94,8 +94,16 @@ body {
 }
 
 /* Menu de navigation */
+#menuleft {
+    width: 180px;
+}
 #navigation {
-	width: 180px;
+    float: left;
+}
+#connexion {
+    float: left;
+}
+#navigation {
 	float: left; /* -> 6 */
 }
 #navigation ul {

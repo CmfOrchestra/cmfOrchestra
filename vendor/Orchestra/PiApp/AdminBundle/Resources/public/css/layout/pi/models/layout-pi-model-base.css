@@ -130,3 +130,8 @@ pre strong {
 #copyright a:hover, #copyright a:focus {
 	text-decoration: underline;
 }
+
+
+#connexion input {
+    margin-bottom:3px;
+}

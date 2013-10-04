@@ -16,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use PiApp\AdminBundle\Exception\ControllerException;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 /**
  * abstract controller.
@@ -29,54 +30,6 @@ use Symfony\Component\HttpFoundation\Response;
 abstract class abstractController extends Controller
 {
     /**
-     * index entities.
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
-     * @access  public
-     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-     */    
-    public function indexAjaxAction()
-    {
-        $request = $this->container->get('request');
-    
-        if ($request->isXmlHttpRequest())
-        {
-            $service_grid     = $this->container->get('pi_app_admin.manager.datatables');
-            
-            $aColumns         = array('position','id','input','upload','date_list','enabled');
-            $result         = $this->createAjaxQuery('select','ProjetProjetBundle:Recette',$aColumns);
-            $total             = $this->createAjaxQuery('count','ProjetProjetBundle:Recette',$aColumns);
-            $output         = array(
-                    "sEcho" => intval($request->get('sEcho')),
-                    "iTotalRecords" => $total,
-                    "iTotalDisplayRecords" => $total,
-                    "aaData" => array()
-            );
-    
-            $row = array();
-            foreach ($result as $e) {
-                //var_dump($e);
-                $row = array();
-                $row[] = $e->getId();//checkbox
-                $row[] = $e->getPosition();
-                $row[] = $e->getId();
-                $row[] = $e->getInput();
-                $row[] = $e->getUpload();
-                $row[] = $e->getDateList();
-                $row[] = $e->getEnabled();
-                $row[] = $e->getId();//actions
-                $output['aaData'][] = $row ;
-            }
-    
-            $response = new Response(json_encode( $output ));
-            $response->headers->set('Content-Type', 'application/json');
-            return $response;
-        }else
-            throw ControllerException::callAjaxOnlySupported('indexajax'); 
-    }
-        
-    /**
      * Enabled entities.
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -89,7 +42,7 @@ abstract class abstractController extends Controller
         $request = $this->container->get('request');
         $em         = $this->getDoctrine()->getManager();
         
-        if ($request->isXmlHttpRequest()){
+        if ($request->isXmlHttpRequest()) {
             $data        = $request->get('data', null);
             $new_data    = null;            
                        
@@ -106,11 +59,18 @@ abstract class abstractController extends Controller
             krsort($new_data);
             foreach ($new_data as $key => $value) {
                 $entity = $em->getRepository($this->_entityName)->find($value['id']);
-                $entity->setEnabled(true);
-                
-                if (method_exists($entity, 'setPosition'))
+                if (method_exists($entity, 'setArchived')) {
+                    $entity->setArchived(false);
+                }
+                if (method_exists($entity, 'setEnabled')) {
+                    $entity->setEnabled(true);
+                }
+                if (method_exists($entity, 'setArchiveAt')) {
+                    $entity->setArchiveAt(null);
+                }
+                if (method_exists($entity, 'setPosition')) {
                     $entity->setPosition(1);
-                
+                }
                 $em->persist($entity);
                 $em->flush();
             }
@@ -128,8 +88,9 @@ abstract class abstractController extends Controller
             $response = new Response(json_encode($tab));
             $response->headers->set('Content-Type', 'application/json');
             return $response;            
-        }else
-            throw ControllerException::callAjaxOnlySupported('enabledajax'); 
+        } else {
+            throw ControllerException::callAjaxOnlySupported('enabledajax');
+        } 
     }
 
     /**
@@ -145,7 +106,7 @@ abstract class abstractController extends Controller
         $request = $this->container->get('request');
         $em         = $this->getDoctrine()->getManager();
         
-        if ($request->isXmlHttpRequest()){
+        if ($request->isXmlHttpRequest()) {
             $data        = $request->get('data', null);
             $new_data    = null;
             
@@ -161,30 +122,31 @@ abstract class abstractController extends Controller
             
             foreach ($new_data as $key => $value) {
                 $entity = $em->getRepository($this->_entityName)->find($value['id']);
-                $entity->setEnabled(false);
-                
-                if (method_exists($entity, 'setPosition'))
+                if (method_exists($entity, 'setEnabled')) {
+                    $entity->setEnabled(false);
+                }
+                if (method_exists($entity, 'setPosition')) {
                     $entity->setPosition(null);
-                
+                }
                 $em->persist($entity);
                 $em->flush();
             }
             $em->clear();
-            
             // we disable all flash message
             $this->container->get('session')->clearFlashes();
-            
+            // we encode results            
             $tab= array();
             $tab['id'] = '-1';
             $tab['error'] = '';
             $tab['fieldErrors'] = '';
             $tab['data'] = '';
-             
             $response = new Response(json_encode($tab));
             $response->headers->set('Content-Type', 'application/json');
+            
             return $response;            
-        }else
-            throw ControllerException::callAjaxOnlySupported('disableajax'); 
+        } else {
+            throw ControllerException::callAjaxOnlySupported('disableajax');
+        } 
     } 
     
     /**
@@ -200,7 +162,7 @@ abstract class abstractController extends Controller
         $request = $this->container->get('request');
         $em      = $this->getDoctrine()->getManager();
          
-        if ($request->isXmlHttpRequest()){
+        if ($request->isXmlHttpRequest()) {
             $data        = $request->get('data', null);
             $new_data    = null;
             
@@ -220,21 +182,21 @@ abstract class abstractController extends Controller
                 $em->flush();
             }
             $em->clear();
-            
             // we disable all flash message
             $this->container->get('session')->clearFlashes();
-            
+            // we encode results            
             $tab= array();
             $tab['id'] = '-1';
             $tab['error'] = '';
             $tab['fieldErrors'] = '';
             $tab['data'] = '';
-             
             $response = new Response(json_encode($tab));
             $response->headers->set('Content-Type', 'application/json');
+            
             return $response;
-        }else
+        } else {
             throw ControllerException::callAjaxOnlySupported('deleteajax');
+        }
     }    
     
     /**
@@ -250,7 +212,7 @@ abstract class abstractController extends Controller
         $request = $this->container->get('request');
         $em         = $this->getDoctrine()->getManager();
          
-        if ($request->isXmlHttpRequest()){
+        if ($request->isXmlHttpRequest()) {
             $data        = $request->get('data', null);
             $new_data    = null;
     
@@ -266,32 +228,37 @@ abstract class abstractController extends Controller
     
             foreach ($new_data as $key => $value) {
                 $entity = $em->getRepository($this->_entityName)->find($value['id']);
-                $entity->setArchived(true);
-                $entity->setEnabled(false);
-                $entity->setArchiveAt(new \DateTime());
-                 
-                if (method_exists($entity, 'setPosition'))
+                if (method_exists($entity, 'setArchived')) {
+                    $entity->setArchived(true);
+                }
+                if (method_exists($entity, 'setEnabled')) {
+                    $entity->setEnabled(false);
+                }
+                if (method_exists($entity, 'setArchiveAt')) {
+                    $entity->setArchiveAt(new \DateTime());
+                }                 
+                if (method_exists($entity, 'setPosition')) {
                     $entity->setPosition(null);
-                                
+                }                                
                 $em->persist($entity);
                 $em->flush();
             }
             $em->clear();
-    
             // we disable all flash message
             $this->container->get('session')->clearFlashes();
-    
+            // we encode results    
             $tab= array();
             $tab['id'] = '-1';
             $tab['error'] = '';
             $tab['fieldErrors'] = '';
             $tab['data'] = '';
-             
             $response = new Response(json_encode($tab));
             $response->headers->set('Content-Type', 'application/json');
+            
             return $response;
-        }else
+        } else {
             throw ControllerException::callAjaxOnlySupported('disableajax');
+        }
     }    
 
     /**
@@ -307,98 +274,40 @@ abstract class abstractController extends Controller
         $request = $this->container->get('request');
         $em         = $this->getDoctrine()->getManager();
          
-        if ($request->isXmlHttpRequest()){
+        if ($request->isXmlHttpRequest()) {
             $old_position     = $request->get('fromPosition', null);
             $new_position     = $request->get('toPosition', null);
-            $direction         = $request->get('direction', null);
-            
-            $data            = $request->get('id', null);
-               $values         = explode('_', $data);
-               $id                = $values[2];
+            $direction        = $request->get('direction', null);
+            $data             = $request->get('id', null);
+            $values           = explode('_', $data);
+            $id               = $values[2];
                
-               if (!is_null($id)){
+            if (!is_null($id)){
                 if ( ($new_position == "NaN") || is_null($new_position) || empty($new_position) )    $new_position     = 1;
-    
                 $entity = $em->getRepository($this->_entityName)->find($id);
-                $entity->setPosition($new_position);
+                if (method_exists($entity, 'setPosition')) {
+                	$entity->setPosition($new_position);
+                }
                 $em->persist($entity);
                 $em->flush();
                 $em->clear();    
-               }        
-               
+            }        
             // we disable all flash message
             $this->container->get('session')->clearFlashes();
-    
+            // we encode results    
             $tab= array();
             $tab['id'] = '-1';
             $tab['error'] = '';
             $tab['fieldErrors'] = '';
             $tab['data'] = '';
-             
             $response = new Response(json_encode($tab));
             $response->headers->set('Content-Type', 'application/json');
-            return $response;
-        }else
-            throw ControllerException::callAjaxOnlySupported('positionajax');
-    } 
-    
-    /**
-     * Sorts all fields off the table in ascending order of creation date and aligns the position of this sort.
-     *
-     * @return void
-     *
-     * @access    public
-     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-     * @since 20012-10-05
-     */
-    public function SortDisabledFieldsAction()
-    {
-        $em         = $this->getDoctrine()->getManager();
-        $table         = $em->getRepository($this->_entityName)->getClassName();
-        $entities    = $em->getRepository($this->_entityName)->getAllOrderByField('created_at', 'ASC', 0)->getQuery()->getArrayResult();
-        
-        // we get the max value of all enabled fields.
-        $max = $em->getRepository($entity_name)->getMaxOrMinValueOfColumn('position', 'MAX', 1)->getQuery()->getSingleScalarResult();
             
-        $count = count($entities);
-        for($i=1;$i<$count;$i++){
-            foreach($entities as $key => $entity){
-                if (isset($entities[$key+1])){
-                    $entity_pos     = $entity['position'];
-                    $entity_next    = $entities[$key+1];
-                    $entity_next_pos= $entity_next['position'];
-    
-                    if (($entity_pos > $entity_next_pos) ){
-                        $entity_next_pos = $max + $entity_next_pos;
-                        $entity_pos         = $max + $entity_pos;
-                        
-                        $query = "UPDATE $table mytable SET mytable.position='{$entity_next_pos}' WHERE mytable.id = '{$entity['id']}'";
-                        $em->createQuery($query)->getSingleScalarResult();
-                        $entities[$key]['position'] = $entity_next_pos;
-    
-                        $query = "UPDATE $table mytable SET mytable.position='{$entity_pos}' WHERE mytable.id = '{$entity_next['id']}'";
-                        $em->createQuery($query)->getSingleScalarResult();
-                        $entities[$key+1]['position'] = $entity_pos;
-                    }elseif (($entity_pos == $entity_next_pos) ){
-                        $entity_next_pos = $max + $entity_next_pos;
-                        $entity_pos         = $max + $entity_pos;
-                        
-                        $query = "UPDATE $table mytable SET mytable.position='{$entity_next_pos}' WHERE mytable.id = '{$entity['id']}'";
-                        $em->createQuery($query)->getSingleScalarResult();
-                        $entities[$key]['position'] = $entity_next_pos;
-        
-                        $query = "UPDATE $table mytable SET mytable.position='{($entity_pos+1)}' WHERE mytable.id = '{$entity_next['id']}'";
-                        $em->createQuery($query)->getSingleScalarResult();
-                        $entities[$key+1]['position'] = $entity_pos+1;
-                    }
-                }
-            }
+            return $response;
+        } else {
+            throw ControllerException::callAjaxOnlySupported('positionajax');
         }
-        $em->flush();
-        $em->clear();
-                
-        return new Response('');
-    }   
+    } 
     
     /**
      * Create Ajax query
@@ -464,7 +373,7 @@ abstract class abstractController extends Controller
          * word by word on any field. It's possible to do here, but concerned about efficiency
          * on very large tables, and MySQL's regex functionality is very limited
          */
-        $or = $qb->expr()->orx();
+        $and = $qb->expr()->andx();
         for ( $i=0 ; $i<count($aColumns) ; $i++ ) {
             if ( $request->get('bSearchable_'.$i) == "true" && $request->get('sSearch_'.$i) != '' ) {
                 $expression = str_replace("(^|\s*/+\s*)(","",$request->get('sSearch_'.$i));
@@ -472,15 +381,15 @@ abstract class abstractController extends Controller
                 $search_tab = explode("|", $search);
 
                 foreach ($search_tab as $s) {
-                    $or->add($qb->expr()->like('LOWER('.$aColumns[(intval($i)-1)].')', $qb->expr()->literal('%'.strtolower($s).'%')));
+                    $and->add($qb->expr()->like('LOWER('.$aColumns[(intval($i)-1)].')', $qb->expr()->literal('%'.strtolower(\PiApp\AdminBundle\Util\PiStringManager::withoutaccent($s)).'%')));
                 }
             }
             if ( $request->get('bSearchable_'.($i+1)) == "true" && $request->get('sSearch') != '' ) {
-                $or->add($qb->expr()->like('LOWER('.$aColumns[$i].')', $qb->expr()->literal('%'.strtolower($request->get('sSearch')).'%')));
+                $and->add($qb->expr()->like('LOWER('.$aColumns[$i].')', $qb->expr()->literal('%'.strtolower(\PiApp\AdminBundle\Util\PiStringManager::withoutaccent($request->get('sSearch'))).'%')));
             }
         }
-        if ($or!= "") {
-            $qb->andWhere($or);
+        if ($and!= "") {
+            $qb->andWhere($and);
         }
     
         /**
@@ -522,12 +431,16 @@ abstract class abstractController extends Controller
         }
         
         return $result;
-    }      
+    }    
 
     /**
-     * Authenticate a user with Symfony Security
+     * Authenticate a user with Symfony Security.
      *
      * @param $user
+     * @return void
+     * @access protected
+     * 
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     protected function authenticateUser(\BootStrap\UserBundle\Entity\User $user)
     {
@@ -599,10 +512,11 @@ abstract class abstractController extends Controller
      */
     protected function isAnonymousToken()
     {
-        if ($this->getToken() instanceof \Symfony\Component\Security\Core\Authentication\Token\AnonymousToken)
+        if ($this->getToken() instanceof \Symfony\Component\Security\Core\Authentication\Token\AnonymousToken) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
     
     /**
@@ -615,10 +529,93 @@ abstract class abstractController extends Controller
      */
     protected function isUsernamePasswordToken()
     {
-        if ($this->getToken() instanceof \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken)
+        if ($this->getToken() instanceof \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken) {
             return true;
-        else
+        } else {
             return false;
+        }
+    }    
+    
+    /**
+     * we check if the user ID exists in the authentication service.
+     *
+     * @param integer    $userId
+     * @return boolean
+     * @access protected
+     *
+     * 
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    protected function isUserdIdExisted($userId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('BootStrapUserBundle:User')->find($userId);
+        
+        if ($entity instanceof \BootStrap\UserBundle\Entity\User) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * we return the token associated to the user ID.
+     * 
+     * @param integer    $userId
+     * @param string    $application
+     * @return string
+     * @access protected
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    protected function getTokenByUserIdAndApplication($userId, $application)
+    {
+    	$em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('BootStrapUserBundle:User')->find($userId);
+        
+        if ($entity instanceof \BootStrap\UserBundle\Entity\User) {
+        	$all_applications =  $entity->getApplicationTokens();
+        	if (!is_null($all_applications)) {
+            	foreach ($all_applications as $applicationToken) {
+            	    $string = strtoupper($applicationToken); 
+            	    $replace = strtoupper($application.'::');
+            	    $token = str_replace($replace, '', $string, $count);
+            	    if ($count == 1) {
+            	    	return strtoupper($token);
+            	    } else {
+            	    	return false;
+            	    }
+            	}
+        	}
+        } else {
+        	return false;
+        }
+    }
+
+    /**
+     * we associate the token to the userId.
+     * 
+     * @param integer    $userId
+     * @param string    $token
+     * @param string    $application
+     * @return boolean
+     * @access protected
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    protected function setAssociationUserIdWithApplicationToken($userId, $token, $application)
+    {
+    	$em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('BootStrapUserBundle:User')->find($userId);
+        
+        if ($entity instanceof \BootStrap\UserBundle\Entity\User) {
+        	$entity->setApplicationTokens(array(strtoupper($application.'::'.$token)));
+        	$em->persist($entity);
+            $em->flush();
+        	return true;
+        } else {
+        	return false;
+        }
     }    
     
     public function getContainer(){

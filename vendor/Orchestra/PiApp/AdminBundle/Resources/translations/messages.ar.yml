@@ -56,6 +56,10 @@ pi.grid.action.create: أنشئ
 pi.grid.action.validate:  التحقق من صحة
 pi.grid.action.back-to-the-list: العودة إلى القائمة
 pi.grid.action.add-tab: إضافة التبويب
+pi.grid.action.add-picture: اضف صورة
+pi.grid.action.add-question: إضافة سؤال
+pi.grid.action.add test: إضافة اختبار
+pi.grid.action.add-deafult: إضافة
 pi.grid.action.copy: نسخ إلى الحافظة
 pi.grid.action.print: طباعة الجدول
 pi.grid.action.export: صَدِّر
@@ -106,6 +110,7 @@ pi.form.label.date.start: تاريخ بدء
 pi.form.label.date.end:  نهاية التاريخ
 
 pi.form.label.media.picture: الصورة
+pi.form.label.media.picture.miniature: مصغر
 pi.form.label.media.file: ملف
 pi.form.label.media.download: تحميل
 
@@ -137,8 +142,9 @@ pi.form.label.field.civility.type.mme:  السيدة
 pi.form.label.field.civility.type.mlle: ملكة جمال
 
 pi.form.label.field.profile: الملف الشخصي
-pi.form.label.field.profile.type.fournisseur: مقدم
-pi.form.label.field.profile.type.fournisseur.tic: ICT مقدم
+pi.form.label.field.profile.type.customer: زبون
+pi.form.label.field.profile.type.provider: مقدم
+pi.form.label.field.profile.type.provider.tic: ICT مقدم
 pi.form.label.field.profile.type.user: العضو
 pi.form.label.field.profile.type.user.tic: ICT العضو
 pi.form.label.field.profile.type.cadre: Excecutive

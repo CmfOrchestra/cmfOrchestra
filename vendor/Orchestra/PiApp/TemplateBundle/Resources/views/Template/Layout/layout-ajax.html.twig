@@ -23,7 +23,7 @@
 	{% initJquery 'TOOL:languagechoice' %}
 	<!--  Css core -->
 	{% stylesheet "bundles/piappadmin/css/layout/screen-layout-ajax.css:prepend" %}
-	{% stylesheet getParameter('pi_app_admin.admin.theme_css')~":prepend" %}
+	{% stylesheet getParameter('pi_app_admin.admin.theme_css')~":append" %}
 	<!--  Js core -->
    	{% javascript "bundles/piappadmin/js/ui/jquery-ui-1.10.3.custom.min.js:prepend" %}
 	{% javascript "bundles/piappadmin/js/jquery/jquery-migrate-1.2.1.min.js:prepend" %}

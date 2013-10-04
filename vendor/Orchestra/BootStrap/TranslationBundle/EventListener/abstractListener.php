@@ -227,7 +227,7 @@ abstract class abstractListener
                         $route = $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('_route', $this->container->get('request')->getLocale());
                     if (in_array($route, $GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE'][$entity_name])){
                         $class = $entityManager->getClassMetadata(get_class($entity));
-                           $entityManager->getUnitOfWork()->recomputeSingleEntityChangeSet($class, $entity);
+                        $entityManager->getUnitOfWork()->recomputeSingleEntityChangeSet($class, $entity);
                            
                         return true;
                     }

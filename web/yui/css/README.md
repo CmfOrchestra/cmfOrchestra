@@ -22,6 +22,7 @@ The bundle has been split into 2 directories :
 * TranslationBundle : A bundle which provides models of classes allowing to work and develop with Gedmo translation and Gedmo tree, and a command to generate orchestra bundle with a CRUD system of an entity, contains core libraries and services of route, etc.
 * TranslatorBundle : A bundle which provides entity and models of classes allowing to work with translation words.
 * UserBundle : A bundle which overload the FOSUserBundle.
+* WsBundle : A bundle which provides web services allowing to connect authentication service with the SS0 protocol.
 ```
 
 **PiApp**
@@ -41,7 +42,7 @@ Register all bundle in your `app/AppKernel.php` file:
     public function registerBundles()
     {
               $bundles = array(
-                new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
+new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
                 new Symfony\Bundle\SecurityBundle\SecurityBundle(),
                 new Symfony\Bundle\TwigBundle\TwigBundle(),
                 new Symfony\Bundle\MonologBundle\MonologBundle(),
@@ -65,7 +66,7 @@ Register all bundle in your `app/AppKernel.php` file:
                 
                 # sonata admin
                 new Sonata\AdminBundle\SonataAdminBundle(),
-                new Sonata\AdminBundle\SonataNotificationBundle(),
+                new Sonata\NotificationBundle\SonataNotificationBundle(),
                 new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
                 new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
                 new Sonata\CacheBundle\SonataCacheBundle(),
@@ -89,11 +90,21 @@ Register all bundle in your `app/AppKernel.php` file:
                 new BootStrap\TranslationBundle\BootStrapTranslationBundle(),
                 new BootStrap\TranslatorBundle\BootStrapTranslatorBundle(),
                 new BootStrap\MediaBundle\BootStrapMediaBundle(),
+                new BootStrap\WsBundle\BootStrapWsBundle(),
                 
                 # trades
                 new PiApp\AdminBundle\PiAppAdminBundle(),
                 new PiApp\GedmoBundle\PiAppGedmoBundle(),
-                new PiApp\TemplateBundle\PiAppTemplateBundle(),         
+                new PiApp\TemplateBundle\PiAppTemplateBundle(),
+                
+                #override Orchestra bundles
+                new OrApp\OrAdminBundle\OrAppOrAdminBundle(),
+                new OrApp\OrGedmoBundle\OrAppOrGedmoBundle(),
+                new OrApp\OrTemplateBundle\OrAppOrTemplateBundle(),      
+                new OrApp\OrUserBundle\OrAppOrUserBundle(),
+
+                # recaptcha
+                new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),        
         );
         
 ```
@@ -160,7 +171,9 @@ Register all namespace before using the bundle. Add the following line to your `
             "sonata-project/easy-extends-bundle": "2.1.*@dev",
             "sonata-project/jquery-bundle": "1.8.*@dev",
             "sonata-project/media-bundle": "2.2.*@dev",
-            "sonata-project/notification-bundle": "2.2.*@dev"
+            "sonata-project/notification-bundle": "2.2.*@dev",
+            
+            "excelwebzone/recaptcha-bundle": "2.0.*"
         },
         "scripts": {
             "post-install-cmd": [
@@ -189,12 +202,14 @@ Register all namespace before using the bundle. Add the following line to your `
         },
         "autoload": {
             "psr-0": {
+                "OrApp" => "src",
                 "PiApp": "vendor/Orchestra",
                 "BootStrap": "vendor/Orchestra",
                 "Zend_": "vendor/Zend/library"
             }
         }    
     }
+
     
 ```
 

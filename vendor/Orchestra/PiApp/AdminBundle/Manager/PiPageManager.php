@@ -115,7 +115,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
                 if (!$right) {
                     return $this->redirectHomePublicPage();
                 }
-            }            
+            }    
             // Handle 404
             // We don't show the page if :
             // * The page doesn't have a translation set.
@@ -155,9 +155,9 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
                     $response->headers->set('Cache-control', "private");
                 }
                 // We set the reponse
-                $response = $this->container->get('pi_app_admin.caching')->renderResponse($this->Etag, array('page' => $page), $response);
+                $response = $this->container->get('pi_app_admin.caching')->renderResponse($this->Etag, array(), $response);
                 $this->setResponse($page, $response);
-
+                
                 return $response;
             }
         } else {
@@ -189,8 +189,6 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
         $init_pc_layout        = str_replace("/", "\\\\", $this->getPageById($id)->getLayout()->getFilePc());
         $init_pc_layout        = str_replace("\\", "\\\\", $init_pc_layout);
         $init_mobile_layout    = str_replace("\\", "\\\\", $this->getPageById($id)->getLayout()->getFileMobile());
-        $request             = $this->container->get('request');
-        $session            = $request->getSession();
         if (empty($init_pc_layout)) {
             $init_pc_layout     = $this->container->getParameter('pi_app_admin.layout.init.pc.template');
         }
@@ -236,9 +234,10 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
                 $source     .= "{% javascript '".$s->getUrl()."' %} \n";
             }
         }
+        $source     .= "{% set meta_title = title_page('{$title}') %} \n";
         $source     .= "{% block global_title %}";
         $source     .= "{{ parent() }} \n";
-        $source     .= "{{ title_page('{$title}') }} \n";
+        $source     .= "{{ meta_title|striptags }} \n";
         $source     .= "{% endblock %} \n";
         $source     .= "{% set global_local_language = '".$this->language."' %} \n";
         $source     .= " \n";
@@ -418,7 +417,53 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
         } else {
             return false;
         }
-    }    
+    }  
+
+    /**
+     * Return the content of a page.
+     *
+     * @param string $route_name        route name of a page
+     * @param string $lang
+     * @return string    content page
+     * @access    public
+     *
+     * @author Etienne de Longeaux <etienne_delongeaux@hotmail.com>
+     * @since 2012-06-11
+     */
+    public function contentPage($route_name, $lang = '')
+    {
+        $page = $this->setPageByRoute($route_name);
+        
+        if (empty($lang)) {
+        	$lang = $this->language;
+        }
+        
+        if ($page instanceof \PiApp\AdminBundle\Entity\Page) {
+            $id = $page->getId();
+            // Symfony\Bundle\TwigBundle\TwigEngine
+   		    return $this->container->get('pi_app_admin.caching')->renderResponse("page:$id:$lang")->getContent();
+        } else {
+            return '';
+        }
+  	} 
+
+  	/**
+  	 * Return the content of a page.
+  	 *
+  	 * @param string $route_name        route name of a page
+  	 * @param string $lang
+  	 * @return string    content page
+  	 * @access    public
+  	 *
+  	 * @author Etienne de Longeaux <etienne_delongeaux@hotmail.com>
+  	 * @since 2012-06-11
+  	 */
+  	public function redirectErrorPage()
+  	{
+        $url_redirection = $this->container->get('bootstrap.RouteTranslator.factory')->getRoute('error_404');
+        header('Location: '. $url_redirection);
+        exit;
+  	}  	
 
     /**
      * Sets a page and construct all it information.

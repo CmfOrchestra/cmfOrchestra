@@ -35,5 +35,11 @@
 	
 	{{ "{% set options = {'prototype-name': ['translations'], 'prototype-tab-title': 'pi.page.translation.prototype-tab-title'|trans} %}" }}
 	{{ "{{ renderJquery('FORM', 'prototype-bytab', options )|raw }}" }}
+	
+	<script type="text/javascript">
+	//<![CDATA[
+			j_prototype_bytabs.ftc_accordion_form("image_collection", "{{ "{{ 'pi.block.form.group.pictures'|trans }}" }}", ".myform");
+	//]]>
+	</script>		
 		
 {{ "{% endblock %}" }}

@@ -1,0 +1,41 @@
+parameters:    
+    ws.factory.class: BootStrap\WsBundle\Manager\WsFactory
+    
+    ws.client.auth.class: BootStrap\WsBundle\Manager\Client\AuthClient
+    ws.helper.auth.class: BootStrap\WsBundle\Helper\AuthHelper
+    ws.twig.extension.auth.class : BootStrap\WsBundle\Extension\AuthExtension    
+    
+services:
+    #
+    # configuration of the clients
+    #       
+    ws.client.auth:
+      class: %ws.client.auth.class%
+      arguments: ['@service_container', 'auth']           
+      
+    #
+    # configuration of the helpers
+    #   
+    ws.helper.auth:
+      class: %ws.helper.auth.class%
+      arguments: ['@ws.client.auth']
+      tags:
+             - { name: templating.helper, alias: ws_auth }             
+            
+    #
+    # configuration of the extensions
+    #         
+    ws.twig.extension.auth:
+      class: %ws.twig.extension.auth.class%
+      arguments: ['@ws.helper.auth']
+      tags:
+             - { name: twig.extension }                            
+             
+    #
+    # configuration of the class factory 
+    #                 
+    ws.factory.auth:
+      class: %ws.factory.class%
+      arguments: ['@service_container'] 
+      calls:
+             - [ setClient, ['@ws.client.auth'] ]             

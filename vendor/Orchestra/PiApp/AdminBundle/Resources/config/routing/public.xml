@@ -7,6 +7,10 @@
     <route id="pi_layout_choisir_langue" pattern="/local/{langue}">
         <default key="_controller">PiAppAdminBundle:Frontend:setLocal</default>
     </route>  
+    
+    <route id="admin_redirection" pattern="/redirectionuser" >
+        <default key="_controller">PiAppAdminBundle:Frontend:redirectionuser</default>
+    </route>     
 
     <route id="admin_homepage" pattern="/home" >
         <default key="_controller">PiAppAdminBundle:Frontend:index</default>
