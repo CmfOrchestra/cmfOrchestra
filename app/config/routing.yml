@@ -56,3 +56,9 @@ BootStrapTranslatorBundle:
     resource: "@BootStrapTranslatorBundle/Resources/config/routing.yml"
     prefix:   /      
   
+#
+#   Import BootStrapWsBundle routing files
+#     
+BootStrapWsBundle:
+    resource: "@BootStrapWsBundle/Resources/config/routing.yml"
+    prefix:   /  

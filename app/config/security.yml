@@ -1,9 +1,11 @@
 # jms_security_extra Configuration
+# http://jmsyst.com/bundles/JMSSecurityExtraBundle/master/configuration
 jms_security_extra:
     secure_all_services: false
     expressions: true
     
 # jms_di_extra Configuration
+# http://jmsyst.com/bundles/JMSDiExtraBundle/master/configuration
 jms_di_extra:
     locations:
         all_bundles: true
