@@ -448,7 +448,7 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
   	} 
 
   	/**
-  	 * Return the content of a page.
+  	 * Redirect to the url by his route name.
   	 *
   	 * @param string $route_name        route name of a page
   	 * @param string $lang
@@ -458,9 +458,9 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
   	 * @author Etienne de Longeaux <etienne_delongeaux@hotmail.com>
   	 * @since 2012-06-11
   	 */
-  	public function redirectErrorPage()
+  	public function redirectPage($route_name = 'error_404')
   	{
-        $url_redirection = $this->container->get('bootstrap.RouteTranslator.factory')->getRoute('error_404');
+        $url_redirection = $this->container->get('bootstrap.RouteTranslator.factory')->getRoute($route_name);
         header('Location: '. $url_redirection);
         exit;
   	}  	

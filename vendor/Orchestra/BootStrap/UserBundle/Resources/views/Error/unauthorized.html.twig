@@ -1,5 +1,4 @@
 {% stylesheet "bundles/piappadmin/css/grid/style-grid-5.css" %}
-
 {% extends app.request.attributes.get('orchestra-layout') %}
 
 {% block title %}
@@ -19,7 +18,10 @@
 	  		<br/> 
 		{% endfor %} 
 	{% endfor %}
-	#}
+	
 	
 	{{ 'erreur.unauthorized.method'|trans }}
+	#}
+	
+	{{ getService('pi_app_admin.manager.page').redirectPage('admin_redirection')|raw }}
 {% endblock %} 

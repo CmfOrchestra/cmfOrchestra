@@ -12,7 +12,7 @@
         <default key="_controller">PiAppAdminBundle:Frontend:redirectionuser</default>
     </route>     
 
-    <route id="admin_homepage" pattern="/home" >
+    <route id="admin_homepage" pattern="/admin/home" >
         <default key="_controller">PiAppAdminBundle:Frontend:index</default>
     </route>
     

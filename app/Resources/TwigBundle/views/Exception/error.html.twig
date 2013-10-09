@@ -1,7 +1,7 @@
-{{ getService('pi_app_admin.manager.page').redirectErrorPage()|raw }}
+{{ getService('pi_app_admin.manager.page').redirectPage('error_404')|raw }}
 
 {#
     {% render "PiAppAdminBundle:Frontend:page" with {'route_name':'error_404'} %}
     {{ render(controller('PiAppAdminBundle:Frontend:page', {'route_name': 'error_404'}))|raw }}
-    {{ getService('pi_app_admin.manager.page').redirectErrorPage()|raw }}
+    {{ getService('pi_app_admin.manager.page').redirectPage('error_404')|raw }}
 #}

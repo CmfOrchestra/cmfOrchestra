@@ -34,24 +34,32 @@
     #}
 </p>
 
-    {{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
-    {{ facebook_login_button({'autologoutlink': false}) }}
-    <script>
-        function goLogIn(){
-            window.location.href = "{{ path('_security_check') }}";
-        }
+<script type="text/javascript">
+//<![CDATA[
+		    function goLogIn(){
+		        window.location.href = "{{ path('_security_check') }}";
+    }
 
-        function onFbInit() {
-            if (typeof(FB) != 'undefined' && FB != null ) {
-                FB.Event.subscribe('auth.statusChange', function(response) {
-                    if (response.session || response.authResponse) {
-                        setTimeout(goLogIn, 500);
-                    } else {
-                        window.location.href = "{{ path('_security_logout') }}";
-                    }
-                });
-            }
+    function onFbInit() {
+        if (typeof(FB) != 'undefined' && FB != null ) {
+            FB.Event.subscribe('auth.statusChange', function(response) {
+                if (response.session || response.authResponse) {
+                    setTimeout(goLogIn, 500);
+                } else {
+                    window.location.href = "{{ path('_security_logout') }}";
+                }
+            });
         }
-    </script>
+    }
+	(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "//connect.facebook.net/{{ app.request.locale }}/all.js#xfbml=1";
+		fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk')
+	);
+//]]>
+</script>
 
 {% endblock content %}

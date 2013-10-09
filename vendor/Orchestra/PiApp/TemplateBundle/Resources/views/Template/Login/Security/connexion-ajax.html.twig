@@ -16,32 +16,39 @@
 		    $(document).ready(function() {
 		        $('#form-connexion').on('submit', function(e) {
 					e.preventDefault()
+					var $form = $(this);
 			        
-		        	var _username 	= jQuery(this).find('input[name="_username"]').val();
-		        	var _password 	= jQuery(this).find('input[name="_password"]').val();
-		        	var _csrf_token = jQuery(this).find('input[name="_csrf_token"]').val();
+		        	var _username 	= $form.find('input[name="_username"]').val();
+		        	var _password 	= $form.find('input[name="_password"]').val();
+		        	var _csrf_token = $form.find('input[name="_csrf_token"]').val();
+		        	var _url 		= $form.data('action');
+		        	var _type		= $form.attr('method');
+		        	var _data		= "_username="+_username+"&_password="+_password+"&_csrf_token="+_csrf_token;
+		        	var _url_redirection = $form.data('redirection');
 
 				    if ( _username=="" || _password=="") {
 				    	if (_username=="") {
-				     		$('#form-connexion').addClass('errorConnect').find('p.error').text("Veuillez saisir votre identifiant.");
+				    		$form.addClass('errorConnect').find('p.error').text("Veuillez saisir votre identifiant.");
 				     	} else {
-				       		$('#form-connexion').addClass('errorConnect').find('p.error').text("Veuillez saisir votre mot de passe.");
+				     		$form.addClass('errorConnect').find('p.error').text("Veuillez saisir votre mot de passe.");
 				    	}
 				    	return false;
 				    } else {
-				    	$('#form-connexion').removeClass('errorConnect');
+				    	$form.removeClass('errorConnect');
 				    }
 		        	
 		            $.ajax({
-		                url: $(this).attr('action'),
-		                data: "_username="+_username+"&_password="+_password+"&_csrf_token="+_csrf_token,
-		                type: $(this).attr('method'),
+		                url: _url,
+		                data: _data,
+		                type: _type,
 		                success: function(html) {
-		                	if ( /Bad credentials/i.test(html)==true  || /password is invalid/i.test(html)==true ) {
-		                		// $('#form-connexion').addClass('errorConnect');
-		                		$('#form-connexion').addClass('errorConnect').find('p.error').text("Identifiant/mot de passe invalide.");
+		                	if ( html == 'error' ) {
+		                		$form.addClass('errorConnect').find('p.error').text("Identifiant/mot de passe invalide.");
 		                	} else {
-		                		window.location.reload();
+		                		if(_url_redirection == "")
+		                		    window.location.reload();
+		                		else
+		                			window.location.href = _url_redirection;
 		                	}
 		                }
 		            });
@@ -51,7 +58,7 @@
 		</script>  
 		
 		<h3 class="tt-clr tt-9 bold">MON COMPTE</h3>
-		<form method="POST" action="{{ path('fos_user_security_check') }}" id="form-connexion" >
+		<form method="POST" data-action="{{ path('fos_user_security_check') }}" data-redirection="" id="form-connexion" >
 			<p class="error resetM"></p>
 			<span class="input-text">
 				 <input onfocus="this.value = ''" type="text" id="_username" name="_username" value="{% if error %}{{ error }}{% elseif last_username is not empty  %}{{ last_username }}{% else %}Identifiant{% endif %}" data-validate="{% if error %}{{ error }}{% elseif last_username is not empty  %}{{ last_username }}{% else %}Identifiant{% endif %}">
