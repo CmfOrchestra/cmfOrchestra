@@ -135,6 +135,7 @@ pi.form.label.field.blank: Blank link HTML
 pi.form.label.field.choice: Choice
 pi.form.label.field.author: Author
 pi.form.label.field.user: User
+pi.form.label.field.group: Group
 
 pi.form.label.field.civility: Civility
 pi.form.label.field.civility.type.mr: Mr
@@ -154,6 +155,8 @@ pi.form.label.field.profile.type.autoentrepreneur: Auto-entrepreneur
 pi.form.label.field.profile.type.other.adherent.individual: Other individual members
 
 pi.form.label.field.name: Name
+pi.form.label.field.username: User name
+pi.form.label.field.usergroup: User Group
 pi.form.label.field.nickname: Nickname
 pi.form.label.field.sponsor: Sponsor
 

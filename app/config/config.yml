@@ -150,7 +150,6 @@ doctrine:
             FOSUserBundle: ~
             StofDoctrineExtensionsBundle: ~
             SonataMediaBundle: ~
-            OrAppOrUserBundle: ~
             OrAppOrAdminBundle: ~
             OrAppOrGedmoBundle: ~
             BootStrapUserBundle: ~

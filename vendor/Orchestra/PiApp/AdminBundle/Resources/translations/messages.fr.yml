@@ -135,6 +135,7 @@ pi.form.label.field.blank: Lien HTML vierge
 pi.form.label.field.choice: Choix
 pi.form.label.field.author: Auteur
 pi.form.label.field.user: Utilisateur
+pi.form.label.field.group: Groupe
 
 pi.form.label.field.civility: Civilité
 pi.form.label.field.civility.type.mr: M.
@@ -143,7 +144,7 @@ pi.form.label.field.civility.type.mlle: Mlle
 
 pi.form.label.field.profile: Profil
 pi.form.label.field.profile.type.customer: Client
-pi.form.label.field.profile.type.provider: Fournisseur
+pi.form.label.field.profile.type.provider: Prestataire
 pi.form.label.field.profile.type.provider.tic: Fournisseur TIC
 pi.form.label.field.profile.type.user: Utilisateur
 pi.form.label.field.profile.type.user.tic: Utilisateur TIC
@@ -154,6 +155,8 @@ pi.form.label.field.profile.type.autoentrepreneur: Auto-entrepreneur
 pi.form.label.field.profile.type.other.adherent.individual: Autres adhérents individuels
 
 pi.form.label.field.name: Nom
+pi.form.label.field.username: Nom d'utilisateur
+pi.form.label.field.usergroup: Groupe d'utilisateur
 pi.form.label.field.nickname: Prénom
 pi.form.label.field.sponsor: Sponsor
 

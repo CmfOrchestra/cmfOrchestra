@@ -120,6 +120,9 @@ class PiToolExtension extends \Twig_Extension
                 // cryptage
                 'encrypt'            => new \Twig_Filter_Method($this, 'encryptFilter'),
                 'decrypt'            => new \Twig_Filter_Method($this, 'decryptFilter'),
+                
+                // status
+                'status'         => new \Twig_Filter_Method($this, 'statusFilter'),
         );
     }
 
@@ -643,6 +646,28 @@ class PiToolExtension extends \Twig_Extension
     /**
      * divers Filters
      */
+    
+    public function statusFilter($entity)
+    {
+    	if (is_object($entity)) {
+    		$enabled = $entity->getEnabled();
+    		$archivedAt = $entity->getArchiveAt();
+    		$archived = $entity->getArchived();
+    	} else {
+    		$enabled = $entity['enabled'];
+    		$archivedAt = $entity['archive_at'];
+    		$archived = $entity['archived'];
+    	}
+    	if ( ($enabled  == true ) && ($archived == false) ) {
+    		$status = 'Actif' ;
+    	} elseif(!empty($archivedAt) && ($archived == true)) {
+    		$status = 'Supprimé';
+    	} elseif ( ($enabled  == false ) && ($archived == false) ) {
+    		$status = "En attente d'activation";
+    	}
+    
+    	return $status;
+    }    
         
     public function phpFilter($var, $function) {
         return $function($var);

@@ -101,7 +101,6 @@ new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
                 new OrApp\OrAdminBundle\OrAppOrAdminBundle(),
                 new OrApp\OrGedmoBundle\OrAppOrGedmoBundle(),
                 new OrApp\OrTemplateBundle\OrAppOrTemplateBundle(),      
-                new OrApp\OrUserBundle\OrAppOrUserBundle(),
 
                 # recaptcha
                 new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),        
@@ -173,7 +172,7 @@ Register all namespace before using the bundle. Add the following line to your `
             "sonata-project/media-bundle": "2.2.*@dev",
             "sonata-project/notification-bundle": "2.2.*@dev",
             
-            "excelwebzone/recaptcha-bundle": "2.0.*"
+            "excelwebzone/recaptcha-bundle": "dev-master"
         },
         "scripts": {
             "post-install-cmd": [
@@ -202,7 +201,7 @@ Register all namespace before using the bundle. Add the following line to your `
         },
         "autoload": {
             "psr-0": {
-                "OrApp" => "src",
+                "OrApp" : "src",
                 "PiApp": "vendor/Orchestra",
                 "BootStrap": "vendor/Orchestra",
                 "Zend_": "vendor/Zend/library"

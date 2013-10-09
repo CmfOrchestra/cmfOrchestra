@@ -67,7 +67,6 @@ class AppKernel extends Kernel
                 new OrApp\OrAdminBundle\OrAppOrAdminBundle(),
                 new OrApp\OrGedmoBundle\OrAppOrGedmoBundle(),
                 new OrApp\OrTemplateBundle\OrAppOrTemplateBundle(),      
-                new OrApp\OrUserBundle\OrAppOrUserBundle(),
 
                 # recaptcha
                 new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),

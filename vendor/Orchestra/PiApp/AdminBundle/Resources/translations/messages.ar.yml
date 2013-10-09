@@ -135,6 +135,7 @@ pi.form.label.field.blank: رابط HTML فارغة
 pi.form.label.field.choice: الاختيار
 pi.form.label.field.author: كاتب
 pi.form.label.field.user: مستخدم
+pi.form.label.field.group: مجموعة
 
 pi.form.label.field.civility: كياسة
 pi.form.label.field.civility.type.mr: السيد
@@ -154,6 +155,8 @@ pi.form.label.field.profile.type.autoentrepreneur: Auto-entrepreneur
 pi.form.label.field.profile.type.other.adherent.individual: Other individual members
 
 pi.form.label.field.name: الاسم
+pi.form.label.field.username: اسم المستخدم
+pi.form.label.field.usergroup: مجموعة المستخدم
 pi.form.label.field.nickname: كنية
 pi.form.label.field.sponsor:  الراعي
 

@@ -1,5 +1,5 @@
 {% initJquery 'GRID:grid-table' %}
-{% stylesheet getParameter('pi_app_admin.admin.theme_css')~":prepend" %}
+{% stylesheet getParameter('pi_app_admin.admin.theme_css')~':prepend' %}
 {% if NoLayout %}
 	{% stylesheet 'bundles/piappadmin/css/layout/admin/screen.css' %}
 	{% javascript 'bundles/piappadmin/js/jquery/custom_jquery.js' %}
@@ -10,93 +10,143 @@
 {% extends layout_nav %}
 
 {% block title %}
-    <h1>{{ 'users'|trans }}</h1>
-{% endblock %} 
-
+	<h1>{{ 'users'|trans }}</h1>
+{% endblock %}
+ 
 {% block content %}
 
-	    {{ parent() }}
-	    
-		{% if NoLayout == false %}
-		<!--  start actions-box ............................................... -->
-		<div id="actions-box">
-			<a href="{{ path('users_new') }}" class="action-edit" title="{{ 'pi.grid.action.create'|trans }}">{{ 'pi.grid.action.create'|trans }}</a>
-			<div class="clear"></div>
-		</div>
-		<!-- end actions-box........... -->
-		{% endif %}	 
-	            
-	    <table id="grid_users" class="grid" >
-	        <thead>
-	            <tr>
-	                <th class="position" >Position</th>
-	                <th>Id</th>
-	                <th>username</th>
-	                <th>email</th>
-	                <th>language</th>
-	                <th>groups</th>
-	                <th>Enabled</th>
-		            <th>Action</th>
-	            </tr>
-	        </thead>
-	        <tbody>
-	        {% if not isServerSide %}
+    {{ parent() }}
+
+	{% if NoLayout == false %}
+	<!--  start actions-box ............................................... -->
+	<div id="actions-box">
+		<a href="{{ path('users_new', {'NoLayout':NoLayout, 'category':''}) }}" class="action-edit" title="{{ 'pi.grid.action.create'|trans }}">{{ 'pi.grid.action.create'|trans }}</a>
+		<div class="clear"></div>
+	</div>
+	<!-- end actions-box........... -->
+	{% endif %}
+	
+	<table id="grid_customer" class="grid" >
+	    <thead>
+	        <tr>	       
+	            <th class="position" >Position</th>     
+	            <th>Id</th>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Role</th>
+	            <th>Création</th>
+	            <th>Modification</th>
+	            <th>Statut</th>
+	            <th>Actions</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	    {% if not isServerSide %}
 		    {% set num_line = 0 %}
-		        {% for entity in entities %}
-		            <tr {% if(num_line == 0) %}class="odd"{% endif %}  id='{{ entity.position }}_row_{{ entity.id }}'>	
-			        	<td class="position" >{{ entity.position}}</td>	
-		                <td><a href="{{ path('users_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-		                <td>{{ entity.username }}</td>
-		                <td>{{ entity.email }}</td>
-		                <td>language</td>
-		                <td>
-		                        {# {{ entity.groups|print_r }} #}
-		                        test
-		                </td>
-		                <td class="enabled" >{{ entity.enabled}}</td>	
-		                <td>
-						    <a href="{{ path('users_show', { 'id': entity.id, 'NoLayout':NoLayout }) }}" title="{{ 'pi.grid.action.show'|trans }}" class="button-ui-show info-tooltip" >{{ 'pi.grid.action.show'|trans }}</a>
-	                	    <a href="{{ path('users_edit', { 'id': entity.id, 'NoLayout':NoLayout }) }}" title="{{ 'pi.grid.action.edit'|trans }}" class="button-ui-edit info-tooltip" >{{ 'pi.grid.action.edit'|trans }}</a>
-		                </td>
-                    </tr>
-			        {% if num_line == 0 %} 
-			        	{% set num_line = 1 %}
-			        {% else %}
-			        	{% set num_line = 0 %}
-			        {% endif %}	
-			    {% endfor %}
-		    {% endif %}
-		    </tbody>
-		</table>   
-		 
-	    {% set options_gridtabale = {'grid-name': 'grid_users', 'grid-type':'simple', 
-				'grid-server-side': isServerSide,
-				'grid-LengthMenu':25,
+		    {% for user in entities %}
+		        <tr {% if(num_line == 0) %}class="odd"{% endif %}  id='{{ user.id }}_{{ user.type }}_{{ user.id }}'  >
+		            <td class="position" ></td>		
+		            <td><a href="{{ path('admin_customer_customer_edit', { 'id': user.id, 'NoLayout': NoLayout, 'category':category, 'type':user.type }) }}" title="">{{ user.id }}</a></td>
+                    <td>
+                        {{ user.nickname }}
+                    </td>
+                    <td>
+                        {{ user.name }}
+                    </td>
+                    <td>
+                        {{ user.email }} 
+                    </td>
+                    <td>
+                        {{ user.roles|print_r }}
+		            </td>	
+		            <td>
+                        {% if user.created_at %}{{ user.created_at|date('Y-m-d') }}{% endif%}
+                    </td>
+                    <td>
+                        {% if user.updated_at %}{{ user.updated_at|date('Y-m-d') }}{% endif%}
+                    </td>
+                    <td>{{ user|status }}</td>
+					<td>
+	    				<a href="{{ path('users_edit', { 'id': user.id, 'NoLayout':NoLayout, 'category':'' }) }}" title="{{ 'pi.grid.action.edit'|trans }}" class="button-ui-edit info-tooltip" >{{ 'pi.grid.action.edit'|trans }}</a>
+					</td>		
+		        </tr>
+		        {% if num_line == 0 %} 
+		        	{% set num_line = 1 %}
+		        {% else %}
+		        	{% set num_line = 0 %}
+		        {% endif %}	
+		                
+		    {% endfor %}
+	    {% endif %}
+	    </tbody>
+	</table>
+
+	{% if is_granted('ROLE_SUPER_ADMIN') %} 
+		{% set options_gridtabale = {'grid-name': 'grid_customer', 'grid-type':'simple', 
+		        'grid-server-side': isServerSide,
 				'grid-paginate':'true',
-				'grid-filters-select': ['0','1','2','3','4','5','6','7'],
-				'grid-filters-active':'false',
+				'grid-LengthMenu':25,
+				'grid-filter-date': {
+					'0': {'column' : 6, 'title-start': 'date min crea. ', 'title-end': 'date max crea. ', 'right':'780', 'width':'183', 'format' : 'yy-mm-dd', 'idMin':'minc', 'idMax':'maxc'},
+					'1': {'column' : 7, 'title-start': 'date min mod. ', 'title-end': 'date max mod. ', 'right':'590', 'width':'183', 'format' : 'yy-mm-dd', 'idMin':'minp', 'idMax':'maxp'},
+	            },
+				'grid-filters-select': ['0','1','2','3','4','6','7','9'],
+				'grid-filters-active':'true',
 				'grid-filters': { 
-						'1':'Position',
-						'2':'Identifiant',
+						'3':'Prénom',
+						'4':'Nom',
+						'5':'Email',
 					},
 				'grid-sorting': { 
-						'1':'desc',
+						'6':'desc',
 					},
 				'grid-visible': {
 					'0':'false',
 					'1':'false',
-					},				
+					},					
 				'grid-actions': { 
-	 					'rows_enabled': {'sButtonText':'pi.grid.action.row_enabled', 'route':'users_enabledentity_ajax',},
-						'rows_disable': {'sButtonText':'pi.grid.action.row_disable', 'route':'users_disablentity_ajax'},
+				        'export_csv': {'sButtonText':'pi.grid.action.export'},		
+	                    'rows_enabled': {'sButtonText':'pi.grid.action.row_enabled', 'route':'users_enabledentity_ajax',},
+	                    'rows_disable': {'sButtonText':'pi.grid.action.row_disable', 'route':'users_disablentity_ajax',},
+	                    'rows_archive': {'sButtonText':'pi.grid.action.row_archive', 'route':'users_archiventity_ajax', 'reload':true},
 						'rows_delete': {'sButtonText':'pi.grid.action.row_delete', 'route':'users_deletentity_ajax'},
-						'select_all': {'sButtonText':'pi.grid.action.select_all'},
-						'select_none': {'sButtonText':'pi.grid.action.select_none'},
 					}		
 				} 			
 		%}
-		{{ renderJquery('GRID', 'grid-table', options_gridtabale )|raw }}	        
-	        
-{% endblock %}
-    
+	{% else %}
+	    {% set options_gridtabale = {'grid-name': 'grid_customer', 'grid-type':'simple', 
+		        'grid-server-side': isServerSide,
+				'grid-paginate':'true',
+				'grid-LengthMenu':25,
+				'grid-filter-date': {
+					'0': {'column' : 6, 'title-start': 'date min crea. ', 'title-end': 'date max crea. ', 'right':'780', 'width':'183', 'format' : 'yy-mm-dd', 'idMin':'minc', 'idMax':'maxc'},
+					'1': {'column' : 7, 'title-start': 'date min mod. ', 'title-end': 'date max mod. ', 'right':'590', 'width':'183', 'format' : 'yy-mm-dd', 'idMin':'minp', 'idMax':'maxp'},
+	            },
+				'grid-filters-select': ['0','1','2','3','4','6','7','9'],
+				'grid-filters-active':'true',
+				'grid-filters': { 
+						'3':'Prénom',
+						'4':'Nom',
+						'5':'Email',
+					},
+				'grid-sorting': { 
+						'6':'desc',
+					},
+				'grid-visible': {
+					'0':'false',
+					'1':'false',
+					},						
+				'grid-actions': { 
+				        'export_csv': {'sButtonText':'pi.grid.action.export'},		
+	                    'rows_enabled': {'sButtonText':'pi.grid.action.row_enabled', 'route':'users_enabledentity_ajax',},
+	                    'rows_disable': {'sButtonText':'pi.grid.action.row_disable', 'route':'users_disablentity_ajax',},
+	                    'rows_archive': {'sButtonText':'pi.grid.action.row_archive', 'route':'users_archiventity_ajax', 'reload':true},
+					}		
+				} 			
+		%}	
+	{% endif %}
+	{{ renderJquery('GRID', 'grid-table', options_gridtabale )|raw }}	
+	
 
+{% endblock %}
