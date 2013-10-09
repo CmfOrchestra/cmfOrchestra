@@ -118,7 +118,7 @@ class WordController extends abstractController
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
         if (!$NoLayout)     $template = "index.html.twig"; else $template = "index.html.twig";
-
+        
         return $this->render("BootStrapTranslatorBundle:Word:$template", array(
             'entities' => $entities,
             'NoLayout'    => $NoLayout,
@@ -209,7 +209,6 @@ class WordController extends abstractController
             $entity->setTranslatableLocale($locale);
             $em->persist($entity);
             $em->flush();
-
             $this->container->get("bootstrap_translator.translation_cache")->wordsTranslation();
             
             return $this->redirect($this->generateUrl('admin_word_show', array('id' => $entity->getId(), 'NoLayout' => $NoLayout)));
@@ -234,7 +233,7 @@ class WordController extends abstractController
     public function editAction($id)
     {
         $em       = $this->getDoctrine()->getManager();
-          $locale    = $this->container->get('request')->getLocale();
+        $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("BootStrapTranslatorBundle:Word")->findOneByEntity($locale, $id, 'object');
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
@@ -268,7 +267,7 @@ class WordController extends abstractController
     public function updateAction($id)
     {
         $em     = $this->getDoctrine()->getManager();
-            $locale    = $this->container->get('request')->getLocale();
+        $locale    = $this->container->get('request')->getLocale();
         $entity = $em->getRepository("BootStrapTranslatorBundle:Word")->findOneByEntity($locale, $id, "object"); 
         
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
@@ -346,15 +345,18 @@ class WordController extends abstractController
      */
     public function editTranslateAction($id, $lang)
     {
-        $em           = $this->getDoctrine()->getManager();
+        $em         = $this->getDoctrine()->getManager();
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
+        $request    = $this->getRequest();
+        
         $entity     = $em->getRepository("BootStrapTranslatorBundle:Word")->findOneByEntity($lang, $id, 'object');
+        $entity->setTranslatableLocale($lang);
+        $em->refresh($entity);
         
         if (!$entity) {
             $entity = $em->getRepository("BootStrapTranslatorBundle:Word")->find($id);
             $entity->addTranslation(new WordTranslation($lang));            
         }
-
         $editForm   = $this->createForm(new WordTranslateType($em, $lang, $this->container), $entity, array('show_legend' => false));
 
         return $this->render("BootStrapTranslatorBundle:Word:editTranslate.html.twig", array(

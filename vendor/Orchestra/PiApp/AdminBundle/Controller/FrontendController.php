@@ -67,7 +67,20 @@ class FrontendController extends BaseController
     {
         // It tries to redirect to the original page.
         $new_url = $this->container->get('bootstrap.RouteTranslator.factory')->getRefererRoute($langue);
-        return new RedirectResponse($new_url);
+        $response = new RedirectResponse($new_url);
+        // we get params
+        $this->date_expire    = $this->container->getParameter('pi_app_admin.cookies.date_expire');
+        $this->date_interval  = $this->container->getParameter('pi_app_admin.cookies.date_interval');        
+        // Record the layout variable in cookies.
+        if ($this->date_expire && !empty($this->date_interval)) {
+        	$dateExpire = new \DateTime("NOW");
+        	$dateExpire->add(new \DateInterval($this->date_interval)); // we add 4 hour
+        } else {
+        	$dateExpire = 0;
+        }
+        $response->headers->setCookie(new \Symfony\Component\HttpFoundation\Cookie('_locale', $langue, $dateExpire));
+        
+        return $response;
     }    
     
     /**

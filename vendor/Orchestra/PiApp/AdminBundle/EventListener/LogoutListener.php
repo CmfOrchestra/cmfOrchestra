@@ -203,7 +203,7 @@ class LogoutListener
         if ($request->attributes->has('orchestra-browser')) {
             $browser = $request->attributes->get('orchestra-browser');        
             // set layout value
-            if ($browser->isMobileDevice) {
+            if (isset($browser->isMobileDevice) && $browser->isMobileDevice){
                 if ($request->attributes->has('orchestra-screen'))    $WurflScreen = $request->attributes->get('orchestra-screen'); else    $WurflScreen = 'layout-medium';
                 $this->layout        = 'PiAppTemplateBundle::Template\\Layout\\Mobile\\'.$this->init_mobile_layout.'\\' . $WurflScreen . '.html.twig';
                 $this->redirection    = new RedirectResponse($this->router->generate($this->init_mobile_redirection));

@@ -85,6 +85,11 @@ class LoginListener
      * @var $layout
      */
     protected $layout;
+    
+    /**
+     * @var $locale
+     */
+    protected $locale;    
 
     
     /**
@@ -144,12 +149,12 @@ class LoginListener
     {
         /*         $response = $event->getResponse();
         // .. modify the response object */
-        if (!empty($this->redirect)){
+        if (!empty($this->redirect)) {
             $response = new RedirectResponse($this->router->getRoute($this->redirect));
-        }elseif ( $this->security->isGranted('ROLE_CONTENT_MANAGER') || $this->security->isGranted('ROLE_ADMIN') || $this->security->isGranted('ROLE_SUPER_ADMIN') ){
+        } elseif ( $this->security->isGranted('ROLE_CONTENT_MANAGER') || $this->security->isGranted('ROLE_ADMIN') || $this->security->isGranted('ROLE_SUPER_ADMIN') ) {
             $response = new RedirectResponse($this->router->getRoute($this->redirect_admin));
             $this->redirect = $this->redirect_admin;
-        }elseif ( $this->security->isGranted('ROLE_USER') ){
+        } elseif ( $this->security->isGranted('ROLE_USER') ) {
             $response = new RedirectResponse($this->router->getRoute($this->redirect_user));
             $this->redirect = $this->redirect_user;
         } else {
@@ -157,14 +162,15 @@ class LoginListener
             $this->redirect = $this->redirect_subscriber;
         }
         // Record the layout variable in cookies.
-        if ($this->date_expire && !empty($this->date_interval)){
+        if ($this->date_expire && !empty($this->date_interval)) {
             $dateExpire = new \DateTime("NOW");
             $dateExpire->add(new \DateInterval($this->date_interval)); // we add 4 hour
-        }else {
+        } else {
             $dateExpire = 0;
         }
         $response->headers->setCookie(new \Symfony\Component\HttpFoundation\Cookie('orchestra-layout', $this->layout, $dateExpire));
         $response->headers->setCookie(new \Symfony\Component\HttpFoundation\Cookie('orchestra-redirection', $this->redirect, $dateExpire));
+        $response->headers->setCookie(new \Symfony\Component\HttpFoundation\Cookie('_locale', $this->locale, $dateExpire));
         $event->setResponse($response);
     }    
     
@@ -338,10 +344,12 @@ class LoginListener
      */
     protected function setLocaleUser()
     {
-        if (method_exists($this->event->getAuthenticationToken()->getUser()->getLangCode(), 'getId')) {
-            $this->getRequest()->setLocale($this->event->getAuthenticationToken()->getUser()->getLangCode()->getId());
+        if (method_exists($this->getUser()->getLangCode(), 'getId')) {
+            $this->getRequest()->setLocale($this->getUser()->getLangCode()->getId());
+            $this->locale = $this->getUser()->getLangCode()->getId();
         } else {
             $this->getRequest()->setLocale($this->container->get('pi_app_admin.locale_manager')->parseDefaultLanguage());
+            $this->locale = $this->container->get('pi_app_admin.locale_manager')->parseDefaultLanguage();
         }
     }    
     

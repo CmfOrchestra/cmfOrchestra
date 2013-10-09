@@ -68,7 +68,7 @@ class RouteTranslatorFactory extends AbstractFactory implements RouteTranslatorF
         
         if ($langue != '')    {
             // Record the language in session.
-            $request->getSession()->set('_locale', $langue);
+            $request->setLocale('_locale', $langue);
         } else {
             $langue = $request->getLocale();
         }
