@@ -1,17 +1,17 @@
 /*  FANCYBOX DIALOG FLASH----------------------------------------------- */
-.fancybox-wrap .fancybox-flash .tt-grey{
+.fancybox-orchestra .fancybox-flash .tt-grey{
   background-color: #424242;
   line-height: 45px;
   padding-left:10px;
 }
-.fancybox-wrap .fancybox-flash .tt-grey *{
+.fancybox-orchestra .fancybox-flash .tt-grey *{
     color:#fff;
 }
-.fancybox-wrap .fancybox-flash p{
+.fancybox-orchestra .fancybox-flash p{
     padding: 7px;
 }
 /*  FANCYBOX GRID ----------------------------------------------- */
-.fancybox-wrap .fancybox-grid{
+.fancybox-orchestra .fancybox-grid{
   border: 2px solid #111;
   box-shadow: 3px 3px 10px #555;
   border-radius: 5px;
@@ -23,7 +23,7 @@
     min-width: 700px;
     min-height:auto;
 }
-.fancybox-wrap .fancybox-grid header.tt-grey{
+.fancybox-orchestra .fancybox-grid header.tt-grey{
   background-color: #f3f3f3;
   border-bottom: 1px solid #ddd;
   border-top-left-radius: 5px;
@@ -35,7 +35,7 @@
   padding-left:11px;
   padding-right:11px;
 }
-.fancybox-wrap .fancybox-grid footer.tt-grey{
+.fancybox-orchestra .fancybox-grid footer.tt-grey{
   background-color: #f3f3f3;
   border-top: 1px solid #ddd;
   border-bottom-left-radius: 5px;
@@ -47,13 +47,13 @@
   padding-left:11px;
   padding-right:11px;
 }
-.fancybox-wrap .fancybox-grid .tt-grey *{
+.fancybox-orchestra .fancybox-grid .tt-grey *{
     color:#393939;
 }
-.fancybox-wrap .fancybox-grid p{
+.fancybox-orchestra .fancybox-grid p{
     padding: 7px;
 }
-.fancybox-wrap .fancybox-grid button {
+.fancybox-orchestra .fancybox-grid button {
     text-align: center;
     margin-top: 0;
     padding: 5px 15px;
@@ -79,7 +79,7 @@
     background: linear-gradient(top, #ffffff 0%,#f3f3f3 89%,#f9f9f9 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f9f9f9',GradientType=0 );
 }
-.fancybox-wrap .fancybox-grid button:hover {
+.fancybox-orchestra .fancybox-grid button:hover {
     border: 1px solid #666;
     -webkit-box-shadow: 1px 1px 3px #999;
     -moz-box-shadow: 1px 1px 3px #999;

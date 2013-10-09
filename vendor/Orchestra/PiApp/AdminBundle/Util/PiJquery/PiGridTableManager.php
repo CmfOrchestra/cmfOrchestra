@@ -130,7 +130,6 @@ class PiGridTableManager extends PiJqueryExtension
         
         // plugin fancybox for dialog box
         $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/fancybox/jquery.fancybox.pack.js");
-        $this->container->get('pi_app_admin.twig.extension.layouthead')->addCssFile("bundles/piappadmin/js/fancybox/jquery.fancybox.css");
         
         // spinner
         $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/spinner/spin.min.js");
@@ -875,6 +874,7 @@ class PiGridTableManager extends PiJqueryExtension
                                                         <?php endif; ?>
                                                         // we run fancybox
                                                         $.fancybox({
+                                                        	'wrapCSS': 'fancybox-orchestra',
                                                             'content':$("#confirm-popup-grid").html(),
                                                             'autoDimensions':true,
                                                             'scrolling':'no',

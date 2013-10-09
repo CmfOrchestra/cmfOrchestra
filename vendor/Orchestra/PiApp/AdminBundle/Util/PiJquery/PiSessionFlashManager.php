@@ -55,7 +55,6 @@ class PiSessionFlashManager extends PiJqueryExtension
     {
         if ($options == 'fancybox'){
             $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/fancybox/jquery.fancybox.pack.js");
-            $this->container->get('pi_app_admin.twig.extension.layouthead')->addCssFile("bundles/piappadmin/js/fancybox/jquery.fancybox.css");
         }
     }    
     
@@ -105,10 +104,12 @@ class PiSessionFlashManager extends PiJqueryExtension
                     var layout_flash_message = $("#<?php echo $options['dialog-name']; ?>").html();
                     if (layout_flash_message != null && layout_flash_message.length != 0) {
                         $.fancybox({
-                            type: 'inline',
-                            height: 'auto',
-                            padding:0,
-                            content: layout_flash_message
+                        	'wrapCSS': 'fancybox-orchestra',
+                            'type': 'inline',
+                            'autoDimensions':true,
+                            'height': 'auto',
+                            'padding':0,
+                            'content': layout_flash_message
                         });
                     }        
                 });
