@@ -53,7 +53,8 @@ class RoleAdmin extends Admin
             ->add('name')
             ->add('comment')
             ->add('Heritage')
-            ->add('route_name')
+            ->add('route_login')
+            ->add('route_logout')
             ->add('layout')
             ->add('enabled')
             ->add('id')
@@ -76,7 +77,7 @@ class RoleAdmin extends Admin
                      'delete' => array(),
                      // autre action specifique ::: 'unpublish' => array('template' => 'MyBundle:Admin:action_unpublish.html.twig'),
                     ))
-                );
+             );
     }
 
     /**
@@ -110,7 +111,8 @@ class RoleAdmin extends Admin
                 ->add('heritage', 'bootstrap_security_roles', array( 'multiple' => true, 'required' => false))
             ->end()
             ->with('Redirection')
-                ->add('route_name', 'bootstrap_routes', array( 'multiple' => false, 'required' => false))
+                ->add('route_login', 'bootstrap_routes', array( 'multiple' => false, 'required' => false))
+                ->add('route_logout', 'bootstrap_routes', array( 'multiple' => false, 'required' => false))
                 ->add('layout', null, array('required' => false))
             ->end()            
         ;
@@ -131,5 +133,4 @@ class RoleAdmin extends Admin
         ->end()
         ;
     }
-    
 }

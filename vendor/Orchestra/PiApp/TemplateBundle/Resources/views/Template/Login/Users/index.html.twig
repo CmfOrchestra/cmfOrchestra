@@ -10,7 +10,7 @@
 {% extends layout_nav %}
 
 {% block title %}
-	<h1>{{ 'users'|trans }}</h1>
+	<h1><a href="{{ path('admin_redirection') }}">{{ "pi.home"|trans }}</a> > {{ 'pi.form.label.field.user.account'|trans }}</h1>	
 {% endblock %}
  
 {% block content %}
@@ -45,7 +45,7 @@
 	    {% if not isServerSide %}
 		    {% set num_line = 0 %}
 		    {% for user in entities %}
-		        <tr {% if(num_line == 0) %}class="odd"{% endif %}  id='{{ user.id }}_{{ user.type }}_{{ user.id }}'  >
+		        <tr {% if(num_line == 0) %}class="odd"{% endif %}  id='{{ user.id }}_row_{{ user.id }}'  >
 		            <td class="position" ></td>		
 		            <td><a href="{{ path('admin_customer_customer_edit', { 'id': user.id, 'NoLayout': NoLayout, 'category':category, 'type':user.type }) }}" title="">{{ user.id }}</a></td>
                     <td>
@@ -88,8 +88,8 @@
 				'grid-paginate':'true',
 				'grid-LengthMenu':25,
 				'grid-filter-date': {
-					'0': {'column' : 6, 'title-start': 'date min crea. ', 'title-end': 'date max crea. ', 'right':'780', 'width':'183', 'format' : 'yy-mm-dd', 'idMin':'minc', 'idMax':'maxc'},
-					'1': {'column' : 7, 'title-start': 'date min mod. ', 'title-end': 'date max mod. ', 'right':'590', 'width':'183', 'format' : 'yy-mm-dd', 'idMin':'minp', 'idMax':'maxp'},
+					'0': {'column' : 6, 'title-start': 'date min crea. ', 'title-end': 'date max crea.', 'right':'780', 'width':'183', 'format' : 'yy-mm-dd', 'idMin':'minc', 'idMax':'maxc'},
+					'1': {'column' : 7, 'title-start': 'date min mod. ', 'title-end': 'date max mod.', 'right':'590', 'width':'183', 'format' : 'yy-mm-dd', 'idMin':'minp', 'idMax':'maxp'},
 	            },
 				'grid-filters-select': ['0','1','2','3','4','6','7','9'],
 				'grid-filters-active':'true',

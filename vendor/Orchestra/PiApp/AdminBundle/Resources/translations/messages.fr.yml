@@ -21,9 +21,13 @@ pi.move-down : Descendre
 pi.show : Visualiser
 pi.add : Ajouter
 pi.edit : Editer
+pi.edit.name : Edition
 pi.update : Modifier
+pi.update.name : Modification
 pi.delete : Supprimer
+pi.delete.anme : Suppression
 pi.create : Créer
+pi.create.name : Création
 pi.save : Sauvegarder
 pi.refresh : Rafrechir
 pi.admin : Administrateur
@@ -34,6 +38,7 @@ pi.result: %s Résultat
 pi.result_plural: %s Résultats
 
 # Page accueil
+pi.home: Accueil
 pi.welcome.title: ORCHESTRA vous souhaite la bienvenue !
 
 #wizard
@@ -73,11 +78,13 @@ pi.grid.action.info: Affichage de _START_ à _END_ de _TOTAL_ enregistrements
 pi.grid.action.info.empty: Affichage de 0 à 0 de 0 enregistrement
 pi.grid.action.info.filtered: (filtré à partir de _MAX_ enregistrements au total)
 pi.grid.action.waiting: Veuillez patienter pendant le chargement du tableau !
+pi.grid.action.activation.waiting: En attente d'activation
 pi.grid.action.activation: Activation
 pi.grid.action.active: Actif
 pi.grid.action.row_enabled: Activer
 pi.grid.action.row_disable: Désactiver
 pi.grid.action.row_delete: Supprimer
+pi.grid.action.row_deleted: Supprimé
 pi.grid.action.row_archive: Archiver
 pi.grid.action.select: Sélection
 pi.grid.action.select_all: Tout selectionner
@@ -133,9 +140,11 @@ pi.form.label.field.website: Site web
 pi.form.label.field.url: Lien
 pi.form.label.field.blank: Lien HTML vierge
 pi.form.label.field.choice: Choix
+pi.form.label.field.type: Type
 pi.form.label.field.author: Auteur
-pi.form.label.field.user: Utilisateur
 pi.form.label.field.group: Groupe
+pi.form.label.field.user: Utilisateur
+pi.form.label.field.user.account: Comptes utilisateurs
 
 pi.form.label.field.civility: Civilité
 pi.form.label.field.civility.type.mr: M.
@@ -171,6 +180,7 @@ pi.form.label.field.adress.fax: Fax
 pi.form.label.field.adress.cp: Code postal
 pi.form.label.field.adress.city: Ville
 pi.form.label.field.adress.country: Pays
+pi.form.label.field.adress.department: Département
 pi.form.label.field.adress.location: Lieu
 
 pi.form.label.field.email: E-mail
@@ -334,13 +344,20 @@ pi.session.flash.page.notexist: vous n'avez pas appelé une page qui existe !
 pi.session.flash.page.notpermission: vous n'avez pas la permission d'accéder à cette page!
 pi.session.flash.layout.notexist : le layout renseigné n'existe pas
 pi.session.flash.rolecache.created: Le fichier d'héritage a bien été généré dans le cache
+pi.session.flash.resetting.success: La réinitialisation c'est effectuée avec succès
 
 # ENTITY :: PAGE
 pi.page.translation.title: Traductions de page
 pi.page.translation.prototype-tab-title: Traduction
+pi.page.layout.title: Liste des layouts
 pi.page.block.title: Blocs de page
 pi.page.widget.title: Widgets de block
-pi.page.cssjs.title: Gestion des pages Css/Js
+pi.page.cssjs.title: Liste des pages Css/Js
+pi.page.keyword.title: Liste des mots clés
+pi.page.language.title: Liste des langues
+pi.page.topic.title: Liste des rubriques
+pi.page.snippet.title: Liste des snippets
+pi.page.tag.title: Liste des tags
 pi.page.index.title: Liste des pages
 
 pi.page.Draft: Ebauche

@@ -72,6 +72,15 @@ class PageByTransType extends AbstractType
             ))
             ->add('user', 'entity', array(
                     'class'     => 'BootStrapUserBundle:User',
+            		'query_builder' => function(EntityRepository $er) {
+            			return $er->createQueryBuilder('k')
+            			->select('k')
+            			->where("k.roles NOT LIKE '%ROLE_SUBSCRIBER%'")
+            			->andWhere("k.roles NOT LIKE '%ROLE_MEMBER%'")
+            			->andWhere("k.roles NOT LIKE '%ROLE_PROVIDER%'")
+            			->andWhere("k.roles NOT LIKE '%ROLE_CUSTOMER%'")
+            			->orderBy('k.name', 'ASC');
+            		},
                     'read_only'    => $read_only,
                     'label'    => 'pi.form.label.field.user',
                     "attr"         => array(

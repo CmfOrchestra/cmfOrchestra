@@ -1,10 +1,5 @@
 # services to handle doctrine extensions
 services:
-    my_listener:
-        class: BootStrap\TranslationBundle\EventListener\LocaleListener
-        arguments: [%locale%]
-        tags:
-            -  { name: kernel.event_subscriber }
             
     # KernelRequest listener
     extension.listener:

@@ -66,8 +66,9 @@ class PiVeneerManager extends PiJqueryExtension
     protected function render($options = null)
     {        
         // Options management
-        if (!isset($options['id']) || empty($options['id']))
+        if (!isset($options['id']) || empty($options['id'])) {
             throw ExtensionException::optionValueNotSpecified('id', __CLASS__);
+        }
 
         // We open the buffer.
         ob_start ();        

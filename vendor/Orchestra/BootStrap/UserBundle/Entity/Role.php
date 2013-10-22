@@ -84,11 +84,20 @@ class Role
     /**
      * @var string $route_name
      * 
-     * @ORM\Column(name="route_name", type="string", nullable=true)
+     * @ORM\Column(name="route_login", type="string", nullable=true)
      * @Assert\MinLength(limit = 3, message = "Le route name doit avoir au moins {{ limit }} caractères")
      * @Assert\Blank
      */
-    protected $route_name;
+    protected $route_login;
+    
+    /**
+     * @var string $route_name
+     *
+     * @ORM\Column(name="route_logout", type="string", nullable=true)
+     * @Assert\MinLength(limit = 3, message = "Le route name doit avoir au moins {{ limit }} caractères")
+     * @Assert\Blank
+     */
+    protected $route_logout;    
 
     /**
      * @var integer $layout
@@ -260,9 +269,9 @@ class Role
      *
      * @param string $routeName
      */
-    public function setRouteName($routeName)
+    public function setRouteLogin($routeName)
     {
-        $this->route_name = $routeName;
+        $this->route_login = $routeName;
     }
 
     /**
@@ -270,10 +279,30 @@ class Role
      *
      * @return string 
      */
-    public function getRouteName()
+    public function getRouteLogin()
     {
-        return $this->route_name;
+        return $this->route_login;
     }
+    
+    /**
+     * Set route_name
+     *
+     * @param string $routeName
+     */
+    public function setRouteLogout($routeName)
+    {
+    	$this->route_logout = $routeName;
+    }
+    
+    /**
+     * Get route_name
+     *
+     * @return string
+     */
+    public function getRouteLogout()
+    {
+    	return $this->route_logout;
+    }    
     
     /**
      * Set layout

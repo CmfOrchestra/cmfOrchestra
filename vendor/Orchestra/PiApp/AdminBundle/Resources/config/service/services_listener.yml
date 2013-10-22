@@ -1,6 +1,10 @@
 parameters:
-    piapp.admin.listener.login.class: PiApp\AdminBundle\EventListener\LoginListener
-    piapp.admin.listener.logout.class: PiApp\AdminBundle\EventListener\LogoutListener
+    piapp.admin.handler.localeHandler.class: PiApp\AdminBundle\EventListener\HandlerLocale
+    piapp.admin.handler.requestHandler.class: PiApp\AdminBundle\EventListener\HandlerRequest
+    piapp.admin.handler.loginHandler.class: PiApp\AdminBundle\EventListener\HandlerLogin
+    piapp.admin.handler.logoutHandler.class: PiApp\AdminBundle\EventListener\HandlerLogout
+    piapp.admin.handler.authenticationHandler.class: PiApp\AdminBundle\EventListener\HandlerAuthentication
+    piapp.admin.handler.controllerHandler.class: PiApp\AdminBundle\EventListener\HandlerController
     
     piapp.admin.listener.postload.class: PiApp\AdminBundle\EventListener\PostLoadListener
     piapp.admin.listener.loadclassmetadata.class: PiApp\AdminBundle\EventListener\loadClassMetadataListener
@@ -12,37 +16,60 @@ parameters:
     piapp.admin.listener.preupdate.class: PiApp\AdminBundle\EventListener\PreUpdateListener
     piapp.admin.listener.postupdate.class: PiApp\AdminBundle\EventListener\PostUpdateListener
     piapp.admin.listener.schema.class: PiApp\AdminBundle\EventListener\SchemaListener
-    piapp.admin.listener.request.class: PiApp\AdminBundle\EventListener\RequestListener
     
     piapp.admin.lib.browscap.class: PiApp\AdminBundle\Lib\Browscap
     piapp.admin.lib.mobiledetect.class: PiApp\AdminBundle\Lib\MobileDetect
 
 services:
+
+    #               
+    # libraries Configuration
+    #
     pi_app_admin.lib.browscap:
         class: %piapp.admin.lib.browscap.class%
         arguments: ["%kernel.cache_dir%"] 
         
     pi_app_admin.lib.mobiledetect:
         class: %piapp.admin.lib.mobiledetect.class%
-             
-    pi_app_admin.request_listener:
-        class: %piapp.admin.listener.request.class%
+
+    #               
+    # handlers Configuration
+    #
+    pi_app_admin.locale_handler:
+        class: %piapp.admin.handler.localeHandler.class%
+        arguments: [%locale%]
+        tags:
+            - { name: kernel.event_subscriber}
+                         
+    pi_app_admin.request_handler:
+        class: %piapp.admin.handler.requestHandler.class%
         arguments: [@service_container, @pi_app_admin.lib.browscap, @pi_app_admin.lib.mobiledetect]
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 65 }
             
-    pi_app_admin.user.login_listener:
-        class: %piapp.admin.listener.login.class%
+    pi_app_admin.user.login_handler:
+        class: %piapp.admin.handler.loginHandler.class%
         arguments: [@security.context, @event_dispatcher, @doctrine, @service_container]
         tags:
-            - { name: kernel.event_listener, event: security.interactive_login }
+            - { name: kernel.event_listener, event: security.interactive_login}
             
-    pi_app_admin.logout_listener:
-        class: %piapp.admin.listener.logout.class%
-        arguments: [@router, @service_container]
-        tags:
-            - { name: kernel.event_listener, event: kernel.response }    
+    pi_app_admin.user.logout_handler:
+        class: %piapp.admin.handler.logoutHandler.class%
+        arguments: [@service_container, @doctrine]
+        
+    pi_app_admin.user.authentication_handler:
+        class: %piapp.admin.handler.authenticationHandler.class%
+        arguments: [@service_container, @doctrine]        
+        
+#    pi_app_admin.controller_handler:
+#        class: %piapp.admin.handler.controllerHandler.class%
+#        arguments: [@service_container]
+#        tags:
+#            - { name: kernel.event_listener, event: kernel.response }         
             
+    #               
+    # Doctrine events Configuration
+    #            
     pi_app_admin.postload_listener:
         class: %piapp.admin.listener.postload.class%
         arguments: [@service_container]

@@ -11,19 +11,22 @@
      */
     public function _template_showAction($id, $template = '_tmp_show.html.twig', $lang = "")
     {
-        $em     = $this->getDoctrine()->getManager();
-        
-        if (empty($lang))
-            $lang    = $this->container->get('request')->getLocale();
-            
+        $em       = $this->getDoctrine()->getManager();
+        // we get language value
+        if (empty($lang)) {
+            $lang = $this->container->get('request')->getLocale();
+        }
+        // we get entity
         $entity = $em->getRepository("{{ bundle }}:{{ entity }}")->findOneByEntity($lang, $id, 'object', false);
-        
         if (!$entity) {
             throw ControllerException::NotFoundException('{{ entity }}');
         }
-        
-        if (method_exists($entity, "getTemplate") && $entity->getTemplate() != "")
+        if (method_exists($entity, "getTemplate") && $entity->getTemplate() != "") {
             $template = $entity->getTemplate();         
+        }
+        // we set the result to the $lang language value
+        $entity->setTranslatableLocale(lang);
+        $em->refresh($entity);
     
         return $this->render("{{ bundle }}:{{ entity }}:$template", array(
                 'entity'    => $entity,

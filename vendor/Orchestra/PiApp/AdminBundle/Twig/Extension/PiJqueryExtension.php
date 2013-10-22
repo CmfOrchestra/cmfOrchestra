@@ -23,8 +23,8 @@ $GLOBALS['JQUERY']['GRID'] = array(
 );
 
 $GLOBALS['JQUERY']['FORM'] = array(
-        'prototype-bytab'         => 'pi_app_admin.jquery_manager.prototypebytabs',
-        'form-simple'             => 'pi_app_admin.jquery_manager.formsimple',
+        'prototype-bytab'       => 'pi_app_admin.jquery_manager.prototypebytabs',
+        'form-simple'           => 'pi_app_admin.jquery_manager.formsimple',
 );
 
 $GLOBALS['JQUERY']['SESSION'] = array(
@@ -32,29 +32,30 @@ $GLOBALS['JQUERY']['SESSION'] = array(
 );
 
 $GLOBALS['JQUERY']['MENU'] = array(
-        'context-menu'            => 'pi_app_admin.jquery_manager.contextmenu',
+        'context-menu'          => 'pi_app_admin.jquery_manager.contextmenu',
         'org-chart-page'        => 'pi_app_admin.jquery_manager.orgchartpage',
         'org-tree-page'            => 'pi_app_admin.jquery_manager.orgtreepage',
-        'org-tree-semantique'    => 'pi_app_admin.jquery_manager.orgsemantique',
-        'org-tree-breadcrumb'    => 'pi_app_admin.jquery_manager.orgbreadcrumb',
+        'org-tree-semantique'   => 'pi_app_admin.jquery_manager.orgsemantique',
+        'org-tree-breadcrumb'   => 'pi_app_admin.jquery_manager.orgbreadcrumb',
 );
 
 $GLOBALS['JQUERY']['SLIDER'] = array(
-        'slide-default'            => 'pi_app_admin.jquery_manager.flexslider',
+        'slide-default'         => 'pi_app_admin.jquery_manager.flexslider',
 );
 
 $GLOBALS['JQUERY']['TOOL'] = array(
-        'backstretch'            => 'pi_app_admin.jquery_manager.backstretch',
+        'backstretch'           => 'pi_app_admin.jquery_manager.backstretch',
         'veneer'                => 'pi_app_admin.jquery_manager.veneer',
-        'tabs'                    => 'pi_app_admin.jquery_manager.tab',
+        'tabs'                  => 'pi_app_admin.jquery_manager.tab',
         'languagechoice'        => 'pi_app_admin.jquery_manager.languagechoice',
-        'widgetadmin'            => 'pi_app_admin.jquery_manager.widgetadmin',
+        'widgetadmin'           => 'pi_app_admin.jquery_manager.widgetadmin',
         'widgetimport'          => 'pi_app_admin.jquery_manager.widgetimport',
+		'dialog'                => 'pi_app_admin.jquery_manager.dialog',
 );
 
 $GLOBALS['JQUERY']['ACCORDEON'] = array(
-        'tiny'                     => 'pi_app_admin.jquery_manager.tinyaccordeon',
-        'nested'                     => 'pi_app_admin.jquery_manager.nestedaccordeon',
+        'tiny'                  => 'pi_app_admin.jquery_manager.tinyaccordeon',
+        'nested'                => 'pi_app_admin.jquery_manager.nestedaccordeon',
 );
 
 $GLOBALS['JQUERY']['TWITTER'] = array(
@@ -62,7 +63,7 @@ $GLOBALS['JQUERY']['TWITTER'] = array(
 );
 
 $GLOBALS['JQUERY']['LUCENE'] = array(
-        'search-lucene'           => 'pi_app_admin.jquery_manager.searchlucene',
+        'search-lucene'         => 'pi_app_admin.jquery_manager.searchlucene',
 );
 
 /**

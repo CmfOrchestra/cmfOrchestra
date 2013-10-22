@@ -41,6 +41,7 @@ class Configuration implements ConfigurationInterface
         $this->addLayoutConfig($rootNode);
         $this->addPageConfig($rootNode);
         $this->addFormConfig($rootNode);
+        $this->addMailConfig($rootNode);
         $this->addCookiesConfig($rootNode);
 
         return $treeBuilder;
@@ -187,6 +188,33 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end();
     }
+    
+    /**
+     * Mail config
+     *
+     * @param \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition
+     *
+     * @return void
+     * @access protected
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    protected function addMailConfig(ArrayNodeDefinition $rootNode){
+        $rootNode
+            ->children()
+                ->arrayNode('mail')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                
+                        ->scalarNode('overloading_mail')
+                            ->defaultValue('')
+                            ->end()
+                    
+                ->end()
+        
+            ->end()
+        ->end();
+    }   
     
     /**
      * Cookies config

@@ -24,18 +24,19 @@ security:
                 login_path: /login
                 use_forward: false
                 check_path: /login_check
+                success_handler: pi_app_admin.user.authentication_handler
                 failure_path: null
                 remember_me: true
                 #default_target_path: /home
             remember_me:
-                key:      %secret%
-                key:      "%secret%"
+                key: "%secret%"
                 lifetime: 86400 # 1 jour en secondes
                 path:     /
                 domain:   ~ # Prend la valeur par défaut du domaine courant depuis $_SERVER
             logout:
                 path: /logout
                 target: /
+                success_handler: pi_app_admin.user.logout_handler
                 invalidate_session: false
             anonymous: true
             # FACEBOOK

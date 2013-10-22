@@ -12,38 +12,31 @@
     public function _template_archiveAction($MaxResults = null, $template = '_tmp_archive.html.twig', $order = 'DESC', $lang = "")
     {
         $em         = $this->getDoctrine()->getManager();
-    
-        if (empty($lang))
+        if (empty($lang)) {
             $lang    = $this->container->get('request')->getLocale();
-         
-        if (isset($_GET['page']) && !empty($_GET['page']))
-            $page     = $_GET['page'];
-        else
-            $page     = 1;
-         
+        }
+        if (isset($_GET['page']) && !empty($_GET['page'])) {
+            $page   = $_GET['page'];
+        } else {
+            $page   = 1;
+        }
+        // we instanciate the paginator         
         $paginator             = $this->container->get('knp_paginator');
-    
-        $count                 = $em->getRepository("{{ bundle }}:{{ entity }}")->count(1);
         $query_pagination    = $em->getRepository("{{ bundle }}:{{ entity }}")->getAllByCategory('', null, $order)->getQuery();
-        $query_pagination->setHint('knp_paginator.count', $count);
-         
         $pagination = $paginator->paginate(
                 $query_pagination,
                 $page,    /*page number*/
                 $MaxResults        /*limit per page*/
         );
-         
-        //print_r($pagination);exit;
-         
         $query_pagination->setFirstResult(($page-1)*$MaxResults);
         $query_pagination->setMaxResults($MaxResults);
         $query_pagination    = $em->getRepository("{{ bundle }}:{{ entity }}")->setTranslatableHints($query_pagination, $lang, false);
         $entities            = $em->getRepository("{{ bundle }}:{{ entity }}")->findTranslationsByQuery($lang, $query_pagination, 'object', false);
          
         return $this->render("{{ bundle }}:{{ entity }}:$template", array(
-                'entities'        => $entities,
-                'pagination'    => $pagination,
-                'locale'        => $lang,
-                'lang'            => $lang,
+                'entities'   => $entities,
+                'pagination' => $pagination,
+                'locale'     => $lang,
+                'lang'       => $lang,
         ));        
     } 

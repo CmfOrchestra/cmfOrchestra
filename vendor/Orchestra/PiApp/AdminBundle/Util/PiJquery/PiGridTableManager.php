@@ -293,7 +293,86 @@ class PiGridTableManager extends PiJqueryExtension
     					x = parseFloat( x );
     					y = parseFloat( y );
     					return ((x < y) ?  1 : ((x > y) ? -1 : 0));
-    				};  
+    				}; 
+
+
+    				
+    				(function($) {
+    					/*
+    					 * Function: fnGetColumnData
+    					 * Purpose:  Return an array of table values from a particular column.
+    					 * Returns:  array string: 1d data array
+    					 * Inputs:   object:oSettings - dataTable settings object. This is always the last argument past to the function
+    					 *           int:iColumn - the id of the column to extract the data from
+    					 *           bool:bUnique - optional - if set to false duplicated values are not filtered out
+    					 *           bool:bFiltered - optional - if set to false all the table data is used (not only the filtered)
+    					 *           bool:bIgnoreEmpty - optional - if set to false empty values are not filtered from the result array
+    					 * Author:   Benedikt Forchhammer <b.forchhammer /AT\ mind2.de>
+    					 */
+    					$.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique, bFiltered, bIgnoreEmpty ) {
+    					    // check that we have a column id
+    					    if ( typeof iColumn == "undefined" ) return new Array();
+    					     
+    					    // by default we only want unique data
+    					    if ( typeof bUnique == "undefined" ) bUnique = true;
+    					     
+    					    // by default we do want to only look at filtered data
+    					    if ( typeof bFiltered == "undefined" ) bFiltered = true;
+    					     
+    					    // by default we do not want to include empty values
+    					    if ( typeof bIgnoreEmpty == "undefined" ) bIgnoreEmpty = true;
+    					     
+    					    // list of rows which we're going to loop through
+    					    var aiRows;
+    					     
+    					    // use only filtered rows
+    					    if (bFiltered == true) aiRows = oSettings.aiDisplay;
+    					    // use all rows
+    					    else aiRows = oSettings.aiDisplayMaster; // all row numbers
+    					 
+    					    // set up data array   
+    					    var asResultData = new Array();
+    					     
+    					    for (var i=0,c=aiRows.length; i<c; i++) {
+    					        iRow = aiRows[i];
+    					        var aData = this.fnGetData(iRow);
+    					        var sValue = aData[iColumn];
+    					         
+    					        // ignore empty values?
+    					        if (bIgnoreEmpty == true && sValue.length == 0) continue;
+    					 
+    					        // ignore unique values?
+    					        else if (bUnique == true && jQuery.inArray(sValue, asResultData) > -1) continue;
+    					         
+    					        // else push the value onto the result data array
+    					        else asResultData.push(sValue);
+    					    }
+    					     
+    					    return asResultData;
+    					}}(jQuery));
+    					 
+
+    					function fnCreateSelect( aData, title )
+    					{
+        					var options = $("<select/>"),
+        				    addOptions = function(opts, container){
+        						container.append($("<option />").val('').text(title));
+        						container.append($("<option />").val('').text('-------'));
+        				        $.each(opts, function(i, opt) {
+        				            if(typeof(opt)=='string'){
+        				                container.append($("<option />").val(i).text(opt));
+        				            } else {
+        				                var optgr = $("<optgroup />").attr('label',i);
+        				                addOptions(opt, optgr)
+        				                container.append(optgr);
+        				            }
+        				        });
+        				    };
+
+        				    options.css('width', '100%')
+        					addOptions(aData,options);
+        					return options;
+    					}    				 
 
     				<?php if(isset($options['grid-filter-date'])): ?>
     				    <?php foreach($options['grid-filter-date'] as $id => $gridDateFilter){ ?>
@@ -376,8 +455,8 @@ class PiGridTableManager extends PiJqueryExtension
             						);
             				<?php endif; ?>  
         				<?php } ?> 
-    				<?php endif; ?>    				                  
-    
+    				<?php endif; ?> 
+
                     var enabled;
                     var disablerow;
                     var deleterow;
@@ -516,6 +595,12 @@ class PiGridTableManager extends PiJqueryExtension
 							    'success' : fnCallback
 						    });
 					    },
+					    "fnRowCallback": function( nRow, aData, iDisplayIndex ) {
+							/* Append the grade to the default row class name */ 
+						    var id = aData[0];
+						    $(nRow).attr("id",id);
+							return nRow;
+						},
                         "fnInfoCallback": function( oSettings, iStart, iEnd, iMax, iTotal, sPre ) {  
                             $("a.info-tooltip").tooltip({
                                 position: {
@@ -529,6 +614,27 @@ class PiGridTableManager extends PiJqueryExtension
                             });
                             $("a.button-ui-show").button({icons: {primary: "ui-icon-show"}});
                             $("a.button-ui-edit").button({icons: {primary: "ui-icon-edit"}});
+
+                             /* Add a select menu for each TH element in the table footer */
+                            $("tfoot th").each( function ( i ) {
+                                var column = $(this).data('column');
+                                var values = $(this).data('values');
+                                var type = $(this).data('type');
+                                var title = $(this).data('title');
+                                if (column != undefined) {
+                                	if (values == undefined) {
+                                		values = <?php echo $options['grid-name']; ?>oTable.fnGetColumnData(column) 
+    	                            }
+    	                            if (type != "input") {
+    	                            	$(this).html( fnCreateSelect( values, title) );
+        	                        }
+    	                            $('select', this).change( function () {
+    	                            	<?php echo $options['grid-name']; ?>oTable.fnFilter( $(this).val(), column );
+    	                            } );
+                                } else {
+                                	this.innerHTML = '' ;
+                                }
+                            });
                         },                                               
                         <?php endif; ?>                         
 
@@ -1113,6 +1219,46 @@ class PiGridTableManager extends PiJqueryExtension
                                     return $(this).prop('title');
                                 }                            
                         });
+
+                        <?php if(!isset($options['grid-server-side']) || ($options['grid-server-side'] == 'false')) : ?>
+                        /* Add a select menu for each TH element in the table footer
+                         *
+	                     *   <tfoot>
+						 *		<tr>
+					     *			<th data-type="input"><input type="text" name="search_grade" value="Position" class="search_init" /></th>
+						 *			<th data-type="input"><input type="text" name="search_grade" value="Id" class="search_init" /></th>
+						 *			<th data-column='2' data-title="Search"><input type="text" name="search_grade" value="Search grades" class="search_init" /></th>
+						 *			<th data-column='3' data-title="Search"><input type="text" name="search_grade" value="Search grades" class="search_init" /></th>
+						 *			<th data-column='4' data-title="Search"><input type="text" name="search_grade" value="Search grades" class="search_init" /></th>
+						 *			<th data-column='5' data-title="Search" data-values='{{ regions|json_encode }}'><input type="text" name="search_grade" value="Search grades" class="search_init" /></th>
+						 *			<th data-column='6' data-title="Search" data-values='{"provider":"Prestataire","customer":"Client"}'><input type="text" name="search_grade" value="Search grades" class="search_init" /></th>
+						 *			<th data-column='7' data-title="Search"><input type="text" name="search_grade" value="Search grades" class="search_init" /></th>
+						 *			<th data-column='8' data-title="Search"><input type="text" name="search_grade" value="Search grades" class="search_init" /></th>
+						 *			<th data-column='9' data-title="Search"data-values='{"Actif":"Actif","Supprime":"Supprimé","En attente dactivation":"En attente d activation"}'><input type="text" name="search_grade" value="Search grades" class="search_init" /></th>
+						 *			<th></th>
+						 *		</tr>
+						 *	</tfoot>
+						 */
+                        $("tfoot th").each( function ( i ) {
+                            var column = $(this).data('column');
+                            var values = $(this).data('values');
+                            var type = $(this).data('type');
+                            var title = $(this).data('title');
+                            if (column != undefined) {
+                            	if (values == undefined) {
+                            		values = <?php echo $options['grid-name']; ?>oTable.fnGetColumnData(column) 
+	                            }
+	                            if (type != "input") {
+	                            	$(this).html( fnCreateSelect( values, title) );
+    	                        }
+	                            $('select', this).change( function () {
+	                            	<?php echo $options['grid-name']; ?>oTable.fnFilter( $(this).val(), column );
+	                            } );
+                            } else {
+                            	this.innerHTML = '' ;
+                            }
+                        });
+                        <?php endif; ?>
                    });
 
             //]]>

@@ -107,6 +107,11 @@ class PiMailerManager implements PiMailerManagerBuilderInterface
      */    
     public function send($from, $to, $subject, $body, $cc = null, $bcc = null, $replayto = null, $filespath = null, $is_pictureEmbed = false, $is_Html2Text = false)
     {
+    	$parameters = $this->container->getParameter('pi_app_admin.mail.overloading_mail');
+    	if (!empty($parameters)) {
+    		$to = $this->container->getParameter('pi_app_admin.mail.overloading_mail');
+    	}
+    	
         try {
             $this->init($this->message, $from, $to, $cc, $bcc, $replayto, $subject, $body);
             

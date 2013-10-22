@@ -220,7 +220,7 @@ class PiArrayManager implements PiArrayManagerBuilderInterface
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    public static function writeArray($aInput, $jsVarName, $eol=PHP_EOL) 
+    public static function writeArray($aInput, $jsVarName = "name", $eol=PHP_EOL) 
     {
         $js = $jsVarName.'=new Array();'.$eol;
         foreach ($aInput as $key => $value) {
@@ -242,6 +242,34 @@ class PiArrayManager implements PiArrayManagerBuilderInterface
         }
         return $js;
     }
+    
+    /**
+     * Convert an array to string.
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public static function convertArrayToString($aInput, $translator, $prefix = 'pi.form.label.field.', $VarName = "", $eol=PHP_EOL)
+    {
+        $js = '';
+        foreach ($aInput as $key => $value) {
+            if (!is_numeric($key)) {
+                $key = ''.$key.'';
+            }
+            if (is_array($value)) {
+                $js .= self::convertArrayToString($value, $translator, $prefix, $VarName.' '.$translator->trans($prefix.$key).' > ', $eol);
+            } else {
+                if (is_null($value)) {
+                    $value='null';
+                } elseif (is_bool($value)) {
+                    $value = ($value) ? 'true' : 'false';
+                } elseif (!is_numeric($value)) {
+                	$value = $translator->trans($value);
+                }
+                $js .= $VarName.' '.$value.$eol;
+            }
+        }
+        return str_replace($prefix, '', $js);
+    }    
     
 
     /**

@@ -107,6 +107,7 @@
 #        metadata_cache_driver: array
 #        query_cache_driver: array
 #        result_cache_driver: array
+##       metadata_cache_driver: apc
 ##       result_cache_driver:
 ##            type: memcache
 ##            host: localhost

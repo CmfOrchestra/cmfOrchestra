@@ -172,12 +172,13 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
     public function findTranslationsByQuery($locale, Query $query, $result = "array", $INNER_JOIN = false, $FALLBACK = true)
     {
         if (!$query) {
-            throw new NotFoundHttpException(sprintf(
+            throw new \Gedmo\Exception\InvalidArgumentException(sprintf(
                     'Failed to find Tree by id:[%s]',
                     $id
             ));
         }
         $query = $this->setTranslatableHints($query, $locale, $INNER_JOIN, $FALLBACK);
+        //$query = $this->cacheQuery($query);
         if ($result == 'array') {
             $entities = $query->getArrayResult();
         } elseif ($result == 'object') {
@@ -185,9 +186,34 @@ class TranslationRepository extends EntityRepository implements RepositoryBuilde
         } else {
             throw new \InvalidArgumentException("We haven't set the good option value : array or object !");
         }
+        // Frees the resources used by the query object.
         $query->free();
-    
+   
         return $entities;
+    }    
+    
+    /**
+     * return query in cache
+     *
+     * @param \Doctrine\ORM\Query $query
+     * @return \Doctrine\ORM\Query
+     * @access    public
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function cacheQuery(Query $query)
+    {
+    	if (!$query) {
+    		throw new \Gedmo\Exception\InvalidArgumentException(sprintf(
+    				'Failed to find Tree by id:[%s]',
+    				$id
+    		));
+    	}
+        // create single file from all input
+        $input_hash = sha1($query->getSQL());
+        $query->useResultCache(true, 3600, $input_hash); 
+    	 
+    	return $query;
     }    
 
     /**

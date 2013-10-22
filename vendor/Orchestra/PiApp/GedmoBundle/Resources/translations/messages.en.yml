@@ -54,9 +54,11 @@ pi.dashboard.menu6.partner: Partners
 pi.dashboard.menu6.team: Team
 
 # ENTITY :: MEDIA
+pi.media.title: List of media
 pi.media.form.field.mediadelete: Action to remove the media %s type.
 
 # ENTITY :: MENU
+pi.menu.title: Menu List
 pi.menu.translation.title: Translation menu
 pi.menu.form.picture: Picture
 pi.menu.form.group.pictures: Pictures
@@ -65,15 +67,18 @@ pi.menu.form.group.pictures: Pictures
 pi.activity.translation.title: Activity translation
 
 # ENTITY :: ORGANIGRAM
+pi.organigram.title: List of flowcharts
 pi.organigram.translation.title: Organigram translation
 pi.organigram.form.group.pictures: Pictures
 
 # ENTITY :: SLIDER
+pi.slider.title: List of sliders
 pi.slider.translation.title: Slider translation
 pi.slider.template.more: more
 pi.slider.form.group.pictures: Pictures
 
 # ENTITY :: CATEGORY
+pi.topic.title: Topics list
 pi.category.type.0: Contact
 pi.category.type.1: Block
 pi.category.type.2: Media
@@ -86,6 +91,7 @@ pi.category.type.8: Partner
 pi.category.type.9: Newsletter
 
 # ENTITY :: BLOCK
+pi.block.title: List of blocks
 pi.block.formbuilder.template.choice1: Block description with image on the left
 pi.block.formbuilder.template.choice2: Block description with picture at right
 pi.block.formbuilder.template.choice3: Block content with image on the left
@@ -99,8 +105,8 @@ pi.block.form.group.pictures: Pictures
 pi.block.form.group.url: Link
 
 # ENTITY :: CONTENT
+pi.content.title: List of contents
 pi.content.translation.title: Content translation
-
 pi.content.formbuilder.template.choice0: Simple content
 pi.content.formbuilder.template.choice1: Content in a P balise
 pi.content.formbuilder.template.choice2: Content in a DIV balise
@@ -110,6 +116,7 @@ pi.content.formbuilder.template.choice5: Content in a H2 balise
 pi.content.formbuilder.template.choice6: Content in a H3 balise
 
 # ENTITÉ :: CONTACT
+pi.contact.title: List of contacts
 pi.contact.form.picture.left: Left picture
 pi.contact.form.picture.right: Right picture
 pi.contact.form.group.addess: Address

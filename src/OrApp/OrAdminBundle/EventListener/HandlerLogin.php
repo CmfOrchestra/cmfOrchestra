@@ -29,11 +29,11 @@ use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-use PiApp\AdminBundle\EventListener\LoginListener as baseLoginListener;
+use PiApp\AdminBundle\EventListener\HandlerLogin as baseLoginHandler;
 
 
 /**
- * Custom login listener.
+ * Custom login handler.
  * This allow you to execute code right after the user succefully logs in.
  * 
  * @category   Admin_Eventlistener
@@ -41,7 +41,7 @@ use PiApp\AdminBundle\EventListener\LoginListener as baseLoginListener;
  *
  * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
-class LoginListener extends baseLoginListener
+class HandlerLogin extends baseLoginHandler
 {
     /**
      * Constructs a new instance of SecurityListener.

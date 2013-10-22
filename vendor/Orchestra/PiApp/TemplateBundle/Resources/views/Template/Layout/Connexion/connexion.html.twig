@@ -12,7 +12,8 @@
 				<div class="account-content">
 				<div class="account-drop-inner">
 					
-					<a href="{{ path('fos_user_profile_show') }}">{{ 'pi.layout.profil_consult'|trans }}</a>
+				    {# <a href="{{ path('fos_user_profile_show') }}">{{ 'pi.layout.profil_consult'|trans }}</a> #}
+					<a href="{{ path('users_edit', { 'id': app.user.id, 'NoLayout':0, 'category':'' }) }}" title="{{ 'pi.grid.action.edit'|trans }}" >{{ 'pi.layout.profil_consult'|trans }}</a>
 					
 					{% if is_granted("ROLE_ADMIN") %}
 					<div class="clear">&nbsp;</div>

@@ -115,7 +115,8 @@ class PiRouteExtension extends \Twig_Extension
         } catch (\Exception $e) {
             $url_public_media = "";
         }
-        if (empty($url_public_media) && ($format != 'reference')) {
+        $src = $this->container->get('kernel')->getRootDir() . '/../web' . $url_public_media;
+        if ((empty($url_public_media) || !file_exists($src)) && ($format != 'reference')) {
             return $this->getMediaUrlFunction($id, "reference", $cachable, $modifdate, $pattern);
         } else {
             return $url_public_media;

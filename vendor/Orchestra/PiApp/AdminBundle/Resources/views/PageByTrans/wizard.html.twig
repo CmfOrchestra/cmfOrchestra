@@ -1,5 +1,3 @@
-
-    <br/><br/>   
 	<!--  start actions-box ............................................... -->
 	<div id="actions-box">
 		<a href="{{ path('admin_pagebytrans_new') }}" class="action-edit">{{ 'pi.grid.action.create'|trans }}</a>
@@ -39,7 +37,7 @@
 	            <td>{{ entity.public }}</td>
 	            <td>{{ entity.lifetime }}</td>
 	            <td class="enabled" width="20px">{{ entity.enabled }}</td>
-	            <td width="260px">
+	            <td width="280px">
 					<a href="{{ path('admin_pagebytrans_show', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.show'|trans }} Trans" class="button-ui-show info-tooltip">{{ 'pi.grid.action.show'|trans }}</a>
 					<a href="{{ path('admin_pagebytrans_edit', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.edit'|trans }} Trans" class="button-ui-edit info-tooltip">{{ 'pi.grid.action.edit'|trans }}</a>
 					<a href="{{ path('admin_pagebyblock_show', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.show'|trans }} Block" class="button-ui-show info-tooltip">{{ 'pi.grid.action.show'|trans }}</a>

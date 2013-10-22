@@ -54,9 +54,11 @@ pi.dashboard.menu6.partner: الشركاء
 pi.dashboard.menu6.team: فريق
 
 # ENTITY :: MEDIA
+pi.media.title: قائمة من وسائل الإعلام
 pi.media.form.field.mediadelete: العمل على إزالة وسائل الاعلام نوع %s
 
 # ENTITY :: MENU
+pi.menu.title: قائمة القائمة
 pi.menu.translation.title:  ترجمة القائمة
 pi.menu.form.picture: صورة
 pi.menu.form.group.pictures: الصور
@@ -65,15 +67,18 @@ pi.menu.form.group.pictures: الصور
 pi.activity.translation.title: ترجمة النشاط
 
 # ENTITY :: ORGANIGRAM
+pi.organigram.title:  قائمة من الانسيابية
 pi.organigram.translation.title: ترجمة المخطط
 pi.organigram.form.group.pictures: الصور
 
 # ENTITY :: SLIDER
+pi.slider.title: قائمة المتزلجون
 pi.slider.translation.title: ترجمة المنزلق
 pi.slider.template.more: مزيد
 pi.slider.form.group.pictures: الصور
 
 # ENTITY :: CATEGORY
+pi.topic.title: قائمة المواضيع
 pi.category.type.0: الاتصال
 pi.category.type.1: منع
 pi.category.type.2: الإعلام
@@ -86,6 +91,7 @@ pi.category.type.8: الشريكة
 pi.category.type.9: النشرة الإخبارية
 
 # ENTITY :: BLOCK
+pi.block.title: قائمة من كتل
 pi.block.formbuilder.template.choice1: وصف بلوك مع الصورة على اليسار
 pi.block.formbuilder.template.choice2: وصف بلوك مع الصورة على اليمين
 pi.block.formbuilder.template.choice3: بلوك مع الصورة على اليسار
@@ -99,8 +105,8 @@ pi.block.form.group.pictures: الصور
 pi.block.form.group.url: رابط
 
 # ENTITY :: CONTENT
+pi.content.title: قائمة المحتويات
 pi.content.translation.title: ترجمة المحتوى
-
 pi.content.formbuilder.template.choice0: محتوى بسيط
 pi.content.formbuilder.template.choice1: المحتوى في علامة P
 pi.content.formbuilder.template.choice2: المحتوى في علامة DIV
@@ -110,6 +116,7 @@ pi.content.formbuilder.template.choice5: المحتوى في علامة H2
 pi.content.formbuilder.template.choice6: المحتوى في علامة H3
 
 # ENTITÉ :: CONTACT
+pi.contact.title: قائمة الاتصالات
 pi.contact.form.picture.left: يسار الصورة
 pi.contact.form.picture.right: الحق صور
 pi.contact.form.group.addess: العنوان

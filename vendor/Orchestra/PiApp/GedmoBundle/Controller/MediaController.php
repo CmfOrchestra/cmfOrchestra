@@ -171,7 +171,7 @@ class MediaController extends abstractController
         
            foreach ($result as $e) {
               $row = array();
-              $row[] = $e->getPosition();
+              $row[] = $e->getId() . '_row_' . $e->getId();
               $row[] = $e->getId();
               
               if (is_object($e->getCategory())) {

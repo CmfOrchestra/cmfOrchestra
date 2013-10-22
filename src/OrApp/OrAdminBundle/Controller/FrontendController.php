@@ -21,7 +21,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
+
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use JMS\SecurityExtraBundle\Annotation\SatisfiesParentSecurityPolicy;
 
 use PiApp\AdminBundle\Entity\Enquiry;
 use PiApp\AdminBundle\Form\EnquiryType;

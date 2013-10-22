@@ -1,8 +1,8 @@
 <?php
 /**
- * This file is part of the <Wurfl> project.
+ * This file is part of the <Admin> project.
  *
- * @category   BootStrap_Eventlistener
+ * @category   Admin_Eventlistener
  * @package    EventListener
  * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2011-01-25
@@ -21,15 +21,15 @@ use PiApp\AdminBundle\Lib\Browscap;
 use PiApp\AdminBundle\Lib\MobileDetect;
 
 /**
- * Custom mobile listener.
+ * Custom request handler.
  * Register the mobile/desktop format.
  *
- * @category   BootStrap_Eventlistener
+ * @category   Admin_Eventlistener
  * @package    EventListener
  *
  * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
-class RequestListener
+class HandlerRequest
 {
     /**
      * @var \Symfony\Component\DependencyInjection\ContainerInterface
@@ -67,34 +67,16 @@ class RequestListener
      */    
     public function onKernelRequest(GetResponseEvent $event)
     {
-        $request     = $event->getRequest($event);
-        $locale        = $request->getLocale();
+    	//print_r('priority 2');
+        // set request
+    	$this->request    = $event->getRequest($event);
+        $locale      = $this->request->getLocale();
         $globals     = $this->container->get("twig")->getGlobals();
         // we set the browser information
-//         if (!$request->cookies->has('orchestra-browser')) {
-//             // we get params
-//             $this->date_expire        = $this->container->getParameter('pi_app_admin.cookies.date_expire');
-//             $this->date_interval    = $this->container->getParameter('pi_app_admin.cookies.date_interval');
-//             // we get Browser info
-//             $browser = $this->browscap->getBrowser();
-//             if ($this->date_expire && !empty($this->date_interval)) {
-//                 $dateExpire = new \DateTime("NOW");
-//                 $dateExpire->add(new \DateInterval($this->date_interval)); // we add 4 hour
-//             } else {
-//                 $dateExpire = 0;
-//             }
-//             // we save brwoser in cookies
-//             if (!$event->hasResponse()) {
-//                 $event->setResponse(new Response);
-//             }
-//             $event->getResponse()->headers->setCookie(new Cookie('orchestra-browser', serialize($browser), $dateExpire));
-//         } else {
-//             $browser = unserialize($request->cookies->get('orchestra-browser'));
-//         }
         $browser = $this->browscap->getBrowser();
         // we add browser info in the request
-        $request->attributes->set('orchestra-browser', $browser);
-        $request->attributes->set('orchestra-mobiledetect', $this->mobiledetect);        
+        $this->request->attributes->set('orchestra-browser', $browser);
+        $this->request->attributes->set('orchestra-mobiledetect', $this->mobiledetect);        
         // we stop the website content if the navigator is not configurate correctly.
         $nav_desktop    = strtolower($browser->Browser);
         $nav_mobile        = strtolower($browser->Platform);
@@ -124,22 +106,75 @@ class RequestListener
         if ($isNoScope){
             if (!$browser->isMobileDevice) {
                 if ( isset($globals["navigator"][$nav_desktop]) && (floatval($browser->Version)  <= $globals["navigator"][$nav_desktop]) ) $isNav = false; else $isNav = true;
-            }elseif ($bc->getBrowser()->isMobileDevice) {
+            } elseif ($bc->getBrowser()->isMobileDevice) {
                 if ( isset($globals["navigator"][$nav_mobile]) && (floatval($browser->Platform_Version)  <= $globals["navigator"][$nav_mobile]) ) $isNav = false; else $isNav = true;
             }
             $isCookies     = $browser->Cookies;
             $isJs         = $browser->JavaScript;
             // we set response
-            $response     = new \Symfony\Component\HttpFoundation\Response($request->getUri());
+            $response     = new \Symfony\Component\HttpFoundation\Response($this->request->getUri());
             $response->headers->set('Content-Type', 'text/html');
             $response     = $this->container->get('templating')->renderResponse('PiAppTemplateBundle:Template\\Nonav:nonav.html.twig', array('locale' => $locale, 'isCookies'=>$isCookies, 'isJs'=>$isJs, 'isNav'=>$isNav), $response);
             $event->setResponse($response);
         } else {
+        	// Sets parameter template values.
+        	$this->setParams();
+        	// Sets the user local value.
+        	$this->setLocaleNavigator();
             // we add orchestra-layout info in the request
-            if ($request->cookies->has('orchestra-layout')){
-                $request->attributes->set('orchestra-layout', $request->cookies->get('orchestra-layout'));
+            if ($this->request->cookies->has('orchestra-layout')){
+                $this->layout =  $this->request->cookies->get('orchestra-layout');
+            } else {
+            	if (isset($browser->isMobileDevice) && $browser->isMobileDevice){
+            		if ($this->request->attributes->has('orchestra-screen'))    $WurflScreen = $this->request->attributes->get('orchestra-screen'); else    $WurflScreen = 'layout-medium';
+            		$this->layout        = 'PiAppTemplateBundle::Template\\Layout\\Mobile\\'.$this->init_mobile_layout.'\\' . $WurflScreen . '.html.twig';
+            	} else {
+            		$this->layout        = 'PiAppTemplateBundle::Template\\Layout\\Pc\\'.$this->init_pc_layout;
+            	}
             }
-            $request->attributes->set('orchestra-screen', "layout"); 
+            $this->request->attributes->set('orchestra-layout', $this->layout);
+            $this->request->attributes->set('orchestra-screen', "layout"); 
         }
     }     
+    
+    /**
+     * Sets parameter template values.
+     *
+     * @return void
+     * @access protected
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    protected function setParams()
+    {
+    	$this->date_expire                              = $this->container->getParameter('pi_app_admin.cookies.date_expire');
+    	$this->date_interval                            = $this->container->getParameter('pi_app_admin.cookies.date_interval');
+    
+    	$this->init_pc_layout                           = $this->container->getParameter('pi_app_admin.layout.init.pc.template');
+    	$this->init_pc_redirection                         = $this->container->getParameter('pi_app_admin.layout.init.pc.redirection');
+    	$this->init_mobile_layout                       = $this->container->getParameter('pi_app_admin.layout.init.mobile.template');
+    	$this->init_mobile_redirection                     = $this->container->getParameter('pi_app_admin.layout.init.mobile.redirection');
+    
+    	$this->is_switch_language_browser_authorized    = $this->container->getParameter('pi_app_admin.page.switch_language_browser_authorized');
+    	$this->is_init_redirection_authorized           = $this->container->getParameter('pi_app_admin.page.switch_layout_init_redirection_authorized');
+    }    
+    
+
+
+    /**
+     * Sets the user local value.
+     *
+     * @return void
+     * @access protected
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    protected function setLocaleNavigator()
+    {
+    	if ($this->is_switch_language_browser_authorized) {
+    		$lang_value = $this->container->get('pi_app_admin.locale_manager')->parseDefaultLanguage();
+    		$this->request->setLocale($lang_value);
+    	}
+    }   
+
 }

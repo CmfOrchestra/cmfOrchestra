@@ -17,48 +17,93 @@
 		        $('#form-connexion').on('submit', function(e) {
 					e.preventDefault()
 					var $form = $(this);
-			        
-		        	var _username 	= $form.find('input[name="_username"]').val();
-		        	var _password 	= $form.find('input[name="_password"]').val();
-		        	var _csrf_token = $form.find('input[name="_csrf_token"]').val();
-		        	var _url 		= $form.data('action');
-		        	var _type		= $form.attr('method');
-		        	var _data		= "_username="+_username+"&_password="+_password+"&_csrf_token="+_csrf_token;
-		        	var _url_redirection = $form.data('redirection');
+					var utils = {
+						    // Fonction de vérification de champs de formulaire
+						    checkFormatValue : function(value, type) {
+						        if(typeof(type) === "undefined") {
+						            return true;
+						        }
+						        var regexp = {
+						            'mail' : new RegExp(/[a-z0-9!#$%&'*+\/=?\^_`{|}~\-]+(?:\.[a-z0-9!#$%&'*+\/=?\^_`{|}~\-]+)*@(?:[a-z0-9](?:[a-z0-9\-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9\-]*[a-z0-9])?/),
+						            'phone' : new RegExp(/^0[1-6]{1}(([0-9]{2}){4})|((\s[0-9]{2}){4})|((-[0-9]{2}){4})$/),
+						            'text' : new RegExp(''),
+						            'date' : new RegExp('^(0([1-9])|[1-2][0-9]|[3][0-1])/(0[1-9]|1[0-2])/(201[0-9])$'),
+						            'postal' : new RegExp(/^[1-9]([0-9]{4})$/)
+						        };
 
-				    if ( _username=="" || _password=="") {
-				    	if (_username=="") {
-				    		$form.addClass('errorConnect').find('p.error').text("Veuillez saisir votre identifiant.");
-				     	} else {
-				     		$form.addClass('errorConnect').find('p.error').text("Veuillez saisir votre mot de passe.");
-				    	}
-				    	return false;
-				    } else {
-				    	$form.removeClass('errorConnect');
-				    }
-		        	
-		            $.ajax({
-		                url: _url,
-		                data: _data,
-		                type: _type,
-		                success: function(html) {
-		                	if ( html == 'error' ) {
-		                		$form.addClass('errorConnect').find('p.error').text("Identifiant/mot de passe invalide.");
-		                	} else {
-		                		if(_url_redirection == "")
-		                		    window.location.reload();
-		                		else
-		                			window.location.href = _url_redirection;
-		                	}
+						        return regexp[type].test(value);
+						    },
+						    // Affichage message erreur dans formulaire
+						    displayMsgError : function(form) {
+						        $(form).find('.errorMsg').text('Veuillez renseigner les champs obligatoires').slideDown();
+						    }
+						};
+					
+					/*INPUT REQUIRED*/
+					$('input.input',this).each(function(){
+
+		                if($(this).val() != '' && utils.checkFormatValue($(this).val(), $(this).data('type'))) {
+		                    $(this).removeClass('error')
+		                }else{
+		                    $(this).addClass('error')
 		                }
-		            });
+		            })
+
+		            if($form.find('input.error').length == 0) {
+		                validated = true;
+		            }
+
+					if(validated) {
+			        	var _username 	= $form.find('input[name="_username"]').val();
+			        	var _password 	= $form.find('input[name="_password"]').val();
+			        	var _csrf_token = $form.find('input[name="_csrf_token"]').val();
+			        	var _url 		= $form.data('action');
+			        	var _roles 		= $form.data('roles');
+			        	var _type		= $form.attr('method');
+			        	var _data		= "_username="+_username+"&_password="+_password+"&_csrf_token="+_csrf_token+"&roles="+JSON.stringify(_roles);
+			        	var _url_redirection = $form.data('redirection');
+	
+					    if ( _username=="" || _password=="") {
+					    	if (_username=="") {
+					    		$form.addClass('errorConnect').find('p.error').text("Veuillez saisir votre identifiant.");
+					     	} else {
+					     		$form.addClass('errorConnect').find('p.error').text("Veuillez saisir votre mot de passe.");
+					    	}
+					    	return false;
+					    } else {
+					    	$form.removeClass('errorConnect');
+					    }
+					    //$(".popin").spin();
+			            $.ajax({
+			                url: _url,
+			                data: _data,
+			                type: _type,
+			                //dataType: 'json',
+			                success: function(html) {
+			                	if ( html == 'error' ) {
+		                            $form.find('p.errorMsg').show().text("Identifiant/mot de passe invalide.");
+		                        } else if (html == 'no-authorization') {
+		       						$form.find('p.errorMsg').show().text("Vous n'êtes pas autorisé à vous connecté sur cet espace.");
+		                        } else {
+		                            if (_url_redirection == "") {
+		                                window.location.reload();
+		                            } else {
+		                                window.location.href = _url_redirection;
+		                            }
+		                        }
+			                	//$(".popin").spin(false);
+			                }
+			            });
+					} else {
+		                utils.displayMsgError($(this), globals.msgError.emptyFields); // affichage msg error
+		            }			            
 		        });
 		    });
 		//]]>
 		</script>  
 		
 		<h3 class="tt-clr tt-9 bold">MON COMPTE</h3>
-		<form method="POST" data-action="{{ path('fos_user_security_check') }}" data-redirection="" id="form-connexion" >
+		<form method="POST" data-action="{{ path('fos_user_security_check') }}" data-roles="{{ roles|json_encode }}" data-redirection="{{ referer_url }}" id="form-connexion" >
 			<p class="error resetM"></p>
 			<span class="input-text">
 				 <input onfocus="this.value = ''" type="text" id="_username" name="_username" value="{% if error %}{{ error }}{% elseif last_username is not empty  %}{{ last_username }}{% else %}Identifiant{% endif %}" data-validate="{% if error %}{{ error }}{% elseif last_username is not empty  %}{{ last_username }}{% else %}Identifiant{% endif %}">

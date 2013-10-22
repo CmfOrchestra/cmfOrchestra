@@ -40,8 +40,8 @@
 	            <td>{{ entity.cacheable }}</td>
 	            <td>{{ entity.public }}</td>
 	            <td>{{ entity.lifetime }}</td>
-	            <td class="enabled">{{ entity.enabled }}</td>
-	            <td>
+	            <td class="enabled" width="20px">{{ entity.enabled }}</td>
+	            <td width="280px">
 					<a href="{{ path('admin_pagebytrans_show', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.show'|trans }} Trans" class="button-ui-show info-tooltip">{{ 'pi.grid.action.show'|trans }}</a>
 					<a href="{{ path('admin_pagebytrans_edit', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.edit'|trans }} Trans" class="button-ui-edit info-tooltip">{{ 'pi.grid.action.edit'|trans }}</a>
 					<a href="{{ path('admin_pagebyblock_show', { 'id': entity.id }) }}" title="{{ 'pi.grid.action.show'|trans }} Block" class="button-ui-show info-tooltip">{{ 'pi.grid.action.show'|trans }}</a>

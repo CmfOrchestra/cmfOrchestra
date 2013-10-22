@@ -1,10 +1,8 @@
-{%  initJquery 'FORM:prototype-bytab' %}
+{% initJquery 'FORM:prototype-bytab' %}
 {% extends app.request.attributes.get('orchestra-layout') %}
 
 {% block title %}
-
-	<h1>Menu creation</h1>
-	
+	<h1><a href="{{ path('admin_redirection') }}">{{ "pi.home"|trans }}</a> > <a href="{{ path_url('admin_gedmo_menu_tree') }}">{{ 'pi.menu.title'|trans }}</a> > {{ 'pi.grid.action.create'|trans }}</h1>
 {% endblock %}
  
 {% block content %}

@@ -31,7 +31,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 
 /**
- * Custom login listener.
+ * Custom login handler.
  * This allow you to execute code right after the user succefully logs in.
  * 
  * @category   Admin_Eventlistener
@@ -39,7 +39,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
-class LoginListener
+class HandlerLogin
 {
     /**
      * @var \BootStrap\TranslationBundle\Route\RouteTranslatorFactory $router
@@ -72,7 +72,7 @@ class LoginListener
     protected $container;    
     
     /**
-     * @var $redirect        route name of the redirection
+     * @var $redirect        route name of the login redirection
      */    
     protected $redirect = "";
     
@@ -89,8 +89,7 @@ class LoginListener
     /**
      * @var $locale
      */
-    protected $locale;    
-
+    protected $locale;  
     
     /**
      * Constructs a new instance of SecurityListener.
@@ -103,10 +102,10 @@ class LoginListener
     public function __construct(SecurityContext $security, EventDispatcher $dispatcher, Doctrine $doctrine, ContainerInterface $container)
     {
         $this->security     = $security;
-        $this->dispatcher     = $dispatcher;
-        $this->em              = $doctrine->getManager();
-        $this->container     = $container;
-        $this->router        = $this->container->get('bootstrap.RouteTranslator.factory');
+        $this->dispatcher   = $dispatcher;
+        $this->em           = $doctrine->getManager();
+        $this->container    = $container;
+        $this->router       = $this->container->get('bootstrap.RouteTranslator.factory');
     }
 
     /**
@@ -120,19 +119,14 @@ class LoginListener
     {
         // Sets event.
         $this->event    = $event;
-        
         // Sets the user local value.
         $this->setLocaleUser();
-        
         // Sets the state of the redirection.
         $this->setParams();
-        
         // Sets the layout based on user role.
         $this->setLayout();
-        
         // Associate to the dispatcher the onKernelResponse event.
         $this->dispatcher->addListener(KernelEvents::RESPONSE, array($this, 'onKernelResponse'));
-        
         // Return the success connecion flash message.        
         $this->getFlashBag()->clear();
     }    
@@ -147,9 +141,7 @@ class LoginListener
      */
     public function onKernelResponse(FilterResponseEvent $event)
     {
-        /*         $response = $event->getResponse();
-        // .. modify the response object */
-        if (!empty($this->redirect)) {
+    	if (!empty($this->redirect)) {
             $response = new RedirectResponse($this->router->getRoute($this->redirect));
         } elseif ( $this->security->isGranted('ROLE_CONTENT_MANAGER') || $this->security->isGranted('ROLE_ADMIN') || $this->security->isGranted('ROLE_SUPER_ADMIN') ) {
             $response = new RedirectResponse($this->router->getRoute($this->redirect_admin));
@@ -161,6 +153,20 @@ class LoginListener
             $response = new RedirectResponse($this->router->getRoute($this->redirect_subscriber));
             $this->redirect = $this->redirect_subscriber;
         }
+        if (isset($_POST['roles']) && !empty($_POST['roles'])) {
+        	$all_authorization_roles = json_decode($_POST['roles'], true);
+        	$best_roles_name = $this->container->get('bootstrap.Role.factory')->getBestRoleUser();
+        	if (is_array($all_authorization_roles) && !in_array($best_roles_name, $all_authorization_roles)) {
+        		if ($this->getRequest()->isXmlHttpRequest()) {
+        			$response = new Response(json_encode("no-authorization"));
+        			$response->headers->set('Content-Type', 'application/json');
+        		} else {
+        			$referer_url = $this->container->get('bootstrap.RouteTranslator.factory')->getRefererRoute();
+        			$response = new RedirectResponse($referer_url);
+        			$this->redirect = 'home_page';
+        		}
+        	}
+        }     
         // Record the layout variable in cookies.
         if ($this->date_expire && !empty($this->date_interval)) {
             $dateExpire = new \DateTime("NOW");
@@ -242,23 +248,23 @@ class LoginListener
         if (!empty($BEST_ROLE_NAME)) {
             $role         = $this->em->getRepository("BootStrapUserBundle:Role")->findOneBy(array('name' => $BEST_ROLE_NAME));
             if ($role instanceof \BootStrap\UserBundle\Entity\Role) {
-                $this->redirect = $role->getRouteName();
+                $this->redirect = $role->getRouteLogin();
                 
                 if ($role->getLayout() instanceof \PiApp\AdminBundle\Entity\Layout) {
                     $this->template = $role->getLayout()->getFilePc();
                 }
             }
         }
-        $this->date_expire            = $this->container->getParameter('pi_app_admin.cookies.date_expire');
+        $this->date_expire          = $this->container->getParameter('pi_app_admin.cookies.date_expire');
         $this->date_interval        = $this->container->getParameter('pi_app_admin.cookies.date_interval');
         // 
-        $this->redirect_admin        = $this->container->getParameter('pi_app_admin.layout.login.admin_redirect');
-        $this->redirect_user         = $this->container->getParameter('pi_app_admin.layout.login.user_redirect');
-        $this->redirect_subscriber    = $this->container->getParameter('pi_app_admin.layout.login.subscriber_redirect');
+        $this->redirect_admin       = $this->container->getParameter('pi_app_admin.layout.login.admin_redirect');
+        $this->redirect_user        = $this->container->getParameter('pi_app_admin.layout.login.user_redirect');
+        $this->redirect_subscriber  = $this->container->getParameter('pi_app_admin.layout.login.subscriber_redirect');
         // 
-        $this->template_admin        = $this->container->getParameter('pi_app_admin.layout.login.admin_template');
+        $this->template_admin       = $this->container->getParameter('pi_app_admin.layout.login.admin_template');
         $this->template_user        = $this->container->getParameter('pi_app_admin.layout.login.user_template');
-        $this->template_subscriber    = $this->container->getParameter('pi_app_admin.layout.login.subscriber_template');        
+        $this->template_subscriber  = $this->container->getParameter('pi_app_admin.layout.login.subscriber_template');        
     }    
     
     /**

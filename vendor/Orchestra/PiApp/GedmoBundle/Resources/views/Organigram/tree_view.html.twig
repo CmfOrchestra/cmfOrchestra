@@ -8,7 +8,9 @@
 		        return true;
 		    });
 		    
-		    $("a.tree-action").click(function(){
+		    $("a.tree-action").click(function(e){
+		    	// empêche le lien de créer un « # » dans l'URL
+                e.preventDefault();
 		    	var url = $(this).data('url');
 		    	$("#tree-dialog").attr('title', 'New node');
 		    	$("#tree-dialog").html('<iframe id="modalIframeId" width="100%" height="99%" style="overflow-x: hidden; overflow-y: auto" marginWidth="0" marginHeight="0" frameBorder="0" src="'+url+'" />').dialog({

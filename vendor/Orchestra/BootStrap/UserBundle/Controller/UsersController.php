@@ -127,6 +127,10 @@ class UsersController extends abstractController
         if ( ($request->isXmlHttpRequest() && $is_Server_side) ||  !$is_Server_side) {
             $query                = $em->getRepository("BootStrapUserBundle:User")->getAllByParams('', null, 'ASC', '', false);
             $query
+            ->andWhere("a.roles NOT LIKE '%ROLE_SUBSCRIBER%'")
+            ->andWhere("a.roles NOT LIKE '%ROLE_MEMBER%'")
+            ->andWhere("a.roles NOT LIKE '%ROLE_PROVIDER%'")
+            ->andWhere("a.roles NOT LIKE '%ROLE_CUSTOMER%'")
             ->orderBy('a.created_at', 'DESC');
         }
         
@@ -152,7 +156,7 @@ class UsersController extends abstractController
         
            foreach ($result as $e) {
               $row = array();
-              $row[] = '';
+              $row[] = $e->getId() . '_row_' . $e->getId();
               $row[] = $e->getId();
               
               $row[] = $e->getNickname();
@@ -290,10 +294,10 @@ class UsersController extends abstractController
             $entity->setEmailCanonical($data["email"]);
             $em->persist($entity);
             $em->flush();
-            return $this->redirect($this->generateUrl('users'));
+            return $this->redirect($this->generateUrl('users_edit', array('id'=>$id)));
         }
 
-        return $this->render('ProjetProjetBundle:Recette:edit.html.twig', array(
+        return $this->render('PiAppTemplateBundle:Template\\Login\\Users:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
         ));

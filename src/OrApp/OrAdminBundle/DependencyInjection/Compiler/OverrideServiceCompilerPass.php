@@ -27,11 +27,8 @@ class OverrideServiceCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
-        $definition = $container->getDefinition('pi_app_admin.user.login_listener');
-        $definition->setClass('OrApp\OrAdminBundle\EventListener\LoginListener');
-        
-        //$definition = $container->getDefinition('pi_app_admin.jquery_manager.contextmenu');
-        //$definition->setClass('OrApp\OrAdminBundle\Util\PiJquery\PiContextMenuManager');      
+        $definition = $container->getDefinition('pi_app_admin.user.login_handler');
+        $definition->setClass('OrApp\OrAdminBundle\EventListener\HandlerLogin');    
 
         //http://blog.nicolashachet.com/niveaux/confirme/surcharger-vos-entites-doctrine-en-symfony-2-exemple-avec-le-fosuserbundle/
         //http://symfony.com/doc/master/cookbook/bundles/override.html#entities-entity-mapping

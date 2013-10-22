@@ -100,53 +100,56 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
      */
     public function defaultConnexion($params = null)
     {
-        if (isset($params['template']) && !empty($params['template']))
-            $template = $params['template'];
-        else 
-            $template = "PiAppTemplateBundle:Template\\Login\\Security:login.html.twig";
-        
-        if (empty($params['locale']))
-            $params['locale']        = $this->container->get('request')->getLocale();        
-        
         $em      = $this->container->get('doctrine')->getManager();        
         $request = $this->container->get('request');
         $session = $request->getSession();
-        
-        //$this->container->get('session')->remove('referer_redirection');
-        //print_r($referer_url = $this->container->get('session')->get('referer_redirection'));
-        
-        if (isset($params['referer_redirection']) && !empty($params['referer_redirection']) && ($params['referer_redirection'] == "true")){
+    	
+    	if (isset($params['template']) && !empty($params['template'])) {
+            $template = $params['template'];
+        } else { 
+            $template = "PiAppTemplateBundle:Template\\Login\\Security:login.html.twig";
+        }
+        if (empty($params['locale'])) {
+            $params['locale']        = $this->container->get('request')->getLocale();
+        }        
+        if (isset($params['referer_redirection']) && !empty($params['referer_redirection']) && ($params['referer_redirection'] == "true")) {
             $referer_url = $this->container->get('request')->headers->get('referer');
         } else {
             $referer_url = "";
-        }      
-        
+        }  
+        if (isset($params['roles']) && !empty($params['roles'])) {
+        	$roles = $params['roles'];
+        } else {
+        	$roles = "";
+        }           
+        /** @var $session \Symfony\Component\HttpFoundation\Session\Session */
         // get the error if any (works with forward and redirect -- see below)
         if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
-            $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
-        }elseif (null !== $session && $session->has(SecurityContext::AUTHENTICATION_ERROR)) {
-            $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
-            $session->remove(SecurityContext::AUTHENTICATION_ERROR);
+        	$error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
+        } elseif (null !== $session && $session->has(SecurityContext::AUTHENTICATION_ERROR)) {
+        	$error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
+        	$session->remove(SecurityContext::AUTHENTICATION_ERROR);
         } else {
-            $error = '';
+        	$error = '';
         }
-
         if ($error) {
-            // TODO: this is a potential security risk (see http://trac.symfony-project.org/ticket/9523)
-            $error = $error->getMessage();
+        	// TODO: this is a potential security risk (see http://trac.symfony-project.org/ticket/9523)
+        	$error = $error->getMessage();
         }
         // last username entered by the user
-        $lastUsername     = (null === $session) ? '' : $session->get(SecurityContext::LAST_USERNAME);
+        $lastUsername = (null === $session) ? '' : $session->get(SecurityContext::LAST_USERNAME);
         
         $csrfToken = $this->container->has('form.csrf_provider')
         ? $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate')
         : null;
-
+        
         $response         =  $this->container->get('templating')->renderResponse($template, array(
             'last_username' => $lastUsername,
             'error'         => $error,
-            'csrf_token'     => $csrfToken,
+            'csrf_token'    => $csrfToken,
             'referer_url'   => $referer_url,
+        	'roles'   		=> $roles,        		
+        	'route' 		=> $this->container->get('bootstrap.RouteTranslator.factory')->getMatchParamOfRoute('_route', $this->container->get('request')->getLocale())
         ));
         
         // we delete all permission flash
@@ -198,7 +201,7 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
         
         	if ($form->isValid()) {
         	    $userManager->updateUser($user);
-    		    $flash = $this->container->get('translator')->trans('resetting.flash.success');
+    		    $flash = $this->container->get('translator')->trans('pi.session.flash.resetting.success');
     		    $this->container->get('request')->getSession()->getFlashBag()->add('success', $flash);
     		    header('Location: '. $url_redirection);
     		    exit;
@@ -261,7 +264,28 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
         
         $result = "<a href='$html_url'>" . $title . "</a>";
         return $result;
-    }    
+    }
+
+    /**
+     * Send mail to reset user password (return URL)
+     */
+    public function sendResettingEmailMessageURL(UserInterface $user, $route_reset_connexion,  $parameters = array())
+    {
+        $tokenGenerator = $this->container->get('fos_user.util.token_generator');
+        $user->setConfirmationToken($tokenGenerator->generateToken());
+        $em = $this->container->get('doctrine')->getEntityManager();
+        $em->persist($user);
+        $em->flush();
+
+        $this->container->get('request')->getSession()->set(static::SESSION_EMAIL, $this->getObfuscatedEmail($user));
+
+        $parameters = array_merge($parameters, array('token' => $user->getConfirmationToken()));
+
+        $url       = $this->container->get('bootstrap.RouteTranslator.factory')->getRoute($route_reset_connexion, $parameters);
+        $html_url = 'http://'.$this->container->get('request')->getHttpHost() . $this->container->get('request')->getBasePath().$url;
+
+        return $html_url;
+    }
     
     /**
      * return confirmation token to reset user password

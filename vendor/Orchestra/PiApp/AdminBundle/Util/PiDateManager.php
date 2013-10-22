@@ -100,7 +100,8 @@ class PiDateManager implements PiDateManagerBuilderInterface
      * 
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    public function parseTimestamp($date, $locale = null) {
+    public function parseTimestamp($date, $locale = null)
+    {
         if ($date == 'now'){
             $result = new \DateTime();
             return $result->getTimestamp();
@@ -136,61 +137,62 @@ class PiDateManager implements PiDateManagerBuilderInterface
     }
     
     /**
-     * Returns the difference between the given timestamps or now.
+     * Retourne litteralement une date.
      *
-     * Parameters:
-     *     $time - Timestamp to compare to.
-     *     $from - Timestamp to compare from. If not specified, defaults to now.
+     * @param  \DateTime $dateTime
      *
-     * Returns:
-     *     A string formatted like "3 days ago" or "3 days from now".
+     * @return string
+     * @access public
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    public function afterRelativeTime($when, $from = null)
+    public function createdAgoFilter(\DateTime $dateTime)
     {
-        fallback($from, time());
-        $time = (is_numeric($when)) ? $when : strtotime($when) ;
-        $difference = $from - $time;
-    
-        if ($difference < 0) {
-            $word = "from now";
-            $difference = -$difference;
-        } elseif ($difference > 0) {
-            $word = "ago";
-        } else {
-            return "just now";
-        }
-    
-        $units = array("second"     => 1,
-                "minute"     => 60,
-                "hour"       => 60 * 60,
-                "day"        => 60 * 60 * 24,
-                "week"       => 60 * 60 * 24 * 7,
-                "month"      => 60 * 60 * 24 * 30,
-                "year"       => 60 * 60 * 24 * 365,
-                "decade"     => 60 * 60 * 24 * 365 * 10,
-                "century"    => 60 * 60 * 24 * 365 * 100,
-                "millennium" => 60 * 60 * 24 * 365 * 1000);
-    
-        $possible_units = array();
-        foreach ($units as $name => $val) {
-            if (($name == "week" and $difference >= ($val * 2)) or # Only say "weeks" after two have passed.
-                    ($name != "week" and $difference >= $val))
-            $unit = $possible_units[] = $name;
-        }
-    
-        $precision = (int) in_array("year", $possible_units);
-        $amount = round($difference / $units[$unit], $precision);
-    
-        return $amount." ".pluralize($unit, $amount)." ".$word;
-    } 
-    
-    public function beforeRelativeTime(\DateTime $dateTime)
-    {
-    	$delta = $dateTime->getTimestamp() - time() ;
-    	if ($delta < 0)
-    		//throw new \Exception("createdAgo is unable to handle dates in the future");
+    	$delta = time() - $dateTime->getTimestamp();
+    	if ($delta < 0) {
     		return '';
+    	}
+    	$duration = "";
+    	if ($delta < 60) {
+    		// Seconds
+    		$time = $delta;
+    		$duration = $time . " second" . (($time === 0 || $time > 1) ? "s" : "") . " ago";
+    	} elseif ($delta < 3600) {
+    		// Mins
+    		$time = floor($delta / 60);
+    		$duration = $time . " minute" . (($time > 1) ? "s" : "") . " ago";
+    	} else if ($delta < 86400) {
+    		// Hours
+    		$time = floor($delta / 3600);
+    		$duration = $time . " hour" . (($time > 1) ? "s" : "") . " ago";
+    	} else {
+    		// Days
+    		$time = floor($delta / 86400);
+    		$duration = $time . " day" . (($time > 1) ? "s" : "") . " ago";
+    	}
     
+    	return $duration;
+    }    
+    
+    /**
+     * Returns the difference between the given timestamps and now or from.
+     *
+     * @param  \DateTime $dateTime    Timestamp to compare to.
+     * @param  \DateTime $from        Timestamp to compare from. If not specified, defaults to now.
+     * @return strgin                 Duration
+     * @access public
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */     
+    public function RelativeTime(\DateTime $dateTime, $from = null)
+    {
+        if (is_null($from)) {
+            $from = time();
+        }
+    	$delta = $dateTime->getTimestamp() - $from ;
+    	if ($delta < 0) {
+    		return '';
+    	}
     	$duration = "";
     
     	$units = array("second"     => 1,
@@ -206,38 +208,34 @@ class PiDateManager implements PiDateManagerBuilderInterface
     
     	$year = false; $month = false;
     
-    	if ($delta > $units["year"])
-    	{
+    	if ($delta > $units["year"]) {
     		// Années
     		$time = floor($delta /  $units["year"]);
     		$duration .= " <span>".$time . "</span> an" . (($time > 1) ? "s" : "");
     		$year = true;
     		$delta = $delta - (floor($delta /  $units["year"]) * $units["year"]);
     	}
-    	if ($delta > $units["month"])
-    	{
+    	if ($delta > $units["month"]) {
     		// Mois
     		$time = floor($delta /  $units["month"]);
-    		if($year)
+    		if ($year) {
     			$duration .= ", <span>".$time . "</span> mois";
-    		else
+    		} else {
     			$duration .= " <span>".$time . "</span> mois";
+    		}
     		$month = true;
     		$delta = $delta - (floor($delta /  $units["month"]) * $units["month"]);
     	}
-    	if ($delta > $units["day"])
-    	{
+    	if ($delta > $units["day"]) {
     		// Jours
     		$time = floor($delta / $units["day"]);
-    		if($month)
+    		if ($month) {
     			$duration .= " et <span>".$time . "</span> jour" . (($time > 1) ? "s" : "");
-    		else
+    		} else {
     			$duration .= " <span>".$time . "</span> jour" . (($time > 1) ? "s" : "");
+    		}
     	}
-    	else {
-    
-    	}
-    
+    	    
     	return $duration;
     }
     
@@ -307,7 +305,7 @@ class PiDateManager implements PiDateManagerBuilderInterface
         $first      = strtotime($date);
         $results     = array();
         
-        if ($order == 'next'){
+        if ($order == 'next') {
             for ($i = 0; $i < $number; $i++) {
                 array_push($results, date($format, strtotime("+$i $type", $first)));
             }
@@ -319,49 +317,4 @@ class PiDateManager implements PiDateManagerBuilderInterface
         return $results;
     }    
 
-    /**
-     * Retourne litteralement une date.
-     *
-     * @param  \DateTime $dateTime
-     *
-     * @return string
-     * @access public
-     *
-     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-     */
-    public function createdAgoFilter(\DateTime $dateTime)
-    {
-        $delta = time() - $dateTime->getTimestamp();
-        if ($delta < 0)
-            //throw new \Exception("createdAgo is unable to handle dates in the future");
-            return '';
-    
-        $duration = "";
-        if ($delta < 60)
-        {
-            // Seconds
-            $time = $delta;
-            $duration = $time . " second" . (($time === 0 || $time > 1) ? "s" : "") . " ago";
-        }
-        else if ($delta < 3600)
-        {
-            // Mins
-            $time = floor($delta / 60);
-            $duration = $time . " minute" . (($time > 1) ? "s" : "") . " ago";
-        }
-        else if ($delta < 86400)
-        {
-            // Hours
-            $time = floor($delta / 3600);
-            $duration = $time . " hour" . (($time > 1) ? "s" : "") . " ago";
-        }
-        else
-        {
-            // Days
-            $time = floor($delta / 86400);
-            $duration = $time . " day" . (($time > 1) ? "s" : "") . " ago";
-        }
-    
-        return $duration;
-    }    
 }

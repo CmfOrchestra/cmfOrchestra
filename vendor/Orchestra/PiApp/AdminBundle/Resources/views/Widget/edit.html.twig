@@ -2,7 +2,7 @@
 {% extends app.request.attributes.get('orchestra-layout') %}
 
 {% block title %}
-	<h1>Widget edit</h1>
+	<h1><a href="{{ path('admin_redirection') }}">{{ "pi.home"|trans }}</a> > <a href="{{ path_url('admin_blockbywidget_show') }}">{{ 'pi.page.widget.title'|trans }}</a> > {{ 'pi.grid.action.edit'|trans }}</h1>
 {% endblock %}
  
 {% block content %}

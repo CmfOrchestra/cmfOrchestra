@@ -21,9 +21,13 @@ pi.move-down : تحريك لأسفل
 pi.show : عرض
 pi.add : أضف
 pi.edit : حرر
+pi.edit.name : طبعة
 pi.update : حَدِّث
+pi.update.name : تعديل
 pi.delete : احذف
+pi.delete.anme : شطب
 pi.create : أنشئ
+pi.create.name : خلق
 pi.save : احفظ
 pi.refresh : تحديث
 pi.admin : إداري
@@ -34,6 +38,7 @@ pi.result: نتيجة %s
 pi.result_plural: النتائج %s
 
 # Page accueil
+pi.home: الرئيسية
 pi.welcome.title: أهلاً بك في Orchestra!
 
 #wizard
@@ -73,11 +78,13 @@ pi.grid.action.info: عرض _START_ ل_END_ من السجلات _TOTAL_
 pi.grid.action.info.empty: إظهار 0 إلى 0 من 0 السجلات
 pi.grid.action.info.filtered: (تصفية من السجلات _MAX_ مجموع)
 pi.grid.action.waiting: يرجى الانتظار أثناء تحميل الجدول
+pi.grid.action.activation.waiting: في انتظار تفعيل
 pi.grid.action.activation: تفعيل
 pi.grid.action.active: نشط
 pi.grid.action.row_enabled: مُفَعَّل
 pi.grid.action.row_disable: عَطِّل
 pi.grid.action.row_delete: احذف
+pi.grid.action.row_deleted: حذف
 pi.grid.action.row_archive: الأرشيف
 pi.grid.action.select:  مجموعه
 pi.grid.action.select_all: اختر كل
@@ -133,9 +140,11 @@ pi.form.label.field.website: الموقع
 pi.form.label.field.url: رابط
 pi.form.label.field.blank: رابط HTML فارغة
 pi.form.label.field.choice: الاختيار
+pi.form.label.field.type: نوع
 pi.form.label.field.author: كاتب
-pi.form.label.field.user: مستخدم
 pi.form.label.field.group: مجموعة
+pi.form.label.field.user: مستخدم
+pi.form.label.field.user.account: حسابات المستخدمين
 
 pi.form.label.field.civility: كياسة
 pi.form.label.field.civility.type.mr: السيد
@@ -171,6 +180,7 @@ pi.form.label.field.adress.fax: فاكس
 pi.form.label.field.adress.cp: الرمز البريدي
 pi.form.label.field.adress.city:  المدينة
 pi.form.label.field.adress.country:  البلد
+pi.form.label.field.adress.department: قسم
 pi.form.label.field.adress.location: الموقع
 
 pi.form.label.field.email:  البريد الإلكتروني
@@ -334,13 +344,20 @@ pi.session.flash.page.notexist: أنت لم تطلب صفحة موجودة!
 pi.session.flash.page.notpermission: ليس لديك إذن لعرض هذه الصفحة!
 pi.session.flash.layout.notexist : التخطيط الذي حددته غير موجود!
 pi.session.flash.rolecache.created: تم إنشاء ملف الميراث في ذاكرة التخزين المؤقت
+pi.session.flash.resetting.success: يتم الانتهاء من إعادة تعيين بنجاح
 
 # ENTITY :: PAGE
 pi.page.translation.title: ترجمات الصفحة
 pi.page.translation.prototype-tab-title: ترادكشن
+pi.page.layout.title: Liste des layouts
 pi.page.block.title: كتلة الصفحة
 pi.page.widget.title: كتلة القطعة
 pi.page.cssjs.title: Css/Js صفحة
+pi.page.keyword.title: قائمة من الكلمات الرئيسية
+pi.page.language.title: قائمة اللغات
+pi.page.topic.title: قائمة من الموضوعات
+pi.page.snippet.title: قائمة قصاصات
+pi.page.tag.title: قائمة من الكلمات
 pi.page.index.title: الصفحة قائمة
 
 pi.page.Draft: مسودة

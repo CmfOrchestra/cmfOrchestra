@@ -92,6 +92,14 @@ class Media extends AbstractDefault
     protected $title;      
     
     /**
+     * @var text $descriptif
+     *
+     * @Gedmo\Translatable
+     * @ORM\Column(name="descriptif", type="text", nullable=true)
+     */
+    protected $descriptif;    
+    
+    /**
      * @var string
      *
      * @ORM\Column(name="url", type="string", length=314, nullable=true)
@@ -107,12 +115,25 @@ class Media extends AbstractDefault
     protected $image;
     
     /**
+     * @var \BootStrap\MediaBundle\Entity\Media $image2
+     *
+     * @ORM\ManyToOne(targetEntity="BootStrap\MediaBundle\Entity\Media", cascade={"all"})
+     * @ORM\JoinColumn(name="media2", referencedColumnName="id", nullable=true)
+     */
+    protected $image2;    
+    
+    /**
      * @var boolean $mediadelete
      *
      * @ORM\Column(name="mediadelete", type="boolean", nullable=true)
      */
     protected $mediadelete; 
-
+    
+    /**
+     * @var string $copyright
+     */
+    protected $copyright;    
+    
     /**
      * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Contact", mappedBy="media");
      */
@@ -255,6 +276,27 @@ class Media extends AbstractDefault
     {
         return $this->title;
     }   
+    
+    /**
+     * Set descriptif
+     *
+     * @param text $descriptif
+     */
+    public function setDescriptif ($descriptif)
+    {
+    	$this->descriptif = $descriptif;
+    	return $this;
+    }
+    
+    /**
+     * Get descriptif
+     *
+     * @return text
+     */
+    public function getDescriptif ()
+    {
+    	return $this->descriptif;
+    }    
 
     /**
      * Set $url
@@ -298,6 +340,27 @@ class Media extends AbstractDefault
     }    
     
     /**
+     * Set image2
+     *
+     * @param \BootStrap\MediaBundle\Entity\Media $image2
+     */
+    public function setImage2($image2)
+    {
+    	$this->image2     = $image2;
+    	return $this;
+    }
+    
+    /**
+     * Get image2
+     *
+     * @return \BootStrap\MediaBundle\Entity\Media
+     */
+    public function getImage2()
+    {
+    	return $this->image2;
+    }    
+    
+    /**
      * Set mediadelete
      *
      * @param boolean $mediadelete
@@ -317,6 +380,22 @@ class Media extends AbstractDefault
     {
         return $this->mediadelete;
     }  
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function setCopyright($copyright)
+    {
+    	$this->copyright = $copyright;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function getCopyright()
+    {
+    	return $this->copyright;
+    }    
 
     
     /**

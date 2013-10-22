@@ -1,4 +1,4 @@
-<h1>Block creation</h1>
+<h1><a href="{{ path('admin_redirection') }}">{{ "pi.home"|trans }}</a> > <a href="{{ path_url('admin_blockbywidget_show') }}">{{ 'pi.page.widget.title'|trans }}</a> > {{ 'pi.grid.action.create'|trans }}</h1>
 
 <form action="{{ path('admin_blockbywidget_create') }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}

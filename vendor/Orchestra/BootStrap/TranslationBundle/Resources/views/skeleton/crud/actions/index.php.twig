@@ -13,19 +13,19 @@
         $request    = $this->container->get('request');
     	$em        = $this->getDoctrine()->getManager();
     	$locale    = $this->container->get('request')->getLocale();
-        
         $category    = $this->container->get('request')->query->get('category');
         $NoLayout    = $this->container->get('request')->query->get('NoLayout');
         if (!$NoLayout) 	$template = "index.html.twig"; else $template = "index.html.twig";
-        
-        if ($NoLayout){
-    		$query    = $em->getRepository("{{ bundle }}:{{ entity }}")->setContainer($this->container)->getAllByCategory($category, null, '', 'DESC', false);
-    	} else {
-    		$query    = $em->getRepository("{{ bundle }}:{{ entity }}")->getAllByCategory($category, null, '', 'ASC', false);
+        // we define the type Ajax or not
+        $is_Server_side = false;
+        if ( ($request->isXmlHttpRequest() && $is_Server_side) ||  !$is_Server_side) {
+	        if ($NoLayout){
+	    		$query    = $em->getRepository("{{ bundle }}:{{ entity }}")->setContainer($this->container)->getAllByCategory($category, null, '', 'DESC', false);
+	    	} else {
+	    		$query    = $em->getRepository("{{ bundle }}:{{ entity }}")->getAllByCategory($category, null, '', 'ASC', false);
+	    	}
     	}
     	
-        $is_Server_side = false;
-        
         if ($request->isXmlHttpRequest() && $is_Server_side) {
            $aColumns    = array('a.position','a.id','a.status','m.name','a.published_at','a.enabled');
            $q1 = clone $query;

@@ -21,9 +21,13 @@ pi.move-down : Move down
 pi.show : Show
 pi.add : Add
 pi.edit : edit
+pi.edit.name : Edition
 pi.update : Update
+pi.update.name : Modification
 pi.delete : Delete
+pi.delete.anme : Deletion
 pi.create : Create
+pi.create.name : Creation
 pi.save : Save
 pi.refresh : Refresh
 pi.admin : Administrator
@@ -34,6 +38,7 @@ pi.result: %s Result
 pi.result_plural: %s Results
 
 # Page accueil
+pi.home: Home
 pi.welcome.title: Welcome to Orchestra!
 
 #wizard
@@ -73,11 +78,13 @@ pi.grid.action.info: Showing _START_ to _END_ of _TOTAL_ records
 pi.grid.action.info.empty: Showing 0 to 0 of 0 records
 pi.grid.action.info.filtered: (filtered from _MAX_ total records)
 pi.grid.action.waiting: Please wait while loading the table
+pi.grid.action.activation.waiting: Waiting for activation
 pi.grid.action.activation: Activation
 pi.grid.action.active: Active
 pi.grid.action.row_enabled: Enabled
 pi.grid.action.row_disable: Disable
 pi.grid.action.row_delete: Delete
+pi.grid.action.row_deleted: Deleted
 pi.grid.action.row_archive: Archive
 pi.grid.action.select: Selection
 pi.grid.action.select_all: Select all
@@ -133,9 +140,11 @@ pi.form.label.field.website: Website
 pi.form.label.field.url: Link
 pi.form.label.field.blank: Blank link HTML
 pi.form.label.field.choice: Choice
+pi.form.label.field.type: Type
 pi.form.label.field.author: Author
-pi.form.label.field.user: User
 pi.form.label.field.group: Group
+pi.form.label.field.user: User
+pi.form.label.field.user.account: User accounts
 
 pi.form.label.field.civility: Civility
 pi.form.label.field.civility.type.mr: Mr
@@ -171,6 +180,7 @@ pi.form.label.field.adress.fax: Fax
 pi.form.label.field.adress.cp: Postcode
 pi.form.label.field.adress.city: City
 pi.form.label.field.adress.country: Country
+pi.form.label.field.adress.department: Department
 pi.form.label.field.adress.location: Location
 
 pi.form.label.field.email: Email
@@ -334,13 +344,20 @@ pi.session.flash.page.notexist: you did not call a page that exists !
 pi.session.flash.page.notpermission: you don't have permission to view this page!
 pi.session.flash.layout.notexist : the layout specified does not exist
 pi.session.flash.rolecache.created: The file inheritance has been generated in the cache
+pi.session.flash.resetting.success: The reset is completed successfully
 
 # ENTITY :: PAGE
 pi.page.translation.title: Translation page
 pi.page.translation.prototype-tab-title: Translate
+pi.page.layout.title: list of layout
 pi.page.block.title: Block page
 pi.page.widget.title: Widget Block
 pi.page.cssjs.title: Css/Js page
+pi.page.keyword.title: List of keywords
+pi.page.language.title: List of languages
+pi.page.topic.title: List of topics
+pi.page.snippet.title: List of snippets
+pi.page.tag.title: List of tags
 pi.page.index.title: Page list
 
 pi.page.Draft: Draft

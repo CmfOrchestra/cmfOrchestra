@@ -469,6 +469,7 @@ a.action-slider.activated	{
 #nav-right-search {
     top: 19px;
 	right: 15px;
+	z-index: 99;
     }	
 .top-search-inp {
     background: url(../../../images/shared/top_search_inp.gif) no-repeat;

@@ -74,18 +74,22 @@ class RoleFactory extends AbstractFactory implements RoleFactoryInterface
      */
     public function getBestRoleUser()
     {
-    	// we get all user roles.
-    	$ROLES_USER    = $this->getUserRoles();
-    	// we get the map of all roles.
-    	$roleMap = $this->buildRoleMap();
-    	foreach ($roleMap as $role => $heritage) {
-    		if (in_array($role, $ROLES_USER)) {
-    			$intersect    = array_intersect($heritage, $ROLES_USER);
-    			$ROLES_USER    = array_diff($ROLES_USER, $intersect);  // =  $ROLES_USER -  $intersect
-    		}
+    	if ($this->isUsernamePasswordToken()) {
+	    	// we get all user roles.
+	    	$ROLES_USER    = $this->getUserRoles();
+	    	// we get the map of all roles.
+	    	$roleMap = $this->buildRoleMap();
+	    	foreach ($roleMap as $role => $heritage) {
+	    		if (in_array($role, $ROLES_USER)) {
+	    			$intersect    = array_intersect($heritage, $ROLES_USER);
+	    			$ROLES_USER    = array_diff($ROLES_USER, $intersect);  // =  $ROLES_USER -  $intersect
+	    		}
+	    	}
+	    
+	    	return end($ROLES_USER);
+    	} else {
+    		return '';
     	}
-    
-    	return end($ROLES_USER);
     }    
     
     /**

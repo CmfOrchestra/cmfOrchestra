@@ -1,4 +1,4 @@
-{%  initJquery 'FORM:prototype-bytab' %}
+{% initJquery 'FORM:prototype-bytab' %}
 {% if NoLayout %}
 	{% set layout_nav = 'PiAppTemplateBundle::Template\\Layout\\layout-ajax.html.twig' %}
 {% else %}
@@ -7,7 +7,7 @@
 {% extends layout_nav %}
 
 {% block title %}
-	<h1>Media</h1>
+	<h1><a href="{{ path('admin_redirection') }}">{{ "pi.home"|trans }}</a> > <a href="{{ path_url('admin_gedmo_media') }}">{{ 'pi.media.title'|trans }}</a> > {{ 'pi.grid.action.edit'|trans }}</h1>
 {% endblock %}
  
 {% block content %}

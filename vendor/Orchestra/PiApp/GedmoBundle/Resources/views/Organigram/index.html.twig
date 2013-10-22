@@ -3,7 +3,7 @@
 {% extends app.request.attributes.get('orchestra-layout') %}
 
 {% block title %}
-	<h1>Organigram list</h1>
+	<h1><a href="{{ path('admin_redirection') }}">{{ "pi.home"|trans }}</a> > {{ 'pi.organigram.title'|trans }}</h1>
 {% endblock %}
  
 {% block content %}

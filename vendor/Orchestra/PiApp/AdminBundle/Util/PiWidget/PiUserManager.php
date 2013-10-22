@@ -112,7 +112,7 @@ class PiUserManager extends PiWidgetExtension
      *             <user>
      *                 <controller>BootStrapUserBundle:User:_connexion_default</controller>
      *                 <params>
-     *                     <template>PiAppTemplateBundle:Template\\Login\\Security:connexion-ajax-bloc.html.twig</template>
+     *                     <template>PiAppTemplateBundle:Template\\Login\\Security:connexion-ajax.html.twig</template>
      *                     <referer_redirection>true</referer_redirection>
      *                 </params>
      *             </user>
@@ -121,7 +121,7 @@ class PiUserManager extends PiWidgetExtension
      *  </code>
      * 
      * <code>  
-     *  {% set widget_service_params = {"template":"PiAppTemplateBundle:Template@@@@@@@@Login@@@@@@@@Security:connexion-ajax-bloc.html.twig"} %} 
+     *  {% set widget_service_params = {"template":"PiAppTemplateBundle:Template@@@@@@@@Login@@@@@@@@Security:connexion-ajax.html.twig"} %} 
      *  {{ getService('pi_app_admin.manager.authentication').renderSource('BootStrapUserBundle:User~_connexion_default', 'fr_FR', widget_service_params)|raw }}
      * </code>
      *  

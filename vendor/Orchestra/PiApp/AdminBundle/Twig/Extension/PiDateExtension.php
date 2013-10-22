@@ -74,7 +74,7 @@ class PiDateExtension extends \Twig_Extension
     {
         return array(
             'created_ago'         => new \Twig_Filter_Method($this, 'createdAgoFilter'),
-            'relativetime_ago'     => new \Twig_Filter_Method($this, 'relativetimeAgoFilter'),
+        	'time_ago'     => new \Twig_Filter_Method($this, 'RelativeTimeFilter'),
             'country'             => new \Twig_Filter_Method($this, 'countryFilter'),
             'localedate'          => new \Twig_Filter_Method($this, 'localeDateFilter'),
             'convertToDateTime'    => new \Twig_Filter_Method($this, 'convertToDattimeFilter'),
@@ -150,6 +150,21 @@ class PiDateExtension extends \Twig_Extension
     }
     
     /**
+     * Returns the difference between the given timestamps and now or from.
+     *
+     * @param  \DateTime $dateTime    Timestamp to compare to.
+     * @param  \DateTime $from        Timestamp to compare from. If not specified, defaults to now.
+     * @return strgin                 Duration
+     * @access public
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function RelativeTimeFilter(\DateTime $dateTime, $from = null)
+    {
+    	return $this->container->get('pi_app_admin.date_manager')->RelativeTime($dateTime, $from);
+    }    
+    
+    /**
      * Translate a country indicator to its locale full name
      * Uses default system locale by default. Pass another locale string to force a different translation
      *
@@ -195,24 +210,6 @@ class PiDateExtension extends \Twig_Extension
         return $this->container->get('pi_app_admin.date_manager')->format($date, $dateType, $timeType, $locale, $pattern);
     }  
 
-    /**
-     * Returns the difference between the given timestamps or now.
-     *
-     * Parameters:
-     * @param mixed        $time - Timestamp to compare to.
-     * @param mixed        $from - Timestamp to compare from. If not specified, defaults to now.
-     *
-     * @return string A string formatted like "3 days ago" or "3 days from now".
-     * @access public
-     * @static
-     * 
-     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
-     */    
-    public function relativetimeAgoFilter($when, $from = null)
-    {
-        return $this->container->get('pi_app_admin.date_manager')->relative_time($when, $from);
-    }
-    
     /**
      * Parse a string representation of a date to a timestamp.
      *

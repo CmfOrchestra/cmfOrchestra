@@ -2,7 +2,7 @@
 {% extends app.request.attributes.get('orchestra-layout') %}
 
 {% block title %}
-	<h1>Layout list</h1>
+	<h1><a href="{{ path('admin_redirection') }}">{{ "pi.home"|trans }}</a> > {{ 'pi.page.layout.title'|trans }}</h1>
 {% endblock %}
  
 {% block content %}
@@ -72,7 +72,7 @@
 				'rows_enabled': {'sButtonText':'pi.grid.action.row_enabled', 'route':'admin_layout_enabledentity_ajax'},
 				'rows_disable': {'sButtonText':'pi.grid.action.row_disable', 'route':'admin_layout_disablentity_ajax'},
 				'rows_delete': {'sButtonText':'pi.grid.action.row_delete', 'route':'admin_layout_deletentity_ajax'},
-				
+
 				'copy': {'sButtonText':'pi.grid.action.copy'},
 				'print': {'sButtonText':'pi.grid.action.print'},
 				'export_pdf': {'sButtonText':'pi.grid.action.export'},				

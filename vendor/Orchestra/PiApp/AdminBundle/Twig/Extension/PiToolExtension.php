@@ -571,9 +571,9 @@ class PiToolExtension extends \Twig_Extension
         //Empécher Microsoft de générer des "smart tags" sur notre page web.
         //$metas[] = "meta name='MSSmartTagsPreventParsing' content='TRUE'/>";
         // robot management
-        $metas[] = "    <meta name='robots' content='ALL'/>";
-        $metas[] = "    <meta name='robots' content='index, follow'/>";
-        $metas[] = "    <meta name='robots' content='noodp'/>";
+       // $metas[] = "    <meta name='robots' content='ALL'/>";
+        $metas[] = "    <meta name='robots' content='noindex, nofollow'/>";
+       // $metas[] = "    <meta name='robots' content='noodp'/>";
         //$metas[] = "    <base href='/'>";
                 
         return implode(" \n", $metas);
@@ -659,11 +659,11 @@ class PiToolExtension extends \Twig_Extension
     		$archived = $entity['archived'];
     	}
     	if ( ($enabled  == true ) && ($archived == false) ) {
-    		$status = 'Actif' ;
+    		$status =  $this->container->get('translator')->trans('pi.grid.action.active');
     	} elseif(!empty($archivedAt) && ($archived == true)) {
-    		$status = 'Supprimé';
+    		$status = $this->container->get('translator')->trans('pi.grid.action.row_deleted');
     	} elseif ( ($enabled  == false ) && ($archived == false) ) {
-    		$status = "En attente d'activation";
+    		$status = $this->container->get('translator')->trans('pi.grid.action.activation.waiting');
     	}
     
     	return $status;

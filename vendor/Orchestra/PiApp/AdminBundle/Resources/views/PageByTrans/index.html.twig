@@ -4,15 +4,14 @@
 {% extends app.request.attributes.get('orchestra-layout') %}
 
 {% block title %}
-	<h1>{{ 'pi.page.index.title'|trans }}</h1>
+	<h1><a href="{{ path('admin_redirection') }}">{{ "pi.home"|trans }}</a> > {{ 'pi.page.index.title'|trans }}</h1>
 {% endblock %}
  
 {% block content %}
 
     {{ parent() }}
     
-    <br />
-    
+    <div class="tool-tabs">
 	{% set options_tabs = 
 		{
 			'id': 'tab', 
@@ -29,6 +28,7 @@
 		} 
 	%}
 	{{ renderJquery('TOOL', 'tabs', options_tabs )|raw }}	
+	</div>
 	
 	<style>
 		.ui-widget-content {

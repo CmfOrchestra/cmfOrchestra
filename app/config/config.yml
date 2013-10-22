@@ -177,6 +177,7 @@ doctrine:
         metadata_cache_driver: array
         query_cache_driver: array
         result_cache_driver: array
+#       metadata_cache_driver: apc        
 #       result_cache_driver:
 #            type: memcache
 #            host: localhost
@@ -489,6 +490,8 @@ pi_app_admin:
         show_legend: true
         show_child_legend: false
         error_type: inline
+    mail:
+        overloading_mail: ~ # test@gmail.com   
     admin:
         context_menu_theme: pi2 # {'xp', 'default', 'vista', 'osx', 'human', 'gloss', 'gloss,gloss-cyan', 'gloss,gloss-semitransparent', 'pi', 'pi2'}
         grid_index_css: style-grid-7.css             

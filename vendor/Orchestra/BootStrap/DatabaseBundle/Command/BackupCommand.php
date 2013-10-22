@@ -22,8 +22,8 @@ use Symfony\Component\Console\Input\InputOption;
  * Command to create a new backup of the database.
  *
  * <code>
- *         php app/console orchestra:database:backup app\cache\Backup doctrine_backup_database-symflamelee_default.sql
- *         php app/console orchestra:database:backup app/cache/Backup
+ *         php app/console orchestra:database:backup app\cache\Backup doctrine_backup_database-default.sql
+ *         php app/console orchestra:database:backup app/cache/Backup doctrine_backup_database-default.sql
  * </code>
  *
  * @category   Bootstrap_Command

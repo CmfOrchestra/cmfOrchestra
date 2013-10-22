@@ -48,6 +48,8 @@
 #        show_legend: true
 #        show_child_legend: false
 #        error_type: inline
+#    mail:
+#       overloading_mail: ~ # test@gmail.com
 #    admin:
 #        context_menu_theme: pi2 # {'xp', 'default', 'vista', 'osx', 'human', 'gloss', 'gloss,gloss-cyan', 'gloss,gloss-semitransparent', 'pi', 'pi2'}
 #        grid_index_css: style-grid-1.css             

@@ -12,16 +12,15 @@
     public function _template_listAction($category = '', $MaxResults = null, $template = '_tmp_list.html.twig', $order = 'DESC', $lang = "")
     {
         $em         = $this->getDoctrine()->getManager();
-
-        if (empty($lang))
-            $lang    = $this->container->get('request')->getLocale();
-            
-        $query        = $em->getRepository("{{ bundle }}:{{ entity }}")->getAllByCategory($category, $MaxResults, $order)->getQuery();
+        if (empty($lang)) {
+            $lang   = $this->container->get('request')->getLocale();
+        }
+        $query      = $em->getRepository("{{ bundle }}:{{ entity }}")->getAllByCategory($category, $MaxResults, $order)->getQuery();
         $entities   = $em->getRepository("{{ bundle }}:{{ entity }}")->findTranslationsByQuery($lang, $query, 'object', false);                   
 
         return $this->render("{{ bundle }}:{{ entity }}:$template", array(
             'entities' => $entities,
-            'cat'       => ucfirst($category),
+            'category' => $category,
             'locale'   => $lang,
         ));
     } 

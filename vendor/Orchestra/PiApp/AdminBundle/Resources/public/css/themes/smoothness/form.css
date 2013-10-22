@@ -246,12 +246,23 @@ ul.ui-footer {
     border-radius: 0px 0px 5px 5px;
 }
 ul.ui-widget-header {
-    /*border: solid 1px #aaa;*/
     text-align: center;
     white-space: nowrap;
     line-height: 12px;
     overflow: hidden;
     width: 100%;
+}
+div.tool-tabs ul.ui-widget-header {
+    /*border: solid 1px #aaa;*/
+    position: relative;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 12px;
+    overflow: hidden;
+    width: 556px;
+    height: 40px;
+    top: 22px;
+    left: 1px;
 }
 ul.ui-widget-header li {
     display: inline-block;

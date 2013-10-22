@@ -64,10 +64,10 @@ class BootStrapUserBundle extends Bundle
                     'ROLE_SUBSCRIBER'       => array('ROLE_ALLOWED_TO_SWITCH'),
                     'ROLE_MEMBER'            => array('ROLE_SUBSCRIBER', 'ROLE_ALLOWED_TO_SWITCH'),
                     
-                    'ROLE_CUSTOMER'       => array('ROLE_ALLOWED_TO_SWITCH'),
-                    'ROLE_PROVIDER'            => array('ROLE_ALLOWED_TO_SWITCH'),
-                        
-                    'ROLE_USER'               => array('ROLE_ALLOWED_TO_SWITCH'),
+                    'ROLE_USER'             => array('ROLE_ALLOWED_TO_SWITCH'),
+            		
+            		'ROLE_CUSTOMER'         => array('ROLE_USER', 'ROLE_ALLOWED_TO_SWITCH'),
+            		'ROLE_PROVIDER'         => array('ROLE_USER', 'ROLE_ALLOWED_TO_SWITCH'),
                         
                     'ROLE_EDITOR'              => array('ROLE_MEMBER', 'ROLE_USER', 'ROLE_ALLOWED_TO_SWITCH'),
                     'ROLE_MODERATOR'           => array('ROLE_EDITOR',  'ROLE_ALLOWED_TO_SWITCH'),
@@ -137,7 +137,8 @@ class BootStrapUserBundle extends Bundle
                         array('path' => '^/user/resseting/check-email$', 'role' => 'IS_AUTHENTICATED_ANONYMOUSLY', 'requires_channel' => self::HTTP_TYPE),
                         array('path' => '^/user/resseting/reset/', 'role' => 'IS_AUTHENTICATED_ANONYMOUSLY', 'requires_channel' => self::HTTP_TYPE),
                         # -> custom access control for the admin area of the URL
-                        array('path' => '^/admin/', 'role' => 'ROLE_USER', 'requires_channel' => self::HTTP_TYPE),
+                        array('path' => '^/provider/', 'role' => 'ROLE_PROVIDER', 'requires_channel' => self::HTTP_TYPE),
+                        array('path' => '^/admin/', 'role' => 'ROLE_EDITOR', 'requires_channel' => self::HTTP_TYPE),
                         array('path' => '^/adminsonata/', 'role' => 'ROLE_SUPER_ADMIN', 'requires_channel' => self::HTTP_TYPE),
                         # DESACTIVER LE FRONT ACCES AUX NON LOGGE
                         #array('path' => '^/', 'role' => 'ROLE_USER', 'requires_channel' => self::HTTP_TYPE),

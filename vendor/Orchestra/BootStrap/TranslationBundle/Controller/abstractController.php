@@ -380,18 +380,27 @@ abstract class abstractController extends Controller
                 $search = str_replace(")(\s*/+\s*|$)","",$expression);
                 $search_tab = explode("|", $search);
 
+                $or = $qb->expr()->orx();
                 foreach ($search_tab as $s) {
-                    $and->add($qb->expr()->like('LOWER('.$aColumns[(intval($i)-1)].')', $qb->expr()->literal('%'.strtolower(\PiApp\AdminBundle\Util\PiStringManager::withoutaccent($s)).'%')));
+                    $or->add($qb->expr()->like('LOWER('.$aColumns[(intval($i)-1)].')', $qb->expr()->literal('%'.strtolower(\PiApp\AdminBundle\Util\PiStringManager::withoutaccent($s)).'%')));
                 }
-            }
-            if ( $request->get('bSearchable_'.($i+1)) == "true" && $request->get('sSearch') != '' ) {
-                $and->add($qb->expr()->like('LOWER('.$aColumns[$i].')', $qb->expr()->literal('%'.strtolower(\PiApp\AdminBundle\Util\PiStringManager::withoutaccent($request->get('sSearch'))).'%')));
+                $and->add($or);
             }
         }
         if ($and!= "") {
-            $qb->andWhere($and);
+        	$qb->andWhere($and); 
+        }        
+        
+        $or = $qb->expr()->orx();
+        for ( $i=0 ; $i<count($aColumns) ; $i++ ) {
+        	if ( $request->get('bSearchable_'.($i+1)) == "true" && $request->get('sSearch') != '' ) {
+        		$or->add($qb->expr()->like('LOWER('.$aColumns[$i].')', $qb->expr()->literal('%'.strtolower(\PiApp\AdminBundle\Util\PiStringManager::withoutaccent($request->get('sSearch'))).'%')));
+        	}
         }
-    
+        if ($or!= "") {
+        	$qb->andWhere($or);
+        }
+        
         /**
          * Ordering
           */
@@ -409,7 +418,7 @@ abstract class abstractController extends Controller
         }
         
         /**
-         * Paging
+         * Paging 
          */
         if ($type == 'select') {
             $iDisplayStart = $request->get('iDisplayStart', 0);
@@ -434,6 +443,64 @@ abstract class abstractController extends Controller
     }    
 
     /**
+     * Get all error messages after binding form.
+     *
+     * @param \Symfony\Component\Form\Form $form	
+     * @return array	The list of all the errors
+     * @access protected
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */    
+    protected function getErrorMessages(\Symfony\Component\Form\Form $form, $type = 'array') {
+    	$errors = array();
+    	foreach ($form->getErrors() as $key => $error) {
+    		if($error->getMessagePluralization() !== null) {
+    			$errors[$key] = $this->get('translator')->transChoice($error->getMessage(), $error->getMessagePluralization(), $error->getMessageParameters());
+    		} else {
+    			$errors[$key] = $this->get('translator')->trans($error->getMessage());
+    		}    		
+    	}
+    	if ($form->hasChildren()) {
+    		foreach ($form->getChildren() as $child) {
+    			if (!$child->isValid()) {
+    				$errors[$child->getName()] = $this->getErrorMessages($child, 'array');
+    			}
+    		}
+    	}
+    	if ($type == 'array') {
+      		return $errors;
+     	} else {
+     		return \PiApp\AdminBundle\Util\PiArrayManager::convertArrayToString($errors, $this->get('translator'), 'pi.form.label.field.', '', "<br />");
+     	}
+    }
+    
+    /**
+     * Set all error messages in flash.
+     *
+     * @param \Symfony\Component\Form\Form $form
+     * @return array	The list of all the errors
+     * @access protected
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    protected function setFlashErrorMessages(\Symfony\Component\Form\Form $form) {
+    	return $this->container->get('request')->getSession()->getFlashBag()->add('notice', $this->getErrorMessages($form, 'string' ));
+    }    
+    
+    /**
+     * Set all messages in flash.
+     *
+     * @param \Symfony\Component\Form\Form $form
+     * @return array	The list of all the errors
+     * @access protected
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    protected function setFlashMessages($messages, $param = 'notice') {
+    	return $this->container->get('request')->getSession()->getFlashBag()->add($param, $messages);
+    }    
+        
+    /**
      * Authenticate a user with Symfony Security.
      *
      * @param $user
@@ -445,10 +512,23 @@ abstract class abstractController extends Controller
     protected function authenticateUser(\BootStrap\UserBundle\Entity\User $user)
     {
         $providerKey = $this->container->getParameter('fos_user.firewall_name');
-        $token          = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
-
+        $token       = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
         $this->container->get('security.context')->setToken($token);
-    }    
+    }   
+    
+    /**
+     * Disconnect a user with Symfony Security.
+     *
+     * @param $user
+     * @return void
+     * @access protected
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    protected function disconnectUser()
+    {
+    	$this->get('request')->getSession()->invalidate();
+    }   
     
     /**
      * Return the token object.

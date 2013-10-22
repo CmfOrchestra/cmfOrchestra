@@ -54,9 +54,11 @@ pi.dashboard.menu6.partner: Partenaires
 pi.dashboard.menu6.team: Equipe
 
 # ENTITY :: MEDIA
+pi.media.title: Liste des medias
 pi.media.form.field.mediadelete: Action visant à supprimer le media de type %s.
 
 # ENTITY :: MENU
+pi.menu.title: Liste des menus
 pi.menu.translation.title: Traductions de menu
 pi.menu.form.picture: Image
 pi.menu.form.group.pictures: Images
@@ -65,15 +67,18 @@ pi.menu.form.group.pictures: Images
 pi.activity.translation.title: Traductions d'activité
 
 # ENTITY :: ORGANIGRAM
+pi.organigram.title: Liste des organigrammes
 pi.organigram.translation.title: Traductions d'organigram
 pi.organigram.form.group.pictures: Images
 
 # ENTITY :: SLIDER
+pi.slider.title: Liste des sliders
 pi.slider.translation.title: Traductions de slider
 pi.slider.template.more: en savoir plus
 pi.slider.form.group.pictures: Images
 
 # ENTITY :: CATEGORY
+pi.topic.title: Liste des catégories
 pi.category.type.0: Contact
 pi.category.type.1: Bloc
 pi.category.type.2: Média
@@ -86,6 +91,7 @@ pi.category.type.8: Partenaire
 pi.category.type.9: Newsletter
 
 # ENTITY :: BLOCK
+pi.block.title: Liste des blocs
 pi.block.formbuilder.template.choice1: Bloc descriptif avec image à gauche
 pi.block.formbuilder.template.choice2: Bloc descriptif avec image à droite
 pi.block.formbuilder.template.choice3: Bloc contenu avec image à gauche
@@ -99,8 +105,8 @@ pi.block.form.group.pictures: Images
 pi.block.form.group.url: Lien
 
 # ENTITY :: CONTENT
+pi.content.title: Liste des contenus
 pi.content.translation.title: Traductions de contenu
-
 pi.content.formbuilder.template.choice0: Simple content
 pi.content.formbuilder.template.choice1: Content dans une balise P
 pi.content.formbuilder.template.choice2: Content dans une balise DIV
@@ -110,6 +116,7 @@ pi.content.formbuilder.template.choice5: Content dans une balise H2
 pi.content.formbuilder.template.choice6: Content dans une balise H3
 
 # ENTITY :: CONTACT
+pi.contact.title:  Liste des contacts
 pi.contact.form.picture.left: Photo de gauche
 pi.contact.form.picture.right: Photo de droite
 pi.contact.form.group.addess: Adresse

@@ -84,18 +84,21 @@ class PiOrgChartPageManager extends PiJqueryExtension
     protected function render($options = null)
     {        
         // Options management
-        if (!isset($options['action']) || empty($options['action']) || (isset($options['action']) && !in_array(strtolower($options['action']), self::$actions)) )
+        if (!isset($options['action']) || empty($options['action']) || (isset($options['action']) && !in_array(strtolower($options['action']), self::$actions)) ) {
             throw ExtensionException::optionValueNotSpecified('action', __CLASS__);
-        if (!isset($options['menu']) || empty($options['menu']) || (isset($options['menu']) && !in_array(strtolower($options['menu']), self::$menus)) )
+        }
+        if (!isset($options['menu']) || empty($options['menu']) || (isset($options['menu']) && !in_array(strtolower($options['menu']), self::$menus)) ) {
             throw ExtensionException::optionValueNotSpecified('menu', __CLASS__);
-        
+        }
+        // set names
         $method = strtolower($options['menu']) . "Menu";
         $action = strtolower($options['action']) . "Action";
-        
-        if (method_exists($this, $method))
+        //
+        if (method_exists($this, $method)) {
             $htmlTree = $this->$method($options);
-        else
-            throw ExtensionException::MethodUnDefined($method);        
+        } else {
+            throw ExtensionException::MethodUnDefined($method);
+        }        
         
         return $this->$action($htmlTree, $options);
     }
@@ -113,8 +116,9 @@ class PiOrgChartPageManager extends PiJqueryExtension
     private function renderdefaultAction($htmlTree, $options = null)
     {
         // Options management
-        if ( !isset($options['id']) || empty($options['id']) )
+        if ( !isset($options['id']) || empty($options['id']) ) {
             throw ExtensionException::optionValueNotSpecified('id', __CLASS__);
+        }
     
         // We open the buffer.
         ob_start ();

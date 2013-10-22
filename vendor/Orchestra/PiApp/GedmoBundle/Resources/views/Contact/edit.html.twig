@@ -7,7 +7,7 @@
 {% extends layout_nav %}
 
 {% block title %}
-	<h1>Contact</h1>
+	<h1><a href="{{ path('admin_redirection') }}">{{ "pi.home"|trans }}</a> > <a href="{{ path_url('admin_gedmo_contact') }}">{{ 'pi.contact.title'|trans }}</a> > {{ 'pi.grid.action.edit'|trans }}</h1>
 {% endblock %}
  
 {% block content %}

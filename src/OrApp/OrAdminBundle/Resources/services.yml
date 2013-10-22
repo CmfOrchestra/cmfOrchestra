@@ -1,0 +1,28 @@
+parameters:
+    oradmin.manager.jquery.contextmenu.class : OrApp\OrAdminBundle\Util\PiJquery\PiContextMenuManager
+    oradmin.manager.jquery.widgetadmin.class : OrApp\OrAdminBundle\Util\PiJquery\PiWidgetAdminManager
+    oradmin.manager.jquery.widgetadmin.class : OrApp\OrAdminBundle\Util\PiJquery\PiWidgetAdminManager
+    
+    oradmin.admin.handler.login.class: OrApp\OrAdminBundle\EventListener\HandlerLogin
+
+
+services:
+    #
+    # configuration of the JQUERY Util classes
+    #
+    or_admin.jquery_manager.contextmenu:
+        class: %oradmin.manager.jquery.contextmenu.class%
+        arguments: ['@service_container']     
+        
+    or_admin.jquery_manager.widgetadmin:                       
+        class: %oradmin.manager.jquery.widgetadmin.class%
+        arguments: ['@service_container']   
+
+    #
+    # configuration of the listener classes
+    #        
+    or_admin.user.login_handler:
+        class: %oradmin.admin.handler.login.class%
+        arguments: [@security.context, @event_dispatcher, @doctrine, @service_container]
+        tags:
+            - { name: kernel.event_listener, event: security.interactive_login }

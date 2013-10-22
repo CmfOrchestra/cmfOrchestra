@@ -131,7 +131,13 @@ class MediaType extends AbstractType
                                  "class"=> $this->_class,
                          ),
                          'required'      => false,
-                 ))            
+                 ))  
+                 ->add('descriptif', 'textarea', array(
+                 		'label'    => 'pi.form.label.field.description',
+                 		"label_attr" => array(
+                 				"class"=>"content_collection",
+                 		),
+                 ))                           
                  ->add('url', 'text', array(
                          "label"     => "pi.form.label.field.url",
                          "label_attr" => array(
@@ -162,8 +168,46 @@ class MediaType extends AbstractType
                                      "class"=> $this->_class,
                              ),
                 ))
-            ;    
-        }elseif ( ($this->_simpleLink == "simpleLink") || ($this->_simpleLink == "hidden") || ($this->_simpleLink == "simple") ){
+            ; 
+        } elseif ( ($this->_simpleLink == "simpleDescriptif") || ($this->_simpleLink == "simpleWithIcon") ) {
+        	$builder
+        	->add('enabled', 'hidden', array(
+        			'data'  => true,
+        			"label_attr" => array(
+        					"class"=> $this->_class,
+        			),
+        	))
+        	->add('title', 'text', array(
+        			'label'            => "pi.form.label.field.title",
+        			"label_attr"     => array(
+        					"class"=> $this->_class,
+        			),
+        			'required'      => false,
+        	))
+        	->add('descriptif', 'textarea', array(
+        			'label'    => 'pi.form.label.field.description',
+        			"label_attr" => array(
+        					"class"=>"content_collection",
+        			),
+        	))
+        	;
+        } elseif ($this->_simpleLink == "crop"){
+        	$builder
+        	->add('enabled', 'hidden', array(
+        			'data'  => true,
+        			"label_attr" => array(
+        					"class"=> $this->_class,
+        			),
+        	))        	
+        	->add('title', 'text', array(
+        			'label'            => "pi.form.label.field.title",
+        			"label_attr"     => array(
+        					"class"=> $this->_class,
+        			),
+        			'required'      => false,
+        	))
+        	;                   
+        } elseif ( ($this->_simpleLink == "simpleLink") || ($this->_simpleLink == "hidden") || ($this->_simpleLink == "simple") ){
             $builder
             ->add('enabled', 'hidden', array(
                         'data'  => true,
@@ -173,13 +217,12 @@ class MediaType extends AbstractType
                 ))
             ;
         }
-        
-        if ($this->_simpleLink == "hidden"){
+        if ($this->_simpleLink == "hidden") {
             $style = "display:none";
-        }else 
+        } else {
             $style = "";
-          
-          if ($this->_status == "file"){
+        }
+        if ($this->_status == "file") {
             if ($this->_labelLink == "")    $this->_labelLink    = 'pi.form.label.media.file';
             if ($this->_context == "")    $this->_context        = 'file';
              $builder->add('image', 'sonata_media_type', array(
@@ -193,7 +236,7 @@ class MediaType extends AbstractType
                      "attr"    => array("style"=> $style),
                      'required'  => false,
              ));        
-         }elseif ($this->_status == "image"){
+         } elseif ($this->_status == "image") {
              if ($this->_labelLink == "") $this->_labelLink = 'pi.form.label.media.picture';     
              if ($this->_context == "")    $this->_context        = 'image';
              $builder->add('image', 'sonata_media_type', array(
@@ -206,8 +249,23 @@ class MediaType extends AbstractType
                      ),
                      "attr"    => array("style"=> $style),
                      'required'  => false,
-             ));            
-         }elseif ($this->_status == "youtube"){
+             ));   
+             if ($this->_simpleLink == "simpleWithIcon"){
+             	if ($this->_labelLink == "") $this->_labelLink = 'miniature';
+             	if ($this->_context == "")    $this->_context        = 'image';
+             	$builder->add('image2', 'sonata_media_type', array(
+             			'provider'     => 'sonata.media.provider.image',
+             			'context'      => $this->_context,
+             			'label'        => "pi.form.label.media.picture.miniature",
+             			"label_attr" => array(
+             					"class"=> $this->_class,
+             					"style"=> $style,
+             			),
+             			"attr"    => array("style"=> $style),
+             			'required'  => false,
+             	));
+             }         
+         } elseif ($this->_status == "youtube") {
              if ($this->_labelLink == "") $this->_labelLink     = 'pi.form.label.media.youtube';
              if ($this->_context == "")    $this->_context        = 'youtube';
              $builder->add('image', 'sonata_media_type', array(
@@ -238,7 +296,7 @@ class MediaType extends AbstractType
          }     
 
 
-         if (($this->_simpleLink != "hidden") && ($this->_simpleLink != "simple"))
+         if (($this->_simpleLink != "hidden") && ($this->_simpleLink != "simple")) {
              $builder
                  ->add('mediadelete', 'checkbox', array(
                      'data'  => false,
@@ -249,7 +307,8 @@ class MediaType extends AbstractType
                              "class"=> $this->_class,
                      ),
                      "attr"    => array("style"=> $style),
-                 ));         
+                 ));    
+         }     
          
     }
 
