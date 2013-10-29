@@ -46,7 +46,11 @@ services:
         arguments: [@service_container, @pi_app_admin.lib.browscap, @pi_app_admin.lib.mobiledetect]
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 65 }
-            
+
+    pi_app_admin.user.authentication_handler:
+        class: %piapp.admin.handler.authenticationHandler.class%
+        arguments: [@service_container, @doctrine]  
+                    
     pi_app_admin.user.login_handler:
         class: %piapp.admin.handler.loginHandler.class%
         arguments: [@security.context, @event_dispatcher, @doctrine, @service_container]
@@ -56,10 +60,6 @@ services:
     pi_app_admin.user.logout_handler:
         class: %piapp.admin.handler.logoutHandler.class%
         arguments: [@service_container, @doctrine]
-        
-    pi_app_admin.user.authentication_handler:
-        class: %piapp.admin.handler.authenticationHandler.class%
-        arguments: [@service_container, @doctrine]        
         
 #    pi_app_admin.controller_handler:
 #        class: %piapp.admin.handler.controllerHandler.class%

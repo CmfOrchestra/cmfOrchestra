@@ -225,7 +225,13 @@ class PiToolExtension extends \Twig_Extension
     }
 
     /**
-     * moving a file.
+     * display a picture.
+     * 
+     * <code>
+     * {% if entity.media.image is defined %}
+	 *   {{ picture_form(entity.media.image, "piapp_gedmobundle_blocktype_media_image_binaryContent",  'reference', 'display: block; text-align:left;')|raw }}
+	 * {% endif %}
+     * </code>
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
@@ -265,7 +271,47 @@ class PiToolExtension extends \Twig_Extension
             return $content;
         }
     }
+    
+    /**
+     * crop a picture.
+     *
+     * <code>
+     * {% if entity.media.image is defined %}
+     *   {{ picture_crop(entity.media.image, "default", "piapp_gedmobundle_blocktype_media_image_binaryContent")|raw}}
+     * {% endif %}
+     * </code>
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function getPictureCropFunction($media, $format = "PiAppTemplateBundle:Template\\Crop:default.html.twig", $nameForm = "")
+    {
+    	if ($format == "default") {
+    		$format = "PiAppTemplateBundle:Template\\Crop:default.html.twig";
+    	}
+    	if ($media instanceof \BootStrap\MediaBundle\Entity\Media) {
+    		$response     = $this->container->get('templating')->renderResponse(
+    				$format,
+    				array(
+    						"media"=>$media,
+    						"nameForm"=>$nameForm,
+    				)
+    		);
+    
+    		return $response->getContent();
+    	}
+    }    
 
+    /**
+     * show a crop picture.
+     *
+     * <code>
+     * {% if entity.media.image is defined %}
+     *   {{ picture_index(entity.media.image, 'slider', slider_width ,  slider_height )|raw }}
+     * {% endif %}
+     * </code>
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */    
     public function getPictureIndexFunction($media, $format = '', $width='', $height='')
     {
         if ($media instanceof \BootStrap\MediaBundle\Entity\Media) {
@@ -286,24 +332,6 @@ class PiToolExtension extends \Twig_Extension
         }
     }
     
-    public function getPictureCropFunction($media, $format = "PiAppTemplateBundle:Template\\Crop:default.html.twig", $nameForm = "")
-    {
-        if ($format == "default") {
-            $format = "PiAppTemplateBundle:Template\\Crop:default.html.twig";
-        }
-    	if ($media instanceof \BootStrap\MediaBundle\Entity\Media) {
-            $response     = $this->container->get('templating')->renderResponse(
-                                $format, 
-                                array(
-                                    "media"=>$media,
-                                    "nameForm"=>$nameForm,
-                                )
-            );
-            
-            return $response->getContent();
-    	}
-    }    
-        
     /**
      * Creating a link.
      *

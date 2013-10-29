@@ -21,24 +21,30 @@
 	</section>		
 </div>
 #}
-<section class="bloc-connexion">
-	<div class="wrap content">
-		<header class="resetM">
-			<div class="title-border-simple cf">
-				<h3 class="tt-5 tt-clr fleft">Création/Changement de mot-de-passe</h3>
-			</div>
-		</header>
-		<form action="{{ path(route, {'token': token}) }}" {{ form_enctype(form) }} method="POST" id="form-connexion-reset">
-					<div class="row">
-						{{ form_errors(form) }}
-    					{{ form_widget(form._token) }}
-					</div>
-					<div class="row">
-						{{ form_widget(form.plainPassword) }}
-					</div>
-					<div class="txtcenter">
-						<input type="submit" class="txtcenter nextStep" value="{{ 'pi.grid.action.validate'|trans }}">
-					</div>
-		</form>
-	</div>
-</section>
+
+<div class="leftCol largeCol fleft cf">
+    <h4 class="tt2">Nouveau mot de passe</h4>
+    <div class="intro">
+        <p>Vous avez oublié votre mot de passe.</p>
+        <p>Afin de pouvoir accéder à votre compte, veuillez saisir votre nouveau mot de passe et confirmer.</p>
+    </div>
+    <form action="{{ path(route, {'token': token}) }}" {{ form_enctype(form) }} method="POST" id="form-connexion-reset" novalidate>
+        <p class="errorMsg long">
+            {{ form_errors(form) }}
+            {{ form_widget(form._token) }}
+        </p>
+        <div class="info">
+            <div class="row cf">
+                <label>Nouveau Mot de Passe<span>*</span> :</label>
+                {{ form_widget (form.plainPassword.children['first'], { 'attr': { 'class': 'input required','type':'password' }}) }}
+            </div>
+            <div class="row cf">
+                <label>Confirmation du nouveau Mot de Passe<span>*</span> :</label>
+                {{ form_widget (form.plainPassword.children['second'], { 'attr': { 'class': 'input required','type':'password' }}) }}
+            </div>
+            <div class="row cf">
+                <input type="submit" value="Valider"/>
+            </div>
+        </div>
+    </form>
+</div>

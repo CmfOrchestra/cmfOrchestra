@@ -616,7 +616,7 @@ class PiGridTableManager extends PiJqueryExtension
                             $("a.button-ui-edit").button({icons: {primary: "ui-icon-edit"}});
 
                              /* Add a select menu for each TH element in the table footer */
-                            $("tfoot th").each( function ( i ) {
+                            $("tfoot th, tfoot td").each( function ( i ) {
                                 var column = $(this).data('column');
                                 var values = $(this).data('values');
                                 var type = $(this).data('type');
@@ -1239,7 +1239,7 @@ class PiGridTableManager extends PiJqueryExtension
 						 *		</tr>
 						 *	</tfoot>
 						 */
-                        $("tfoot th").each( function ( i ) {
+                        $("tfoot th, tfoot td").each( function ( i ) {
                             var column = $(this).data('column');
                             var values = $(this).data('values');
                             var type = $(this).data('type');

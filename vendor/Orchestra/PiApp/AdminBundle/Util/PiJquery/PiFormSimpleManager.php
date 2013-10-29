@@ -120,7 +120,16 @@ class PiFormSimpleManager extends PiJqueryExtension
                             // General options
                             theme : "advanced",
                             language : "<?php echo strtolower(current(explode("_", $this->locale))); ?>",
-                            plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist",
+                            plugins : "openmanager,autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist",
+                            // url convertion : http://www.tinymce.com/tryit/url_conversion.php
+                            relative_urls : true,
+                            document_base_url: '',
+                            remove_script_host : true,
+                            convert_urls : true,
+                            //FILE UPLOAD MODS
+                            file_browser_callback: "openmanager",
+                            open_manager_upload_path: "<?php echo $root_upload; ?>",
+                            open_manager_web_path: "<?php echo $root_web; ?>",
                             /*SBLA 20130211*/
                             // forced_root_block : false,         // Needed for 3.x
                             // forced_root_block : '',
@@ -132,7 +141,9 @@ class PiFormSimpleManager extends PiJqueryExtension
                             convert_fonts_to_spans : true,
                             font_size_classes : "tt-10,tt-9,tt-8,tt-7,tt-6,tt-4,tt-2",
                             // don't replace encoding character like : Ã© to &eacutes;
-                            entity_encoding : "raw",
+                            entity_encoding : "raw",  
+                         	// clean up the content
+                            cleanup_callback : this.fct_tinymce_xhtml_transform,                    
                             // Theme options
                             theme_advanced_buttons1 : "fullscreen,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,formatselect,styleselect,fontselect,fontsizeselect",
                             theme_advanced_buttons2 : "code,cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,image,anchor,cleanup,help,|,insertdate,inserttime,preview,|,forecolor,backcolor",
@@ -194,7 +205,16 @@ class PiFormSimpleManager extends PiJqueryExtension
                             // General options
                             theme : "advanced",
                             language : "<?php echo strtolower(current(explode("_", $this->locale))); ?>",
-                            plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist",
+                            plugins : "openmanager,autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist",
+                            // url convertion : http://www.tinymce.com/tryit/url_conversion.php
+                            relative_urls : true,
+                            document_base_url: '',
+                            remove_script_host : true,
+                            convert_urls : true,
+                            //FILE UPLOAD MODS
+                            file_browser_callback: "openmanager",
+                            open_manager_upload_path: "<?php echo $root_upload; ?>",
+                            open_manager_web_path: "<?php echo $root_web; ?>",
                             /*SBLA 20130211*/
                             // forced_root_block : false,         // Needed for 3.x
                             // forced_root_block : '',
@@ -206,7 +226,9 @@ class PiFormSimpleManager extends PiJqueryExtension
                             convert_fonts_to_spans : true,
                             font_size_classes : "tt-10,tt-9,tt-8,tt-7,tt-6,tt-4,tt-2",
                             // don't replace encoding character like : Ã© to &eacutes;
-                            entity_encoding : "raw",                            
+                            entity_encoding : "raw",  
+                         	// clean up the content
+                            cleanup_callback : this.fct_tinymce_xhtml_transform,                    
                             // Theme options
                             theme_advanced_buttons1 : "fullscreen,bold,italic,underline,strikethrough,justifyleft,justifycenter,justifyright,justifyfull,bullist,numlist,hr,sub,sup,forecolor,backcolor",
                             theme_advanced_buttons2 : "removeformat,formatselect,styleselect,fontsizeselect,visualchars,outdent,indent,undo,redo",
@@ -268,7 +290,16 @@ class PiFormSimpleManager extends PiJqueryExtension
                             // General options
                             theme : "advanced",
                             language : "<?php echo strtolower(current(explode("_", $this->locale))); ?>",
-                            plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist",
+                            plugins : "openmanager,autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist",
+                            // url convertion : http://www.tinymce.com/tryit/url_conversion.php
+                            relative_urls : true,
+                            document_base_url: '',
+                            remove_script_host : true,
+                            convert_urls : true,
+                            //FILE UPLOAD MODS
+                            file_browser_callback: "openmanager",
+                            open_manager_upload_path: "<?php echo $root_upload; ?>",
+                            open_manager_web_path: "<?php echo $root_web; ?>",
                             /*SBLA 20130211*/
                             // forced_root_block : false,         // Needed for 3.x
                             // forced_root_block : '',
@@ -280,7 +311,9 @@ class PiFormSimpleManager extends PiJqueryExtension
                             convert_fonts_to_spans : true,
                             font_size_classes : "tt-10,tt-9,tt-8,tt-7,tt-6,tt-4,tt-2",
                             // don't replace encoding character like : Ã© to &eacutes;
-                            entity_encoding : "raw",                            
+                            entity_encoding : "raw",  
+                         	// clean up the content
+                            cleanup_callback : this.fct_tinymce_xhtml_transform,                    
                             // Theme options
                             theme_advanced_buttons1 : "fullscreen,bold,italic,underline,strikethrough,justifyleft,justifycenter,justifyright,justifyfull,bullist,numlist,forecolor,backcolor",
                             theme_advanced_buttons2 : "removeformat,formatselect,styleselect,fontsizeselect,outdent,indent,undo,redo",
@@ -341,7 +374,16 @@ class PiFormSimpleManager extends PiJqueryExtension
                             // General options
                             theme : "advanced",
                             language : "<?php echo strtolower(current(explode("_", $this->locale))); ?>",
-                            plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist",
+                            plugins : "openmanager,autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist",
+                            // url convertion : http://www.tinymce.com/tryit/url_conversion.php
+                            relative_urls : true,
+                            document_base_url: '',
+                            remove_script_host : true,
+                            convert_urls : true,
+                            //FILE UPLOAD MODS
+                            file_browser_callback: "openmanager",
+                            open_manager_upload_path: "<?php echo $root_upload; ?>",
+                            open_manager_web_path: "<?php echo $root_web; ?>",
                             /*SBLA 20130211*/
                             // forced_root_block : false,         // Needed for 3.x
                             // forced_root_block : '',
@@ -353,7 +395,9 @@ class PiFormSimpleManager extends PiJqueryExtension
                             convert_fonts_to_spans : true,
                             font_size_classes : "tt-10,tt-9,tt-8,tt-7,tt-6,tt-4,tt-2",
                             // don't replace encoding character like : Ã© to &eacutes;
-                            entity_encoding : "raw",                            
+                            entity_encoding : "raw",  
+                         	// clean up the content
+                            cleanup_callback : this.fct_tinymce_xhtml_transform,                    
                             // Theme options
                             theme_advanced_buttons1 : "fullscreen,bold,italic,underline,strikethrough,justifyleft,justifycenter,justifyright,justifyfull,bullist,numlist,hr,sub,sup,forecolor,backcolor",
                             theme_advanced_buttons2 : "code,formatselect,styleselect,fontsizeselect,removeformat,visualchars,outdent,indent,undo,redo",
@@ -406,7 +450,32 @@ class PiFormSimpleManager extends PiJqueryExtension
                             }
                         });
                     };    
-                    
+                 	// This function allows to convert the entered text
+                    this.fct_tinymce_xhtml_transform = function xhtml_transform(type, value) {
+                    	switch (type) {
+		                        case "get_from_editor":
+		                        	 	value = value.replace(/&nbsp;/ig, " ");	
+		                        		value = value.replace(/\s/ig, " ");
+		                                break;
+		                        case "insert_to_editor":
+										//value = value.replace(/<p[^>]*><span[^>]*> <\/span><\/p>/g,"<p><span> </span></p>");
+		                    			//value = value.replace(/<p[^>]*> <\/p>/g, "<p> </p>");
+		                    			value = value.replace(/&nbsp;/ig, " ");		     
+		                    			value = value.replace(/\s/ig, " ");		                                    
+		                                break;
+		                        case "submit_content":
+		                                break;
+		                        case "get_from_editor_dom":
+		                                break;
+		                        case "insert_to_editor_dom":
+		                                break;
+		                        case "setup_content_dom":
+		                                break;
+		                        case "submit_content_dom":
+		                                break;
+		                }
+		                return value;				
+		            },                     
                     // THIS FUNCTION ALLOW TO INJECT SEVERAL FIELDS IN A ACCORDION MENU.
                     // exemple : j_prototype_bytabs.ftc_accordion_form("meta_definition", "SEO", ".myform");
                     // exemple : j_prototype_bytabs.ftc_accordion_form("meta_definition", "SEO", ".myform", 'questionLi0');

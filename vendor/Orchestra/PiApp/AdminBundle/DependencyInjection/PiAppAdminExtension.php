@@ -103,10 +103,15 @@ class PiAppAdminExtension extends Extension
          * Cookies config parameter
          */
         if (isset($config['cookies'])){
-            if (isset($config['cookies']['date_expire']))
+            if (isset($config['cookies']['date_expire'])) {
                 $container->setParameter('pi_app_admin.cookies.date_expire', $config['cookies']['date_expire']);
-            if (isset($config['cookies']['date_interval']))
+            }
+            if (isset($config['cookies']['date_interval'])) {
                 $container->setParameter('pi_app_admin.cookies.date_interval',$config['cookies']['date_interval']);
+            }
+            if (isset($config['cookies']['application_id'])) {
+            	$container->setParameter('pi_app_admin.cookies.application_id',$config['cookies']['application_id']);
+            }
         }        
         
         /**

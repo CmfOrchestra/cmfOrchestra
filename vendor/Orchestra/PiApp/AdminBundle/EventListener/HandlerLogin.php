@@ -174,6 +174,15 @@ class HandlerLogin
         } else {
             $dateExpire = 0;
         }
+        // Record all cookies in relation with ws.
+        if ($this->application_id && !empty($this->application_id) && $this->container->hasParameter('ws.auth')) {
+        	$config_ws = $this->container->getParameter('ws.auth');
+        	$key       = $config_ws['handlers']['getpermisssion']['key'];
+        	$userId    = $this->container->get('pi_app_admin.twig.extension.tool')->encryptFilter($this->getUser()->getId(), $key);
+        	$response->headers->setCookie(new \Symfony\Component\HttpFoundation\Cookie('orchestra-ws-user-id', $userId, $dateExpire));
+        	$response->headers->setCookie(new \Symfony\Component\HttpFoundation\Cookie('orchestra-ws-application-id', $this->application_id, $dateExpire));
+        	$response->headers->setCookie(new \Symfony\Component\HttpFoundation\Cookie('orchestra-ws-key', $key, $dateExpire));
+        }   
         $response->headers->setCookie(new \Symfony\Component\HttpFoundation\Cookie('orchestra-layout', $this->layout, $dateExpire));
         $response->headers->setCookie(new \Symfony\Component\HttpFoundation\Cookie('orchestra-redirection', $this->redirect, $dateExpire));
         $response->headers->setCookie(new \Symfony\Component\HttpFoundation\Cookie('_locale', $this->locale, $dateExpire));
@@ -249,7 +258,6 @@ class HandlerLogin
             $role         = $this->em->getRepository("BootStrapUserBundle:Role")->findOneBy(array('name' => $BEST_ROLE_NAME));
             if ($role instanceof \BootStrap\UserBundle\Entity\Role) {
                 $this->redirect = $role->getRouteLogin();
-                
                 if ($role->getLayout() instanceof \PiApp\AdminBundle\Entity\Layout) {
                     $this->template = $role->getLayout()->getFilePc();
                 }
@@ -257,7 +265,8 @@ class HandlerLogin
         }
         $this->date_expire          = $this->container->getParameter('pi_app_admin.cookies.date_expire');
         $this->date_interval        = $this->container->getParameter('pi_app_admin.cookies.date_interval');
-        // 
+        $this->application_id       = $this->container->getParameter('pi_app_admin.cookies.application_id');
+        //
         $this->redirect_admin       = $this->container->getParameter('pi_app_admin.layout.login.admin_redirect');
         $this->redirect_user        = $this->container->getParameter('pi_app_admin.layout.login.user_redirect');
         $this->redirect_subscriber  = $this->container->getParameter('pi_app_admin.layout.login.subscriber_redirect');

@@ -232,6 +232,10 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('cookies')
                     ->addDefaultsIfNotSet()
                     ->children()
+                    
+                        ->scalarNode('application_id')
+                            ->cannotBeEmpty()
+                            ->end()                  
                 
                         ->booleanNode('date_expire')
                             ->defaultValue(true)

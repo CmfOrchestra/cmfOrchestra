@@ -320,6 +320,7 @@ pi.form.label.select.choose.civility: Choose a civility
 pi.form.label.select.choose.profile: Choose a profile
 pi.form.label.select.choose.date: Choose a date
 pi.form.label.select.choose.hour: Choose a time
+pi.form.label.select.choose.media: Choose a media
 
 # Footer
 pi.footer.copyright: Copyright
@@ -345,6 +346,7 @@ pi.session.flash.page.notpermission: you don't have permission to view this page
 pi.session.flash.layout.notexist : the layout specified does not exist
 pi.session.flash.rolecache.created: The file inheritance has been generated in the cache
 pi.session.flash.resetting.success: The reset is completed successfully
+pi.session.flash.resetting.error:  Your words-password do not match!
 
 # ENTITY :: PAGE
 pi.page.translation.title: Translation page

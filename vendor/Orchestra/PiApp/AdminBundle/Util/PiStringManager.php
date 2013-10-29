@@ -792,15 +792,10 @@ class PiStringManager implements PiStringManagerBuilderInterface
     {
         // remove whitespace
         $string     = self::cleanWhitespace($string);
-        
-        $wordList     = explode(' ', $string);
-        //print_r(count($wordList));
-        //print_r("<br />");
+        $wordList   = explode(' ', $string);
         $wordList   = array_unique($wordList);
-        //print_r(count($wordList));
-        //print_r("<br />");
+        $string     = implode(' ', $wordList);
         
-        $string        = implode(' ', $wordList);
         return $string;
     }    
     

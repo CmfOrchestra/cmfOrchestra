@@ -198,13 +198,15 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
         $form->setData($user);
         if ('POST' === $this->container->get('request')->getMethod()) {
         	$form->bind($this->container->get('request'));
-        
         	if ($form->isValid()) {
         	    $userManager->updateUser($user);
     		    $flash = $this->container->get('translator')->trans('pi.session.flash.resetting.success');
     		    $this->container->get('request')->getSession()->getFlashBag()->add('success', $flash);
     		    header('Location: '. $url_redirection);
     		    exit;
+        	} else {
+        		$flash = $this->container->get('translator')->trans('pi.session.flash.resetting.error');
+        		$this->container->get('request')->getSession()->getFlashBag()->add('success', $flash);
         	}
         }        
         

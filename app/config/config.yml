@@ -486,6 +486,7 @@ pi_app_admin:
     cookies:
         date_expire: false
         date_interval: PT4H
+        application_id: orchestra
     form:
         show_legend: true
         show_child_legend: false

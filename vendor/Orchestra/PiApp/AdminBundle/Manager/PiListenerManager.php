@@ -67,7 +67,7 @@ class PiListenerManager extends PiCoreManager implements PiListenerManagerBuilde
         
         // this allow Redirect Response in controller action
         $params['_controller'] = $id;
-        $subRequest = $this->container->get('request')->duplicate(array(), null, $params);
+        $subRequest = $this->container->get('request')->duplicate($_GET, $_POST, $params);
         $response =  $this->container->get('http_kernel')->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
         
        	//return utf8_decode(mb_convert_encoding($response->getContent(), "UTF-8", "HTML-ENTITIES"));

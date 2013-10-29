@@ -441,6 +441,8 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                             font_size_classes : "tt-10,tt-9,tt-8,tt-7,tt-6,tt-4,tt-2",
                             // don't replace encoding character like : Ã© to &eacutes;
                             entity_encoding : "raw",
+                         	// clean up the content
+                            cleanup_callback : this.fct_tinymce_xhtml_transform,  
                             // Theme options
                             theme_advanced_buttons1 : "fullscreen,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,formatselect,styleselect,fontselect,fontsizeselect",
                             theme_advanced_buttons2 : "code,cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,image,anchor,cleanup,help,|,insertdate,inserttime,preview,|,forecolor,backcolor",
@@ -523,7 +525,9 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                             convert_fonts_to_spans : true,
                             font_size_classes : "tt-10,tt-9,tt-8,tt-7,tt-6,tt-4,tt-2",
                             // don't replace encoding character like : Ã© to &eacutes;
-                            entity_encoding : "raw",                            
+                            entity_encoding : "raw",  
+                         	// clean up the content
+                            cleanup_callback : this.fct_tinymce_xhtml_transform,                    
                             // Theme options
                             theme_advanced_buttons1 : "fullscreen,bold,italic,underline,strikethrough,justifyleft,justifycenter,justifyright,justifyfull,bullist,numlist,hr,sub,sup,forecolor,backcolor",
                             theme_advanced_buttons2 : "removeformat,formatselect,styleselect,fontsizeselect,visualchars,outdent,indent,undo,redo",
@@ -606,7 +610,9 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                             convert_fonts_to_spans : true,
                             font_size_classes : "tt-10,tt-9,tt-8,tt-7,tt-6,tt-4,tt-2",
                             // don't replace encoding character like : Ã© to &eacutes;
-                            entity_encoding : "raw",                            
+                            entity_encoding : "raw",  
+                         	// clean up the content
+                            cleanup_callback : this.fct_tinymce_xhtml_transform,                          
                             // Theme options
                             theme_advanced_buttons1 : "fullscreen,bold,italic,underline,strikethrough,justifyleft,justifycenter,justifyright,justifyfull,bullist,numlist,forecolor,backcolor",
                             theme_advanced_buttons2 : "removeformat,styleselect,fontsizeselect,outdent,indent,undo,redo",
@@ -688,7 +694,9 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                             convert_fonts_to_spans : true,
                             font_size_classes : "tt-10,tt-9,tt-8,tt-7,tt-6,tt-4,tt-2",
                             // don't replace encoding character like : Ã© to &eacutes;
-                            entity_encoding : "raw",                            
+                            entity_encoding : "raw",
+                            // clean up the content
+                            cleanup_callback : this.fct_tinymce_xhtml_transform,                        
                             // Theme options
                             theme_advanced_buttons1 : "fullscreen,bold,italic,underline,strikethrough,justifyleft,justifycenter,justifyright,justifyfull,bullist,numlist,hr,sub,sup,forecolor,backcolor",
                             theme_advanced_buttons2 : "code,formatselect,styleselect,fontsizeselect,removeformat,visualchars,outdent,indent,undo,redo",
@@ -740,10 +748,34 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                 });
                             }
                         });
-                    };    
-                                                                            
-                    
-                 // THIS FUNCTION ALLOW TO INJECT SEVERAL FIELDS IN A ACCORDION MENU.
+                    };   
+                 	// This function allows to convert the entered text
+                    this.fct_tinymce_xhtml_transform = function xhtml_transform(type, value) {
+                    	switch (type) {
+		                        case "get_from_editor":
+		                        	 	value = value.replace(/&nbsp;/ig, " ");	
+		                        		value = value.replace(/\s/ig, " ");
+		                                break;
+		                        case "insert_to_editor":
+										//value = value.replace(/<p[^>]*><span[^>]*> <\/span><\/p>/g,"<p><span> </span></p>");
+		                    			//value = value.replace(/<p[^>]*> <\/p>/g, "<p> </p>");
+		                    			value = value.replace(/&nbsp;/ig, " ");		     
+		                    			value = value.replace(/\s/ig, " ");		                                    
+		                                break;
+		                        case "submit_content":
+		                                break;
+		                        case "get_from_editor_dom":
+		                                break;
+		                        case "insert_to_editor_dom":
+		                                break;
+		                        case "setup_content_dom":
+		                                break;
+		                        case "submit_content_dom":
+		                                break;
+		                }
+		                return value;				
+		            },   
+                 	// THIS FUNCTION ALLOW TO INJECT SEVERAL FIELDS IN A ACCORDION MENU.
                     // exemple : j_prototype_bytabs.ftc_accordion_form("meta_definition", "SEO", ".myform");
                     // exemple : j_prototype_bytabs.ftc_accordion_form("meta_definition", "SEO", ".myform", 'questionLi0');
                     // exemple : j_prototype_bytabs.ftc_accordion_form("meta_definition", "SEO", ".myform", 'questionLi1');
@@ -774,7 +806,6 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                 //$(this).parent('.clearfix').detach().appendTo("#"+accordionId);
                                 $(this).closest('.clearfix').detach().appendTo("#"+accordionId);
                             });    
-                        
                             $('#'+accordionId+' legend').click(function(event, dataObject) {  
                             	event.preventDefault(); 
                                 var that = $(this);
@@ -785,7 +816,6 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                     });
                                     return (h+80)+'px';
                                 };
-                                
                                 if ( $(this).parent('fieldset').hasClass('open') ){
                                     $(this).parent('fieldset').removeClass('open');
                                     $(this).parent('fieldset').animate({
@@ -881,10 +911,9 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
 
                 $(document).ready(function() {
                     <?php foreach($options['prototype-name'] as $key => $value){ ?>
-                    // We run the function.
+	                    // We run the function.
                         j_prototype_bytabs.ftc_init('<?php echo $options['prototype-idForm']; ?>', '<?php echo $value; ?>');
                     <?php } ?>
-                    //jQuery(document).trigger('htmlAppended')    
                     
                     $("#dialog-confirm").dialog({
 	               		 autoOpen: false,
@@ -901,7 +930,6 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
 	                   		 }
 	               		 }
                	 	});
-               	 	
                 });
 
             //]]>

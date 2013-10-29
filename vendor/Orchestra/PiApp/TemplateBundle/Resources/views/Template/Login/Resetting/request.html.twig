@@ -1,52 +1,105 @@
 {% extends "PiAppTemplateBundle:Template\\Login:layout.html.twig" %}
 
 {% block content %}
-<div id="form-connexion-request-response">
-	<script type="text/javascript">
-	//<![CDATA[
-	    $(document).ready(function() {
-	        $('#form-connexion-request').on('submit', function() {
-	            var username = jQuery(this).find('input[name="username"]').val();
-	            var template = jQuery(this).find('input[name="template"]').val();
-	            var routereset = jQuery(this).find('input[name="routereset"]').val();
-	            $.ajax({
-	                url: $(this).attr('action'),
-	                data: "username="+username+"&template="+template+"&routereset="+routereset,
-	                type: $(this).attr('method'),
-	                success: function(data) {
-		               $("#form-connexion-request-response").html(jQuery(data).find('#form-connexion-request-response').html());
-		            }
-	            });
-	            return false; // j'empêche le navigateur de soumettre lui-même le formulaire
-	        });
-	    });
-	//]]>
-	</script>  
-	
-	<section class="forgotten-password">
-	
-		<header class="tt-grey resetM">
-			<h3 class="uppercase bold tt-10">Vous avez oublié votre mot de passe ?</h3>
-		</header>
-		
-		{% if success is defined %}
-		    {#<p>{{ 'Un email est envoyé à l’utilisateur avec son nouveau mot de passe généré par l’application'|trans()|raw }}<br/><br/></p>#}
-			<p>{{ 'resetting.request.success'|trans()|raw }}</p>
-		{% else %}	
-		    {% if invalid_username is defined %}
-		        <p class="error" style="font-weight: bold">{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}, 'FOSUserBundle')|raw }}<br/><br/></p>
-		    {% endif %}
-		   
-			<p>Saisissez votre identifiant, vous recevrez un email avec votre nouveau mot de passe.</p>
-			<form action="{{ path('fos_user_resetting_send_email') }}" method="POST" id="form-connexion-request" >
-			        <input type="text" 		id="username" 	name="username" class="resetBorder required email" />
-			        <input type="hidden" 	id="routereset"	name="routereset" value="page_route_name_reset" />
-			        <input type="hidden" 	id="template"  	name="template"  value="PiAppTemplateBundle:Template\\Login\\Resetting:request.html.twig" />
-			        <br/><br/>
-			        <input type="submit" value="ok" />
-			</form>
-		{% endif %}
-		<p style="text-align: right"><a href="{{ path('fos_user_security_login') }}">Retour à la page de connexion</a></p>
-	</section>
+<div id="message-popin-passwordLost">
+    <script type="text/javascript">
+        //<![CDATA[
+        $(document).ready(function() {
+            $("#popin-passwordLost").show();
+            $('#form-connexion-request').on('submit', function() {
+                var username = jQuery(this).find('input[name="username"]').val();
+                var template = jQuery(this).find('input[name="template"]').val();
+                var routereset = jQuery(this).find('input[name="routereset"]').val();
+                $.ajax({
+                    url: $(this).attr('action'),
+                    data: "username="+username+"&template="+template+"&routereset="+routereset,
+                    type: $(this).attr('method'),
+                    success: function(data) {
+                        //alert(jQuery(data).find('.forgotten-password p').html());
+                        var chaine = jQuery(data).find("#popin-passwordLost").html();
+                        if(!chaine){ chaine = jQuery(data).html();}
+                        if(chaine !== undefined) {
+                            if(chaine.indexOf("les dernières 24 heures") >= 0) {
+                                $('#message-popin-passwordLost .message-passlost').html("Un nouveau mot de passe a déjà été demandé dans les dernières 24 heures");
+                                $('#message-popin-passwordLost .message-passlost').addClass('errorMsg');
+                                $('#message-popin-passwordLost .message-passlost').show();
+                            }
+                            else if(chaine.indexOf("n'existe pas") >= 0){
+                                $('#message-popin-passwordLost .message-passlost').html("Identifiant inconnu");
+                                $('#message-popin-passwordLost .message-passlost').addClass('errorMsg');
+                                $('#message-popin-passwordLost .message-passlost').show();
+                            }
+                            else if(chaine.indexOf("Un email est envoyé à l’utilisateur") >= 0){
+                                $('#message-popin-passwordLost .message-passlost').removeClass('errorMsg');
+                                $('#message-popin-passwordLost .message-passlost').html("Un email vous a été envoyé pour créer un nouveau mot de passe sur le site");
+                            }
+                               
+                        } 
+                        var chaine2 = jQuery(data).find("#msg_error").html();
+                        if(chaine2 !== undefined) {
+                            if(chaine2.indexOf("Identifiant inconnu") >= 0) {
+                                $('#message-popin-passwordLost .message-passlost').html("Identifiant inconnu");
+                                $('#message-popin-passwordLost .message-passlost').addClass('errorMsg');
+                                $('#message-popin-passwordLost .message-passlost').show();
+                            }
+                        }
+                        var chaine3 = jQuery(data).find("#msg_exist").html();
+                        if(chaine3 !== undefined) {
+                            if(chaine3.indexOf("les dernières 24 heures") >= 0) {
+                                $('#message-popin-passwordLost .message-passlost').html("Un nouveau mot de passe a déjà été demandé dans les dernières 24 heures");
+                                $('#message-popin-passwordLost .message-passlost').addClass('errorMsg');
+                                $('#message-popin-passwordLost .message-passlost').show();
+                            }
+                        }
+                    }
+                });
+                return false; // j'empêche le navigateur de soumettre lui-même le formulaire
+            });
+        });
+        //]]>
+    </script>
+
+
+    <section id="popin-passwordLost" class="popin forgotten-password">
+    <h1 class="tt2">Mot de passe oublié</h1>
+    <!-- <h1 class="tt7">oublié</h1> -->
+    
+    {% if success is not defined %}
+    <div class="intro" style="margin-bottom:20px;">
+        <p>Veuillez saisir votre identifant afin que nous puissions vous envoyer un formulaire de renouvellement de mot de passe</p>
+    </div>
+    {% endif %}
+            <p class="message-passlost" style="padding:0 7px"></p>
+
+
+        {% if invalid_username is defined %}
+            <p id="msg_error" style="color:red">Identifiant inconnu</p><br/>
+        {% endif %}
+
+    {% if success is defined %}
+        <p>{{ 'resetting.request.success'|trans()|raw }}</p>
+        <br/><br/>
+        {% if app.request.query.get('NoLayout') == "" %}
+            <a href="{{ path('admin_homepage') }}" class="button" style="float:right;"> Retour</a>
+        {% endif %}
+    {% else %}
+
+        <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" id="form-connexion-request">
+
+
+            <div class="row cf">
+                <label>Identifiant<span>*</span> :</label>
+                <input type="text" id="username" name="username" class="input required"/>
+                <input type="hidden" 	id="routereset"	name="routereset" value="page_route_name_reset" />
+                <input type="hidden" 	id="template"  	name="template"  value="PiAppTemplateBundle:Template\\Login\\Resetting:request.html.twig" />
+            </div>
+            <br/>
+            <input type="submit" value="Envoyer" class="button"/>
+            {% if app.request.query.get('NoLayout') == "" %}
+                <a href="{{ path('admin_homepage') }}" class="button" style="float:right;"> Retour</a>
+            {% endif %}
+        </form>
+    {% endif %}
+        </section>
 </div>
-{% endblock content %}
+        {% endblock content %}

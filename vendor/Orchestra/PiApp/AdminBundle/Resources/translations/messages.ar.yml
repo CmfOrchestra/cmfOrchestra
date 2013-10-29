@@ -320,6 +320,7 @@ pi.form.label.select.choose.civility:  اختيار الكياسة
 pi.form.label.select.choose.profile:  اختيار الملف
 pi.form.label.select.choose.date: اختيار التاريخ
 pi.form.label.select.choose.hour: اختيار ساعة
+pi.form.label.select.choose.media: اختيار وسائل الإعلام
 
 # Footer
 pi.footer.copyright: حق النشر
@@ -345,6 +346,7 @@ pi.session.flash.page.notpermission: ليس لديك إذن لعرض هذه ال
 pi.session.flash.layout.notexist : التخطيط الذي حددته غير موجود!
 pi.session.flash.rolecache.created: تم إنشاء ملف الميراث في ذاكرة التخزين المؤقت
 pi.session.flash.resetting.success: يتم الانتهاء من إعادة تعيين بنجاح
+pi.session.flash.resetting.error:  بعبارة-كلمة السر لا تتطابق!
 
 # ENTITY :: PAGE
 pi.page.translation.title: ترجمات الصفحة

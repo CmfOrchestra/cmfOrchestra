@@ -130,9 +130,9 @@ class PiRegexManager implements PiRegexManagerBuilderInterface
      * @access public
      * @static
      * @param  str         $chaine            text on which to test the type of regular expression
-      * @param  str         $typeExpression    type of regular expression
-      *                                     syntaxe: $typeExpression = "num | letter | alphanum | nick | mail | url | file | name";
-      *  
+     * @param  str         $typeExpression    type of regular expression
+     *                                     syntaxe: $typeExpression = "num | letter | alphanum | nick | mail | url | file | name";
+     *  
      * @return mixed     false if the string test is not verified by the regular expression required
      * 
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
@@ -151,7 +151,7 @@ class PiRegexManager implements PiRegexManagerBuilderInterface
                     {
                         return $matches;
                     } else {
-                        return "false";
+                        return false;
                     }
                     
                 case "letter":
@@ -159,7 +159,7 @@ class PiRegexManager implements PiRegexManagerBuilderInterface
                     {
                         return $matches;
                     } else {
-                        return "false";
+                        return false;
                     }
                     
                 case "alphanum":
@@ -167,7 +167,7 @@ class PiRegexManager implements PiRegexManagerBuilderInterface
                     {
                         return $matches;
                     } else {
-                        return "false";
+                        return false;
                     }
                     
                 case "nick":
@@ -175,7 +175,7 @@ class PiRegexManager implements PiRegexManagerBuilderInterface
                     {
                         return $matches;
                     } else {
-                        return "false";
+                        return false;
                     }
                 
                 case "mail":
@@ -183,7 +183,7 @@ class PiRegexManager implements PiRegexManagerBuilderInterface
                     {
                         return $matches;
                     } else {
-                        return "false";
+                        return false;
                     }
                 
                 case "url":
@@ -191,7 +191,7 @@ class PiRegexManager implements PiRegexManagerBuilderInterface
                     {
                         return $matches;
                     } else {
-                        return "false";
+                        return false;
                     }
                 
                 case "file":
@@ -199,7 +199,7 @@ class PiRegexManager implements PiRegexManagerBuilderInterface
                     {
                         return $matches;
                     } else {
-                        return "false";
+                        return false;
                     }
                     
                 case "name":
@@ -207,7 +207,7 @@ class PiRegexManager implements PiRegexManagerBuilderInterface
                     {
                         return $matches;
                     } else {
-                        return "false";
+                        return false;
                     }
 
                 // Extraction de tous les numéros de téléphone d'un texte                    
@@ -216,7 +216,7 @@ class PiRegexManager implements PiRegexManagerBuilderInterface
                     {
                         return $matches;
                     } else {
-                        return "false";
+                        return false;
                     }
 
                 // Recherche les couples de balises HTML                 
@@ -225,7 +225,7 @@ class PiRegexManager implements PiRegexManagerBuilderInterface
                     {
                         return $matches;
                     } else {
-                        return "false";
+                        return false;
                     }                
                                             
             } // end switch

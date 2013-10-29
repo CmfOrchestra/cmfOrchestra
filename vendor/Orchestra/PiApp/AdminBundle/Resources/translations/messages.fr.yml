@@ -320,6 +320,7 @@ pi.form.label.select.choose.civility: Choisissez une civilité
 pi.form.label.select.choose.profile: Choisissez un profil
 pi.form.label.select.choose.date: Choisissez une date
 pi.form.label.select.choose.hour: Choisissez une heure
+pi.form.label.select.choose.media: Choisissez un média
 
 # Footer
 pi.footer.copyright: Tous droits réservés
@@ -344,7 +345,8 @@ pi.session.flash.page.notexist: vous n'avez pas appelé une page qui existe !
 pi.session.flash.page.notpermission: vous n'avez pas la permission d'accéder à cette page!
 pi.session.flash.layout.notexist : le layout renseigné n'existe pas
 pi.session.flash.rolecache.created: Le fichier d'héritage a bien été généré dans le cache
-pi.session.flash.resetting.success: La réinitialisation c'est effectuée avec succès
+pi.session.flash.resetting.success: Votre demande a bien été enregistrée avec votre nouveau mot de passe
+pi.session.flash.resetting.error: Le mot de passe de confirmation doit être identique au nouveau mot de passe
 
 # ENTITY :: PAGE
 pi.page.translation.title: Traductions de page

@@ -244,6 +244,7 @@ Execute the `check.php` script from the command line:
     - php_intl.dll
     - php_memcache.dll (facultatif pour une gestion performante de cache de doctrine)
     - php_curl.dll
+    - php_openssl.dll (enabled Socket transport “ssl” in PHP)
     
 **Doctrine** : 
 
