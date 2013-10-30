@@ -108,6 +108,7 @@ class PiToolExtension extends \Twig_Extension
                 'sliceTab'            => new \Twig_Filter_Method($this, 'arraysliceFilter'),
                 'end'                => new \Twig_Filter_Method($this, 'endFilter'),
                 'XmlString2array'    => new \Twig_Filter_Method($this, 'XmlString2arrayFilter'),
+                'orderBy'   		 => new \Twig_Filter_Method($this, 'orderByFilter'),
                 
                 //translation
                 'translate_plural'    => new \Twig_Filter_Method($this, 'translatepluralFilter'),
@@ -798,6 +799,28 @@ class PiToolExtension extends \Twig_Extension
     public function XmlString2arrayFilter($string){
         return $this->container->get('pi_app_admin.array_manager')->XmlString2array($string);
     }
+    
+    public function orderByFilter($objs, $orderMethod, $orderBy = "ASC") {
+    	if ($objs instanceof \Doctrine\ORM\PersistentCollection) {
+    		$array = array();
+    		foreach ($objs as $obj) {
+    			if (method_exists($obj, $orderMethod)) {
+    				$array[$obj->$orderMethod()] = $obj;
+    			} else {
+    				throw ExtensionException::serviceNotConfiguredCorrectly();
+    			}
+    		}
+    		if ($orderBy == "ASC") {
+    			ksort($array);
+    		} elseif ($orderBy == "DESC") {
+    			krsort($array);
+    		}
+    		 
+    		return $array;
+    	} else {
+    		throw ExtensionException::serviceNotConfiguredCorrectly();
+    	}
+    }    
     
     /**
      * translation filters

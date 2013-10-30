@@ -254,6 +254,8 @@ class PiArrayManager implements PiArrayManagerBuilderInterface
         foreach ($aInput as $key => $value) {
             if (!is_numeric($key)) {
                 $key = ''.$key.'';
+            } else {
+                $key = ''.($key+1).'';
             }
             if (is_array($value)) {
                 $js .= self::convertArrayToString($value, $translator, $prefix, $VarName.' '.$translator->trans($prefix.$key).' > ', $eol);

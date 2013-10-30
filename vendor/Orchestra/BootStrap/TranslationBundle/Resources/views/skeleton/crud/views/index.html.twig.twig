@@ -18,7 +18,7 @@
     {{ '{{ parent() }}' }}
     
 	{% if 'new' in actions %}
-	{{ "{% if NoLayout == false %}" }}
+	{{ "{% if NOT NoLayout %}" }}
 	<!--  start actions-box ............................................... -->
 	<div id="actions-box">
 		<!-- <a href="" class="action-slider"><span>{{ "{{ 'pi.grid.action.title'|trans }}" }}</span></a> -->

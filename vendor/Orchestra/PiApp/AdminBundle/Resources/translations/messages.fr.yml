@@ -347,6 +347,13 @@ pi.session.flash.layout.notexist : le layout renseigné n'existe pas
 pi.session.flash.rolecache.created: Le fichier d'héritage a bien été généré dans le cache
 pi.session.flash.resetting.success: Votre demande a bien été enregistrée avec votre nouveau mot de passe
 pi.session.flash.resetting.error: Le mot de passe de confirmation doit être identique au nouveau mot de passe
+pi.session.flash.type.permission: Permission
+pi.session.flash.type.success: Succès
+pi.session.flash.type.notice: Notification
+pi.session.flash.type.warning: Avertissement
+pi.session.flash.type.error: Erreurs
+pi.session.flash.type.errorform: Erreurs de formulaire
+
 
 # ENTITY :: PAGE
 pi.page.translation.title: Traductions de page

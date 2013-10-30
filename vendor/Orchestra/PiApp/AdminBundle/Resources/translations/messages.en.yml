@@ -347,6 +347,12 @@ pi.session.flash.layout.notexist : the layout specified does not exist
 pi.session.flash.rolecache.created: The file inheritance has been generated in the cache
 pi.session.flash.resetting.success: The reset is completed successfully
 pi.session.flash.resetting.error:  Your words-password do not match!
+pi.session.flash.type.permission: Permission
+pi.session.flash.type.success: Success
+pi.session.flash.type.notice: Notification
+pi.session.flash.type.warning: Warning
+pi.session.flash.type.error: Errors
+pi.session.flash.type.errorform: Form errors
 
 # ENTITY :: PAGE
 pi.page.translation.title: Translation page

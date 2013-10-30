@@ -347,6 +347,12 @@ pi.session.flash.layout.notexist : التخطيط الذي حددته غير م�
 pi.session.flash.rolecache.created: تم إنشاء ملف الميراث في ذاكرة التخزين المؤقت
 pi.session.flash.resetting.success: يتم الانتهاء من إعادة تعيين بنجاح
 pi.session.flash.resetting.error:  بعبارة-كلمة السر لا تتطابق!
+pi.session.flash.type.permission: إذن
+pi.session.flash.type.success: نجاح
+pi.session.flash.type.notice: إعلام
+pi.session.flash.type.warning: تحذير
+pi.session.flash.type.error: أخطاء
+pi.session.flash.type.errorform: أخطاء شكل
 
 # ENTITY :: PAGE
 pi.page.translation.title: ترجمات الصفحة

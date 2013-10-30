@@ -33,6 +33,8 @@
                 return $this->redirect($this->generateUrl('{{ route_name_prefix }}'));
             {%- endif %}
             
+        } else {
+        	$this->setFlashErrorMessages($form);
         }
 
 {% if 'annotation' == format %}

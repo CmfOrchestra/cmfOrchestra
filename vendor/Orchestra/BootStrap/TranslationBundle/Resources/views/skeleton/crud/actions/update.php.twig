@@ -32,6 +32,8 @@
             $em->flush();
 
             return $this->redirect($this->generateUrl('{{ route_name_prefix }}_edit', array('id' => $id, 'NoLayout' => $NoLayout, 'category' => $category)));
+        } else {
+        	$this->setFlashErrorMessages($editForm);
         }
 
 {% if 'annotation' == format %}

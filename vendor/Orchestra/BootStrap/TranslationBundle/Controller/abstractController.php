@@ -484,7 +484,7 @@ abstract class abstractController extends Controller
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
     protected function setFlashErrorMessages(\Symfony\Component\Form\Form $form) {
-    	return $this->container->get('request')->getSession()->getFlashBag()->add('notice', $this->getErrorMessages($form, 'string' ));
+    	return $this->container->get('request')->getSession()->getFlashBag()->add('errorform', $this->getErrorMessages($form, 'string' ));
     }    
     
     /**

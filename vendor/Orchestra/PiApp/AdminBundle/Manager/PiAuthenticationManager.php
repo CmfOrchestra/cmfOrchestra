@@ -181,7 +181,6 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
         	$url_redirection = $this->container->get('router')->generate("home_page");
         }        
         $token       = $this->container->get('request')->query->get('token');
-        
         // if a user is connected, we generate automatically the token if it is not given in parameter.
         if (empty($token) && $this->isUsernamePasswordToken()) {
             $token = $this->tokenUser($this->getToken()->getUser());
@@ -193,7 +192,6 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
         if (null === $user) {
         	throw new NotFoundHttpException(sprintf('The user with "confirmation token" does not exist for value "%s"', $token));
         }
-    
         $form = $formFactory->createForm();
         $form->setData($user);
         if ('POST' === $this->container->get('request')->getMethod()) {
@@ -209,7 +207,6 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
         		$this->container->get('request')->getSession()->getFlashBag()->add('success', $flash);
         	}
         }        
-        
     	if (isset($params['clearflashes'])) {
 			$this->getFlashBag()->clear();
 		} else {

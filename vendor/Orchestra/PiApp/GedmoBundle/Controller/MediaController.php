@@ -180,7 +180,7 @@ class MediaController extends abstractController
                   $row[] = "";
               }
               
-              $row[] = $e->getStatus();
+              $row[] = $e->getStatus() . '('.$e->getId().')';
               
               if (is_object($e->getImage())) {
                   $row[] = $e->getImage()->getName();

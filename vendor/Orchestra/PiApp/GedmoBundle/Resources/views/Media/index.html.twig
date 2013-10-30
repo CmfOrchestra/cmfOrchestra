@@ -53,7 +53,7 @@
 		            	{{ entity.category }}
 		            </td>	
 		            <td>
-		            	{{ entity.status|limite("0", 55)|raw }}
+		            	{{ entity.status|limite("0", 55)|raw }} ({{ entity.id }})
 		            </td>	
 		            <td>
 		            	{% if entity.title != "" %}
