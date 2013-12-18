@@ -24,6 +24,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
+use Symfony\Component\Form\FormError;
+
 use {{ namespace }}\Entity\{{ entity }};
 {% if 'new' in actions or 'edit' in actions %}
 use {{ namespace }}\Form\{{ entity }}Type;
@@ -55,6 +57,8 @@ class {{ entity_class }}Controller extends abstractController
     {%- include 'actions/deleteajax.php.twig' %}
     
     {%- include 'actions/archiveajax.php.twig' %}
+    
+    {%- include 'actions/selectionajax.php.twig' %}
     
 
     {%- if 'index' in actions %}

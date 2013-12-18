@@ -463,22 +463,22 @@ a.action-slider.activated	{
     color: rgb(255, 255, 255);
     font-size: 12px;
     font-weight: bold;	
-    top:9px;
-    right: 354px;    
+    right: 15px;
+    top: -5px;
 	}
 #nav-right-search {
-    top: 19px;
+	top:39px;
 	right: 15px;
 	z-index: 99;
-    }	
+    }
 .top-search-inp {
-    background: url(../../../images/shared/top_search_inp.gif) no-repeat;
-    border: none;
-    color: #fff;
-    font-size: 12px;
-    height: 23px;
-    padding: 6px 6px 0 10px;
-}     
+	background: url(../../../images/shared/top_search_inp.gif) no-repeat;
+	border: none;
+	color: #fff;
+	font-size: 12px;
+	height: 23px;
+	padding: 6px 6px 0 10px;
+}    	
 #nav-right a	{
 	display: block;
 	float: left;
@@ -1014,7 +1014,7 @@ div.selectbox-wrapper3 ul li	{
 	font-size: 13px;
 	line-height: 12px;
 	margin: 0 auto;
-	width: 350px;
+	width: 482px;
 	}
 #login-inner label	{
 	color: #161616;
@@ -1141,40 +1141,24 @@ a.back-login	{
 a:hover.back-login	{
 	color: #fff;
 	}
-.submit-login	{
-	background: url(../../../images/login/submit_login.gif) no-repeat;
-	border: none;
-	cursor: pointer;
-	display: block;
-	height: 29px;
-	text-indent: -3000px;
-	width: 73px;
-	}
-.submit-login:hover	{
-	background: url(../../../images/login/submit_login.gif) no-repeat 0 -29px;
-	}
-#login-inner input[type="submit"]{
-  background: url(../../../images/login/submit_login.gif) no-repeat;
-  border: none;
-  cursor: pointer;
-  display: block;
-  height: 29px;
-  text-indent: -3000px;
-  width: 73px;
-}	
-#login-inner input[type="submit"]:hover {
-  background: url(../../../images/login/submit_login.gif) no-repeat 0 -29px;
-  }	
-#login-inner input[type="text"],input[type="email"],input[type="password"]  {
-  background: url(../../../images/login/inp_login.gif) no-repeat;
-  border: none;
-  color: #fff;
-  font-size: 16px;
-  height: 28px;
-  padding: 6px 6px 0 10px;
-  width: 204px;
-  }	
-	
+
+.btn-black{
+    background-color: #353535;
+    color:#FFF;
+    font-size: 12px;
+    padding: 4px 20px 4px 20px;
+    border: 1px solid #AFAFAF;
+    -moz-box-shadow: 0px 1px 3px rgba(0,0,0,0.15);
+    -webkit-box-shadow: 0px 1px 3px rgba(0,0,0,0.15);
+    box-shadow: 0px 1px 3px rgba(0,0,0,0.15);
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+    text-align: center;
+
+}
+
 span.connexion-my-account,
 span.connexion-login-logout{
 	position: relative;
@@ -1194,13 +1178,8 @@ span.connexion-login-logout:hover{
 	
 	
 /* VERSION MOBILE */
-@media screen and (max-width:645px) {
+@media screen and (max-width:500px) {
 	#logo a[title='logo'] {
 	   display:none;
 	}
-}
-@media screen and (max-width:900px) {
-    span.connexion-my-account, span.connexion-login-logout {
-       display:none;
-    }
-}
+}	

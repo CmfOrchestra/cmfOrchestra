@@ -7,7 +7,8 @@ security:
         strategy: unanimous
         
     encoders:
-        BootStrap\UserBundle\Entity\User: sha512 # sha512 plaintext
+        #BootStrap\UserBundle\Entity\User: sha512 # sha512 plaintext
+        FOS\UserBundle\Model\UserInterface: { id: my_password_encoder }
 
     firewalls:
         #

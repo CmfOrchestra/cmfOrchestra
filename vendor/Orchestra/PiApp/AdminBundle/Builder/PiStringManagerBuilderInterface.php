@@ -37,6 +37,7 @@ interface PiStringManagerBuilderInterface
     public static function stripLeading($replace, $string);
     public static function slugify($string);
     public static function bitly($url, $login, $appkey, $format = 'xml', $version = '2.0.1');
+    public static function cleanPhone($tel, $ch = 10, $motif = '\\1-\\2-\\3-\\4-\\5');
     public static function cleanFilename($fileName);
     public static function cleanString($string);
     public static function cleanContent($string);

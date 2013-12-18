@@ -80,6 +80,7 @@ class PiDateExtension extends \Twig_Extension
             'convertToDateTime'    => new \Twig_Filter_Method($this, 'convertToDattimeFilter'),
             'convertMonthNumberToString'    => new \Twig_Filter_Method($this, 'convertMonthNumberToStringFilter'),
             'convertToTimestamp'=> new \Twig_Filter_Method($this, 'convertToTimestampFilter'),
+            'next_date'        => new \Twig_Filter_Method($this, 'NextDateFilter'),
         );
     }
     
@@ -162,6 +163,21 @@ class PiDateExtension extends \Twig_Extension
     public function RelativeTimeFilter(\DateTime $dateTime, $from = null)
     {
     	return $this->container->get('pi_app_admin.date_manager')->RelativeTime($dateTime, $from);
+    }    
+    
+    /**
+     * Returns the difference between the given date and now or from.
+     *
+     * @param  \DateTime $dateTime    Timestamp to compare to.
+     * @param  \DateTime $from        Timestamp to compare from. If not specified, defaults to now.
+     * @return strgin                 Duration
+     * @access public
+     *
+     * @author Riad Hellal <r.hellal@novediagroup.com>
+     */
+    public function NextDateFilter(\DateTime $dateTime, $from = null)
+    {
+    	return $this->container->get('pi_app_admin.date_manager')->NextDate($dateTime, $from);
     }    
     
     /**

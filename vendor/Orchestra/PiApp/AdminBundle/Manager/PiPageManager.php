@@ -126,12 +126,10 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
                 // we get the translation of the current page in another language if it exists.
                 $pageTrans	= $this->getTranslationByPageId($page->getId(), $lang);
                 if (!$pageTrans) {
-                    $page	= $this->getRepository('page')->getPageByUrlAndSlug('error', 'error404-'.$this->language);
+                    $page	= $this->setPageByRoute('error_404', true);
                     if (!$page) {
                         throw new \InvalidArgumentException("We haven't set in the data fixtures the error page message in the $lang locale !");
                     }
-                    // we set the page.
-                    $this->setPage($page);
                     $response->setStatusCode(404);
                 }
             }
@@ -1225,7 +1223,108 @@ class PiPageManager extends PiCoreManager implements PiPageManagerBuilderInterfa
         }
         //exit;
     }
-
+    
+    /**
+     * Copy the page with all elements of a page (TranslationPages, widgets, translationWidgets, block)
+     * 
+     * @param string	locale value.
+     * @return string	the new url of the page.
+     * @access public
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @since 2013-12-017
+     */
+    public function copyPage($locale = '')
+    {
+    	$em = $this->getContainer()->get('doctrine')->getManager();    	
+    	if (empty($locale)) {
+    		$locale       = $this->getContainer()->get('request')->getLocale();
+    	}
+    	// we get the current page.
+    	$page = $this->getCurrentPage();
+    	$id = $page->getId();
+    	if (!is_null($page) && !is_null($this->translations[$id])) {    
+    		$eventManager = $em->getEventManager();
+    		$eventManager->removeEventListener(
+    				array('prePersist'),
+    				$this->getContainer()->get('pi_app_admin.prepersist_listener')
+    		);
+    		$eventManager->removeEventListener(
+    				array('postPersist'),
+    				$this->getContainer()->get('pi_app_admin.postpersist_listener')
+    		);
+    		$eventManager->removeEventListener(
+    				array('preUpdate'),
+    				$this->getContainer()->get('pi_app_admin.preupdate_listener')
+    		);
+    		$eventManager->removeEventListener(
+    				array('postUpdate'),
+    				$this->getContainer()->get('pi_app_admin.postupdate_listener')
+    		);
+			//    		
+    		$new_page = clone($page);
+    		$new_page->setId(null);
+    		// we copy all translations.
+    		foreach ($this->translations[$id] as $translation) {
+    			$new_translation = clone($translation);
+    			$new_translation->setId(null);
+    			$new_page->addTranslation($new_translation);
+    		}
+			// we clone all blocks and all widgets.   		
+    		if (isset($this->blocks[$id]) && !empty($this->blocks[$id])) {
+    			$all_blocks = $this->blocks[$id];
+    			foreach ($all_blocks as $block) {
+    				$new_block = clone($block);
+    				$new_block->setId(null);
+    				// if the block is not disabled.
+    				if ($block->getEnabled()) {    	
+    					// we set all widget of the block
+    					if (isset($this->widgets[$id][$block->getId()]) && !empty($this->widgets[$id][$block->getId()])){
+    						$all_widgets      = $this->widgets[$id][$block->getId()];
+    						//print_r('cocniconi');
+    						foreach ($all_widgets as $widget) {
+    							if ($widget->getEnabled()) {
+    								$new_widget = clone($widget);
+    								$new_widget->setId(null);
+    								$new_block->addWidget($new_widget);
+    							}
+    						}
+    					}
+    				}
+    				$new_page->addBlock($new_block);
+    			}
+    		}
+    		// we change the route name of the new page.
+    		$randome = new \DateTime();
+    		$new_page->setRouteName($page->getRouteName() . '_copy_' . $randome->getTimeStamp());
+    		$new_page->setUrl($page->getUrl() . '/copy/' . $randome->getTimeStamp());
+    		// we persist.
+    		$em->persist($new_page);
+    		$em->flush();
+    		// we register the new page in the route cache manager.
+    		$routeCacheManager = $this->getContainer()->get('bootstrap.route_cache');
+    		$routeCacheManager->setGenerator();
+    		$routeCacheManager->setMatcher();
+    		// we set the new url in the locale.
+    		$entity_translate_page = $this->translations[$id][$locale];
+    		if (
+    			($entity_translate_page instanceof \PiApp\AdminBundle\Entity\TranslationPage)
+    			&&
+    			($entity_translate_page->getSlug() != "")
+    		) {
+    			$new_url = $new_page->getUrl() . '/' . $entity_translate_page->getSlug();
+    		} else {
+    			$new_url = $new_page->getUrl();
+    		}
+    		$new_url = str_replace("//", "/", $new_url);
+    		$new_url = preg_replace("/{[a-zA-Z0-9]+}/i", 'testValue', $new_url);
+    		
+    		return $new_url;
+    	}
+    	
+    	return $this->getContainer()->get('router')->generate('home_page');;    
+    }
+    
     /**
      * Refresh the cache of all elements of a page (TranslationPages, widgets, translationWidgets)
      *

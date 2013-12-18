@@ -133,6 +133,15 @@ class PiGridTableManager extends PiJqueryExtension
         
         // spinner
         $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/spinner/spin.min.js");
+
+        // simple and multiselect managment
+        $this->container->get('pi_app_admin.twig.extension.layouthead')->addCssFile("bundles/piappadmin/js/jquery/multiselect/css/jquery.multiselect.filter.css");
+        $this->container->get('pi_app_admin.twig.extension.layouthead')->addCssFile("bundles/piappadmin/js/jquery/multiselect/css/jquery.multiselect.css");
+        $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/jquery/multiselect/js/jquery.multiselect.js");
+        $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/jquery/multiselect/js/jquery.multiselect.filter.js");
+        
+        // multi-select chained management
+        $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/jquery/jquery.chained.remote.js");        
         
         //http://datatables.net/forums/discussion/12443/scroller-extra-w-server-side-processing/p1
         //http://datatables.net/forums/discussion/14141/confirm-delete-on-tabletools/p1
@@ -150,16 +159,20 @@ class PiGridTableManager extends PiJqueryExtension
     protected function render($options = null)
     {        
         // Options management
-        if (!isset($options['grid-name']) || empty($options['grid-name']))
+        if (!isset($options['grid-name']) || empty($options['grid-name'])) {
             throw ExtensionException::optionValueNotSpecified('grid-name', __CLASS__);
-        if (!isset($options['grid-type']) || empty($options['grid-type']) || (isset($options['grid-type']) && !in_array($options['grid-type'], self::$types)))
+        }
+        if (!isset($options['grid-type']) || empty($options['grid-type']) || (isset($options['grid-type']) && !in_array($options['grid-type'], self::$types))) {
             throw ExtensionException::optionValueNotSpecified('grid-type', __CLASS__);
+        }
         
-        if (!isset($options['grid-paginate']) || empty($options['grid-paginate']))
+        if (!isset($options['grid-paginate']) || empty($options['grid-paginate'])) {
             $options['grid-paginate'] = true;
+        }
         
-        if ( $options['grid-type'] == "simple" )
+        if ( $options['grid-type'] == "simple" ) {
             return $this->gridSimple($options);
+        }
     }
     
     /**
@@ -263,6 +276,32 @@ class PiGridTableManager extends PiJqueryExtension
                         );
                     }
 
+					function fnCreateSelect( aData, title, myColumnID)
+					{
+						var mySelectID = 'select_' + myColumnID;
+    					var options = $("<select id='"+mySelectID+"' name='"+mySelectID+"' class='filtSelect' style='width:auto' multiple='multiple'  />"),
+    				    addOptions = function(opts, container){
+    						container.append($("<option />").val('').text('<?php echo $this->translator->trans('pi.page.All'); ?>'));
+    				        $.each(opts, function(i, opt) {
+    				            if(typeof(opt)=='string'){
+    				            	if(typeof(i)=='string'){
+    				                container.append($("<option />").val(i).text(opt));
+    				            	}else{
+    				            		container.append($("<option />").val(opt).text(opt));
+    				            	}
+    				            } else {
+    				                var optgr = $("<optgroup />").attr('label',i);
+    				                addOptions(opt, optgr)
+    				                container.append(optgr);
+    				            }
+    				        });
+    				    };
+
+    				    options.css('width', '100%')
+    					addOptions(aData,options);
+    					return options;
+					}  
+
                     $.extend( $.fn.dataTableExt.oSort, {
     				    "num-html-pre": function ( a ) {
     				        var x = a.replace( /<.*?>/g, "" );
@@ -295,6 +334,8 @@ class PiGridTableManager extends PiJqueryExtension
     					return ((x < y) ?  1 : ((x > y) ? -1 : 0));
     				}; 
 
+
+    				var $tfoot_grid;
 
     				
     				(function($) {
@@ -337,9 +378,12 @@ class PiGridTableManager extends PiJqueryExtension
     					        iRow = aiRows[i];
     					        var aData = this.fnGetData(iRow);
     					        var sValue = aData[iColumn];
-    					         
-    					        // ignore empty values?
-    					        if (bIgnoreEmpty == true && sValue.length == 0) continue;
+                                                
+    					        // Error lorsque sValue = null
+								if(sValue == null) continue;
+                                                
+                                // ignore empty values?
+    					        else if (bIgnoreEmpty == true && sValue.length == 0) continue;
     					 
     					        // ignore unique values?
     					        else if (bUnique == true && jQuery.inArray(sValue, asResultData) > -1) continue;
@@ -349,30 +393,8 @@ class PiGridTableManager extends PiJqueryExtension
     					    }
     					     
     					    return asResultData;
-    					}}(jQuery));
+    				}}(jQuery));
     					 
-
-    					function fnCreateSelect( aData, title )
-    					{
-        					var options = $("<select/>"),
-        				    addOptions = function(opts, container){
-        						container.append($("<option />").val('').text(title));
-        						container.append($("<option />").val('').text('-------'));
-        				        $.each(opts, function(i, opt) {
-        				            if(typeof(opt)=='string'){
-        				                container.append($("<option />").val(i).text(opt));
-        				            } else {
-        				                var optgr = $("<optgroup />").attr('label',i);
-        				                addOptions(opt, optgr)
-        				                container.append(optgr);
-        				            }
-        				        });
-        				    };
-
-        				    options.css('width', '100%')
-        					addOptions(aData,options);
-        					return options;
-    					}    				 
 
     				<?php if(isset($options['grid-filter-date'])): ?>
     				    <?php foreach($options['grid-filter-date'] as $id => $gridDateFilter){ ?>
@@ -430,7 +452,7 @@ class PiGridTableManager extends PiJqueryExtension
                             	<?php echo $gridDateFilter['idMin']; ?>DateFilter = new Date(this.value).getTime();
                                 <?php echo $options['grid-name']; ?>oTable.fnDraw();
                             } );
-            				<?php if(isset($options['grid-server-side']) && ($options['grid-server-side'] == 'true')) : ?>
+            				<?php if(isset($options['grid-server-side']) && (($options['grid-server-side'] == 'true') || ($options['grid-server-side'] == true)) ) : ?>
             				<?php else: ?>
             				$.fn.dataTableExt.afnFiltering.push(
             						  function( oSettings, aData, iDataIndex ) {
@@ -485,12 +507,12 @@ class PiGridTableManager extends PiJqueryExtension
                         $(this).find("th.position").prependTo(this);
                     });
 
-                    /* Add the events etc before DataTables hides a column */
+                    /* Add the events etc before DataTables hides a column  Filter on the column (the index) of this element
                     $("tfooter input").keyup( function () {
-                        /* Filter on the column (the index) of this element */
                         <?php echo $options['grid-name']; ?>oTable.fnFilter( this.value, <?php echo $options['grid-name']; ?>oTable.oApi._fnVisibleToColumnIndex( 
                                 <?php echo $options['grid-name']; ?>oTable.fnSettings(), $("thead input").index(this) ) );
                     } );
+					*/
                     
                     <?php if (isset($options['grid-actions']) && !empty($options['grid-actions']) && is_array($options['grid-actions'])): ?>
                         <?php foreach($options['grid-actions'] as $actionName => $params): ?>
@@ -556,7 +578,7 @@ class PiGridTableManager extends PiJqueryExtension
                             // Set up archive row
                             defaultrow_<?php echo $actionName; ?> = new $.fn.dataTable.Editor( {
                                 "domTable": "#<?php echo $options['grid-name']; ?>",
-                                //"display": "envelope",
+                                //"display": "envelope",fnServerData
                                 "ajaxUrl": "<?php echo $this->container->get('router')->generate($params['route']) ?>"
                             } );                            
                             <?php endif; ?>
@@ -566,6 +588,7 @@ class PiGridTableManager extends PiJqueryExtension
                     <?php echo $options['grid-name']; ?>oTable = $('#<?php echo $options['grid-name']; ?>').dataTable({
                         "bPaginate":<?php echo $options['grid-paginate']; ?>,
                         "bRetrieve":true,
+                        "bFilter": true,
                         "sPaginationType": "full_numbers",
                         "bJQueryUI":true,
                         "bAutoWidth": false,
@@ -577,7 +600,7 @@ class PiGridTableManager extends PiJqueryExtension
                         "bStateSave": false,
                         <?php endif; ?>
 
-                        <?php if(isset($options['grid-server-side']) && ($options['grid-server-side'] == 'true')) : ?>
+                        <?php if(isset($options['grid-server-side']) && (($options['grid-server-side'] == 'true') || ($options['grid-server-side'] == true)) ) : ?>
                         "bServerSide": true,
                         "sAjaxSource": "<?php echo $this->container->get('request')->getRequestUri(); ?>",
                         'fnServerData' : function ( sSource, aoData, fnCallback ) {
@@ -587,7 +610,12 @@ class PiGridTableManager extends PiJqueryExtension
     						    aoData.push( { 'name' : 'date-<?php echo $gridDateFilter['idMax']; ?>', 'value' : $("#<?php echo $gridDateFilter['idMax']; ?>").val() } );
     						    <?php } ?>
 						    <?php endif; ?>
-						    $.ajax({
+					        
+					        //$.getJSON( sSource, aoData, function (json) {
+					            /* Do whatever additional processing you want on the callback, then tell DataTables */
+					        //    fnCallback(json)
+					        //} );						    
+					        $.ajax({
 							    'dataType' : 'json',
 							    'data' : aoData,
 							    'type' : 'POST',
@@ -615,26 +643,40 @@ class PiGridTableManager extends PiJqueryExtension
                             $("a.button-ui-show").button({icons: {primary: "ui-icon-show"}});
                             $("a.button-ui-edit").button({icons: {primary: "ui-icon-edit"}});
 
-                             /* Add a select menu for each TH element in the table footer */
-                            $("tfoot th, tfoot td").each( function ( i ) {
+                            /* Add a select menu for each TH element in the table footer */
+                            /* http://datatables.net/forums/discussion/comment/33095 */
+                            $tfoot_grid = $("tfoot th").each( function ( i ) {
                                 var column = $(this).data('column');
                                 var values = $(this).data('values');
                                 var type = $(this).data('type');
                                 var title = $(this).data('title');
                                 if (column != undefined) {
+                                	var options = [];
+                                	$('select', this).find(':selected').each(function(j,v){
+                                		options[j] = $(v).val();
+								    });
                                 	if (values == undefined) {
                                 		values = <?php echo $options['grid-name']; ?>oTable.fnGetColumnData(column) 
     	                            }
     	                            if (type != "input") {
-    	                            	$(this).html( fnCreateSelect( values, title) );
-        	                        }
-    	                            $('select', this).change( function () {
-    	                            	<?php echo $options['grid-name']; ?>oTable.fnFilter( $(this).val(), column );
-    	                            } );
+ 	                            		$(this).html( fnCreateSelect( values, title, i) ); 
+								    }     
+								    $('select', this).val(options);
+									$('select', this).change( function () {
+										var values = $("#select_"+i).val().join('|');
+							            <?php echo $options['grid-name']; ?>oTable.fnFilter( values, column, true );
+							        });
+							        $("#select_"+i).multiselect({
+							        	multiple: true,
+							        	header: true,
+							        	noneSelectedText: title,
+								        create: function(){ $(this).next().width('auto');$(this).multiselect("widget").width('auto'); },
+								        open: function(){ $(this).next().width('auto');$(this).multiselect("widget").width('auto'); },
+								    }).multiselectfilter();	
                                 } else {
                                 	this.innerHTML = '' ;
                                 }
-                            });
+                            });					        
                         },                                               
                         <?php endif; ?>                         
 
@@ -646,8 +688,17 @@ class PiGridTableManager extends PiJqueryExtension
                                 <?php endforeach; ?>                                    
                             ],
                         <?php endif; ?>
+
+                        <?php if (isset($options['grid-columns']) && !empty($options['grid-columns']) && is_array($options['grid-columns'])): ?>
+                        "aoColumns": 
+                            [
+                               <?php foreach($options['grid-columns'] as $key => $value): ?>
+                                    <?php echo json_encode($value, true); ?>,                
+                                <?php endforeach; ?>             
+                            ],
+                        <?php endif; ?>                        
                             
-                        "aLengthMenu": [[1, 5, 10, 25, 50, 100, 500, 1000, 5000 -1], [1, 5, 10, 25, 50, 100, 500, 1000, 5000, "All"]],
+                        "aLengthMenu": [[1, 5, 10, 15, 20, 25, 50, 100, 500, 1000, 5000 -1], [1, 5, 10, 15, 20, 25, 50, 100, 500, 1000, 5000, "All"]],
                         <?php if ( isset($options['grid-LengthMenu']) && !empty($options['grid-LengthMenu']) ): ?>
                         "iDisplayLength": <?php echo $options['grid-LengthMenu']; ?>,
                         <?php else: ?>
@@ -680,14 +731,19 @@ class PiGridTableManager extends PiJqueryExtension
                         // r - pRocessing
                         // < and > - div elements
                         // <"class" and > - div with a class
-                        // Examples: <"wrapper"flipt>, <lf<t>ip>                        
+                        // Examples: <"wrapper"flipt>, <lf<t>ip>
                         //avec multi-filtre : "sDom": '<"block_filter"><"H"RTfr<"clear"><?php if (isset($options["grid-filters-select"])){ echo "W"; } ?>>tC<"F"lpi>',
                         <?php if(isset($options['grid-filters']) && isset($options['grid-filters-active']) && ($options['grid-filters-active'] == 'true')) : ?>
-                        "sDom": '<"block_filter"><"H"RTfr<"clear"><?php if(isset($options["grid-filters-select"])){ echo "W"; } ?>>tC<"F"lpi>',
+                        "sDom": '<"block_filter"><"H"RTfr<"clear"><?php if(isset($options["grid-filters-select"])){ echo "W"; } ?><"clear">p<"clear">>tC<"F"lpi>',
                         <?php else: ?>
-                        "sDom": '<"H"RTfr<"clear"><?php if(isset($options["grid-filters-select"])){ echo "W"; } ?>>tC<"F"lpi>',
-                        <?php endif; ?>    
-                        
+                            <?php if((isset($options['grid-paginate-top']) && (($options['grid-paginate-top'] == 'false') || ($options['grid-paginate-top'] == false))) ) : ?>
+                            "sDom": '<"H"RTfr<"clear"><?php if(isset($options["grid-filters-select"])){ echo "W"; } ?>>tC<"F"lpi>',
+                            <?php else: ?>
+                            "sDom": '<"H"RTfr<"clear"><?php if(isset($options["grid-filters-select"])){ echo "W"; } ?><"clear">p<"clear">>tC<"F"lpi>',
+                            <?php endif; ?>
+
+                        <?php endif; ?>
+
                         "oTableTools": {
                             "sSwfPath": "<?php echo $Urlpath; ?>",
                             "sRowSelect": "multi",
@@ -1187,6 +1243,7 @@ class PiGridTableManager extends PiJqueryExtension
                     $(".ui-state-default div.DataTables_sort_wrapper .ui-icon").css('display', 'none');
                     <?php endif; ?> 
 
+                    // http://fgnass.github.io/spin.js/
                     var opts_spinner = {
                             lines: 11, // The number of lines to draw
                             length: 2, // The length of each line
@@ -1220,7 +1277,7 @@ class PiGridTableManager extends PiJqueryExtension
                                 }                            
                         });
 
-                        <?php if(!isset($options['grid-server-side']) || ($options['grid-server-side'] == 'false')) : ?>
+                        <?php if(!isset($options['grid-server-side']) || ($options['grid-server-side'] == 'false') || ($options['grid-server-side'] == false) ) : ?>
                         /* Add a select menu for each TH element in the table footer
                          *
 	                     *   <tfoot>
@@ -1239,25 +1296,38 @@ class PiGridTableManager extends PiJqueryExtension
 						 *		</tr>
 						 *	</tfoot>
 						 */
-                        $("tfoot th, tfoot td").each( function ( i ) {
-                            var column = $(this).data('column');
-                            var values = $(this).data('values');
-                            var type = $(this).data('type');
-                            var title = $(this).data('title');
-                            if (column != undefined) {
-                            	if (values == undefined) {
-                            		values = <?php echo $options['grid-name']; ?>oTable.fnGetColumnData(column) 
-	                            }
-	                            if (type != "input") {
-	                            	$(this).html( fnCreateSelect( values, title) );
-    	                        }
-	                            $('select', this).change( function () {
-	                            	<?php echo $options['grid-name']; ?>oTable.fnFilter( $(this).val(), column );
-	                            } );
-                            } else {
-                            	this.innerHTML = '' ;
-                            }
-                        });
+						 $("tfoot th").each( function ( i ) {
+                                var column = $(this).data('column');
+                                var values = $(this).data('values');
+                                var type = $(this).data('type');
+                                var title = $(this).data('title');
+                                if (column != undefined) {
+                                	var options = [];
+                                	$('select', this).find(':selected').each(function(j,v){
+                                		options[j] = $(v).val();
+								    });
+                                	if (values == undefined) {
+                                		values = <?php echo $options['grid-name']; ?>oTable.fnGetColumnData(column) 
+    	                            }
+    	                            if (type != "input") {
+ 	                            		$(this).html( fnCreateSelect( values, title, i) ); 
+								    }     
+								    $('select', this).val(options);
+									$('select', this).change( function () {
+										var values = $("#select_"+i).val().join('|');
+							            <?php echo $options['grid-name']; ?>oTable.fnFilter( values, column, true );
+							        });
+							        $("#select_"+i).multiselect({
+							        	multiple: true,
+							        	header: true,
+							        	noneSelectedText: title,
+								        create: function(){ $(this).next().width('auto');$(this).multiselect("widget").width('auto'); },
+								        open: function(){ $(this).next().width('auto');$(this).multiselect("widget").width('auto'); },
+								    }).multiselectfilter();	
+                                } else {
+                                	this.innerHTML = '' ;
+                                }
+                         });
                         <?php endif; ?>
                    });
 

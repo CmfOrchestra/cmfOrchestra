@@ -303,7 +303,15 @@ class PiContextMenuManager extends PiJqueryExtension
                         },
                         icon:'<?php echo $this->container->get('templating.helper.assets')->getUrl("bundles/piappadmin/images/icons/contextmenu/update-page-16.png"); ?>'
                     }
-                },    
+                },   
+                { '<?php echo $this->translator->trans('pi.contextmenu.page.copy'); ?>': 
+                    {
+                        onclick:function() {
+                               window.location.href= "<?php echo $this->container->get('router')->generate('public_copy_page') ?>"; 
+                        },
+                        icon:'<?php echo $this->container->get('templating.helper.assets')->getUrl("bundles/piappadmin/images/icons/contextmenu/copy-page-16.png"); ?>'
+                    }
+                },                  
                 $.contextMenu.separator,
                 { '<span class="page_action_archivage" ><?php echo $this->translator->trans('pi.contextmenu.page.indexation'); ?></span>': 
                     {

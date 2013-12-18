@@ -36,7 +36,7 @@ class TranslationPage
      * 
      * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;   
 
@@ -347,6 +347,17 @@ class TranslationPage
     {
         return $this->id;
     }
+    
+
+    /**
+     * Set id
+     *
+     * @return integer
+     */
+    public function setId($id)
+    {
+    	$this->id = (int) $id;
+    }    
 
     /**
      * Set langStatus

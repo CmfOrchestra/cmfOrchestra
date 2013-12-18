@@ -8,6 +8,11 @@
 #            dev: true
 #            test: true
 #            prod: false
+#        domains:
+#            domain1:
+#                url: http://www.orchestra23.local/setCookies.php
+#            domain2:
+#                url: http://www.orchestra22.local/setCookies.php
 #        handlers:
 #            getpermisssion:
 #                key: 0A1TG4GO

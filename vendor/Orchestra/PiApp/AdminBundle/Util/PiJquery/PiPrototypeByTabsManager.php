@@ -57,9 +57,6 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
         $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/jquery/multiselect/js/jquery.multiselect.js");
         $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/jquery/multiselect/js/jquery.multiselect.filter.js");
         
-        // multi-select chained management
-        $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/jquery/jquery.chained.remote.js");
-        
         // editor managment
         $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/tiny_mce/jquery.tinymce.js");
         
@@ -251,22 +248,96 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                                 // http://jquery-ui.googlecode.com/svn/tags/1.6rc5/tests/static/icons.html
                                                 $("button.button-ui-create").button({icons: {primary: "ui-icon-circle-plus"}});
                                                 $("button.button-ui-save").button({icons: {primary: "ui-icon-disk"}});
+                                                $("a.button-ui-mediatheque").button({icons: {primary: "ui-icon-image"}}).css('padding', '6px');
                                                 $("a.button-ui-delete").button({icons: {primary: "ui-icon-trash"}}).click(function( event ) {
                                                 	event.preventDefault();
                                                 	id_form_delete = $(this).data('id');
                                                 	$("#dialog-confirm").dialog("open");
                                                 });
                                                 $("a.button-ui-back-list").button({icons: {primary: "ui-icon-arrowreturn-1-w"}});
+
+                                             /*
+                                              *  ->add('media', 'entity', array(
+                                              *   		'class' => 'PiAppGedmoBundle:Media',
+                                              *   		'query_builder' => function(EntityRepository $er) {
+                                              *   			return $er->createQueryBuilder('a')
+                                              *   			->select('a')
+                                              *   			//->where("a.id = {$id}")
+                                              *				->where("a.status = 'image'")
+            								  * 			->ansWhere("a.image IS NOT NULL")
+                                              *   			->andWhere("a.enabled = 1")
+                                              *   			->orderBy('a.id', 'ASC');
+                                              *   		},
+                                              *   		//'property' => 'title',
+                                              *   		'empty_value' => 'pi.form.label.select.choose.media',
+                                              *   		'multiple' => false,
+                                              *   		'required'  => true,
+                                              *   		'constraints' => array(
+                                              *   				new Constraints\NotBlank(),
+                                              *   		),             		
+                                              *   		"label_attr" => array(
+                                              *   				"class"=> 'image_collection',
+                                              *   		),
+                                              *   		"attr" => array(
+                                              *   				"class"=>"pi_simpleselect", // ajaxselect
+                                              *					"data-url"=>$this->_container->get('bootstrap.RouteTranslator.factory')->getRoute("admin_gedmo_media_selectentity_ajax", array('type'=>'image')),
+                              				  *					//"data-selectid" => $id
+                                              *   		),
+                                              *   		'label' => "Media",
+                                              *   		'widget_suffix' => '<a class="button-ui-mediatheque button-ui-dialog" 
+                                              *   				title="Ajouter une image à la médiatheque"
+                                              *   				data-title="Mediatheque"
+                                              *   				data-href="'.$this->_container->get('bootstrap.RouteTranslator.factory')->getRoute("admin_gedmo_media_new", array("NoLayout"=>"false", "category"=>'', 'status'=>'image')).'"
+                                              *   				data-selectid="#piapp_gedmobundle_mediatype_id"
+                                              *   				data-selecttitle="#piapp_gedmobundle_mediatype_title"
+                                              *   				data-insertid="#m1m_providerbundle_rubbloctype_media"
+                                              *   				data-inserttype="multiselect"
+                                              *   				></a>',
+                                              *   ))
+                                              */                                                   
+                                                $("a.button-ui-dialog").on('click', function (event) {
+                                                	event.preventDefault();
+                                                	var _url = $(this).data('href');
+                                                	var _title = $(this).data('title');
+                                                	var _selectId = $(this).data('selectid');
+                                                	var _selectTitle = $(this).data('selecttitle');
+                                                	var _insertId = $(this).data('insertid');
+                                                	var _insertType = $(this).data('inserttype');
+                                                	$('<div id="iframe-dialog" title="'+_title+'">&nbsp;</div>').html('<iframe id="modalIframeId" width="100%" height="99%" style="overflow-x: hidden; overflow-y: hidden" scrolling="no" marginWidth="0" marginHeight="0" frameBorder="0" src="'+_url+'" />').dialog({
+                                                        width: 421,
+                                                        height: 600,
+                                                        open: function () {
+                                                        	$(this).find("iframe").contents().find('body').attr('scrolling', 'no');
+                                                        },
+                                                        beforeClose: function () {
+                                                            if (_insertType == "select") {
+                                                                var _id_ = $(this).find('iframe').contents().find(_selectId).val();
+                                                                var _title_ = $(this).find('iframe').contents().find(_selectTitle).val();
+                                                            	$(_insertId).append('<option value="'+_id_+'" selected="selected">'+_id_+' - '+_title_+'</option>');
+                                                            } else if (_insertType == "multiselect") { 
+                                                                var _id_ = $(this).find('iframe').contents().find(_selectId).val();
+                                                                var _title_ = $(this).find('iframe').contents().find(_selectTitle).val();
+                                                            	$(_insertId).append('<option value="'+_id_+'" selected="selected">'+_id_+' - '+_title_+'</option>');
+                                                            	$(_insertId).multiselect( 'refresh' );
+                                                            } else {
+                                                            	$(_insertId).val(_id_)
+                                                            }
+                                                        },                                                        
+                                                        close: function () {
+                                                        	$(this).dialog("close");
+                                                        }
+                                                    });
+                                                });
                                                                                                 
                                                 // addTab button: just opens the dialog
-                                                $('button.button-ui-add-tab').button({icons: {primary: "ui-icon-newwin"}}).click(function ( event ) {
+                                                $('button.button-ui-add-tab').button({icons: {primary: "ui-icon-newwin"}}).on('click', function (event) {
                                                     event.preventDefault();
                                                     $dialog.dialog('open');
                                                 });
                                     
                                                 // close icon: removing the tab on click
                                                 // note: closable tabs gonna be an option in the future - see http://dev.jqueryui.com/ticket/3924
-                                                $('#tabs span.ui-icon-close').live('click', function () {
+                                                $('#tabs span.ui-icon-close').on('click', function () {
                                                     var index = $('li', tabs).index($(this).parent());
                                                     tabs.tabs('remove', index);
                                                 });    
@@ -346,6 +417,30 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
 
                     // Applying the widgets.
                     this.ftc_add_render_form = function(prototype_widget){
+
+                    							function descrypt(){
+	                    							$("[id^='ui-multiselect-']").each(function(i){
+	                                                     	var string = $(this).next('span').html();
+	                                                     	string = string.toString().replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+	                                                     	string = string.replace(/&#0*39;/g, "'");
+	                                                     	string = string.replace(/&quot;/g, '"');
+	                                                     	string = string.replace(/&amp;/g, '&');
+	                                                     	$(this).next('span').html(string);
+	                                                     	$(this).click(function(){ 
+	                                                     		var id = $(this).attr('id').toString().replace(/-option-(.+)/ig,'').replace('ui-multiselect-','');
+	                                                    		var string = $(this).val();
+	                                                         	string = string.toString().replace(/&amp;lt;img.*?\/&amp;gt;/ig,'');
+	                                                    		$("#"+id).next("button.ui-multiselect").html(string); 
+	                                                    	});
+	                                                }); 
+
+	                                                $("button.ui-multiselect").each(function(i){
+	                                                 	var string = $(this).find('span:last').html();
+	                                                 	string = string.toString().replace(/&amp;lt;img.*?\/&amp;gt;/ig,'');
+	                                                 	$(this).find('span:last').html(string);                                                 	 
+	                                            	});
+                    							}
+
                                                 $(prototype_widget + " input[type='radio']").iCheck({
                                                     handle: 'radio',
                                                     radioClass: 'iradio_square-blue',
@@ -354,21 +449,68 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                                     handle: 'checkbox',
                                                     checkboxClass: 'icheckbox_square-blue',
                                                 });
-
+												// multiselect
                                                 $(prototype_widget + " select.pi_simpleselect").multiselect({
                                                    multiple: false,
                                                    header: true,
                                                    noneSelectedText: "<?php echo $this->translator->trans('pi.form.label.select.choose.option'); ?>",
-                                                   selectedList: 1
-                                                }).multiselectfilter();                                                
+                                                   selectedList: 1,
+                                                   click: function(event, ui){
+                                                   }
+                                                }).multiselectfilter();
 
                                                 $(prototype_widget + " select.pi_multiselect").multiselect({
                                                    multiple: true,
                                                    header: true,
                                                    noneSelectedText: "<?php echo $this->translator->trans('pi.form.label.select.choose.options'); ?>",
                                                    selectedList: 4
-                                                }).multiselectfilter();                                                
+                                                }).multiselectfilter();
+
+                                                // http://stackoverflow.com/questions/7252633/populate-multiselect-box-using-jquery
+                                                // https://drupal.org/node/1124052
+                                                // jquery multiselect I don't get the values that are selected in the multiselect field when performing an AJAX callback triggered
+                                                // http://www.erichynds.com/blog/jquery-ui-multiselect-widget
+                                                $(prototype_widget + " select.pi_simpleselect.ajaxselect, " + prototype_widget + " select.pi_multiselect.ajaxselect").each(function(i){
+													var el = $(this).multiselect('disable'); //disable it initially
+													var _selectId = $(this).data('selectid');
+
+											        $.ajax({
+														type: "POST",
+											            url: $(this).data('url'),
+											            data: "",
+											            contentType: "application/json; charset=utf-8",
+											            dataType: "json",
+													}).done(function(response){
+														el.multiselect('enable');
+														if (response.length > 0) {
+															$.each(response, function(key, value){
+																if(el.find('option[value='+value.id+']').length == 0){
+															    	var opt = $('<option />', {
+																		value: value.id,
+																		text: value.text
+																	});
+																	opt.appendTo( el );
+															  	} 															  	
+															  	if (_selectId instanceof Array) {
+															  		_selectId.forEach(function(entry) {
+																	    if (entry == value.id) {
+																	  		el.find(value.id).attr( "selected","selected")
+																	  	}
+																	});																	
+																} else if (_selectId == value.id) {
+															  		el.find(value.id).attr( "selected","selected")
+															  	}
+														    })
+														}														
+													}).complete(function(){
+														el.multiselect('refresh');
+														descrypt();		
+													});
+
+                                                });  
+                                                descrypt();                                                
                                                 
+                                                // date picker
                                                 $(prototype_widget + " .pi_datepicker").datepicker({
                                                     changeMonth: true,
                                                     changeYear: true,
@@ -438,7 +580,6 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                             convert_newlines_to_brs : true,
                             //remove_linebreaks : true,
                             convert_fonts_to_spans : true,
-                            font_size_classes : "tt-10,tt-9,tt-8,tt-7,tt-6,tt-4,tt-2",
                             // don't replace encoding character like : Ã© to &eacutes;
                             entity_encoding : "raw",
                          	// clean up the content
@@ -455,26 +596,9 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                             // Exemple content CSS (should be your site CSS)
                             content_css : "<?php echo $url_css ?>",
                             // Style formats for 'styleselect'
-                            style_formats : [
-                                {title : 'Liste point rose', selector : 'ul', classes : 'roseDisc'},
-                                {title : 'Titre rose', block : 'h3', classes : 'tt-5 tt-clr'},
-                                {title : 'Titre 1', block : 'h3', classes : 'tt-1'},
-                                {title : 'Titre 2', block : 'h3', classes : 'tt-2'},
-                                {title : 'Titre 3', block : 'h3', classes : 'tt-3'},
-                                {title : 'Titre 4', block : 'h4', classes : 'tt-4'},
-                                {title : 'Titre 5', block : 'h4', classes : 'tt-red'},
-                                {title : 'Titre 6', block : 'h4', classes : 'tt-purple'}
-                            ],
-                            formats : {
-                                alignleft : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtleft'},
-                                aligncenter : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtcenter'},
-                                alignright : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtright'},
-                                alignfull : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtjustify'},
-                                bold : {inline : 'span', 'classes' : 'bold'},
-                                italic : {inline : 'span', 'classes' : 'italic'},
-                                underline : {inline : 'span', 'classes' : 'underline', exact : true},
-                                strikethrough : {inline : 'del'},
-                            },
+                            style_formats : <?php echo $this->TINYMCEstyleformats(); ?>,
+                            formats : <?php echo $this->TINYMCEformats(); ?>,
+                            font_size_classes : "<?php echo $this->TINYMCEsize(); ?>",
                             // Drop lists for link/image/media/template dialogs
                             template_external_list_url : "<?php echo $url_base ?>/plugins/lists/template_list.js",
                             external_link_list_url : "<?php echo $url_base ?>/plugins/lists/link_list.js",
@@ -523,10 +647,9 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                             convert_newlines_to_brs : true,
                             //remove_linebreaks : true,
                             convert_fonts_to_spans : true,
-                            font_size_classes : "tt-10,tt-9,tt-8,tt-7,tt-6,tt-4,tt-2",
                             // don't replace encoding character like : Ã© to &eacutes;
                             entity_encoding : "raw",  
-                         	// clean up the content
+                         	  // clean up the content
                             cleanup_callback : this.fct_tinymce_xhtml_transform,                    
                             // Theme options
                             theme_advanced_buttons1 : "fullscreen,bold,italic,underline,strikethrough,justifyleft,justifycenter,justifyright,justifyfull,bullist,numlist,hr,sub,sup,forecolor,backcolor",
@@ -540,26 +663,9 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                             // Exemple content CSS (should be your site CSS)
                             content_css : "<?php echo $url_css ?>",
                             // Style formats for 'styleselect'
-                            style_formats : [
-                                {title : 'Liste point rose', selector : 'ul', classes : 'roseDisc'},
-                                {title : 'Titre rose', block : 'h3', classes : 'tt-5 tt-clr'},
-                                {title : 'tt-6', block : 'h3', classes : 'tt-6'},
-                                {title : 'tt-7', block : 'h3', classes : 'tt-7'},
-                                {title : 'Tt-11', block : 'h3', classes : 'tt-11'},
-                                {title : 'Tt-12', block : 'h4', classes : 'tt-12'},
-                                {title : 'Titre 5', block : 'h4', classes : 'tt-red'},
-                                {title : 'Titre 6', block : 'h4', classes : 'tt-purple'}
-                            ],
-                            formats : {
-                                alignleft : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtleft'},
-                                aligncenter : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtcenter'},
-                                alignright : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtright'},
-                                alignfull : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtjustify'},
-                                bold : {inline : 'span', 'classes' : 'bold'},
-                                italic : {inline : 'span', 'classes' : 'italic'},
-                                underline : {inline : 'span', 'classes' : 'underline', exact : true},
-                                strikethrough : {inline : 'del'},
-                            },
+                            style_formats : <?php echo $this->TINYMCEstyleformats(); ?>,
+                            formats : <?php echo $this->TINYMCEformats(); ?>,
+                            font_size_classes : "<?php echo $this->TINYMCEsize(); ?>",
                             // Drop lists for link/image/media/template dialogs
                             template_external_list_url : "<?php echo $url_base ?>/plugins/template_list.js",
                             external_link_list_url : "<?php echo $url_base ?>/plugins/lists/link_list.js",
@@ -608,7 +714,6 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                             convert_newlines_to_brs : true,
                             //remove_linebreaks : true,
                             convert_fonts_to_spans : true,
-                            font_size_classes : "tt-10,tt-9,tt-8,tt-7,tt-6,tt-4,tt-2",
                             // don't replace encoding character like : Ã© to &eacutes;
                             entity_encoding : "raw",  
                          	// clean up the content
@@ -624,26 +729,9 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                             // Exemple content CSS (should be your site CSS)
                             content_css : "<?php echo $url_css ?>",
                             // Style formats for 'styleselect'
-                            style_formats : [
-                                {title : 'Liste La Melee', selector : 'ul', classes : 'roseDisc'},
-                                {title : 'Liste MideNews', selector : 'ul', classes : 'orangeDisc'},
-                                {title : 'Titre 1', block : 'h3', classes : 'tt-6'},
-                                {title : 'Titre 2', block : 'h3', classes : 'tt-7'},
-                                {title : 'Titre 3 La Melee', block : 'h3', classes : 'tt-11'},
-                                {title : 'Titre 3 MideNews', block : 'h4', classes : 'tt-12'},
-                                {title : 'Titre rose', block : 'h3', classes : 'tt-5 tt-clr'},
-                        
-                            ],
-                            formats : {
-                                alignleft : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtleft'},
-                                aligncenter : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtcenter'},
-                                alignright : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtright'},
-                                alignfull : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtjustify'},
-                                bold : {inline : 'span', 'classes' : 'bold'},
-                                italic : {inline : 'span', 'classes' : 'italic'},
-                                underline : {inline : 'span', 'classes' : 'underline', exact : true},
-                                strikethrough : {inline : 'del'},
-                            },
+                            style_formats : <?php echo $this->TINYMCEstyleformats(); ?>,
+                            formats : <?php echo $this->TINYMCEformats(); ?>,
+                            font_size_classes : "<?php echo $this->TINYMCEsize(); ?>",
                             // Drop lists for link/image/media/template dialogs
                             template_external_list_url : "<?php echo $url_base ?>/plugins/template_list.js",
                             external_link_list_url : "<?php echo $url_base ?>/plugins/lists/link_list.js",
@@ -667,6 +755,8 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                     };                        
 
                     this.ftc_tinymce_editor_easy = function(idObj){
+                        
+                                                
                         idObj.tinymce({
                             // Location of TinyMCE script
                             script_url : '<?php echo $url_base ?>/tiny_mce.js',
@@ -692,14 +782,13 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                             convert_newlines_to_brs : true,
                             //remove_linebreaks : true,
                             convert_fonts_to_spans : true,
-                            font_size_classes : "tt-10,tt-9,tt-8,tt-7,tt-6,tt-4,tt-2",
                             // don't replace encoding character like : Ã© to &eacutes;
                             entity_encoding : "raw",
                             // clean up the content
                             cleanup_callback : this.fct_tinymce_xhtml_transform,                        
                             // Theme options
                             theme_advanced_buttons1 : "fullscreen,bold,italic,underline,strikethrough,justifyleft,justifycenter,justifyright,justifyfull,bullist,numlist,hr,sub,sup,forecolor,backcolor",
-                            theme_advanced_buttons2 : "code,formatselect,styleselect,fontsizeselect,removeformat,visualchars,outdent,indent,undo,redo",
+                            theme_advanced_buttons2 : "code,formatselect,styleselect,fontsizeselect,removeformat,visualchars,outdent,indent,undo,redo,image",
                             theme_advanced_buttons3 : "", 
                             theme_advanced_toolbar_location : "top",
                             theme_advanced_toolbar_align : "left",
@@ -708,26 +797,9 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                             // Exemple content CSS (should be your site CSS)
                             content_css : "<?php echo $url_css ?>",
                             // Style formats for 'styleselect'
-                            style_formats : [
-                                {title : 'Liste point rose', selector : 'ul', classes : 'roseDisc'},
-                                {title : 'Titre rose', block : 'h3', classes : 'tt-5 tt-clr'},
-                                {title : 'Titre 1', block : 'h3', classes : 'tt-1'},
-                                {title : 'Titre 2', block : 'h3', classes : 'tt-2'},
-                                {title : 'Titre 3', block : 'h3', classes : 'tt-3'},
-                                {title : 'Titre 4', block : 'h4', classes : 'tt-4'},
-                                {title : 'Titre 5', block : 'h4', classes : 'tt-red'},
-                                {title : 'Titre 6', block : 'h4', classes : 'tt-purple'}
-                            ],
-                            formats : {
-                                alignleft : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtleft'},
-                                aligncenter : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtcenter'},
-                                alignright : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtright'},
-                                alignfull : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtjustify'},
-                                bold : {inline : 'span', 'classes' : 'bold'},
-                                italic : {inline : 'span', 'classes' : 'italic'},
-                                underline : {inline : 'span', 'classes' : 'underline', exact : true},
-                                strikethrough : {inline : 'del'},
-                            },
+                            style_formats : <?php echo $this->TINYMCEstyleformats(); ?>,
+                            formats : <?php echo $this->TINYMCEformats(); ?>,
+                            font_size_classes : "<?php echo $this->TINYMCEsize(); ?>",
                             // Drop lists for link/image/media/template dialogs
                             template_external_list_url : "<?php echo $url_base ?>/plugins/lists/template_list.js",
                             external_link_list_url : "<?php echo $url_base ?>/plugins/lists/link_list.js",
@@ -751,16 +823,19 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                     };   
                  	// This function allows to convert the entered text
                     this.fct_tinymce_xhtml_transform = function xhtml_transform(type, value) {
+                    	//console.log(type)	
                     	switch (type) {
 		                        case "get_from_editor":
-		                        	 	value = value.replace(/&nbsp;/ig, " ");	
-		                        		value = value.replace(/\s/ig, " ");
+			                			value = value.replace(/&nbsp;/ig, " ");		     
+			                			value = value.replace(/\s/ig, " ");			                
 		                                break;
 		                        case "insert_to_editor":
 										//value = value.replace(/<p[^>]*><span[^>]*> <\/span><\/p>/g,"<p><span> </span></p>");
 		                    			//value = value.replace(/<p[^>]*> <\/p>/g, "<p> </p>");
-		                    			value = value.replace(/&nbsp;/ig, " ");		     
-		                    			value = value.replace(/\s/ig, " ");		                                    
+		                    			//value = value.replace(/<\/?[^<]+>/g,'');
+		                    			//value = value.replace(/<\w+>(\w+)<\/\w+>/g,'');
+				            			value = value.replace(/&nbsp;/ig, " ");		     
+				            			value = value.replace(/\s/ig, " ");			                
 		                                break;
 		                        case "submit_content":
 		                                break;
@@ -773,6 +848,7 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
 		                        case "submit_content_dom":
 		                                break;
 		                }
+
 		                return value;				
 		            },   
                  	// THIS FUNCTION ALLOW TO INJECT SEVERAL FIELDS IN A ACCORDION MENU.
@@ -806,7 +882,7 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                 //$(this).parent('.clearfix').detach().appendTo("#"+accordionId);
                                 $(this).closest('.clearfix').detach().appendTo("#"+accordionId);
                             });    
-                            $('#'+accordionId+' legend').click(function(event, dataObject) {  
+                            $('#'+accordionId+' legend').on('click', function (event, dataObject) { 
                             	event.preventDefault(); 
                                 var that = $(this);
                                 var newHeight = function(){
@@ -888,7 +964,7 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                             hide: 'scale',                
                         });    
 
-                        button.click(function () {
+                        button.on('click', function (event) { 
                             if (obj_form != null){
                                 obj_form = $("#"+form).detach();
                                 obj_form.appendTo($dialog_form);
@@ -943,5 +1019,90 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
         ob_end_flush ();
         
         return $_content;
+    }   
+
+    /**
+     * Sets style formats of the TINYMCE.
+     *
+     * @access protected
+     * @return void
+     *
+     * @author Etienne de Longeaux <etienne_delongeaux@hotmail.com> 
+     */
+    protected function TINYMCEstyleformats()
+    {    
+        // We open the buffer.
+        ob_start ();        
+        ?>
+
+        [
+          {title : 'Liste point rose', selector : 'ul', classes : 'roseDisc'},
+          {title : 'Titre rose', block : 'h3', classes : 'tt-5 tt-clr'},
+          {title : 'Titre 1', block : 'h3', classes : 'tt-1'},
+          {title : 'Titre 2', block : 'h3', classes : 'tt-2'},
+          {title : 'Titre 3', block : 'h3', classes : 'tt-3'},
+          {title : 'Titre 4', block : 'h4', classes : 'tt-4'},
+          {title : 'Titre 5', block : 'h4', classes : 'tt-red'},
+          {title : 'Titre 6', block : 'h4', classes : 'tt-purple'}
+        ]        
+
+        <?php 
+        // We retrieve the contents of the buffer.
+        $_content = ob_get_contents ();
+        // We clean the buffer.
+        ob_clean ();
+        // We close the buffer.
+        ob_end_flush ();
+        
+        return $_content;
     }    
+
+    /**
+     * Sets style formats of the TINYMCE.
+     *
+     * @access protected
+     * @return void
+     *
+     * @author Etienne de Longeaux <etienne_delongeaux@hotmail.com> 
+     */
+    protected function TINYMCEformats()
+    {    
+        // We open the buffer.
+        ob_start ();        
+        ?>
+
+          {
+              alignleft : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtleft'},
+              aligncenter : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtcenter'},
+              alignright : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtright'},
+              alignfull : {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'txtjustify'},
+              bold : {inline : 'span', 'classes' : 'bold'},
+              italic : {inline : 'span', 'classes' : 'italic'},
+              underline : {inline : 'span', 'classes' : 'underline', exact : true},
+              strikethrough : {inline : 'del'},
+          }    
+
+        <?php 
+        // We retrieve the contents of the buffer.
+        $_content = ob_get_contents ();
+        // We clean the buffer.
+        ob_clean ();
+        // We close the buffer.
+        ob_end_flush ();
+        
+        return $_content;
+    } 
+
+    /**
+     * Sets style formats of the TINYMCE.
+     *
+     * @access protected
+     * @return void
+     *
+     * @author Etienne de Longeaux <etienne_delongeaux@hotmail.com> 
+     */
+    protected function TINYMCEsize()
+    {    
+        return "tt-10,tt-9,tt-8,tt-7,tt-6,tt-4,tt-2";
+    }     
 }

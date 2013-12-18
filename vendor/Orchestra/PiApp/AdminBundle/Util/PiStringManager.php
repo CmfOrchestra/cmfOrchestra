@@ -489,6 +489,35 @@ class PiStringManager implements PiStringManagerBuilderInterface
     }    
     
     /**
+     * Clean a phone.
+     *
+     * @param string $tel
+     * @param string $ch	(ex. $ch = 10 => Numéro à 10 chiffres)
+     * @param string $motif mise en forme
+     * @access public
+     * @return string
+     * @static
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public static function cleanPhone($tel, $ch = 10, $motif = '\\1-\\2-\\3-\\4-\\5')
+    {
+	    $tel = eregi_replace('[^0-9]',"",$tel); // supression sauf chiffres 
+	    $tel = trim($tel);  // suppression espaces avant et après 
+	    if (strlen($tel) > $ch) 
+	    { 
+	        $d = strlen($tel) - $ch; // retrouve la position pour ne garder que les $ch derniers si n°>10 chiffres 
+	    } else { 
+	        $d = 0; 
+	    } 
+	    $tel = substr($tel,$d,$ch); // récupération des $ch derniers chiffres 
+	    $regex = '([0-9]{1,2})([0-9]{1,2})([0-9]{1,2})([0-9]{1,2})([0-9]{1,2})$'; 
+	    $newtel = eregi_replace($regex, $motif,$tel);
+	    
+	    return $newtel; 
+    }    
+    
+    /**
      * this function cleans up the filename
      * it strips ../ and ./
      * it spaces with underscores
@@ -582,63 +611,70 @@ class PiStringManager implements PiStringManagerBuilderInterface
     }
     
     /**
-     * Remove doublewhitespace of a string
+     * Remove doublewhitespace of a string.
      *
-     * @param string $text
+     * @param string $string
      * @access public
      * @return string
      * @static
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    public static function remove_doublewhitespace($string = null)
+    public static function remove_doublewhitespace($string = null, $motif = ' ')
     {
-        return  $ret = preg_replace('/([\s])\1+/', ' ', $string);
+        return  $ret = preg_replace('/([\s])\1+/', $motif, $string);
     }
     
     /**
      * Remove whitespace of a string
      *
-     * @param string $text
+     * @param string $string
+     * @param string $motif
      * @access public
      * @return string
      * @static
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    public static function remove_whitespace($string = null)
+    public static function remove_whitespace($string = null, $motif = ' ')
     {
-        return $ret = preg_replace('/[\s]+/', '', $string );
+        return $ret = preg_replace('/[\s]+/', $motif, $string );
     }
     
     /**
      * Remove whitespace feed of a string
-     *
-     * @param string $text
+     * 
+     * <code>
+     * 	$this->get("pi_app_admin.string_manager")->remove_whitespace_feed($string);
+     * </code>
+     * 
+     * @param string $string
+     * @param string $motif
      * @access public
      * @return string
      * @static
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    public static function remove_whitespace_feed( $string = null)
+    public static function remove_whitespace_feed( $string = null, $motif = ' ')
     {
-        return $ret = preg_replace('/[\t\n\r\0\x0B]/', '', $string);
+        return $ret = preg_replace('/[\t\n\r\0\x0B]+/', $motif, $string);
     }    
     
     /**
      * Remove comment of a css string file.
      *
-     * @param string $text
+     * @param string $string
+     * @param string $motif
      * @access public
      * @return string
      * @static
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    public static function remove_comment_in_css_file($string = null)
+    public static function remove_comment_in_css_file($string = null, $motif = '')
     {
-        return  $ret = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $string);
+        return  $ret = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', $motif, $string);
     }    
     
     /**
@@ -792,10 +828,15 @@ class PiStringManager implements PiStringManagerBuilderInterface
     {
         // remove whitespace
         $string     = self::cleanWhitespace($string);
-        $wordList   = explode(' ', $string);
-        $wordList   = array_unique($wordList);
-        $string     = implode(' ', $wordList);
         
+        $wordList     = explode(' ', $string);
+        //print_r(count($wordList));
+        //print_r("<br />");
+        $wordList   = array_unique($wordList);
+        //print_r(count($wordList));
+        //print_r("<br />");
+        
+        $string        = implode(' ', $wordList);
         return $string;
     }    
     

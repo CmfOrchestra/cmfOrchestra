@@ -132,7 +132,7 @@ class Block extends AbstractDefault
     /**
      * @var integer $media
      *
-     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Media" , cascade={"all"}, inversedBy="block");
+     * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Media" , inversedBy="block");
      * @ORM\JoinColumn(name="media_id", referencedColumnName="id", nullable=true)
      */
     protected $media;    
@@ -140,7 +140,7 @@ class Block extends AbstractDefault
     /**
      * @var integer $media1
      *
-     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Media" , cascade={"all"}, inversedBy="block2");
+     * @ORM\ManyToOne(targetEntity="PiApp\GedmoBundle\Entity\Media" , inversedBy="block2");
      * @ORM\JoinColumn(name="media1_id", referencedColumnName="id", nullable=true)
      */
     protected $media1;    
@@ -162,7 +162,21 @@ class Block extends AbstractDefault
      */    
     public function __toString()
     {
-        return (string) $this->getCategory() . " > " .$this->getTitle();
+        if (isset($_GET['_locale']) && !empty($_GET['_locale'])) {
+        	$locale = $_GET['_locale'];
+        } else {
+        	$locale = "fr_FR";
+        }
+        $content = $this->getId();
+        $title = $this->translate($locale)->getTitle();
+        $cat = $this->getCategory();
+        if ($title) {
+        	$content .=  " > " .$title;
+        }
+        if (!is_null($cat)) {
+        	$content .=  '('. $cat->translate($locale)->getName() .')';
+        }
+        return (string) $content;        
     }    
     
     /**

@@ -49,11 +49,11 @@
     {% endif %}
 	
 	{% if entity.media.image is defined %}
-	{{ picture_form(entity.media.image, "piapp_gedmobundle_blocktype_media_image_binaryContent",  'reference', 'display: block; text-align:left;')|raw }}
+	{{ picture_form(entity.media.image, "piapp_gedmobundle_blocktype_media",  'reference', 'display: block; text-align:left;')|raw }}
 	{% endif %}
 	
 	{% if entity.media1.image is defined %}
-	{{ picture_form(entity.media1.image, "piapp_gedmobundle_blocktype_media1_image_binaryContent",  'reference', 'display: block; text-align:left;')|raw }}
+	{{ picture_form(entity.media1.image, "piapp_gedmobundle_blocktype_media1",  'reference', 'display: block; text-align:left;')|raw }}
 	{% endif %}	
 	
 	<script type="text/javascript">

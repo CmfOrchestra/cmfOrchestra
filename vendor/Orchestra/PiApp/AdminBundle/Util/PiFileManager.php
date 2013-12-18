@@ -394,6 +394,79 @@ class PiFileManager implements PiFileManagerBuilderInterface
     }
     
     /**
+     * Save a content in the file given in parameter.
+     *
+     * @param  string    $path      path file
+     * @param  string    $content      content to push in th file
+     * @param  int         $mode      mode file
+     *
+     * @return booean    return 0 if the file is save correctly.    
+     * @access public
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public static function save($path, $content = '',  $mode = 0777)
+    {
+        if (self::mkdirr(dirname($path), $mode)) {
+            return file_put_contents($path, $content);
+        } else {
+            return false;
+        }
+    }   
+
+    /**
+     * rename the selected file
+     *
+     * @param string $source
+     * @param string $newName
+     * @access public
+     * @static
+     *
+     * @author Etienne de Longeaux <etienne_delongeaux@hotmail.com>
+     */
+    public static function rename($source, $newName)
+    {
+    	if (file_exists($source)) {
+    		rename($source, $newName);
+    	}
+    }
+    
+    /**
+     * copy a file
+     *
+     * @param string $source
+     * @param string $target
+     * @return bool
+     * @access public
+     * @static
+     *
+     * @author Etienne de Longeaux <etienne_delongeaux@hotmail.com>
+     */
+    public static function copy( $source, $target)
+    {
+    	if (file_exists( $source )) {
+    		return copy($source, $target);
+    	}
+    }
+    
+    /**
+     * move a file
+     *
+     * @param string $source
+     * @param string $target
+     * @access public
+     * @static
+     *
+     * @author Etienne de Longeaux <etienne_delongeaux@hotmail.com>
+     */
+    public static function move($source, $target)
+    {
+    	if (file_exists($source)) {
+    		rename($source, $target);
+    	}
+    }
+    
+    /**
      * Delete a file.
      *
      * @param  string    $path  path du fichier
@@ -416,23 +489,46 @@ class PiFileManager implements PiFileManagerBuilderInterface
     }
     
     /**
-     * Save a content in the file given in parameter.
+     * Create a file.
      *
-     * @param  string    $path      path file
-     * @param  string    $content      content to push in th file
-     * @param  int         $mode      mode file
-     *
-     * @return booean    return 0 if the file is save correctly.    
+     * @param  string    $path  path du fichier
+     * @param  string	 content à inserer
+     * @return void
      * @access public
+     * @static
      *
-     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @author Etienne de Longeaux <etienne_delongeaux@hotmail.com>
      */
-    public static function save($path, $content = '',  $mode = 0777)
+    public static function create($path, $filecontent = '')
     {
-        if (self::mkdirr(dirname($path), $mode))   
-            return file_put_contents($path, $content);
-        else
-            return false;
+    	$dirpath = dirname($path);
+    	if(@mkdir("$dirpath", 0777)) {}
+    
+    	if(!file_exists("$path")) {
+    		$fp = fopen($path,"w+");
+    		fwrite($fp,$filecontent,strlen($filecontent));
+    		fclose($fp);
+    	}
+    }    
+    
+    /**
+     * Insert content in file.
+     *
+     * @param  str $path         path du fichier
+     * @param  str $filecontent  Contenu à injecter dans le fichier
+     * @return void
+     * @access public
+     * @static
+     *
+     * @author Etienne de Longeaux <etienne_delongeaux@hotmail.com>
+     */
+    public static function InsererContent($path, $filecontent)
+    {
+    	$contents = file_get_contents($path);
+    	 
+    	$fp = fopen($path,"w+");
+    	fwrite($fp,$contents . $contenu,strlen($contents . $contenu));
+    	fclose($fp);
     }    
     
     /**
@@ -618,4 +714,46 @@ class PiFileManager implements PiFileManagerBuilderInterface
         $value = preg_replace("/[^a-z0-9\-\_]/","-",$value);
         return $value;
     }
+    
+    /**
+     * generate a file path from an id.
+     * 
+     *  @param string $mode
+     *   @param int $id
+     * @access public
+     * @return string
+     */
+    public static function generatePath($mode, $id)
+    {
+    	$input=''.$id;
+    	// 15567    => /7/15/56/7/@/
+    	// 6871985  => /5/68/71/98/5/@/
+    	// 687198565   /5/68/71/98/56/5/@/
+    	// 68719856    /6/68/71/98/56/@/
+    	// 21          /1/21/@/
+    	// 2121        /1/21/21/@/
+    	// 1           /1/1/@
+    	// antix       /x/an/ti/x/@/
+    	$len=strlen($input);
+    	if ($len==0) {
+    		return $mode.'/';
+    	} elseif ($len==1) {
+    		$output=$input . '/' . $input;
+    	} else {
+    		$output=$input{$len-1} . '/';
+    		for ($i=0; $i<$len-1; $i++) {
+    			$output.=substr($input, $i, 1);
+    			if ($i%2) {
+    				$trailing='/';
+    			} else {
+    				$trailing='';
+    			}
+    			$output.=$trailing;
+    		}
+    		$output.=$input{$len-1};
+    	}
+    	$output.='/';
+    	
+    	return $mode.'/' . $output;
+    }    
 }

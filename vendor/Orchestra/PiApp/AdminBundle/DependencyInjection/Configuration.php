@@ -244,7 +244,7 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('date_interval')
                             ->defaultValue("PT4H")
                             ->end()
-                    
+
                 ->end()
         
             ->end()
@@ -393,6 +393,11 @@ class Configuration implements ConfigurationInterface
                                     
                                 ->scalarNode('keywords')
                                     ->defaultValue('')
+                                    ->end()
+
+                                ->scalarNode('og_title_add')
+                                    ->defaultValue('')
+                                    ->cannotBeEmpty()
                                     ->end()
                                     
                                 ->scalarNode('og_type')

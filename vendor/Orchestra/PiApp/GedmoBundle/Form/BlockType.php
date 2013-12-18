@@ -17,6 +17,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Validator\Constraints;
 
 /**
  * Description of the BlockType form.
@@ -58,6 +59,27 @@ class BlockType extends AbstractType
         
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $id_media = null;
+        $id_media1 = null;
+        // get the id of media
+        if (
+        		($builder->getData()->getMedia() instanceof \PiApp\GedmoBundle\Entity\Media)
+        ) {
+        	$id_media = $builder->getData()->getMedia()->getId();
+        }
+        if (isset($_POST['piapp_gedmobundle_blocktype']['media'])) {
+        	$id_media = $_POST['piapp_gedmobundle_blocktype']['media'];
+        }
+        // get the id of media1
+        if (
+        		($builder->getData()->getMedia1() instanceof \PiApp\GedmoBundle\Entity\Media)
+        ) {
+        	$id_media1 = $builder->getData()->getMedia1()->getId();
+        }
+        if (isset($_POST['piapp_gedmobundle_blocktype']['media1'])) {
+        	$id_media1 = $_POST['piapp_gedmobundle_blocktype']['media1'];
+        }        
+        
         $is_enabled        = true;
         $is_category    = true;
         $is_title        = true;
@@ -249,19 +271,139 @@ class BlockType extends AbstractType
                      'required'  => false,
              ));
              
-         if ($is_media)
+         if ($is_media) {
              $builder
-             ->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'));
-         else
+             //->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'));
+             ->add('media', 'entity', array(
+             		'class' => 'PiAppGedmoBundle:Media',
+            		'query_builder' => function(EntityRepository $er) use ($id_media) {
+            			$translatableListener = $this->_container->get('gedmo.listener.translatable');
+            			$translatableListener->setTranslationFallback(true);            			
+            			return $er->createQueryBuilder('a')
+            			->select('a')
+            			->where("a.id IN (:id)")
+            			->setParameter('id', $id_media)
+            			//->where("a.status = 'image'")
+            			//->andWhere("a.image IS NOT NULL")
+            			//->andWhere("a.enabled = 1")
+            			//->orderBy('a.id', 'ASC')
+            			;
+            		},
+            		//'property' => 'id',
+            		'empty_value' => 'pi.form.label.select.choose.media',
+            		'label' => "Media",
+            		'multiple' => false,
+					'required'  => false,
+             		'constraints' => array(
+             				new Constraints\NotBlank(),
+             		),
+            		"label_attr" => array(
+            				"class"=> 'bg_image_collection',
+            		),
+            		"attr" => array(
+            				"class"=>"pi_simpleselect ajaxselect", // ajaxselect
+            				"data-url"=>$this->_container->get('bootstrap.RouteTranslator.factory')->getRoute("admin_gedmo_media_selectentity_ajax", array('type'=>'image')),
+            				"data-selectid" => $id_media
+            		),
+            		'widget_suffix' => '<a class="button-ui-mediatheque button-ui-dialog"
+             				title="Ajouter une image à la médiatheque"
+             				data-title="Mediatheque"
+             				data-href="'.$this->_container->get('bootstrap.RouteTranslator.factory')->getRoute("admin_gedmo_media_new", array("NoLayout"=>"false", "category"=>'', 'status'=>'image')).'"
+             				data-selectid="#piapp_gedmobundle_mediatype_id"
+             				data-selecttitle="#piapp_gedmobundle_mediatype_title"
+             				data-insertid="#piapp_gedmobundle_blocktype_media"
+             				data-inserttype="multiselect"
+             				></a>',            		
+             )) 
+             ;
+         } else {
              $builder
-             ->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "hidden", 'pi.form.label.media.picture'));
+             //->add('media', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "hidden", 'pi.form.label.media.picture'));
+             ->add('media', 'entity', array(
+             		'class' => 'PiAppGedmoBundle:Media',
+            		'query_builder' => function(EntityRepository $er) use ($id_media) {
+            			$translatableListener = $this->_container->get('gedmo.listener.translatable');
+            			$translatableListener->setTranslationFallback(true);            			
+            			return $er->createQueryBuilder('a')
+            			->select('a')
+            			->where("a.id IN (:id)")
+            			->setParameter('id', $id_media)
+            			;
+            		},
+            		'required'  => false,
+             		'attr'=>array('style'=>'display:none;'),
+             		"label_attr" => array(
+             				"style"=> 'display:none;',
+             		),
+             ));
+         }
                                                
-         if ($is_media1)
+         if ($is_media1) {
              $builder
-             ->add('media1', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'));
-         else
+             //->add('media1', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "simpleLink", 'pi.form.label.media.picture'));
+             ->add('media1', 'entity', array(
+             		'class' => 'PiAppGedmoBundle:Media',
+            		'query_builder' => function(EntityRepository $er) use ($id_media1) {
+            			$translatableListener = $this->_container->get('gedmo.listener.translatable');
+            			$translatableListener->setTranslationFallback(true);            			
+            			return $er->createQueryBuilder('a')
+            			->select('a')
+            			->where("a.id IN (:id)")
+            			->setParameter('id', $id_media1)
+            			//->where("a.status = 'image'")
+            			//->andWhere("a.image IS NOT NULL")
+            			//->andWhere("a.enabled = 1")
+            			//->orderBy('a.id', 'ASC')
+            			;
+            		},
+            		//'property' => 'id',
+            		'empty_value' => 'pi.form.label.select.choose.media',
+            		'label' => "Media",
+            		'multiple' => false,
+					'required'  => false,
+             		'constraints' => array(
+             				new Constraints\NotBlank(),
+             		),
+            		"label_attr" => array(
+            				"class"=> 'bg_image_collection',
+            		),
+            		"attr" => array(
+            				"class"=>"pi_simpleselect ajaxselect", // ajaxselect
+            				"data-url"=>$this->_container->get('bootstrap.RouteTranslator.factory')->getRoute("admin_gedmo_media_selectentity_ajax", array('type'=>'image')),
+            				"data-selectid" => $id_media1
+            		),
+            		'widget_suffix' => '<a class="button-ui-mediatheque button-ui-dialog"
+             				title="Ajouter une image à la médiatheque"
+             				data-title="Mediatheque"
+             				data-href="'.$this->_container->get('bootstrap.RouteTranslator.factory')->getRoute("admin_gedmo_media_new", array("NoLayout"=>"false", "category"=>'', 'status'=>'image')).'"
+             				data-selectid="#piapp_gedmobundle_mediatype_id"
+             				data-selecttitle="#piapp_gedmobundle_mediatype_title"
+             				data-insertid="#piapp_gedmobundle_blocktype_media1"
+             				data-inserttype="multiselect"
+             				></a>',            		
+            )) 
+             ;
+         } else {
              $builder
-             ->add('media1', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "hidden", 'pi.form.label.media.picture'));
+             //->add('media1', new \PiApp\GedmoBundle\Form\MediaType($this->_container, $this->_em, 'image', 'image_collection', "hidden", 'pi.form.label.media.picture'));
+             ->add('media1', 'entity', array(
+             		'class' => 'PiAppGedmoBundle:Media',
+            		'query_builder' => function(EntityRepository $er) use ($id_media1) {
+            			$translatableListener = $this->_container->get('gedmo.listener.translatable');
+            			$translatableListener->setTranslationFallback(true);            			
+            			return $er->createQueryBuilder('a')
+            			->select('a')
+            			->where("a.id IN (:id)")
+            			->setParameter('id', $id_media1)
+            			;
+            		},
+            		'required'  => false,
+             		'attr'=>array('style'=>'display:none;'),
+             		"label_attr" => array(
+             				"style"=> 'display:none;',
+             		),
+             ));
+         }
         
     }
 

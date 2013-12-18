@@ -141,21 +141,24 @@ class HandlerLogin
      */
     public function onKernelResponse(FilterResponseEvent $event)
     {
+    	// we deal with the general case with a non ajax connection.
     	if (!empty($this->redirect)) {
-            $response = new RedirectResponse($this->router->getRoute($this->redirect));
-        } elseif ( $this->security->isGranted('ROLE_CONTENT_MANAGER') || $this->security->isGranted('ROLE_ADMIN') || $this->security->isGranted('ROLE_SUPER_ADMIN') ) {
-            $response = new RedirectResponse($this->router->getRoute($this->redirect_admin));
-            $this->redirect = $this->redirect_admin;
-        } elseif ( $this->security->isGranted('ROLE_USER') ) {
-            $response = new RedirectResponse($this->router->getRoute($this->redirect_user));
-            $this->redirect = $this->redirect_user;
-        } else {
-            $response = new RedirectResponse($this->router->getRoute($this->redirect_subscriber));
-            $this->redirect = $this->redirect_subscriber;
-        }
+    		$response = new RedirectResponse($this->router->getRoute($this->redirect));
+    	} elseif ( $this->security->isGranted('ROLE_CONTENT_MANAGER') || $this->security->isGranted('ROLE_ADMIN') || $this->security->isGranted('ROLE_SUPER_ADMIN') ) {
+    		$response = new RedirectResponse($this->router->getRoute($this->redirect_admin));
+    		$this->redirect = $this->redirect_admin;
+    	} elseif ( $this->security->isGranted('ROLE_USER') ) {
+    		$response = new RedirectResponse($this->router->getRoute($this->redirect_user));
+    		$this->redirect = $this->redirect_user;
+    	} else {
+    		$response = new RedirectResponse($this->router->getRoute($this->redirect_subscriber));
+    		$this->redirect = $this->redirect_subscriber;
+    	}    	
+        // we deal with the case where the connection is limited to a set of roles (ajax or not ajax connection).
         if (isset($_POST['roles']) && !empty($_POST['roles'])) {
         	$all_authorization_roles = json_decode($_POST['roles'], true);
         	$best_roles_name = $this->container->get('bootstrap.Role.factory')->getBestRoleUser();
+        	// If the permisssion is not given.
         	if (is_array($all_authorization_roles) && !in_array($best_roles_name, $all_authorization_roles)) {
         		if ($this->getRequest()->isXmlHttpRequest()) {
         			$response = new Response(json_encode("no-authorization"));
@@ -165,8 +168,17 @@ class HandlerLogin
         			$response = new RedirectResponse($referer_url);
         			$this->redirect = 'home_page';
         		}
+        	} else {
+        		if ($this->getRequest()->isXmlHttpRequest()) {
+        			$response = new Response(json_encode("ok"));
+        			$response->headers->set('Content-Type', 'application/json');
+        		}
         	}
-        }     
+        // we deal with the case where the connection is done in ajax without limited connection.
+        } elseif ($this->getRequest()->isXmlHttpRequest()) {
+        	$response = new Response(json_encode("ok"));
+        	$response->headers->set('Content-Type', 'application/json');
+        }
         // Record the layout variable in cookies.
         if ($this->date_expire && !empty($this->date_interval)) {
             $dateExpire = new \DateTime("NOW");
@@ -179,14 +191,15 @@ class HandlerLogin
         	$config_ws = $this->container->getParameter('ws.auth');
         	$key       = $config_ws['handlers']['getpermisssion']['key'];
         	$userId    = $this->container->get('pi_app_admin.twig.extension.tool')->encryptFilter($this->getUser()->getId(), $key);
+            $applicationId    = $this->container->get('pi_app_admin.twig.extension.tool')->encryptFilter($this->application_id, $key);
         	$response->headers->setCookie(new \Symfony\Component\HttpFoundation\Cookie('orchestra-ws-user-id', $userId, $dateExpire));
-        	$response->headers->setCookie(new \Symfony\Component\HttpFoundation\Cookie('orchestra-ws-application-id', $this->application_id, $dateExpire));
-        	$response->headers->setCookie(new \Symfony\Component\HttpFoundation\Cookie('orchestra-ws-key', $key, $dateExpire));
-        }   
+        	$response->headers->setCookie(new \Symfony\Component\HttpFoundation\Cookie('orchestra-ws-application-id', $applicationId, $dateExpire));
+        	$response->headers->setCookie(new \Symfony\Component\HttpFoundation\Cookie('orchestra-ws-key', $key, $dateExpire));        	
+        }    
         $response->headers->setCookie(new \Symfony\Component\HttpFoundation\Cookie('orchestra-layout', $this->layout, $dateExpire));
         $response->headers->setCookie(new \Symfony\Component\HttpFoundation\Cookie('orchestra-redirection', $this->redirect, $dateExpire));
         $response->headers->setCookie(new \Symfony\Component\HttpFoundation\Cookie('_locale', $this->locale, $dateExpire));
-        $event->setResponse($response);
+        $event->setResponse($response);        
     }    
     
     /**
@@ -273,7 +286,7 @@ class HandlerLogin
         // 
         $this->template_admin       = $this->container->getParameter('pi_app_admin.layout.login.admin_template');
         $this->template_user        = $this->container->getParameter('pi_app_admin.layout.login.user_template');
-        $this->template_subscriber  = $this->container->getParameter('pi_app_admin.layout.login.subscriber_template');        
+        $this->template_subscriber  = $this->container->getParameter('pi_app_admin.layout.login.subscriber_template');  
     }    
     
     /**

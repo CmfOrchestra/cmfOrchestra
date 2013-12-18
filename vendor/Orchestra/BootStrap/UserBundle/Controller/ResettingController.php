@@ -20,6 +20,7 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Controller managing the resetting of the password
@@ -49,40 +50,69 @@ class ResettingController extends ContainerAware
         $username   = $request->get('username');
         $template   = $request->get('template');
         $routereset = $request->get('routereset');
-        
-        if (empty($template))
+        $type = $request->get('type');
+        //
+        if (empty($template)) {
             $template = 'PiAppTemplateBundle:Template\\Login\\Resetting:request.html.twig';
-
-        $user = $this->container->get('fos_user.user_manager')->findUserByUsernameOrEmail($username);
-
-        if (null === $user) {
-            return $this->container->get('templating')->renderResponse($template, array('invalid_username' => $username));
         }
 
-        if ($user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
-            return $this->container->get('templating')->renderResponse('PiAppTemplateBundle:Template\\Login\\Resetting:passwordAlreadyRequested.html.twig');
+        $user  =  $this->container->get('doctrine')->getEntityManager()->getRepository('BootStrapUserBundle:User')->findOneBy(array('username' => $username));
+
+        $request   = $this->container->get('request');
+
+        if($request->isXmlHttpRequest()){
+            $response = new JsonResponse();
+            if (null === $user) {
+                return $response->setData(json_encode(array('text'=> 'Identifiant inconnu', 'error' => true, 'type' => 'unknown' )));
+            }
+            else if ($user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl')) && $type == 'send') {
+                return $response->setData(json_encode(array('text'=> 'Vous devez au préalable activer votre compte en cliquant sur le mail de Confirmation d\'inscription reçu', 'error' => true, 'type' => '24h' )));
+            }
+            else {
+                $tokenGenerator = $this->container->get('fos_user.util.token_generator');
+                $user->setConfirmationToken($tokenGenerator->generateToken());
+                $em = $this->container->get('doctrine')->getEntityManager();
+                $em->persist($user);
+                $em->flush();
+
+                $this->container->get('session')->set(static::SESSION_EMAIL, $this->getObfuscatedEmail($user));
+                $this->sendResettingEmailMessage($user, $routereset);
+                $user->setPasswordRequestedAt(new \DateTime());
+                $this->container->get('fos_user.user_manager')->updateUser($user);
+
+                return $response->setData(json_encode(array('text'=> 'Un email vous a été envoyé pour créer un nouveau mot de passe sur le site', 'error' => false)));
+            }
+
+        }
+        else {
+            if (null === $user) {
+                return $this->container->get('templating')->renderResponse($template, array('invalid_username' => $username));
+            }
+            if ($user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
+                return $this->container->get('templating')->renderResponse('PiAppTemplateBundle:Template\\Login\\Resetting:passwordAlreadyRequested.html.twig');
+            }
+            $tokenGenerator = $this->container->get('fos_user.util.token_generator');
+            $user->setConfirmationToken($tokenGenerator->generateToken());
+            $em = $this->container->get('doctrine')->getEntityManager();
+            $em->persist($user);
+            $em->flush();
+            //
+            $this->container->get('session')->set(static::SESSION_EMAIL, $this->getObfuscatedEmail($user));
+            $this->sendResettingEmailMessage($user, $routereset);
+            $user->setPasswordRequestedAt(new \DateTime());
+            $this->container->get('fos_user.user_manager')->updateUser($user);
+
+            try {
+                return $this->container->get('templating')->renderResponse('PiAppTemplateBundle:Template\\Login\\Resetting:request.html.twig', array('success' => true));
+            } catch (\Exception $e) {
+                $response     = new RedirectResponse($this->container->get('router')->generate('fos_user_resetting_check_email'));
+            }
+
+            return $response->getContent();
         }
 
-        $tokenGenerator = $this->container->get('fos_user.util.token_generator');
-        $user->setConfirmationToken($tokenGenerator->generateToken());
-        $em = $this->container->get('doctrine')->getEntityManager();
-        $em->persist($user);
-        $em->flush();
-        
-        $this->container->get('session')->set(static::SESSION_EMAIL, $this->getObfuscatedEmail($user));
-        $this->sendResettingEmailMessage($user, $routereset);
-        $user->setPasswordRequestedAt(new \DateTime());
-        $this->container->get('fos_user.user_manager')->updateUser($user);
-
-        try {
-            return $this->container->get('templating')->renderResponse('PiAppTemplateBundle:Template\\Login\\Resetting:request.html.twig', array('success' => true));
-        } catch (\Exception $e) {
-            $response     = new RedirectResponse($this->container->get('router')->generate('fos_user_resetting_check_email'));
-        }
-        
-        return $response->getContent();
     }
-    
+
     /**
      * Send mail to reset user password
      */
@@ -92,11 +122,11 @@ class ResettingController extends ContainerAware
         $html_url = 'http://'.$this->container->get('request')->getHttpHost() . $this->container->get('request')->getBasePath().$url;
         $html_url = "<a href='$html_url'>" . $html_url . "</a>";
         $rendered = $this->container->get('templating')->render('PiAppTemplateBundle:Template\\Login\\Resetting:email.txt.twig', array(
-                'user'                 => $user,
-                'confirmationUrl'     => $html_url,
+            'user'                 => $user,
+            'confirmationUrl'     => $html_url,
         ));
         $this->container->get("pi_app_admin.mailer_manager")->send("administrator@gmail.com", $user->getEmail(), "Changement de mot de passe", $rendered);
-    }    
+    }
 
     /**
      * Tell the user to check his email provider

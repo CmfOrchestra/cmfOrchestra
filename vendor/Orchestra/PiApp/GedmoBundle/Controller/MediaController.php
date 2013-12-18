@@ -115,6 +115,58 @@ class MediaController extends abstractController
     {
         return parent::archiveajaxAction();
     }    
+    
+    /**
+     * Enabled BlocGeneral entities.
+     *
+     * @Route("/admin/gedmo/media/select/{type}", name="admin_gedmo_media_selectentity_ajax")
+     * @Secure(roles="ROLE_USER")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access  public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function selectajaxAction($type)
+    {
+    	$request = $this->container->get('request');
+    	$em		 = $this->getDoctrine()->getEntityManager();
+    	$locale = $this->container->get('request')->getLocale();
+    
+    	if ($request->isXmlHttpRequest()) {
+    		$query                = $em->getRepository("PiAppGedmoBundle:Media")->getAllByCategory('', null, '', '', false);
+    		$query
+    		->leftJoin('a.image', 'm')
+    		->andWhere('a.enabled = 1')
+    		->andWhere('a.image IS NOT NULL')
+    		->andWhere("a.status = '{$type}'");
+    		$entities   = $em->getRepository("PiAppGedmoBundle:Media")->findTranslationsByQuery($locale, $query->getQuery(), 'object', false);
+    		$tab = array();
+    		foreach ($entities as $obj) {
+    			$content = $obj->getId();
+    			$title = $obj->translate($locale)->getTitle();
+    			$cat = $obj->getCategory();
+    			if ($title) {
+    				$content .=  " - " .$title;
+    			}
+    			if (!is_null($cat)) {
+    				$content .=  '('. $cat->translate($locale)->getName() .')';
+    			}
+    			if ( ($type == 'image') && ($obj->getImage() instanceof \BootStrap\MediaBundle\Entity\Media)) {
+    				$content .= "<img width='100px' src=\"{{ media_url('".$obj->getImage()->getId()."', 'small', true, '".$obj->getUpdatedAt()->format('Y-m-d H:i:s')."', 'gedmo_media_') }}\" alt='Photo'/>";
+    			}
+    			$tab[] = array(
+    					'id' => $obj->getId(),
+    					'text' =>$this->container->get('twig')->render($content, array())
+    			);
+    		}
+    		$response = new Response(json_encode($tab));
+    		$response->headers->set('Content-Type', 'application/json');
+    
+    		return $response;
+    	} else {
+    		throw ControllerException::callAjaxOnlySupported(' selectajax');
+    	}
+    }    
 
     /**
      * Lists all Media entities.
@@ -142,13 +194,13 @@ class MediaController extends abstractController
         $query                = $em->getRepository("PiAppGedmoBundle:Media")->getAllByCategory($category, null, '', '', false);
         $query
         ->leftJoin('a.image', 'm')
-        ->andWhere('a.image IS NOT NULL')
-        ->orderBy('a.updated_at', 'DESC');
+        ->leftJoin('a.category', 'c')
+        ->andWhere('a.image IS NOT NULL');
         
         $is_Server_side = true;
         
         if ($request->isXmlHttpRequest() && $is_Server_side) {
-           $aColumns    = array('a.position','a.id','a.status','m.name','a.updated_at','a.enabled');
+           $aColumns    = array('a.id','c.name','a.status','m.name',"a.enabled",'a.created_at', 'a.updated_at',"a.enabled","a.enabled");
            $q1 = clone $query;
            $q2 = clone $query;
            $result    = $this->createAjaxQuery('select',$aColumns, $q1, 'a', null, array(
@@ -175,15 +227,20 @@ class MediaController extends abstractController
               $row[] = $e->getId();
               
               if (is_object($e->getCategory())) {
-                  $row[] = $e->getCategory()->getName();
+                  $row[] = (string) $e->getCategory()->getName();
               } else {
                   $row[] = "";
               }
               
-              $row[] = $e->getStatus() . '('.$e->getId().')';
+              $row[] = (string) $e->getStatus() . '('.$e->getId().')';
               
               if (is_object($e->getImage())) {
-                  $row[] = $e->getImage()->getName();
+            	  $title = $e->getTitle();
+              	  if (!empty($title)) {
+              			$row[] = (string) $title . '('. $e->getImage()->getName() . ')';
+              	  } else {
+              			$row[] = (string) $e->getImage()->getName();
+              	  }
                   $url = $this->container->get('pi_app_admin.twig.extension.route')->getMediaUrlFunction($e->getImage(), 'reference', true, $e->getUpdatedAt(), 'media_');
               } else {
                   $row[] = "";
@@ -192,19 +249,19 @@ class MediaController extends abstractController
               
               if ($e->getStatus() == 'image') {
               	$UrlPicture = $this->container->get('pi_app_admin.twig.extension.route')->getMediaUrlFunction($e->getImage(), 'reference', true, $e->getUpdatedAt(), 'gedmo_media_');
-              	$row[] = '<a href="#" title=\'<img src="'.$UrlPicture.'" class="info-tooltip-image" >\' class="info-tooltip"><img width="20px" src="'.$UrlPicture.'"></a>';
+              	$row[] = (string) '<a href="#" title=\'<img src="'.$UrlPicture.'" class="info-tooltip-image" >\' class="info-tooltip"><img width="20px" src="'.$UrlPicture.'"></a>';
               } else {
               	$row[] = "";
               }
               
               if (is_object($e->getCreatedAt())) {
-              	$row[] = $e->getCreatedAt()->format('Y-m-d');
+              	$row[] = (string) $e->getCreatedAt()->format('Y-m-d');
               } else {
               	$row[] = "";
               }
               
               if (is_object($e->getUpdatedAt())) {
-                  $row[] = $e->getUpdatedAt()->format('Y-m-d');
+                  $row[] = (string) $e->getUpdatedAt()->format('Y-m-d');
               } else {
                   $row[] = "";
               }
@@ -212,9 +269,9 @@ class MediaController extends abstractController
               $Urlenabled     = $this->container->get('templating.helper.assets')->getUrl("bundles/piappadmin/css/themes/img/enabled.png");
               $Urldisabled     = $this->container->get('templating.helper.assets')->getUrl("bundles/piappadmin/css/themes/img/disabled.png");
               if ($e->getEnabled()) {
-                  $row[] = '<img width="17px" src="'.$Urlenabled.'">';
+                  $row[] = (string) '<img width="17px" src="'.$Urlenabled.'">';
               } else {
-                  $row[] = '<img width="17px" src="'.$Urldisabled.'">';
+                  $row[] = (string) '<img width="17px" src="'.$Urldisabled.'">';
               }
               // create action links
               $route_path_show = $this->container->get('pi_app_admin.twig.extension.route')->getUrlByRouteFunction('admin_gedmo_media_show', array('id'=>$e->getId(), 'NoLayout'=>$NoLayout, 'category'=>$category, 'status'=>$e->getStatus()));
@@ -225,7 +282,7 @@ class MediaController extends abstractController
                   $actions = '<a href="'.$url.'" target="_blank" title="'.$this->container->get('translator')->trans('pi.grid.action.show').'" class="button-ui-show info-tooltip" >'.$this->container->get('translator')->trans('pi.grid.action.show').'</a>'; //actions
               }              
               $actions .= '<a href="'.$route_path_edit.'" title="'.$this->container->get('translator')->trans('pi.grid.action.edit').'" class="button-ui-edit info-tooltip" >'.$this->container->get('translator')->trans('pi.grid.action.edit').'</a>'; //actions
-              $row[] = $actions;
+              $row[] = (string) $actions;
               
               $output['aaData'][] = $row ;
             }
@@ -303,6 +360,7 @@ class MediaController extends abstractController
         $status = $this->container->get('request')->query->get('status');
         $entity = new Media();
         $entity->setStatus($status);
+        $entity->setUpdatedAt(new \Datetime());
         $form   = $this->createForm(new MediaType($this->container, $em, $status), $entity, array('show_legend' => false));
     
         $NoLayout   = $this->container->get('request')->query->get('NoLayout');
@@ -393,6 +451,7 @@ class MediaController extends abstractController
             $entity->addTranslation(new MediaTranslation($locale));            
         }
 
+        $entity->setUpdatedAt(new \Datetime());
         $editForm   = $this->createForm(new MediaType($this->container, $em, $status), $entity, array('show_legend' => false));
         $deleteForm = $this->createDeleteForm($id);
 

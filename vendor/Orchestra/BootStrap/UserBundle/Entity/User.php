@@ -55,7 +55,7 @@ class User extends AbstractUser
      * 
      * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
     
@@ -174,6 +174,16 @@ class User extends AbstractUser
     {
         return $this->id;
     }
+    
+    /**
+     * Set id
+     *
+     * @return integer
+     */
+    public function setId($id)
+    {
+    	$this->id = (int) $id;
+    }    
 
     /**
      * Add groups
@@ -458,6 +468,32 @@ class User extends AbstractUser
     {
     	return $this->applicationTokens;
     }    
+    
+    /**
+     * we return the token associated to the name given in param.
+     *
+     * @param string    $selection
+     * @return integer
+     * @access public
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function getTokenByApplicationName($name)
+    {
+    	$all_appl =  $this->applicationTokens;
+    	if (!is_null($all_appl)) {
+    		foreach ($all_appl as $appl) {
+    			$string = strtoupper($appl);
+    			$replace = strtoupper($name.'::');
+    			$token = str_replace($replace, '', $string, $count);
+    			if ($count == 1) {
+    				return strtoupper($token);
+    			}
+    		}
+    	}
+    	 
+    	return '';
+    }   
     
     
     /**

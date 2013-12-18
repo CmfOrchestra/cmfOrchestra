@@ -50,7 +50,11 @@ class DefaultController extends abstractController
         
     /**
      * Check the demand management of authentication permission.
-     *
+     * 
+     * <code>
+     *  /ws/auth/get/permisssion?ws_user_id=hg%2C%2C&ws_application=vGGt&ws_key=0A1TG4GO&ws_format=json
+     * </code>
+     *  
      * @Route("/ws/auth/get/permisssion", name="ws_auth_getpermission")
      * @return \Symfony\Component\HttpFoundation\Response
      * @access  public
@@ -62,6 +66,25 @@ class DefaultController extends abstractController
     	$em             = $this->getDoctrine()->getEntityManager();
     	
     	if (!$request->get('ws_key', false) || !$request->get('ws_format', false) || !$request->get('ws_user_id', false) || !$request->get('ws_application', false)) {
+    		//-----we initialize de logger-----
+    		$logger = $this->container->get('pi_app_admin.log_manager');
+    		$logger->setInit('log_client_auth', date("YmdH"));
+    		//-----we set info in the logger-----
+    		$logger->setInfo(date("Y-m-d H:i:s") . " [BEGIN SET BAD VALIDATE TOKEN AUTH REQUEST]");
+    		//-----we set errors in the logger-----
+    		$logger->setErr(date("Y-m-d H:i:s") . " [LOG] problem : missing parameter");
+    		$logger->setErr(date("Y-m-d H:i:s") . " [LOG] url :" . $request->getUri());
+    		//-----we set info in the logger-----
+    		$logger->setInfo(date("Y-m-d H:i:s") . " [END]");
+    		//-----we save in the file log-----
+    		$env = $this->container->get("kernel")->getEnvironment();
+    		$config = $this->container->getParameter("ws.auth");
+    	    if (isset($config['log'][$env])) {
+	    		$is_debug = $config['log'][$env];
+	    		if ($is_debug){
+	    			$logger->save();
+	    		}   		
+    		}
     	    throw ClientException::callBadAuthRequest(__CLASS__);
     	}
 
@@ -73,6 +96,25 @@ class DefaultController extends abstractController
     	// we check if the user ID exists in the authentication service.
     	// If the user ID doesn't exist, we generate.
     	if (!$this->isUserdIdExisted($userId)) {
+    		//-----we initialize de logger-----
+    		$logger = $this->container->get('pi_app_admin.log_manager');
+    		$logger->setInit('log_client_auth', date("YmdH"));
+    		//-----we set info in the logger-----
+    		$logger->setInfo(date("Y-m-d H:i:s") . " [BEGIN SET BAD VALIDATE TOKEN AUTH REQUEST]");
+    		//-----we set errors in the logger-----
+    		$logger->setErr(date("Y-m-d H:i:s") . " [LOG] problem : userID '".$userId."' does not existed in the database.");
+    		$logger->setErr(date("Y-m-d H:i:s") . " [LOG] url :" . $request->getUri());
+    		//-----we set info in the logger-----
+    		$logger->setInfo(date("Y-m-d H:i:s") . " [END]");
+    		//-----we save in the file log-----
+    		$env = $this->container->get("kernel")->getEnvironment();
+    		$config = $this->container->getParameter("ws.auth");
+    		if (isset($config['log'][$env])) {
+	    		$is_debug = $config['log'][$env];
+	    		if ($is_debug){
+	    			$logger->save();
+	    		}   		
+    		}
     	    throw ClientException::callBadAuthRequest(__CLASS__);
     	} else {
     	    // else we get the token associated to the user ID.
@@ -83,6 +125,24 @@ class DefaultController extends abstractController
     	        $token            = strtoupper(\PiApp\AdminBundle\Util\PiStringManager::random(24));
     	        $isAuthorization  = false;
     	    }
+    	    //-----we initialize de logger-----
+    	    $logger = $this->container->get('pi_app_admin.log_manager');
+    	    $logger->setInit('log_client_auth', date("YmdH"));
+    	    //-----we set info in the logger-----
+    	    $logger->setInfo(date("Y-m-d H:i:s") . " [BEGIN GET AUTH PERMISSION AUTH REQUEST]");
+    	    //-----we set errors in the logger-----
+    	    $logger->setInfo(date("Y-m-d H:i:s") . " [URL] " . $request->getUri());
+    	    //-----we set info in the logger-----
+    	    $logger->setInfo(date("Y-m-d H:i:s") . " [END]");
+    	    //-----we save in the file log-----
+    		$env = $this->container->get("kernel")->getEnvironment();
+    		$config = $this->container->getParameter("ws.auth");
+    	   	if (isset($config['log'][$env])) {
+	    		$is_debug = $config['log'][$env];
+	    		if ($is_debug){
+	    			$logger->save();
+	    		}   		
+    		}  	    
     	}
     	
     	if ($format == 'json') {
@@ -92,6 +152,25 @@ class DefaultController extends abstractController
         	
         	$response = new Response(json_encode($tab));
         	$response->headers->set('Content-Type', 'application/json');
+            
+    	    //-----we initialize de logger-----
+    	    $logger = $this->container->get('pi_app_admin.log_manager');
+    	    $logger->setInit('log_client_auth_result', date("YmdH"));
+    	    //-----we set info in the logger-----
+    	    $logger->setInfo(date("Y-m-d H:i:s") . " [BEGIN GET AUTH PERMISSION AUTH REQUEST RESULT]");
+    	    //-----we set errors in the logger-----
+    	    $logger->setInfo(date("Y-m-d H:i:s") . " [RESULT] " . json_encode($tab));
+    	    //-----we set info in the logger-----
+    	    $logger->setInfo(date("Y-m-d H:i:s") . " [END]");
+    	    //-----we save in the file log-----
+    		$env = $this->container->get("kernel")->getEnvironment();
+    		$config = $this->container->getParameter("ws.auth");
+    	   	if (isset($config['log'][$env])) {
+	    		$is_debug = $config['log'][$env];
+	    		if ($is_debug){
+	    			$logger->save();
+	    		}   		
+    		}             
     	}
     	
     	return $response;    	
@@ -100,6 +179,10 @@ class DefaultController extends abstractController
     /**
      * Check the demand management of authentication permission.
      *
+     * <code>
+     *  /ws/auth/validate/token?ws_user_id=hmA,&ws_application=vGGt&ws_key=0A1TG4GO&ws_format=json&ws_token=lWeMZ6x5go6jg3V7pqFtnZByiYKrl2yK
+     * </code>
+     * 
      * @Route("/ws/auth/validate/token", name="ws_auth_validatetoken")
      * @return \Symfony\Component\HttpFoundation\Response
      * @access  public
@@ -111,6 +194,24 @@ class DefaultController extends abstractController
     	$em = $this->getDoctrine()->getEntityManager();
     	
         if (!$request->get('ws_key', false) || !$request->get('ws_format', false) || !$request->get('ws_user_id', false) || !$request->get('ws_token', false) || !$request->get('ws_application', false)) {
+        	//-----we initialize de logger-----
+        	$logger = $this->container->get('pi_app_admin.log_manager');
+        	$logger->setInit('log_client_auth', date("YmdH"));
+        	//-----we set info in the logger-----
+        	$logger->setInfo(date("Y-m-d H:i:s") . " [BEGIN SET BAD VALIDATE TOKEN AUTH REQUEST]");
+        	//-----we set errors in the logger-----
+        	$logger->setErr(date("Y-m-d H:i:s") . " [LOG] url :" . $request->getUri());
+        	//-----we set info in the logger-----
+        	$logger->setInfo(date("Y-m-d H:i:s") . " [END]");
+        	//-----we save in the file log-----
+        	$env = $this->container->get("kernel")->getEnvironment();
+    		$config = $this->container->getParameter("ws.auth");
+        	if (isset($config['log'][$env])) {
+	    		$is_debug = $config['log'][$env];
+	    		if ($is_debug){
+	    			$logger->save();
+	    		}   		
+    		}
     	    throw ClientException::callBadAuthRequest(__CLASS__);
     	}  	
 
@@ -127,7 +228,25 @@ class DefaultController extends abstractController
     	} else {
     		$success = false;
     	}
-            	 
+    	//-----we initialize de logger-----
+    	$logger = $this->container->get('pi_app_admin.log_manager');
+    	$logger->setInit('log_client_auth', date("YmdH"));
+    	//-----we set info in the logger-----
+    	$logger->setInfo(date("Y-m-d H:i:s") . " [BEGIN SET VALIDATE TOKEN AUTH REQUEST]");
+    	//-----we set errors in the logger-----
+    	$logger->setInfo(date("Y-m-d H:i:s") . " [URL] " . $request->getUri());
+    	//-----we set info in the logger-----
+    	$logger->setInfo(date("Y-m-d H:i:s") . " [END]");
+    	//-----we save in the file log-----
+    	$env = $this->container->get("kernel")->getEnvironment();
+    	$config = $this->container->getParameter("ws.auth");
+    	if (isset($config['log'][$env])) {
+	    	$is_debug = $config['log'][$env];
+	    	if ($is_debug){
+	    		$logger->save();
+	    	}   		
+    	}
+        //    	 
     	if ( $success && ($format == 'json') ) {
     	    $tab= array();
     	    $tab['access_token'] = true;
@@ -140,7 +259,7 @@ class DefaultController extends abstractController
     }    
     
     /**
-     * Check the result request of a socloz url.
+     * Check the result request of a url.
      *
      * @Route("/ws/auth/ajax/get", name="ws_auth_ajax")
      * @return \Symfony\Component\HttpFoundation\Response
@@ -165,17 +284,17 @@ class DefaultController extends abstractController
     	$get_http_response_code = intval(substr($result['header'][0], 9, 3));
     	if ($get_http_response_code != 200){
     		//-----we initialize de logger-----
-    		$this->_logger = $this->container->get('pi_app_admin.log_manager');
-    		$this->_logger->setInit('log_client_auth_bad_request', date("YmdH"));
+    		$logger = $this->container->get('pi_app_admin.log_manager');
+    		$logger->setInit('log_client_auth_bad_request', date("YmdH"));
     		//-----we set info in the logger-----
-    		$this->_logger->setInfo(date("Y-m-d H:i:s") . " [BEGIN BAD AUTH REQUEST]");
+    		$logger->setInfo(date("Y-m-d H:i:s") . " [BEGIN BAD AUTH REQUEST]");
     		//-----we set errors in the logger-----
-    		$this->_logger->setErr(date("Y-m-d H:i:s") . " [LOG] mappy url :" . $request->getUri());
-    		$this->_logger->setErr(date("Y-m-d H:i:s") . " [LOG] param url :" . $result['url']);
+    		$loggerr->setErr(date("Y-m-d H:i:s") . " [LOG] mappy url :" . $request->getUri());
+    		$logger->setErr(date("Y-m-d H:i:s") . " [LOG] param url :" . $result['url']);
     		//-----we set info in the logger-----
-    		$this->_logger->setInfo(date("Y-m-d H:i:s") . " [END]");
+    		$logger->setInfo(date("Y-m-d H:i:s") . " [END]");
     		//-----we save in the file log-----
-    		$this->_logger->save();
+    		$logger->save();
     		throw ClientException::callBadAuthRequest(__CLASS__);
     	} else {
     		// we hide the value of the url

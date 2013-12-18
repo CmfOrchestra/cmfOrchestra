@@ -18,9 +18,27 @@ use PiApp\AdminBundle\Builder\PiDateManagerBuilderInterface;
  * Description of date manager
  *
  * <code>
- *  $dateFormatter    = $container->get('pi_app_admin.date_manager');
+ *  $dateFormatter    = $this->container->get('pi_app_admin.date_manager');
  *  $result            = $dateFormatter->parse('December 20, 2011', 'en_GB'); // obtains a datetime instance
  *  echo $dateFormatter->format($result, 'long', 'none', 'fr'); // echoes : "20 décembre 2011"
+ *  
+ *  $all_days 		= $this->container->get('pi_app_admin.date_manager')->allDays($lang);
+ *  $all_months_last= $this->container->get('pi_app_admin.date_manager')->nextOrLastList($year-1, intVal(date('n')), '1', 'next', 12, 'month', 'Y-m');
+ *  $letter_month_current = $this->container->get('pi_app_admin.date_manager')->format(new \DateTime("$year-$month-01"), 'long','medium', $lang, 'MMMM');
+ *  
+ *  // To get a jump of months.
+ *  $last = date("Y-m", strtotime("-1 month", strtotime($year."-".$month."-1")));
+ * 	$next = date("Y-m", strtotime("+1 month", strtotime($year."-".$month."-1")));
+ * 
+ *  // Days in current month
+ *  $days 		= cal_days_in_month(CAL_GREGORIAN,$date_month,$date_year);
+ *  
+ *  // the last year
+ *  $last_year = date("Y", strtotime("-1 year", strtotime(date('y')."-".date('n')."-1")));
+ *  
+ *  $lastmonth 	= date("t", mktime(0,0,0,$date_month-1,1,$date_year)); // Days in previous month
+ *  $start 		= date("N", mktime(0,0,0,$date_month,1,$date_year)); // Starting day of current month
+ * 	$finish 	= date("N", mktime(0,0,0,$date_month,$days,$date_year)); // Finishing day of  current month
  * </code>
  * 
  * @category   Admin_Utils
@@ -100,8 +118,7 @@ class PiDateManager implements PiDateManagerBuilderInterface
      * 
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    public function parseTimestamp($date, $locale = null)
-    {
+    public function parseTimestamp($date, $locale = null) {
         if ($date == 'now'){
             $result = new \DateTime();
             return $result->getTimestamp();
@@ -239,6 +256,60 @@ class PiDateManager implements PiDateManagerBuilderInterface
     	return $duration;
     }
     
+    /**
+     * Returns the difference between the given date and now or from.
+     *
+     * @param  \DateTime $dateTime    Timestamp to compare to.
+     * @param  \DateTime $from        Timestamp to compare from. If not specified, defaults to now.
+     * @return strgin                 Duration
+     * @access public
+     *
+     * @author Riad Hellal <r.hellal@novediagroup.com>
+     */
+    public function NextDate(\DateTime $dateTime, $from = null)
+    {
+    	if (is_null($from)) {
+    		$from = new \Datetime();
+    	}
+    
+    	if(is_object($dateTime)){
+    
+    		$d1 = date_create($dateTime->format('Ymd'));
+    		$d2 = date_create($from->format('Ymd'));
+    
+    		$interval2 = $d2->diff($d1);
+    		$dy = $interval2->format('%r%y');
+    		$dm = $interval2->format('%r%m');
+    		$dd = $interval2->format('%r%d');
+    		 
+    		$year = $month = false;
+    		$duration = '';
+    		if ($dy > 0) {
+    			// Années
+    			$duration .= " <span>".$dy . "</span> an" . (($dy > 1) ? "s" : "");
+    			$year = true;
+    		}
+    		if ($dm > 0) {
+    			// Mois
+    			if ($year) {
+    				$duration .= ",";
+    			}
+    			$duration .= " <span>".$dm . "</span> mois";
+    
+    			$month = true;
+    		}
+    		if ($dd > 0) {
+    			// Jours
+    			if ($month or $year) {
+    				$duration .= " et";
+    			}
+    			$duration .= " <span>".$dd . "</span> jour" . (($dd > 1) ? "s" : "");
+    
+    		}
+    		return $duration;
+    	}
+    	return '';
+    }    
     
     /**
      * List of all months.

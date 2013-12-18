@@ -91,10 +91,12 @@ class PiRouteExtension extends \Twig_Extension
      */    
     public function getMediaUrlFunction($id, $format = "small", $cachable = true, $modifdate = false, $pattern = "media_")
     {
-        if ($modifdate) {
+        if ($modifdate instanceof \Datetime) {
             $timestamp = $modifdate->getTimestamp();
+        } elseif(is_string($modifdate)) {
+            $timestamp = $modifdate;
         } else {
-            $timestamp = 0;
+        	$timestamp = 0;
         }        
         try {
             if (!$cachable){
@@ -115,7 +117,9 @@ class PiRouteExtension extends \Twig_Extension
         } catch (\Exception $e) {
             $url_public_media = "";
         }
+        
         $src = $this->container->get('kernel')->getRootDir() . '/../web' . $url_public_media;
+        
         if ((empty($url_public_media) || !file_exists($src)) && ($format != 'reference')) {
             return $this->getMediaUrlFunction($id, "reference", $cachable, $modifdate, $pattern);
         } else {

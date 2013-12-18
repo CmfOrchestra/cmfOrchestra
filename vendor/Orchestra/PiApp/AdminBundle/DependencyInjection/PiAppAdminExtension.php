@@ -192,6 +192,8 @@ class PiAppAdminExtension extends Extension
                     $container->setParameter('pi_app_admin.layout.meta.author', $config['layout']['meta_head']['author']);
                 if (isset($config['layout']['meta_head']['copyright']))
                     $container->setParameter('pi_app_admin.layout.meta.copyright', $config['layout']['meta_head']['copyright']);
+                if (isset($config['layout']['meta_head']['og_title_add']))
+                	$container->setParameter('pi_app_admin.layout.meta.og_title_add', $config['layout']['meta_head']['og_title_add']);
                 if (isset($config['layout']['meta_head']['og_type']))
                     $container->setParameter('pi_app_admin.layout.meta.og_type', $config['layout']['meta_head']['og_type']);
                 if (isset($config['layout']['meta_head']['og_image']))

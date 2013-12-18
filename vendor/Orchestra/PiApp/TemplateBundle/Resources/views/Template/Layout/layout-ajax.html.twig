@@ -82,7 +82,7 @@
 						{{ renderJquery('SESSION', 'flash', options_flash )|raw }} 	   
 						#}					
 						{{ session_flash_frontoffice() }}
-						{% set options_flash = {'action':'renderfancybox','type': ['notice', 'success', 'warning'], 'dialog-name': 'confirm-popup' } %}
+						{% set options_flash = {'action':'renderfancybox','type': ['permission','notice', 'success', 'warning'], 'dialog-name': 'confirm-popup-flash' } %}
 						{{ renderJquery('SESSION', 'flash', options_flash )|raw }} 	    
 					{% endblock %}
 				</div>

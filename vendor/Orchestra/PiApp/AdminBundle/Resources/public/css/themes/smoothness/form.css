@@ -2,7 +2,6 @@
  * Development by
  * <etienne de Longeaux> <etienne.delongeaux@gmail.com>
  *******************************************************/
-
 .myform{
     /* max-width: 595px; */
 }
@@ -11,14 +10,13 @@
     height:auto;
 }
 .myform fieldset{
-	margin: 11px;
+    margin: 11px;
     padding: 11px;
     background: #EBEBEB;
     border: 1px dotted #e3e3e3; /* #d0d0d0 #ddd */
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    
     /* -moz-box-shadow: 6px 6px 6px #e3e3e3;
     -webkit-box-shadow: 6px 6px 6px #e3e3e3;
     box-shadow: 6px 6px 6px #e3e3e3; */
@@ -27,19 +25,15 @@
     font-weight:bold;
     background: #e3e3e3;
     cursor: pointer;cursor:hand;
-    
     padding: 2px 5px;
     width: 100%;
-
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
 }
-
 /* deb SBLA */
 .myform fieldset.no-accordion{
     float:left;
@@ -52,7 +46,7 @@
 .myform .accordion-form{
     float:right;
     margin-bottom:10px;
-    width:46%;
+    width:45%;
 }
 .myform fieldset.accordion{
     height:16px;
@@ -277,20 +271,26 @@ ul.ui-widget-header li {
     *display: inline;
     *margin: 0 20px 0 20px;
 }
+button.ui-multiselect{
+    border:0px;
+    margin-bottom: 3px;
+    font: 11px "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
 /* CHECKBOX */
 .icheckbox_square-blue{
     margin-bottom: 11px;
 }
-
+.myform .error {
+    border: 1px solid #f00 !important;
+}
 /* VERSION DIALOG */
-@media screen and (max-width:750px) {
+@media screen and (max-width:805px) {
     .myform .accordion-form {
-		float: left;
-		width:90%;
-	}
-	.myform fieldset.no-accordion{
-	    float:left;
-	    width:90%;
-	}
-
+        float: left;
+        width:90%;
+    }
+    .myform fieldset.no-accordion{
+        float:left;
+        width:90%;
+    }
 }

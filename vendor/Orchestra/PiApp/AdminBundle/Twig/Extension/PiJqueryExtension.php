@@ -51,6 +51,7 @@ $GLOBALS['JQUERY']['TOOL'] = array(
         'widgetadmin'           => 'pi_app_admin.jquery_manager.widgetadmin',
         'widgetimport'          => 'pi_app_admin.jquery_manager.widgetimport',
 		'dialog'                => 'pi_app_admin.jquery_manager.dialog',
+        'spinner'               => 'pi_app_admin.jquery_manager.spinner',        
 );
 
 $GLOBALS['JQUERY']['ACCORDEON'] = array(

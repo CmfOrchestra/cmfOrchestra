@@ -25,7 +25,17 @@ services:
     debug.twig.extension:
         class: Twig_Extensions_Extension_Debug
         tags: 
-           - { name: 'twig.extension' }            
+           - { name: 'twig.extension' }     
+           
+    twig.extension.loader:
+        class:        Twig_Extension_StringLoader
+        tags:
+           - { name: 'twig.extension' }
+           
+    twig.extension.stringloader:
+        class: Twig_Loader_String
+        tags:
+           - { name: twig.loader }                   
         
     #
     # configuration of the orchestra extensions

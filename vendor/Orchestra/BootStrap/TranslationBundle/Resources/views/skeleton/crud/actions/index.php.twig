@@ -35,8 +35,8 @@
         
            $output = array(
                 "sEcho" => intval($request->get('sEcho')),
-                "iTotalRecords" => $total,
-                "iTotalDisplayRecords" => $total,
+                "iTotalRecords" => intval($total),
+                "iTotalDisplayRecords" => intval($total),
                 "aaData" => array()
            );
         

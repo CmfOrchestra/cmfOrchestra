@@ -155,12 +155,12 @@ class Media extends AbstractDefault
     protected $slider;    
     
     /**
-     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Block", mappedBy="media");
+     * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Block", mappedBy="media", cascade={"persist"});
      */
-    protected $block; 
+    protected $block;    
     
     /**
-     * @ORM\OneToOne(targetEntity="PiApp\GedmoBundle\Entity\Block", mappedBy="media1");
+     * @ORM\OneToMany(targetEntity="PiApp\GedmoBundle\Entity\Block", mappedBy="media1", cascade={"persist"});
      */
     protected $block2;    
 
@@ -181,6 +181,9 @@ class Media extends AbstractDefault
     public function __construct()
     {
         parent::__construct();
+        
+        $this->block = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->block2 = new \Doctrine\Common\Collections\ArrayCollection();
     }    
     
     /**
@@ -192,7 +195,25 @@ class Media extends AbstractDefault
      */    
     public function __toString()
     {
-        return (string) $this->getCategory() . " > " .$this->getTitle();
+    	if (isset($_GET['_locale']) && !empty($_GET['_locale'])) {
+    		$locale = $_GET['_locale'];
+    	} else {
+    		$locale = "fr_FR";
+    	}
+    	$content = $this->getId();
+    	$title = $this->translate($locale)->getTitle();
+    	$cat = $this->getCategory();
+    	if ($title) {
+    		$content .=  " - " .$title;
+    	}
+    	if (!is_null($cat)) {
+    		$content .=  '('. $cat->translate($locale)->getName() .')';
+    	}
+    	if ( ($this->getStatus() == 'image') && ($this->getImage() instanceof \BootStrap\MediaBundle\Entity\Media)) {
+    		$content .= "<img width='100px' src=\"{{ media_url('".$this->getImage()->getId()."', 'small', true, '".$this->getUpdatedAt()->format('Y-m-d H:i:s')."', 'gedmo_media_') }}\" alt='Photo'/>";
+    	}
+    	
+        return (string) $content;
     }   
     
     /**

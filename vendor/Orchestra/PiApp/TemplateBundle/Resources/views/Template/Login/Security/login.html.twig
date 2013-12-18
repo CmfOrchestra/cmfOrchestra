@@ -1,65 +1,71 @@
 {% extends "PiAppTemplateBundle:Template\\Login:layout.html.twig" %}
 
 {% block content %}
-{% if error %}
-    <div>{{ error }}</div>
-{% endif %}
-
-<form action="{{ path("fos_user_security_check") }}" method="post">
+	<form action="{{ path("fos_user_security_check") }}" method="post">
 		<table border="0" cellpadding="0" cellspacing="0">
-		<tr>
-			<th>{{ 'security.login.username'|trans([], 'FOSUserBundle') }}</th>
-			<td><input type="text" id="username" name="_username" value="{{ last_username }}"  class="login-inp" /></td>
-		</tr>
-		<tr>
-			<th><label for="password">{{ 'security.login.password'|trans([], 'FOSUserBundle') }}</label></th>
-			<td><input type="password" id="password" name="_password" class="login-inp" /></td>
-		</tr>
-		<tr>
-			<th></th>
-			<td valign="top"><input type="checkbox" id="login-check" name="_login-check" value="on" class="checkbox-size"  /><label for="login-check">{{ 'security.login.remember_me'|trans([], 'FOSUserBundle') }}</label></td>
-			<td valign="top">
-                <a href="{{ path('fos_user_resetting_request') }}" class="reset-pwd" title="">{{ 'Mot de passe oublié ?'|trans([], 'FOSUserBundle') }}</a>
-            </td>
-		</tr>
-		<tr>
-			<th><input type="hidden" name="roles" value='{"0":"ROLE_EDITOR","1":"ROLE_ADMIN","2":"ROLE_SUPER_ADMIN"}' /></th>
-			<td><input type="submit" name="Connexion" class="btn-black" value="{{ 'security.login.submit'|trans([], 'FOSUserBundle') }}" /></td>
-		</tr>
+			<tr>
+				<th style="padding:0 5px 0px 0;width:177px">&nbsp;</th>
+				<td>
+					<h3 class="uppercase bold tt-10">Administration</h3>
+					{% if error %}
+					    <br/>{{ error|trans }}<br/>
+					{% endif %}						
+				</td>
+			</tr>				
+			<tr>
+				<th style="padding:0 5px 0px 0;width:177px">{{ 'security.login.username'|trans([], 'FOSUserBundle') }}</th>
+				<td><input type="text" id="username" name="_username" value="{{ last_username }}"  class="login-inp" /></td>
+			</tr>
+			<tr>
+				<th style="padding:0 5px 0px 0;width:177px"><label for="password">{{ 'security.login.password'|trans([], 'FOSUserBundle') }}</label></th>
+				<td><input type="password" id="password" name="_password" class="login-inp" /></td>
+			</tr>
+			<tr>
+				<th></th>
+				<td valign="top">
+	                {#<input type="checkbox" id="login-check" name="_login-check" value="on" class="checkbox-size"  />
+	                <label for="login-check">{{ 'security.login.remember_me'|trans([], 'FOSUserBundle') }}</label>#}
+	                <a href="{{ path('fos_user_resetting_request') }}" class="reset-pwd" title="">{{ 'resetting.request.submit'|trans([], 'FOSUserBundle') }}</a>
+	            </td>
+			</tr>
+			<tr>
+				<th><input type="hidden" name="roles" value='{"0":"ROLE_EDITOR","1":"ROLE_ADMIN","2":"ROLE_SUPER_ADMIN"}' /></th>
+				<td><input type="submit" name="Connexion" class="btn-black" value="{{ 'security.login.submit'|trans([], 'FOSUserBundle') }}" /></td>
+			</tr>
 		</table>
-</form>
-<p>
-    {#<a href="{{ path('fos_user_resetting_request') }}" class="reset-pwd" title="">{{ 'resetting.request.submit'|trans([], 'FOSUserBundle') }}</a>
-    <a href="{{ path('fos_user_registration_register') }}" class="user-register" title="">{{ 'layout.register'|trans([], 'FOSUserBundle') }}</a>
-    #}
-</p>
-
-<script type="text/javascript">
-//<![CDATA[
-		    function goLogIn(){
-		        window.location.href = "{{ path('_security_check') }}";
-    }
-
-    function onFbInit() {
-        if (typeof(FB) != 'undefined' && FB != null ) {
-            FB.Event.subscribe('auth.statusChange', function(response) {
-                if (response.session || response.authResponse) {
-                    setTimeout(goLogIn, 500);
-                } else {
-                    window.location.href = "{{ path('_security_logout') }}";
-                }
-            });
-        }
-    }
-	(function(d, s, id) {
-		var js, fjs = d.getElementsByTagName(s)[0];
-		if (d.getElementById(id)) return;
-		js = d.createElement(s); js.id = id;
-		js.src = "//connect.facebook.net/{{ app.request.locale }}/all.js#xfbml=1";
-		fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk')
-	);
-//]]>
-</script>
+	</form>	
+	<p>
+	    {#<a href="{{ path('fos_user_resetting_request') }}" class="reset-pwd" title="">{{ 'resetting.request.submit'|trans([], 'FOSUserBundle') }}</a>
+	    <a href="{{ path('fos_user_registration_register') }}" class="user-register" title="">{{ 'layout.register'|trans([], 'FOSUserBundle') }}</a>
+	    #}
+	</p>
+	
+	<script type="text/javascript">
+	//<![CDATA[
+			    function goLogIn(){
+			        window.location.href = "{{ path('_security_check') }}";
+	    }
+	
+	    function onFbInit() {
+	        if (typeof(FB) != 'undefined' && FB != null ) {
+	            FB.Event.subscribe('auth.statusChange', function(response) {
+	                if (response.session || response.authResponse) {
+	                    setTimeout(goLogIn, 500);
+	                } else {
+	                    window.location.href = "{{ path('_security_logout') }}";
+	                }
+	            });
+	        }
+	    }
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/{{ app.request.locale }}/all.js#xfbml=1";
+			fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk')
+		);
+	//]]>
+	</script>
 
 {% endblock content %}

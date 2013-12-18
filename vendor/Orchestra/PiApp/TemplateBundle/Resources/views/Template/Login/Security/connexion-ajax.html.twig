@@ -103,7 +103,8 @@
 		</script>  
 		
 		<h3 class="tt-clr tt-9 bold">MON COMPTE</h3>
-		<form method="POST" data-action="{{ path('fos_user_security_check') }}" data-roles="{{ roles|json_encode }}" data-redirection="{{ referer_url }}" id="form-connexion" >
+		{%  set url_redirection_option = app.request.query.get('url_redirection_option', referer_url) %}
+		<form method="POST" data-action="{{ path('fos_user_security_check') }}" data-roles="{{ roles|json_encode }}" data-redirection="{{ url_redirection_option }}" id="form-connexion" >
 			<p class="error resetM"></p>
 			<span class="input-text">
 				 <input onfocus="this.value = ''" type="text" id="_username" name="_username" value="{% if error %}{{ error }}{% elseif last_username is not empty  %}{{ last_username }}{% else %}Identifiant{% endif %}" data-validate="{% if error %}{{ error }}{% elseif last_username is not empty  %}{{ last_username }}{% else %}Identifiant{% endif %}">

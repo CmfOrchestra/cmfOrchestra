@@ -39,6 +39,12 @@ services:
         arguments: [@fos_user.user_manager]
         tags:
             - { name: validator.constraint_validator, alias: bootstrap.user.validator.unique }
+            
+    #
+    # configuration overload security encoder
+    #             
+    my_password_encoder:
+        class: BootStrap\UserBundle\Security\Encoder\MyPasswordEncoder               
                         
     #
     # configuration of IP address allowed for the Admin and user access control

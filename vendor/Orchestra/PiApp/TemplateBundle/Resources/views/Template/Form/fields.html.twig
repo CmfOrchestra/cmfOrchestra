@@ -15,7 +15,7 @@
     {{ label|trans }}
     {% if required %}*{% endif %}
     {% if help_label %}
-        <span class="help-block">{{ help_label|trans }}</span>
+        <span class="help-block">{{ help_label|trans|raw }}</span>
     {% endif %}
     </label>
 {% endspaceless %}
@@ -35,8 +35,8 @@
 {# Help #}
 
 {% block field_help %}
-   	{% if help_inline %}<span class="help-inline">{{ help_inline|trans }}</span>{% endif %}
-    {% if help_block %}<span class="help-block">{{ help_block|trans }}</span>{% endif %}
+   	{% if help_inline %}<span class="help-inline">{{ help_inline|trans|raw }}</span>{% endif %}
+    {% if help_block %}<span class="help-block">{{ help_block|trans|raw }}</span>{% endif %}
 {% endblock field_help %}
 
 {% block field_widget_remove_btn %}
@@ -176,9 +176,9 @@
             {% if errors|length > 0 %}
                 {% set attr = attr|merge({'class': attr.class|default('') ~ ' error'}) %}
             {% endif %}
-            {{ widget_prefix }}
+            {{ widget_prefix|raw }}
             {{ form_widget(form) }}
-            {{ widget_suffix }}
+            {{ widget_suffix|raw }}
     {% if not ('form' in form.get('types')) %}
         {% if widget_remove_btn is defined %}
             {{ block('field_widget_remove_btn') }}
@@ -314,7 +314,7 @@
 {% spaceless %}
     <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
         {% if empty_value is not none %}
-            <option value="">{{ empty_value|trans({}, translation_domain) }}</option>
+            <option value="">{{ empty_value|trans({}, translation_domain)|renderResponse() }}</option>
         {% endif %}
         {% if preferred_choices|length > 0 %}
             {% set options = preferred_choices %}
@@ -338,7 +338,7 @@
                 {{ block('choice_widget_options') }}
             </optgroup>
         {% else %}
-            <option value="{{ choice.value }}"{% if choice is selectedchoice(value) %} selected="selected"{% endif %}>{{ choice.label|trans({}, translation_domain) }}</option>
+            <option value="{{ choice.value }}"{% if choice is selectedchoice(value) %} selected="selected"{% endif %}>{{ choice.label|trans({}, translation_domain)|renderResponse() }}</option>
         {% endif %}
     {% endfor %}
 {% endspaceless %}

@@ -8,6 +8,7 @@ pi.contextmenu.widget.add:  إضافة القطعة
 pi.contextmenu.page.refresh: تحديث الصفحة
 pi.contextmenu.page.add: إضافة صفحة
 pi.contextmenu.page.update: تحرير الصفحة
+pi.contextmenu.page.copy: نسخ الصفحة
 pi.contextmenu.page.indexation: فهرسة الصفحة
 pi.contextmenu.page.desindexation: إزالة فهرسة الصفحة
 pi.contextmenu.image.view: مشاهد
@@ -20,6 +21,7 @@ pi.move-up : تحريك لأعلى
 pi.move-down : تحريك لأسفل
 pi.show : عرض
 pi.add : أضف
+pi.add.name : إضافة
 pi.edit : حرر
 pi.edit.name : طبعة
 pi.update : حَدِّث
@@ -29,6 +31,9 @@ pi.delete.anme : شطب
 pi.create : أنشئ
 pi.create.name : خلق
 pi.save : احفظ
+pi.save.name : حماية
+pi.archive: الأرشيف
+pi.archive.name: أرشفة
 pi.refresh : تحديث
 pi.admin : إداري
 pi.allwidgets : جميع القطع
@@ -86,6 +91,7 @@ pi.grid.action.row_disable: عَطِّل
 pi.grid.action.row_delete: احذف
 pi.grid.action.row_deleted: حذف
 pi.grid.action.row_archive: الأرشيف
+pi.grid.action.row_archived: المؤرشفة
 pi.grid.action.select:  مجموعه
 pi.grid.action.select_all: اختر كل
 pi.grid.action.select_none: ألغ  كل
@@ -108,6 +114,16 @@ pi.form.tab.box.delete: احذف
 pi.form.title.default.create: إنشاء استمارة
 pi.form.title.default.update: تحديث استمارة
 
+pi.form.label.role: دور
+pi.form.label.role_subscriber: مكتتب
+pi.form.label.role_member: عضو
+pi.form.label.role_user: المستخدم
+pi.form.label.role_provider: مزود
+pi.form.label.role_customer: زبون
+pi.form.label.role_editor: محرر
+pi.form.label.role_admin: مدير
+pi.form.label.role_super_admin: السوبر المسؤول
+
 pi.form.label.date.publication: تاريخ النشر
 pi.form.label.date.creation: تاريخ الإنشاء
 pi.form.label.date.updating: تاريخ التحديث
@@ -116,6 +132,7 @@ pi.form.label.date.expired: تاريخ الانتهاء
 pi.form.label.date.start: تاريخ بدء
 pi.form.label.date.end:  نهاية التاريخ
 
+pi.form.label.media.picture.no-format: لا توجد صورة لهذا الشكل
 pi.form.label.media.picture: الصورة
 pi.form.label.media.picture.miniature: مصغر
 pi.form.label.media.file: ملف
@@ -141,6 +158,8 @@ pi.form.label.field.url: رابط
 pi.form.label.field.blank: رابط HTML فارغة
 pi.form.label.field.choice: الاختيار
 pi.form.label.field.type: نوع
+pi.form.label.field.tag: بطاقة
+pi.form.label.field.topic: موضوع
 pi.form.label.field.author: كاتب
 pi.form.label.field.group: مجموعة
 pi.form.label.field.user: مستخدم

@@ -66,7 +66,7 @@ class FrontendController extends BaseController
     public function setLocalAction($langue = '')
     {
         // It tries to redirect to the original page.
-        $new_url = $this->container->get('bootstrap.RouteTranslator.factory')->getRefererRoute($langue);
+        $new_url = $this->container->get('bootstrap.RouteTranslator.factory')->getRefererRoute($langue, null, true);
         $response = new RedirectResponse($new_url);
         // we get params
         $this->date_expire    = $this->container->getParameter('pi_app_admin.cookies.date_expire');
@@ -138,6 +138,36 @@ class FrontendController extends BaseController
         }        
         return new RedirectResponse($new_url);
     }
+    
+    /**
+     * Copy the referer page.
+     *
+     * @Secure(roles="ROLE_USER")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     * @since 2013-12-017
+     */
+    public function copypageAction()
+    {
+    	
+    	try {
+    		$locale       = $this->container->get('request')->getLocale();
+    		$data         = $this->container->get('bootstrap.RouteTranslator.factory')->getRefererRoute($locale, array('result' => 'match'));
+    		// we get the page manager
+    		$pageManager  = $this->get('pi_app_admin.manager.page');
+    		// we get the object Page by route
+    		$page        = $pageManager->setPageByRoute($data['_route'], true);
+    		// we set the result
+    		if ($page instanceof Page){
+    			$new_url = $pageManager->copyPage();
+    		}
+    	} catch (\Exception $e) {
+    		$new_url = $this->container->get('router')->generate('home_page');
+    	}
+    	
+    	return new RedirectResponse($new_url);
+    }     
     
     /**
      * Indexation mamanger of a page (archiving or delete)

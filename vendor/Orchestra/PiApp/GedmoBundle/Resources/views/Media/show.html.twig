@@ -12,6 +12,14 @@
 	
 {% block content %}
 
+
+{% if NoLayout %}
+    {% if entity.image is defined %}
+    	{% media entity.image, 'reference' %}
+    	<input type="hidden" id="piapp_gedmobundle_mediatype_id" name="piapp_gedmobundle_mediatype[id]"  value="{{ entity.id }}">
+    	<input type="hidden" id="piapp_gedmobundle_mediatype_title" name="piapp_gedmobundle_mediatype[title]"  value="{{ entity.title }}">
+    {% endif %}
+{% else %}    
     {{ parent() }}
     
 	<table class="grid">
@@ -127,6 +135,7 @@
 			});
 	//]]>
 	</script>
-	{% endif %}		
+	{% endif %}	
+{% endif %}			
 		
 {% endblock %}

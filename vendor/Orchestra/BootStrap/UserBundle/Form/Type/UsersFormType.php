@@ -84,7 +84,154 @@ class UsersFormType extends AbstractType
  					'required'  => true,
             ))
             ->add('permissions', 'bootstrap_security_permissions', array( 'multiple' => true, 'required' => false))
-          ; 	   
+            ->add('plainPassword', 'repeated', array(
+            		'type' => 'password',
+            		'options' => array('translation_domain' => 'FOSUserBundle'),
+            		'first_options' => array('label' => 'form.password'),
+            		'second_options' => array('label' => 'form.password_confirmation'),
+            		'invalid_message' => 'fos_user.password.mismatch',
+            ))            
+          ; 	
+
+            
+            $builder
+            ->add('accessArticle', 'choice', array(
+            		'required'  => false,'expanded' => true,'multiple' => true,
+            		'label' => 'Gestion des Articles de contenu',
+            		'choices'   => array(
+            				'CREATE'=> 'pi.create',
+            				'UPDATE' => 'pi.update',
+            				'DELETE' => 'pi.delete',
+            		),
+            		"label_attr" => array("class"=> "content_collection", 'style'=>"padding-top:40px;")
+            ))
+            ->add('accessDiaporama', 'choice', array(
+            		'required'  => false,'expanded' => true,'multiple' => true,
+            		'label' => 'Gestion des Diaporamas de contenu',
+            		'choices'   => array(
+            				'CREATE'=> 'pi.create',
+            				'UPDATE' => 'pi.update',
+            				'DELETE' => 'pi.delete',
+            		),
+            		"label_attr" => array("class"=> "content_collection")
+            ))
+            ->add('accessTest', 'choice', array(
+            		'required'  => false,'expanded' => true,'multiple' => true,
+            		'label' => 'Gestion des Tests de contenu',
+            		'choices'   => array(
+            				'CREATE'=> 'pi.create',
+            				'UPDATE' => 'pi.update',
+            				'DELETE' => 'pi.delete',
+            		),
+            		"label_attr" => array("class"=> "content_collection")
+            ))
+            ->add('accessPage', 'choice', array(
+            		'required'  => false,'expanded' => true,'multiple' => true,
+            		'label' => 'Gestion des Pages CMS',
+            		'choices'   => array(
+            				'CREATE'=> 'pi.create',
+            				'UPDATE' => 'pi.update',
+            				'DELETE' => 'pi.delete',
+            		),
+            		"label_attr" => array("class"=> "content_collection")
+            ))
+            ->add('accessTag', 'choice', array(
+            		'required'  => false,'expanded' => true,'multiple' => true,
+            		'label' => 'Gestion des Tags',
+            		'choices'   => array(
+            				'CREATE'=> 'pi.create',
+            				'UPDATE' => 'pi.update',
+            				'DELETE' => 'pi.delete',
+            		),
+            		"label_attr" => array("class"=> "content_collection")
+            ))
+            ->add('accessRubcont', 'choice', array(
+            		'required'  => false,'expanded' => true,'multiple' => true,
+            		'label' => 'Gestion des Rubriques de contenu',
+            		'choices'   => array(
+            				'CREATE'=> 'pi.create',
+            				'UPDATE' => 'pi.update',
+            				'DELETE' => 'pi.delete',
+            		),
+            		"label_attr" => array("class"=> "content_collection")
+            ));
+            
+            
+            $builder
+            ->add('accessProvider', 'choice', array(
+            		'required'  => false,'expanded' => true,'multiple' => true,
+            		'label' => 'Gestion des Enseignes prestataires',
+            		'choices'   => array(
+            				'CREATE'=> 'pi.create',
+            				'UPDATE' => 'pi.update',
+            				'DELETE' => 'pi.delete',
+            		),
+            		"label_attr" => array("class"=> "provider_collection", 'style'=>"padding-top:40px;")
+            ))
+            ->add('accessProviderPtv', 'choice', array(
+            		'required'  => false,'expanded' => true,'multiple' => true,
+            		'label' => 'Gestion des Points de ventes prestataires',
+            		'choices'   => array(
+            				'CREATE'=> 'pi.create',
+            				'UPDATE' => 'pi.update',
+            				'DELETE' => 'pi.delete',
+            		),
+            		"label_attr" => array("class"=> "provider_collection")
+            ))
+            ->add('accessProviderPdx', 'choice', array(
+            		'required'  => false,'expanded' => true,'multiple' => true,
+            		'label' => "Gestion des Produits d'un prestataire",
+            		'choices'   => array(
+            				'CREATE'=> 'pi.create',
+            				'UPDATE' => 'pi.update',
+            				'DELETE' => 'pi.delete',
+            		),
+            		"label_attr" => array("class"=> "provider_collection")
+            ))
+            ->add('accessProviderRegion', 'choice', array(
+            		'required'  => false,'expanded' => true,'multiple' => true,
+            		'label' => 'Pavé régionalisé',
+            		'choices'   => array(
+            				'CREATE'=> 'pi.create',
+            				'UPDATE' => 'pi.update',
+            				'DELETE' => 'pi.delete',
+            		),
+            		"label_attr" => array("class"=> "provider_collection")
+            ))
+            ->add('accessRubprest', 'choice', array(
+            		'required'  => false,'expanded' => true,'multiple' => true,
+            		'label' => 'Gestion des Rubriques prestataires',
+            		'choices'   => array(
+            				'CREATE'=> 'pi.create',
+            				'UPDATE' => 'pi.update',
+            				'DELETE' => 'pi.delete',
+            		),
+            		"label_attr" => array("class"=> "provider_collection")
+            ))
+            ;
+            
+            
+            $builder
+            ->add('accessBlog', 'choice', array(
+            		'required'  => false,'expanded' => true,'multiple' => true,
+            		'label' => 'Gérer les blogs',
+            		'choices'   => array(
+            				'CREATE'=> 'pi.create',
+            				'UPDATE' => 'pi.update',
+            				'DELETE' => 'pi.delete',
+            		),
+            		"label_attr" => array("class"=> "blog_collection", 'style'=>"padding-top:40px;")
+            ))
+            ->add('accessCom', 'choice', array(
+            		'required'  => false,'expanded' => true,'multiple' => true,
+            		'label' => 'Modérer les commentaires',
+            		'choices'   => array(
+            				'CREATE'=> 'pi.create',
+            				'UPDATE' => 'pi.update',
+            				'DELETE' => 'pi.delete',
+            		),
+            		"label_attr" => array("class"=> "blog_collection")
+            ));            
 
 	}
 	public function getName()

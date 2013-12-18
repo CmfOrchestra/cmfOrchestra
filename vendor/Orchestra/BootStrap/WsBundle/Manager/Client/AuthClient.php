@@ -132,9 +132,11 @@ class AuthClient extends AbstractClient
         //-----we save in the file log-----
         $env = $this->getContainer()->get("kernel")->getEnvironment();
         $clientname = $this->getClient();
-        $is_debug = $this->config[$clientname]['log'][$env];
-        if ($is_debug){
-            $this->_logger->save();
+        if (isset($this->config[$clientname]['log'][$env])) {
+	        $is_debug = $this->config[$clientname]['log'][$env];
+	        if ($is_debug){
+	            $this->_logger->save();
+	        }
         }
         
         return $result;

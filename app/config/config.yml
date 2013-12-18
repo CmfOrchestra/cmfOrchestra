@@ -174,14 +174,16 @@ doctrine:
                 alias: Gedmo
                 prefix: Gedmo\Tree\Entity
                 dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Entity"
-        metadata_cache_driver: array
+        metadata_cache_driver: array # array|apc
         query_cache_driver: array
         result_cache_driver: array
-#       metadata_cache_driver: apc        
+#       metadata_cache_driver: memcache        
+#       query_cache_driver: memcache         
 #       result_cache_driver:
 #            type: memcache
 #            host: localhost
 #            port: 11211
+#            class: Doctrine\Common\Cache\MemcacheCache
 #            instance_class: Memcache       
             
 #               
@@ -469,6 +471,7 @@ pi_app_admin:
             title: Orchestra
             description: Based in Europe with operational offices in Switzerland, France, Russia, West and South Africa, Singapore.
             keywords: Orchestra, symfony 2, framework, CMF, CMS, PHP web applications
+            og_title_add: "Orchestra : "            
             og_type: website
             og_image: bundles/piappadmin/images/logo/logo-orchestra-white.png
             og_site_name: http://www.cmf-orchestra.com/
@@ -486,7 +489,7 @@ pi_app_admin:
     cookies:
         date_expire: false
         date_interval: PT4H
-        application_id: orchestra
+        application_id: orchestra  
     form:
         show_legend: true
         show_child_legend: false
@@ -524,6 +527,11 @@ boot_strap_ws:
             dev: true
             test: true
             prod: false
+#        domains:
+#            domain1:
+#                url: http://www.orchestra23.local/setCookies.php
+#            domain2:
+#                url: http://www.orchestra22.local/setCookies.php            
         handlers:
             getpermisssion:
                 key: 0A1TG4GO

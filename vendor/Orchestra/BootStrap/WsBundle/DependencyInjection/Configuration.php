@@ -52,7 +52,7 @@ class Configuration implements ConfigurationInterface {
                 ->children()
                     ->arrayNode('auth')
                         ->children()
-                        
+
                             ->arrayNode('log')
                             ->isRequired()
                                 ->children()
@@ -60,6 +60,14 @@ class Configuration implements ConfigurationInterface {
                                         ->scalarNode('test')->isRequired()->end()
                                         ->scalarNode('prod')->isRequired()->end()
                                 ->end()
+                            ->end()
+                            
+                            ->arrayNode('domains')
+                            ->prototype('array')
+	                            ->children()
+	                            	->scalarNode('url')->isRequired()->end()
+	                            ->end()
+                            ->end()
                             ->end()
                                                 
                             ->arrayNode('handlers')
@@ -72,8 +80,7 @@ class Configuration implements ConfigurationInterface {
                                     ->scalarNode('format')->isRequired()->end()
                                 ->end()
                             ->end()
-                            
-                            
+                            ->end()
                             
                         ->end()
                     ->end()

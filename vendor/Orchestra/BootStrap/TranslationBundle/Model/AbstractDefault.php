@@ -92,6 +92,16 @@ abstract class AbstractDefault extends AbstractTranslation
         parent::__construct();
         
         $this->setEnabled(true);
+    }  
+    
+    /**
+     * Set id
+     *
+     * @return integer
+     */
+    public function setId($id)
+    {
+    	$this->id = (int) $id;
     }    
 
     /**

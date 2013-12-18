@@ -56,9 +56,9 @@ class PiToolExtension extends \Twig_Extension
      * Returns a list of filters to add to the existing list.
      * 
      * <code>
-     *     {{ comment.content|html }}
+     *  {{ comment.content|html }}
      *  {{ 'pi.page.translation.title'|trans|limite('0', 25) }}
-     *  {{ "%s Result"|translate_plural("%s Results", entitiesByMonth|count)}}
+     *  {{ "%s Result"|translate_plural("%s Results", entitiesByMonth|count) }}
      * </code> 
      * 
      * @return array An array of filters
@@ -100,6 +100,7 @@ class PiToolExtension extends \Twig_Extension
                 'splitHtml'         => new \Twig_Filter_Method($this, 'splitHtmlFilter'),
                 'truncateText'        => new \Twig_Filter_Method($this, 'truncateFilter'),
                 'cutText'            => new \Twig_Filter_Method($this, 'cutTextFilter'),
+        		'renderResponse'	=> new \Twig_Filter_Method($this, 'renderResponseFilter'),
                 
                 //array
                 'count'                => new \Twig_Filter_Method($this, 'countFilter'),
@@ -199,7 +200,7 @@ class PiToolExtension extends \Twig_Extension
                 if(file_exists($src = $this->container->get('kernel')->getRootDir() . '/../web'.$mediaCrop)) {
                     $img_balise = '<img title="' . $media->getAuthorname() . '" src="' . $mediaCrop . '?' . time() . '" width="auto" height="auto" alt="' . $media->getAuthorname() . '" style="' . $style . '" >';
                 } else {
-                    $img_balise = 'Aucune image pour ce format';
+                    $img_balise = $this->container->get('translator')->trans("pi.form.label.media.picture.no-format") . '<br/><br/>';
                 }
                 $content = "<div id='picture_" . $id . "_" . $format . "' class='".$format."  ".$ClassName."' > \n";
             } else {
@@ -284,23 +285,49 @@ class PiToolExtension extends \Twig_Extension
      *
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    public function getPictureCropFunction($media, $format = "PiAppTemplateBundle:Template\\Crop:default.html.twig", $nameForm = "")
+    public function getPictureCropFunction($media, $format = "PiAppTemplateBundle:Template\\Crop:default.html.twig", $nameForm = "", $type = '')
     {
     	if ($format == "default") {
     		$format = "PiAppTemplateBundle:Template\\Crop:default.html.twig";
     	}
-    	if ($media instanceof \BootStrap\MediaBundle\Entity\Media) {
-    		$response     = $this->container->get('templating')->renderResponse(
-    				$format,
-    				array(
-    						"media"=>$media,
-    						"nameForm"=>$nameForm,
-    				)
-    		);
-    
-    		return $response->getContent();
+    	if ($media instanceof \BootStrap\MediaBundle\Entity\Media) {            
+            $globals     = $this->container->get("twig")->getGlobals();
+            if (!empty($type) && (in_array($type, array('input', 'script')))) {
+                $templateContent = $this->container->get('twig')->loadTemplate($format);
+                $crop_input = ($templateContent->hasBlock("crop_input")
+                      ? $templateContent->renderBlock("crop_input", array(
+                          "media"=>$media,
+                          "nameForm"=>$nameForm,
+                          "globals" => $globals
+                      ))
+                      : "");
+                $crop_script = ($templateContent->hasBlock("crop_script")
+                      ? $templateContent->renderBlock("crop_script", array(
+                          "media" =>$media,
+                          "nameForm" =>$nameForm,
+                          "globals" => $globals
+                      ))
+                      : "");  
+
+                if ($type == 'input') {
+                    return $crop_input;      
+                } elseif ($type == 'script') {
+                    return $crop_script;
+                }              
+            } else {
+                $response     = $this->container->get('templating')->renderResponse(
+                        $format,
+                        array(
+                                "media"=>$media,
+                                "nameForm"=>$nameForm,
+                                "globals" => $globals
+                        )
+                );
+
+                return $response->getContent();
+            }
     	}
-    }    
+    }  
 
     /**
      * show a crop picture.
@@ -317,18 +344,17 @@ class PiToolExtension extends \Twig_Extension
     {
         if ($media instanceof \BootStrap\MediaBundle\Entity\Media) {
             $id = $media->getId();
-
             $mediaCrop = $this->container->get('sonata.media.twig.extension')->path($media, $format);
-
-            if(file_exists($src = $this->container->get('kernel')->getRootDir() . '/../web'.$mediaCrop))
+            if(file_exists($src = $this->container->get('kernel')->getRootDir() . '/../web'.$mediaCrop)) {
                 $img_balise = '<img title="' . $media->getAuthorname() . '" src="' . $mediaCrop . '?' . time() . '" width="auto" height="auto" alt="' . $media->getAuthorname() . '"/>';
-            else
+            } else {
                 $img_balise = 'Aucune image ce format ';
-
+            }
             $content ="<div>Dimensions de ".$format." = " .$width."x".$height."</div>";
             $content .= "<div id='picture_" . $id . $format . "' class='".$format." default_crop' > \n";
             $content .= $img_balise;
             $content .= "</div></br></br> \n";
+            
             return $content;
         }
     }
@@ -340,8 +366,9 @@ class PiToolExtension extends \Twig_Extension
      */    
     public function linkFunction( $label, $path, $options = array() ) {
         $attributes = '';
-        foreach( $options as $key=>$value )
+        foreach ( $options as $key=>$value ) {
             $attributes .= ' ' . $key . '="' . $value . '"';
+        }
 
         return '<a href="' . $path . '"' . $attributes . '>' . $label . '</a>';
     }
@@ -355,22 +382,23 @@ class PiToolExtension extends \Twig_Extension
     {
         $route = (string) $this->container->get('request')->get('_route');
         $names = explode(':', $paths);
-        $is_true = false;
-        
-        if (is_array($names)){
-            foreach($names as $k => $path){
+        $is_true = false;        
+        if (is_array($names)) {
+            foreach ($names as $k => $path) {
                 if ($route == $path)
                     $is_true = true;
             }
-            if ($is_true)
+            if ($is_true) {
                 return $returnTrue;
-            else
-                return $returnFalse;            
+            } else {
+                return $returnFalse;
+            }            
         } else {
-            if ($route == $paths)
+            if ($route == $paths) {
                 return $returnTrue;
-            else
-                return $returnFalse;            
+            } else {
+                return $returnFalse;
+            }            
         }
     }    
     
@@ -384,8 +412,8 @@ class PiToolExtension extends \Twig_Extension
         $locale                = $this->container->get('request')->getLocale();
         $all_countries         = $this->container->get('pi_app_admin.string_manager')->allCountries($locale);       
         $all_countries_en     = $this->container->get('pi_app_admin.string_manager')->allCountries("en_GB");
-        
-        if (isset($all_countries[strtolower($country)])){
+        //
+        if (isset($all_countries[strtolower($country)])) {
             $img_country  = str_replace(' ', '-', $all_countries_en[strtolower($country)]) . "-Flag-".$taille.".png";
             $name_country = $all_countries[strtolower($country)]; // locale_get_display_name(strtolower($entity->getCountry()), strtolower($locale))
             $src          = $this->container->getParameter('kernel.http_host') . "/bundles/piappadmin/images/flags/png/" . $img_country;
@@ -394,14 +422,13 @@ class PiToolExtension extends \Twig_Extension
             $name_country = $country;
             $src          = $this->container->getParameter('kernel.http_host') . "/bundles/piappadmin/images/flags/default/Default-flag-".$taille.".png";
         }
-
-
-        if ($type == "img_counry") return $img_country;
-        elseif ($type == "name_country") return $name_country;
-        elseif ($type == "balise") {
+        if ($type == "img_counry") {
+            return $img_country;
+        } elseif ($type == "name_country") { 
+            return $name_country;
+        } elseif ($type == "balise") {
             return "<img src='{$src}' alt='{$name_country} flag' title='{$name_country} flag'/>";
         }
-        
     }    
     
     /**
@@ -444,9 +471,9 @@ class PiToolExtension extends \Twig_Extension
                     return ucwords($value);
                 }, array_values(explode('_', $sluggable_keywords)));                    
                 
-                $method_title         = "get".implode('', $sluggable_title_tab);
-                $method_resume         = "get".implode('', $sluggable_resume_tab);
-                $method_keywords     = "get".implode('', $sluggable_keywords_tab);    
+                $method_title    = "get".implode('', $sluggable_title_tab);
+                $method_resume   = "get".implode('', $sluggable_resume_tab);
+                $method_keywords = "get".implode('', $sluggable_keywords_tab);    
 
                 if ( ($sluggable_field_search == 'id') && isset($match['id']) ) {
                     $entity         = $this->container->get('doctrine')->getManager()->getRepository($sluggable_entity)->findOneByEntity($lang, $match['id'], 'object');
@@ -481,6 +508,7 @@ class PiToolExtension extends \Twig_Extension
         $copyright        = str_replace(array('"',"’"), array("'","'"), $this->container->getParameter('pi_app_admin.layout.meta.copyright'));
         $description     = str_replace(array('"',"’"), array("'","'"), $this->container->getParameter('pi_app_admin.layout.meta.description'));
         $keywords         = str_replace(array('"',"’"), array("'","'"), $this->container->getParameter('pi_app_admin.layout.meta.keywords'));
+        $og_title_add        = str_replace(array('"',"’"), array("'","'"), $this->container->getParameter('pi_app_admin.layout.meta.og_title_add'));
         $og_type        = str_replace(array('"',"’"), array("'","'"), $this->container->getParameter('pi_app_admin.layout.meta.og_type'));
         $og_image        = str_replace(array('"',"’"), array("'","'"), $this->container->getParameter('pi_app_admin.layout.meta.og_image'));
         $og_site_name     = str_replace(array('"',"’"), array("'","'"), $this->container->getParameter('pi_app_admin.layout.meta.og_site_name'));
@@ -529,7 +557,7 @@ class PiToolExtension extends \Twig_Extension
                     $entity = $this->container->get('doctrine')->getManager()->getRepository($sluggable_entity)->findOneByEntity($lang, $match['id'], 'object');
                     if (is_object($entity) && method_exists($entity, $method_title) && method_exists($entity, $method_resume) && method_exists($entity, $method_keywords)) {
                         $og_title                 = str_replace(array('"',"’"), array("'","'"), $entity->$method_title());
-                        $new_meta                = "    <meta property='og:title' content=\"{$og_title}\"/>";
+                        $new_meta                = "    <meta property='og:title' content=\"{$og_title_add}{$og_title}\"/>";
                         $options['description'] = str_replace(array('"',"’"), array("'","'"), strip_tags($this->container->get('translator')->trans($entity->$method_resume())));
                         $options['keywords']    = str_replace(array('"',"’"), array("'","'"), strip_tags($this->container->get('translator')->trans($entity->$method_keywords())));
                     }
@@ -540,7 +568,7 @@ class PiToolExtension extends \Twig_Extension
                     
                     if(is_object($meta_title)){
                         $og_title                     = str_replace(array('"',"’"), array("'","'"), $meta_title->getContent());
-                        $new_meta                    = "<meta property='og:title' content=\"{$og_title}\"/>";
+                        $new_meta                    = "<meta property='og:title' content=\"{$og_title_add}{$og_title}\"/>";
                     }
                     if (is_object($meta_resume)) {
                         $options['description']     = str_replace(array('"',"’"), array("'","'"), strip_tags($this->container->get('translator')->trans($meta_resume->getContent())));
@@ -552,14 +580,14 @@ class PiToolExtension extends \Twig_Extension
             }
             if (empty($new_meta) && isset($options['title']) && !empty($options['title'])) {
                 $options['title'] = str_replace(array('"',"’"), array("'","'"), strip_tags($this->container->get('translator')->trans($options['title'])));
-                $metas[] = "    <meta property='og:title' content=\"{$options['title']}\"/>";
+                $metas[] = "    <meta property='og:title' content=\"{$og_title_add}{$options['title']}\"/>";
             } elseif (!empty($new_meta)) {
                 $metas[] = $new_meta;
             }
         } catch (\Exception $e) {
             if(isset($options['title']) && !empty($options['title'])){
                 $options['title'] = str_replace(array('"',"’"), array("'","'"), strip_tags($this->container->get('translator')->trans($options['title'])));
-                $metas[]           = "    <meta property='og:title' content=\"{$options['title']}\"/>";
+                $metas[]           = "    <meta property='og:title' content=\"{$og_title_add}{$options['title']}\"/>";
             }            
         }
         if (isset($og_type) && !empty($og_type)) {
@@ -690,7 +718,7 @@ class PiToolExtension extends \Twig_Extension
     	if ( ($enabled  == true ) && ($archived == false) ) {
     		$status =  $this->container->get('translator')->trans('pi.grid.action.active');
     	} elseif(!empty($archivedAt) && ($archived == true)) {
-    		$status = $this->container->get('translator')->trans('pi.grid.action.row_deleted');
+    		$status = $this->container->get('translator')->trans('pi.grid.action.row_archived');
     	} elseif ( ($enabled  == false ) && ($archived == false) ) {
     		$status = $this->container->get('translator')->trans('pi.grid.action.activation.waiting');
     	}
@@ -820,16 +848,33 @@ class PiToolExtension extends \Twig_Extension
     	} else {
     		throw ExtensionException::serviceNotConfiguredCorrectly();
     	}
+    }   
+
+    /**
+     * crop a picture.
+     *
+     * <code>
+     *   {{ content|renderResponse($params)|raw }}
+     * </code>
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function renderResponseFilter($content, $params = array())
+    {
+   		return $this->container->get('twig')->render($content, $params);
     }    
     
     /**
      * translation filters
      */    
-    public function translatepluralFilter($single, $plural, $number, $domain = "messages") {
-        if ($number > 1) 
+    public function translatepluralFilter($single, $plural, $number, $domain = "messages") 
+    {
+    	$number = intval($number);
+        if ($number > 1) { 
             return $this->container->get('translator')->trans(sprintf($plural, $number), array('%s'=>$number), $domain);
-        else
+        } else {
             return $this->container->get('translator')->trans(sprintf($single, $number), array('%s'=>$number), $domain);
+        }
     }    
     
     public function pluralizeFilter($string, $number = null) {

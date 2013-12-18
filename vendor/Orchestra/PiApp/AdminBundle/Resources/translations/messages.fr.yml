@@ -8,6 +8,7 @@ pi.contextmenu.widget.add: Ajouter un widget
 pi.contextmenu.page.refresh: Refresh page
 pi.contextmenu.page.add: Ajouter une page
 pi.contextmenu.page.update: Modifier la page
+pi.contextmenu.page.copy: Copier la page
 pi.contextmenu.page.indexation: Indexation de page
 pi.contextmenu.page.desindexation: Suppression indexation de page
 pi.contextmenu.image.view: Viewer
@@ -20,6 +21,7 @@ pi.move-up : Monter
 pi.move-down : Descendre
 pi.show : Visualiser
 pi.add : Ajouter
+pi.add.name : Ajout
 pi.edit : Editer
 pi.edit.name : Edition
 pi.update : Modifier
@@ -29,6 +31,9 @@ pi.delete.anme : Suppression
 pi.create : Créer
 pi.create.name : Création
 pi.save : Sauvegarder
+pi.save.name : Sauvegarde
+pi.archive: Archiver
+pi.archive.name: Archivage
 pi.refresh : Rafrechir
 pi.admin : Administrateur
 pi.allwidgets : Widgets
@@ -86,6 +91,7 @@ pi.grid.action.row_disable: Désactiver
 pi.grid.action.row_delete: Supprimer
 pi.grid.action.row_deleted: Supprimé
 pi.grid.action.row_archive: Archiver
+pi.grid.action.row_archived: Archivé
 pi.grid.action.select: Sélection
 pi.grid.action.select_all: Tout selectionner
 pi.grid.action.select_none: Tout déselectionner
@@ -108,6 +114,16 @@ pi.form.tab.box.delete: Supprimer
 pi.form.title.default.create: Formulaire de création
 pi.form.title.default.update: Formulaire de modification
 
+pi.form.label.role: Rôle
+pi.form.label.role_subscriber: Abonné
+pi.form.label.role_member: Membre
+pi.form.label.role_user: Utilisateur
+pi.form.label.role_provider: Prestataire
+pi.form.label.role_customer: Client
+pi.form.label.role_editor: Editeur
+pi.form.label.role_admin: Administrateur
+pi.form.label.role_super_admin: Super-administrateur
+
 pi.form.label.date.publication: Date de publication
 pi.form.label.date.creation: Date de création
 pi.form.label.date.updating: Date de modification
@@ -116,6 +132,7 @@ pi.form.label.date.expired: Date d'expiration
 pi.form.label.date.start: Date de début
 pi.form.label.date.end: Date de fin
 
+pi.form.label.media.picture.no-format: Aucune image pour ce format
 pi.form.label.media.picture: Image
 pi.form.label.media.picture.miniature: Miniature
 pi.form.label.media.file: Fichier
@@ -141,6 +158,8 @@ pi.form.label.field.url: Lien
 pi.form.label.field.blank: Lien HTML vierge
 pi.form.label.field.choice: Choix
 pi.form.label.field.type: Type
+pi.form.label.field.tag: Tag
+pi.form.label.field.topic: Rubrique
 pi.form.label.field.author: Auteur
 pi.form.label.field.group: Groupe
 pi.form.label.field.user: Utilisateur

@@ -117,7 +117,7 @@ abstract class abstractListener
             }
         }        
         // we give the right of persist if the entity is in the AUTHORIZATION_PREPERSIST container
-        if ($this->container->isScopeActive('request')) {
+        if ($this->container->isScopeActive('request') && isset($_SERVER['REQUEST_URI']) && !empty($_SERVER['REQUEST_URI'])) {
             if (isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST']) && isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST'][$entity_name])) {
                 if (is_array($GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST'][$entity_name])) {
                     $route = $this->container->get('request')->get('_route');
@@ -191,6 +191,7 @@ abstract class abstractListener
         $entity         = $eventArgs->getEntity();
         $entityManager     = $eventArgs->getEntityManager();
         $entity_name     = get_class($entity);
+        
         // we given't the right of remove if the entity is in the AUTHORIZATION_PREREMOVE container
         if (isset($GLOBALS['ENTITIES']['PROHIBITION_PREUPDATE']) && isset($GLOBALS['ENTITIES']['PROHIBITION_PREUPDATE'][$entity_name])){
             if (is_array($GLOBALS['ENTITIES']['PROHIBITION_PREUPDATE'][$entity_name])){
@@ -218,7 +219,8 @@ abstract class abstractListener
             // we modify the Update_at value
             $entity->setUpdatedAt(new \DateTime());
         }
-        if ($this->container->isScopeActive('request')) {
+        
+        if ($this->container->isScopeActive('request') && isset($_SERVER['REQUEST_URI']) && !empty($_SERVER['REQUEST_URI'])) {
             // we give the right of update if the entity is in the AUTHORIZATION_PREPERSIST container
             if (isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE']) && isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE'][$entity_name])){
                 if (is_array($GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE'][$entity_name])){
@@ -233,7 +235,7 @@ abstract class abstractListener
                     }
                 }elseif ($GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE'][$entity_name] == true){
                     $class = $entityManager->getClassMetadata(get_class($entity));
-                       $entityManager->getUnitOfWork()->recomputeSingleEntityChangeSet($class, $entity);
+                    $entityManager->getUnitOfWork()->recomputeSingleEntityChangeSet($class, $entity);
                        
                     return true;
                 }
@@ -327,7 +329,7 @@ abstract class abstractListener
                 return false;
             }
         }        
-        if ($this->container->isScopeActive('request')) {
+        if ($this->container->isScopeActive('request') && isset($_SERVER['REQUEST_URI']) && !empty($_SERVER['REQUEST_URI'])) {
             // we give the right of remove if the entity is in the AUTHORIZATION_PREREMOVE container
             if (isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE']) && isset($GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE'][$entity_name])){
                 if (is_array($GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE'][$entity_name])){
@@ -692,8 +694,8 @@ abstract class abstractListener
                
                if ( 
                    ( (get_class($entity) == 'Proxies\BootStrapMediaBundleEntityMediaProxy') || get_class($entity) == 'Proxies\PiAppGedmoBundleEntityMediaProxy')
-                   && isset($GLOBALS['ENTITIES']['RESTRICTION_BY_MEDIA']) 
-                  && is_array($GLOBALS['ENTITIES']['RESTRICTION_BY_MEDIA'])
+                   	&& isset($GLOBALS['ENTITIES']['RESTRICTION_BY_MEDIA']) 
+                  	&& is_array($GLOBALS['ENTITIES']['RESTRICTION_BY_MEDIA'])
                    ){
                    $methods_authorized = $GLOBALS['ENTITIES']['RESTRICTION_BY_MEDIA'];
                   

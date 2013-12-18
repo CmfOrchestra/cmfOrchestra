@@ -22,7 +22,8 @@ namespace PiApp\AdminBundle\Builder;
  */
 interface PiArrayManagerBuilderInterface
 {
-    public function recursive_method(array &$array, $method, $curlevel=0);
+    public static function recursive_method(array &$array, $method, $option = null, $curlevel=0);
+    public static function recursive_method_return(array &$array, $method, $option = null);
     public function TrimArray($Input);
     public static function dump($_ARRAY);
     public static function splitOnValue($array, $value);

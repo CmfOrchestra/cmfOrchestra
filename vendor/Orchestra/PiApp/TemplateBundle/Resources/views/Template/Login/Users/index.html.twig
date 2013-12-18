@@ -10,7 +10,7 @@
 {% extends layout_nav %}
 
 {% block title %}
-	<h1><a href="{{ path('admin_redirection') }}">{{ "pi.home"|trans }}</a> > {{ 'pi.form.label.field.user.account'|trans }}</h1>	
+	<h1><a href="{{ path('admin_homepage') }}">Accueil</a> > Gestion comptes Administrateur / Super administrateur</h1>
 {% endblock %}
  
 {% block content %}
@@ -31,14 +31,14 @@
 	        <tr>	       
 	            <th class="position" >Position</th>     
 	            <th>Id</th>
-                <th>Prénom</th>
-                <th>Nom</th>
-                <th>Email</th>
-                <th>Role</th>
-	            <th>Création</th>
-	            <th>Modification</th>
-	            <th>Statut</th>
-	            <th>Actions</th>
+                <th>{{ 'pi.form.label.field.nickname'|trans }}</th>
+                <th>{{ 'pi.form.label.field.name'|trans }}</th>
+                <th>{{ 'pi.form.label.field.email'|trans }}</th>
+                <th>{{ 'pi.form.label.role'|trans }}</th>
+	            <th width="101px">{{ 'pi.create.name'|trans }}</th>	              
+	            <th width="101px">{{ 'pi.update.name'|trans }}</th>	
+	            <th width="51px">{{ 'pi.page.form.status'|trans }}</th>
+	            <th width="71px">Actions</th>
 	        </tr>
 	    </thead>
 	    <tbody>
@@ -80,19 +80,34 @@
 		    {% endfor %}
 	    {% endif %}
 	    </tbody>
+	    <tfoot>
+			<tr>
+				<th data-type="input"><input type="text" name="" value="Position" style="width:100%" /></th>
+				<th data-type="input"><input type="text" name="" value="Id" style="width:100%" /></th>
+				<th data-column='2' data-title="{{ 'pi.form.label.field.nickname'|trans }}"></th>
+				<th data-column='3' data-title="{{ 'pi.form.label.field.name'|trans }}"></th>
+				<th data-column='4' data-title="{{ 'pi.form.label.field.email'|trans }}"></th>
+				<th data-column='5' data-title="{{ 'pi.form.label.role'|trans }}" data-values='{"ROLE_USER":"{{ 'pi.form.label.role_user'|trans }}","ROLE_ADMIN":"{{ 'pi.form.label.role_admin'|trans }}","ROLE_SUPER_ADMIN":"{{ 'pi.form.label.role_super_admin'|trans }}"}'></th>
+				<th data-column='6' data-title="{{ 'pi.create.name'|trans }}"></th>
+				<th data-column='7' data-title="{{ 'pi.update.name'|trans }}"></th>
+				<th data-column='8' data-title="{{ 'pi.page.form.status'|trans }}" data-values='{"Actif":"Actif","Supprime":"Supprimé","En attente dactivation":"En attente d activation"}'></th>
+				<th></th>
+			</tr>
+		</tfoot>	    
 	</table>
 
 	{% if is_granted('ROLE_SUPER_ADMIN') %} 
 		{% set options_gridtabale = {'grid-name': 'grid_customer', 'grid-type':'simple', 
 		        'grid-server-side': isServerSide,
 				'grid-paginate':'true',
-				'grid-LengthMenu':25,
+				'grid-LengthMenu':20,
 				'grid-filter-date': {
 					'0': {'column' : 6, 'title-start': 'date min crea. ', 'title-end': 'date max crea.', 'right':'780', 'width':'183', 'format' : 'yy-mm-dd', 'idMin':'minc', 'idMax':'maxc'},
-					'1': {'column' : 7, 'title-start': 'date min mod. ', 'title-end': 'date max mod.', 'right':'590', 'width':'183', 'format' : 'yy-mm-dd', 'idMin':'minp', 'idMax':'maxp'},
+					'1': {'column' : 7, 'title-start': 'date min mod. ', 'title-end': 'date max mod.', 'right':'590', 'width':'183', 'format' : 'yy-mm-dd', 'idMin':'minu', 'idMax':'maxu'},
 	            },
-				'grid-filters-select': ['0','1','2','3','4','6','7','9'],
-				'grid-filters-active':'true',
+				'grid-filters-select': ['0','1','2','3','4','5','6','7','8','9'],
+				'grid-filters-active':'false',
+				'grid-state-save' : 'false',
 				'grid-filters': { 
 						'3':'Prénom',
 						'4':'Nom',
@@ -101,9 +116,21 @@
 				'grid-sorting': { 
 						'6':'desc',
 					},
+				'grid-columns': { 
+					'0': { "bSortable": true },
+					'1': { "bSortable": true },
+					'2': { "bSortable": true },
+					'3': { "bSortable": true },
+					'4': { "bSortable": true },
+					'5': { "bSortable": false },
+					'6': { "bSortable": true },
+					'7': { "bSortable": true },
+					'8': { "bSortable": false },
+					'9': { "bSortable": false },
+				},						
 				'grid-visible': {
 					'0':'false',
-					'1':'false',
+					'1':'true',
 					},					
 				'grid-actions': { 
 				        'export_csv': {'sButtonText':'pi.grid.action.export'},		
@@ -118,24 +145,37 @@
 	    {% set options_gridtabale = {'grid-name': 'grid_customer', 'grid-type':'simple', 
 		        'grid-server-side': isServerSide,
 				'grid-paginate':'true',
-				'grid-LengthMenu':25,
+				'grid-LengthMenu':20,
 				'grid-filter-date': {
-					'0': {'column' : 6, 'title-start': 'date min crea. ', 'title-end': 'date max crea. ', 'right':'780', 'width':'183', 'format' : 'yy-mm-dd', 'idMin':'minc', 'idMax':'maxc'},
-					'1': {'column' : 7, 'title-start': 'date min mod. ', 'title-end': 'date max mod. ', 'right':'590', 'width':'183', 'format' : 'yy-mm-dd', 'idMin':'minp', 'idMax':'maxp'},
+					'0': {'column' : 6, 'title-start': 'date min crea. ', 'title-end': 'date max crea.', 'right':'780', 'width':'183', 'format' : 'yy-mm-dd', 'idMin':'minc', 'idMax':'maxc'},
+					'1': {'column' : 7, 'title-start': 'date min mod. ', 'title-end': 'date max mod.', 'right':'590', 'width':'183', 'format' : 'yy-mm-dd', 'idMin':'minp', 'idMax':'maxp'},
 	            },
-				'grid-filters-select': ['0','1','2','3','4','6','7','9'],
-				'grid-filters-active':'true',
+				'grid-filters-select': ['0','1','2','3','4','5','6','7','8','9'],
+				'grid-filters-active':'false',
+				'grid-state-save' : 'false',
 				'grid-filters': { 
 						'3':'Prénom',
 						'4':'Nom',
 						'5':'Email',
 					},
 				'grid-sorting': { 
-						'6':'desc',
+						'1':'asc',
 					},
+				'grid-columns': { 
+					'0': { "bSortable": true },
+					'1': { "bSortable": true },
+					'2': { "bSortable": true },
+					'3': { "bSortable": true },
+					'4': { "bSortable": true },
+					'5': { "bSortable": false },
+					'6': { "bSortable": true },
+					'7': { "bSortable": true },
+					'8': { "bSortable": false },
+					'9': { "bSortable": false },
+				},						
 				'grid-visible': {
 					'0':'false',
-					'1':'false',
+					'1':'true',
 					},						
 				'grid-actions': { 
 				        'export_csv': {'sButtonText':'pi.grid.action.export'},		

@@ -331,7 +331,7 @@ abstract class abstractController extends Controller
             if ($type == 'select') {
                 $qb->add('select', $tablecode);
             } elseif($type == "count") {
-                $qb->add('select', 'COUNT('.$tablecode.'.id)');
+                $qb->add('select', $tablecode.'.id');
             } else {
                 throw ControllerException::NotFoundOptionException('type');
             }
@@ -343,7 +343,7 @@ abstract class abstractController extends Controller
                 throw ControllerException::NotFoundOptionException('table');
             }
         } elseif($type == "count") {
-            $qb->add('select', 'COUNT('.$tablecode.'.id)');
+            $qb->add('select', $tablecode.'.id');
         }
         
         /**
@@ -382,7 +382,11 @@ abstract class abstractController extends Controller
 
                 $or = $qb->expr()->orx();
                 foreach ($search_tab as $s) {
-                    $or->add($qb->expr()->like('LOWER('.$aColumns[(intval($i)-1)].')', $qb->expr()->literal('%'.strtolower(\PiApp\AdminBundle\Util\PiStringManager::withoutaccent($s)).'%')));
+                    if (is_numeric($s)) {
+                        $or->add($qb->expr()->eq($aColumns[(intval($i)-1)], (int)$s));
+                    }else{
+                        $or->add($qb->expr()->like('LOWER('.$aColumns[(intval($i)-1)].')', $qb->expr()->literal('%'.strtolower(\PiApp\AdminBundle\Util\PiStringManager::withoutaccent($s)).'%')));
+                    }
                 }
                 $and->add($or);
             }
@@ -393,14 +397,24 @@ abstract class abstractController extends Controller
         
         $or = $qb->expr()->orx();
         for ( $i=0 ; $i<count($aColumns) ; $i++ ) {
-        	if ( $request->get('bSearchable_'.($i+1)) == "true" && $request->get('sSearch') != '' ) {
-        		$or->add($qb->expr()->like('LOWER('.$aColumns[$i].')', $qb->expr()->literal('%'.strtolower(\PiApp\AdminBundle\Util\PiStringManager::withoutaccent($request->get('sSearch'))).'%')));
+        	if ( $request->get('bSearchable_'.$i) == "true" && $request->get('sSearch') != '' ) {
+        		$keywords = preg_split("/\s+/", strtolower(\PiApp\AdminBundle\Util\PiStringManager::withoutaccent($request->get('sSearch'))));
+        		foreach ($keywords as $keyword) {
+        			if(!empty($keyword)){
+                            $or->add($qb->expr()->like('LOWER('.$aColumns[$i].')', $qb->expr()->literal('%'.$keyword.'%')));
+        			}
+        		}
         	}
         }
         if ($or!= "") {
         	$qb->andWhere($or);
         }
         
+        /**
+         * Grouping
+         */        
+        $qb->groupBy($tablecode.'.id');
+            
         /**
          * Ordering
           */
@@ -425,18 +439,15 @@ abstract class abstractController extends Controller
             $iDisplayLength = $request->get('iDisplayLength', 25);
             $qb->setFirstResult($iDisplayStart);
             $qb->setMaxResults($iDisplayLength);
-            
             //$query_sql = $qb->getQuery()->getSql();
             //var_dump($query_sql);
             //exit;            
-            
-            $result = $qb->getQuery()->getResult();
+            $result = $em->getRepository("BootStrapUserBundle:User")->setTranslatableHints($qb->getQuery(), $locale, false, true)->getResult();
         } else {
             //$query_sql = $qb->getQuery()->getSql();
             //var_dump($query_sql);
             //exit;
-            
-            $result = $qb->getQuery()->getSingleScalarResult();
+        	$result = count($em->getRepository("BootStrapUserBundle:User")->setTranslatableHints($qb->getQuery(), $locale, false, true)->getResult());
         }
         
         return $result;
@@ -662,14 +673,11 @@ abstract class abstractController extends Controller
             	    $token = str_replace($replace, '', $string, $count);
             	    if ($count == 1) {
             	    	return strtoupper($token);
-            	    } else {
-            	    	return false;
             	    }
             	}
         	}
-        } else {
-        	return false;
         }
+        return false;
     }
 
     /**

@@ -55,12 +55,6 @@ $GLOBALS['ENTITIES']['RESTRICTION_BY_ROLES']= array(
 //         'PiApp\GedmoBundle\Entity\Translation\BlockTranslation' => true,
 //         'PiApp\GedmoBundle\Entity\Content' => true,
 //         'PiApp\GedmoBundle\Entity\Translation\ContentTranslation' => true,
-//         'PiApp\GedmoBundle\Entity\News' => true,
-//         'PiApp\GedmoBundle\Entity\Translation\NewsTranslation' => true,
-//         'PiApp\GedmoBundle\Entity\Partner' => true,
-//         'PiApp\GedmoBundle\Entity\Translation\PartnerTranslation' => true,
-//         'PiApp\GedmoBundle\Entity\Pressrelease' => true,
-//         'PiApp\GedmoBundle\Entity\Translation\PressreleaseTranslation' => true,
 //         'PiApp\GedmoBundle\Entity\Contact' => true,
 //         'PiApp\GedmoBundle\Entity\Translation\ContactTranslation' => true,
 );
@@ -71,7 +65,8 @@ $GLOBALS['ENTITIES']['AUTHORIZATION_PREPERSIST']= array(
         'Proxies\PiAppGedmoBundleEntityMediaProxy'    => true,
         'Proxies\BootStrapMediaBundleEntityMediaProxy'    => true,    
         
-        'BootStrap\UserBundle\Entity\User' => true,
+		'BootStrap\UserBundle\Entity\User' => true,
+		'Proxies\__CG__\BootStrap\UserBundle\Entity\User'=> true,
         'Proxies\BootStrapUserBundleEntityUserProxy'=> true,
         
         'PiApp\AdminBundle\Entity\Contact'=> true,
@@ -84,7 +79,8 @@ $GLOBALS['ENTITIES']['AUTHORIZATION_PREUPDATE']= array(
         'Proxies\PiAppGedmoBundleEntityMediaProxy'    => true,
         'Proxies\BootStrapMediaBundleEntityMediaProxy'    => true,    
         
-        'BootStrap\UserBundle\Entity\User' => true,
+		'BootStrap\UserBundle\Entity\User' => true,
+		'Proxies\__CG__\BootStrap\UserBundle\Entity\User'=> true,
         'Proxies\BootStrapUserBundleEntityUserProxy'=> true,
         
         'PiApp\AdminBundle\Entity\Contact'=> true,
@@ -101,7 +97,8 @@ $GLOBALS['ENTITIES']['AUTHORIZATION_PREREMOVE']= array(
         'Proxies\PiAppGedmoBundleEntityMediaProxy'    => true,
         'Proxies\BootStrapMediaBundleEntityMediaProxy'    => true,    
         
-        'BootStrap\UserBundle\Entity\User' => true,
+		'BootStrap\UserBundle\Entity\User' => true,
+		'Proxies\__CG__\BootStrap\UserBundle\Entity\User'=> true,
         'Proxies\BootStrapUserBundleEntityUserProxy'=> true,
         
         'PiApp\AdminBundle\Entity\Contact'=> true,

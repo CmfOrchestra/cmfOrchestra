@@ -73,24 +73,23 @@ class PiLuceneManager extends PiCoreManager implements PiSearchLuceneManagerBuil
      */
     public function renderSource($id, $lang = '', $params = null)
     {
-        str_replace('~', '~', $id, $count);
-    
-        if ($count == 1)
+        str_replace('~', '~', $id, $count);    
+        if ($count == 1) {
             list($JQcontainer, $JQservice) = explode('~', $this->_Decode($id));
-        else
+        } else {
             throw new \InvalidArgumentException("you have not configure correctly the attibute id");
-    
-        if (!is_array($params))
+        }
+        if (!is_array($params)) {
             $params            = $this->paramsDecode($params);
-        else
+        } else {
             $this->recursive_map($params);
-    
-        $params['locale']    = $lang;
-        
-        if ( isset($GLOBALS['JQUERY'][$JQcontainer][$JQservice]) && $this->container->has($GLOBALS['JQUERY'][$JQcontainer][$JQservice]) )
+        }
+        $params['locale']    = $lang;        
+        if ( isset($GLOBALS['JQUERY'][$JQcontainer][$JQservice]) && $this->container->has($GLOBALS['JQUERY'][$JQcontainer][$JQservice]) ) {
             return $this->container->get('pi_app_admin.twig.extension.jquery')->FactoryFunction($JQcontainer, $JQservice, $params);
-        else
+        } else {
             throw new \InvalidArgumentException("you have not configure correctly the attibute id");
+        }
     }    
         
     /**
@@ -166,8 +165,7 @@ class PiLuceneManager extends PiCoreManager implements PiSearchLuceneManagerBuil
         // we get the page manager
         $pageManager      = $this->container->get('pi_app_admin.manager.page');
         // we set the object Translation Page by route
-        $pageManager->setPageByRoute($page->getRouteName());    
-
+        $pageManager->setPageByRoute($page->getRouteName());
         // we set the indexation of the locale translations of the page.
         $translationPage = $page->getTranslationByLocale($this->language);
         if ($translationPage instanceof \PiApp\AdminBundle\Entity\TranslationPage){
@@ -181,6 +179,12 @@ class PiLuceneManager extends PiCoreManager implements PiSearchLuceneManagerBuil
                 $sluggable_title         = $GLOBALS['ROUTE']['SLUGGABLE'][ $route ]['field_title'];
                 $sluggable_resume         = $GLOBALS['ROUTE']['SLUGGABLE'][ $route ]['field_resume'];
                 $sluggable_keywords        = $GLOBALS['ROUTE']['SLUGGABLE'][ $route ]['field_keywords'];
+                
+                if (isset($GLOBALS['ROUTE']['SLUGGABLE'][ $route ]['field_name']) && !empty($GLOBALS['ROUTE']['SLUGGABLE'][ $route ]['field_name'])) {
+                	$sluggable_field_name    = $GLOBALS['ROUTE']['SLUGGABLE'][ $route ]['field_name'];
+                } else {
+                	$sluggable_field_name    =   $sluggable_field_search;
+                }                
                 
                 $sluggable_title_tab = array_map(function($value) {
                     return ucwords($value);
@@ -197,7 +201,7 @@ class PiLuceneManager extends PiCoreManager implements PiSearchLuceneManagerBuil
                 $method_keywords     = "get".implode('', $sluggable_keywords_tab);            
                 
                 if (array_key_exists($sluggable_field_search, $match)){
-                    $entity    = $this->container->get('doctrine')->getManager()->getRepository($sluggable_entity)->getEntityByField($this->language, array('content_search' => array($sluggable_field_search =>$match[$sluggable_field_search])), 'object');
+                    $entity    = $this->container->get('doctrine')->getManager()->getRepository($sluggable_entity)->getEntityByField($this->language, array('content_search' => array($sluggable_field_name =>$match[$sluggable_field_search])), 'object');
                     if(is_object($entity) && method_exists($entity, $method_title)){
                         $indexValues['Title']     = $entity->$method_title();
                     }
@@ -217,7 +221,8 @@ class PiLuceneManager extends PiCoreManager implements PiSearchLuceneManagerBuil
 
             $indexValues['Key']         = "page:{$page->getId()}:{$this->language}:{$pathInfo}";
             $indexValues['Route']     = $page->getRouteName();
-            $indexValues['Contents'] = $this->deleteTags($pageManager->render($this->language)->getContent());        
+            //$indexValues['Contents'] = $this->deleteTags($pageManager->render($this->language)->getContent());
+            $indexValues['Contents'] = $this->deleteTags(file_get_contents($this->container->get('request')->getUriForPath('') . $pathInfo));
             $indexValues['Keywords'] = $translationPage->getMetaKeywords();
             $indexValues['Subject']     = $translationPage->getMetaDescription();    
 
@@ -241,18 +246,15 @@ class PiLuceneManager extends PiCoreManager implements PiSearchLuceneManagerBuil
     public function deletePage(\PiApp\AdminBundle\Entity\Page $page)
     {
         // Open the index
-        self::open($this->_indexPath);
-        
+        self::open($this->_indexPath);        
         // Search for documents with the same route_name.
-        $hits    = self::$_index->find('Route:'.$page->getRouteName());
-            
+        $hits    = self::$_index->find('Route:'.$page->getRouteName());            
         // Delete any documents found.
         foreach ($hits as $hit) {
             self::$_index->delete($hit->id);
             //print_r($hit->getDocument()->Route);
             //print_r('<br />');
-        }            
-        
+        }                    
         // Commit the index
         self::commit();
     }
@@ -273,7 +275,7 @@ class PiLuceneManager extends PiCoreManager implements PiSearchLuceneManagerBuil
     {
         $ids          = null;
         $all_tag_page = $this->searchPagesByQuery($query, $options, $locale);
-        
+        //
         if (is_array($all_tag_page)){
             foreach($all_tag_page as $key => $tags){
                 str_replace(':'.$locale.':', ':'.$locale.':', $tags['Key'], $count);
@@ -329,26 +331,26 @@ class PiLuceneManager extends PiCoreManager implements PiSearchLuceneManagerBuil
         try {
             if (isset($options) && is_array($options) && (count($options) >= 1) ){
                 $options_values = array_map(function($key, $value) {
-                    if (in_array($value, array("true")))
+                    if (in_array($value, array("true"))) {
                         return 1;
-                    elseif (in_array($value, array("false")))
-                    return 0;
-                    elseif (!is_array($value) && (preg_match_all("/[0-9]+/",$value, $nbrs, PREG_SET_ORDER)) )
-                    return intval($value);
-                    else
+                    } elseif (in_array($value, array("false"))) {
+                        return 0;
+                    } elseif (!is_array($value) && (preg_match_all("/[0-9]+/",$value, $nbrs, PREG_SET_ORDER)) ) {
+                        return intval($value);
+                    } else {
                         return $value;
+                    }
                 }, array_keys($options),array_values($options));
                 $options = array_combine(array_keys($options), $options_values);
-            }
-            
-            if (empty($query))
+            }            
+            if (empty($query)) {
                 return null;
-            else
+            } else {
                 $query = $this->container->get('pi_app_admin.string_manager')->minusculesSansAccents($query);
-            
-            if (empty($locale))
+            }
+            if (empty($locale)) {
                 $locale = $this->container->get('request')->getLocale();
-            
+            }            
             $options_default = array(
                     'searchBool'         => true,
                     'searchBoolType'     => 'OR',
@@ -358,23 +360,20 @@ class PiLuceneManager extends PiCoreManager implements PiSearchLuceneManagerBuil
                     'searchFields'         => '*',
                     'searchMaxResultByWord' => 5,
             );
-            
-            if (is_array($options))
+            if (is_array($options)) {
                 $options     = array_merge($options_default, $options);
-            else
+            } else {
                 $options     = $options_default;
-            
+            }            
             if ($options['searchBool']){
                 $q_string      = $this->container->get('pi_app_admin.string_manager')->cleanWhitespace($query);
                 $q_array     = explode(' ', $q_string);
             
                 if ($options['searchByMotif']){
-                    print_r($options['searchByMotif']);
                     $q_array = array_map(function($value) {
                         return $value.'*';
                     }, array_values($q_array));
                 }
-            
                 switch ($options['searchBoolType']) {
                     case ('OR') :
                         $new_query = implode(' OR ', $q_array);
@@ -385,42 +384,36 @@ class PiLuceneManager extends PiCoreManager implements PiSearchLuceneManagerBuil
                     default:
                         break;
                 }
-                    
-            }else
+            } else {
                 $new_query = $query;
-            
+            }            
             // Open the index.
-            self::open($this->_indexPath);
-            
+            self::open($this->_indexPath);            
             // Set minimum prefix length.
-            \Zend_Search_Lucene_Search_Query_Wildcard::setMinPrefixLength($options['setMinPrefixLength']);
-            
+            \Zend_Search_Lucene_Search_Query_Wildcard::setMinPrefixLength($options['setMinPrefixLength']);            
             // Set result set limit.
-            \Zend_Search_Lucene::setResultSetLimit($options['getResultSetLimit']);
-            
+            \Zend_Search_Lucene::setResultSetLimit($options['getResultSetLimit']);            
             // Performs a query against the index.
-            if (is_array($options['searchFields']) && ($query != "Key:*")){
-            
+            if (is_array($options['searchFields']) && ($query != "Key:*")) {            
                 $fields_vars = "\$hits = self::\$_index->find(\$new_query,";
-                $i = 0;
-                    
-                foreach($options['searchFields'] as $key => $valuesField){
-                    $sortField     = $valuesField["sortField"];
-            
-                    if (isset($valuesField["sortType"]) && !empty($valuesField["sortType"]))
+                $i = 0;                    
+                foreach ($options['searchFields'] as $key => $valuesField) {
+                    $sortField     = $valuesField["sortField"];            
+                    if (isset($valuesField["sortType"]) && !empty($valuesField["sortType"])) {
                         $sortType = $valuesField["sortType"];
-                    else
+                    } else {
                         $sortType = SORT_STRING;
-            
-                    if (isset($valuesField["sortOrder"]) && !empty($valuesField["sortOrder"]))
+                    }            
+                    if (isset($valuesField["sortOrder"]) && !empty($valuesField["sortOrder"])) {
                         $sortOrder     = $valuesField["sortOrder"];
-                    else
+                    } else {
                         $sortOrder     = $valuesField["sortOrder"];
-            
-                    if ($i == 0)
+                    }            
+                    if ($i == 0) {
                         $fields_vars .=  " \"$sortField\", $sortType, $sortOrder";
-                    else
+                    } else {
                         $fields_vars .=  ", \"$sortField\", $sortType, $sortOrder";
+                    }
                     $i++;
                 }
                 $fields_vars .= ");";
@@ -456,34 +449,32 @@ class PiLuceneManager extends PiCoreManager implements PiSearchLuceneManagerBuil
             if (isset($hits) && is_array($hits)){
                 foreach ($hits as $hit) {
                     $field      = $hit->getDocument()->getFieldNames();
-            
-                    if (in_array('Key', $field))
+                    if (in_array('Key', $field)) {
                         $data['Key']        = $hit->getDocument()->Key;
-                    else
+                    } else {
                         $data['Key']        = "";
-            
-                    if (in_array('Route', $field))
+                    }
+                    if (in_array('Route', $field)) {
                         $data['Route']        = $hit->getDocument()->Route;
-                    else
+                    } else {
                         $data['Route']        = "";
-            
-                    if (in_array('Title', $field))
+                    }
+                    if (in_array('Title', $field)) {
                         $data['Title']        = utf8_decode($hit->getDocument()->Title);
-                    else
+                    } else {
                         $data['Title']        = "";
-            
-                    if (in_array('Keywords', $field))
+                    }
+                    if (in_array('Keywords', $field)) {
                         $data['Keywords']    = utf8_decode($hit->getDocument()->Keywords);
-                    else
+                    } else {
                         $data['Keywords']        = "";
-            
-                    if (in_array('ModDate', $field))
+                    }
+                    if (in_array('ModDate', $field)) {
                         $data['ModDate']    = $hit->getDocument()->ModDate;
-                    else
+                    } else {
                         $data['ModDate']        = "";
-            
-                    $data['MaxResultByWord'] = $options['searchMaxResultByWord'];
-            
+                    }
+                    $data['MaxResultByWord'] = $options['searchMaxResultByWord'];            
                     $result_search[] = $data;
                 }
             }
@@ -509,23 +500,17 @@ class PiLuceneManager extends PiCoreManager implements PiSearchLuceneManagerBuil
     public function contentPage($Etag, $match_path, $Query = null, $MaxResultByWord = 5, $class = "", $MaxLimitCara = 0)
     {
         $body = "";        
-        
         $searchWords    = explode(' ', strtolower($Query));
         $result_search    = null;        
-
         // IMPORTANT! we need these values ​​in another controller for example.
-        $_GET = array_merge($match_path, $_GET);
-        
+        $_GET = array_merge($match_path, $_GET);        
         try {
             // we get the content of the page.
             $body = $this->container->get('pi_app_admin.caching')->renderResponse($Etag)->getContent();
-            
             // we delete all contents of tags which are given in params (and all tags which are inside).
             $body = $this->deleteTags($body);
-            
             // we get the only words of the body content of the page.
             $body = \Zend_Search_Lucene_Document_Html::loadHTML($body, false)->getFieldUtf8Value('body');
-            
             foreach($searchWords as $key => $word){
                 $new_word = strtolower($word);
                 $new_word = str_replace("e", "#@@@#", $new_word);
@@ -537,16 +522,17 @@ class PiLuceneManager extends PiCoreManager implements PiSearchLuceneManagerBuil
             
                 $matches_word          = preg_split("#$new_word#i", $body);
                     
-                if (($MaxLimitCara - strlen($word)) % 2 == 0)
+                if (($MaxLimitCara - strlen($word)) % 2 == 0) {
                     $maxLimitSegment = ($MaxLimitCara - strlen($word)) / 2;
-                else
+                } else {
                     $maxLimitSegment = ($MaxLimitCara - strlen($word) +1) / 2;
+                }
             
                 foreach($matches_word as $key => $value)
                 {
                     if ($key < intval($MaxResultByWord))
                     {
-                        if ($MaxLimitCara != 0){
+                        if ($MaxLimitCara != 0) {
                             $words            = explode(' ', $value);
                             $words_inverse    = array_reverse($words);
                             $inverse_chaine = implode(' ', $words_inverse);
@@ -556,32 +542,31 @@ class PiLuceneManager extends PiCoreManager implements PiSearchLuceneManagerBuil
                             $words_inverse    = explode(' ', $inverse_chaine);
                             $words            = array_reverse($words_inverse);
                             $Contents        = implode(' ', $words);
-                        }else
+                        } else {
                             $Contents        = $value;
+                        }
             
                         if (isset($matches_word[$key+1])){
-                            if (!empty($class))
+                            if (!empty($class)) {
                                 $Contents        .= "<span class='$class' >" . strtoupper($word) . '</span>';
-                            else
+                            } else {
                                 $Contents        .= "<span style='color:white;background-color:black;font-size:13;font-weight:bold;' >" . strtoupper($word) . '</span>';
-                                
-                            if ($MaxLimitCara == 0)
+                            }
+                            if ($MaxLimitCara == 0) {
                                 $Contents        .= $matches_word[$key+1];
-                            else{
+                            } else {
                                 $Contents        .= $this->container->get('pi_app_admin.string_manager')->truncate($matches_word[$key+1], $maxLimitSegment, '');
                             }
                         }
                         $result_search[] = $Contents;
                     } // end if
                 } // end foreach
-                    
             }
             
             return implode(' ', $result_search);            
         } catch (\Exception $e) {
             return '';
         }
-        
     }    
     
     /**
@@ -597,8 +582,7 @@ class PiLuceneManager extends PiCoreManager implements PiSearchLuceneManagerBuil
      */
     public static function deleteTags($body)
     {
-        $tags = self::$_delete_tags;
-        
+        $tags = self::$_delete_tags;        
         foreach($tags as $key => $tag){
             if (preg_match_all("/<{$tag}[^>]*>([^`]*?)<\/{$tag}>/i", $body, $allTags, PREG_SET_ORDER)){
                 $body = preg_replace("/<{$tag}[^>]*>([^`]*?)<\/{$tag}>/i", '', $body);

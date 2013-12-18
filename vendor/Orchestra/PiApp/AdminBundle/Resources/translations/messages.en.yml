@@ -7,7 +7,8 @@ pi.contextmenu.page.structure: Show the structure of the page
 pi.contextmenu.widget.add: Add a widget
 pi.contextmenu.page.refresh: Refresh page
 pi.contextmenu.page.add: Add a page
-pi.contextmenu.page.update: Edit Page
+pi.contextmenu.page.update: Edit the Page
+pi.contextmenu.page.copy: Copy the page
 pi.contextmenu.page.indexation: Indexing of page
 pi.contextmenu.page.desindexation: removing indexation of page
 pi.contextmenu.image.view: Viewer
@@ -20,6 +21,7 @@ pi.move-up : Move up
 pi.move-down : Move down
 pi.show : Show
 pi.add : Add
+pi.add.name : Addition
 pi.edit : edit
 pi.edit.name : Edition
 pi.update : Update
@@ -29,6 +31,9 @@ pi.delete.anme : Deletion
 pi.create : Create
 pi.create.name : Creation
 pi.save : Save
+pi.save.name : Backup
+pi.archive: Archive
+pi.archive.name: Archiving
 pi.refresh : Refresh
 pi.admin : Administrator
 pi.allwidgets : All Widgets
@@ -86,6 +91,7 @@ pi.grid.action.row_disable: Disable
 pi.grid.action.row_delete: Delete
 pi.grid.action.row_deleted: Deleted
 pi.grid.action.row_archive: Archive
+pi.grid.action.row_archived: Archived
 pi.grid.action.select: Selection
 pi.grid.action.select_all: Select all
 pi.grid.action.select_none: Deselect all
@@ -108,6 +114,16 @@ pi.form.tab.box.delete: Delete
 pi.form.title.default.create: Create form
 pi.form.title.default.update: Update form
 
+pi.form.label.role: Role
+pi.form.label.role_subscriber: Subscriber
+pi.form.label.role_member: Member
+pi.form.label.role_user: User
+pi.form.label.role_provider: Provider
+pi.form.label.role_customer: Customer
+pi.form.label.role_editor: Editor
+pi.form.label.role_admin: Administrator
+pi.form.label.role_super_admin: Super administrator
+
 pi.form.label.date.publication: Publication date
 pi.form.label.date.creation: Created date
 pi.form.label.date.updating: Updated date
@@ -116,6 +132,7 @@ pi.form.label.date.expired: Expiration date
 pi.form.label.date.start: Start Date
 pi.form.label.date.end: End Date
 
+pi.form.label.media.picture.no-format: No image for this format
 pi.form.label.media.picture: Picture
 pi.form.label.media.picture.miniature: Miniature
 pi.form.label.media.file: File
@@ -141,6 +158,8 @@ pi.form.label.field.url: Link
 pi.form.label.field.blank: Blank link HTML
 pi.form.label.field.choice: Choice
 pi.form.label.field.type: Type
+pi.form.label.field.tag: Tag
+pi.form.label.field.topic: Topic
 pi.form.label.field.author: Author
 pi.form.label.field.group: Group
 pi.form.label.field.user: User

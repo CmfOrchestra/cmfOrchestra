@@ -89,8 +89,8 @@ class PiSearchManager extends PiWidgetExtension
      *                    <template>searchlucene-result.html.twig</template>
      *                    <MaxResults></MaxResults>
      *                  <lucene>
-      *                      <action>renderDefault</action>
-     *                        <menu>searchlucene</menu>
+      *                      <action>renderPage</action>
+     *                        <menu>searchpage</menu>
      *                        <searchBool>true</searchBool>
      *                        <searchBoolType>AND</searchBoolType>
      *                        <searchByMotif>true</searchByMotif>

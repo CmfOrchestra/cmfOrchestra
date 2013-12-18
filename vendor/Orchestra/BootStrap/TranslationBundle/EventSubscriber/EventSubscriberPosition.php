@@ -106,8 +106,8 @@ class EventSubscriberPosition  extends abstractListener implements EventSubscrib
         
         $result                    = $this->getSortableOrders($eventArgs);
         $sort_position_by_and    = $result['sort_position_by_and'];
-        $sort_position_by_where    = $result['sort_position_by_where'];        
-        
+        $sort_position_by_where    = $result['sort_position_by_where'];    
+
         if ( $this->isUsernamePasswordToken() && method_exists($entity, 'setPosition') && method_exists($entity, 'getPosition') )
         {
             $entity_table     = $this->getOwningTable($eventArgs, $entity);
@@ -199,8 +199,7 @@ class EventSubscriberPosition  extends abstractListener implements EventSubscrib
         if ( $this->isUsernamePasswordToken() && method_exists($entity, 'setPosition') && method_exists($entity, 'getPosition') )
         {
             $entity_table    = $this->getOwningTable($eventArgs, $entity);
-            $remove_position = $entity->getPosition();
-            
+            $remove_position = $entity->getPosition();            
             // Is conversely incremented by 1 every table field whose position is greater than the remove position.
             $query     = "UPDATE $entity_table mytable SET mytable.position = mytable.position - 1 WHERE ( (mytable.position >= ?) AND (mytable.id != ?) $sort_position_by_and )";
             $result = $this->_connexion($eventArgs)->executeUpdate($query, array($remove_position, $entity->getId()));
@@ -220,35 +219,37 @@ class EventSubscriberPosition  extends abstractListener implements EventSubscrib
         
         $result                    = $this->getSortableOrders($eventArgs);
         $sort_position_by_and    = $result['sort_position_by_and'];
-        $sort_position_by_where    = $result['sort_position_by_where'];         
+        $sort_position_by_where    = $result['sort_position_by_where'];   
         
         if ( $this->isUsernamePasswordToken() && method_exists($entity, 'setPosition') && method_exists($entity, 'getPosition') )
         {
             $entity_table   = $this->getOwningTable($eventArgs, $entity);
             $new_position    = $entity->getPosition();
-            
             // if the position has not been given
-            if (is_null($new_position) || empty($new_position) ){
-                // we select the max value of the table.
-                $query_max     = "SELECT position FROM $entity_table mytable $sort_position_by_where ORDER BY mytable.position DESC LIMIT 1";
-                $max         = $this->_connexion($eventArgs)->fetchColumn($query_max);
-                
-                // we set the position value to (max +1)
-                $entity->setPosition($max+1);
+            if (is_null($new_position) || empty($new_position) ) {
+                if (!isset($_GET['_subscriber_position_max'][ get_class($entity) ]) || empty($_GET['_subscriber_position_max'][ get_class($entity) ])) {
+                	// we select the max value of the table.
+                	$query_max     = "SELECT position FROM $entity_table mytable $sort_position_by_where ORDER BY mytable.position DESC LIMIT 1";
+                	$new_max         = intVal($this->_connexion($eventArgs)->fetchColumn($query_max)) + 1;
+                } else {
+                	$new_max = intVal($_GET['_subscriber_position_max'][ get_class($entity) ]) + 1;
+                }
+                // we set the position value.
+                $entity->setPosition($new_max);
+                // we save the new max value.
+                $_GET['_subscriber_position_max'][ get_class($entity) ] = $new_max;
             } else {
                 // if the position is smaller or equal to zero.
                 if ($new_position <= 0){
                     // we set the position value to 1.
-                    $entity->setPosition(1);
-                    
+                    $entity->setPosition(1);                    
                     // Is incremented by 1 every table field whose position is greater or equal to 1.
                     $query     = "UPDATE $entity_table mytable SET mytable.position = mytable.position + 1 WHERE (mytable.position >= '1') $sort_position_by_and";
                     $result = $this->_connexion($eventArgs)->executeUpdate($query, array());
                 } else {
                     // we select all rows that have the same position of the entity.
                     $query     = "SELECT id FROM $entity_table mytable WHERE (mytable.position = '{$new_position}') $sort_position_by_and ORDER BY mytable.position";
-                    $rows     = $this->_connexion($eventArgs)->fetchAll($query);
-                    
+                    $rows     = $this->_connexion($eventArgs)->fetchAll($query);                    
                     // If a field in the table has the same position as the new position
                     if (count($rows) >= 1){
                         // Is incremented by 1 every table field whose position is greater than the new position.
@@ -258,7 +259,7 @@ class EventSubscriberPosition  extends abstractListener implements EventSubscrib
                     }
                 }                
             }
-        }        
+        }  
     }    
     
     /**

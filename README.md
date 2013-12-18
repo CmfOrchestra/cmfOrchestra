@@ -110,8 +110,6 @@ new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
 
 ## composer.json
 
-Register all namespace before using the bundle. Add the following line to your `app/autoload.php` 
-
 ``` json
 
     {

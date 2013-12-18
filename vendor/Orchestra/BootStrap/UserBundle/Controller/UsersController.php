@@ -32,6 +32,8 @@ use BootStrap\UserBundle\Entity\User;
 use BootStrap\UserBundle\Form\Type\UsersFormType;
 use BootStrap\UserBundle\Form\Type\UsersNewFormType;
 
+use Symfony\Component\Form\FormError;
+
 
 /**
  * Userscontroller.
@@ -125,25 +127,35 @@ class UsersController extends abstractController
         // we define the type Ajax or not
         $is_Server_side = true;
         if ( ($request->isXmlHttpRequest() && $is_Server_side) ||  !$is_Server_side) {
-            $query                = $em->getRepository("BootStrapUserBundle:User")->getAllByParams('', null, 'ASC', '', false);
-            $query
+            $query	= $em->getRepository("BootStrapUserBundle:User")->createQueryBuilder('a')
             ->andWhere("a.roles NOT LIKE '%ROLE_SUBSCRIBER%'")
             ->andWhere("a.roles NOT LIKE '%ROLE_MEMBER%'")
             ->andWhere("a.roles NOT LIKE '%ROLE_PROVIDER%'")
-            ->andWhere("a.roles NOT LIKE '%ROLE_CUSTOMER%'")
-            ->orderBy('a.created_at', 'DESC');
+            ->andWhere("a.roles NOT LIKE '%ROLE_CUSTOMER%'");
         }
         
         if ($request->isXmlHttpRequest() && $is_Server_side) {
-           $aColumns    = array('a.id','a.nickname','a.name','a.email', "case when a.roles LIKE '%ROLE_SUPER_ADMIN%' then 'ROLE_SUPER_ADMIN' when a.roles LIKE '%ROLE_ADMIN%' then 'ROLE_ADMIN' when a.roles LIKE '%ROLE_USER%' then 'ROLE_USER' when a.roles LIKE '%ROLE_PROVIDER%' then 'ROLE_PROVIDER' when a.roles LIKE '%ROLE_CUSTOMER%' then 'ROLE_CUSTOMER' when a.roles LIKE '%ROLE_MEMBER%' then 'ROLE_MEMBER' when a.roles LIKE '%ROLE_SUBSCRIBER%' then 'ROLE_SUBSCRIBER' else 'Autres' end", 'a.created_at', 'a.updated_at', "case when a.enabled = 1 then 'Actif' when a.archive_at IS NOT NULL and a.archived = 1  then 'Supprime' else 'En attente d\'activation' end", "a.enabled");
+           $aColumns    = array(
+           		'a.id',
+           		'a.nickname',
+           		'a.name',
+           		'a.email',
+           		"case when a.roles LIKE '%ROLE_SUPER_ADMIN%' then 'ROLE_SUPER_ADMIN' when a.roles LIKE '%ROLE_ADMIN%' then 'ROLE_ADMIN' when a.roles LIKE '%ROLE_USER%' then 'ROLE_USER' when a.roles LIKE '%ROLE_EDITOR%' then 'ROLE_EDITOR' when a.roles LIKE '%ROLE_MODERATOR%' then 'ROLE_MODERATOR' when a.roles LIKE '%ROLE_DESIGNER%' then 'ROLE_DESIGNER' when a.roles LIKE '%ROLE_CONTENT_MANAGER%' then 'ROLE_CONTENT_MANAGER' else 'Autres' end",
+           		'a.created_at',
+           		'a.updated_at',
+           		"case when a.enabled = 1 then 'Actif' when a.archive_at IS NOT NULL and a.archived = 1  then 'Supprime' else 'En attente dactivation' end",
+           		"a.enabled"
+           );
            $q1 = clone $query;
            $q2 = clone $query;
            $result    = $this->createAjaxQuery('select',$aColumns, $q1, 'a', null, array(
                             0 =>array('column'=>'a.created_at', 'format'=>'Y-m-d', 'idMin'=>'minc', 'idMax'=>'maxc'),
+           					1 =>array('column'=>'a.updated_at', 'format'=>'Y-m-d', 'idMin'=>'minu', 'idMax'=>'maxu')
                       )
            );
            $total    = $this->createAjaxQuery('count',$aColumns, $q2, 'a', null, array(
                             0 =>array('column'=>'a.created_at', 'format'=>'Y-m-d', 'idMin'=>'minc', 'idMax'=>'maxc'),
+           					1 =>array('column'=>'a.updated_at', 'format'=>'Y-m-d', 'idMin'=>'minu', 'idMax'=>'maxu')
                       )
            );
         
@@ -159,40 +171,40 @@ class UsersController extends abstractController
               $row[] = $e->getId() . '_row_' . $e->getId();
               $row[] = $e->getId();
               
-              $row[] = $e->getNickname();
+              $row[] = (string) $e->getNickname();
               
-              $row[] = $e->getName();
+              $row[] = (string) $e->getName();
 
-              $row[] = $e->getEmail();           
+              $row[] = (string) $e->getEmail();           
               
               if (is_array($e->getRoles())) {
                 $best_roles = $this->container->get('bootstrap.Role.factory')->getBestRoles($e->getRoles());
                 if (is_string($best_roles) && !in_array($best_roles, array('ROLE_SUPER_ADMIN', 'ROLE_ADMIN', 'ROLE_USER', 'ROLE_SUBSCRIBER', 'ROLE_MEMBER', 'ROLE_CUSTOMER', 'ROLE_PROVIDER'))) {
                     $best_roles = 'Autres';
                 }
-              	$row[] = implode(",", $best_roles);
+              	$row[] = (string) implode(",", $best_roles);
               } else {
               	$row[] = "";
               }             
               
               if (is_object($e->getCreatedAt())) {
-                  $row[] = $e->getCreatedAt()->format('Y-m-d');
+                  $row[] = (string) $e->getCreatedAt()->format('Y-m-d');
               } else {
                   $row[] = "";
               }
               
               if (is_object($e->getUpdatedAt())) {
-              	$row[] = $e->getUpdatedAt()->format('Y-m-d');
+              	$row[] = (string) $e->getUpdatedAt()->format('Y-m-d');
               } else {
               	$row[] = "";
               }              
               
-              $row[] = $this->container->get('pi_app_admin.twig.extension.tool')->statusFilter($e);
+              $row[] = (string) $this->container->get('pi_app_admin.twig.extension.tool')->statusFilter($e);
               
               // create action links
               $route_path_edit = $this->container->get('pi_app_admin.twig.extension.route')->getUrlByRouteFunction('users_edit', array('id'=>$e->getId(), 'NoLayout'=>$NoLayout, 'category'=>''));
               $actions = '<a href="'.$route_path_edit.'" title="'.$this->container->get('translator')->trans('pi.grid.action.edit').'" class="button-ui-edit info-tooltip" >'.$this->container->get('translator')->trans('pi.grid.action.edit').'</a>'; //actions
-              $row[] = $actions;     
+              $row[] = (string) $actions;     
               
               $output['aaData'][] = $row ;
             }
@@ -218,6 +230,7 @@ class UsersController extends abstractController
     public function newAction()
     {
         $entity = new User();
+        $entity->setPermissions(array('VIEW', 'EDIT', 'CREATE', 'DELETE'));        
         $form   = $this->createForm(new UsersNewFormType(), $entity);
 
         return $this->render('PiAppTemplateBundle:Template\\Login\\Users:new.html.twig', array(
@@ -233,7 +246,12 @@ class UsersController extends abstractController
         $form = $this->createForm(new UsersNewFormType(),$entity);
         $form->bind($request);
         
-        $data = $this->getRequest()->request->get($form->getName(), array());
+        $data = $request->get($form->getName(), array());
+        $user  = $em->getRepository('BootStrapUserBundle:User')->findOneBy(array('email' => $data["email"]));
+        if ($user) {
+        	$form->get('email')->addError(new FormError($this->container->get('translator')->trans('erreur.email.unique')));
+        }
+        
         if ($form->isValid()) {
             $entity->setUsernameCanonical($data["username"]);
             $entity->setEmailCanonical($data["email"]);
@@ -288,7 +306,18 @@ class UsersController extends abstractController
         }
         $editForm = $this->createForm(new UsersFormType(), $entity);
         $editForm->bind($request);
-        $data = $this->getRequest()->request->get($editForm->getName(), array());
+        
+        $old_email  = $entity->getEmail();
+        $data = $request->get($editForm->getName(), array());
+        $user  = $em->getRepository('BootStrapUserBundle:User')->findOneBy(array('email' => $data["email"]));
+        if ($user) {
+        	if($data["email"] != $old_email) {
+        		$editForm->get('email')->addError(new FormError($this->container->get('translator')->trans('erreur.email.unique')));
+        	}
+        }    
+        if(empty($data["plainPassword"]['first']) && empty($data["plainPassword"]['second'])) {
+        	unset($data["plainPassword"]);
+        }
         if ($editForm->isValid()) {
             $entity->setUsernameCanonical($data["username"]);
             $entity->setEmailCanonical($data["email"]);

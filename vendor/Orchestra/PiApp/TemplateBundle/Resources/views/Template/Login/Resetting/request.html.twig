@@ -61,45 +61,41 @@
 
 
     <section id="popin-passwordLost" class="popin forgotten-password">
-    <h1 class="tt2">Mot de passe oublié</h1>
-    <!-- <h1 class="tt7">oublié</h1> -->
-    
-    {% if success is not defined %}
-    <div class="intro" style="margin-bottom:20px;">
-        <p>Veuillez saisir votre identifant afin que nous puissions vous envoyer un formulaire de renouvellement de mot de passe</p>
-    </div>
-    {% endif %}
-            <p class="message-passlost" style="padding:0 7px"></p>
-
-
+	    <h1 class="tt2">Mot de passe oublié</h1>
+	    <!-- <h1 class="tt7">oublié</h1> -->
+	    
+	    {% if success is not defined %}
+	    <div class="intro" style="margin-bottom:20px;">
+	        <p>Veuillez saisir votre identifant afin que nous puissions vous envoyer un formulaire de renouvellement de mot de passe</p>
+	    </div>
+	    {% endif %}
+	    <p class="message-passlost" style="padding:0 7px"></p>
+	
         {% if invalid_username is defined %}
-            <p id="msg_error" style="color:red">Identifiant inconnu</p><br/>
+        <p id="msg_error" style="color:red">Identifiant inconnu</p><br/>
         {% endif %}
-
-    {% if success is defined %}
-        <p>{{ 'resetting.request.success'|trans()|raw }}</p>
-        <br/><br/>
-        {% if app.request.query.get('NoLayout') == "" %}
-            <a href="{{ path('admin_homepage') }}" class="button" style="float:right;"> Retour</a>
-        {% endif %}
-    {% else %}
-
-        <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" id="form-connexion-request">
-
-
-            <div class="row cf">
-                <label>Identifiant<span>*</span> :</label>
-                <input type="text" id="username" name="username" class="input required"/>
-                <input type="hidden" 	id="routereset"	name="routereset" value="page_route_name_reset" />
-                <input type="hidden" 	id="template"  	name="template"  value="PiAppTemplateBundle:Template\\Login\\Resetting:request.html.twig" />
-            </div>
-            <br/>
-            <input type="submit" value="Envoyer" class="button"/>
-            {% if app.request.query.get('NoLayout') == "" %}
-                <a href="{{ path('admin_homepage') }}" class="button" style="float:right;"> Retour</a>
-            {% endif %}
-        </form>
-    {% endif %}
-        </section>
+	
+	    {% if success is defined %}
+		    <p>{{ 'resetting.request.success'|trans()|raw }}</p>
+		    <br/><br/>
+		    {% if app.request.query.get('NoLayout') == "" %}
+		        <a href="{{ path('admin_homepage') }}" class="button" style="float:right;"> Retour</a>
+		    {% endif %}
+	    {% else %}
+	        <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" id="form-connexion-request">
+	            <div class="row cf">
+	                <label>Identifiant<span>*</span> :</label>
+	                <input type="text" id="username" name="username" class="input required"/>
+	                <input type="hidden" 	id="routereset"	name="routereset" value="page_route_name_reset" />
+	                <input type="hidden" 	id="template"  	name="template"  value="PiAppTemplateBundle:Template\\Login\\Resetting:request.html.twig" />
+	            </div>
+	            <br/>
+	            <input type="submit" value="Envoyer" class="button"/>
+	            {% if app.request.query.get('NoLayout') == "" %}
+	                <a href="{{ path('admin_homepage') }}" class="button" style="float:right;"> Retour</a>
+	            {% endif %}
+	        </form>
+	    {% endif %}
+    </section>
 </div>
-        {% endblock content %}
+{% endblock content %}

@@ -32,14 +32,14 @@
 	        <tr>	            
 	            <th class="position" >Position</th>	        
 	        	<th>Id</th>	   
-	            <th>Categorie</th>         
-	            <th>Type</th>	            
-	            <th>Titre</th>	            
-	            <th>Image</th>
-	            <th>Créer</th>	              
-	            <th>Date</th>	
-	            <th>Actif</th>
-	            <th>Actions</th>
+	            <th>{{ 'pi.form.label.field.topic'|trans }}</th>         
+	            <th>{{ 'pi.form.label.field.type'|trans }}</th>	            
+	            <th>{{ 'pi.form.label.field.title'|trans }}</th>	            
+	            <th>{{ 'pi.form.label.media.picture'|trans }}</th>
+	            <th width="101px">{{ 'pi.create.name'|trans }}</th>	              
+	            <th width="101px">{{ 'pi.update.name'|trans }}</th>	
+	            <th width="51px">{{ 'pi.page.form.status'|trans }}</th>
+	            <th width="140px">Actions</th>
 	        </tr>
 	    </thead>
 	    <tbody>
@@ -85,24 +85,39 @@
 		    {% endfor %}
 	    {% endif %}
 	    </tbody>
+	    <tfoot>
+			<tr>
+				<th data-type="input"><input type="text" name="" value="Position" style="width:100%" /></th>
+				<th data-type="input"><input type="text" name="" value="Id" style="width:100%" /></th>
+				<th data-column='2' data-title="{{ 'pi.form.label.field.category'|trans }}"></th>
+				<th data-column='3' data-title="{{ 'pi.form.label.field.type'|trans }}" data-values='{"image":"{{ 'pi.form.label.media.picture'|trans }}","file":"{{ 'pi.form.label.media.file'|trans }}","youtube":"{{ 'youtube'|trans }}","dailymotion":"{{ 'dailymotion'|trans }}"}'></th>
+				<th data-column='4' data-title="{{ 'pi.form.label.field.title'|trans }}"></th>
+				<th data-type='input'><input type="text" name="" value="{{ 'pi.form.label.media.picture'|trans }}" style="width:100%" /></th>
+				<th data-column='6' data-title="{{ 'pi.create.name'|trans }}"></th>
+				<th data-column='7' data-title="{{ 'pi.update.name'|trans }}"></th>
+				<th data-column='8' data-title="{{ 'pi.page.form.status'|trans }}" data-values='{"1":"Actif","0":"En attente d activation"}'></th>
+				<th></th>
+			</tr>
+		</tfoot>	    
 	</table>
 	
 	{% set options_gridtabale = {'grid-name': 'grid_media', 'grid-type':'simple', 
 			'grid-server-side': isServerSide,
-			'grid-LengthMenu':25,
+			'grid-LengthMenu':20,
 			'grid-paginate':'true',
-			'grid-filters-active':'true',
+			'grid-filters-active':'false',
+			'grid-state-save' : 'false',
 			'grid-filter-date': {
-				'0': {'column' : 7, 'title-start': 'date min crea. ', 'title-end': 'date max crea.', 'right':'800', 'width':'183', 'format' : 'yy-mm-dd', 'idMin':'minc', 'idMax':'maxc'},
-                '1': {'column' : 8, 'title-start': 'date min mod. ', 'title-end': 'date max mod.', 'right':'590', 'width':'183', 'format' : 'yy-mm-dd', 'idMin':'minu', 'idMax':'maxu'},
+				'0': {'column' : 6, 'title-start': 'date min crea. ', 'title-end': 'date max crea.', 'right':'800', 'width':'183', 'format' : 'yy-mm-dd', 'idMin':'minc', 'idMax':'maxc'},
+                '1': {'column' : 7, 'title-start': 'date min mod. ', 'title-end': 'date max mod.', 'right':'590', 'width':'183', 'format' : 'yy-mm-dd', 'idMin':'minu', 'idMax':'maxu'},
             },
-			'grid-filters-select': ['0','1','2','4','5','6','7','8','9'],
+			'grid-filters-select': ['0','1','2','3','4','5','6','7','8','9'],
 			'grid-filters': { 
 					'4':'Type',
 					'5':'Titre',
 				},
 			'grid-sorting': { 
-					'7':'desc',
+					'6':'desc',
 				},
 			'grid-visible': {
 				'0':'false',

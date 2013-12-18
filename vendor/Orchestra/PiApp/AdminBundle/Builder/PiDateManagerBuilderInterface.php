@@ -27,6 +27,7 @@ interface PiDateManagerBuilderInterface
     public function parseTimestamp($date, $locale = null);
     public function createdAgoFilter(\DateTime $dateTime);
     public function RelativeTime(\DateTime $dateTime, $from = null);
+    public function NextDate(\DateTime $dateTime, $from = null);
     public function allMonths($locale);
     public function allDays($locale);
     public function nextOrLastList($year, $month, $day, $order, $number, $type = 'month', $format = 'Y-m-d');

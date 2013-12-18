@@ -1,0 +1,44 @@
+    /**
+     * Enabled {{ entity }} entities.
+     *
+     * @Route("/admin/gedmo/{{ entity|lower|replace({"\\": ''}) }}/select", name="admin_gedmo_{{ entity|lower|replace({"\\": '_'}) }}_selectentity_ajax")
+     * @Secure(roles="ROLE_USER")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @access  public
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public function selectajaxAction()
+    {
+    	$request = $this->container->get('request');
+    	$em		 = $this->getDoctrine()->getEntityManager();
+    	$locale = $this->container->get('request')->getLocale();
+    
+    	if ($request->isXmlHttpRequest()) {
+    		$query                = $em->getRepository("{{ bundle }}:{{ entity }}")->getAllByCategory('', null, '', '', false);
+    		$entities   = $em->getRepository("{{ bundle }}:{{ entity }}")->findTranslationsByQuery($locale, $query->getQuery(), 'object', false);
+    		$tab = array();
+    		foreach ($entities as $obj) {
+    			$content = $obj->getId();
+    			if ( method_exists($obj, 'getTitle') ) {
+    			    $title = $obj->translate($locale)->getTitle();
+    			    if ($title) {
+    				    $content .=  " - " .$title;
+    			    }
+    			}
+    			if ( method_exists($obj, 'getMedia') && ($obj->getMedia() instanceof \PiApp\GedmoBundle\Entity\Media)) {
+    				$content .= " <img width='100px' src=\"{{ media_url('".$obj->getMedia()->getImage()->getId()."', 'small', true, '".$obj->getUpdatedAt()->format('Y-m-d H:i:s')."', 'gedmo_media_') }}\" alt='Photo'/>";
+    			}
+    			$tab[] = array(
+    					'id' => $obj->getId(),
+    					'text' =>$this->container->get('twig')->render($content, array())
+    			);
+    		}
+    		$response = new Response(json_encode($tab));
+    		$response->headers->set('Content-Type', 'application/json');
+    
+    		return $response;
+    	} else {
+    		throw ControllerException::callAjaxOnlySupported(' selectajax');
+    	}
+    }  

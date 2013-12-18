@@ -204,7 +204,7 @@ class PiAuthenticationManager extends PiCoreManager implements PiTreeManagerBuil
     		    exit;
         	} else {
         		$flash = $this->container->get('translator')->trans('pi.session.flash.resetting.error');
-        		$this->container->get('request')->getSession()->getFlashBag()->add('success', $flash);
+        		$this->container->get('request')->getSession()->getFlashBag()->add('error', $flash);
         	}
         }        
     	if (isset($params['clearflashes'])) {

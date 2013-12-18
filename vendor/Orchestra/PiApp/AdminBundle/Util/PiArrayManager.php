@@ -30,9 +30,13 @@ use PiApp\AdminBundle\Builder\PiArrayManagerBuilderInterface;
 class PiArrayManager implements PiArrayManagerBuilderInterface 
 {
     
-    /**
+   /**
      * set recursivly a method in value of a table.
-     *
+     * 
+     * <code>
+     * 		$this->container->get('pi_app_admin.array_manager')->recursive_method($params, 'krsort');
+     * </code>
+     * 
      * @param    array        $array
      * @param    string        $method
      * @param    integer        level
@@ -40,16 +44,46 @@ class PiArrayManager implements PiArrayManagerBuilderInterface
      * 
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */    
-    public function recursive_method(array &$array, $method, $curlevel=0)
+    public static function recursive_method(array &$array, $method, $option = null, $curlevel=0)
     {
         foreach ($array as $k=>$v) {
             if (is_array($v)) {
-                $this->recursive_method($v, $method, $curlevel+1);
-            } else {
+                self::recursive_method($v, $method, $option, $curlevel+1);
+            } elseif (is_null($option)) {
                 $method($array);
+            } else {
+            	$method($array, $option);
             }
         }
     }
+    
+    /**
+     * array_map a entire array recursivly.
+     * 
+     * <code>
+     * 		$this->get("pi_app_admin.array_manager")->recursive_method_return($params, 'array_change_key_case', CASE_UPPER);
+     * </code>
+     * 
+     * @param    array      $array
+     * @param    string        $method
+     * @return array
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    public static function recursive_method_return(array &$array, $method, $option = null)
+    {
+    	if (!is_null($option)) {
+    		$array = $method($array, $option);
+    	} else {
+    		$array = $method($array);
+    	}
+		foreach ($array as $key => $value) {
+			if ( is_array($value) ) {
+				$array[$key] = self::recursive_method_return($value, $method, $option);
+			}
+		}
+		return $array;
+    }       
         
     /**
      * Trims a entire array recursivly.
@@ -503,7 +537,7 @@ class PiArrayManager implements PiArrayManagerBuilderInterface
         if (is_array($array) && !empty($array)){
             foreach($array as $key => $val){
                 if (is_array($val))
-                    $data->$key = $this->array_to_object($val);
+                    $data->$key = self::array_to_object($val);
                 else
                     $data->$key = $val ;
             }

@@ -62,17 +62,17 @@ class RouteTranslatorFactory extends AbstractFactory implements RouteTranslatorF
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      * @since 2012-02-23
      */
-    public function getRefererRoute($langue = '', $options = null)
+    public function getRefererRoute($langue = '', $options = null, $setLocale = false)
     {
         $request = $this->getContainer()->get('request');
-        
-        if ($langue != '')    {
-            // Record the language in session.
-            $request->setLocale('_locale', $langue);
-        } else {
+		//        
+        if ($langue == '')    {
             $langue = $request->getLocale();
         }
-        
+        if ($setLocale)    {
+        	// Record the language
+        	$request->setLocale('_locale', $langue);
+        }        
         // It tries to redirect to the original page.
         $old_url_path     = $request->headers->get('referer');
         $old_url           = str_replace($request->getUriForPath(''), '', $old_url_path);

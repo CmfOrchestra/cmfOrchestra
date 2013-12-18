@@ -75,10 +75,9 @@ class SecurityPermissionsType extends AbstractType
         parent::setDefaultOptions($resolver);
 
         $permissions = array();
-            
            //$query = $this->pool->getContainer()->get('bootstrap.user.repository')->findAllEnabled('permission');
            $query = $this->container->get('bootstrap.user.repository')->getRepository('permission')->getAvailablePermissions();
-        foreach ($query as $field => $value) {
+           foreach ($query as $field => $value) {
            if (isset($value['name']) && !isset($permission[ $value['name'] ])) {
                $permissions[ $value['name'] ] = $value['name'];
            }

@@ -1,0 +1,8 @@
+{% if is_granted('ROLE_USER') and not is_granted('ROLE_EDITOR') %}
+    {% set auth_ws_params = getParameter('ws.auth') %}    	
+    {% for domains in auth_ws_params.domains %}
+    	{% for domain in domains %}
+    		<img src="{{ domains.url }}?user={{ app.request.cookies.get('orchestra-ws-user-id') }}&application={{ app.request.cookies.get('orchestra-ws-application-id') }}&key={{ app.request.cookies.get('orchestra-ws-key') }}&expire=168000" width="0" border="0" style="position:absolute;display:none;" />
+    	{% endfor %}
+    {% endfor %}
+{% endif %}    	

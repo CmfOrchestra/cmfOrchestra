@@ -57,8 +57,10 @@ class HandlerLocale implements EventSubscriberInterface
        if ($locale && !empty($locale)) {
            $request->attributes->set('_locale', $request->cookies->get('_locale'));
            $request->setLocale($request->cookies->get('_locale'));
+           $_GET['_locale'] = $request->cookies->get('_locale');
        } else {
            $request->setLocale($this->defaultLocale);
+           $_GET['_locale'] = $this->defaultLocale;
        }
    }
    

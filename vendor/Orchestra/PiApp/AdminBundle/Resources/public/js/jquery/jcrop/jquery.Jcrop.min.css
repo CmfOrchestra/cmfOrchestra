@@ -27,3 +27,12 @@
 .jcrop-dark .jcrop-handle{-moz-border-radius:3px;-webkit-border-radius:3px;background-color:#FFF;border-color:#000;border-radius:3px;}
 .solid-line .jcrop-vline,.solid-line .jcrop-hline{background:#FFF;}
 .jcrop-holder img,img.jcrop-preview{max-width:none;}
+/* added to resolve the ajax applyed for croppping */
+.jcrop-holder div div img{
+    visibility: hidden !important;
+    width: ""  !important;
+    height: ""  !important;
+}
+.jcrop-holder img{
+    display:block !important;
+}

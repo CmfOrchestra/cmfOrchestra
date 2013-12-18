@@ -18,7 +18,7 @@ use PiApp\AdminBundle\Twig\Extension\PiJqueryExtension;
 use PiApp\AdminBundle\Exception\ExtensionException;
 
 /**
- * Veneer Jquery UI plugin
+ * Dialog Jquery UI plugin
  *
  * @category   Admin_Util
  * @package    Extension_jquery 
@@ -104,7 +104,6 @@ class PiDialogManager extends PiJqueryExtension
       * @return void
       *
       * @author (c) Etienne de Longeaux <etienne_delongeaux@hotmail.com>
-      * @author (c) Pedro Felix <contactpfelix@gmail.com>
       */
     protected function confirmdeleteAction($options = null)
     {        

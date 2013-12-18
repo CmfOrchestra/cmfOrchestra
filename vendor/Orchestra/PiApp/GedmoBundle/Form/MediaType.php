@@ -18,6 +18,9 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+use Symfony\Component\Validator\Constraints;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 /**
  * Description of the MediaType form.
  *
@@ -91,6 +94,12 @@ class MediaType extends AbstractType
                     ),
                     'required'  => false,
                 ))
+                ->add('updated_at',null,array(
+                		'attr'=>array('style'=>'display:none;'),
+                		"label_attr" => array(
+                				"style"=> 'display:none;',
+                		),
+                ))                
         ;
         
         if ($this->_simpleLink == "all"){
@@ -130,7 +139,10 @@ class MediaType extends AbstractType
                          "label_attr"     => array(
                                  "class"=> $this->_class,
                          ),
-                         'required'      => false,
+                         'required'      => true,
+                         'constraints' => array(
+                         		new Constraints\NotBlank(),
+                         ),                         
                  ))  
                  ->add('descriptif', 'textarea', array(
                  		'label'    => 'pi.form.label.field.description',
@@ -182,7 +194,10 @@ class MediaType extends AbstractType
         			"label_attr"     => array(
         					"class"=> $this->_class,
         			),
-        			'required'      => false,
+        			'required'      => true,
+        	        'constraints' => array(
+        	        		new Constraints\NotBlank(),
+        	        ),        	        
         	))
         	->add('descriptif', 'textarea', array(
         			'label'    => 'pi.form.label.field.description',
@@ -204,7 +219,10 @@ class MediaType extends AbstractType
         			"label_attr"     => array(
         					"class"=> $this->_class,
         			),
-        			'required'      => false,
+        			'required'      => true,
+        	        'constraints' => array(
+        	        		new Constraints\NotBlank(),
+        	        ),        	        
         	))
         	;                   
         } elseif ( ($this->_simpleLink == "simpleLink") || ($this->_simpleLink == "hidden") || ($this->_simpleLink == "simple") ){
