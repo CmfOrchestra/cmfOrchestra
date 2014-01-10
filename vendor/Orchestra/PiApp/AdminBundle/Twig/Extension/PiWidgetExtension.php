@@ -165,6 +165,12 @@ class PiWidgetExtension extends \Twig_Extension
         $source .=  "<config>\n";
         $source .=  "    <widgets>\n";
         
+        /////////// CSS/JS APPLYED
+        $source .=  "        <css>bundles/piappadmin/css/default1.css</css>\n";        
+        $source .=  "        <css>bundles/piappadmin/css/default2.css</css>\n";
+        $source .=  "        <js>bundles/piappadmin/css/default1.js</js>\n";
+        $source .=  "        <js>bundles/piappadmin/css/default2.js</js>\n";
+        
         /////////// USER WIDGET
         $source .=  "        <user>\n";
         $source .=  "            <controller>BootStrapUserBundle:User:_connexion_default</controller>\n";
@@ -348,11 +354,12 @@ class PiWidgetExtension extends \Twig_Extension
     {
         $this->container = $containerService;
         $this->language     = $this->container->get('request')->getLocale();
-        
-        if (isset($GLOBALS['WIDGET'][strtoupper($container)][strtolower($action)]))
+        //
+        if (isset($GLOBALS['WIDGET'][strtoupper($container)][strtolower($action)])) {
             $this->action      = $action;
-        else
+        } else {
             throw ExtensionException::serviceNotConfiguredCorrectly();
+        }
     }    
     
     /**
@@ -458,31 +465,30 @@ class PiWidgetExtension extends \Twig_Extension
      */
     final public function FactoryFunction($container, $actionName, $options = null)
     {
-        if ($this->isServiceSupported($container, $actionName)){
+        if ($this->isServiceSupported($container, $actionName)) {
             // Gestion des options
-            if (!isset($options['widget-id']) || empty($options['widget-id']))
+            if (!isset($options['widget-id']) || empty($options['widget-id'])) {
                 throw ExtensionException::optionValueNotSpecified('widget-id', __CLASS__);
-            if (!isset($options['widget-lang']) || empty($options['widget-lang']))
+            }
+            if (!isset($options['widget-lang']) || empty($options['widget-lang'])) {
                 throw ExtensionException::optionValueNotSpecified('widget-lang', __CLASS__);
-            
+            }            
             // we set params
-            $this->setParams($options);
-            
-            $method = "render" . ucfirst($this->action);
-            
+            $this->setParams($options);            
+            $method = "render" . ucfirst($this->action);            
             //print_r($method);
             //print_r($this->getServiceWidget()->getAction());
             //print_r($this->action);
             //print_r($this->service);
             //print_r($container);
-            //print_r($actionName);
-            
-            if (method_exists($this->serviceWidget, $method))
+            //print_r($actionName);            
+            if (method_exists($this->serviceWidget, $method)) {
                 return $this->getServiceWidget()->$method($options);
-            elseif (method_exists($this->serviceWidget, 'render'))
+            } elseif (method_exists($this->serviceWidget, 'render')) {
                 return $this->getServiceWidget()->run($options);
-            else 
+            } else { 
                 throw ExtensionException::MethodWidgetUnDefined($method);
+            }
         }
     }
     
@@ -502,19 +508,19 @@ class PiWidgetExtension extends \Twig_Extension
         // we get the widget manager
         $widgetManager  = $this->getServiceWidget()->getWidgetManager();
         // we get the widget entity
-        $widget            = $this->getRepository()->findOneById($this->getServiceWidget()->getId(), 'Widget');
-    
+        $widget            = $this->getRepository()->findOneById($this->getServiceWidget()->getId(), 'Widget');    
         // we set the current widget entity
-        if ($widget instanceof \PiApp\AdminBundle\Entity\Widget){
+        if ($widget instanceof \PiApp\AdminBundle\Entity\Widget) {
             $widgetManager->setCurrentWidget($widget);
             $this->getServiceWidget()->setConfigXml($widget->getConfigXml());
-        }else
+        } else {
             throw ExtensionException::IdWidgetUnDefined($this->getServiceWidget()->getId());
-    
+        }    
         // we set the translation of the current widget
         $widgetTranslation = $widgetManager->getTranslationByWidgetId($widget->getId(), $options['widget-lang']);
-        if ($widgetTranslation instanceof TranslationWidget)
+        if ($widgetTranslation instanceof TranslationWidget) {
             $this->getServiceWidget()->setTranslationWidget($widgetTranslation);
+        }
     }    
     
     /**
@@ -531,9 +537,11 @@ class PiWidgetExtension extends \Twig_Extension
      */
     final public function ScriptJsFunction($container, $actionName, $options = null)
     {
-        if ($this->isServiceSupported($container, $actionName))
-            if (method_exists($this->getServiceWidget(), 'scriptJs'))
+        if ($this->isServiceSupported($container, $actionName)) {
+            if (method_exists($this->getServiceWidget(), 'scriptJs')) {
                 return $this->getServiceWidget()->runJs($options);
+            }
+        }
     }
     
     /**
@@ -550,9 +558,11 @@ class PiWidgetExtension extends \Twig_Extension
      */
     final public function ScriptCssFunction($container, $actionName, $options = null)
     {
-        if ($this->isServiceSupported($container, $actionName))
-            if (method_exists($this->getServiceWidget(), 'scriptCss'))
+        if ($this->isServiceSupported($container, $actionName)) {
+            if (method_exists($this->getServiceWidget(), 'scriptCss')) {
                 return $this->getServiceWidget()->runCss($options);
+            }
+        }
     }    
     
     /**
@@ -568,25 +578,39 @@ class PiWidgetExtension extends \Twig_Extension
     final public function initWidget($InfoService)
     {
         $method     = "";
-        $infos         = explode(":", $InfoService);
-        
-        if (count($infos) <=1)
+        $infos      = explode(":", $InfoService);
+        //
+        if (count($infos) <=1) {
             throw ExtensionException::initParameterUndefined($InfoService);
-        
-        $container     = $infos[0];
-        $actionName    = $infos[1];
-        
-        if (count($infos) == 3)
-            $method    = $infos[2];
-        
-        if (count($infos) == 4)
-            $method    = $infos[2] . ":" . $infos[3];        
-        
-        if ($this->isServiceSupported($container, $actionName)){
-            if (method_exists($this->getServiceWidget(), 'init')){
-                $this->getServiceWidget()->setMethod($method);
-                $this->getServiceWidget()->init();
-            }
+        }        
+        $container  = $infos[0];
+        $actionName = $infos[1];
+        //
+        if (!in_array($container, array('css', 'js'))) {
+	        if (count($infos) == 3) {
+	            $method    = $infos[2];
+	        }        
+	        if (count($infos) == 4) {
+	            $method    = $infos[2] . ":" . $infos[3];
+	        }     
+	        if ($this->isServiceSupported($container, $actionName)){
+	            if (method_exists($this->getServiceWidget(), 'init')){
+	                $this->getServiceWidget()->setMethod($method);
+	                $this->getServiceWidget()->init();
+	            }
+	        }
+        } else {
+        	if ($container == "css") {
+        		$all_css = json_decode($actionName);
+        		foreach ($all_css as $path_css) {
+        			$this->container->get('pi_app_admin.twig.extension.layouthead')->addCssFile($path_css, 'append');
+        		}
+        	} elseif ($container == "js") {
+        		$all_js = json_decode($actionName);
+        	    foreach ($all_js as $path_js) {
+        			$this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile($path_js, 'append');
+        		}
+        	}
         }
     }    
 
@@ -603,12 +627,12 @@ class PiWidgetExtension extends \Twig_Extension
      */    
     private function isServiceSupported($container, $actionName)
     {
-        if (!isset($GLOBALS['WIDGET'][strtoupper($container)][strtolower($actionName)]))
+        if (!isset($GLOBALS['WIDGET'][strtoupper($container)][strtolower($actionName)])) {
             throw ExtensionException::serviceUndefined(strtolower($actionName), 'WIDGET', __CLASS__);
-        elseif (!$this->container->has($GLOBALS['WIDGET'][strtoupper($container)][strtolower($actionName)]))
+        } elseif (!$this->container->has($GLOBALS['WIDGET'][strtoupper($container)][strtolower($actionName)])) {
             throw ExtensionException::serviceNotSupported($GLOBALS['WIDGET'][strtoupper($container)][strtolower($actionName)]);
-        
-        $this->service    = $GLOBALS['WIDGET'][strtoupper($container)][strtolower($actionName)];
+        }        
+        $this->service   = $GLOBALS['WIDGET'][strtoupper($container)][strtolower($actionName)];
         $this->action    = strtolower($actionName);
 
         return true;
@@ -766,8 +790,9 @@ class PiWidgetExtension extends \Twig_Extension
      */
     protected function getWidgetManager()
     {
-        if (empty($this->widgetManager))
+        if (empty($this->widgetManager)) {
             $this->setWidgetManager();
+        }
     
         return $this->widgetManager;
     } 
@@ -797,8 +822,9 @@ class PiWidgetExtension extends \Twig_Extension
      */
     protected function getTransWidgetManager()
     {
-        if (empty($this->transWidgetManager))
+        if (empty($this->transWidgetManager)) {
             $this->setTransWidgetManager();
+        }
     
         return $this->transWidgetManager;
     }
@@ -841,8 +867,9 @@ class PiWidgetExtension extends \Twig_Extension
      */
     protected function getRepository()
     {
-        if (empty($this->repository))
+        if (empty($this->repository)) {
             $this->setRepository();
+        }
     
         return $this->repository;
     }    
@@ -858,8 +885,9 @@ class PiWidgetExtension extends \Twig_Extension
      */
     protected function setServiceWidget()
     {
-        if (!empty($this->service) && $this->container->has($this->service))
+        if (!empty($this->service) && $this->container->has($this->service)) {
             $this->serviceWidget = $this->container->get($this->service);
+        }
     }
     
     /**
@@ -874,6 +902,7 @@ class PiWidgetExtension extends \Twig_Extension
     protected function getServiceWidget()
     {
         $this->setServiceWidget();
+        
         return $this->serviceWidget;
     }   
    
@@ -904,10 +933,11 @@ class PiWidgetExtension extends \Twig_Extension
      */
     public function getTranslationWidget()
     {
-        if ($this->translationsWidget instanceof TranslationWidget)
+        if ($this->translationsWidget instanceof TranslationWidget) {
             return $this->translationsWidget;
-        else
+        } else {
             return false;
+        }
     }
     
     /**
@@ -926,18 +956,17 @@ class PiWidgetExtension extends \Twig_Extension
      */
     protected function runByExtension($serviceName, $tag, $id, $lang, $params = null)
     {
-        if (!is_null($params)){
+        if (!is_null($params)) {
             krsort($params);
-            $json = $this->container->get('pi_app_admin.string_manager')->json_encodeDecToUTF8($params);
-            
+            $json = $this->container->get('pi_app_admin.string_manager')->json_encodeDecToUTF8($params);            
             //$tmp = "$tag:$id:$lang:$json";
             //print_r($tmp);
-            //print_r("<br /<br />");
-            
+            //print_r("<br /<br />");            
             $set  = "{% set widget_render_params = $json %} \n";
             $set .= " {{ getService('$serviceName').run('$tag', '$id', '$lang', widget_render_params)|raw }} \n";
-        }else
-            $set = " {{ getService('$serviceName').run('$tag', '$id', '$lang')|raw }} \n";    
+        } else {
+            $set = " {{ getService('$serviceName').run('$tag', '$id', '$lang')|raw }} \n";
+        }    
         
         return $set;
     }
@@ -957,14 +986,15 @@ class PiWidgetExtension extends \Twig_Extension
      */
     protected function runByService($serviceName, $id, $lang, $params = null)
     {
-        if (!is_null($params)){
+        if (!is_null($params)) {
             krsort($params);
             $json = $this->container->get('pi_app_admin.string_manager')->json_encodeDecToUTF8($params);
     
             $set  = "{% set widget_service_params = $json %} \n";
             $set .= " {{ getService('$serviceName').renderSource('$id', '$lang', widget_service_params)|raw }} \n";
-        }else
+        } else {
             $set = " {{ getService('$serviceName').renderSource('$id', '$lang')|raw }} \n";
+        }
     
         return $set;
     } 
@@ -986,25 +1016,24 @@ class PiWidgetExtension extends \Twig_Extension
     protected function runByjqueryExtension($JQcontainer, $id, $lang, $params = null)
     {
         str_replace('~', '~', $id, $count);
-        if ($count == 2)
+        if ($count == 2) {
             list($entity, $method, $category) = explode('~', $id);
-        elseif ($count == 1)
+        } elseif ($count == 1) {
             list($entity, $method) = explode('~', $id);
-        elseif ($count == 0)
+        } elseif ($count == 0) {
             $method = $id;
-        else
+        } else {
             throw new \InvalidArgumentException("you have not configure correctly the attibute id");
-        
-        $params['locale']    = $lang;
-                
-        if (!is_null($params)){
+        }        
+        $params['locale']    = $lang;                
+        if (!is_null($params)) {
             krsort($params);
-            $json = $this->container->get('pi_app_admin.string_manager')->json_encodeDecToUTF8($params);
-            
+            $json = $this->container->get('pi_app_admin.string_manager')->json_encodeDecToUTF8($params);            
             $set  = "{% set widget_render_params = $json %} \n";
             $set .= " {{ getService(\"pi_app_admin.twig.extension.jquery\").FactoryFunction(\"$JQcontainer\", \"$method\", widget_render_params)|raw }} \n";
-        }else
+        } else {
             $set  = " {{ getService(\"pi_app_admin.twig.extension.jquery\").FactoryFunction(\"$JQcontainer\", \"$method\")|raw }} \n";
+        }
     
         return $set;
     }    

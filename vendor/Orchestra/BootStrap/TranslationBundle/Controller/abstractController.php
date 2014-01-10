@@ -18,6 +18,8 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
+use FOS\UserBundle\Model\UserInterface;
+
 /**
  * abstract controller.
  *
@@ -520,11 +522,56 @@ abstract class abstractController extends Controller
      * 
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    protected function authenticateUser(\BootStrap\UserBundle\Entity\User $user)
+    protected function authenticateUser(UserInterface $user, $deleteToken = true, &$response = null)
     {
+    	$em 		 = $this->getDoctrine()->getEntityManager();
         $providerKey = $this->container->getParameter('fos_user.firewall_name');
+        $userManager = $this->container->get('fos_user.user_manager');
+        //
         $token       = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
         $this->container->get('security.context')->setToken($token);
+	    // we delete token user
+        if ($deleteToken) {
+	        $user->setConfirmationToken(null);
+	        $userManager->updateUser($user);
+	        $em->persist($user);
+	        $em->flush();	                
+        }
+        //
+        if ($response instanceof Response) {
+	        // Record all cookies in relation with ws.
+	        $dateExpire          = $this->container->getParameter('pi_app_admin.cookies.date_expire');
+	        $date_interval       = $this->container->getParameter('pi_app_admin.cookies.date_interval');
+	        $app_id			     = $this->container->getParameter('pi_app_admin.cookies.application_id');
+	        // Record the layout variable in cookies.
+	        if ($dateExpire && !empty($date_interval)) {
+	        	$dateExpire = new \DateTime("NOW");
+	        	$dateExpire->add(new \DateInterval($date_interval)); // we add 4 hour
+	        } else {
+	        	$dateExpire = 0;
+	        }
+	        if($app_id && !empty($app_id) && $this->container->hasParameter('ws.auth')) {
+	        	$response->headers->set('Content-Type', 'application/json');
+	        	$config_ws 		= $this->container->getParameter('ws.auth');
+	        	$key       		= $config_ws['handlers']['getpermisssion']['key'];
+	        	$userId    		= $this->container->get('pi_app_admin.twig.extension.tool')->encryptFilter($this->getUser()->getId(), $key);
+	        	$applicationId  = $this->container->get('pi_app_admin.twig.extension.tool')->encryptFilter($app_id, $key);
+	        	$response->headers->setCookie(new \Symfony\Component\HttpFoundation\Cookie('orchestra-ws-user-id', $userId, $dateExpire));
+	        	$response->headers->setCookie(new \Symfony\Component\HttpFoundation\Cookie('orchestra-ws-application-id', $applicationId, $dateExpire));
+	        	$response->headers->setCookie(new \Symfony\Component\HttpFoundation\Cookie('orchestra-ws-key', $key, $dateExpire));
+	        }
+	        // set layout param
+	        $BEST_ROLE_NAME = $this->container->get('bootstrap.Role.factory')->getBestRoleUser();
+	        if (!empty($BEST_ROLE_NAME)) {
+	        	$role         = $em->getRepository("BootStrapUserBundle:Role")->findOneBy(array('name' => $BEST_ROLE_NAME));
+	        	if ($role instanceof \BootStrap\UserBundle\Entity\Role) {
+	        		if ($role->getLayout() instanceof \PiApp\AdminBundle\Entity\Layout) {
+	        			$template = $role->getLayout()->getFilePc();
+	        			$response->headers->setCookie(new \Symfony\Component\HttpFoundation\Cookie('orchestra-layout', 'PiAppTemplateBundle::Template\\Layout\\Pc\\'.$template, $dateExpire));
+	        		}
+	        	}
+	        } 
+        }    
     }   
     
     /**
@@ -553,6 +600,41 @@ abstract class abstractController extends Controller
     {
         return  $this->container->get('security.context')->getToken();
     }  
+    
+    /**
+     * Return the token object.
+     *
+     * @return \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken
+     * @access protected
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    protected function tokenUser(UserInterface $user)
+    {
+    	return $this->container->get("pi_app_admin.manager.authentication")->tokenUser($user);
+    }    
+    
+    /**
+     * Send mail to reset user password (return link with url)
+     * @return string
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    protected function sendResettingEmailMessage(UserInterface $user, $route_reset_connexion, $title = '', $parameters = array())
+    {  
+    	return $this->container->get("pi_app_admin.manager.authentication")->sendResettingEmailMessage($user, $route_reset_connexion, $title, $parameters);
+    }  
+    
+    /**
+     * Send mail to reset user password (return URL)
+     * @return string
+     *
+     * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
+     */
+    protected function sendResettingEmailMessageURL(UserInterface $user, $route_reset_connexion, $parameters = array())
+    {
+    	return $this->container->get("pi_app_admin.manager.authentication")->sendResettingEmailMessageURL($user, $route_reset_connexion, $parameters);
+    }    
 
     /**
      * Return the connected user name.

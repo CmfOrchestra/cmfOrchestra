@@ -141,7 +141,15 @@ class PiGridTableManager extends PiJqueryExtension
         $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/jquery/multiselect/js/jquery.multiselect.filter.js");
         
         // multi-select chained management
-        $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/jquery/jquery.chained.remote.js");        
+        $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/jquery/jquery.chained.remote.js");  
+
+        // datepicker region
+        $locale = strtolower(substr($this->locale, 0, 2));
+        $root_file         = realpath($this->container->getParameter("kernel.root_dir") . "/../web/bundles/piappadmin/js/ui/i18n/jquery.ui.datepicker-{$locale}.js");
+        if (!$root_file) {
+        	$locale = "en-GB";
+        }
+        $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/ui/i18n/jquery.ui.datepicker-{$locale}.js");        
         
         //http://datatables.net/forums/discussion/12443/scroller-extra-w-server-side-processing/p1
         //http://datatables.net/forums/discussion/14141/confirm-delete-on-tabletools/p1
@@ -202,6 +210,12 @@ class PiGridTableManager extends PiJqueryExtension
         $penabled        = $this->container->get('templating.helper.assets')->getUrl("bundles/piappadmin/css/themes/img/penabled.png");
         $pdisable        = $this->container->get('templating.helper.assets')->getUrl("bundles/piappadmin/css/themes/img/pdisable.png");
         $action            = $this->container->get('templating.helper.assets')->getUrl("bundles/piappadmin/css/themes/img/action.png");        
+        // we set the locale date format of datepicker
+        $locale = strtolower(substr($this->locale, 0, 2));
+        $root_file         = realpath($this->container->getParameter("kernel.root_dir") . "/../web/bundles/piappadmin/js/ui/i18n/jquery.ui.datepicker-{$locale}.js");
+        if (!$root_file) {
+        	$locale = "en-GB";
+        }
         
         // We open the buffer.
         ob_start ();
@@ -452,6 +466,7 @@ class PiGridTableManager extends PiJqueryExtension
                             	<?php echo $gridDateFilter['idMin']; ?>DateFilter = new Date(this.value).getTime();
                                 <?php echo $options['grid-name']; ?>oTable.fnDraw();
                             } );
+            				$.datepicker.setDefaults( $.datepicker.regional[ "<?php echo strtolower(substr($locale, 0, 2)); ?>" ] );
             				<?php if(isset($options['grid-server-side']) && (($options['grid-server-side'] == 'true') || ($options['grid-server-side'] == true)) ) : ?>
             				<?php else: ?>
             				$.fn.dataTableExt.afnFiltering.push(

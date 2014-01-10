@@ -59,22 +59,11 @@ body,html{margin:0;padding:0;}
  * Main
  *******************************************************/
  
- /* COMMON */
- div.wijmo-wijprogressbar-east{
-	position:fixed;
-	top:50%;
-	left:50%;
-	margin-left:-200px;
-	width: 400px;
-	height:40px;
-	z-index:99999999999; 
-}
-
  /* BLOCK */
   #global-layout h5.block_action_menu {
-	position: absolute;
-	z-index:9999;
-	display: none;
+    position: absolute;
+    z-index:9999;
+    /*display: none;*/
     text-align: left;
     margin0;padding:0;
     margin-top: -21px;
@@ -85,7 +74,7 @@ body,html{margin:0;padding:0;}
  
  #global-layout a.block_action_admin,
  #global-layout a.block_action_import{
- 	display: inline-block;
+    display: inline-block;
     width: 16px;
     height: 16px;
     padding: 0;margin:0;
@@ -95,10 +84,9 @@ body,html{margin:0;padding:0;}
 
  /* WIDGET --------------------------------------------------------*/
   #global-layout h6.widget_action_menu {
- 	/*clear: both;*/
-	position:relative
-	z-index:9999;
- 	display: none;
+    /*clear: both;*/
+    position:relative;
+    z-index:9999;
     text-align: left;
     margin0;padding:0;
     padding-left: 23px;
@@ -112,7 +100,7 @@ body,html{margin:0;padding:0;}
  #global-layout a.widget_action_edit, 
  #global-layout a.widget_action_delete,
  #global-layout a.widget_action_admin {
- 	display: inline-block;
+    display: inline-block;
     width: 16px;
     height: 16px;
     padding: 0;margin:0;
@@ -143,5 +131,22 @@ body,html{margin:0;padding:0;}
  
 /* BALISES IDOINE FOR IE */
 orchestra, searchlucene {
-	display: block;
+    display: block;
+}
+
+.btn-black{
+    background-color: #222222;
+    color:#FFF;
+    font-size: 12px;
+    padding: 4px 20px 4px 20px;
+    border: 1px solid #AFAFAF;
+    -moz-box-shadow: 0px 1px 3px rgba(0,0,0,0.15);
+    -webkit-box-shadow: 0px 1px 3px rgba(0,0,0,0.15);
+    box-shadow: 0px 1px 3px rgba(0,0,0,0.15);
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+    text-align: center;
+
 }

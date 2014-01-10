@@ -3,7 +3,7 @@
  * This file is part of the <Admin> project.
  *
  * @category   Admin_Util
- * @package    Extension_jquery 
+ * @package    Extension_jquery
  * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  * @since 2012-01-11
  *
@@ -21,8 +21,8 @@ use PiApp\AdminBundle\Exception\ExtensionException;
  * MultiSelect Jquery plugin
  *
  * @category   Admin_Util
- * @package    Extension_jquery 
- * 
+ * @package    Extension_jquery
+ *
  * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
  */
 class PiPrototypeByTabsManager extends PiJqueryExtension
@@ -36,7 +36,7 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
     {
         parent::__construct($container);
     }
-    
+
     /**
      * Sets init.
      *
@@ -44,22 +44,22 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
      * @return void
      *
      * @author Etienne de Longeaux <etienne_delongeaux@hotmail.com>
-     */    
+     */
     protected function init($options = null)
     {
         // radio and checkbox managment
         $this->container->get('pi_app_admin.twig.extension.layouthead')->addCssFile("bundles/piappadmin/js/jquery/iCheck/skins/all.css");
         $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/jquery/iCheck/jquery.icheck.min.js");
-        
+
         // simple and multiselect managment
         $this->container->get('pi_app_admin.twig.extension.layouthead')->addCssFile("bundles/piappadmin/js/jquery/multiselect/css/jquery.multiselect.filter.css");
         $this->container->get('pi_app_admin.twig.extension.layouthead')->addCssFile("bundles/piappadmin/js/jquery/multiselect/css/jquery.multiselect.css");
         $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/jquery/multiselect/js/jquery.multiselect.js");
         $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/jquery/multiselect/js/jquery.multiselect.filter.js");
-        
+
         // editor managment
         $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/tiny_mce/jquery.tinymce.js");
-        
+
         // datepicker region
         $locale = strtolower(substr($this->locale, 0, 2));
         $root_file         = realpath($this->container->getParameter("kernel.root_dir") . "/../web/bundles/piappadmin/js/ui/i18n/jquery.ui.datepicker-{$locale}.js");
@@ -67,12 +67,18 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
         	$locale = "en-GB";
         }
         $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/ui/i18n/jquery.ui.datepicker-{$locale}.js");
-        
+
         // jcrop
         $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/jquery/jcrop/jquery.Jcrop.min.js");
         $this->container->get('pi_app_admin.twig.extension.layouthead')->addCssFile("bundles/piappadmin/js/jquery/jcrop/jquery.Jcrop.min.css");
-    }    
-    
+
+        // lazyloading
+        $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/lazyloading/jquery.lazyload.min.js");
+
+        // spinner
+        $this->container->get('pi_app_admin.twig.extension.layouthead')->addJsFile("bundles/piappadmin/js/spinner/spin.min.js");
+    }
+
     /**
       * Sets render for prototype links in the form.
       *
@@ -80,10 +86,10 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
       * @access protected
       * @return void
       *
-      * @author Etienne de Longeaux <etienne_delongeaux@hotmail.com> 
+      * @author Etienne de Longeaux <etienne_delongeaux@hotmail.com>
       */
     protected function render($options = null)
-    {        
+    {
         // Option management
         if (!isset($options['prototype-name']) || empty($options['prototype-name'])) {
             throw ExtensionException::optionValueNotSpecified('prototype-name', __CLASS__);
@@ -107,7 +113,7 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
         	$locale = "en-GB";
         }
         // We open the buffer.
-        ob_start ();        
+        ob_start ();
         ?>
             <div class="demo-options">
                 <!-- Begin options markup -->
@@ -119,20 +125,20 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                     </fieldset>
                 </div>
                 <!-- End options markup -->
-            </div>    
-            
+            </div>
+
             <div id="form-error-dialog" >&nbsp;</div>
-            
+
             <div id="dialog-confirm" title="<?php echo $this->container->get('translator')->trans('pi.grid.action.delete.confirmation.title'); ?>">
     		    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
     			<?php echo $this->container->get('translator')->trans('pi.grid.action.delete.confirmation.message'); ?></p>
-    		</div>			         
-            
+    		</div>
+
             <script type="text/javascript">
             //<![CDATA[
-            
+
             	var id_form_delete = "";
-            
+
                 // we create the animations.
                 var j_prototype_bytabs = new function()
                 {
@@ -150,7 +156,7 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                             // On enregistre le contenu du prototype dans le nouveau tab.
                             $(ui.panel).append('<p>' + $prototype_content + '</p>');
                         },
-                        select: function (event, ui) { 
+                        select: function (event, ui) {
                             //$(".pi_simpleselect").delay(2000).data("wijdropdown").refresh();
                              //$(".pi_simpleselect").wijdropdown();
                         }
@@ -175,15 +181,15 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                         },
                         close: function () {
                         }
-                    });                
-    
+                    });
+
                     // We inject the error messages via a dialog
                     var value_message = '';
 
                     $(".symfony-form-errors").each(function(index) {
                         value_message = value_message + $(this).html();
                     });
-                    
+
                     this.ftc_init = function(idForm, var_prototype){
                                                 // We initialize the variables.
                                                 name_prototype = var_prototype;
@@ -213,10 +219,10 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                                             maximize: { visible: false }
                                                         }
                                                     });
-                                                }                    
-                                                    
+                                                }
+
                                                 // Tags with onglet management
-                                                $("#tabs").tabs({ 
+                                                $("#tabs").tabs({
                                                     scrollable: true,
                                                     alignment: 'top',
                                                     showOption: {
@@ -237,7 +243,7 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                                   $( "#" + panelId ).remove();
                                                   tabs.tabs( "refresh" );
                                                 });
-                                    
+
                                                 // addTab form: calls addTab function on submit and closes the dialog
                                                 $('fieldset', $dialog).submit(function () {
                                                     j_prototype_bytabs.ftc_addTab();
@@ -248,7 +254,6 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                                 // http://jquery-ui.googlecode.com/svn/tags/1.6rc5/tests/static/icons.html
                                                 $("button.button-ui-create").button({icons: {primary: "ui-icon-circle-plus"}});
                                                 $("button.button-ui-save").button({icons: {primary: "ui-icon-disk"}});
-                                                $("a.button-ui-mediatheque").button({icons: {primary: "ui-icon-image"}}).css('padding', '6px');
                                                 $("a.button-ui-delete").button({icons: {primary: "ui-icon-trash"}}).click(function( event ) {
                                                 	event.preventDefault();
                                                 	id_form_delete = $(this).data('id');
@@ -256,131 +261,58 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                                 });
                                                 $("a.button-ui-back-list").button({icons: {primary: "ui-icon-arrowreturn-1-w"}});
 
-                                             /*
-                                              *  ->add('media', 'entity', array(
-                                              *   		'class' => 'PiAppGedmoBundle:Media',
-                                              *   		'query_builder' => function(EntityRepository $er) {
-                                              *   			return $er->createQueryBuilder('a')
-                                              *   			->select('a')
-                                              *   			//->where("a.id = {$id}")
-                                              *				->where("a.status = 'image'")
-            								  * 			->ansWhere("a.image IS NOT NULL")
-                                              *   			->andWhere("a.enabled = 1")
-                                              *   			->orderBy('a.id', 'ASC');
-                                              *   		},
-                                              *   		//'property' => 'title',
-                                              *   		'empty_value' => 'pi.form.label.select.choose.media',
-                                              *   		'multiple' => false,
-                                              *   		'required'  => true,
-                                              *   		'constraints' => array(
-                                              *   				new Constraints\NotBlank(),
-                                              *   		),             		
-                                              *   		"label_attr" => array(
-                                              *   				"class"=> 'image_collection',
-                                              *   		),
-                                              *   		"attr" => array(
-                                              *   				"class"=>"pi_simpleselect", // ajaxselect
-                                              *					"data-url"=>$this->_container->get('bootstrap.RouteTranslator.factory')->getRoute("admin_gedmo_media_selectentity_ajax", array('type'=>'image')),
-                              				  *					//"data-selectid" => $id
-                                              *   		),
-                                              *   		'label' => "Media",
-                                              *   		'widget_suffix' => '<a class="button-ui-mediatheque button-ui-dialog" 
-                                              *   				title="Ajouter une image à la médiatheque"
-                                              *   				data-title="Mediatheque"
-                                              *   				data-href="'.$this->_container->get('bootstrap.RouteTranslator.factory')->getRoute("admin_gedmo_media_new", array("NoLayout"=>"false", "category"=>'', 'status'=>'image')).'"
-                                              *   				data-selectid="#piapp_gedmobundle_mediatype_id"
-                                              *   				data-selecttitle="#piapp_gedmobundle_mediatype_title"
-                                              *   				data-insertid="#m1m_providerbundle_rubbloctype_media"
-                                              *   				data-inserttype="multiselect"
-                                              *   				></a>',
-                                              *   ))
-                                              */                                                   
-                                                $("a.button-ui-dialog").on('click', function (event) {
-                                                	event.preventDefault();
-                                                	var _url = $(this).data('href');
-                                                	var _title = $(this).data('title');
-                                                	var _selectId = $(this).data('selectid');
-                                                	var _selectTitle = $(this).data('selecttitle');
-                                                	var _insertId = $(this).data('insertid');
-                                                	var _insertType = $(this).data('inserttype');
-                                                	$('<div id="iframe-dialog" title="'+_title+'">&nbsp;</div>').html('<iframe id="modalIframeId" width="100%" height="99%" style="overflow-x: hidden; overflow-y: hidden" scrolling="no" marginWidth="0" marginHeight="0" frameBorder="0" src="'+_url+'" />').dialog({
-                                                        width: 421,
-                                                        height: 600,
-                                                        open: function () {
-                                                        	$(this).find("iframe").contents().find('body').attr('scrolling', 'no');
-                                                        },
-                                                        beforeClose: function () {
-                                                            if (_insertType == "select") {
-                                                                var _id_ = $(this).find('iframe').contents().find(_selectId).val();
-                                                                var _title_ = $(this).find('iframe').contents().find(_selectTitle).val();
-                                                            	$(_insertId).append('<option value="'+_id_+'" selected="selected">'+_id_+' - '+_title_+'</option>');
-                                                            } else if (_insertType == "multiselect") { 
-                                                                var _id_ = $(this).find('iframe').contents().find(_selectId).val();
-                                                                var _title_ = $(this).find('iframe').contents().find(_selectTitle).val();
-                                                            	$(_insertId).append('<option value="'+_id_+'" selected="selected">'+_id_+' - '+_title_+'</option>');
-                                                            	$(_insertId).multiselect( 'refresh' );
-                                                            } else {
-                                                            	$(_insertId).val(_id_)
-                                                            }
-                                                        },                                                        
-                                                        close: function () {
-                                                        	$(this).dialog("close");
-                                                        }
-                                                    });
-                                                });
-                                                                                                
                                                 // addTab button: just opens the dialog
                                                 $('button.button-ui-add-tab').button({icons: {primary: "ui-icon-newwin"}}).on('click', function (event) {
-                                                    event.preventDefault();
-                                                    $dialog.dialog('open');
+                                                      event.preventDefault();
+                                                      $dialog.dialog('open');
                                                 });
-                                    
+
                                                 // close icon: removing the tab on click
                                                 // note: closable tabs gonna be an option in the future - see http://dev.jqueryui.com/ticket/3924
                                                 $('#tabs span.ui-icon-close').on('click', function () {
-                                                    var index = $('li', tabs).index($(this).parent());
-                                                    tabs.tabs('remove', index);
-                                                });    
-    
+                                                      var index = $('li', tabs).index($(this).parent());
+                                                      tabs.tabs('remove', index);
+                                                });
+
                                                 // We run the "get start" of construction.
                                                 j_prototype_bytabs.ftc_addGetStart(name_idForm);
 
                                                 // we remove each number of all tabs
                                                 $("[id^='"+var_prototype+"']").each(function(i){
-                                                	var currentId = $(this).attr('id');
-                                                	$(this).find('div:first-child > label').remove();
-                                                }); 
+                                                 	var currentId = $(this).attr('id');
+                                                  	$(this).find('div:first-child > label').remove();
+                                                });
 
                                                 // we remove each first label of all fieldsets
                                                 $("fieldset.no-accordion > div > label:first-child").each(function(i){
                                                 	var myclass = $(this).parent().attr('class');
-                                                	if( (typeof(myclass) == "undefined") && (myclass != "clearfix") ){
-                                                	    $(this).remove();
-                                                	}
-                                                }); 
+                                                  	if( (typeof(myclass) == "undefined") && (myclass != "clearfix") ){
+                                                  	    $(this).remove();
+                                                  	}
+                                                });
                     };
-        
+
                     // actual addTab function: adds new tab using the title input from the form above
                     this.ftc_addGetStart = function(idForm){
                                                 $("div[id^='"+name_prototype+"_']").each(function(index) {
                                                     // It retrieves the content.
                                                     var $dataprototype = $(this).html();
-                                                    
+
                                                     // We tag the prototype with the corresponding class.
                                                     $prototype_content = '<fieldset class="no-accordion"><div id="'+name_prototype+'_' + index + '" >' + $dataprototype + '</div></fieldset>';
-                                                    
+
                                                     // We add the contents into a new tab.
                                                     j_prototype_bytabs.ftc_addTab(index+1);
                                                 });
-                                                
+
                                                 // It deletes the contents of all collections of such translation.
                                                 $("#prototype_all_widgets_"+name_prototype).remove();
 
                                                 // Applying the widgets plugin "wijmo" on the new collection.
                                                 j_prototype_bytabs.ftc_add_render_form(idForm);
-                                                
+
                     };
-                    
+
                     // We define a function that will add a field.
                     this.ftc_add_tag = function(){
                                                 var index    = $("div[id^='"+name_prototype+"_']").length;
@@ -392,17 +324,17 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                                 //var $dataprototype = $prototype.html().replace(/\$\$name\$\$/g, index);
                                                 var $dataprototype = $prototype.html().replace('<label class="required">__name__label__</label>', '');
                                                 $dataprototype     = $dataprototype.replace(/__name__/g, index);
-                                                
+
                                                 // On balise le prototype avec la class correspondant
                                                 $prototype_content = '<fieldset><div id="'+name_prototype+'_' + index + '" >' + $dataprototype + '</div></fieldset>';
-                                                
+
                                                 // On ajoute le contenu dans un nouveau onglet
                                                 j_prototype_bytabs.ftc_addTab(index+1);
 
                                                 // On applique les widget du plugin wijmo sur la nouvelle collection
                                                 j_prototype_bytabs.ftc_add_render_form("#"+name_prototype+"_" + index);
                     };
-                    
+
                     // actual addTab function: adds new tab using the title input from the form above
                     this.ftc_addTab = function(index){
                                                 //tabs.tabs('add', '#tabs-' + tab_counter, '<?php echo $options['prototype-tab-title']; ?> ' + index);
@@ -413,34 +345,136 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                                 tabs.find('form').prepend( "<div id='" + id + "'><p>" + $prototype_content + "</p></div>" );
                                                 tabs.tabs( "refresh" );
                                                 tab_counter++;
-                    };            
+                    };
 
                     // Applying the widgets.
                     this.ftc_add_render_form = function(prototype_widget){
+                                  				function descrypt(){
+                                    				$("[id^='ui-multiselect-']").each(function(i){
+                                                   	    var string = $(this).next('span').html();
+                                                       	string = string.toString().replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+                                                       	string = string.replace(/&#0*39;/g, "'");
+                                                       	string = string.replace(/&quot;/g, '"');
+                                                       	string = string.replace(/&amp;/g, '&');
+                                                       	$(this).next('span').html(string);
+                                                       	$(this).click(function() {
+                                                         		var id = $(this).attr('id').toString().replace(/-option-(.+)/ig,'').replace('ui-multiselect-','');
+                                                        		var string = $(this).val();
+                                                             	string = string.toString().replace(/&amp;lt;img.*?\/&amp;gt;/ig,'');
+                                                        		$("#"+id).next("button.ui-multiselect").html(string);
+                                                      	});
+                        		                    });
 
-                    							function descrypt(){
-	                    							$("[id^='ui-multiselect-']").each(function(i){
-	                                                     	var string = $(this).next('span').html();
-	                                                     	string = string.toString().replace(/&lt;/g, '<').replace(/&gt;/g, '>');
-	                                                     	string = string.replace(/&#0*39;/g, "'");
-	                                                     	string = string.replace(/&quot;/g, '"');
-	                                                     	string = string.replace(/&amp;/g, '&');
-	                                                     	$(this).next('span').html(string);
-	                                                     	$(this).click(function(){ 
-	                                                     		var id = $(this).attr('id').toString().replace(/-option-(.+)/ig,'').replace('ui-multiselect-','');
-	                                                    		var string = $(this).val();
-	                                                         	string = string.toString().replace(/&amp;lt;img.*?\/&amp;gt;/ig,'');
-	                                                    		$("#"+id).next("button.ui-multiselect").html(string); 
-	                                                    	});
-	                                                }); 
+                                                    $("button.ui-multiselect").each(function(i){
+                                                       	var string = $(this).html();
+                                                        console.log(string)
+                                                        if(string) {
+                                                       	  string = string.toString().replace(/&lt;.*?\/&gt;/ig,'');
+                                                       	  $(this).html(string);
+                                                        }
+                                                  	});
+                                  				}
+                                                function getMoreItems(container, kw, max) {
+                                                    var _selectId = container.data('selectid'), spinner = null;
+                                                    container.data('pagination', container.data('pagination') + 1);
 
-	                                                $("button.ui-multiselect").each(function(i){
-	                                                 	var string = $(this).find('span:last').html();
-	                                                 	string = string.toString().replace(/&amp;lt;img.*?\/&amp;gt;/ig,'');
-	                                                 	$(this).find('span:last').html(string);                                                 	 
-	                                            	});
-                    							}
+                                                    // add spinner in checkboxes list
+                                                    spinner = new Spinner({className:'tempSpinner'}).spin();
+                                                    $('.ui-multiselect-checkboxes.'+container.attr('id')).append(spinner.el);
+                                                    $('.tempSpinner').css({
+                                                        left:'48%',
+                                                        'margin-top':'24px'
+                                                    });
 
+                                                    $.ajax({
+                                                        type: "GET",
+                                                        url: container.data('url'),
+                                                        data: {pagination:container.data('pagination'),keyword:kw, max:max},
+                                                        contentType: "application/json; charset=utf-8",
+                                                        dataType: "json"
+                                                    }).done(function(response) {
+                                                        // console.log('response', response);
+                                                        if (response.length > 0) {
+                                                            $.each(response, function(key, value) {
+                                                                if(key > 9) { return false; }
+                                                                // prevent doubles
+                                                                // if(container.find('option[value='+value.id+']').length == 0) {
+                                                                    var opt = $('<option />', {
+                                                                        value: value.id,
+                                                                        text: value.text
+                                                                    });
+                                                                    opt.appendTo( container );
+                                                                // }
+                                                                if (_selectId instanceof Array) {
+                                                                    _selectId.forEach(function(entry) {
+                                                                        if (entry == value.id) {
+                                                                            container.find(value.id).attr( "selected","selected")
+                                                                        }
+                                                                    });
+                                                                } else if (_selectId == value.id) {
+                                                                   container.find(value.id).attr( "selected","selected")
+                                                                }
+                                                            });
+                                                        }
+                                                    }).complete(function(){
+                                                        spinner.stop();
+                                                        container.multiselect('refresh');
+                                                        $('.ui-multiselect-checkboxes.'+container.attr('id')).find('li').show();
+                                                        container.data('loading', false);
+                                                        descrypt();
+                                                    });
+                                                }
+                                                function filterItems(container, kw, max) {
+                                                    var _selectId = container.data('selectid'),
+                                                        spinner = null;
+                                                    container.data('pagination', 1);
+                                                    // add spinner in checkboxes list
+                                                    spinner = new Spinner({className:'tempSpinner'}).spin();
+                                                    $('.ui-multiselect-checkboxes.'+container.attr('id')).empty().append(spinner.el);
+                                                    $('.tempSpinner').css({
+                                                        left:'48%',
+                                                        top:'48%'
+                                                    });
+
+                                                    $.ajax({
+                                                        type: "GET",
+                                                        url: container.data('url'),
+                                                        data: {pagination: container.data('pagination'), keyword:kw, max:max},
+                                                        contentType: "application/json; charset=utf-8",
+                                                        dataType: "json"
+                                                    }).done(function(response) {
+                                                        if (response.length > 0) {
+                                                            container.empty();
+                                                            $.each(response, function(key, value) {
+                                                                if(key > 9) { return false; }
+                                                                // prevent doubles
+                                                                // if(container.find('option[value='+value.id+']').length == 0) {
+                                                                    var opt = $('<option />', {
+                                                                        value: value.id,
+                                                                        text: value.text
+                                                                    });
+                                                                    opt.appendTo( container );
+                                                                // }
+                                                                if (_selectId instanceof Array) {
+                                                                    _selectId.forEach(function(entry) {
+                                                                        if (entry == value.id) {
+                                                                            container.find(value.id).attr( "selected","selected")
+                                                                        }
+                                                                    });
+                                                                } else if (_selectId == value.id) {
+                                                                   container.find(value.id).attr( "selected","selected")
+                                                                }
+                                                            });
+                                                        }
+                                                    }).complete(function(){
+                                                        spinner.stop();
+                                                        container.multiselect('refresh');
+                                                        $('.ui-multiselect-checkboxes.'+container.attr('id')).find('li').show();
+                                                        container.data('loading', false);
+                                                        descrypt();
+                                                    });
+                                                }
+                                                $(prototype_widget + " a.button-ui-dialog").button({icons: {primary: "ui-icon-image"}}).css('padding', '7px');
                                                 $(prototype_widget + " input[type='radio']").iCheck({
                                                     handle: 'radio',
                                                     radioClass: 'iradio_square-blue',
@@ -449,67 +483,160 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                                     handle: 'checkbox',
                                                     checkboxClass: 'icheckbox_square-blue',
                                                 });
-												// multiselect
+                                                // multiselect
                                                 $(prototype_widget + " select.pi_simpleselect").multiselect({
-                                                   multiple: false,
-                                                   header: true,
-                                                   noneSelectedText: "<?php echo $this->translator->trans('pi.form.label.select.choose.option'); ?>",
-                                                   selectedList: 1,
-                                                   click: function(event, ui){
-                                                   }
-                                                }).multiselectfilter();
+                                                    multiple: false,
+                                                    header: true,
+                                                    noneSelectedText: "<?php echo $this->translator->trans('pi.form.label.select.choose.option'); ?>",
+                                                    selectedList: 1,
+                                                    selectedText: function(numChecked, numTotal, checkedItems) {
+                                                        var result = '';
+                                                        var nameSelect = $(checkedItems[0]).attr('name').replace('multiselect_', '');
+                                                        if(checkedItems.length > 3) {
+                                                            result = numChecked + ' selected';
+                                                        }
+                                                        else {
+                                                            $.each(checkedItems, function(key, value) {
+                                                                if(key > 0 && key < checkedItems.length) { result += ', '; }
+                                                                result += $(value).next().text();
+                                                            });
+                                                        }
+                                                        $('#'+nameSelect).next('button').text(result);
+                                                        // console.log($('#'+nameSelect).next('button').text());
+                                                        return result;
+                                                    },                                                    
+                                                    open : function() {
+                                                        var heightList,
+                                                            // ID selecteur correspondant
+                                                            nameSelect = $('.ui-multiselect-checkboxes:visible').find('li:last').find('input').attr('name').replace('multiselect_', '');
+                                                        $('.ui-multiselect-checkboxes:visible').addClass(nameSelect);
+                                                        // calcul height totale de la liste
+                                                        $('.ui-multiselect-checkboxes:visible').on('scroll', function() {
+                                                            heightList = 0;
+                                                            $.each($(this).find('li'), function() {
+                                                                heightList += $(this).height();
+                                                            });
+
+                                                            // if scroll end && items not loading, getMoreItems
+                                                            if($(this).scrollTop() + $(this).outerHeight() + 10 > heightList && $('#'+nameSelect).data('loading') == false) {
+                                                                var keyword = $('.ui-multiselect-filter:visible').find('input').val();
+                                                                $('#'+nameSelect).data('loading', true);
+                                                                getMoreItems($('#'+nameSelect), keyword, $('#'+nameSelect).data('max'));
+                                                            }
+                                                        });
+                                                    }
+                                                }).multiselectfilter({
+                                                    filter: function(e, matches) {
+                                                        e.preventDefault();
+                                                        var keyword = $('.ui-multiselect-filter:visible').find('input').val();
+                                                        $('.ui-multiselect-checkboxes').find('li').show();
+                                                        if($(e.target).data('loading') == false && keyword != $(e.target).data('keyword')) {
+                                                            $(e.target).data('loading', true);
+                                                            $(e.target).data('keyword', keyword);
+                                                            filterItems($(e.target), keyword, $(this).data('max'));
+                                                            $('.ui-multiselect-checkboxes').find('li').show();
+                                                        }
+                                                    }
+                                                });
 
                                                 $(prototype_widget + " select.pi_multiselect").multiselect({
-                                                   multiple: true,
-                                                   header: true,
-                                                   noneSelectedText: "<?php echo $this->translator->trans('pi.form.label.select.choose.options'); ?>",
-                                                   selectedList: 4
-                                                }).multiselectfilter();
+                                                    multiple: true,
+                                                    header: true,
+                                                    noneSelectedText: "<?php echo $this->translator->trans('pi.form.label.select.choose.options'); ?>",
+                                                    selectedText: function(numChecked, numTotal, checkedItems) {
+                                                        var result = '';
+                                                        var nameSelect = $(checkedItems[0]).attr('name').replace('multiselect_', '');
+                                                        if(checkedItems.length > 3) {
+                                                            result = numChecked + ' selected';
+                                                        }
+                                                        else {
+                                                            $.each(checkedItems, function(key, value) {
+                                                                if(key > 0 && key < checkedItems.length) { result += ', '; }
+                                                                result += $(value).next().text();
+                                                            });
+                                                        }
+                                                        $('#'+nameSelect).next('button').text(result);
+                                                        // console.log($('#'+nameSelect).next('button').text());
+                                                        return result;
+                                                    },
+                                                    open : function() {
+                                                        var heightList,
+                                                        // ID selecteur correspondant
+                                                        nameSelect = $('.ui-multiselect-checkboxes:visible').find('li:last').find('input').attr('name').replace('multiselect_', '');
+                                                        $('.ui-multiselect-checkboxes:visible').addClass(nameSelect);
+                                                        // calcul height totale de la liste
+                                                        $('.ui-multiselect-checkboxes:visible').on('scroll', function() {
+                                                            heightList = 0;
+                                                            $.each($(this).find('li'), function() {
+                                                                heightList += $(this).height();
+                                                            });
+                                                            // if scroll end && items not loading, getMoreItems
+                                                            if($(this).scrollTop() + $(this).outerHeight() + 10 > heightList && $('#'+nameSelect).data('loading') == false) {
+                                                                var keyword = $('.ui-multiselect-filter:visible').find('input').val();
+                                                                $('#'+nameSelect).data('loading', true);
+                                                            	getMoreItems($('#'+nameSelect), keyword, $('#'+nameSelect).data('max'));
+                                                            }
+                                                        });
+                                                    }
+                                                }).multiselectfilter({
+                                                    filter: function(e, matches) {
+                                                        e.preventDefault();
+                                                        var keyword = $('.ui-multiselect-filter:visible').find('input').val();
+                                                        $('.ui-multiselect-checkboxes').find('li').show();
+                                                        if($(e.target).data('loading') == false && keyword != $(e.target).data('keyword')) {
+                                                            $(e.target).data('loading', true);
+                                                            $(e.target).data('keyword', keyword);
+                                                            filterItems($(e.target), keyword, $(this).data('max'));
+                                                            $('.ui-multiselect-checkboxes').find('li').show();
+                                                        }
+                                                    }
+                                                });
 
                                                 // http://stackoverflow.com/questions/7252633/populate-multiselect-box-using-jquery
                                                 // https://drupal.org/node/1124052
                                                 // jquery multiselect I don't get the values that are selected in the multiselect field when performing an AJAX callback triggered
                                                 // http://www.erichynds.com/blog/jquery-ui-multiselect-widget
                                                 $(prototype_widget + " select.pi_simpleselect.ajaxselect, " + prototype_widget + " select.pi_multiselect.ajaxselect").each(function(i){
-													var el = $(this).multiselect('disable'); //disable it initially
-													var _selectId = $(this).data('selectid');
+                        									var el = $(this).multiselect('disable'); //disable it initially
+                        									var _selectId = $(this).data('selectid');
+                                        				    $(this).data('pagination',1).data('loading', false);
 
-											        $.ajax({
-														type: "POST",
-											            url: $(this).data('url'),
-											            data: "",
-											            contentType: "application/json; charset=utf-8",
-											            dataType: "json",
-													}).done(function(response){
-														el.multiselect('enable');
-														if (response.length > 0) {
-															$.each(response, function(key, value){
-																if(el.find('option[value='+value.id+']').length == 0){
-															    	var opt = $('<option />', {
-																		value: value.id,
-																		text: value.text
-																	});
-																	opt.appendTo( el );
-															  	} 															  	
-															  	if (_selectId instanceof Array) {
-															  		_selectId.forEach(function(entry) {
-																	    if (entry == value.id) {
-																	  		el.find(value.id).attr( "selected","selected")
-																	  	}
-																	});																	
-																} else if (_selectId == value.id) {
-															  		el.find(value.id).attr( "selected","selected")
-															  	}
-														    })
-														}														
-													}).complete(function(){
-														el.multiselect('refresh');
-														descrypt();		
-													});
+                        							        $.ajax({
+                        											type: "GET",
+                        									        url: $(this).data('url'),
+                        									        data: {pagination:1, max:$(this).data('max')},
+                        									        contentType: "application/json; charset=utf-8",
+                        									        dataType: "json",
+                        									}).done(function(response) {
+                        											el.multiselect('enable');
+                        											if (response.length > 0) {
+                        												$.each(response, function(key, value) {
+                                                    						if(key > 9) { return false; }
+                        													    if(el.find('option[value='+value.id+']').length == 0) {
+                        				                                            var opt = $('<option />', {
+                        				                                                value: value.id,
+                        				                                                text: value.text
+                        				                                            });
+                        															    opt.appendTo( el );
+                        												  	    }
+                        												  	    if (_selectId instanceof Array) {
+                        													  		      _selectId.forEach(function(entry) {
+                        															            if (entry == value.id) {
+                        															  		          el.find(value.id).attr( "selected","selected")
+                        															  	        }
+                        															      });
+                        													    } else if (_selectId == value.id) {
+                        													  		     el.find(value.id).attr( "selected","selected")
+                        												  	    }
+                        												});
+                        											}
+                        									}).complete(function(){
+                        											el.multiselect('refresh');
+                        											descrypt();
+                        									});
+                                                });
+                                                descrypt();
 
-                                                });  
-                                                descrypt();                                                
-                                                
                                                 // date picker
                                                 $(prototype_widget + " .pi_datepicker").datepicker({
                                                     changeMonth: true,
@@ -520,8 +647,8 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                                     showButtonPanel: true,
                                                     showAnim: "fade",  // blind fade explode puff fold
                                                     showWeek: true,
-                                                    showOptions: { 
-                                                        direction: "up" 
+                                                    showOptions: {
+                                                        direction: "up"
                                                     },
                                                     numberOfMonths: [ 1, 2 ],
                                                     buttonText: "<?php echo $this->translator->trans('pi.form.label.select.choose.date'); ?>",
@@ -547,12 +674,98 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                                       this.value = this.value.substring(0, limit);
                                                       }
                                                     });
-                                                });                                    
-                                                j_prototype_bytabs.ftc_tinymce_editor($(prototype_widget + " .pi_editor"));                                                
+                                                });
+                                                j_prototype_bytabs.ftc_tinymce_editor($(prototype_widget + " .pi_editor"));
                                                 j_prototype_bytabs.ftc_tinymce_editor_simple($(prototype_widget + " .pi_editor_simple"));
                                                 j_prototype_bytabs.ftc_tinymce_editor_simple_easy($(prototype_widget + " .pi_editor_simple_easy"));
                                                 j_prototype_bytabs.ftc_tinymce_editor_easy($(prototype_widget + " .pi_editor_easy"));
-                    };    
+
+
+                                               /*
+                                                *  ->add('media', 'entity', array(
+                                                *           'class' => 'PiAppGedmoBundle:Media',
+                                                *           'query_builder' => function(EntityRepository $er) use ($id_media) {
+                                                *               $translatableListener = $this->_container->get('gedmo.listener.translatable');
+                                                *               $translatableListener->setTranslationFallback(true);                        
+                                                *               return $er->createQueryBuilder('a')
+                                                *               ->select('a')
+                                                *               ->where("a.id IN (:id)")
+                                                *               ->setParameter('id', $id_media)
+                                                *               //->where("a.status = 'image'")
+                                                *               //->andWhere("a.image IS NOT NULL")
+                                                *               //->andWhere("a.enabled = 1")
+                                                *               //->orderBy('a.id', 'ASC')
+                                                *               ;
+                                                *           },
+                                                *           //'property' => 'id',
+                                                *           'empty_value' => 'pi.form.label.select.choose.media',
+                                                *           'multiple' => false,
+                                                *           'required'  => true,
+                                                *           'constraints' => array(
+                                                *                   new Constraints\NotBlank(),
+                                                *           ),
+                                                *           "label_attr" => array(
+                                                *                   "class"=> 'image_collection',
+                                                *           ),
+                                                *           "attr" => array(
+                                                *                   "class"=>"pi_simpleselect", // ajaxselect
+                                                *                   "data-url"=>$this->_container->get('bootstrap.RouteTranslator.factory')->getRoute("admin_gedmo_media_selectentity_ajax", array('type'=>'image')),
+                                                *                   //"data-selectid" => $id
+                                                *                   "data-max" => 40,
+                                                *           ),
+                                                *           'label' => "Media",
+                                                *           'widget_suffix' => '<a class="button-ui-mediatheque button-ui-dialog"
+                                                *                   title="Ajouter une image à la médiatheque"
+                                                *                   data-title="Mediatheque"
+                                                *                   data-href="'.$this->_container->get('bootstrap.RouteTranslator.factory')->getRoute("admin_gedmo_media_new", array("NoLayout"=>"false", "category"=>'', 'status'=>'image')).'"
+                                                *                   data-selectid="#piapp_gedmobundle_mediatype_id"
+                                                *                   data-selecttitle="#piapp_gedmobundle_mediatype_title"
+                                                *                   data-insertid="#m1m_providerbundle_rubbloctype_media"
+                                                *                   data-inserttype="multiselect"
+                                                *                   ></a>',
+                                                *   ))
+                                                */
+                                                $(prototype_widget + " a.button-ui-dialog").on('click', function (event) {
+                                                    event.preventDefault();
+                                                    var _url = $(this).data('href');
+                                                    var _title = $(this).data('title');
+                                                    var _selectId = $(this).data('selectid');
+                                                    var _selectTitle = $(this).data('selecttitle');
+                                                    var _insertId = $(this).data('insertid');
+                                                    var _insertType = $(this).data('inserttype');
+                                                    $('<div id="iframe-dialog" title="'+_title+'">&nbsp;</div>').html('<iframe id="modalIframeId" width="100%" height="99%" style="overflow-x: hidden; overflow-y: hidden" scrolling="no" marginWidth="0" marginHeight="0" frameBorder="0" src="'+_url+'" />').dialog({
+                                                        width: 421,
+                                                        height: 600,
+                                                        open: function () {
+                                                            $(this).find("iframe").contents().find('body').attr('scrolling', 'no');
+                                                        },
+                                                        beforeClose: function () {
+                                                            var _id_ = $(this).find('iframe').contents().find(_selectId).val();
+                                                            var _title_ = $(this).find('iframe').contents().find(_selectTitle).val();
+                                                            console.log(_id_)
+                                                            console.log(_title_)
+                                                            if (_insertType == "select") {
+                                                                if ( (_id_  != undefined ) && (_title_  != undefined ) ) {
+                                                                    $(_insertId).append('<option value="'+_id_+'" selected="selected">'+_id_+' - '+_title_+'</option>');
+                                                                }
+                                                            } else if (_insertType == "multiselect") {
+                                                                if ( (_id_  != undefined ) && (_title_  != undefined ) ) {
+                                                                    $(_insertId).append('<option value="'+_id_+'" selected="selected">'+_id_+' - '+_title_+'</option>');
+                                                                    $(_insertId).multiselect( 'refresh' );
+                                                                }                                                                    
+                                                            } else {
+                                                                if ( _id_  != undefined ) {
+                                                                    $(_insertId).val(_id_);
+                                                                }
+                                                            }
+                                                        },
+                                                            close: function () {
+                                                            $(this).dialog("close");
+                                                        }
+                                                    });
+                                                });  
+
+                    };
 
                     this.ftc_tinymce_editor = function(idObj){
                         idObj.tinymce({
@@ -583,7 +796,7 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                             // don't replace encoding character like : Ã© to &eacutes;
                             entity_encoding : "raw",
                          	// clean up the content
-                            cleanup_callback : this.fct_tinymce_xhtml_transform,  
+                            cleanup_callback : this.fct_tinymce_xhtml_transform,
                             // Theme options
                             theme_advanced_buttons1 : "fullscreen,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,formatselect,styleselect,fontselect,fontsizeselect",
                             theme_advanced_buttons2 : "code,cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,image,anchor,cleanup,help,|,insertdate,inserttime,preview,|,forecolor,backcolor",
@@ -619,7 +832,7 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                 });
                             }
                         });
-                    };    
+                    };
 
                     this.ftc_tinymce_editor_simple = function(idObj){
                         idObj.tinymce({
@@ -648,9 +861,9 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                             //remove_linebreaks : true,
                             convert_fonts_to_spans : true,
                             // don't replace encoding character like : Ã© to &eacutes;
-                            entity_encoding : "raw",  
+                            entity_encoding : "raw",
                          	  // clean up the content
-                            cleanup_callback : this.fct_tinymce_xhtml_transform,                    
+                            cleanup_callback : this.fct_tinymce_xhtml_transform,
                             // Theme options
                             theme_advanced_buttons1 : "fullscreen,bold,italic,underline,strikethrough,justifyleft,justifycenter,justifyright,justifyfull,bullist,numlist,hr,sub,sup,forecolor,backcolor",
                             theme_advanced_buttons2 : "removeformat,formatselect,styleselect,fontsizeselect,visualchars,outdent,indent,undo,redo",
@@ -686,7 +899,7 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                 });
                             }
                         });
-                    };        
+                    };
 
                     this.ftc_tinymce_editor_simple_easy = function(idObj){
                         idObj.tinymce({
@@ -715,9 +928,9 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                             //remove_linebreaks : true,
                             convert_fonts_to_spans : true,
                             // don't replace encoding character like : Ã© to &eacutes;
-                            entity_encoding : "raw",  
+                            entity_encoding : "raw",
                          	// clean up the content
-                            cleanup_callback : this.fct_tinymce_xhtml_transform,                          
+                            cleanup_callback : this.fct_tinymce_xhtml_transform,
                             // Theme options
                             theme_advanced_buttons1 : "fullscreen,bold,italic,underline,strikethrough,justifyleft,justifycenter,justifyright,justifyfull,bullist,numlist,forecolor,backcolor",
                             theme_advanced_buttons2 : "removeformat,styleselect,fontsizeselect,outdent,indent,undo,redo",
@@ -752,11 +965,9 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                 });
                             }
                         });
-                    };                        
+                    };
 
                     this.ftc_tinymce_editor_easy = function(idObj){
-                        
-                                                
                         idObj.tinymce({
                             // Location of TinyMCE script
                             script_url : '<?php echo $url_base ?>/tiny_mce.js',
@@ -785,11 +996,11 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                             // don't replace encoding character like : Ã© to &eacutes;
                             entity_encoding : "raw",
                             // clean up the content
-                            cleanup_callback : this.fct_tinymce_xhtml_transform,                        
+                            cleanup_callback : this.fct_tinymce_xhtml_transform,
                             // Theme options
                             theme_advanced_buttons1 : "fullscreen,bold,italic,underline,strikethrough,justifyleft,justifycenter,justifyright,justifyfull,bullist,numlist,hr,sub,sup,forecolor,backcolor",
                             theme_advanced_buttons2 : "code,formatselect,styleselect,fontsizeselect,removeformat,visualchars,outdent,indent,undo,redo,image",
-                            theme_advanced_buttons3 : "", 
+                            theme_advanced_buttons3 : "",
                             theme_advanced_toolbar_location : "top",
                             theme_advanced_toolbar_align : "left",
                             theme_advanced_statusbar_location : "bottom",
@@ -820,22 +1031,22 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                 });
                             }
                         });
-                    };   
+                    };
                  	// This function allows to convert the entered text
                     this.fct_tinymce_xhtml_transform = function xhtml_transform(type, value) {
-                    	//console.log(type)	
+                    	//console.log(type)
                     	switch (type) {
 		                        case "get_from_editor":
-			                			value = value.replace(/&nbsp;/ig, " ");		     
-			                			value = value.replace(/\s/ig, " ");			                
+			                			value = value.replace(/&nbsp;/ig, " ");
+			                			value = value.replace(/\s/ig, " ");
 		                                break;
 		                        case "insert_to_editor":
 										//value = value.replace(/<p[^>]*><span[^>]*> <\/span><\/p>/g,"<p><span> </span></p>");
 		                    			//value = value.replace(/<p[^>]*> <\/p>/g, "<p> </p>");
 		                    			//value = value.replace(/<\/?[^<]+>/g,'');
 		                    			//value = value.replace(/<\w+>(\w+)<\/\w+>/g,'');
-				            			value = value.replace(/&nbsp;/ig, " ");		     
-				            			value = value.replace(/\s/ig, " ");			                
+				            			value = value.replace(/&nbsp;/ig, " ");
+				            			value = value.replace(/\s/ig, " ");
 		                                break;
 		                        case "submit_content":
 		                                break;
@@ -849,8 +1060,8 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
 		                                break;
 		                }
 
-		                return value;				
-		            },   
+		                return value;
+		            },
                  	// THIS FUNCTION ALLOW TO INJECT SEVERAL FIELDS IN A ACCORDION MENU.
                     // exemple : j_prototype_bytabs.ftc_accordion_form("meta_definition", "SEO", ".myform");
                     // exemple : j_prototype_bytabs.ftc_accordion_form("meta_definition", "SEO", ".myform", 'questionLi0');
@@ -861,7 +1072,7 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
 
                         if (typeof(addClass) == "undefined") { addClass = '';addClassBis = ''; }
                         else addClassBis = '.' + addClass;
-                        
+
                         $(tabsToProcess).each(function(indTab,tabProcessed){
                             var tabProcessedId = $(tabProcessed).attr("id");
 
@@ -869,21 +1080,21 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                 // Process next $.each()
                                 return;
                             }
-                            
+
                             $("#"+tabProcessedId+" fieldset:first").addClass("no-accordion");
                             if ( $("#"+tabProcessedId+" .accordion-form").length == 0 ) {
                                 $("<div class='accordion-form'>").insertAfter("#"+tabProcessedId+" fieldset");
                             }
-                            
+
                             var accordionId = "accordion_" + tabProcessedId + "_" + addClass +"_"+ className;
                             $("<fieldset id='"+accordionId+"' class='accordion'><legend>"+title+"</legend></fieldset>").appendTo("#"+tabProcessedId+" .accordion-form");
 
                             $("#"+tabProcessedId+" "+addClassBis+" ."+className).each(function(indClass) {
                                 //$(this).parent('.clearfix').detach().appendTo("#"+accordionId);
                                 $(this).closest('.clearfix').detach().appendTo("#"+accordionId);
-                            });    
-                            $('#'+accordionId+' legend').on('click', function (event, dataObject) { 
-                            	event.preventDefault(); 
+                            });
+                            $('#'+accordionId+' legend').on('click', function (event, dataObject) {
+                            	event.preventDefault();
                                 var that = $(this);
                                 var newHeight = function(){
                                     var h=16;    //initial height when closed
@@ -912,10 +1123,10 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                             });
                         });
                     };
-                        
-                        
+
+
                     // this function allow to inject several fields in a dialog.
-                    // exemple : j_prototype_bytabs.ftc_dialog_form("solution_descriptif", "Descriptif", ".myform", 400, 366, "center");			
+                    // exemple : j_prototype_bytabs.ftc_dialog_form("solution_descriptif", "Descriptif", ".myform", 400, 366, "center");
                     this.ftc_dialog_form = function(className, title, idForm, height, width, position){
                         // We inject the testimonial fields via a dialog
                         // var button     = $("<a href='#' style='margin-right:30px' class=' dialog_link_"+className+"' title='"+title+"'>"+title+"</a>").appendTo(idForm+" fieldset"); SBLA
@@ -926,10 +1137,10 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                         var dialogId = "dialog_"+className;
 
                         $("<div id='"+dialogId+"' class='dialog_form' ><span id='"+form+"'></span></div>").appendTo(idForm);
-                    
+
                         $("."+className).each(function(index) {
                             $(this).parent().attr('style', "display:none");
-                        });    
+                        });
 
                         // modal dialog init: custom buttons and a "close" callback reseting the form inside
                         var $dialog_form = $('#'+dialogId).dialog({
@@ -959,12 +1170,12 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                     toggle: { visible: true },
                                     minimize: { visible: false },
                                     maximize: { visible: false }
-                                },                                        
+                                },
                             show: 'scale',
-                            hide: 'scale',                
-                        });    
+                            hide: 'scale',
+                        });
 
-                        button.on('click', function (event) { 
+                        button.on('click', function (event) {
                             if (obj_form != null){
                                 obj_form = $("#"+form).detach();
                                 obj_form.appendTo($dialog_form);
@@ -976,11 +1187,11 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                                     obj_newform = $("#"+form).detach();
                                     obj_newform.appendTo($dialog_form);
                                     obj_newform.attr('style', "display:block");
-                                });    
+                                });
                             }
-                                
+
                             $dialog_form.dialog('open');
-                        });                        
+                        });
                     };
 
                 };
@@ -990,7 +1201,7 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
 	                    // We run the function.
                         j_prototype_bytabs.ftc_init('<?php echo $options['prototype-idForm']; ?>', '<?php echo $value; ?>');
                     <?php } ?>
-                    
+
                     $("#dialog-confirm").dialog({
 	               		 autoOpen: false,
 	               		 resizable: false,
@@ -1009,17 +1220,17 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
                 });
 
             //]]>
-            </script>    
-        <?php 
+            </script>
+        <?php
         // We retrieve the contents of the buffer.
         $_content = ob_get_contents ();
         // We clean the buffer.
         ob_clean ();
         // We close the buffer.
         ob_end_flush ();
-        
+
         return $_content;
-    }   
+    }
 
     /**
      * Sets style formats of the TINYMCE.
@@ -1027,12 +1238,12 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
      * @access protected
      * @return void
      *
-     * @author Etienne de Longeaux <etienne_delongeaux@hotmail.com> 
+     * @author Etienne de Longeaux <etienne_delongeaux@hotmail.com>
      */
     protected function TINYMCEstyleformats()
-    {    
+    {
         // We open the buffer.
-        ob_start ();        
+        ob_start ();
         ?>
 
         [
@@ -1044,18 +1255,18 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
           {title : 'Titre 4', block : 'h4', classes : 'tt-4'},
           {title : 'Titre 5', block : 'h4', classes : 'tt-red'},
           {title : 'Titre 6', block : 'h4', classes : 'tt-purple'}
-        ]        
+        ]
 
-        <?php 
+        <?php
         // We retrieve the contents of the buffer.
         $_content = ob_get_contents ();
         // We clean the buffer.
         ob_clean ();
         // We close the buffer.
         ob_end_flush ();
-        
+
         return $_content;
-    }    
+    }
 
     /**
      * Sets style formats of the TINYMCE.
@@ -1063,12 +1274,12 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
      * @access protected
      * @return void
      *
-     * @author Etienne de Longeaux <etienne_delongeaux@hotmail.com> 
+     * @author Etienne de Longeaux <etienne_delongeaux@hotmail.com>
      */
     protected function TINYMCEformats()
-    {    
+    {
         // We open the buffer.
-        ob_start ();        
+        ob_start ();
         ?>
 
           {
@@ -1080,18 +1291,18 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
               italic : {inline : 'span', 'classes' : 'italic'},
               underline : {inline : 'span', 'classes' : 'underline', exact : true},
               strikethrough : {inline : 'del'},
-          }    
+          }
 
-        <?php 
+        <?php
         // We retrieve the contents of the buffer.
         $_content = ob_get_contents ();
         // We clean the buffer.
         ob_clean ();
         // We close the buffer.
         ob_end_flush ();
-        
+
         return $_content;
-    } 
+    }
 
     /**
      * Sets style formats of the TINYMCE.
@@ -1099,10 +1310,10 @@ class PiPrototypeByTabsManager extends PiJqueryExtension
      * @access protected
      * @return void
      *
-     * @author Etienne de Longeaux <etienne_delongeaux@hotmail.com> 
+     * @author Etienne de Longeaux <etienne_delongeaux@hotmail.com>
      */
     protected function TINYMCEsize()
-    {    
+    {
         return "tt-10,tt-9,tt-8,tt-7,tt-6,tt-4,tt-2";
-    }     
+    }
 }

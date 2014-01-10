@@ -303,7 +303,8 @@ class BlockType extends AbstractType
             		"attr" => array(
             				"class"=>"pi_simpleselect ajaxselect", // ajaxselect
             				"data-url"=>$this->_container->get('bootstrap.RouteTranslator.factory')->getRoute("admin_gedmo_media_selectentity_ajax", array('type'=>'image')),
-            				"data-selectid" => $id_media
+            				"data-selectid" => $id_media,
+            		        "data-max" => 50,
             		),
             		'widget_suffix' => '<a class="button-ui-mediatheque button-ui-dialog"
              				title="Ajouter une image à la médiatheque"
@@ -370,7 +371,8 @@ class BlockType extends AbstractType
             		"attr" => array(
             				"class"=>"pi_simpleselect ajaxselect", // ajaxselect
             				"data-url"=>$this->_container->get('bootstrap.RouteTranslator.factory')->getRoute("admin_gedmo_media_selectentity_ajax", array('type'=>'image')),
-            				"data-selectid" => $id_media1
+            				"data-selectid" => $id_media1,
+            		        "data-max" => 50,
             		),
             		'widget_suffix' => '<a class="button-ui-mediatheque button-ui-dialog"
              				title="Ajouter une image à la médiatheque"

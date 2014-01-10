@@ -66,9 +66,8 @@ class PiVeneerManager extends PiJqueryExtension
     protected function render($options = null)
     {        
         // Options management
-        if (!isset($options['id']) || empty($options['id'])) {
+        if (!isset($options['id']) || empty($options['id']))
             throw ExtensionException::optionValueNotSpecified('id', __CLASS__);
-        }
 
         // We open the buffer.
         ob_start ();        
@@ -79,16 +78,20 @@ class PiVeneerManager extends PiJqueryExtension
             
                 jQuery(document).ready(function() {                    
 
-                    $("<?php echo $options['id']; ?>").click( function() {        
+                    $(".block_action_menu").css("display", 'none');
+                    $(".widget_action_menu").css("display", 'none');
+
+                    $("<?php echo $options['id']; ?>").click( function() {       
                         if ($(':ui-veneer').is(':visible')){
-                            $(".block_action_menu").css("display", 'none');
                             $("orchestra[id^='block__'] h6").css("display", 'none');
                             $(":ui-veneer").veneer( "destroy" );
+                            $("orchestra[id^='block__']").off();
+                            $("orchestra[id^='widget__']").off();
                         } else {
                             $(".captcha").remove();
                             // we set up the venner on all blocks
-                            $(".block_action_menu").css("display", 'inline-block');
-                            $("orchestra[id^='block__'] h6").css("display", 'block');
+                            //$(".block_action_menu").css("display", 'inline-block');
+                            //$("orchestra[id^='block__'] h6").css("display", 'block');
                             $("orchestra[id^='block__']").veneer( {disabled: true, title: "<span></span>"} );
                             $("orchestra[id^='block__'] h6").veneer( {collapsible: true, uiBorder: true, title: "WIDGET" } ).parent().css("display", 'both');
 
@@ -99,6 +102,24 @@ class PiVeneerManager extends PiJqueryExtension
                                 /* Allow to draggable the block */
                                 $("#ui-dialog-title-block__"+id_block+" span").html("ZONE " + id_name_block);
                             });
+
+                            $( "orchestra[id^='block__']" )
+                            .mouseenter(function() {
+                                $( this ).find("h5.block_action_menu").attr("style", 'display:inline-block !important');
+                            })
+                            .mouseleave(function() {
+                                $( this ).find("h5.block_action_menu").attr("style", 'display:none !important;');
+                            });
+                            $( "orchestra[id^='widget__']" )
+                            .mouseenter(function() {
+                                console.log('enter')
+                                $( this ).find("h6.widget_action_menu").attr("style", 'display:block !important');
+                            })
+                            .mouseleave(function() {
+                                console.log('out')
+                                $( this ).find("h6.widget_action_menu").attr("style", 'display:none !important;');
+                            });
+
 
                             /********************************
                              * copy widget action with draggable/droppable

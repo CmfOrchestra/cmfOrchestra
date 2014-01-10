@@ -203,14 +203,16 @@ class TreeRepository extends NestedTreeRepository
      * @return \Doctrine\ORM\Query
      * @param string $locale
      * @param bool    $INNER_JOIN         
-     * @access    private
+     * @access    public
      * 
      * @author Etienne de Longeaux <etienne.delongeaux@gmail.com>
      */
-    private function setTranslatableHints(Query $query, $locale, $INNER_JOIN = false, $FALLBACK = true)
+    public function setTranslatableHints(Query $query, $locale, $INNER_JOIN = false, $FALLBACK = true)
     {
         $query->setHint(\Doctrine\ORM\Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\Translatable\Query\TreeWalker\TranslationWalker');
-        $query->setHint(\Gedmo\Translatable\TranslatableListener::HINT_INNER_JOIN, $INNER_JOIN);
+        if($INNER_JOIN) {
+        	$query->setHint(\Gedmo\Translatable\TranslatableListener::HINT_INNER_JOIN, $INNER_JOIN); // will use INNER joins for translations instead of LEFT joins, so that in case if you do not want untranslated records in your result set for instance.
+        }
         $query->setHint(\Gedmo\Translatable\TranslatableListener::HINT_TRANSLATABLE_LOCALE, $locale);
         $query->setHint(\Gedmo\Translatable\TranslatableListener::HINT_FALLBACK, $FALLBACK);
         

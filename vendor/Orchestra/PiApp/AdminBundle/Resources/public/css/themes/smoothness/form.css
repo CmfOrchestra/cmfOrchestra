@@ -3,14 +3,14 @@
  * <etienne de Longeaux> <etienne.delongeaux@gmail.com>
  *******************************************************/
 .myform{
-    /* max-width: 595px; */
+    max-width: 1200px;
 }
 .myform img{
     max-width: 300px;
     height:auto;
 }
 .myform fieldset{
-    margin: 11px;
+	margin: 11px;
     padding: 11px;
     background: #EBEBEB;
     border: 1px dotted #e3e3e3; /* #d0d0d0 #ddd */
@@ -272,9 +272,10 @@ ul.ui-widget-header li {
     *margin: 0 20px 0 20px;
 }
 button.ui-multiselect{
-    border:0px;
-    margin-bottom: 3px;
-    font: 11px "Helvetica Neue",Helvetica,Arial,sans-serif;
+	border:0px;
+	margin-bottom: 3px;
+	font: 11px "Helvetica Neue",Helvetica,Arial,sans-serif;
+	height: 26px;
 }
 /* CHECKBOX */
 .icheckbox_square-blue{
@@ -286,11 +287,11 @@ button.ui-multiselect{
 /* VERSION DIALOG */
 @media screen and (max-width:805px) {
     .myform .accordion-form {
-        float: left;
-        width:90%;
-    }
-    .myform fieldset.no-accordion{
-        float:left;
-        width:90%;
-    }
+		float: left;
+		width:90%;
+	}
+	.myform fieldset.no-accordion{
+	    float:left;
+	    width:90%;
+	}
 }

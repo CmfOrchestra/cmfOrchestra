@@ -176,8 +176,6 @@ class PiModelWidgetSnippet extends PiFormBuilderManager
                     $("#piappgedmobundlemanagerformbuilderpimodelwidgetsnippet_action").removeAttr("required");
                     $("#piappgedmobundlemanagerformbuilderpimodelwidgetsnippet_configXml").removeAttr("required");
 
-                    $("#piappgedmobundlemanagerformbuilderpimodelwidgetsnippet_choice").parents('.clearfix').hide();
-    
                     $("input[id='piappgedmobundlemanagerformbuilderpimodelwidgetsnippet_choice_0']").change(function () {
                         if ($(this).is(':checked')){
                             create_content_form.parents('.clearfix').hide();

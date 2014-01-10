@@ -53,15 +53,13 @@ class PiWidgetManager extends PiCoreManager implements PiWidgetManagerBuilderInt
      */
     public function exec($id, $lang = "")
     {
-        if (!empty($lang))
+        if (!empty($lang)) {
             $this->language = $lang;
-        
+        }        
         // we get the current Widget.
-        $widget     = $this->getRepository('Widget')->findOneById($id);
-        
+        $widget     = $this->getRepository('Widget')->findOneById($id);        
         // we set the current result
-        $this->setCurrentWidget($widget);
-    
+        $this->setCurrentWidget($widget);    
         // we return the render (cache or not)
         return $this->render($this->language);
     }    
@@ -80,61 +78,53 @@ class PiWidgetManager extends PiCoreManager implements PiWidgetManagerBuilderInt
     public function render($lang = '')
     {
         // we set the langue
-        if (empty($lang))    $lang = $this->language;
-        
+        if (empty($lang))    $lang = $this->language;        
         //     Initialize widget
-        if ($this->getCurrentWidget())
+        if ($this->getCurrentWidget()) {
             $widget = $this->getCurrentWidget();
-        else
+        } else {
             throw new \InvalidArgumentException("you don't have set the current widget !");
-        
+        }        
         //     Initialize response
-        $response = $this->getResponseByIdAndType('widget', $widget->getId());
-        
+        $response = $this->getResponseByIdAndType('widget', $widget->getId());        
         // we get the translation of the current widget in terms of the lang value.
-        //$widgetTrans        = $this->getTranslationByWidgetId($widget->getId(), $lang);        
-        
+        // $widgetTrans        = $this->getTranslationByWidgetId($widget->getId(), $lang);      
         // Handle 404
         // We don't show the widget if :
         // * the widget doesn't exist.
         // * The widget doesn't have a translation set.
         if (!$widget || !$this->isWidgetSupported($widget)) {
             $transWidgetError     = $this->getRepository('translationWidget')->getTranslationByParams(1, 'content', 'error', $lang);
-            if (!$transWidgetError)
+            if (!$transWidgetError) {
                 throw new \InvalidArgumentException("We haven't set in the data fixtures the error widget message in the $lang locale !");
-            
-            $response->setStatusCode(404);
-            
+            }            
+            $response->setStatusCode(404);            
             // We set the Etag value
-            $id            = $transWidgetError->getId();
-            $this->setEtag("transwidget:$id:$lang");
-            
+            $id          = $transWidgetError->getId();
+            $this->setEtag("transwidget:$id:$lang");            
             // create a Response with a Last-Modified header
             $response    = $this->configureCache($transWidgetError, $response);            
         } else {
             // We set the Etag value
-            $id            = $widget->getId();
-            $this->setEtag("widget:$id:$lang");
-            
+            $id          = $widget->getId();
+            $this->setEtag("widget:$id:$lang");            
             // create a Response with a Last-Modified header
             $response    = $this->configureCache($widget, $response);            
-        }
-        
+        }        
         // Check that the Response is not modified for the given Request
-        if ($response->isNotModified($this->container->get('request'))){
+        if ($response->isNotModified($this->container->get('request'))) {
             // return the 304 Response immediately
             return $response;
         } else {
             // if the widget has translation OR if the widget calls a snippet
-            if ( $widget && $this->isWidgetSupported($widget) ){
-                $response = $this->container->get('pi_app_admin.caching')->renderResponse($this->Etag, array(), $response);
+            if ( $widget && $this->isWidgetSupported($widget) ) {
+                $response = $this->container->get('pi_app_admin.caching')->renderResponse($this->Etag, array('widget' => $widget), $response);
                 // We set the reponse
                 $this->setResponse($widget, $response);
             } else {
                 // or render the error template with the $response you've already started
-                $response = $this->container->get('pi_app_admin.caching')->renderResponse($this->Etag, array(), $response);
+                $response = $this->container->get('pi_app_admin.caching')->renderResponse($this->Etag, array('transwidget' => $transWidgetError), $response);
             }
-
             // we don't send the header but the content only.
             return $response->getContent();
         }
@@ -155,12 +145,11 @@ class PiWidgetManager extends PiCoreManager implements PiWidgetManagerBuilderInt
     public function renderSource($id, $lang = '', $params = null)
     {
         // we get the translation of the current page in terms of the lang value.
-        $this->getWidgetById($id);    
-        
+        $this->getWidgetById($id);  
         $container         = $this->getCurrentWidget()->getPlugin();
         $NameAction        = $this->getCurrentWidget()->getAction();
         $id                = $this->getCurrentWidget()->getId();
-        $cssClass        = $this->container->get('pi_app_admin.string_manager')->slugify($this->getCurrentWidget()->getConfigCssClass());
+        $cssClass          = $this->container->get('pi_app_admin.string_manager')->slugify($this->getCurrentWidget()->getConfigCssClass());
         //$configureXml    = $this->container->get('pi_app_admin.string_manager')->filtreString($this->getCurrentWidget()->getConfigXml());
         
 //         $options = array(
@@ -168,11 +157,11 @@ class PiWidgetManager extends PiCoreManager implements PiWidgetManagerBuilderInt
 //         );
 //         $source = $this->extensionWidget->FactoryFunction(strtoupper($container), strtolower($NameAction), $options);
 
-        if (!empty($cssClass))
+        if (!empty($cssClass)) {
             $source  = " <div class=\"{$cssClass}\"> \n";
-        else
+        } else {
             $source  = " <div> \n";
-        
+        }        
         $source .= "     {% set options = {'widget-id': '$id', 'widget-lang': '$lang'} %} \n";
         $source .= "     {{ renderWidget('".strtoupper($container)."', '".strtolower($NameAction)."', options )|raw }} \n";
         $source .= " </div> \n";
@@ -192,8 +181,7 @@ class PiWidgetManager extends PiCoreManager implements PiWidgetManagerBuilderInt
     public function setScript()
     {
         $container  = strtoupper($this->getCurrentWidget()->getPlugin());
-        $NameAction    = strtolower($this->getCurrentWidget()->getAction());
-        
+        $NameAction = strtolower($this->getCurrentWidget()->getAction());        
         // If the widget is a "gedmo snippet"
         if ( ($container == 'CONTENT') && ($NameAction == 'snippet') )    {
             // if the configXml field of the widget is configured correctly.
@@ -202,7 +190,7 @@ class PiWidgetManager extends PiCoreManager implements PiWidgetManagerBuilderInt
                 if ($xmlConfig->widgets->get('content')){
                     $snippet_widget = $this->getWidgetById($xmlConfig->widgets->content->id);
                     $container      = strtoupper($snippet_widget->getPlugin());
-                    $NameAction        = strtolower($snippet_widget->getAction());
+                    $NameAction     = strtolower($snippet_widget->getAction());
                 }
             } catch (\Exception $e) {
             }             
@@ -215,12 +203,11 @@ class PiWidgetManager extends PiCoreManager implements PiWidgetManagerBuilderInt
                 if ($xmlConfig->widgets->get('gedmo')){
                     $snippet_widget = $this->getWidgetById($xmlConfig->widgets->gedmo->id);
                     $container      = strtoupper($snippet_widget->getPlugin());
-                    $NameAction        = strtolower($snippet_widget->getAction());
+                    $NameAction     = strtolower($snippet_widget->getAction());
                 }
             } catch (\Exception $e) {
             }
-        }        
-    
+        }      
         $this->script['js'][$container.$NameAction]        = $this->extensionWidget->ScriptJsFunction($container, $NameAction);
         $this->script['css'][$container.$NameAction]    = $this->extensionWidget->ScriptCssFunction($container, $NameAction);
     }
@@ -237,36 +224,55 @@ class PiWidgetManager extends PiCoreManager implements PiWidgetManagerBuilderInt
     public function setInit()
     {
         $container  = strtoupper($this->getCurrentWidget()->getPlugin());
-        $NameAction    = strtolower($this->getCurrentWidget()->getAction());
-        $method     = ":";
-        
-        $xmlConfig    = $this->getCurrentWidget()->getConfigXml();
-        
+        $NameAction = strtolower($this->getCurrentWidget()->getAction());
+        $method     = ":";        
+        $xmlConfig  = $this->getCurrentWidget()->getConfigXml();        
         // if the configXml field of the widget isn't configured correctly.
         try {
             $xmlConfig    = new \Zend_Config_Xml($xmlConfig);
         } catch (\Exception $e) {
             return "  \n";
+        }        
+        // we add all css files.
+        if ( $xmlConfig->widgets->get('css') ){
+        	if (is_object($xmlConfig->widgets->css)) {
+        		$all_css = $xmlConfig->widgets->css->toArray();
+        		$this->script['init'][$container.$NameAction.$method.'css']    =  "{% initWidget('css:".json_encode($all_css, JSON_UNESCAPED_UNICODE)."') %}";
+        	} elseif (is_string($xmlConfig->widgets->css)) {
+        		$this->script['init'][$container.$NameAction.$method.'css']    =  "{% initWidget('css:".json_encode(array($xmlConfig->widgets->css), JSON_UNESCAPED_UNICODE)."') %}";
+        	}
         }
-        
-        if ( $xmlConfig->widgets->get('gedmo') && $xmlConfig->widgets->gedmo->get('controller') ){
+        // we add all js files.
+            if ( $xmlConfig->widgets->get('js') ){
+        	if (is_object($xmlConfig->widgets->js)) {
+        		$all_js = $xmlConfig->widgets->js->toArray();
+        		$this->script['init'][$container.$NameAction.$method.'js']    =  "{% initWidget('js:".json_encode($all_js, JSON_UNESCAPED_UNICODE)."') %}";
+        	} elseif (is_string($xmlConfig->widgets->js)) {
+        		$this->script['init'][$container.$NameAction.$method.'js']    =  "{% initWidget('js:".json_encode(array($xmlConfig->widgets->js), JSON_UNESCAPED_UNICODE)."') %}";
+        	}
+        }
+        // we apply init methods of the applyed service.
+        if ( $xmlConfig->widgets->get('gedmo') && $xmlConfig->widgets->gedmo->get('controller') ) {
             $controller    = $xmlConfig->widgets->gedmo->controller;
             $values     = explode(':', $controller);
             $entity     = strtolower($values[1]);
             $method    .= strtolower($values[2]);
             $this->script['init'][$container.$NameAction.$method]    =  "{% initWidget('". $container . ":" . $NameAction . $method ."') %}";
-        }elseif ( $xmlConfig->widgets->get('content') && $xmlConfig->widgets->content->get('controller') ){
+        }elseif ( $xmlConfig->widgets->get('content') && $xmlConfig->widgets->content->get('controller') ) {
             $controller    = $xmlConfig->widgets->content->controller;
             str_replace(':', ':', $controller, $count);
-            if ($count == 1)
+            if ($count == 1) {
                 $this->script['init'][$container.$NameAction.$method]    =  "{% initWidget('". $container . ":" . $NameAction . ":" . $controller ."') %}";
-        }elseif ( $xmlConfig->widgets->get('search') && $xmlConfig->widgets->search->get('controller') ){
+            }
+        }elseif ( $xmlConfig->widgets->get('search') && $xmlConfig->widgets->search->get('controller') ) {
             $controller    = $xmlConfig->widgets->search->controller;
             str_replace(':', ':', $controller, $count);
-            if ($count == 1)
+            if ($count == 1) {
                 $this->script['init'][$container.$NameAction.$method]    =  "{% initWidget('". $container . ":" . $NameAction . ":" . $controller ."') %}";
-        }else
+            }
+        } else {
             $this->script['init'][$container.$NameAction.$method]    =  "{% initWidget('". $container . ":" . $NameAction . $method ."') %}";
+        }
     }    
     
     /**

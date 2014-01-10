@@ -772,6 +772,12 @@ button.ui-datepicker-trigger img {
 	padding: .5em 1em;
 	text-decoration: none;
 }
+
+#mySelection .ui-tabs .ui-tabs-nav li a {
+	padding:0;
+}
+
+
 .ui-tabs .ui-tabs-nav li.ui-tabs-active {
 	margin-bottom: -1px;
 	padding-bottom: 1px;
@@ -1218,4 +1224,8 @@ body .ui-tooltip {
     background-image: -webkit-gradient(linear, center top, center bottom, from(#ffffff), to(#dbdbdb));
     background-image: -webkit-linear-gradient(top, #ffffff, #dbdbdb);
     background-image: linear-gradient(top, #ffffff, #dbdbdb);
+}
+
+#ui-datepicker-div {
+	z-index: 99999999 !important;
 }

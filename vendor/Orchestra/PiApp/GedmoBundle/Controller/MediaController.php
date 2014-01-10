@@ -128,17 +128,44 @@ class MediaController extends abstractController
      */
     public function selectajaxAction($type)
     {
-    	$request = $this->container->get('request');
+        $request = $this->container->get('request');
     	$em		 = $this->getDoctrine()->getEntityManager();
-    	$locale = $this->container->get('request')->getLocale();
-    
+    	$locale  = $this->container->get('request')->getLocale();
+    	//
+    	$pagination = $this->container->get('request')->query->get('pagination', null);
+    	$keyword    = $this->container->get('request')->query->get('keyword', '');
+    	$MaxResults = $this->container->get('request')->query->get('max', 10);
+    	//
     	if ($request->isXmlHttpRequest()) {
     		$query                = $em->getRepository("PiAppGedmoBundle:Media")->getAllByCategory('', null, '', '', false);
     		$query
     		->leftJoin('a.image', 'm')
+    		->leftJoin('a.translations', 'trans')
     		->andWhere('a.enabled = 1')
     		->andWhere('a.image IS NOT NULL')
-    		->andWhere("a.status = '{$type}'");
+    		->andWhere("a.status = '{$type}'");    		
+    		// pagination
+    		if (!is_null($pagination)) {
+    			$query->setFirstResult((intVal($pagination)-1)*intVal($MaxResults));
+    			$query->setMaxResults(intVal($MaxResults));
+    		}
+    		// autocompletion
+    		if (!empty($keyword)) {
+    			$andModule_title = $query->expr()->andx();
+                $andModule_title->add($query->expr()->eq('LOWER(trans.locale)', "'{$locale}'"));
+                $andModule_title->add($query->expr()->eq('LOWER(trans.field)', "'title'"));
+                $andModule_title->add($query->expr()->like('LOWER(trans.content)', $query->expr()->literal('%'.strtolower(addslashes($keyword)).'%')));
+                
+                $andModule_id = $query->expr()->andx();
+                $andModule_id->add($query->expr()->like('LOWER(a.id)', $query->expr()->literal('%'.strtolower(addslashes($keyword)).'%')));
+                
+                $orModule  = $query->expr()->orx();
+                $orModule->add($andModule_title);
+                $orModule->add($andModule_id);
+                
+                $query->andWhere($orModule);
+    		}    
+    		// result		
     		$entities   = $em->getRepository("PiAppGedmoBundle:Media")->findTranslationsByQuery($locale, $query->getQuery(), 'object', false);
     		$tab = array();
     		foreach ($entities as $obj) {
@@ -161,7 +188,7 @@ class MediaController extends abstractController
     		}
     		$response = new Response(json_encode($tab));
     		$response->headers->set('Content-Type', 'application/json');
-    
+    		
     		return $response;
     	} else {
     		throw ControllerException::callAjaxOnlySupported(' selectajax');
